@@ -1,9 +1,0 @@
-Boar
-Crebain
-Dragon
-Goblin
-Strawhead
-Troll
-Warlord
-Warrior
-Wolf

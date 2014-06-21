@@ -36,7 +36,7 @@ public class LOTRBiomeGenShire extends LOTRBiome
 	{
 		super(i);
 		
-		spawnableCreatureList.add(new SpawnListEntry(LOTREntityShirePony.class, 6, 2, 6));
+		spawnableCreatureList.add(new SpawnListEntry(LOTREntityShirePony.class, 8, 2, 6));
 		
 		spawnableGoodList.add(new SpawnListEntry(LOTREntityHobbit.class, 40, 1, 4));
 		spawnableGoodList.add(new SpawnListEntry(LOTREntityHobbitShirriff.class, 1, 1, 3));

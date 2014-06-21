@@ -267,7 +267,7 @@ public class LOTRBiome extends BiomeGenBase
 		beach = new LOTRBiomeGenBeach(94).setBeachBlock(Blocks.sand).setColor(0xDBCA97).setBiomeName("beach");
 		beachGravel = new LOTRBiomeGenBeach(95).setBeachBlock(Blocks.gravel).setColor(0x9695A0).setBiomeName("beachGravel");
 		nearHarad = new LOTRBiomeGenNearHarad(96).setTemperatureRainfall(1.5F, 0.1F).setMinMaxHeight(0.2F, 0F).setColor(0xC4A66D).setBiomeName("nearHarad");
-		farHarad = new LOTRBiomeGenFarHarad(97).setTemperatureRainfall(1.2F, 0.2F).setMinMaxHeight(0.2F, 0.4F).setColor(0x9BA574).setBiomeName("farHarad");
+		farHarad = new LOTRBiomeGenFarHarad(97).setTemperatureRainfall(1.2F, 0.2F).setMinMaxHeight(0.2F, 0.25F).setColor(0x9BA574).setBiomeName("farHarad");
 		haradMountains = new LOTRBiomeGenHaradMountains(98).setTemperatureRainfall(0.9F, 0.5F).setMinMaxHeight(1.8F, 2F).setColor(0x9E9381).setBiomeName("haradMountains");
 		umbar = new LOTRBiomeGenUmbar(99).setTemperatureRainfall(0.7F, 0.5F).setMinMaxHeight(0.1F, 0.2F).setColor(0x7A7661).setBiomeName("umbar");
 		farHaradJungle = new LOTRBiomeGenFarHaradJungle(100).setTemperatureRainfall(1.2F, 0.9F).setMinMaxHeight(0.2F, 0.4F).setColor(0x7F9137).setBiomeName("farHaradJungle");
@@ -275,7 +275,7 @@ public class LOTRBiome extends BiomeGenBase
 		nearHaradDunes = new LOTRBiomeGenNearHarad(102).setTemperatureRainfall(1.5F, 0.1F).setMinMaxHeight(0.5F, 0.9F).setColor(0xCEB073).setBiomeName("nearHaradDunes");
 		nearHaradBoulderFields = new LOTRBiomeGenNearHaradBoulderFields(103).setTemperatureRainfall(1.5F, 0.1F).setMinMaxHeight(0.2F, 0.3F).setColor(0xA89A7E).setBiomeName("nearHaradBoulderFields");
 		farHaradRiver = new LOTRBiomeGenFarHaradRiver(104).setMinMaxHeight(-0.5F, 0F).setColor(0x20BEE5).setBiomeName("farHaradRiver");
-		farHaradForest = new LOTRBiomeGenFarHaradForest(105).setTemperatureRainfall(0.9F, 0.5F).setMinMaxHeight(0.4F, 0.8F).setColor(0x8E9964).setBiomeName("farHaradForest");
+		farHaradForest = new LOTRBiomeGenFarHaradForest(105).setTemperatureRainfall(0.9F, 0.5F).setMinMaxHeight(0.4F, 0.6F).setColor(0x8E9964).setBiomeName("farHaradForest");
 		nearHaradFertile = new LOTRBiomeGenNearHaradFertile(106).setTemperatureRainfall(1.2F, 0.7F).setMinMaxHeight(0.2F, 0.1F).setColor(0x9CA055).setBiomeName("nearHaradFertile");
 		pertorogwaith = new LOTRBiomeGenPertorogwaith(107).setTemperatureRainfall(0.7F, 0.1F).setMinMaxHeight(0.2F, 0.5F).setColor(0x897A67).setBiomeName("pertorogwaith");
 		eriadorWoodlandsDense = new LOTRBiomeGenEriadorWoodlandsDense(108).setTemperatureRainfall(0.7F, 0.9F).setMinMaxHeight(0.3F, 0.8F).setColor(0x557A3F).setBiomeName("eriadorWoodlandsDense");

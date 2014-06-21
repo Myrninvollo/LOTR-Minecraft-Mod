@@ -29,7 +29,7 @@ public class LOTRWorldGenBaobab extends WorldGenAbstractTree
     public boolean generate(World world, Random random, int i, int j, int k)
     {
 		int trunkCircleWidth = 4;
-        int height = 12 + random.nextInt(12);
+        int height = 16 + random.nextInt(16);
         boolean flag = true;
 
         if (j >= 1 && j + height + 1 <= 256)

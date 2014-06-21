@@ -1,12 +1,12 @@
 #################
 ## Eclipse
 #################
-LOTR/
 !LOTR/gradlew
 !LOTR/gradlew.bat
 !LOTR/build.gradle
 !LOTR/gradle/
 !LOTR/src/
+LOTR/
 
 # Windows image file caches
 Thumbs.db

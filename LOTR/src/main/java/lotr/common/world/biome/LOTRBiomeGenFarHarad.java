@@ -88,10 +88,6 @@ public class LOTRBiomeGenFarHarad extends LOTRBiome
 		{
 			return LOTRWorldGenSimpleTrees.newMango(false);
 		}
-		if (random.nextInt(15) == 0)
-		{
-			return new LOTRWorldGenBaobab(false);
-		}
 		if (random.nextInt(3) > 0)
 		{
 			return new WorldGenSavannaTree(false);

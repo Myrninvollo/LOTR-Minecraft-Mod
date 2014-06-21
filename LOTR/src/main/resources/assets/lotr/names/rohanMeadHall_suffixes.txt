@@ -1,0 +1,11 @@
+Goblin
+Herald
+Horse
+King
+Marshall
+Pony
+Rider
+Stallion
+Warg
+Warrior
+Wizard

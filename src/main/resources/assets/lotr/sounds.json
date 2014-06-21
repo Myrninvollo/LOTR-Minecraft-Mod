@@ -1,0 +1,504 @@
+{
+    "bird.crebain.say":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "bird/crebain/say1",
+            "bird/crebain/say2"
+        ]
+    },
+    
+    "bird.crebain.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "bird/crebain/hurt"
+        ]
+    },
+    
+    "bird.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "bird/hurt"
+        ]
+    },
+    
+    "bird.say":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "bird/say1",
+            "bird/say2",
+            "bird/say3",
+            "bird/say4",
+            "bird/say5",
+            "bird/say6",
+            "bird/say7"
+        ]
+    },
+    
+    "crocodile.death":
+    {
+        "category": "hostile",
+        "sounds":
+        [
+            "crocodile/death"
+        ]
+    },
+    
+    "crocodile.say":
+    {
+        "category": "hostile",
+        "sounds":
+        [
+            "crocodile/say"
+        ]
+    },
+    
+    "crocodile.snap":
+    {
+        "category": "hostile",
+        "sounds":
+        [
+            "crocodile/snap"
+        ]
+    },
+    
+    "dwarf.attack":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "dwarf/attack"
+        ]
+    },
+    
+    "dwarf.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "dwarf/hurt"
+        ]
+    },
+    
+    "dwarf.kill":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "dwarf/kill1",
+            "dwarf/kill2"
+        ]
+    },
+    
+    "elf.male.attack":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "elf/male/attack"
+        ]
+    },
+    
+    "elf.male.say":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "elf/male/say1",
+            "elf/male/say2"
+        ]
+    },
+    
+    "elf.woodElf_teleport":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "elf/woodElf_teleport"
+        ]
+    },
+    
+    "ent.step":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "ent/step"
+        ]
+    },
+    
+    "flamingo.death":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "flamingo/death"
+        ]
+    },
+    
+    "flamingo.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "flamingo/hurt1",
+            "flamingo/hurt2"
+        ]
+    },
+    
+    "flamingo.say":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "flamingo/say1",
+            "flamingo/say2"
+        ]
+    },
+    
+    "gollum.death":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "gollum/death"
+        ]
+    },
+    
+    "gollum.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "gollum/hurt1",
+            "gollum/hurt2"
+        ]
+    },
+    
+    "gollum.say":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "gollum/say1",
+            "gollum/say2"
+        ]
+    },
+    
+    "item.crossbow":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "item/crossbow"
+        ]
+    },
+    
+    "item.gandalfFireball":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "item/gandalfFireball"
+        ]
+    },
+    
+    "item.horn":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "item/horn"
+        ]
+    },
+    
+    "item.maceSauron":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "item/maceSauron"
+        ]
+    },
+    
+    "item.mug_fill":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "item/mug_fill"
+        ]
+    },
+    
+    "item.plate_break":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "item/plate_break"
+        ]
+    },
+    
+    "item.puff":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "item/puff"
+        ]
+    },
+    
+    "item.structureSpawner":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "item/structureSpawner"
+        ]
+    },
+    
+    "midges.swarm":
+    {
+        "category": "ambient",
+        "sounds":
+        [
+            "midges/swarm1",
+            "midges/swarm2",
+            "midges/swarm3"
+        ]
+    },
+    
+    "lion.death":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "lion/death"
+        ]
+    },
+    
+    "lion.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "lion/hurt"
+        ]
+    },
+    
+    "lion.say":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "lion/say"
+        ]
+    },
+ 
+    "orc.death":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "orc/death"
+        ]
+    },
+    
+    "orc.fire":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "orc/fire"
+        ]
+    },
+    
+    "orc.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "orc/hurt1",
+            "orc/hurt2"
+        ]
+    },
+    
+    "orc.say":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "orc/say"
+        ]
+    },
+    
+    "rhino.death":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "rhino/death"
+        ]
+    },
+    
+    "rhino.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "rhino/hurt"
+        ]
+    },
+    
+    "rhino.say":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "rhino/say"
+        ]
+    },
+    
+    "troll.ologHai_hammer":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "troll/ologHai_hammer"
+        ]
+    },
+    
+    "troll.rockSmash":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "troll/rockSmash"
+        ]
+    },
+    
+    "troll.say":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "troll/say"
+        ]
+    },
+    
+    "troll.sneeze":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "troll/sneeze"
+        ]
+    },
+    
+    "troll.sniff":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "troll/sniff"
+        ]
+    },
+    
+    "troll.step":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "troll/step"
+        ]
+    },
+    
+    "troll.transform":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "troll/transform"
+        ]
+    },
+    
+     "warg.death":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "warg/death"
+        ]
+    },
+    
+    "warg.growl":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "warg/growl1",
+            "warg/growl2"
+        ]
+    },
+    
+    "warg.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "warg/hurt"
+        ]
+    },
+    
+    "wraith.marshWraith_shoot":
+    {
+        "category": "hostile",
+        "sounds":
+        [
+            "wraith/marshWraith_shoot"
+        ]
+    },
+    
+    "wraith.spawn":
+    {
+        "category": "hostile",
+        "sounds":
+        [
+            "wraith/spawn"
+        ]
+    },
+    
+    "zebra.death":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "zebra/death"
+        ]
+    },
+    
+    "zebra.hurt":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "zebra/hurt"
+        ]
+    },
+    
+    "zebra.say":
+    {
+        "category": "neutral",
+        "sounds":
+        [
+            "zebra/say"
+        ]
+    }
+}

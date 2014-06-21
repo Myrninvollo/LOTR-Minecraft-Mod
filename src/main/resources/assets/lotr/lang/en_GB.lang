@@ -1,0 +1,51 @@
+
+tile.lotr:oreStorage.13.name=Block of Sulphur
+tile.lotr:oreStorage.14.name=Block of Saltpetre
+tile.lotr:oreSulfur.name=Sulphur Ore
+tile.lotr:oreSaltpeter.name=Saltpetre Ore
+
+item.lotr:ancientParts.3.name=Ancient Armour Plate
+item.lotr:armorStand.name=Armour Stand
+item.lotr:sulfur.name=Sulphur
+item.lotr:saltpeter.name=Saltpetre
+item.lotr:sulfurMatch.name=Sulphur Match
+
+container.lotr.armorStand=Armour Stand
+
+lotr.achievement.wearFullMithril.desc=Equip a full suit of mithril armour
+
+lotr.achievement.wearFullWargFur.desc=Equip a full suit of Warg fur armour
+
+lotr.achievement.wearFullBlueDwarven.desc=Equip a full suit of Blue Dwarven armour
+
+lotr.achievement.wearFullHighElven.desc=Equip a full suit of High Elven armour
+
+lotr.achievement.wearFullRanger.desc=Equip a full suit of Ranger armour
+
+lotr.achievement.wearFullAngmar.desc=Equip a full suit of Angmar armour
+
+lotr.achievement.enterEregion.title=Faded Splendour
+
+lotr.achievement.wearFullWoodElvenScout.desc=Equip a full suit of Wood-elven Scout armour
+
+lotr.achievement.wearFullWoodElven.desc=Equip a full suit of Wood-elven armour
+
+lotr.achievement.wearFullDwarven.desc=Equip a full suit of Dwarven armour
+
+lotr.achievement.wearFullElven.desc=Equip a full suit of Galadhrim armour
+
+lotr.achievement.wearFullGalvorn.desc=Equip a full suit of Galvorn armour and block a ranged attack
+
+lotr.achievement.wearFullUruk.desc=Equip a full suit of Uruk armour
+
+lotr.achievement.wearFullRohirric.desc=Equip a full suit of Rohirric armour
+
+lotr.achievement.wearFullDunlending.desc=Equip a full suit of Dunlending armour
+
+lotr.achievement.wearFullGondorian.desc=Equip a full suit of Gondorian armour
+
+lotr.achievement.wearFullOrc.desc=Equip a full suit of Orc armour
+
+lotr.achievement.wearFullMorgul.desc=Equip a full suit of Morgul armour and damage an attacker
+
+lotr.achievement.wearFullNearHarad.desc=Equip a full suit of Near Harad armour

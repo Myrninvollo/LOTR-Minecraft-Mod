@@ -1,0 +1,9 @@
+Dragon
+Dwarf
+Elf
+Hobbit
+Horse
+Pony
+Troll
+Wanderer
+Wizard

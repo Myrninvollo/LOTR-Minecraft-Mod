@@ -1,0 +1,1018 @@
+Public Beta 18
+
++ Added capes for reaching +1000 alignment for most factions
++ Added the eastern regions of Rhûn and the Red Mountains
++ Added Sarncaran (Red Rock) and Sarncaran bricks, slabs, stairs, walls, and pillars
++ Added thatch blocks, slabs, and stairs, made from wheat and dirt
++ Added camels
++ Added Near Harad villages
++ Added Near Harad houses, large houses, towers, and bazaars
++ Added various Near Harad bazaar traders
++ Added Near Harad fortresses
++ Added Near Haradrim Warlords
++ Added Near Haradrim Archers and the Bow of Harad
++ Added Near Harad Bricks and brick slabs, stairs, and walls
++ Added date palms and date palm wood
++ Added dates
++ Added araq
++ Added Near Harad Desert Camps
++ Added the Dwarves of the Blue Mountains
++ Added Blue Mountains Merchants
++ Added the Blue Mountains Crafting Table
++ Added Blue Dwarf Steel
++ Added Blue Dwarven tools, weapons, and armour
++ Added Blue Mountains banners
++ Added a Blue Mountains achievement category
++ Added dwarven marriage rings
++ Added dwarf children and dwarf marriages
++ Added unit hiring discounts for high alignment players
++ Added a command to set the fast travel cooldown time
++ Added a 'stone beach' biome to replace the beaches in Lindon and Forodwaith
++ Added snow at higher elevations in some previously non-snowy biomes
++ Added fallen logs in more forest biomes
++ Added a Pirate translation
+
+* Changed the default fast-travel cooldown time to 1 hour
+* Redrew the Harad map with the map from The Atlas of Middle-earth
+* Renamed the Hobbit Ring to Hobbit Marriage Ring
+* Slight changes to the placement of snow in some biomes
+* Replaced some NPC capes with the appropriate alignment cape
+* Moved the Elven Trader achievement to the Lothlórien category
+* Increased the price of banner bearers
+* Ordinary dwarf units now have a chance to be dwarf women
+* Fixed some crashes when playing the mod in a newer Forge version
+
+Public Beta 17.1
+
+* Fixed Mordor Spider Keepers refusing to let players hire units
+* Increased the amount of grass in the Near Harad Fertile biome
+
+Public Beta 17
+
++ Added the ability to create custom waypoints for the Middle-earth map
++ Added more waypoints, including waypoints in Near and Far Harad
++ Added other players' locations on the Middle-earth map (and the option to hide your location)
++ Added new alignment factions: Near Harad, Far Harad, and Half-trolls
++ Added banner bearers for all factions with banners
++ Added the High Elves
++ Added the High Elven Crafting Table
++ Added High Elven armour, weapons, tools, and banners
++ Added High Elven torches, beds, and chandeliers
++ Added Elanor and Niphredil flowers in Lindon
++ Added the Near Haradrim
++ Added the Near Harad Crafting Table
++ Added Near Haradrim armour, weapons, and banners
++ Added the Pertorogwaith biome
++ Added better terrain generation, especially for mountains
++ Added stone in the Misty Mountains above a certain height
++ Added podzol in some Middle-earth forest biomes
++ Added the Tolfalas and Lebennin biomes
++ Added dense variants of some forest biomes
++ Added the Wilderland Hills biome
++ Added maple trees, maple wood, maple syrup, and maple beer
++ Added larch trees and wood
++ Added some new randomly generated structures
++ Added hobbit farms, farmers, and hireable farmhands
++ Added dwarves and dwarven mines to the Blue Mountains
++ Added birds
++ Added Crebain of Dunland
++ Added jungle scorpions and desert scorpions
++ Added gemsboks and flamingoes
++ Added gemsbok hide armour
++ Added lion fur beds
++ Added new Harad double flowers
++ Added the Rohirric Battleaxe
++ Re-added alignment dependencies for certain achievements
++ Added a cape for earning 25 achievements
++ Added a summon command for LOTR entities
++ Added more things to the language file
++ Added English (British), Spanish (Mexico), Spanish (Argentina), Croatian, and Serbian translations
+
+* Increased the size of most biome variants
+* Made Shire Orchard biomes smaller
+* Made rivers less common again
+* Split the Harad achievement category into Near and Far Harad
+* Killing Uruk-hai no longer lowers Dunlending alignment, and vice versa
+* Uruk-hai now have more health
+* Renamed Mercenary Captains to Chieftains
+* Replaced Galadhrim equipment with High Elven equipment in various loot tables
+* Changed some trader-related alignment bonuses
+* Changed the textures of fruit trees
+* Improved sky textures
+* Made dwarf houses less common
+* Fixed a crash bug with dwarf houses on servers
+* Fixed a saving bug with hobbits
+* Fixed giraffes being immune to most sources of damage
+* Fixed waypoint progress being reset on servers
+* Fixed the uncrafting of sulfur and saltpeter blocks only giving one resource item
+* Fixed being unable to place mugs on some blocks perfectly suited to mug-bearing
+* Fixed structures not respawning NPCs
+
+- Removed randomly generated lake biomes: the new terrain generation seems to generate enough lakes by itself
+
+Public Beta 16.1
+
++ Added the Near Harad Fertile biome
++ Added German and Russian translations
+
+* The world now saves the alignment meter faction currently being viewed
+* Fixed some bugs with alignment penalties
+* Fixed wooden slab crafting recipes
+* Changed the wool in hobbit windmills' roofs to stained clay
+
+Public Beta 16
+
++ Updated for Minecraft 1.7.2
+
++ Added a language file for the mod's blocks, items, inventories, entities, biomes, factions, and most screens
++ Added new Far Harad animals: lions, giraffes, zebras, rhinos, and crocodiles
++ Added mango trees, mangoes, and mango juice
++ Added banana trees, bananas, banana bread, and banana cake
++ Added the Far Harad Forest biome
++ Added melons in Far Harad jungles and forests
++ Added double tall grass and new flowers in Middle-earth biomes
++ Added large spruce trees in various biomes
++ Added dark oaks in the Old Forest biome
++ Added acacia trees in the Far Harad biome
++ Added dwarfwort in the Blue Mountains biome
++ Added alcoholicity ratings for alcoholic drinks
++ Re-added the HOSTILE faction for LOTR_EntityRegistry.txt
++ Added the powers of 10 to the alignment display screen
+
+* Elven Traders now spawn with a small escort of elves
+* Renamed Wood-elven Wine to Red Wine
+* Improved the mechanics of Yellow Iris flowers to reflect the new vanilla double plants
+* Fixed NPCs being angered when their enemies are killed
+* Fixed being unable to hire units from Dunlending Warlords
+* Fixed banners dropping wall banners
+* Fixed the alignment bar x-position configuration
+
+- Temporarily removed NEI recipe mode compatibility
+
+Public Beta 15
+
++ Added a new faction-based alignment system
++ Added many new randomly generated structures
++ Added banners and wall banners
++ Added the Sword of Command
++ Added Ranger Captains of the North and hireable Rangers
++ Added Ranger Camps
++ Added Gundabad Orcs and Angmar Orcs, and renamed Orcs to Mordor Orcs
++ Added Gundabad Orc camps and mercenary captains
++ Added Mordor Wargs, Angmar Wargs, Gundabad Wargs, and Uruk Wargs
++ Added the Angmar Crafting Table
++ Added Angmar tools, weapons, and armour
++ Added Angmar brick blocks, slabs, stairs, and walls
++ Added Morgul Iron and Gulduril ores in Angmar
++ Added Gulduril Bricks made from Cracked Mordor Brick, Angmar Brick, and Cracked Angmar Brick
++ Added bottles of poison, obtained from poisonous spiders
++ Added poisoned versions of all dagger types in the mod
++ Added crafting recipes for poisoned daggers
++ Added sulfur matches
++ Added a crafting recipe for bone meal using saltpeter and dirt
++ Added sulfur and saltpeter storage blocks
++ Added the Near Harad, Far Harad, Far Harad Jungle, and Harad Mountains biomes and biome variants
++ Added the Umbar biome
++ Added rivers to the Middle-earth map
++ Added beach biomes next to Middle-earth rivers and the ocean
++ Added the Bree-land biome
++ Added the Chetwood biome
++ Added the Middle-earth Tundra and Taiga biomes
++ Added the Forodwaith Mountains and Forodwaith Glacier biomes
++ Added damage from the cold in Forodwaith biomes, avoidable by staying out of the open air, block light sources, and wearing leather or fur armour
++ Added the Misty Mountains Foothills, Grey Mountains Foothills, White Mountains Foothills, and Blue Mountains Foothills biomes
++ Added beech, birch and spruce variants of dead trees
++ Added quagmire blocks in marshy biomes
++ Added greater quantities of coal and iron ores in the Blue Mountains
++ Added hobbit pancakes
++ Added a more severe drunken effect
++ Added support for multiple-item stacks in traders' sell trades
++ Added a Middle-earth spawn chest containing pouches
++ Added the ability for orcs to scavenge better pieces of equipment
++ Added AI to make burning NPCs run around randomly
++ Added an alignment penalty for being caught cutting down trees in Fangorn
++ Added the option to dismiss a hired unit
++ Added a speech bank for orc skirmishes
+
+* The Rohirrim now avenge the death of horses killed nearby
+* Horses spawned in Rohan now have better health, speed, and jump strength
+* Increased the capacity of pouches
+* NPCs now only drop pouches when killed by a player
+* NPCs' attack strength now depends on the damage of the weapon they carry
+* Mithril ore is now exclusive to the Misty Mountains biome
+* Dwarven tools now have a harvest level equivalent to diamond tools
+* Water in cold biomes can now freeze even below snow height
+* Made wolves more common in most forested biomes
+* Improved the positioning of waypoints
+* The fast travel timer now stays at 0 when fast travelling in creative mode
+* Trading balances: some common item sell trades now require you to sell multiple items
+* Made crossbows less obstructive while aiming
+* Poison from daggers now lasts longer
+* Achievement category buttons are now cyclical
+* Changed the blocks in Angmar structures to Angmar Brick instead of Mordor Brick
+* Orc Dungeons are now built from stone brick and no longer contain Morgul Crafting Tables
+* Improved boulder generation again
+* Fixed some structures generating on unsuitable terrain
+* Fixed hired boars not healing as fast as other NPC mounts
+* Fixed incorrect config file IDs for rabbit meat
+* Fixed a crash when viewing the Middle-earth map screen before entering Middle-earth on multiplayer
+* Fixed filling a stack of empty mugs from a mug block using up the whole stack of mugs
+
+- Removed Dunlending Warlord houses
+- Removed the /gamerule allowPVPBetweenSameAlignment
+- Removed the old achievements for reaching certain alignment values
+- Removed alignment-specific achivement counts
+- Removed the alignment capes
+
+Public Beta 14
+
++ Added waypoints and a fast-travel system to the Middle-earth map
++ Added the /fastTravelTimer command
++ Added a teleport feature to the Middle-earth map for players with access to commands
++ Added new Middle-earth respawning mechanics: players who die more than 2000 blocks from the world spawnpoint without a bed now respawn within 500-2000 blocks of their death point
++ Added the /gamerule enableMiddleEarthRespawning
++ Added farming units to the unit hiring system
++ Added wild boars
++ Added Dwarven Boar Riders and Boar Axe-thrower Riders
++ Added the option to hire normal dwarves from Dwarf Commanders
++ Added the ability to rearm orc bomb-carrying units by interacting with them while holding an orc bomb
++ Added orc firebombs
++ Added orc bomb recipes for Uruk crafting, and changed all orc bomb recipes to use gunpowder instead of Naurite
++ Added sulfur and saltpeter ores, and a crafting recipe for gunpowder utilising both of their mineral drops and charcoal
++ Added rabbits (credit to Javier Ortiz for the model)
++ Added rabbit meat and stew
++ Added new fence types for all the Middle-earth planks
++ Added an alternative vanilla fence crafting recipe
++ Added the ability to place chandeliers on the underside of fences and walls
++ Added Sarlluin pillars and pillar slabs
++ Added vodka, brewed with potatoes
++ Added the Shire Orchard biome
++ Added Hobbit Orcharders
++ Added the Coldfells biome
++ Added the Angmar Mountains biome
++ Added the Minhiriath, Minhiriath Woodlands, and Minhiriath Wasteland biomes
++ Added the Swanfleet biome
++ Added the Eregion Hills biome
++ Added the Enedwaith Woodlands biome
++ Added the Misty Mountains Forest biome
++ Added the Mirkwood Mountains biome
++ Added the Wilderland and Wilderland Forest biomes
++ Added the Fangorn Mountains, Fangorn Birch Forest, Fangorn Clearing, and Fangorn Wasteland biomes
++ Added the Rohan Woodlands and Rohan Boulder Fields biomes
++ Added the Dunland Forest biome
++ Added the Gondor Woodlands and Gondor Hills biomes
++ Added the Ithilien Hills and Ithilien Wasteland biomes
++ Added the Nindalf biome
++ Added the Brown Lands Woodlands biome
++ Added the Dagorlad biome
++ Added the Núrn and Sea of Núrnen biomes
++ Added Núrn wheat farms and slaves of Núrn
++ Added Orc Slavers and Slaver Towers
++ Added the Nan Ungol biome
++ Added Mordor Spiders
++ Added Orc Spider Keepers and Spider Pits
++ Added Mordor and Uruk Warg pits
++ Added the Harondor Scrubland biome
++ Added the Western Isles
++ Added lake biomes within some biomes, including sand, gravel and frozen variants
++ Added ice in the northern Middle-earth ocean biome which gradually increases when moving further north
++ Added a small chance for apple and pear trees to appear in many more biomes
++ Added better cloud and fog colours in some biomes
++ Added constant fog in the Mirkwood Corrupted biome
++ Added yellow iris flowers in the Gladden Fields biome
++ Added Quendite ore in Lindon
++ Added ravines in Middle-earth and lava ravines in the Mordor biome
++ Added the missing hired troll speech bank
+
+* The mod's biomes now use a separate biome list, meaning an unlimited amount of biomes can potentially be added, and eliminating the possibility of biome ID conflicts
+* When outside the bounds of the Middle-earth map screen, the player will be displayed along the edge of the map
+* Some changes to the Middle-earth map to make it more accurate
+* Made biome variants larger
+* Made rivers less common
+* Most biomes now have wild boars instead of pigs
+* Gondor Soldiers no longer spawn naturally in the Gondor Mountains biome
+* Mirkwood water is now only enchanted in corrupted Mirkwood biomes
+* Increased the width of the Middle-earth achievement screen to accommodate longer achievement names
+* Renamed the Dead Marshes achievement category to Nindalf
+* Renamed Elanor Yellow to Yellow Dye
+* Changed the dwarven bed texture back to a pickaxe
+* Changed the fence types used in some structures
+* Shire Ponies can no longer wear horse armour
+* Fixed the 'talk' option being available for hired NPCs without speech banks
+* Fixed Mirkwood Spiders not dropping string
+
+Public Beta 13.1
+
++ Added a Middle-earth map screen
++ Added missing holly wood crafting recipes
++ Added missing Angmar Mercenary Captain speech banks
+
+* Fixed the ring portal teleporting entities to the wrong Overworld location
+* Fixed incorrect wood-elven armour recipes
+* Fixed rivers generating in the ocean biome
+* Fixed the Mirkwood River biome triggering the achievement for the Woodland Realm
+
+Public Beta 13
+
++ Added Middle-earth biome generation
++ Added the Forodwaith biome
++ Added the Angmar biome
++ Added Angmar towers
++ Added Angmar Mercenary Captains
++ Added Angmar Orc Warriors
++ Added hireable Trolls and Mountain Trolls
++ Added Wargs in the Mordor biome
++ Added Wargs and Warg riders to the Mordor unit hiring list
++ Added new colour variants for Wargs and Wargskin Rugs
++ Added Warg armour recipes with orc steel to the Morgul Crafting Table
++ Added Morgul and Uruk crafting recipes for maggoty bread
++ Added the Lindon and Lindon Woodlands biomes
++ Added the Blue Mountains biome
++ Added Sarlluin blocks
++ Added Elven Brick and Elven Pillar blocks
++ Added elven turrets and a ruined variant
++ Added wood-elven tools and weapons
++ Added wood-elven armour, and renamed the old armour to Wood-elven Scout armour
++ Added a speed boost effect when an entity is wearing full Wood-elven Scout armour
++ Added the Eregion and Eregion Forest biomes
++ Added holly trees and wood
++ Added the Vales of Anduin and Vales of Anduin Woodlands biomes
++ Added the Gladden Fields biome
++ Added the Lothlórien Edge biome
++ Added the Enedwaith biome
++ Added the Middle-earth ocean biome
++ Added many new achievements, including achievements for discovering biomes
++ Added new capes for earning lots of achievements
++ Added support for multiple simultaneous 'Achievement Get' displays
++ Added metal-trimmed Dwarven Brick blocks
++ Added bodies in the waters of the Dead Marshes biome
++ Added enchanted books and compasses to the loot lists of some structures
++ Added a new logo image
+
+* The ring portal now always leads to the Shire biome at x/z coordinates 0, 0
+* Renamed elves of Lothlórien and elven items to Galadhrim elves and items
+* Renamed some achievements
+* Achievements are now sorted alphabetically in the achievement screen, with some exceptions
+* Changed many alignment requirements
+* Rivers no longer generate in mountain biomes
+* Removed orcs from the Dead Marshes biome
+* Uruk-hai and Wargs can now spawn in the Rohan Uruk Highlands during the day
+* Removed mob spawners from Mordor Towers
+* Orc Traders are now found in camps, and Orc Mercenary Captains in towers
+* Trader respawn coins now ascend after unsuccessful respawn attempts, guaranteeing an eventual respawn
+* Changed the stone bricks in Wood-elf structures to Elven Brick
+* Changed the mouths on elf skins
+* LOTR dyes can now be used in leather hat dyeing and feather dyeing recipes
+* Changed Shire Pine leaves to use a coloured texture instead of a hardcoded colour
+* Fixed a visual bug with mithril connected textures
+* Fixed a visual bug and a world leak bug with dwarven doors
+* Fixed mob spawners continuing with a spawn cycle after the nearby mob limit has been reached
+* Fixed mob spawners counting nearby mobs that inherit from the same class as the spawner's mob instead of mobs of identical class
+* Fixed mob spawners' nearby check range being halved for vertical check range
+* Fixed a crash bug involving trolls
+* Fixed a java.lang.IllegalAccessError when using newer versions of Forge
+
+Public Beta 12.2
+
+* Fixed a trading crash
+* Fixed capes failing to display when first loading a world
+* Fixed barrels' bounding boxes obstructing projectiles fired while riding them
+
+Public Beta 12.1
+
+* Fixed a crash when viewing the Middle-earth capes screen on multiplayer
+* Midges are now less likely to reproduce outside Midgewater
+
+Public Beta 12
+
++ Added Wood-elf Captains
++ Added Wood-elf Warriors, similar to Elf Warriors, and renamed Wood-elf Warriors to Wood-elf Scouts
++ Added Wood-elven Towers and a ruined variant
++ Added oak trees in the elven Mirkwood biome
++ Added butterflies
++ Added Rohan Meadhosts
++ Added Rohirrim and name signs to Rohan Mead Halls
++ Added Huorns and Dark Huorns
++ Added the Old Forest biome
++ Added the Harondor biome
++ Added the Eriador, Eriador Downs, and Eriador Woodlands biomes
++ Added the Grey Mountains biome
++ Added the Brown Lands biome
++ Added the Midgewater biome
++ Added midges
++ Added ferns in some biomes
++ Added a cure-all for negative potion effects to Athelas Brew
++ Added the ability to place barrels in water and float in them
++ Added randomised sell trades for traders
++ Added the missing recipe for leather hats
++ Added Dwarven Mattocks
++ Added orc beds
++ Added a new creative tab for Middle-earth spawner items
++ Added more loot possibilities to Mystery Webs
++ Added greater amounts of underground Rohan and Gondor rock
++ Added an exclusive cape rewarding the top five wiki contributors during 2013
++ Added configuration file settings to change the on-screen position of the alignment bar
+
+* LOTR biome IDs now begin at 190 by default, to avoid conflicting with the new Minecraft 1.7 biomes (existing biome configurations will not be affected)
+* The Middle-earth capes screen is now divided into 'Achievable' (e.g. achievement-related) and 'Exclusive' (e.g. building contest) capes
+* Ents are now angered when any nearby tree is cut down, not only trees in Fangorn
+* Changed the wooden supports in Dwarven Mines to Dwarven Brick wall supports
+* Fixed mob spawners' nearby mob check range being ignored for vertical range
+* Fixed a world leak caused by the mob spawner item renderer
+* Fixed problems with some NPCs switching between melee and ranged combat
+* Fixed NPCs dismounting from their mounts when in water
+* Fixed NPCs continuing to attack players in creative mode
+* Fixed being able to place non-armour equippable items in armour stands
+* Fixed various recipe registry errors
+
+Public Beta 11.1
+
++ Added a /gamerule to enable and disable orc skirmishes
+
+* Fixed a crash bug related to orcs in Mordor
+
+Public Beta 11
+
++ Added a new hired unit screen and improved command options
++ Added Guard Mode for hired units
++ Added the Ettenmoors biome
++ Added Mountain Trolls
++ Added troll hoards in troll-inhabited biomes
++ Added a new boss and a cape for defeating it
++ Added dyeable leather hats, dyeable feathers, and feathered hats made from a combination of both
++ Added the ability to rename pouches from the pouch inventory screen
++ Added an automatic search, when picking up items, for stacks of the same item stored in pouches to combine with
++ Added orc dungeons in certain biomes
++ Added cracked Mordor Brick blocks and products
++ Added the Orc Forge
++ Added a means of producing Charred Wood by burning wood in the Orc Forge
++ Added Orc and Uruk forge tents
++ Added Morgul Steel and Morgul blades and armour
++ Added orc skirmishes
++ Added orc weakening in daylight
++ Added orc fleeing from players with high alignment
++ Added a new orc speech bank for players with lower alignment
++ Added Mordor plants: Withered Moss, Stabbing Thorn, and small dead trees
++ Added maggoty bread
++ Added a chance to find enchanted items in structure loot
++ Added wolves in the Trollshaws, Lone-lands Hills, and Dunland biomes
++ Added lily pads in the Ithilien biome
++ Added vines in the Fangorn and Mirkwood biomes
++ Added hardened clay boulders in the Emyn Muil biome
++ Added the ability to leash saddled Wargs
++ Added an error message if a LOTR biome overwrites or is overwritten by another biome
++ Added a new configuration file for registering other mods' entities with the alignment system
++ Added the option to disabled hired unit death messages
+
+* Converted all sounds in the mod from .wav to .ogg format, significantly reducing file size
+* Conclusively fixed the spawning system - as originally intended, many biomes are now less densely populated with NPCs
+* Tweaked some alignment bonuses
+* Wood-elves now only trust players of at least +50 alignment, and may attack good players below this level
+* Elves are now immune to poison
+* Lone-lands and Trollshaws achievements have been combined into a single 'Eriador' category
+* Trolls and Ents are now less susceptible to knockback
+* Fixed being able to tickle Olog-hai
+* Orc Steel can now only be smelted in the Orc Forge
+* Uruk Steel is now smelted in the Orc Forge by alloying iron and coal
+* Increased the damage of most Middle-earth tool sets
+* Increased the damage dealt by crossbows and throwing axes
+* LOTR bows, crossbows and spears now zoom in like vanilla bows when used
+* Reduced the drop rate of pouches
+* Reduced the amount of Dunlending drops
+* Stalagmites now hurt when fallen upon
+* Clover now changes colour depending on biome
+* Changed 'Forward Units' to 'Ready Units'
+* Fixed lettuce and pipeweed crops not staying planted
+* Fixed a visual bug with the trader selling options mini-screen
+* Fixed the trading screen briefly displaying incorrect trades in multiplayer
+* Fixed a crash bug with pouches on multiplayer
+* Fixed a duplication bug involving pouches
+* Fixed the missing logo on the mod list screen
+
+- Removed Sauron due to excessive misinformation about his purpose in the mod
+
+Public Beta 10
+
++ Added the Fangorn biome
++ Added Ents
++ Added Ent-draughts and Ent Jars
++ Added beech trees
++ Added Dunlending Houses
++ Added Dunlending men
++ Added multiple Dunlending skins
++ Added Dunlending Warlords
++ Added Dunlending Taverns, Bartenders, and Drunkards
++ Added the Dunlending Crafting Table
++ Added recipes for Dunlending armour
++ Added Dunlending Clubs and Tridents
++ Added Dunlending Campfires
++ Added Dwarven Ale
++ Added trader respawning
++ Added troll stomping sounds
++ Added a Mirkwood river biome
++ Added enchanted properties to the water in Mirkwood
++ Added an alignment display above other players' heads in multiplayer
++ Added a friendly fire setting, disabled by default - when disabled you cannot harm allied NPCs
++ Added a setting to enable/disable your Middle-earth cape
+
+* Alignment penalities now scale - the higher your alignment, the more you will lose from killing a good NPC, and vice versa
+* Changed the alignment display - it now starts displaying 0-10 alignment and scales up by factors of 10 when necessary
+* Interacting with a trader now opens a 'Talk or Trade' screen; coins or goods are no longer required to view the trade screen
+* Blacksmiths will now trade in metals other than iron
+* Changed some trader alignment requirements
+* Hoppers feeding into Hobbit Ovens and Dwarven Forges now attempt to fill all the input slots evenly, for increased efficiency
+* Changed 'Gondor Mountains' to 'White Mountains' and 'Mordor Border' to 'Mordor Mountains'
+* Duration of the poison effect dealt by daggers now depends on difficulty
+* Fixed NPCs repeatedly trying to use doors without success
+* Fixed the 'Kitchen Brawler' achievement triggering when an entity is killed in one hit
+
+Public Beta 9.2
+
+* Fixed Elven and Morgul Portals being aligned to the wrong sides
+
+Public Beta 9.1
+
+* Fixed a crash related to Dwarven Mine generation
+* Fixed mug blocks which contain drinks dropping empty mugs
+
+Public Beta 9
+
++ Updated for Minecraft 1.6.4
+
++ Added the Rangers of the North and Rangers of Ithilien
++ Added Ranger armour
++ Added the Lone-lands biome
++ Added ruined Dúnedain towers
++ Added the Ithilien biome
++ Added Lebethron trees and wood
++ Added ruined beacon towers
++ Added asphodels
++ Added the Dunland biome
++ Added Dunlending warriors
++ Added Dunlending armour
++ Added the Emyn Muil biome
++ Added Mordor and Dead Marshes river biomes
++ Added Blacksmiths of Rohan in Rohan Fortresses
++ Added new large Mallorn and Mirk-oak designs
++ Added Grand Elven Treehouses for the Elf Lords
++ Added the ability to place mugs into the world
++ Added Dwarfwort and Dwarven Tonic
++ Added chat notifications when some alignment-limited actions cannot be performed
++ Added new troll walking animations
+
+* Good-aligned crafting tables and portals now require +1 alignment to use instead of 0
+* Changed the recipe of the Rohirric crafting table to fit better with the other table recipes
+* Hobbit pipes can now be dyed regardless of remaining durability
+* Basic crafting recipes including ore blocks, dyes, pressure plates and buttons are now crafted on the standard table
+* Fixed NPC-owned horses not despawning after their owner died
+* Medium-size Mirk-oaks now generate leaves that don't decay
+* Falling leaves, blue flames, and marsh lights are now true particles instead of client-side entities
+* The Elven Trader announcement now specifies which player the trader arrives near if the world contains multiple players
+* Wargs' health can now range from 9 hearts to 15 hearts
+* Wargs in the Misty Mountains can now be ridden by regular orcs as well as Uruk-hai
+* Fixed being able to shift-click warg armour into the player's inventory
+* Fixed slight misalignments on human and elf skins' faces
+
+Public Beta 8.3
+
+* Fixed a crash bug
+* As a result of this fix, NPCs no longer mount the horses of their fallen comrades
+* Fixed blue and green Mirkwood Spiders not applying their effects to players
+
+Public Beta 8.2
+
++ Added Rohan Rock buttons
+
+* Fixed the NEI support causing a crash when used on a server
+
+Public Beta 8.1
+
+* Fixed a crash bug related to orcs in Mordor
+
+Public Beta 8
+
++ Added a new barrel brewing system
++ Added different strength levels for drinks
++ Added cider, perry, cherry liqueur and rum
++ Added Athelas and Athelas Brew
++ Added armour stands
++ Added pouches for portable storage
++ Added a cape selection system, and new capes which are obtainable in-game
++ Added more achievements
++ Added achievement progress counts for current-category and total achievements to the Middle-earth achievement screen
++ Added an entity attributes page and a vertical spawn range slider to the mob spawner customisation screen
++ Added the Rohirrim
++ Added Rohan Fortresses
++ Added the Rohirric Crafting Table
++ Added Rohirric weapons and armour
++ Added Rohan Rock blocks, slabs and walls
++ Added boulders in the Rohan, Trollshaws and Mordor biomes
++ Added Rohan Barrows
++ Added Simbelmynë flowers
++ Added a new Rohan Uruk Highlands biome - Uruk Camps will now only spawn here and not in the normal Rohan biome
++ Added Ruined Rohan Watchtowers
++ Added charred trees and wood
++ Added Gulduril ore in the Mordor biome
++ Added Gulduril crystals, blocks and bricks
++ Added Morgul Portals
++ Added Naurite blocks
++ Added orc hurt sound effects by Yorick Hamletson
++ Added names for Gondorians and orcs
++ Added soldier respawning in Beacon Towers
++ Added Winged Gondorian Helmets
++ Added Gondorian and Elven Cavalry
++ Added Mallorn nuts
++ Added wood-elven, orc, dwarven and Uruk chandeliers
++ Added dwarf houses
++ Added dwarf women
++ Added dwarven doors and beds
++ Added ore dictionary support for copper and tin ores in the Dwarven Forge
++ Added coal, iron, copper and tin ores at higher levels in the Misty Mountains biome
++ Added Hobbit Shirriffs
++ Added slings and pebbles
++ Added a new AI module to make hobbits flee from suitably evil players
++ Added a 10% spawn chance for a hobbit spawn egg or mob spawner to spawn a hobbit child
++ Added a drunken animation for hobbit drunkards
++ Added Mystery Webs as a new drop from Mirkwood Spiders
++ Added remains blocks in the Dead Marshes biome
++ Added ancient item parts which can be crafted into random equipment, possibly enchanted
++ Added dead marsh plants
++ Added slimeballs as a drop from trolls
++ Added the ability for evil players to make trolls sneeze using feathers
++ Added a mount health bar displayed when a hired unit is riding a mob
++ Added new speech banks for hired units
++ Added a /gamerule to disable PVP between players on the same alignment side
++ Added a new alignment bar design
++ Added a new ring portal design
++ Added support for the OptiLeaves mod
+
+* Changed spawning mechanics:
+1) The spawn lists for good and evil mobs are treated as a single spawn list when spawning is carried out
+2) The chance of picking a mob from the good spawn list vs the evil spawn list can be determined by the biome
+3) Certain mobs (e.g. elves, trolls, and Gondor Soldiers) will cause the spawning caps to be reached faster
+4) This means the amount of mobs spawned, and the ratio of good to evil mobs, can be different for each biome
+
+* Fixed the NEI recipe mode support for the mod's new crafting tables
+* Fixed NEI listing items from the mod which should not be listed, such as blocks which have associated items, and useless subtypes of some blocks
+* Fixed spawning and despawning bugs when using the mod on an MCPC+ server
+* Reduced lag in the Lothlórien biome by removing the glow from Mallorn wood - instead, the trees have a chance to generate with torches attached
+* Wargs have been changed to be more like horses - they are now controlled via the movement keys instead of the camera angle, and will occasionally heal passively
+* Gondor Soldiers now spawn throughout the Gondor biome
+* Increased the range of the Beacons of Gondor to 80 blocks
+* Wandering hobbits in the Shire now respawn and despawn like most other NPCs
+* NPCs will now seek revenge if a nearby allied NPC is killed by a player on the same alignment side
+* Mirkwood Spiders now have different health and speed stats depending on their size
+* Orcs and Uruk-hai can now interact with wooden doors
+* Orc bombs dropped in skirmishes between NPCs will no longer cause terrain damage
+* Fixed mobs not going into water to attack targets
+* Upgraded the entity attack AI to allow for mounted combat and more accurate combat against large mobs
+* Made the hired tag and health bar on hired units disappear when F1 is pressed
+* Various texture changes
+* Elven portals can now only be created by good-aligned players
+* Evil players and NPCs can no longer use elven portals and will suffer if attempting to do so
+* Elf house structure spawners now spawn a large Mallorn tree along with the house
+* Minor changes to various structures
+* Fixed NPCs being leashable
+* Fixed a bug which prevented Elven Traders from spawning
+* Fixed a bug where mobs would continually fall between dimensions through portals
+* Fixed warhammers being able to knock mobs back before the hurt timer runs out
+* Fixed a bug with the Dwarven Forge not smelting ores in multiplayer
+* Fixed being unable to make charcoal from apple, pear, and cherry wood
+* Made hobbit ovens and dwarven forges work properly with comparators
+* LOTR capes no longer override the default player renderer, so the capes are no longer incompatible with other mods that override the renderer (this is good news for the planned wearable rings, shields, etc.)
+
+- Removed the specific ale and mead barrels in favour of the new barrel brewing
+- Removed crafting recipes for ale and mead
+
+Public Beta 7.1
+
++ Added some new achievements
+
+* Fixed naturally spawned dwarf miners not despawning
+* Troll statues and wargskin rugs now have solid bounding boxes
+
+Public Beta 7
+
++ Updated for Minecraft 1.6.2
+
++ Added a new Middle-earth achievement system
++ Added higher terrain generation
++ Added NEI recipe mode support for the mod's new crafting tables, assisted by forum user ProPercivalalb
++ Added the Mirkwood and Mirkwood Corrupted biomes
++ Added Mirk-oak trees and wood
++ Added wood-elves and wood-elf warriors
++ Added wood-elf houses
++ Added the Wood-elven Crafting Table
++ Added wood-elven armour, torches, beds, bows and wine
++ Added Mirkwood Spiders
++ Added the Gondorian Crafting Table
++ Added recipes for Gondorian equipment
++ Added a crafting recipe for the Gondor Ruins decorative brick
++ Added Dwarven Pillar half slabs
++ Added floating marsh lights in the Dead Marshes biome
++ Added sound effects for elves and orcs by Yorick Hamletson
++ Added naturally spawning elf warriors in Lothlórien
++ Added elven chandeliers
++ Added a feature to the trading GUI to show which items can be sold to the trader
++ Added the possibility for traders to stock enchanted items
++ Added bow enchantments for crossbows
++ Added anvil repair support for Middle-earth bows using string
++ Added deeper snow in the Misty Mountains biome
++ Added support for using ingots instead of ores in Dwarven Forge alloy recipes
++ Added ore dictionary support for copper, tin and silver ores
++ Added the ability to attach storage chests to Shire Ponies
++ Added recipes for horse armour
++ Added horses in Gondor and Trollshaws biomes in addition to Rohan
++ Added a chat notification for when a hired unit deserts due to insufficent alignment
+
+* Mod horses are now the same as vanilla horses
+* Gondor-related recipes must now be crafted on the Gondorian Crafting Table
+* Increased cloud height to 192
+* Mist in the Misty Mountains now gets thicker the higher you go
+* Made mithril armour suitably stronger
+* Increased the strength of throwing axes
+* Made thrown spear damage depend on momentum
+* Elven, Dwarven and Uruk weapons now deal slightly more damage than iron weapons
+* Made hired units more expensive
+* Balanced some alignment bonuses
+* Some skins of Lórien elves have been changed
+* Changed the textures of miruvor and orc draught to mugs
+* Increased the rarity of elven traders
+* Fixed Shire Heather not being placeable in flower pots
+* Fixed not getting any experience when smelting bronze in the Dwarven Forge
+* Fixed a bug where game data would persist from previously loaded worlds to newly created ones
+
+- Removed the mod's hay bales and sugar lumps
+
+Public Beta 6.2
+
++ Added health bars for hired units
+
+* Traders and hired units now slowly regenerate health when not in combat
+* Players can no longer hurt the hired units of other players on the same alignment side
+* Increased the following speed of hired units
+* Fixed plates not updating their contents on multiplayer
+* Fixed a sleeping bug
+* Fixed a trading exploit
+* Fixed a unit trading exploit
+
+Public Beta 6.1
+
+* Fixed mobs not dropping experience
+* Fixed hired elves being disobedient
+
+Public Beta 6
+
++ Added a new Unit Hiring system
++ Added the Horn of Command
++ Added Uruk-hai
++ Added Uruk camps in Rohan
++ Added the Uruk Crafting Table
++ Added Uruk Steel ingots
++ Added Uruk tools and weapons
++ Added crossbows
++ Added the Trollshaws biome
++ Added trolls
++ Added troll statues
++ Added the Dead Marshes biome
++ Added marsh wraiths
++ Added Olog-hai
++ Added orc camps in Mordor
++ Added Orc Mercenary Captains
++ Added Morgul-shrooms as a Mordor food source
++ Added Gondorian Captains
++ Added Gondor Archers
++ Added soldier respawning in Gondor Fortresses
++ Added Elf Lords
++ Added Dwarven Towers in the Iron Hills
++ Added Dwarf Commanders
++ Added throwing axes
++ Added Dwarf Axe-throwers
++ Added sound effects for dwarves by Yorick Hamletson
++ Added trades for dwarf miners
++ Added Warg Bombardiers
++ Added Warg armour
++ Added the ability to heal your Wargs by feeding them meat
++ Added more weapons to existing tool sets
++ Added cherry pie
++ Added clover
++ Added the ability to grow plants and flowers of Middle-earth on grass using bonemeal
++ Added a creative mode mob spawner GUI for editing spawners' properties
++ Added bones for elves, dwarves, hobbits and orcs
++ Added the ability to light Beacons of Gondor with flaming arrows
+
+* All elven blades now glow blue when orcs are nearby
+* Morgul Crafting Tables have a new recipe, and can no longer be crafted on standard crafting tables - since they now spawn naturally in Orc Camps
+* Orcs previously had a chance to attack even evil players if their alignment was not low enough - this now only happens in Mordor
+* Wargs must now be saddled in order to be ridden, and when saddled will not despawn or search for attack targets
+* Wargs' tails now show their health like wolves'
+* All trading NPCs now carry silver coins
+* Made traders stay still while being traded with
+* NPCs with home areas will now become 'homeless' if moved more than eight blocks from their home, to enable them to move freely
+* Tweaked some alignment bonuses
+* Spawn eggs now spawn persistent NPCs
+* Gondor Ruins Wraiths will now attack both good and evil NPCs as well as players
+* Fixed elven portals transporting entities to the Nether
+* Fixed hobbits acting friendly to the player when being attacked
+* Fixed some potential spawning bugs with Elven Traders
+* Fixed Dwarven Brick slab and wall recipes
+* Fixed spears sometimes floating out of blocks
+* Beacons of Gondor must once again be placed on solid blocks
+* Plates now spin when thrown
+
+Public Beta 5.1
+
++ Updated for Minecraft 1.5.2
+
+* Mist and portal overlays are now properly renderered behind HUD elements instead of over them
+* Fixed the nameless hobbits bug
+* Dwarves now only spawn below layer 60
+
+Public Beta 5
+
++ Added dwarves, dwarf warriors and dwarf miners
++ Added the Iron Hills biome
++ Added Dwarven Mines
++ Added the Dwarven Crafting Table
++ Added the Dwarven Forge
++ Added Dwarf Steel ingots
++ Added Dwarven tools, weapons and armour
++ Added Dwarven Brick and Dwarven Pillar blocks
++ Added glowstone ore
++ Added hobbit children, rings, and marriage
++ Added wandering hobbits in the Shire
++ Added birch trees to Shire Woodlands
++ Added apple trees, pear trees and cherry trees to the Shire, along with their new fruits and wood blocks
++ Added bluebells
++ Added a hearth block to replace the netherrack in some structures
++ Added orc tools
++ Added orc speech
++ Added Galvorn ingots and armour
++ Added elven traders
++ Added elven beds
++ Added clearings in Lothlórien biomes
++ Added names, genders and more skins for elves
++ Added arrows as common drops from elves and orc archers
++ Added spear-carrying elf warriors
++ Added Elven daggers
++ Added Warg bones
++ Added the ability to place flowers and plants from the mod in flower pots
++ Added dispenser support for spawn eggs, spears, orc bombs and plates
+
+* Changed the recipe for silver coins to require four nuggets per coin instead of only one
+* Elves now spawn and despawn continuously, instead of being spawned only at world generation
+* Improved large Mallorn trees
+* Improved elf houses
+* NPCs now drop their equipment more rarely and only when killed by players
+* Mithril can now only be smelted at a Dwarven Forge
+* Hobbits now regain some health when eating, drinking and smoking
+* Fixed higher-strength orc bombs becoming normal strength when exploded by other bombs
+* Fixed various combat-related bugs
+* Fixed a bug where the mod would wrongly report a new update
+* Changed the chandelier recipe to give two chandeliers instead of one
+* Mugs may now be filled from cauldrons as well as water blocks
+* Made orcs smaller
+
+Public Beta 4.1
+
+* Fixed horses and wargs often not taking damage
+* Fixed Elven Portals sometimes spawning on unsuitable blocks
+* Fixed possible crashes when killing NPCs using swords with very high looting levels
+* Fixed hobbits still being called Bilbo Baggins
+* Fixed orc torches dropping when broken in creative mode
+* Removed strict placing conditions on beacons and barrels
+
+Public Beta 4
+
++ Added Mead Halls
++ Added Rohan Watchtowers
++ Added Rohan Brick blocks
++ Added Gondor Smithies
++ Added Blacksmiths of Gondor
++ Added Gondor Ruins
++ Added Quendite as a new ore for the Lothlórien biome
++ Added Quendite crystals and blocks
++ Added Elven Portals
++ Added Mallorn torches
++ Added mithril chandeliers
++ Added stalactites and stalagmites
++ Added cobwebs in caves
++ Added double and triple strength orc bombs
++ Added dyeable and magic hobbit pipes
++ Added Mordor and Gondor Rock pressure plates and buttons
+
+* Increased the lifespan of smoke rings
+* Fixed a crash bug with ale and mead barrels
+* Fixed a crash bug while trading
+* Fixed a crash bug when using 'pick block' on apple crumble
+* Bombs dropped by Orc Bombadiers now obey the mobGriefing gamerule
+* Fixed crashes when spawning structures over the void or above the height limit
+* Fixed a fancy-fast leaves bug with Optifine
+* Fixed a loading bug where save data could carry over to new worlds
+
+Public Beta 3.1
+
++ Updated for Minecraft 1.5.1
+
+* Fixed a bug where the alignment score would sometimes not be displayed
+
+Public Beta 3
+
++ Updated for Minecraft 1.5
+
++ Added Mordor Towers
++ Added orc bombadiers
++ Added orc traders
++ Added orc archers
++ Added orc bows
++ Added orc steel bars
++ Added Warg Fur
++ Added Warg Fur armour
++ Added Wargskin Rugs
++ Added Gondor Fortresses
++ Added mossy and cracked variants of Gondor Brick materials
++ Added mead and mead barrels
++ Added a throwable feature to plates
++ Added a structure spawning sound effect
+
+* Traders will now open the trade screen when offered any sellable item, instead of just when offered silver coins
+* Fixed a saving bug that could affect portals, alignment and spawnpoints
+* Reduced the intensity of mist
+* Removed the collision box on orc torches
+* Fixed elf warriors sometimes not being able to shoot their target
+* Fixed not getting the alignment bonus from killing NPCs which were hit but died from fall damage, fire, etc.
+* Fixed player-spawned structures not notifying surrounding blocks of updates
+* There is now a one-second delay between spawning structures
+
+Public Beta 2
+
++ Added Sauron
++ Added the Mace of Sauron
++ Added the Staff of Gandalf the White
++ Added Andúril
++ Added silver coins
++ Added a trading system
++ Added spears
++ Added Mithril armour
++ Added Gondorian weapons and armour
++ Added Gondor Soldiers
++ Added elves
++ Added elf warriors
++ Added the Lothlórien biome
++ Added elf houses
++ Added Mallorn trees and wood
++ Added Mallorn tools and weapons
++ Added Elven tools and weapons
++ Added the Elven Crafting Table
++ Added Elanor and Niphredil flowers and dyes
++ Added Wargs
++ Added orc torches
++ Added Orc Steel blocks
++ Added mob spawner blocks for all the mod's entities
++ Added connected textures for mithril blocks
++ Added trees to the Gondor biome
++ Added boulders to the Rohan biome
++ Added more hobbit names
++ Added plates for food
++ Added hobbit picnic benches
++ Added separate spawn eggs for hobbit bartenders and drunkards
++ Added rotation support for hobbit tavern spawners
++ Added a configuration option to show the alignment bar in all dimensions
+
+* Orc hostility towards the player is now affected by alignment
+* Orcs will no longer burn in sunlight
+* Orc bombs must now be lit with orc torches
+* Use of the Morgul Crafting Table now depends on alignment
+* Combining copper and tin now gives two bronze ingots instead of one
+* Removed redstone from Middle-earth
+* Lembas now fully restores the hunger bar
+* Increased the duration of ale drunkenness
+* Changed the crafting recipe of clay mugs to one clay ball and two tin ingots
+
+Public Beta 1
+
++ Added the Middle-earth dimension
++ Added Gold Rings for accessing Middle-earth
++ Added a new alignment system
++ Added five major biomes: the Shire, Misty Mountains, Rohan, Gondor, and Mordor
++ Added new ores: Copper, Tin, Silver, Mithril, Naurite, and Morgul Iron
++ Added bronze tools and armour
++ Added mithril tools
++ Added hobbits
++ Added hobbit holes
++ Added hobbit taverns
++ Added hobbit pipes, pipeweed, and pipeweed farming
++ Added hobbit ovens
++ Added ale barrels
++ Added lettuces
++ Added Shire Pine trees and wood
++ Added rideable horses
++ Added orcs
++ Added orc weapons and armour
++ Added orc bombs
++ Added the Morgul Crafting Table
++ Added Mordor Rock, bricks, slabs and stairs
++ Added Beacons of Gondor
++ Added Gondor Rock, bricks, slabs and stairs
++ Added structure spawner items
++ Added many more new blocks and items, including chandeliers, hay bales, mugs of ale, and the sword Sting

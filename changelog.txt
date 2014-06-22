@@ -25,6 +25,9 @@ Public Beta 18
 + Added a Blue Mountains achievement category
 + Added dwarven marriage rings
 + Added dwarf children and dwarf marriages
++ Added the Barrow-downs biome
++ Added barrows
++ Added stone ruins in various biomes
 + Added unit hiring discounts for high alignment players
 + Added a command to set the fast travel cooldown time
 + Added a 'stone beach' biome to replace the beaches in Lindon and Forodwaith

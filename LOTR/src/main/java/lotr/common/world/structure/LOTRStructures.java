@@ -63,6 +63,7 @@ public class LOTRStructures
 		registerStructure(51, LOTRWorldGenRuinedHouse.class, "RuinedHouse", 0x7F7D7D, 0x685A3D);
 		registerStructure(52, LOTRWorldGenRangerTent.class, "RangerTent", 0x394C1D, 0x3F341F);
 		registerStructure(53, LOTRWorldGenNumenorRuin.class, "NumenorRuin", 0x888888, 0x5C5C5C);
+		registerStructure(54, LOTRWorldGenBDBarrow.class, "BDBarrow", 0x647F5A, 0x63453A);
 		
 		registerStructure(60, LOTRWorldGenOrcDungeon.class, "OrcDungeon", 0x888888, 0x5C5C5C);
 		registerStructure(61, LOTRWorldGenGundabadTent.class, "GundabadTent", 0x231D1A, 0x020202);

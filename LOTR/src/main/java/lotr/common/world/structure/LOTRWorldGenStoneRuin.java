@@ -73,7 +73,7 @@ public class LOTRWorldGenStoneRuin extends LOTRWorldGenStructureBase
 				{
 					for (int k1 = k; k1 <= k + width; k1++)
 					{
-						int height = baseHeight + random.nextInt(6);
+						int height = (int)((float)baseHeight * (1F + random.nextFloat()));
 						for (int j1 = j + height; j1 >= minHeight; j1--)
 						{
 							placeRandomBrick(world, random, i1, j1, k1);

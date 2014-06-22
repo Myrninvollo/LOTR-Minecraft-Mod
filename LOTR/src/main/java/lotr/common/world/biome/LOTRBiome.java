@@ -232,7 +232,7 @@ public class LOTRBiome extends BiomeGenBase
 		gondorWoodlands = new LOTRBiomeGenGondorWoodlands(62).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.2F, 0.2F).setColor(0xA6C444).setBiomeName("gondorWoodlands");
 		lake = new LOTRBiomeGenLake(63).setColor(0x005DFF).setBiomeName("lake");
 		beachStone = new LOTRBiomeGenBeach(64).setBeachBlock(Blocks.stone).setTemperatureRainfall(0.3F, 0.3F).setMinMaxHeight(0.1F, 0.8F).setColor(0x777777).setBiomeName("beachStone");
-		barrowDowns = new LOTRBiomeGenBarrowDowns(65).setTemperatureRainfall(0.5F, 0.5F).setMinMaxHeight(0.2F, 0.6F).setColor(0x828E52).setBiomeName("barrowDowns");
+		barrowDowns = new LOTRBiomeGenBarrowDowns(65).setTemperatureRainfall(0.5F, 0.5F).setMinMaxHeight(0.4F, 0.6F).setColor(0x828E52).setBiomeName("barrowDowns");
 		//EMPTY SLOT
 		fangornClearing = new LOTRBiomeGenFangornClearing(67).setTemperatureRainfall(0.7F, 0.8F).setMinMaxHeight(0.2F, 0.1F).setColor(0x3DA53D).setBiomeName("fangornClearing");
 		ithilienHills = new LOTRBiomeGenIthilienHills(68).setTemperatureRainfall(0.7F, 0.7F).setMinMaxHeight(0.6F, 0.6F).setColor(0x9CA548).setBiomeName("ithilienHills");

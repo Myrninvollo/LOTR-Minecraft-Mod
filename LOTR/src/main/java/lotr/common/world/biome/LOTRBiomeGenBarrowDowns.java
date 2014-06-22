@@ -10,6 +10,7 @@ import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower;
 import lotr.common.world.structure.LOTRWorldGenStoneRuin;
+import lotr.common.world.structure2.LOTRWorldGenBDBarrow;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenForest;
@@ -21,7 +22,7 @@ public class LOTRBiomeGenBarrowDowns extends LOTRBiome
 	{
 		super(i);
 		
-		spawnableCreatureList.add(new SpawnListEntry(LOTREntityHorse.class, 5, 2, 6));
+		spawnableCreatureList.add(new SpawnListEntry(LOTREntityHorse.class, 8, 2, 6));
 		
 		spawnableEvilList.clear();
 		
@@ -35,8 +36,9 @@ public class LOTRBiomeGenBarrowDowns extends LOTRBiome
 		
 		decorator.generateOrcDungeon = true;
 		
+		decorator.addRandomStructure(new LOTRWorldGenBDBarrow(false), 5);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 500);
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(2, 6), 20);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(2, 7), 15);
 	}
 	
 	@Override

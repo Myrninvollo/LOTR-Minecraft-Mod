@@ -885,7 +885,7 @@ public class LOTRRecipes
 		{
 			"X  ", "XX ", "XXX", 'X', new ItemStack(planks, 1, 11)
 		});
-		GameRegistry.addRecipe(new ItemStack(bananaCake), new Object[]
+		GameRegistry.addRecipe(new ItemStack(bananaCakeItem), new Object[]
 		{
 			"AAA", "BCB", "DDD", 'A', Items.milk_bucket, 'B', banana, 'C', Items.egg, 'D', Items.wheat
 		});

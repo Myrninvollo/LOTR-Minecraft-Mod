@@ -1109,6 +1109,7 @@ lotr.biome.rohanWoodlands.name=Rohan Woodlands
 lotr.biome.gondorWoodlands.name=Gondor Woodlands
 lotr.biome.lake.name=Lake
 lotr.biome.stoneBeach.name=Stone Beach
+lotr.biome.barrowDowns.name=Barrow-downs
 lotr.biome.fangornClearing.name=Fangorn Clearing
 lotr.biome.ithilienHills.name=Ithilien Hills
 lotr.biome.ithilienWasteland.name=Ithilien Wasteland
@@ -1516,6 +1517,8 @@ lotr.achievement.alignmentGood100_GUNDABAD.title=Gundabad Warrior
 lotr.achievement.alignmentGood100_GUNDABAD.desc=Reach +100 alignment with the Gundabad Orcs
 lotr.achievement.alignmentGood1000_GUNDABAD.title=Gundabad Scourge
 lotr.achievement.alignmentGood1000_GUNDABAD.desc=Reach +1000 alignment with the Gundabad Orcs
+lotr.achievement.enterBarrowDowns.title=The Hills of the Dead
+lotr.achievement.enterBarrowDowns.desc=Enter the Barrow-downs
 
 lotr.achievement.tradeAngmarCaptain.title=Hour of Vengeance
 lotr.achievement.tradeAngmarCaptain.desc=Hire a unit from an Angmar Orc Chieftain

@@ -9,11 +9,9 @@ import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTRAmbientCreature;
 import lotr.common.entity.animal.LOTREntityWildBoar;
-import lotr.common.entity.npc.LOTREntityElvenTrader;
 import lotr.common.entity.npc.LOTREntityGundabadOrc;
 import lotr.common.entity.npc.LOTREntityGundabadOrcArcher;
 import lotr.common.world.genlayer.LOTRGenLayerWorld;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.passive.EntityBat;
@@ -34,7 +32,6 @@ import net.minecraft.world.gen.feature.WorldGenDoublePlant;
 import net.minecraft.world.gen.feature.WorldGenTallGrass;
 import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.EnumHelper;
 
 public class LOTRBiome extends BiomeGenBase
@@ -111,7 +108,7 @@ public class LOTRBiome extends BiomeGenBase
 	public static BiomeGenBase gondorWoodlands;
 	public static BiomeGenBase lake;
 	public static BiomeGenBase beachStone;
-	//EMPTY SLOT
+	public static BiomeGenBase barrowDowns;
 	//EMPTY SLOT
 	public static BiomeGenBase fangornClearing;
 	public static BiomeGenBase ithilienHills;
@@ -235,7 +232,7 @@ public class LOTRBiome extends BiomeGenBase
 		gondorWoodlands = new LOTRBiomeGenGondorWoodlands(62).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.2F, 0.2F).setColor(0xA6C444).setBiomeName("gondorWoodlands");
 		lake = new LOTRBiomeGenLake(63).setColor(0x005DFF).setBiomeName("lake");
 		beachStone = new LOTRBiomeGenBeach(64).setBeachBlock(Blocks.stone).setTemperatureRainfall(0.3F, 0.3F).setMinMaxHeight(0.1F, 0.8F).setColor(0x777777).setBiomeName("beachStone");
-		//EMPTY SLOT
+		barrowDowns = new LOTRBiomeGenBarrowDowns(65).setTemperatureRainfall(0.5F, 0.5F).setMinMaxHeight(0.2F, 0.5F).setColor(0x828E52).setBiomeName("barrowDowns");
 		//EMPTY SLOT
 		fangornClearing = new LOTRBiomeGenFangornClearing(67).setTemperatureRainfall(0.7F, 0.8F).setMinMaxHeight(0.2F, 0.1F).setColor(0x3DA53D).setBiomeName("fangornClearing");
 		ithilienHills = new LOTRBiomeGenIthilienHills(68).setTemperatureRainfall(0.7F, 0.7F).setMinMaxHeight(0.6F, 0.6F).setColor(0x9CA548).setBiomeName("ithilienHills");

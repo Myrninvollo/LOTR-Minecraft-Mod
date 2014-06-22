@@ -41,6 +41,7 @@ Public Beta 18
 * Increased the price of banner bearers
 * Ordinary dwarf units now have a chance to be dwarf women
 * Fixed some crashes when playing the mod in a newer Forge version
+* Fixed a bug where crafting banana cake would give the block instead of the item
 
 Public Beta 17.1
 

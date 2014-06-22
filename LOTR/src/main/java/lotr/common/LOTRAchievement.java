@@ -309,6 +309,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement alignmentGood10_GUNDABAD;
 	public static LOTRAchievement alignmentGood100_GUNDABAD;
 	public static LOTRAchievement alignmentGood1000_GUNDABAD;
+	public static LOTRAchievement enterBarrowDowns;
 	
 	public static LOTRAchievement tradeAngmarCaptain;
 	public static LOTRAchievement killAngmarOrc;
@@ -611,6 +612,7 @@ public class LOTRAchievement implements Comparable
 		alignmentGood10_GUNDABAD = new LOTRAchievement(ERIADOR, 22, LOTRMod.goldRing, "alignmentGood10_GUNDABAD").setRequiresAlly(LOTRFaction.GUNDABAD).setSpecial();
 		alignmentGood100_GUNDABAD = new LOTRAchievement(ERIADOR, 23, LOTRMod.goldRing, "alignmentGood100_GUNDABAD").setRequiresAlly(LOTRFaction.GUNDABAD).setSpecial();
 		alignmentGood1000_GUNDABAD = new LOTRAchievement(ERIADOR, 24, LOTRMod.goldRing, "alignmentGood1000_GUNDABAD").setRequiresAlly(LOTRFaction.GUNDABAD).setSpecial();
+		enterBarrowDowns = new LOTRAchievement(ERIADOR, 25, Items.bone, "enterBarrowDowns").setBiomeAchievement();
 
 		tradeAngmarCaptain = new LOTRAchievement(ANGMAR, 0, LOTRMod.silverCoin, "tradeAngmarCaptain").setRequiresAlly(LOTRFaction.ANGMAR);
 		killAngmarOrc = new LOTRAchievement(ANGMAR, 1, LOTRMod.orcBone, "killAngmarOrc").setRequiresEnemy(LOTRFaction.ANGMAR);

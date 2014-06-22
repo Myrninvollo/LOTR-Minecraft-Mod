@@ -15,6 +15,7 @@ import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import lotr.common.world.structure.LOTRWorldGenGundabadCamp;
 import lotr.common.world.structure.LOTRWorldGenRangerCamp;
 import lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import lotr.common.world.structure2.LOTRWorldGenRuinedHouse;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -54,6 +55,7 @@ public class LOTRBiomeGenLoneLands extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 800);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1000);
 		decorator.addRandomStructure(new LOTRWorldGenRangerCamp(), 2000);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 4), 500);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);

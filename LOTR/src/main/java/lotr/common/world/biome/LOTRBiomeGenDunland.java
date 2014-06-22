@@ -14,6 +14,7 @@ import lotr.common.world.structure.LOTRWorldGenDunlandHillFort;
 import lotr.common.world.structure.LOTRWorldGenDunlendingCampfire;
 import lotr.common.world.structure.LOTRWorldGenDunlendingHouse;
 import lotr.common.world.structure.LOTRWorldGenDunlendingTavern;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -51,6 +52,7 @@ public class LOTRBiomeGenDunland extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenDunlendingTavern(false), 80);
 		decorator.addRandomStructure(new LOTRWorldGenDunlendingCampfire(false), 100);
 		decorator.addRandomStructure(new LOTRWorldGenDunlandHillFort(false), 600);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 3), 1500);
 	}
 	
 	@Override

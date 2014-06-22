@@ -5,6 +5,7 @@ import java.util.Random;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import lotr.common.world.structure2.LOTRWorldGenRuinedHouse;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
@@ -39,6 +40,7 @@ public class LOTRBiomeGenForodwaith extends LOTRBiome
 		decorator.generateWater = false;
 		
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 4000);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 5), 4000);
 	}
 	
 	@Override

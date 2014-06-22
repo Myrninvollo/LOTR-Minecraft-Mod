@@ -9,6 +9,7 @@ import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenForest;
@@ -35,6 +36,7 @@ public class LOTRBiomeGenBarrowDowns extends LOTRBiome
 		decorator.generateOrcDungeon = true;
 		
 		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 500);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(2, 6), 20);
 	}
 	
 	@Override
@@ -92,7 +94,7 @@ public class LOTRBiomeGenBarrowDowns extends LOTRBiome
     @SideOnly(Side.CLIENT)
     public int getBiomeGrassColor(int i, int j, int k)
     {
-        return 0x838452;
+        return 0x718E59;
     }
 	
 	@Override
@@ -106,24 +108,24 @@ public class LOTRBiomeGenBarrowDowns extends LOTRBiome
     @SideOnly(Side.CLIENT)
     public int getSkyColorByTemp(float f)
     {
-		return 0x96957B;
+		return 0x8CA088;
     }
 	
 	@Override
 	public Vec3 getCloudColor(Vec3 clouds)
 	{
-		clouds.xCoord *= 0.4D;
-		clouds.yCoord *= 0.4D;
-		clouds.zCoord *= 0.3D;
+		clouds.xCoord *= 0.7D;
+		clouds.yCoord *= 0.7D;
+		clouds.zCoord *= 0.7D;
 		return clouds;
 	}
 	
 	@Override
 	public Vec3 getFogColor(Vec3 fog)
 	{
-		fog.xCoord *= 0.3D;
-		fog.yCoord *= 0.3D;
-		fog.zCoord *= 0.2D;
+		fog.xCoord *= 0.6D;
+		fog.yCoord *= 0.6D;
+		fog.zCoord *= 0.6D;
 		return fog;
 	}
 }

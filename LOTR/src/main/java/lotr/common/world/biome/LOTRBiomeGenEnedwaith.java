@@ -10,6 +10,7 @@ import lotr.common.entity.npc.LOTREntityElvenTrader;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.structure.LOTRWorldGenGondorObelisk;
 import lotr.common.world.structure.LOTRWorldGenGondorRuin;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import lotr.common.world.structure2.LOTRWorldGenRuinedHouse;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -39,6 +40,7 @@ public class LOTRBiomeGenEnedwaith extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1000);
 		decorator.addRandomStructure(new LOTRWorldGenGondorObelisk(false), 2000);
 		decorator.addRandomStructure(new LOTRWorldGenGondorRuin(false), 2000);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 4), 1000);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);

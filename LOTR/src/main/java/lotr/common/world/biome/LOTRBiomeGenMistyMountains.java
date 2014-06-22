@@ -11,6 +11,7 @@ import lotr.common.entity.npc.LOTREntityUrukHaiBerserker;
 import lotr.common.entity.npc.LOTREntityUrukHaiCrossbower;
 import lotr.common.entity.npc.LOTREntityUrukWarg;
 import lotr.common.world.feature.LOTRWorldGenLarch;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenMegaPineTree;
@@ -45,6 +46,8 @@ public class LOTRBiomeGenMistyMountains extends LOTRBiome
 		registerMountainsFlowers();
 		
 		decorator.generateOrcDungeon = true;
+		
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 4), 2000);
 	}
 	
 	@Override

@@ -6,6 +6,7 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -31,6 +32,8 @@ public class LOTRBiomeGenBrownLands extends LOTRBiome
 		decorator.treesPerChunk = 0;
 		decorator.flowersPerChunk = 0;
 		decorator.grassPerChunk = 1;
+		
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 3), 2000);
 	}
 	
 	@Override

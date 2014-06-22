@@ -9,6 +9,7 @@ import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.structure.LOTRWorldGenGundabadCamp;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import lotr.common.world.structure2.LOTRWorldGenRuinedHouse;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -34,6 +35,7 @@ public class LOTRBiomeGenWilderland extends LOTRBiome
 		
 		decorator.addRandomStructure(new LOTRWorldGenGundabadCamp(), 2000);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1500);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 4), 1500);
 		
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
 	}

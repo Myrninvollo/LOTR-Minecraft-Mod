@@ -12,6 +12,7 @@ import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenLarch;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import lotr.common.world.structure.LOTRWorldGenGundabadCamp;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import lotr.common.world.structure2.LOTRWorldGenRuinedHouse;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -44,6 +45,7 @@ public class LOTRBiomeGenValesOfAnduin extends LOTRBiome
 		
 		decorator.addRandomStructure(new LOTRWorldGenGundabadCamp(), 1500);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1500);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 3), 1000);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);

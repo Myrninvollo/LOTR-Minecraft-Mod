@@ -13,6 +13,7 @@ import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import lotr.common.world.structure.LOTRWorldGenGundabadCamp;
 import lotr.common.world.structure.LOTRWorldGenRangerCamp;
 import lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import lotr.common.world.structure2.LOTRWorldGenRuinedHouse;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenForest;
@@ -42,6 +43,7 @@ public class LOTRBiomeGenEriador extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 500);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1500);
 		decorator.addRandomStructure(new LOTRWorldGenRangerCamp(), 2000);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 3), 1000);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);

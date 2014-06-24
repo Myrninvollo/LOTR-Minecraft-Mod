@@ -60,6 +60,12 @@ public class LOTREntityOlogHai extends LOTREntityTroll
 	}
 	
 	@Override
+	public int getTotalArmorValue()
+	{
+		return 15;
+	}
+	
+	@Override
 	public LOTRFaction getFaction()
 	{
 		return LOTRFaction.MORDOR;
@@ -169,7 +175,7 @@ public class LOTREntityOlogHai extends LOTREntityTroll
 	@Override
 	protected int getExperiencePoints(EntityPlayer entityplayer)
     {
-        return 5 + rand.nextInt(6);
+        return 5 + rand.nextInt(8);
     }
 	
 	@Override

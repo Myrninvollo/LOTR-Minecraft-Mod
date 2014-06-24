@@ -45,6 +45,7 @@ Public Beta 18
 * Ordinary dwarf units now have a chance to be dwarf women
 * Fixed some crashes when playing the mod in a newer Forge version
 * Fixed a bug where crafting banana cake would give the block instead of the item
+* Increased the armour strength of Olog-hai
 
 Public Beta 17.1
 

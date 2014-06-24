@@ -91,6 +91,12 @@ public class LOTREntityMountainTrollChieftain extends LOTREntityMountainTroll im
 		dataWatcher.updateObject(24, Integer.valueOf(i));
 	}
 	
+	@Override
+	public int getTotalArmorValue()
+	{
+		return 12;
+	}
+	
 	public float getArmorLevelChanceModifier()
 	{
 		int i = 3 - getTrollArmorLevel();

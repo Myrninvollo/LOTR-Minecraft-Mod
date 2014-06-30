@@ -2230,7 +2230,7 @@ public class LOTRMod
 		return true;
 	}
 	
-	public static boolean canNPCAttackEntity(EntityLiving attacker, EntityLivingBase target)
+	public static boolean canNPCAttackEntity(EntityCreature attacker, EntityLivingBase target)
 	{
 		if (target == null || !target.isEntityAlive())
 		{
@@ -2250,21 +2250,24 @@ public class LOTRMod
 		}
 		
 		LOTRFaction attackerFaction = getNPCFaction(attacker);
-		if (getNPCFaction(target).isAllied(attackerFaction) && attacker.getAttackTarget() != target)
+		if (attackerFaction.allowEntityRegistry)
 		{
-			return false;
-		}
-		else if (target.riddenByEntity != null && getNPCFaction(target.riddenByEntity).isAllied(attackerFaction) && attacker.getAttackTarget() != target.riddenByEntity)
-		{
-			return false;
-		}
-		else if (target instanceof EntityPlayer && LOTRLevelData.getAlignment((EntityPlayer)target, attackerFaction) >= 0 && attacker.getAttackTarget() != target)
-		{
-			return false;
-		}
-		else if (target.riddenByEntity instanceof EntityPlayer && LOTRLevelData.getAlignment((EntityPlayer)target.riddenByEntity, attackerFaction) >= 0 && attacker.getAttackTarget() != target.riddenByEntity)
-		{
-			return false;
+			if (getNPCFaction(target).isAllied(attackerFaction) && attacker.getAttackTarget() != target)
+			{
+				return false;
+			}
+			else if (target.riddenByEntity != null && getNPCFaction(target.riddenByEntity).isAllied(attackerFaction) && attacker.getAttackTarget() != target.riddenByEntity)
+			{
+				return false;
+			}
+			else if (target instanceof EntityPlayer && LOTRLevelData.getAlignment((EntityPlayer)target, attackerFaction) >= 0 && attacker.getAttackTarget() != target)
+			{
+				return false;
+			}
+			else if (target.riddenByEntity instanceof EntityPlayer && LOTRLevelData.getAlignment((EntityPlayer)target.riddenByEntity, attackerFaction) >= 0 && attacker.getAttackTarget() != target.riddenByEntity)
+			{
+				return false;
+			}
 		}
 		
 		return true;

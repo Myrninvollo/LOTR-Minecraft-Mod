@@ -999,7 +999,7 @@ public class LOTREventHandler implements IFuelHandler
 			return;
 		}
 
-		if (attacker instanceof EntityLiving && !LOTRMod.canNPCAttackEntity((EntityLiving)attacker, entity))
+		if (attacker instanceof EntityCreature && !LOTRMod.canNPCAttackEntity((EntityCreature)attacker, entity))
 		{
 			event.setCanceled(true);
 			return;

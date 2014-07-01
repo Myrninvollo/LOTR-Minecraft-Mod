@@ -39,7 +39,7 @@ public class LOTRBlockClover extends LOTRBlockFlower
 		seed = seed * seed * 42317861L + seed * 11L;
 		posX += ((double)((float)(seed >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
 		posZ += ((double)((float)(seed >> 24 & 15L) / 15.0F) - 0.5D) * 0.5D;
-        return AxisAlignedBB.getAABBPool().getAABB(posX + minX, posY + minY, posZ + minZ, posX + maxX, posY + maxY, posZ + maxZ);
+        return AxisAlignedBB.getBoundingBox(posX + minX, posY + minY, posZ + minZ, posX + maxX, posY + maxY, posZ + maxZ);
     }
 	
 	@Override

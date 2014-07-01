@@ -83,13 +83,13 @@ public class LOTRItemTrident extends LOTRItemSword
 		double d1 = j + 0.5D;
 		double d2 = k + 0.5D;
 		double d3 = 0.125D;
-		AxisAlignedBB boundingBox = AxisAlignedBB.getAABBPool().getAABB(d - d3, d1 - d3, d2 - d3, d + d3, d1 + d3, d2 + d3);
+		AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(d - d3, d1 - d3, d2 - d3, d + d3, d1 + d3, d2 + d3);
 		byte range = 5;
 		for (int l = 0; l < range; l++)
 		{
 			double d5 = boundingBox.minY + (boundingBox.maxY - boundingBox.minY) * (l + 0) / range - d3 + d3;
 			double d6 = boundingBox.minY + (boundingBox.maxY - boundingBox.minY) * (l + 1) / range - d3 + d3;
-			AxisAlignedBB aabb = AxisAlignedBB.getAABBPool().getAABB(boundingBox.minX, d5, boundingBox.minZ, boundingBox.maxX, d6, boundingBox.maxZ);
+			AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(boundingBox.minX, d5, boundingBox.minZ, boundingBox.maxX, d6, boundingBox.maxZ);
 			if (world.isAABBInMaterial(aabb, Material.water))
 			{
 				return true;

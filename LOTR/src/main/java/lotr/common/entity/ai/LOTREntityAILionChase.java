@@ -84,7 +84,7 @@ public class LOTREntityAILionChase extends EntityAIBase
 		
 		if (targetEntity.getNavigator().noPath())
 		{
-			Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockAwayFrom(targetEntity, 16, 7, targetEntity.worldObj.getWorldVec3Pool().getVecFromPool(theLion.posX, theLion.posY, theLion.posZ));
+			Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockAwayFrom(targetEntity, 16, 7, Vec3.createVectorHelper(theLion.posX, theLion.posY, theLion.posZ));
 			if (vec3 != null)
 			{
 				targetEntity.getNavigator().tryMoveToXYZ(vec3.xCoord, vec3.yCoord, vec3.zCoord, 2D);

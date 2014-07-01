@@ -86,7 +86,7 @@ public class LOTREntityAIOrcAvoidGoodPlayer extends EntityAIBase
 		}
 		closestLivingEntity = (EntityLivingBase)validPlayers.get(0);
 		
-        Vec3 fleePath = RandomPositionGenerator.findRandomTargetBlockAwayFrom(theOrc, 16, 7, theOrc.worldObj.getWorldVec3Pool().getVecFromPool(closestLivingEntity.posX, closestLivingEntity.posY, closestLivingEntity.posZ));
+        Vec3 fleePath = RandomPositionGenerator.findRandomTargetBlockAwayFrom(theOrc, 16, 7, Vec3.createVectorHelper(closestLivingEntity.posX, closestLivingEntity.posY, closestLivingEntity.posZ));
         if (fleePath == null)
         {
             return false;

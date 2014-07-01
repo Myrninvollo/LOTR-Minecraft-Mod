@@ -64,7 +64,7 @@ public class LOTREntityAINPCAvoidEvilPlayer extends EntityAIBase
 		}
 		closestLivingEntity = (Entity)validPlayers.get(0);
 
-        Vec3 fleePath = RandomPositionGenerator.findRandomTargetBlockAwayFrom(theNPC, 16, 7, theNPC.worldObj.getWorldVec3Pool().getVecFromPool(closestLivingEntity.posX, closestLivingEntity.posY, closestLivingEntity.posZ));
+        Vec3 fleePath = RandomPositionGenerator.findRandomTargetBlockAwayFrom(theNPC, 16, 7, Vec3.createVectorHelper(closestLivingEntity.posX, closestLivingEntity.posY, closestLivingEntity.posZ));
         if (fleePath == null)
         {
             return false;

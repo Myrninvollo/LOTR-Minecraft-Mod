@@ -429,7 +429,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 					Vec3 vec3 = null;
 					for (int i = 0; i < 16 && vec3 == null; i++)
 					{
-						vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this, 16, 7, worldObj.getWorldVec3Pool().getVecFromPool(homeX, homeY, homeZ));
+						vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this, 16, 7, Vec3.createVectorHelper(homeX, homeY, homeZ));
 					}
 					if (vec3 != null)
 					{

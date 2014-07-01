@@ -95,7 +95,7 @@ public class LOTREntityAIGollumFollowOwner extends EntityAIBase
 					
 					float f = theGollum.width / 2F;
 					float f1 = theGollum.height;
-					AxisAlignedBB theGollumBoundingBox = AxisAlignedBB.getAABBPool().getAABB(theOwner.posX - (double)f, theOwner.posY - (double)theGollum.yOffset + (double)theGollum.ySize, theOwner.posZ - (double)f, theOwner.posX + (double)f, theOwner.posY - (double)theGollum.yOffset + (double)theGollum.ySize + (double)f1, theOwner.posZ + (double)f);
+					AxisAlignedBB theGollumBoundingBox = AxisAlignedBB.getBoundingBox(theOwner.posX - (double)f, theOwner.posY - (double)theGollum.yOffset + (double)theGollum.ySize, theOwner.posZ - (double)f, theOwner.posX + (double)f, theOwner.posY - (double)theGollum.yOffset + (double)theGollum.ySize + (double)f1, theOwner.posZ + (double)f);
 					
 					if (theWorld.func_147461_a(theGollumBoundingBox).isEmpty() && theWorld.getBlock(i, j - 1, k).isSideSolid(theWorld, i, j - 1, k, ForgeDirection.UP))
 					{

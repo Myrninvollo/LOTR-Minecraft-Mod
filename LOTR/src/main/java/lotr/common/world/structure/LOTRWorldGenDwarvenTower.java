@@ -81,7 +81,7 @@ public class LOTRWorldGenDwarvenTower extends LOTRWorldGenStructureBase
 				}
 			}
 			
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i - 6, j, k - 6, i + 6, j + ((sections + 1) * 5) + 5, k + 6));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i - 6, j, k - 6, i + 6, j + ((sections + 1) * 5) + 5, k + 6));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();

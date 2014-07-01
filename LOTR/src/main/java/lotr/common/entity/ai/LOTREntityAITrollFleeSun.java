@@ -96,7 +96,7 @@ public class LOTREntityAITrollFleeSun extends EntityAIBase
 
             if (!theWorld.canBlockSeeTheSky(i, j, k) && theTroll.getBlockPathWeight(i, j, k) < 0.0F)
             {
-                return theWorld.getWorldVec3Pool().getVecFromPool((double)i, (double)j, (double)k);
+                return Vec3.createVectorHelper((double)i, (double)j, (double)k);
             }
         }
 

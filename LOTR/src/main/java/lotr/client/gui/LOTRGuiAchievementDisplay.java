@@ -51,7 +51,7 @@ public class LOTRGuiAchievementDisplay extends Gui
         GL11.glLoadIdentity();
         achievementWindowWidth = mc.displayWidth;
         achievementWindowHeight = mc.displayHeight;
-        ScaledResolution scaledresolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+        ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
         achievementWindowWidth = scaledresolution.getScaledWidth();
         achievementWindowHeight = scaledresolution.getScaledHeight();
         GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);

@@ -62,7 +62,7 @@ public class LOTRCommandAlignment extends CommandBase
 				}
 
 				LOTRLevelData.addAlignmentFromCommand(entityplayer, faction, alignment - LOTRLevelData.getAlignment(entityplayer, faction));
-				notifyAdmins(sender, "commands.lotr.alignment.set", new Object[] {sender.getCommandSenderName(), faction.name(), alignment});
+				func_152373_a(sender, this, "commands.lotr.alignment.set", new Object[] {sender.getCommandSenderName(), faction.name(), alignment});
 				return;
 			}
 			
@@ -95,7 +95,7 @@ public class LOTRCommandAlignment extends CommandBase
 				}
 
 				LOTRLevelData.addAlignmentFromCommand(entityplayer, faction, alignment);
-				notifyAdmins(sender, "commands.lotr.alignment.add", new Object[] {alignment, sender.getCommandSenderName(), faction.name()});
+				func_152373_a(sender, this, "commands.lotr.alignment.add", new Object[] {alignment, sender.getCommandSenderName(), faction.name()});
 				return;
 			}
         }

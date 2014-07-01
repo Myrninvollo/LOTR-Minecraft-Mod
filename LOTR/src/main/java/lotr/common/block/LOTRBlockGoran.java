@@ -20,7 +20,7 @@ public class LOTRBlockGoran extends Block
     {
 		if (!world.isRemote)
 		{
-			if (!MinecraftServer.getServer().getConfigurationManager().isPlayerOpped(entityplayer.getCommandSenderName()))
+			if (!MinecraftServer.getServer().getConfigurationManager().func_152596_g(entityplayer.getGameProfile()))
 			{
 				return false;
 			}

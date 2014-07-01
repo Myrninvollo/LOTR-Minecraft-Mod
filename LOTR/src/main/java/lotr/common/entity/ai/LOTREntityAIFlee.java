@@ -58,7 +58,7 @@ public class LOTREntityAIFlee extends EntityAIBase
 		timer--;
 		if (!firstPath || theEntity.getNavigator().noPath())
 		{
-            Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockAwayFrom(theEntity, 16, 7, theEntity.worldObj.getWorldVec3Pool().getVecFromPool(attackerX, attackerY, attackerZ));
+            Vec3 vec3 = RandomPositionGenerator.findRandomTargetBlockAwayFrom(theEntity, 16, 7, Vec3.createVectorHelper(attackerX, attackerY, attackerZ));
             if (vec3 != null && theEntity.getNavigator().tryMoveToXYZ(vec3.xCoord, vec3.yCoord, vec3.zCoord, speed))
             {
 				theEntity.setRevengeTarget(null);

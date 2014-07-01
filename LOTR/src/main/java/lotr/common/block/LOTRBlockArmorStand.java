@@ -34,7 +34,7 @@ public class LOTRBlockArmorStand extends Block
     {
 		if (hasTileEntity(world.getBlockMetadata(i, j, k)))
 		{
-			return AxisAlignedBB.getAABBPool().getAABB((double)i, (double)j, (double)k, (double)i + 1D, (double)j + 0.125D, (double)k + 1D);
+			return AxisAlignedBB.getBoundingBox((double)i, (double)j, (double)k, (double)i + 1D, (double)j + 0.125D, (double)k + 1D);
 		}
 		return null;
     }

@@ -648,7 +648,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 				if (entity instanceof EntityPlayer)
 				{
 					EntityPlayer entityplayer = (EntityPlayer)entity;
-					boolean isOp = MinecraftServer.getServer().getConfigurationManager().isPlayerOpped(entityplayer.getCommandSenderName());
+					boolean isOp = MinecraftServer.getServer().getConfigurationManager().func_152596_g(entityplayer.getGameProfile());
 					
 					ByteBuf opData = Unpooled.buffer();
 					

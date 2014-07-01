@@ -34,7 +34,7 @@ public class LOTRCommandFastTravelCooldown extends CommandBase
         {
 			int cooldown = parseIntBounded(sender, input[0], 0, 1728000);
 			LOTRLevelData.setFastTravelCooldown(cooldown);
-			notifyAdmins(sender, "commands.lotr.fastTravelCooldown.set", new Object[] {cooldown, LOTRLevelData.getHMSTime(cooldown)});
+			func_152373_a(sender, this, "commands.lotr.fastTravelCooldown.set", new Object[] {cooldown, LOTRLevelData.getHMSTime(cooldown)});
 			return;
 		}
 		

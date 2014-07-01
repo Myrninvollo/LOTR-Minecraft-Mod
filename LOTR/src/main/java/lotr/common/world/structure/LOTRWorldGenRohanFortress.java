@@ -81,7 +81,7 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 		
 		if (restrictions)
 		{
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 5D, 0D).expand(12D, 5D, 12D));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 5D, 0D).expand(12D, 5D, 12D));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();

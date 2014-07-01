@@ -400,7 +400,7 @@ public class LOTRTickHandlerClient
 					
 					if (message != null)
 					{
-						ScaledResolution resolution = new ScaledResolution(minecraft.gameSettings, minecraft.displayWidth, minecraft.displayHeight);
+						ScaledResolution resolution = new ScaledResolution(minecraft, minecraft.displayWidth, minecraft.displayHeight);
 						int i = resolution.getScaledWidth();
 						int j = resolution.getScaledHeight();
 						int x = (i - minecraft.fontRenderer.getStringWidth(message)) / 2;
@@ -622,7 +622,7 @@ public class LOTRTickHandlerClient
 			return;
 		}
 		
-		ScaledResolution resolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+		ScaledResolution resolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
 		int i = resolution.getScaledWidth();
 		int j = resolution.getScaledHeight();
         mc.entityRenderer.setupOverlayRendering();
@@ -649,7 +649,7 @@ public class LOTRTickHandlerClient
 	private void renderAlignment(Minecraft mc)
 	{
 		int alignment = LOTRLevelData.getAlignment(mc.thePlayer, currentAlignmentFaction);
-		ScaledResolution resolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+		ScaledResolution resolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
 		int i = resolution.getScaledWidth();
 		int j = resolution.getScaledHeight();
         GL11.glColor4f(1F, 1F, 1F, 1F);

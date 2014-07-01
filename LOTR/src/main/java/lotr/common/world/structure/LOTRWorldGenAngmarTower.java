@@ -76,7 +76,7 @@ public class LOTRWorldGenAngmarTower extends LOTRWorldGenStructureBase
 				}
 			}
 			
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i - 7, j, k - 7, i + 7, j + ((sections + 1) * 8) + 10, k + 7));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i - 7, j, k - 7, i + 7, j + ((sections + 1) * 8) + 10, k + 7));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();

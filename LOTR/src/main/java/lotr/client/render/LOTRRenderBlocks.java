@@ -506,10 +506,10 @@ public class LOTRRenderBlocks implements ISimpleBlockRenderingHandler
 			double d6 = posZ + 0.5D;
 			Vec3[] vecs = new Vec3[]
 			{
-				world.getWorldVec3Pool().getVecFromPool(0.5D * scale, 0D, -0.5D * scale),
-				world.getWorldVec3Pool().getVecFromPool(-0.5D * scale, 0D, -0.5D * scale),
-				world.getWorldVec3Pool().getVecFromPool(-0.5D * scale, 0D, 0.5D * scale),
-				world.getWorldVec3Pool().getVecFromPool(0.5D * scale, 0D, 0.5D * scale)
+				Vec3.createVectorHelper(0.5D * scale, 0D, -0.5D * scale),
+				Vec3.createVectorHelper(-0.5D * scale, 0D, -0.5D * scale),
+				Vec3.createVectorHelper(-0.5D * scale, 0D, 0.5D * scale),
+				Vec3.createVectorHelper(0.5D * scale, 0D, 0.5D * scale)
 				
 			};
 			for (int l1 = 0; l1 < vecs.length; l1++)
@@ -565,10 +565,10 @@ public class LOTRRenderBlocks implements ISimpleBlockRenderingHandler
 			double d6 = 0D;
 			Vec3[] vecs = new Vec3[]
 			{
-				Minecraft.getMinecraft().theWorld.getWorldVec3Pool().getVecFromPool(0.5D * scale, 0D, -0.5D * scale),
-				Minecraft.getMinecraft().theWorld.getWorldVec3Pool().getVecFromPool(-0.5D * scale, 0D, -0.5D * scale),
-				Minecraft.getMinecraft().theWorld.getWorldVec3Pool().getVecFromPool(-0.5D * scale, 0D, 0.5D * scale),
-				Minecraft.getMinecraft().theWorld.getWorldVec3Pool().getVecFromPool(0.5D * scale, 0D, 0.5D * scale)
+				Vec3.createVectorHelper(0.5D * scale, 0D, -0.5D * scale),
+				Vec3.createVectorHelper(-0.5D * scale, 0D, -0.5D * scale),
+				Vec3.createVectorHelper(-0.5D * scale, 0D, 0.5D * scale),
+				Vec3.createVectorHelper(0.5D * scale, 0D, 0.5D * scale)
 			};
 			for (int l1 = 0; l1 < vecs.length; l1++)
 			{

@@ -63,13 +63,13 @@ public class LOTRWorldGenGondorFortress extends LOTRWorldGenStructureBase
 		
 		if (restrictions)
 		{
-			List soldiers = world.getEntitiesWithinAABB(LOTREntityGondorSoldier.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 10D, 0D).expand(34D, 12D, 34D));
+			List soldiers = world.getEntitiesWithinAABB(LOTREntityGondorSoldier.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 10D, 0D).expand(34D, 12D, 34D));
 			if (!soldiers.isEmpty())
 			{
 				return false;
 			}
 			
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 10D, 0D).expand(34D, 12D, 34D));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 10D, 0D).expand(34D, 12D, 34D));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();

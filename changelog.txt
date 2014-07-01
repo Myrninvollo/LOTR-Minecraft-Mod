@@ -1,5 +1,7 @@
 Public Beta 18
 
++ Updated for Minecraft 1.7.10
+
 + Added capes for reaching +1000 alignment for most factions
 + Added the eastern regions of Rhûn and the Red Mountains
 + Added Sarncaran (Red Rock) and Sarncaran bricks, slabs, stairs, walls, and pillars

@@ -103,7 +103,7 @@ public class LOTRWorldGenDunlendingHouse extends LOTRWorldGenStructureBase
 				}
 			}
 			
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 4D, 0D).expand(xRange, 4D, zRange));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 4D, 0D).expand(xRange, 4D, zRange));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();

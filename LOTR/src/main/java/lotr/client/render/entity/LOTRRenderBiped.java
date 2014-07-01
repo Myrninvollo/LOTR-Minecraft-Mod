@@ -2,6 +2,9 @@ package lotr.client.render.entity;
 
 import static net.minecraftforge.client.IItemRenderer.ItemRenderType.EQUIPPED;
 import static net.minecraftforge.client.IItemRenderer.ItemRendererHelper.BLOCK_3D;
+
+import java.util.UUID;
+
 import lotr.client.LOTRClientProxy;
 import lotr.client.model.LOTRModelBiped;
 import lotr.common.LOTRMod;
@@ -20,11 +23,17 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StringUtils;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import org.lwjgl.opengl.GL11;
+
+import com.mojang.authlib.GameProfile;
 
 public abstract class LOTRRenderBiped extends RenderBiped
 {
@@ -109,14 +118,23 @@ public abstract class LOTRRenderBiped extends RenderBiped
             {
                 float f1 = 1.0625F;
                 GL11.glScalef(f1, -f1, -f1);
-                String s = "";
+                GameProfile gameprofile = null;
 
-                if (headItem.hasTagCompound() && headItem.getTagCompound().hasKey("SkullOwner"))
+                if (headItem.hasTagCompound())
                 {
-                    s = headItem.getTagCompound().getString("SkullOwner");
+                    NBTTagCompound nbttagcompound = headItem.getTagCompound();
+
+                    if (nbttagcompound.hasKey("SkullOwner", new NBTTagCompound().getId()))
+                    {
+                        gameprofile = NBTUtil.func_152459_a(nbttagcompound.getCompoundTag("SkullOwner"));
+                    }
+                    else if (nbttagcompound.hasKey("SkullOwner", new NBTTagString().getId()) && !StringUtils.isNullOrEmpty(nbttagcompound.getString("SkullOwner")))
+                    {
+                        gameprofile = new GameProfile((UUID)null, nbttagcompound.getString("SkullOwner"));
+                    }
                 }
 
-                TileEntitySkullRenderer.field_147536_b.func_147530_a(-0.5F, 0F, -0.5F, 1, 180F, headItem.getItemDamage(), s);
+                TileEntitySkullRenderer.field_147536_b.func_152674_a(-0.5F, 0F, -0.5F, 1, 180F, headItem.getItemDamage(), gameprofile);
             }
 
             GL11.glPopMatrix();

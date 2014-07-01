@@ -155,7 +155,7 @@ public class LOTRTileEntityMobSpawner extends TileEntity
                         return;
                     }
 
-                    List nearbyEntitiesList = worldObj.getEntitiesWithinAABB(entity.getClass(), AxisAlignedBB.getAABBPool().getAABB((double)xCoord, (double)yCoord, (double)zCoord, (double)(xCoord + 1), (double)(yCoord + 1), (double)(zCoord + 1)).expand((double)nearbyMobCheckRange, (double)nearbyMobCheckRange, (double)nearbyMobCheckRange));
+                    List nearbyEntitiesList = worldObj.getEntitiesWithinAABB(entity.getClass(), AxisAlignedBB.getBoundingBox((double)xCoord, (double)yCoord, (double)zCoord, (double)(xCoord + 1), (double)(yCoord + 1), (double)(zCoord + 1)).expand((double)nearbyMobCheckRange, (double)nearbyMobCheckRange, (double)nearbyMobCheckRange));
 					List nearbySameEntitiesList = new ArrayList();
 					for (int l = 0; l < nearbyEntitiesList.size(); l++)
 					{

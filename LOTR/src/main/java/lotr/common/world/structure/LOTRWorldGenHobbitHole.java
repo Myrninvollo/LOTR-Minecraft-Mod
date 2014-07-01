@@ -134,7 +134,7 @@ public class LOTRWorldGenHobbitHole extends LOTRWorldGenStructureBase
 		
 		if (restrictions)
 		{
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).expand(radius + 1, height + 1, radius + 1));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).expand(radius + 1, height + 1, radius + 1));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();

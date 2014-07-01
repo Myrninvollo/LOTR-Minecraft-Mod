@@ -275,7 +275,7 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 				}
 			}
 			
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).expand(7D, 5D, 7D));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).expand(7D, 5D, 7D));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();

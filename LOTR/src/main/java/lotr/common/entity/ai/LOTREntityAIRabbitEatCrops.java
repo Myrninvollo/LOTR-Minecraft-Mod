@@ -115,7 +115,7 @@ public class LOTREntityAIRabbitEatCrops extends EntityAIBase
             Block block = theWorld.getBlock(i, j, k);
 			if (block instanceof BlockCrops)
             {
-                return theWorld.getWorldVec3Pool().getVecFromPool((double)i + 0.5D, (double)j, (double)k + 0.5D);
+                return Vec3.createVectorHelper((double)i + 0.5D, (double)j, (double)k + 0.5D);
             }
         }
 

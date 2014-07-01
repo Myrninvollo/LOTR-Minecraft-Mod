@@ -83,7 +83,7 @@ public class LOTREntityAIGollumFishing extends EntityAIBase
 
             if (!theWorld.getBlock(i, j + 1, k).isNormalCube() && !theWorld.getBlock(i, j, k).isNormalCube() && theWorld.getBlock(i, j - 1, k).getMaterial() == Material.water)
 			{
-				return theWorld.getWorldVec3Pool().getVecFromPool((double)i, (double)j, (double)k);
+				return Vec3.createVectorHelper((double)i, (double)j, (double)k);
 			}
         }
 

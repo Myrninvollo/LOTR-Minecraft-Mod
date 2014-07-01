@@ -3,6 +3,7 @@ package lotr.common.world.structure2;
 import java.util.Random;
 
 import lotr.common.world.biome.LOTRBiomeGenBarrowDowns;
+import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
@@ -116,6 +117,33 @@ public class LOTRWorldGenBDBarrow extends LOTRWorldGenStructureBase2
 				}
 			}
 		}
+		
+		for (int i1 = -3; i1 <= 3; i1++)
+		{
+			for (int k1 = -3; k1 <= 3; k1++)
+			{
+				for (int j1 = 1; j1 <= 3; j1++)
+				{
+					setAir(world, i1, j1, k1);
+				}
+			}
+		}
+		
+		for (int i1 = -2; i1 <= 2; i1++)
+		{
+			for (int k1 = -2; k1 <= 2; k1++)
+			{
+				setBlockAndMetadata(world, i1, 1, k1, Blocks.dirt, 0);
+			}
+		}
+		
+		setBlockAndMetadata(world, 0, 0, 0, Blocks.chest, 0);
+		fillChest(world, random, 0, 0, 0, LOTRChestContents.BARROW_DOWNS);
+		
+		setBlockAndMetadata(world, -3, 2, 0, Blocks.torch, 2);
+		setBlockAndMetadata(world, 3, 2, 0, Blocks.torch, 1);
+		setBlockAndMetadata(world, 0, 2, -3, Blocks.torch, 3);
+		setBlockAndMetadata(world, 0, 2, 3, Blocks.torch, 4);
 
 		return true;
 	}

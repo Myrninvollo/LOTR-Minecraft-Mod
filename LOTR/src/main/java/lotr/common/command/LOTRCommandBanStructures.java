@@ -41,14 +41,14 @@ public class LOTRCommandBanStructures extends CommandBase
 			}
 			LOTRLevelData.structuresBanned = 1;
 			LOTRLevelData.needsSave = true;
-			notifyAdmins(sender, "commands.lotr.banStructures.ban", new Object[0]);
+			func_152373_a(sender, this, "commands.lotr.banStructures.ban", new Object[0]);
 		}
         else
         {
 			LOTRLevelData.bannedStructurePlayers.add(input[0]);
 			LOTRLevelData.needsSave = true;
-			notifyAdmins(sender, "commands.lotr.banStructures.banPlayer", new Object[] {input[0]});
-			EntityPlayerMP entityplayer = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(input[0]);
+			func_152373_a(sender, this, "commands.lotr.banStructures.banPlayer", new Object[] {input[0]});
+			EntityPlayerMP entityplayer = getPlayer(sender, input[0]);
 			if (entityplayer != null)
 			{
 				entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.banStructures"));

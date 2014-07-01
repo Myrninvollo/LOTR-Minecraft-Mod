@@ -146,7 +146,7 @@ public class LOTRStructureSpawningInfo
 			
 			if (world.checkChunksExist(minX, minY, minZ, maxX, maxY, maxZ) && world.getClosestPlayer(posX + 0.5D, posY + 0.5D, posZ + 0.5D, 24D) == null)
 			{
-				List nearbyEntities = world.getEntitiesWithinAABB(checkClass, AxisAlignedBB.getAABBPool().getAABB(minX, minY, minZ, maxX + 1, maxY + 1, maxZ + 1));
+				List nearbyEntities = world.getEntitiesWithinAABB(checkClass, AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX + 1, maxY + 1, maxZ + 1));
 				int entities = nearbyEntities.size();
 				if (entities < checkLimit)
 				{

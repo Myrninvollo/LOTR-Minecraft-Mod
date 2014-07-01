@@ -211,7 +211,7 @@ public class LOTRWorldProvider extends WorldProvider
         {
             for (int k1 = -distance; k1 <= distance; k1++)
             {
-				Vec3 tempClouds = worldObj.getWorldVec3Pool().getVecFromPool(clouds.xCoord, clouds.yCoord, clouds.zCoord);
+				Vec3 tempClouds = Vec3.createVectorHelper(clouds.xCoord, clouds.yCoord, clouds.zCoord);
                 BiomeGenBase biome = worldObj.getBiomeGenForCoords(i + i1, k + k1);
 				if (biome instanceof LOTRBiome)
 				{
@@ -227,7 +227,7 @@ public class LOTRWorldProvider extends WorldProvider
 		cloudsR /= (double)l;
 		cloudsG /= (double)l;
 		cloudsB /= (double)l;
-        return worldObj.getWorldVec3Pool().getVecFromPool(cloudsR, cloudsG, cloudsB);
+        return Vec3.createVectorHelper(cloudsR, cloudsG, cloudsB);
     }
 	
     private double fogR;
@@ -258,7 +258,7 @@ public class LOTRWorldProvider extends WorldProvider
         {
             for (int k1 = -distance; k1 <= distance; k1++)
             {
-				Vec3 tempFog = worldObj.getWorldVec3Pool().getVecFromPool(fog.xCoord, fog.yCoord, fog.zCoord);
+				Vec3 tempFog = Vec3.createVectorHelper(fog.xCoord, fog.yCoord, fog.zCoord);
                 BiomeGenBase biome = worldObj.getBiomeGenForCoords(i + i1, k + k1);
 				if (biome instanceof LOTRBiome)
 				{
@@ -274,7 +274,7 @@ public class LOTRWorldProvider extends WorldProvider
 		fogR /= (double)l;
 		fogG /= (double)l;
 		fogB /= (double)l;
-        return worldObj.getWorldVec3Pool().getVecFromPool(fogR, fogG, fogB);
+        return Vec3.createVectorHelper(fogR, fogG, fogB);
     }
 
     @Override

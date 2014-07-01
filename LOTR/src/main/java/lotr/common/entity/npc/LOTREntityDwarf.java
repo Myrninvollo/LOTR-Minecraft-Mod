@@ -281,10 +281,10 @@ public class LOTREntityDwarf extends LOTREntityNPC
 			{
 				for (int i = 0; i < 5; i++)
 				{
-					Vec3 vec1 = worldObj.getWorldVec3Pool().getVecFromPool(((double)rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+					Vec3 vec1 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
 					vec1.rotateAroundX(-rotationPitch * (float)Math.PI / 180F);
 					vec1.rotateAroundY(-rotationYaw * (float)Math.PI / 180F);
-					Vec3 vec2 = worldObj.getWorldVec3Pool().getVecFromPool(((double)rand.nextFloat() - 0.5D) * 0.3D, (double)(-rand.nextFloat()) * 0.6D - 0.3D, 0.6D);
+					Vec3 vec2 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.3D, (double)(-rand.nextFloat()) * 0.6D - 0.3D, 0.6D);
 					vec2.rotateAroundX(-rotationPitch * (float)Math.PI / 180F);
 					vec2.rotateAroundY(-rotationYaw * (float)Math.PI / 180F);
 					vec2 = vec2.addVector(posX, posY + (double)getEyeHeight(), posZ);

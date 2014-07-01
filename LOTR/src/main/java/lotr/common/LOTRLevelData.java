@@ -1624,7 +1624,7 @@ public class LOTRLevelData
 	{
 		((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.clearMap", Unpooled.buffer(0)));
 		
-		boolean isOp = MinecraftServer.getServer().getConfigurationManager().isPlayerOpped(entityplayer.getCommandSenderName());
+		boolean isOp = MinecraftServer.getServer().getConfigurationManager().func_152596_g(entityplayer.getGameProfile());
 		
 		for (int i = 0; i < world.playerEntities.size(); i++)
 		{

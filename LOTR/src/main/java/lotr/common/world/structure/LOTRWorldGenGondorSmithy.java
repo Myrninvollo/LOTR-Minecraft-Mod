@@ -72,7 +72,7 @@ public class LOTRWorldGenGondorSmithy extends LOTRWorldGenStructureBase
 				}
 			}
 			
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 3D, 6D).expand(5D, 3D, 6D));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 3D, 6D).expand(5D, 3D, 6D));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();
@@ -273,7 +273,7 @@ public class LOTRWorldGenGondorSmithy extends LOTRWorldGenStructureBase
 				}
 			}
 			
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).offset(-6D, 3D, 0D).expand(6D, 3D, 5D));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).offset(-6D, 3D, 0D).expand(6D, 3D, 5D));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();
@@ -474,7 +474,7 @@ public class LOTRWorldGenGondorSmithy extends LOTRWorldGenStructureBase
 				}
 			}
 			
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 3D, -6D).expand(5D, 3D, 6D));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).offset(0D, 3D, -6D).expand(5D, 3D, 6D));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();
@@ -675,7 +675,7 @@ public class LOTRWorldGenGondorSmithy extends LOTRWorldGenStructureBase
 				}
 			}
 			
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).offset(6D, 3D, 0D).expand(6D, 3D, 5D));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).offset(6D, 3D, 0D).expand(6D, 3D, 5D));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();

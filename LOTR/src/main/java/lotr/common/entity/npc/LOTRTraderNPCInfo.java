@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 
 public class LOTRTraderNPCInfo
@@ -122,7 +123,7 @@ public class LOTRTraderNPCInfo
 			ByteBuf data = Unpooled.buffer();
 			NBTTagCompound nbt = new NBTTagCompound();
 			writeToNBT(nbt);
-			writeNBTTagCompound(nbt, data);
+			new PacketBuffer(data).writeNBTTagCompoundToBuffer(nbt);
 			Packet packet = new S3FPacketCustomPayload("lotr.trades", data);
 			
 			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
@@ -138,7 +139,7 @@ public class LOTRTraderNPCInfo
 		try
 		{
 			ByteBuf data = Unpooled.wrappedBuffer(packet.func_149168_d());
-			NBTTagCompound nbt = readNBTTagCompound(data);
+			NBTTagCompound nbt = new PacketBuffer(data).readNBTTagCompoundFromBuffer();
 			readFromNBT(nbt);
 		}
 		catch (Exception e)
@@ -146,33 +147,4 @@ public class LOTRTraderNPCInfo
 			e.printStackTrace();
 		}
 	}
-	
-    private static NBTTagCompound readNBTTagCompound(ByteBuf data) throws IOException
-    {
-        int length = data.readShort();
-        if (length < 0)
-        {
-            return null;
-        }
-        else
-        {
-            byte[] bytes = new byte[length];
-            data.readBytes(bytes);
-            return CompressedStreamTools.decompress(bytes);
-        }
-    }
-
-    private static void writeNBTTagCompound(NBTTagCompound nbt, ByteBuf data) throws IOException
-    {
-        if (nbt == null)
-        {
-            data.writeInt(-1);
-        }
-        else
-        {
-            byte[] bytes = CompressedStreamTools.compress(nbt);
-            data.writeShort((short)bytes.length);
-            data.writeBytes(bytes);
-        }
-    }
 }

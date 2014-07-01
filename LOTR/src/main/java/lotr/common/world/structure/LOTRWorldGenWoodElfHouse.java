@@ -86,12 +86,6 @@ public class LOTRWorldGenWoodElfHouse extends LOTRWorldGenStructureBase
 					}
 				}
 			}
-			
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).expand(5D, 5D, 5D));
-			for (Object obj : intersectingCreatures)
-			{
-				((EntityLiving)obj).setDead();
-			}
 		}
 		else
 		{

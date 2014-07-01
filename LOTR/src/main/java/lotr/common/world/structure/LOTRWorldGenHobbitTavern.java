@@ -303,7 +303,7 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 	{
 		if (restrictions)
 		{
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).expand(11D, 6D, 8D));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).expand(11D, 6D, 8D));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();
@@ -585,7 +585,7 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 	{
 		if (restrictions)
 		{
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).expand(8D, 6D, 11D));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).expand(8D, 6D, 11D));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();
@@ -867,7 +867,7 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 	{
 		if (restrictions)
 		{
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).expand(11D, 6D, 8D));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).expand(11D, 6D, 8D));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();
@@ -1149,7 +1149,7 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 	{
 		if (restrictions)
 		{
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1D, j + 1D, k + 1D).expand(8D, 6D, 11D));
+			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).expand(8D, 6D, 11D));
 			for (Object obj : intersectingCreatures)
 			{
 				((EntityLiving)obj).setDead();

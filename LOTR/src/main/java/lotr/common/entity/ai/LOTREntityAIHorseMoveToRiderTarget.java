@@ -128,7 +128,7 @@ public class LOTREntityAIHorseMoveToRiderTarget extends EntityAIBase
 			double d = target.getDistanceSq(i, j, k);
             if (d > (double)(min * min) && d < (double)(max * max))
             {
-                return rider.worldObj.getWorldVec3Pool().getVecFromPool((double)i, (double)j, (double)k);
+                return Vec3.createVectorHelper((double)i, (double)j, (double)k);
             }
         }
 

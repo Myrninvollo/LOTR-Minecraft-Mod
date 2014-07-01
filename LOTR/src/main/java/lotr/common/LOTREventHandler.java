@@ -495,7 +495,7 @@ public class LOTREventHandler implements IFuelHandler
 		
 		if (!world.isRemote && entityplayer != null && !entityplayer.capabilities.isCreativeMode && block.isWood(world, i, j, k))
 		{
-			List trees = world.getEntitiesWithinAABB(LOTREntityTree.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1, j + 1, k + 1).expand(16D, 16D, 16D));
+			List trees = world.getEntitiesWithinAABB(LOTREntityTree.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 1, k + 1).expand(16D, 16D, 16D));
 			if (!trees.isEmpty())
 			{
 				boolean sentMessage = false;

@@ -21,6 +21,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
@@ -614,7 +615,8 @@ public class LOTRGuiMap extends LOTRGui
     {
 		if (mc.isSingleplayer())
 		{
-			isPlayerOp = mc.getIntegratedServer().getConfigurationManager().isPlayerOpped(mc.thePlayer.getCommandSenderName());
+			MinecraftServer server = mc.getIntegratedServer();
+			isPlayerOp = server.worldServers[0].getWorldInfo().areCommandsAllowed() && server.getServerOwner().equalsIgnoreCase(mc.thePlayer.getGameProfile().getName());
 		}
 		else
 		{

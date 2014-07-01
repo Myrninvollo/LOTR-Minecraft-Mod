@@ -292,7 +292,7 @@ public class LOTRHiredNPCInfo
 				
 				float f = theEntity.width / 2F;
 				float f1 = theEntity.height;
-				AxisAlignedBB npcBoundingBox = AxisAlignedBB.getAABBPool().getAABB(entityplayer.posX - (double)f, entityplayer.posY - (double)theEntity.yOffset + (double)theEntity.ySize, entityplayer.posZ - (double)f, entityplayer.posX + (double)f, entityplayer.posY - (double)theEntity.yOffset + (double)theEntity.ySize + (double)f1, entityplayer.posZ + (double)f);
+				AxisAlignedBB npcBoundingBox = AxisAlignedBB.getBoundingBox(entityplayer.posX - (double)f, entityplayer.posY - (double)theEntity.yOffset + (double)theEntity.ySize, entityplayer.posZ - (double)f, entityplayer.posX + (double)f, entityplayer.posY - (double)theEntity.yOffset + (double)theEntity.ySize + (double)f1, entityplayer.posZ + (double)f);
 				
 				if (theEntity.worldObj.func_147461_a(npcBoundingBox).isEmpty() && theEntity.worldObj.getBlock(i, j - 1, k).isSideSolid(theEntity.worldObj, i, j - 1, k, ForgeDirection.UP))
 				{
@@ -301,7 +301,7 @@ public class LOTRHiredNPCInfo
 						EntityLiving mount = (EntityLiving)theEntity.ridingEntity;
 						float f2 = mount.width / 2F;
 						float f3 = mount.height;
-						AxisAlignedBB mountBoundingBox = AxisAlignedBB.getAABBPool().getAABB(entityplayer.posX - (double)f2, entityplayer.posY - (double)mount.yOffset + (double)mount.ySize, entityplayer.posZ - (double)f2, entityplayer.posX + (double)f2, entityplayer.posY - (double)mount.yOffset + (double)mount.ySize + (double)f3, entityplayer.posZ + (double)f2);
+						AxisAlignedBB mountBoundingBox = AxisAlignedBB.getBoundingBox(entityplayer.posX - (double)f2, entityplayer.posY - (double)mount.yOffset + (double)mount.ySize, entityplayer.posZ - (double)f2, entityplayer.posX + (double)f2, entityplayer.posY - (double)mount.yOffset + (double)mount.ySize + (double)f3, entityplayer.posZ + (double)f2);
 						
 						if (theEntity.worldObj.func_147461_a(mountBoundingBox).isEmpty() && theEntity.worldObj.getBlock(i, j - 1, k).isSideSolid(theEntity.worldObj, i, j - 1, k, ForgeDirection.UP))
 						{

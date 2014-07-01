@@ -71,7 +71,7 @@ public class LOTRItemCommandSword extends LOTRItemSword
 	private Entity getEntityTarget(EntityPlayer entityplayer)
 	{
 		double range = 64D;
-		Vec3 position = entityplayer.worldObj.getWorldVec3Pool().getVecFromPool(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
+		Vec3 position = Vec3.createVectorHelper(entityplayer.posX, entityplayer.posY, entityplayer.posZ);
 		Vec3 look = entityplayer.getLookVec();
 		Vec3 sight = position.addVector(look.xCoord * range, look.yCoord * range, look.zCoord * range);
 		float sightWidth = 1F;

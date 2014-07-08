@@ -2,8 +2,11 @@ package lotr.common.entity.npc;
 
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRMod;
+import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
+import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -12,6 +15,11 @@ public class LOTREntityNearHaradrimWarrior extends LOTREntityNearHaradrim
 	public LOTREntityNearHaradrimWarrior(World world)
 	{
 		super(world);
+		targetTasks.taskEntries.clear();
+		targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
+        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
+        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
+        addTargetTasks(4);
 		spawnRidingHorse = rand.nextInt(6) == 0;
 	}
 	

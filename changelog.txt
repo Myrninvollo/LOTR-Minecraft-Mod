@@ -1,3 +1,10 @@
+Public Beta 18.1
+
++ Updated the Croatian translation
+
+* Fixed a bug where hired Near Haradrim warriors would not respond to combat situations involving their hiring player
+* Fixed the blue mountains armour achievement displaying the wrong name and description
+
 Public Beta 18
 
 + Updated for Minecraft 1.7.10

@@ -567,7 +567,7 @@ public class LOTRAchievement implements Comparable
 		alignmentGood1000_BLUE_MOUNTAINS = new LOTRAchievement(BLUE_MOUNTAINS, 3, LOTRMod.goldRing, "alignmentGood1000_BLUE_MOUNTAINS").setRequiresAlly(LOTRFaction.BLUE_MOUNTAINS).setSpecial();
 		smeltBlueDwarfSteel = new LOTRAchievement(BLUE_MOUNTAINS, 4, LOTRMod.blueDwarfSteel, "smeltBlueDwarfSteel");
 		killBlueDwarf = new LOTRAchievement(BLUE_MOUNTAINS, 5, LOTRMod.dwarfBone, "killBlueDwarf").setRequiresEnemy(LOTRFaction.BLUE_MOUNTAINS);
-		wearFullBlueDwarven = new LOTRAchievement(BLUE_MOUNTAINS, 6, LOTRMod.bodyBlueDwarven, "wearFullDwarven");
+		wearFullBlueDwarven = new LOTRAchievement(BLUE_MOUNTAINS, 6, LOTRMod.bodyBlueDwarven, "wearFullBlueDwarven");
 		useBlueDwarvenTable = new LOTRAchievement(BLUE_MOUNTAINS, 7, LOTRMod.blueDwarvenTable, "useBlueDwarvenTable").setRequiresAlly(LOTRFaction.BLUE_MOUNTAINS);
 		tradeBlueDwarfMiner = new LOTRAchievement(BLUE_MOUNTAINS, 8, LOTRMod.silverCoin, "tradeBlueDwarfMiner").setRequiresAlly(LOTRFaction.BLUE_MOUNTAINS);
 		tradeBlueDwarfCommander = new LOTRAchievement(BLUE_MOUNTAINS, 9, LOTRMod.silverCoin, "tradeBlueDwarfCommander").setRequiresAlly(LOTRFaction.BLUE_MOUNTAINS);

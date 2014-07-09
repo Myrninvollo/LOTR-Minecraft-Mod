@@ -103,7 +103,7 @@ public class LOTRBlockOrcTorch extends Block
         }
 
         int l = world.getBlockMetadata(i, j, k);
-        return l == 1 ? world.getBlock(i, j - 1, k) == this : world.getBlock(i, j + 1, k) == this && canPlaceTorchOn(world, i, j, k);
+        return l == 1 ? world.getBlock(i, j - 1, k) == this : world.getBlock(i, j + 1, k) == this && canPlaceTorchOn(world, i, j - 1, k);
     }
 	
 	public static boolean canPlaceTorchOn(World world, int i, int j, int k)

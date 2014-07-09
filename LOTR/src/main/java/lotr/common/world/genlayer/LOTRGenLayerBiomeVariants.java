@@ -210,7 +210,11 @@ public class LOTRGenLayerBiomeVariants extends GenLayer
 				{
 					newBiome = LOTRBiome.rhunForest.biomeID;
 				}
-
+				
+				else if (biome == LOTRBiome.ocean.biomeID && variant < 2)
+				{
+					newBiome = LOTRBiome.island.biomeID;
+				}
 
 				if (newBiome != biome)
 				{

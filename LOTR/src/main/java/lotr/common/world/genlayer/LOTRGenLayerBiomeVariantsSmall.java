@@ -26,7 +26,7 @@ public class LOTRGenLayerBiomeVariantsSmall extends GenLayer
                 int biome = biomes[l1 + 1 + (l + 1) * (xSize + 2)];
 
 				int newBiome = biome;
-
+			
 				if (biome == LOTRBiome.shire.biomeID && nextInt(25) == 1)
 				{
 					newBiome = LOTRBiome.shireOrchard.biomeID;

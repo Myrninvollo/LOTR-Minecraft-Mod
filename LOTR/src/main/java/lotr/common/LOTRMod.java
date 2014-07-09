@@ -47,7 +47,7 @@ import cpw.mods.fml.common.network.FMLEventChannel;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "lotr", name = "The Lord of the Rings Mod", version = "Beta v18.1 for Minecraft 1.7.10")
+@Mod(modid = "lotr", name = "The Lord of the Rings Mod", version = "Beta v18.2 for Minecraft 1.7.10")
 public class LOTRMod
 {
 	@SidedProxy(clientSide = "lotr.client.LOTRClientProxy", serverSide = "lotr.common.LOTRCommonProxy")

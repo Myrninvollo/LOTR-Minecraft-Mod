@@ -312,13 +312,18 @@ public abstract class LOTREntityNPC extends EntityCreature
 		super.setSize(npcWidth * f, npcHeight * f);
 	}
 	
+	protected float getNPCScale()
+	{
+		return isChild() ? 0.5F : 1F;
+	}
+	
 	@Override
 	public void onLivingUpdate()
 	{
 		super.onLivingUpdate();
 		
 		familyInfo.onUpdate();
-		rescaleNPC(isChild() ? 0.5F : 1F);
+		rescaleNPC(getNPCScale());
 		
 		if (!worldObj.isRemote && isEntityAlive() && (isTrader() || hiredNPCInfo.isActive))
 		{

@@ -122,6 +122,12 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
 	}
 	
 	@Override
+	protected float getNPCScale()
+	{
+		return getSpiderScaleAmount();
+	}
+	
+	@Override
 	public void onLivingUpdate()
 	{
 		super.onLivingUpdate();
@@ -129,7 +135,6 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
 		{
 			setBesideClimbableBlock(isCollidedHorizontally);
 		}
-		rescaleNPC(getSpiderScaleAmount());
 	}
 	
 	@Override

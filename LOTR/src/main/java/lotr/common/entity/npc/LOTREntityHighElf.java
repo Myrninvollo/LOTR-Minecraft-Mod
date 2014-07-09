@@ -19,13 +19,6 @@ public class LOTREntityHighElf extends LOTREntityElf
 	{
 		super(world);
 	}
-	
-	@Override
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(26D);
-    }
 
 	@Override
 	public Item getElfSwordId()

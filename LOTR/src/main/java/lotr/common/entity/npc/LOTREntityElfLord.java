@@ -21,13 +21,6 @@ public class LOTREntityElfLord extends LOTREntityElfWarrior implements LOTRUnitT
 	}
 	
 	@Override
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(30D);
-    }
-	
-	@Override
     public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
     {
 		data = super.onSpawnWithEgg(data);

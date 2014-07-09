@@ -21,13 +21,6 @@ public class LOTREntityWoodElfCaptain extends LOTREntityWoodElfWarrior implement
 	}
 	
 	@Override
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(30D);
-    }
-	
-	@Override
     public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
     {
 		data = super.onSpawnWithEgg(data);

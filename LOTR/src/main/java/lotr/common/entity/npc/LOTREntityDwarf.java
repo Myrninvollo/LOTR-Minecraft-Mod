@@ -103,7 +103,7 @@ public class LOTREntityDwarf extends LOTREntityNPC
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20D);
+		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(26D);
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2D);
     }
 	

@@ -1,3 +1,7 @@
+Public Beta 19
+
+* Increased the health of elves and dwarves
+
 Public Beta 18.2
 
 + Added randomly generated islands

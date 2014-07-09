@@ -29,13 +29,6 @@ public class LOTREntityDwarfCommander extends LOTREntityDwarf implements LOTRUni
 	}
 	
 	@Override
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25D);
-    }
-	
-	@Override
     public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
     {
 		data = super.onSpawnWithEgg(data);

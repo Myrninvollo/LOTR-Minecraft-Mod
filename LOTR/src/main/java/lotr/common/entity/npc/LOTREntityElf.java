@@ -85,7 +85,7 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(24D);
+		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(30D);
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2D);
     }
 	

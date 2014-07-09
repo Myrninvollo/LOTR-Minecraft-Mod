@@ -64,13 +64,6 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 		dataWatcher.addObject(21, Integer.valueOf(0));
 	}
 	
-	@Override
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(30D);
-    }
-	
 	private int getEatingTick()
 	{
 		return dataWatcher.getWatchableObjectInt(20);

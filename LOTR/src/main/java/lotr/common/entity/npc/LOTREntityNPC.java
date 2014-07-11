@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTREventHandler;
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
@@ -908,7 +909,17 @@ public abstract class LOTREntityNPC extends EntityCreature
     {
         if ((!spawnsInDarkness || liftSpawnRestrictions || isValidLightLevel()) && super.getCanSpawnHere())
 		{
-			return true;
+        	int i = MathHelper.floor_double(posX);
+            int j = MathHelper.floor_double(boundingBox.minY);
+            int k = MathHelper.floor_double(posZ);
+        	if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, this))
+        	{
+        		return false;
+        	}
+        	else
+        	{
+        		return true;
+        	}
 		}
 		return false;
     }

@@ -1,5 +1,8 @@
 Public Beta 19
 
++ Added two functions for a banner placed on a gold block: prevention of enemy mob spawns, and protection against enemy players breaking or placing blocks, within a 32-block cubic radius
++ Added an updated German translation
+
 * Increased the health of elves and dwarves
 
 Public Beta 18.2

@@ -435,7 +435,7 @@ public class LOTREventHandler implements IFuelHandler
 		}
 	}
 	
-	private boolean isProtectedByBanner(World world, int i, int j, int k, EntityPlayer entityplayer)
+	public static boolean isProtectedByBanner(World world, int i, int j, int k, EntityLivingBase entity)
 	{
 		LOTRFaction protectingEnemyFaction = null;
 		double range = LOTREntityBanner.PROTECTION_RANGE;
@@ -449,8 +449,16 @@ public class LOTREventHandler implements IFuelHandler
 				if (banner.isProtectingTerritory())
 				{
 					LOTRFaction faction = banner.getBannerFaction();
-					int alignment = LOTRLevelData.getAlignment(entityplayer, faction);
-					if (alignment < 0)
+					if (entity instanceof EntityPlayer)
+					{
+						int alignment = LOTRLevelData.getAlignment((EntityPlayer)entity, faction);
+						if (alignment < 0)
+						{
+							protectingEnemyFaction = faction;
+							break bannerSearch;
+						}
+					}
+					else if (LOTRMod.getNPCFaction(entity).isEnemy(faction))
 					{
 						protectingEnemyFaction = faction;
 						break bannerSearch;
@@ -461,7 +469,10 @@ public class LOTREventHandler implements IFuelHandler
 		
 		if (protectingEnemyFaction != null)
 		{
-			entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLand", new Object[] {protectingEnemyFaction.factionName()}));
+			if (entity instanceof EntityPlayer)
+			{
+				((EntityPlayer)entity).addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLand", new Object[] {protectingEnemyFaction.factionName()}));
+			}
 			return true;
 		}
 		else

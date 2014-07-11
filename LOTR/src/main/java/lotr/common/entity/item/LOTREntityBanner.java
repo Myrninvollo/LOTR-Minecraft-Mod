@@ -1,6 +1,8 @@
 package lotr.common.entity.item;
 
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
+import lotr.common.item.LOTRItemBanner;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +17,8 @@ import net.minecraft.world.World;
 
 public class LOTREntityBanner extends Entity
 {
+	public static double PROTECTION_RANGE = 32D;
+	
 	public LOTREntityBanner(World world)
 	{
 		super(world);
@@ -35,6 +39,24 @@ public class LOTREntityBanner extends Entity
 	public void setBannerType(int i)
 	{
 		dataWatcher.updateObject(18, Byte.valueOf((byte)i));
+	}
+	
+	public LOTRFaction getBannerFaction()
+	{
+		int i = getBannerType();
+		if (i < 0 || i >= LOTRItemBanner.factions.length)
+		{
+			i = 0;
+		}
+		return LOTRItemBanner.factions[i];
+	}
+	
+	public boolean isProtectingTerritory()
+	{
+		int i = MathHelper.floor_double(posX);
+		int j = MathHelper.floor_double(boundingBox.minY);
+		int k = MathHelper.floor_double(posZ);
+		return worldObj.getBlock(i, j - 1, k) == Blocks.gold_block;
 	}
 	
 	@Override

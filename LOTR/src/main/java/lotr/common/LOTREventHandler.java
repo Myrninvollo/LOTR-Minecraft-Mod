@@ -11,6 +11,7 @@ import lotr.common.entity.LOTREntityRegistry.RegistryInfo;
 import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetBasic;
 import lotr.common.entity.animal.LOTREntityButterfly;
 import lotr.common.entity.animal.LOTREntityZebra;
+import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.item.LOTREntityTraderRespawn;
 import lotr.common.entity.item.LOTREntityWargskinRug;
 import lotr.common.entity.npc.*;
@@ -54,6 +55,7 @@ import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -433,6 +435,41 @@ public class LOTREventHandler implements IFuelHandler
 		}
 	}
 	
+	private boolean isProtectedByBanner(World world, int i, int j, int k, EntityPlayer entityplayer)
+	{
+		LOTRFaction protectingEnemyFaction = null;
+		double range = LOTREntityBanner.PROTECTION_RANGE;
+		List banners = world.getEntitiesWithinAABB(LOTREntityBanner.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 1, k + 1).expand(range, range, range));
+		if (!banners.isEmpty())
+		{
+			bannerSearch:
+			for (int l = 0; l < banners.size(); l++)
+			{
+				LOTREntityBanner banner = (LOTREntityBanner)banners.get(l);
+				if (banner.isProtectingTerritory())
+				{
+					LOTRFaction faction = banner.getBannerFaction();
+					int alignment = LOTRLevelData.getAlignment(entityplayer, faction);
+					if (alignment < 0)
+					{
+						protectingEnemyFaction = faction;
+						break bannerSearch;
+					}
+				}
+			}
+		}
+		
+		if (protectingEnemyFaction != null)
+		{
+			entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLand", new Object[] {protectingEnemyFaction.factionName()}));
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	@SubscribeEvent
 	public void onBlockInteract(PlayerInteractEvent event)
 	{
@@ -455,6 +492,12 @@ public class LOTREventHandler implements IFuelHandler
 		
 		if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
 		{
+			if (!world.isRemote && isProtectedByBanner(world, i, j, k, entityplayer))
+			{
+				event.setCanceled(true);
+				return;
+			}
+			
 			if (world.getBlock(i, j, k) == Blocks.flower_pot && world.getBlockMetadata(i, j, k) == 0 && itemstack != null && LOTRBlockFlowerPot.canAcceptPlant(itemstack))
 			{
 				LOTRMod.proxy.placeFlowerInPot(world, i, j, k, side, itemstack);
@@ -492,6 +535,12 @@ public class LOTREventHandler implements IFuelHandler
 		int i = event.x;
 		int j = event.y;
 		int k = event.z;
+		
+		if (!world.isRemote && isProtectedByBanner(world, i, j, k, entityplayer))
+		{
+			event.setCanceled(true);
+			return;
+		}
 		
 		if (!world.isRemote && entityplayer != null && !entityplayer.capabilities.isCreativeMode && block.isWood(world, i, j, k))
 		{

@@ -1257,6 +1257,7 @@ chat.lotr.spawnStructure.banned=You are banned from spawning structures
 chat.lotr.spawnStructure.wait=You must wait %d seconds before spawning another structure
 chat.lotr.mountOwnedByNPC=This mount was owned by an NPC - you cannot interact with it
 chat.lotr.alignmentRewardItem=Congratulations on reaching %d alignment with the %s faction! Visit a unit trader to claim your reward
+chat.lotr.protectedLand=This land is under the protection of %s!
 
 commands.lotr.alignment.usage=/alignment <set|add> <faction> <amount> [player]
 commands.lotr.alignment.noFaction=No faction with name %s

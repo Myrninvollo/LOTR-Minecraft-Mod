@@ -9,12 +9,15 @@ import lotr.common.LOTRMod;
 import lotr.common.tileentity.LOTRTileEntityBeacon;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockTorch;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -103,10 +106,13 @@ public class LOTRBlockBeacon extends BlockContainer
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int side, float f, float f1, float f2)
     {
 		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
-        if (itemstack != null && itemstack.getItem() == Items.flint_and_steel && !isLit(world, i, j, k) && world.getBlock(i, j + 1, k).getMaterial() != Material.water)
+        if (canItemLightBeacon(itemstack) && !isLit(world, i, j, k) && world.getBlock(i, j + 1, k).getMaterial() != Material.water)
         {
 			world.playSoundEffect((double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D, "fire.ignite", 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
-			itemstack.damageItem(1, entityplayer);
+			if (itemstack.getItem().isDamageable())
+			{
+				itemstack.damageItem(1, entityplayer);
+			}
 			if (!world.isRemote)
 			{
 				setLit(world, i, j, k, true);
@@ -131,6 +137,16 @@ public class LOTRBlockBeacon extends BlockContainer
 		}
 		return false;
     }
+	
+	private boolean canItemLightBeacon(ItemStack itemstack)
+	{
+		if (itemstack == null)
+		{
+			return false;
+		}
+		Item item = itemstack.getItem();
+		return item == Items.flint_and_steel || (item instanceof ItemBlock && ((ItemBlock)item).field_150939_a instanceof BlockTorch);
+	}
 	
 	@Override
 	public int getLightValue(IBlockAccess world, int i, int j, int k)

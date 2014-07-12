@@ -24,6 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class LOTRBiomeGenBlueMountains extends LOTRBiome
 {
+	private WorldGenerator blueRockVein = new WorldGenMinable(LOTRMod.rock, 3, 60, Blocks.stone);
 	private WorldGenerator additionalIronGen = new WorldGenMinable(Blocks.iron_ore, 4);
 	private WorldGenerator additionalCoalGen = new WorldGenMinable(Blocks.coal_ore, 8);
 	
@@ -77,6 +78,7 @@ public class LOTRBiomeGenBlueMountains extends LOTRBiome
 	@Override
     public void decorate(World world, Random random, int i, int k)
     {
+		genStandardOre(world, random, i, k, 6, blueRockVein, 0, 96);
 		genStandardOre(world, random, i, k, 10, additionalCoalGen, 0, 128);
 		genStandardOre(world, random, i, k, 10, additionalIronGen, 0, 96);
 

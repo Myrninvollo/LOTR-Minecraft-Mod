@@ -1,9 +1,12 @@
 Public Beta 19
 
 + Added two functions for a banner placed on a gold block: prevention of enemy mob spawns, and protection against enemy players breaking or placing blocks, within a 32-block cubic radius
++ Added Sarlluin and Sarncaran deposits underground within their respective biomes
++ Added the ability to light Beacons of Gondor with torches
 + Added an updated German translation
 
 * Increased the health of elves and dwarves
+* Fixed skeletal wraiths falling through the ground
 
 Public Beta 18.2
 

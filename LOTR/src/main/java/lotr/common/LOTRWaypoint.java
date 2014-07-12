@@ -701,5 +701,20 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 				}
 			}
 		}
+		
+		public static int getMaxAvailableToPlayer(EntityPlayer entityplayer)
+		{
+			int achievements = 0;
+			Iterator it = LOTRLevelData.getPlayerAchievements(entityplayer).iterator();
+			while (it.hasNext())
+			{
+				LOTRAchievement achievement = (LOTRAchievement)it.next();
+				if (achievement.canPlayerEarn(entityplayer))
+				{
+					achievements++;
+				}
+			}
+			return 20 + achievements / 5;
+		}
 	}
 }

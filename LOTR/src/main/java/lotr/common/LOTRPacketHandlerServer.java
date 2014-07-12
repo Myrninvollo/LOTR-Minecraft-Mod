@@ -832,7 +832,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 					String waypointName = data.toString(data.readerIndex(), stringLength, Charsets.UTF_8);
 					
 					int waypoints = LOTRWaypoint.Custom.getWaypointList(entityplayer).size();
-					if (waypoints <= LOTRWaypoint.Custom.MAX_CUSTOM)
+					if (waypoints <= LOTRWaypoint.Custom.getMaxAvailableToPlayer(entityplayer))
 					{
 						LOTRWaypoint.Custom.addCustomWaypoint(entityplayer, new LOTRWaypoint.Custom(waypointName, entityplayer.posX, entityplayer.posZ));
 					}

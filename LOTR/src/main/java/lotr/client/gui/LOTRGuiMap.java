@@ -516,7 +516,7 @@ public class LOTRGuiMap extends LOTRGui
 				hasOverlay = true;
 				
 				int waypoints = LOTRWaypoint.Custom.getWaypointList(mc.thePlayer).size();
-				int maxWaypoints = LOTRWaypoint.Custom.MAX_CUSTOM;
+				int maxWaypoints = LOTRWaypoint.Custom.getMaxAvailableToPlayer(mc.thePlayer);
 				int remaining = maxWaypoints - waypoints;
 				if (remaining <= 0)
 				{
@@ -525,7 +525,13 @@ public class LOTRGuiMap extends LOTRGui
 						StatCollector.translateToLocalFormatted("lotr.gui.map.customWaypoint.allUsed.1", new Object[] {maxWaypoints}),
 						"",
 						StatCollector.translateToLocal("lotr.gui.map.customWaypoint.allUsed.2"),
-						StatCollector.translateToLocal("lotr.gui.map.customWaypoint.allUsed.3")
+						StatCollector.translateToLocal("lotr.gui.map.customWaypoint.allUsed.3"),
+						"",
+						"",
+						"",
+						"",
+						StatCollector.translateToLocalFormatted("lotr.gui.map.customWaypoint.unlockMore.1"),
+						StatCollector.translateToLocalFormatted("lotr.gui.map.customWaypoint.unlockMore.2")
 					};
 				}
 				else
@@ -536,7 +542,13 @@ public class LOTRGuiMap extends LOTRGui
 						StatCollector.translateToLocalFormatted("lotr.gui.map.customWaypoint.canCreate.2", new Object[] {remaining}),
 						"",
 						StatCollector.translateToLocalFormatted("lotr.gui.map.customWaypoint.canCreate.3", new Object[] {GameSettings.getKeyDisplayString(Keyboard.KEY_RETURN)}),
-						StatCollector.translateToLocal("lotr.gui.map.customWaypoint.canCreate.4")
+						StatCollector.translateToLocal("lotr.gui.map.customWaypoint.canCreate.4"),
+						"",
+						"",
+						"",
+						"",
+						StatCollector.translateToLocalFormatted("lotr.gui.map.customWaypoint.unlockMore.1"),
+						StatCollector.translateToLocalFormatted("lotr.gui.map.customWaypoint.unlockMore.2")
 					};
 					canCreateWaypoint = true;
 				}

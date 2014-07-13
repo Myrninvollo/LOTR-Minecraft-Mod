@@ -18,7 +18,7 @@ public class LOTREntityGondorArcher extends LOTREntityGondorSoldier implements I
 	}
 	
 	@Override
-	public EntityAIBase getGondorSoldierAttackAI()
+	public EntityAIBase createGondorAttackAI()
 	{
 		return new EntityAIArrowAttack(this, 1.25D, 30, 50, 16F);
 	}

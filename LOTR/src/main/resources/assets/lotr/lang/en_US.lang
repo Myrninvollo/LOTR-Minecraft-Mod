@@ -856,6 +856,10 @@ entity.lotr.RohirrimArcher.entityName=%s, Archer of the Rohirrim
 entity.lotr.RohirrimMarshal.entityName=%s, Marshal of the Rohirrim
 entity.lotr.NearHaradrim.entityName=%s of Near Harad
 
+entity.lotr.HobbitBartender.locationName=%s's Tavern
+entity.lotr.DunlendingBartender.locationName=%s's Tavern
+entity.lotr.RohanMeadhost.locationName=%s's Hall
+
 entity.lotr.Horse.name=Horse
 entity.lotr.Hobbit.name=Hobbit
 entity.lotr.MordorOrc.name=Mordor Orc

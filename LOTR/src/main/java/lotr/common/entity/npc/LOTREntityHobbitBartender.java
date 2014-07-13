@@ -16,15 +16,8 @@ public class LOTREntityHobbitBartender extends LOTREntityHobbit implements LOTRT
 	public LOTREntityHobbitBartender(World world)
 	{
 		super(world);
-		String name = getHobbitName();
-		if (name.endsWith("s"))
-		{
-			npcLocationName = name + "' Tavern";
-		}
-		else
-		{
-			npcLocationName = name + "'s Tavern";
-		}
+
+		npcLocationName = "entity.lotr.HobbitBartender.locationName";
 		
 		if (!worldObj.isRemote)
 		{

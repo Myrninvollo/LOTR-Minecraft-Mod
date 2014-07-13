@@ -19,7 +19,7 @@ public class LOTREntityRohirrimArcher extends LOTREntityRohirrim implements IRan
 	}
 	
 	@Override
-	public EntityAIBase getRohirrimAttackAI()
+	public EntityAIBase createRohanAttackAI()
 	{
 		return new EntityAIArrowAttack(this, 1.25D, 30, 50, 16F);
 	}

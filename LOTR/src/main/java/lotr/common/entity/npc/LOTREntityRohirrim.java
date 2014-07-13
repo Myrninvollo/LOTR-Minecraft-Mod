@@ -2,8 +2,11 @@ package lotr.common.entity.npc;
 
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRAlignmentValues;
+import lotr.common.LOTRFoods;
 import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
+import lotr.common.entity.ai.LOTREntityAIDrink;
+import lotr.common.entity.ai.LOTREntityAIEat;
 import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
@@ -33,18 +36,6 @@ public class LOTREntityRohirrim extends LOTREntityRohanMan
 	public LOTREntityRohirrim(World world)
 	{
 		super(world);
-		getNavigator().setAvoidsWater(true);
-		getNavigator().setBreakDoors(true);
-        tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new LOTREntityAIHiredRemainStill(this));
-		tasks.addTask(2, getRohirrimAttackAI());
-		tasks.addTask(3, new LOTREntityAIFollowHiringPlayer(this));
-		tasks.addTask(4, new EntityAIOpenDoor(this, true));
-        tasks.addTask(5, new EntityAIWander(this, 1D));
-        tasks.addTask(6, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.1F));
-        tasks.addTask(6, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
-        tasks.addTask(7, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
-        tasks.addTask(8, new EntityAILookIdle(this));
         targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
         targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
         targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
@@ -53,7 +44,8 @@ public class LOTREntityRohirrim extends LOTREntityRohanMan
 		spawnCountValue = 3;
 	}
 	
-	public EntityAIBase getRohirrimAttackAI()
+	@Override
+	public EntityAIBase createRohanAttackAI()
 	{
 		return new LOTREntityAIAttackOnCollide(this, 1.45D, false).setSpearReplacement(LOTRMod.swordRohan);
 	}

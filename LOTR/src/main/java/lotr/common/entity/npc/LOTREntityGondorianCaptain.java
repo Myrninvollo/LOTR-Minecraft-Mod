@@ -23,7 +23,7 @@ public class LOTREntityGondorianCaptain extends LOTREntityGondorSoldier implemen
 	}
 	
 	@Override
-	public EntityAIBase getGondorSoldierAttackAI()
+	public EntityAIBase createGondorAttackAI()
 	{
 		return new LOTREntityAIAttackOnCollide(this, 1.6D, false);
 	}

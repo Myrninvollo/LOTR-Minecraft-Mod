@@ -977,7 +977,14 @@ public abstract class LOTREntityNPC extends EntityCreature
 			{
 				if (npcLocationName != null)
 				{
-					entityplayer.addChatMessage(LOTRSpeech.getNamedLocationSpeechForPlayer(this, npcLocationName, speechBank, entityplayer));
+					String displayLocationName = npcLocationName;
+
+					if (!hasSpecificLocationName)
+					{
+						displayLocationName = StatCollector.translateToLocalFormatted(displayLocationName, new Object[] {getNPCName()});
+					}
+					
+					entityplayer.addChatMessage(LOTRSpeech.getNamedLocationSpeechForPlayer(this, displayLocationName, speechBank, entityplayer));
 				}
 				else
 				{

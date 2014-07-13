@@ -50,6 +50,16 @@ public class LOTRFoods
 		new ItemStack(LOTRMod.rabbitCooked)
 	});
 	
+	public static LOTRFoods ROHAN_DRINK = new LOTRFoods(new ItemStack[]
+	{
+		new ItemStack(LOTRMod.mugMead),
+		new ItemStack(LOTRMod.mugMead),
+		new ItemStack(LOTRMod.mugMead),
+		new ItemStack(LOTRMod.mugAle),
+		new ItemStack(LOTRMod.mugCider),
+		new ItemStack(LOTRMod.mugPerry)
+	});
+	
 	public static LOTRFoods GONDOR = new LOTRFoods(new ItemStack[]
 	{
 		new ItemStack(Items.porkchop),
@@ -60,6 +70,16 @@ public class LOTRFoods
 		new ItemStack(LOTRMod.pear),
 		new ItemStack(Items.bread),
 		new ItemStack(LOTRMod.rabbitCooked)
+	});
+	
+	public static LOTRFoods GONDOR_DRINK = new LOTRFoods(new ItemStack[]
+	{
+		new ItemStack(LOTRMod.mugAle),
+		new ItemStack(LOTRMod.mugAle),
+		new ItemStack(LOTRMod.mugAle),
+		new ItemStack(LOTRMod.mugMead),
+		new ItemStack(LOTRMod.mugCider),
+		new ItemStack(LOTRMod.mugPerry)
 	});
 	
 	public static LOTRFoods DWARF = new LOTRFoods(new ItemStack[]

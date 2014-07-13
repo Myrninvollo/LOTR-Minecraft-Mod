@@ -20,15 +20,8 @@ public class LOTREntityDunlendingBartender extends LOTREntityDunlending implemen
 		super(world);
 		targetTasks.taskEntries.clear();
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		String name = getDunlendingName();
-		if (name.endsWith("s"))
-		{
-			npcLocationName = name + "' Tavern";
-		}
-		else
-		{
-			npcLocationName = name + "'s Tavern";
-		}
+
+		npcLocationName = "entity.lotr.DunlendingBartender.locationName";
 		
 		if (!worldObj.isRemote)
 		{

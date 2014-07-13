@@ -6,9 +6,12 @@ import lotr.common.LOTRFoods;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
+import lotr.common.entity.ai.LOTREntityAIDrink;
+import lotr.common.entity.ai.LOTREntityAIEat;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
@@ -27,32 +30,21 @@ public class LOTREntityRohanMeadhost extends LOTREntityRohanMan implements LOTRT
 	public LOTREntityRohanMeadhost(World world)
 	{
 		super(world);
-		getNavigator().setAvoidsWater(true);
-		getNavigator().setBreakDoors(true);
-        tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new LOTREntityAIAttackOnCollide(this, 1.25D, false));
-		tasks.addTask(2, new EntityAIOpenDoor(this, true));
-        tasks.addTask(3, new EntityAIWander(this, 1D));
-        tasks.addTask(4, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.1F));
-        tasks.addTask(4, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
-        tasks.addTask(5, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
-        tasks.addTask(6, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		String name = getRohanName();
-		if (name.endsWith("s"))
-		{
-			npcLocationName = name + "' Mead Hall";
-		}
-		else
-		{
-			npcLocationName = name + "'s Mead Hall";
-		}
+		
+		npcLocationName = "entity.lotr.RohanMeadhost.locationName";
 		
 		if (!worldObj.isRemote)
 		{
 			traderNPCInfo.setBuyTrades(LOTRTradeEntry.getRandomTrades(LOTRTradeEntry.ROHAN_MEADHOST_BUY, rand, true));
 			traderNPCInfo.setSellTrades(LOTRTradeEntry.getRandomTrades(LOTRTradeEntry.ROHAN_MEADHOST_SELL, rand, false));
 		}
+	}
+	
+	@Override
+	public EntityAIBase createRohanAttackAI()
+	{
+		return new LOTREntityAIAttackOnCollide(this, 1.3D, false);
 	}
 	
 	@Override

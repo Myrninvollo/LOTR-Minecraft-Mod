@@ -47,7 +47,7 @@ public class LOTRBiomeGenLebennin extends LOTRBiomeGenGondor
     {
         super.decorate(world, random, i, k);
 		
-		if (random.nextInt(30) == 0)
+		if (random.nextInt(24) == 0)
 		{
 			for (int l = 0; l < 3; l++)
 			{
@@ -62,6 +62,10 @@ public class LOTRBiomeGenLebennin extends LOTRBiomeGenGondor
 	@Override
     public WorldGenAbstractTree func_150567_a(Random random)
     {
+		if (random.nextInt(20) == 0)
+		{
+			return LOTRWorldGenSimpleTrees.newMaple(false);
+		}
 		if (random.nextInt(8) == 0)
 		{
 			return random.nextInt(10) == 0 ? LOTRWorldGenBigTrees.newBeech(false) : LOTRWorldGenSimpleTrees.newBeech(false);

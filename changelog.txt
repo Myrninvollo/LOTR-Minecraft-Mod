@@ -4,7 +4,7 @@ Public Beta 19
 + Added more available custom waypoints as a reward for earning Middle-earth achievements
 + Added Ranger Watchtowers
 + Added eating and drinking AI to many more NPCs
-+ Added more orc skins
++ Added more skins for orcs, Uruk-hai, and Gondor Soldiers
 + Added Sarlluin and Sarncaran deposits underground within their respective biomes
 + Added the ability to light Beacons of Gondor with torches
 + Added an updated German translation

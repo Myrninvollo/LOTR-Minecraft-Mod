@@ -6,6 +6,7 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
+import lotr.common.world.feature.LOTRWorldGenLarch;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -64,6 +65,10 @@ public class LOTRBiomeGenRedMountains extends LOTRBiome
 	@Override
     public WorldGenAbstractTree func_150567_a(Random random)
     {
+		if (random.nextInt(4) == 0)
+		{
+			return new LOTRWorldGenLarch(false);
+		}
 		if (random.nextInt(4) > 0)
 		{
 			return new WorldGenTaiga2(false);

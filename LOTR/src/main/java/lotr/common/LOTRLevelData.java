@@ -67,6 +67,7 @@ public class LOTRLevelData
 	public static List nearHaradTowerLocations = new ArrayList();
 	public static List nearHaradFortressLocations = new ArrayList();
 	public static List nearHaradCampLocations = new ArrayList();
+	public static List rangerWatchtowerLocations = new ArrayList();
 	
 	private static Map alignments = new HashMap();
 	private static Map achievements = new HashMap();
@@ -145,6 +146,7 @@ public class LOTRLevelData
 			saveStructureLocations(structureLocations, nearHaradTowerLocations, "NearHaradTower");
 			saveStructureLocations(structureLocations, nearHaradFortressLocations, "NearHaradFortress");
 			saveStructureLocations(structureLocations, nearHaradCampLocations, "NearHaradCamp");
+			saveStructureLocations(structureLocations, rangerWatchtowerLocations, "RangerWatchtower");
 			levelData.setTag("StructureLocations", structureLocations);
 			
 			NBTTagList alignmentTags = new NBTTagList();
@@ -458,6 +460,7 @@ public class LOTRLevelData
 			loadStructureLocations(levelData, nearHaradTowerLocations, "NearHaradTower");
 			loadStructureLocations(levelData, nearHaradFortressLocations, "NearHaradFortress");
 			loadStructureLocations(levelData, nearHaradCampLocations, "NearHaradCamp");
+			loadStructureLocations(levelData, rangerWatchtowerLocations, "RangerWatchtower");
 
 			alignments.clear();
 			NBTTagList alignmentTags = levelData.getTagList("Alignments", new NBTTagCompound().getId());

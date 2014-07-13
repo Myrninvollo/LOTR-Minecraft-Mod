@@ -70,6 +70,7 @@ public class LOTRTickHandlerServer
 		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.nearHaradTowerLocations).setCheckInfo(20, -16, 40, LOTREntityNearHaradrim.class, 12).setSpawnInfo(10, 1, 6, LOTREntityNearHaradrimWarrior.class, LOTREntityNearHaradrimArcher.class, 12).setHomePosFromSpawn().addSpawnBlock(Blocks.sandstone, 2));
 		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.nearHaradFortressLocations).setCheckInfo(20, -8, 12, LOTREntityNearHaradrim.class, 12).setSpawnInfo(8, 1, 2, LOTREntityNearHaradrimWarrior.class, LOTREntityNearHaradrimArcher.class, 12).addSpawnBlock(Blocks.grass).addSpawnBlock(Blocks.sand));
 		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.nearHaradCampLocations).setCheckInfo(20, -12, 12, LOTREntityNearHaradrim.class, 4).setSpawnInfo(8, -4, 4, LOTREntityNearHaradrimWarrior.class, LOTREntityNearHaradrimWarrior.class, 16).addSpawnBlock(Blocks.sand));
+		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.rangerWatchtowerLocations).setCheckInfo(24, -12, 20, LOTREntityRangerNorth.class, 8).setSpawnInfo(4, -4, 4, LOTREntityRangerNorth.class, LOTREntityRangerNorth.class, 16).addSpawnBlock(Blocks.grass));
 	}
 	
 	public static List travellingTraders = new ArrayList();

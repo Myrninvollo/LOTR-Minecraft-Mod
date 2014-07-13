@@ -28,7 +28,6 @@ tile.lotr:planks.6.name=Cherry Wood Planks
 tile.lotr:planks.7.name=Mango Wood Planks
 tile.lotr:planks.8.name=Lebethron Wood Planks
 tile.lotr:planks.9.name=Beech Wood Planks
-tile.lotr:planks.9.name=Beech Wood Planks
 tile.lotr:planks.10.name=Holly Wood Planks
 tile.lotr:planks.11.name=Banana Wood Planks
 tile.lotr:planks.12.name=Maple Wood Planks
@@ -1185,6 +1184,7 @@ lotr.structure.RuinedHouse.name=Ruined House
 lotr.structure.RangerTent.name=Ranger Tent
 lotr.structure.NumenorRuin.name=Númenórean Ruin
 lotr.structure.BDBarrow.name=Barrow-downs Barrow
+lotr.structure.RangerWatchtower.name=Ranger Watchtower
 
 lotr.structure.OrcDungeon.name=Orc Dungeon
 lotr.structure.GundabadTent.name=Gundabad Tent

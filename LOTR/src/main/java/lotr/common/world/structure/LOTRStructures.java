@@ -64,18 +64,19 @@ public class LOTRStructures
 		registerStructure(52, LOTRWorldGenRangerTent.class, "RangerTent", 0x394C1D, 0x3F341F);
 		registerStructure(53, LOTRWorldGenNumenorRuin.class, "NumenorRuin", 0x888888, 0x5C5C5C);
 		registerStructure(54, LOTRWorldGenBDBarrow.class, "BDBarrow", 0x647F5A, 0x63453A);
+		registerStructure(55, LOTRWorldGenRangerWatchtower.class, "RangerWatchtower", 0x5B482C, 0xCCA46C);
 		
-		registerStructure(60, LOTRWorldGenOrcDungeon.class, "OrcDungeon", 0x888888, 0x5C5C5C);
-		registerStructure(61, LOTRWorldGenGundabadTent.class, "GundabadTent", 0x231D1A, 0x020202);
-		registerStructure(62, LOTRWorldGenGundabadForgeTent.class, "GundabadForgeTent", 0x231D1A, 0x020202);
+		registerStructure(80, LOTRWorldGenOrcDungeon.class, "OrcDungeon", 0x888888, 0x5C5C5C);
+		registerStructure(81, LOTRWorldGenGundabadTent.class, "GundabadTent", 0x231D1A, 0x020202);
+		registerStructure(82, LOTRWorldGenGundabadForgeTent.class, "GundabadForgeTent", 0x231D1A, 0x020202);
 		
-		registerStructure(80, LOTRWorldGenAngmarTower.class, "AngmarTower", 0x3A3A3A, 0x191919);
-		registerStructure(81, LOTRWorldGenAngmarShrine.class, "AngmarShrine", 0x3A3A3A, 0x191919);
+		registerStructure(100, LOTRWorldGenAngmarTower.class, "AngmarTower", 0x3A3A3A, 0x191919);
+		registerStructure(101, LOTRWorldGenAngmarShrine.class, "AngmarShrine", 0x3A3A3A, 0x191919);
 		
-		registerStructure(100, LOTRWorldGenWoodElfPlatform.class, "WoodElfLookoutPlatform", 0x262118, 0x4B4335);
-		registerStructure(101, LOTRWorldGenWoodElfHouse.class, "WoodElfHouse", 0x262118, 0x0F541E);
-		registerStructure(102, LOTRWorldGenWoodElfTower.class, "WoodElfTower", 0xA69F93, 0x4B4335);
-		registerStructure(103, LOTRWorldGenRuinedWoodElfTower.class, "RuinedWoodElfTower", 0xA69F93, 0x7A746A);
+		registerStructure(120, LOTRWorldGenWoodElfPlatform.class, "WoodElfLookoutPlatform", 0x262118, 0x4B4335);
+		registerStructure(121, LOTRWorldGenWoodElfHouse.class, "WoodElfHouse", 0x262118, 0x0F541E);
+		registerStructure(122, LOTRWorldGenWoodElfTower.class, "WoodElfTower", 0xA69F93, 0x4B4335);
+		registerStructure(123, LOTRWorldGenRuinedWoodElfTower.class, "RuinedWoodElfTower", 0xA69F93, 0x7A746A);
 		
 		registerStructure(150, LOTRWorldGenDwarvenMineEntrance.class, "DwarvenMineEntrance", 0x44514B, 0x25302C);
 		registerStructure(151, LOTRWorldGenDwarvenTower.class, "DwarvenTower", 0x44514B, 0x25302C);

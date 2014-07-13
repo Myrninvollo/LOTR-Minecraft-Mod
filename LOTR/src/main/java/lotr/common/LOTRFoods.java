@@ -140,6 +140,11 @@ public class LOTRFoods
 		new ItemStack(LOTRMod.mugMiruvor)
 	});
 	
+	public static LOTRFoods WOOD_ELF_DRINK = new LOTRFoods(new ItemStack[]
+	{
+		new ItemStack(LOTRMod.mugRedWine)
+	});
+	
 	public static LOTRFoods NEAR_HARAD = new LOTRFoods(new ItemStack[]
 	{
 		new ItemStack(Items.bread),
@@ -169,6 +174,11 @@ public class LOTRFoods
 	public static LOTRFoods ORC_DRINK = new LOTRFoods(new ItemStack[]
 	{
 		new ItemStack(LOTRMod.mugOrcDraught)
+	});
+	
+	public static LOTRFoods NURN_SLAVE = new LOTRFoods(new ItemStack[]
+	{
+		new ItemStack(LOTRMod.maggotyBread)
 	});
 				
 	private ItemStack[] foodList;

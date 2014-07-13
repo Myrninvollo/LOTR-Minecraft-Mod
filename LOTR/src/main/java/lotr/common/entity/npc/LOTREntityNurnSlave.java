@@ -1,8 +1,10 @@
 package lotr.common.entity.npc;
 
 import lotr.common.LOTRFaction;
+import lotr.common.LOTRFoods;
 import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
+import lotr.common.entity.ai.LOTREntityAIEat;
 import lotr.common.entity.ai.LOTREntityAIFarm;
 import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
 import lotr.common.world.biome.LOTRBiomeGenNurn;
@@ -38,10 +40,11 @@ public class LOTREntityNurnSlave extends LOTREntityNPC
 		tasks.addTask(3, new LOTREntityAIFarm(this, 1D, (IPlantable)Items.wheat_seeds));
 		tasks.addTask(4, new EntityAIOpenDoor(this, true));
         tasks.addTask(5, new EntityAIWander(this, 1D));
-        tasks.addTask(6, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.1F));
-        tasks.addTask(6, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
-        tasks.addTask(7, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
-        tasks.addTask(8, new EntityAILookIdle(this));
+        tasks.addTask(6, new LOTREntityAIEat(this, LOTRFoods.NURN_SLAVE, 8000));
+        tasks.addTask(7, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.1F));
+        tasks.addTask(7, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
+        tasks.addTask(8, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
+        tasks.addTask(9, new EntityAILookIdle(this));
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 	}
 	

@@ -28,8 +28,10 @@ public class LOTREntityHobbitDrunkard extends LOTREntityHobbit
 	}
 	
 	@Override
-	public void onHobbitUpdate()
+	public void onLivingUpdate()
 	{
+		super.onLivingUpdate();
+		
 		if (!worldObj.isRemote)
 		{
 			addPotionEffect(new PotionEffect(Potion.confusion.id, 20));

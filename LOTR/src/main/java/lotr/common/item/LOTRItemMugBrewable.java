@@ -8,6 +8,7 @@ import lotr.common.LOTRCreativeTabs;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRReflection;
+import lotr.common.entity.npc.LOTREntityNPC;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -213,6 +214,29 @@ public class LOTRItemMugBrewable extends Item
 
         return !entityplayer.capabilities.isCreativeMode ? new ItemStack(LOTRMod.mug) : itemstack;
     }
+	
+	public void applyToNPC(LOTREntityNPC npc, ItemStack itemstack)
+	{
+		int i = itemstack.getItemDamage();
+		if (i < 0 || i >= strengths.length)
+		{
+			i = 0;
+		}
+		float strength = strengths[i];
+		
+		npc.heal(foodHealAmount * strength);
+
+		for (int i1 = 0; i1 < potionEffects.size(); i1++)
+		{
+			PotionEffect effect = (PotionEffect)potionEffects.get(i1);
+			npc.addPotionEffect(new PotionEffect(effect.getPotionID(), 20 * (int)((float)effect.getDuration() * strength)));
+		}
+		
+		if (damageAmount > 0)
+		{
+			npc.attackEntityFrom(DamageSource.magic, (float)damageAmount * strength);
+		}
+	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)

@@ -47,7 +47,7 @@ public class LOTREntityHobbitShirriff extends LOTREntityHobbit implements IRange
 		tasks.addTask(4, new EntityAIOpenDoor(this, true));
         tasks.addTask(5, new EntityAIWander(this, 1D));
         tasks.addTask(6, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.2F));
-        tasks.addTask(6, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
+        tasks.addTask(6, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.1F));
         tasks.addTask(7, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
         tasks.addTask(8, new EntityAILookIdle(this));
         targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
@@ -93,8 +93,10 @@ public class LOTREntityHobbitShirriff extends LOTREntityHobbit implements IRange
 	}
 	
 	@Override
-	public void onHobbitUpdate()
+	public void onLivingUpdate()
 	{
+		super.onLivingUpdate();
+		
 		if (!worldObj.isRemote)
 		{
 			ItemStack weapon = getEquipmentInSlot(0);

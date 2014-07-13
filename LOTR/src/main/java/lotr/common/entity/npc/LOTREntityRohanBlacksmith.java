@@ -32,7 +32,7 @@ public class LOTREntityRohanBlacksmith extends LOTREntityRohanMan implements LOT
 		tasks.addTask(2, new EntityAIOpenDoor(this, true));
         tasks.addTask(3, new EntityAIWander(this, 1D));
         tasks.addTask(4, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.1F));
-        tasks.addTask(4, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.02F));
+        tasks.addTask(4, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
         tasks.addTask(5, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
         tasks.addTask(6, new EntityAILookIdle(this));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));

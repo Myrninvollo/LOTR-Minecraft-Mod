@@ -113,11 +113,6 @@ public class LOTRModelHobbit extends LOTRModelBiped
             bipedHeadwear.rotationPointY = 4F;
         }
 		
-		if (((LOTREntityHobbit)entity).isConsuming())
-		{
-			bipedRightArm.rotateAngleX = -60F / (180F / (float)Math.PI);
-		}
-		
 		bipedChest.rotateAngleX = bipedBody.rotateAngleX;
 		bipedChest.rotateAngleY = bipedBody.rotateAngleY;
 		bipedChest.rotateAngleZ = bipedBody.rotateAngleZ;

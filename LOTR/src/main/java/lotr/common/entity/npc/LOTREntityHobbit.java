@@ -4,15 +4,16 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRFoods;
-import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
+import lotr.common.entity.ai.LOTREntityAIDrink;
+import lotr.common.entity.ai.LOTREntityAIEat;
 import lotr.common.entity.ai.LOTREntityAIHobbitChildFollowGoodPlayer;
+import lotr.common.entity.ai.LOTREntityAIHobbitSmoke;
 import lotr.common.entity.ai.LOTREntityAINPCAvoidEvilPlayer;
 import lotr.common.entity.ai.LOTREntityAINPCFollowParent;
 import lotr.common.entity.ai.LOTREntityAINPCFollowSpouse;
 import lotr.common.entity.ai.LOTREntityAINPCMarry;
 import lotr.common.entity.ai.LOTREntityAINPCMate;
-import lotr.common.entity.projectile.LOTREntitySmokeRing;
 import lotr.common.world.biome.LOTRBiomeGenShire;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -31,11 +32,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class LOTREntityHobbit extends LOTREntityNPC
 {
@@ -59,11 +57,14 @@ public class LOTREntityHobbit extends LOTREntityNPC
 		tasks.addTask(7, new LOTREntityAINPCFollowParent(this, 1.4D));
 		tasks.addTask(8, new LOTREntityAINPCFollowSpouse(this, 1.1D));
 		tasks.addTask(9, new EntityAIOpenDoor(this, true));
-        tasks.addTask(10, new EntityAIWander(this, 1.1D));
-        tasks.addTask(11, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.2F));
-        tasks.addTask(11, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
-        tasks.addTask(12, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
-        tasks.addTask(13, new EntityAILookIdle(this));
+		tasks.addTask(10, new EntityAIWander(this, 1.1D));
+		tasks.addTask(11, new LOTREntityAIEat(this, LOTRFoods.HOBBIT, 3000));
+		tasks.addTask(11, new LOTREntityAIDrink(this, LOTRFoods.HOBBIT_DRINK, 3000));
+        tasks.addTask(11, new LOTREntityAIHobbitSmoke(this, 4000));
+        tasks.addTask(12, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.2F));
+        tasks.addTask(12, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.1F));
+        tasks.addTask(13, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
+        tasks.addTask(14, new EntityAILookIdle(this));
         
         familyInfo.marriageEntityClass = LOTREntityHobbit.class;
         familyInfo.marriageRing = LOTRMod.hobbitRing;
@@ -79,9 +80,6 @@ public class LOTREntityHobbit extends LOTREntityNPC
 	{
 		super.entityInit();
 		familyInfo.setNPCMale(rand.nextBoolean());
-		dataWatcher.addObject(16, Byte.valueOf((byte)0));
-		dataWatcher.addObject(17, Byte.valueOf((byte)0));
-		dataWatcher.addObject(18, Byte.valueOf((byte)0));
 		dataWatcher.addObject(19, LOTRNames.getRandomHobbitName(familyInfo.isNPCMale(), rand));
 	}
 	
@@ -121,43 +119,10 @@ public class LOTREntityHobbit extends LOTREntityNPC
 		dataWatcher.updateObject(19, name);
 	}
 	
-	public int getEatingTick()
-	{
-		return dataWatcher.getWatchableObjectByte(16);
-	}
-	
-	public void setEatingTick(int i)
-	{
-		dataWatcher.updateObject(16, Byte.valueOf((byte)i));
-	}
-	
-	public int getDrinkingTick()
-	{
-		return dataWatcher.getWatchableObjectByte(17);
-	}
-	
-	public void setDrinkingTick(int i)
-	{
-		dataWatcher.updateObject(17, Byte.valueOf((byte)i));
-	}
-	
-	public int getSmokingTick()
-	{
-		return dataWatcher.getWatchableObjectByte(18);
-	}
-	
-	public void setSmokingTick(int i)
-	{
-		dataWatcher.updateObject(18, Byte.valueOf((byte)i));
-	}
-	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbt)
 	{
 		super.writeEntityToNBT(nbt);
-		nbt.setByte("HobbitEating", (byte)getEatingTick());
-		nbt.setByte("HobbitDrinking", (byte)getDrinkingTick());
-		nbt.setByte("HobbitSmoking", (byte)getSmokingTick());
 		nbt.setString("HobbitName", getHobbitName());
 	}
 	
@@ -165,9 +130,7 @@ public class LOTREntityHobbit extends LOTREntityNPC
 	public void readEntityFromNBT(NBTTagCompound nbt)
 	{
 		super.readEntityFromNBT(nbt);
-		setEatingTick(nbt.getByte("HobbitEating"));
-		setDrinkingTick(nbt.getByte("HobbitDrinking"));
-		setSmokingTick(nbt.getByte("HobbitSmoking"));
+
 		if (nbt.hasKey("HobbitName"))
 		{
 			setHobbitName(nbt.getString("HobbitName"));
@@ -210,109 +173,6 @@ public class LOTREntityHobbit extends LOTREntityNPC
 			return true;
 		}
 		return super.interact(entityplayer);
-	}
-	
-	@Override
-	public void onLivingUpdate()
-	{
-		super.onLivingUpdate();
-		onHobbitUpdate();
-	}
-	
-	public void onHobbitUpdate()
-	{
-		if (familyInfo.getNPCAge() < 0)
-		{
-			return;
-		}
-		
-		if (!worldObj.isRemote && getEquipmentInSlot(0) == null && rand.nextInt(4000) == 0)
-		{
-			setCurrentItemOrArmor(0, LOTRFoods.HOBBIT.getRandomFood(rand));
-			setEatingTick(32);
-		}
-		
-		if (getEatingTick() > 0)
-		{
-			if (!worldObj.isRemote)
-			{
-				setEatingTick(getEatingTick() - 1);
-			}
-			
-			if (getEquipmentInSlot(0) != null && getEatingTick() % 4 == 0)
-			{
-				for (int i = 0; i < 5; i++)
-				{
-					Vec3 vec1 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-					vec1.rotateAroundX(-rotationPitch * (float)Math.PI / 180F);
-					vec1.rotateAroundY(-rotationYaw * (float)Math.PI / 180F);
-					Vec3 vec2 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.3D, (double)(-rand.nextFloat()) * 0.6D - 0.3D, 0.6D);
-					vec2.rotateAroundX(-rotationPitch * (float)Math.PI / 180F);
-					vec2.rotateAroundY(-rotationYaw * (float)Math.PI / 180F);
-					vec2 = vec2.addVector(posX, posY + (double)getEyeHeight(), posZ);
-					worldObj.spawnParticle("iconcrack_" + Item.getIdFromItem(getEquipmentInSlot(0).getItem()), vec2.xCoord, vec2.yCoord, vec2.zCoord, vec1.xCoord, vec1.yCoord + 0.05D, vec1.zCoord);
-				}
-				
-				playSound("random.eat", 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
-			}
-			
-			if (getEatingTick() == 0)
-			{
-				setCurrentItemOrArmor(0, null);
-				heal(4F);
-			}
-		}
-		
-		if (!worldObj.isRemote && getEquipmentInSlot(0) == null && rand.nextInt(4000) == 0)
-		{
-			Item drink = LOTRFoods.HOBBIT_DRINK.getRandomFood(rand).getItem();
-			setCurrentItemOrArmor(0, new ItemStack(drink, 1, 1 + rand.nextInt(3)));
-			setDrinkingTick(32);
-		}
-		
-		if (getDrinkingTick() > 0)
-		{
-			if (!worldObj.isRemote)
-			{
-				setDrinkingTick(getDrinkingTick() - 1);
-			}
-			
-			if (getEquipmentInSlot(0) != null && getDrinkingTick() % 4 == 0)
-			{
-				playSound("random.drink", 0.5F, rand.nextFloat() * 0.1F + 0.9F);
-			}
-			
-			if (getDrinkingTick() == 0)
-			{
-				setCurrentItemOrArmor(0, null);
-				heal(2F);
-			}
-		}
-		
-		if (!worldObj.isRemote && getEquipmentInSlot(0) == null && rand.nextInt(4000) == 0)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.hobbitPipe));
-			setSmokingTick(32);
-		}
-		
-		if (getSmokingTick() > 0)
-		{
-			if (!worldObj.isRemote)
-			{
-				setSmokingTick(getSmokingTick() - 1);
-			}
-			
-			if (getSmokingTick() == 0)
-			{
-				setCurrentItemOrArmor(0, null);
-				if (!worldObj.isRemote)
-				{
-					worldObj.spawnEntityInWorld(new LOTREntitySmokeRing(worldObj, this));
-				}
-				playSound("lotr:item.puff", 1F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
-				heal(2F);
-			}
-		}
 	}
 	
 	@Override
@@ -419,11 +279,6 @@ public class LOTREntityHobbit extends LOTREntityNPC
 			f += 20F;
 		}
 		return f;
-	}
-	
-	public boolean isConsuming()
-	{
-		return getEatingTick() > 0 || getDrinkingTick() > 0 || getSmokingTick() > 0;
 	}
 	
 	@Override

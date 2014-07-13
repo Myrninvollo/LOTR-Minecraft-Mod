@@ -55,35 +55,7 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 	{
 		return "elvenTrader_departure";
 	}
-	
-	@Override
-	protected void entityInit()
-	{
-		super.entityInit();
-		dataWatcher.addObject(20, Integer.valueOf(0));
-		dataWatcher.addObject(21, Integer.valueOf(0));
-	}
-	
-	private int getEatingTick()
-	{
-		return dataWatcher.getWatchableObjectInt(20);
-	}
-	
-	private void setEatingTick(int i)
-	{
-		dataWatcher.updateObject(20, Integer.valueOf(i));
-	}
-	
-	private int getDrinkingTick()
-	{
-		return dataWatcher.getWatchableObjectInt(21);
-	}
-	
-	private void setDrinkingTick(int i)
-	{
-		dataWatcher.updateObject(21, Integer.valueOf(i));
-	}
-	
+
 	@Override
     public int getTotalArmorValue()
     {
@@ -110,8 +82,6 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 					if (heldItem == null || heldItem.getItem() != getElfSwordId())
 					{
 						setCurrentItemOrArmor(0, new ItemStack(getElfSwordId(), 1, 0));
-						setEatingTick(0);
-						setDrinkingTick(0);
 						weaponChangeCooldown = 20;
 					}
 				}
@@ -127,78 +97,6 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 						{
 							setCurrentItemOrArmor(0, null);
 						}
-					}
-				}
-				
-				if (getHealth() < getMaxHealth() && getAttackTarget() == null && rand.nextInt(80) == 0 && getEquipmentInSlot(0) == null)
-				{
-					if (rand.nextBoolean())
-					{
-						setCurrentItemOrArmor(0, new ItemStack(LOTRMod.lembas));
-						setEatingTick(20);
-					}
-					else
-					{
-						setCurrentItemOrArmor(0, new ItemStack(LOTRMod.mugMiruvor));
-						setDrinkingTick(20);
-					}
-				}
-			}
-			
-			if (getEatingTick() > 0)
-			{
-				if (getEatingTick() % 4 == 0)
-				{
-					ItemStack itemstack = getEquipmentInSlot(0);
-					if (itemstack != null)
-					{
-						for (int i = 0; i < 5; i++)
-						{
-							Vec3 vec1 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-							vec1.rotateAroundX(-rotationPitch * (float)Math.PI / 180F);
-							vec1.rotateAroundY(-rotationYaw * (float)Math.PI / 180F);
-							Vec3 vec2 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.3D, (double)(-rand.nextFloat()) * 0.6D - 0.3D, 0.6D);
-							vec2.rotateAroundX(-rotationPitch * (float)Math.PI / 180F);
-							vec2.rotateAroundY(-rotationYaw * (float)Math.PI / 180F);
-							vec2 = vec2.addVector(posX, posY + (double)getEyeHeight(), posZ);
-							worldObj.spawnParticle("iconcrack_" + Item.getIdFromItem(itemstack.getItem()), vec2.xCoord, vec2.yCoord, vec2.zCoord, vec1.xCoord, vec1.yCoord + 0.05D, vec1.zCoord);
-						}
-					}
-					
-					playSound("random.eat", 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
-				}
-				
-				if (!worldObj.isRemote)
-				{
-					setEatingTick(getEatingTick() - 1);
-				}
-				
-				if (getEatingTick() == 0)
-				{
-					setCurrentItemOrArmor(0, null);
-					heal(10F);
-				}
-			}
-			
-			if (getDrinkingTick() > 0)
-			{
-				if (getDrinkingTick() % 4 == 0)
-				{	
-					playSound("random.drink", 0.5F, rand.nextFloat() * 0.1F + 0.9F);
-				}
-				
-				if (!worldObj.isRemote)
-				{
-					setDrinkingTick(getDrinkingTick() - 1);
-				}
-				
-				if (getDrinkingTick() == 0)
-				{
-					setCurrentItemOrArmor(0, null);
-					heal(6F);
-					if (!worldObj.isRemote)
-					{
-						addPotionEffect(new PotionEffect(Potion.damageBoost.id, 200));
 					}
 				}
 			}
@@ -262,8 +160,6 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 	{
 		super.writeEntityToNBT(nbt);
 		travellingTraderInfo.writeToNBT(nbt);
-		nbt.setInteger("ElfEating", getEatingTick());
-		nbt.setInteger("ElfDrinking", getDrinkingTick());
 	}
 	
 	@Override
@@ -271,8 +167,6 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 	{
 		super.readEntityFromNBT(nbt);
 		travellingTraderInfo.readFromNBT(nbt);
-		setEatingTick(nbt.getInteger("ElfEating"));
-		setDrinkingTick(nbt.getInteger("ElfDrinking"));
 	}
 	
 	@Override

@@ -88,6 +88,8 @@ public abstract class LOTREntityNPC extends EntityCreature
 	public boolean isImmuneToFrost = false;
 	protected boolean spawnsInDarkness = false;
 	public LOTRFamilyInfo familyInfo;
+	private boolean hasDefaultHeldItem = false;
+	private ItemStack defaultHeldItem;
 	
 	public LOTREntityNPC(World world)
 	{
@@ -526,6 +528,16 @@ public abstract class LOTREntityNPC extends EntityCreature
 		nbt.setBoolean("HurtOnlyByPlates", hurtOnlyByPlates);
 		nbt.setBoolean("RidingHorse", ridingHorse);
 		nbt.setBoolean("NPCPassive", isPassive);
+		nbt.setBoolean("HasDefaultHeldItem", hasDefaultHeldItem);
+		if (hasDefaultHeldItem)
+		{
+			NBTTagCompound itemData = new NBTTagCompound();
+			if (defaultHeldItem != null)
+			{
+				defaultHeldItem.writeToNBT(itemData);
+			}
+			nbt.setTag("DefaultHeldItem", itemData);
+		}
 	}
 	
 	@Override
@@ -545,6 +557,21 @@ public abstract class LOTREntityNPC extends EntityCreature
 		hurtOnlyByPlates = nbt.getBoolean("HurtOnlyByPlates");
 		ridingHorse = nbt.getBoolean("RidingHorse");
 		isPassive = nbt.getBoolean("NPCPassive");
+		hasDefaultHeldItem = nbt.getBoolean("HasDefaultHeldItem");
+		if (hasDefaultHeldItem)
+		{
+			NBTTagCompound itemData = nbt.getCompoundTag("DefaultHeldItem");
+			if (itemData.hasNoTags())
+			{
+				setCurrentItemOrArmor(0, null);
+			}
+			else
+			{
+				defaultHeldItem = ItemStack.loadItemStackFromNBT(itemData);
+				setCurrentItemOrArmor(0, defaultHeldItem);
+			}
+			clearDefaultHeldItem();
+		}
 	}
 	
 	@Override
@@ -1110,5 +1137,59 @@ public abstract class LOTREntityNPC extends EntityCreature
 			double d2 = rand.nextGaussian() * 0.02D;
 			worldObj.spawnParticle("heart", posX + (double)(rand.nextFloat() * width * 2F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2F) - (double)width, d, d1, d2);
 		}
+	}
+	
+	public void spawnFoodParticles()
+	{
+		if (getHeldItem() == null)
+		{
+			return;
+		}
+		
+		if (!worldObj.isRemote)
+		{
+			ByteBuf data = Unpooled.buffer();
+			
+			data.writeInt(getEntityId());
+			
+			S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.eatFood", data);
+			MinecraftServer.getServer().getConfigurationManager().sendToAllNear(posX, posY, posZ, 32D, dimension, packet);
+		}
+		else
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				Vec3 vec1 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
+				vec1.rotateAroundX(-rotationPitch * (float)Math.PI / 180F);
+				vec1.rotateAroundY(-rotationYaw * (float)Math.PI / 180F);
+				Vec3 vec2 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.3D, (double)(-rand.nextFloat()) * 0.6D - 0.3D, 0.6D);
+				vec2.rotateAroundX(-rotationPitch * (float)Math.PI / 180F);
+				vec2.rotateAroundY(-rotationYaw * (float)Math.PI / 180F);
+				vec2 = vec2.addVector(posX, posY + (double)getEyeHeight(), posZ);
+				worldObj.spawnParticle("iconcrack_" + Item.getIdFromItem(getHeldItem().getItem()), vec2.xCoord, vec2.yCoord, vec2.zCoord, vec1.xCoord, vec1.yCoord + 0.05D, vec1.zCoord);
+			}
+		}
+	}
+	
+	public void setDefaultHeldItem(ItemStack itemstack)
+	{
+		hasDefaultHeldItem = true;
+		defaultHeldItem = itemstack;
+	}
+
+	public void clearDefaultHeldItem()
+	{
+		hasDefaultHeldItem = false;
+		defaultHeldItem = null;
+	}
+	
+	public ItemStack getDefaultHeldItem()
+	{
+		return defaultHeldItem;
+	}
+	
+	public boolean hasDefaultHeldItem()
+	{
+		return hasDefaultHeldItem;
 	}
 }

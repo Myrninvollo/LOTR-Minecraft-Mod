@@ -83,6 +83,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.removeCWP", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.rewardItem", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.hearts", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.eatFood", this);
 	}
 	
 	@Override
@@ -491,6 +492,15 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			if (entity instanceof LOTREntityNPC)
 			{
 				((LOTREntityNPC)entity).spawnHearts();
+			}
+		}
+		
+		else if (channel.equals("lotr.eatFood"))
+		{
+			Entity entity = world.getEntityByID(data.readInt());
+			if (entity instanceof LOTREntityNPC)
+			{
+				((LOTREntityNPC)entity).spawnFoodParticles();
 			}
 		}
 	}

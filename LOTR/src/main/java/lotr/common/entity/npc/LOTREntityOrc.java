@@ -4,8 +4,11 @@ import java.util.List;
 
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRAlignmentValues;
+import lotr.common.LOTRFoods;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
+import lotr.common.entity.ai.LOTREntityAIDrink;
+import lotr.common.entity.ai.LOTREntityAIEat;
 import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
@@ -64,10 +67,12 @@ public abstract class LOTREntityOrc extends LOTREntityNPC
 		tasks.addTask(5, new LOTREntityAIFollowHiringPlayer(this));
 		tasks.addTask(6, new EntityAIOpenDoor(this, true));
         tasks.addTask(7, new EntityAIWander(this, 1D));
-        tasks.addTask(8, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.1F));
-        tasks.addTask(8, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.02F));
-        tasks.addTask(9, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
-        tasks.addTask(10, new EntityAILookIdle(this));
+        tasks.addTask(8, new LOTREntityAIEat(this, LOTRFoods.ORC, 6000));
+        tasks.addTask(8, new LOTREntityAIDrink(this, LOTRFoods.ORC_DRINK, 6000));
+        tasks.addTask(9, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.1F));
+        tasks.addTask(9, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
+        tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
+        tasks.addTask(11, new EntityAILookIdle(this));
         targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
         targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
         targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));

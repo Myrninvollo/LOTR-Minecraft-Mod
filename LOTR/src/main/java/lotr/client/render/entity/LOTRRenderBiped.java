@@ -10,6 +10,8 @@ import lotr.client.model.LOTRModelBiped;
 import lotr.common.LOTRMod;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.item.LOTRItemBanner;
+import lotr.common.item.LOTRItemMug;
+import lotr.common.item.LOTRItemMugBrewable;
 import lotr.common.item.LOTRItemSpear;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -21,7 +23,9 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagString;
@@ -77,14 +81,25 @@ public abstract class LOTRRenderBiped extends RenderBiped
     {
 		super.func_82420_a(entity, itemstack);
 		
-		if (itemstack != null && !(itemstack.getItem() instanceof LOTRItemSpear) && itemstack.getItem().getItemUseAction(itemstack) == EnumAction.bow)
+		if (itemstack != null)
 		{
-			field_82423_g.heldItemRight = field_82425_h.heldItemRight = modelBipedMain.heldItemRight = 3;
-			field_82423_g.aimedBow = field_82425_h.aimedBow = modelBipedMain.aimedBow = true;
-		}
-		if (itemstack != null && itemstack.getItem() instanceof LOTRItemBanner)
-		{
-			field_82423_g.heldItemRight = field_82425_h.heldItemRight = modelBipedMain.heldItemRight = 3;
+			Item item = itemstack.getItem();
+			
+			if (!(item instanceof LOTRItemSpear) && item.getItemUseAction(itemstack) == EnumAction.bow)
+			{
+				field_82423_g.heldItemRight = field_82425_h.heldItemRight = modelBipedMain.heldItemRight = 3;
+				field_82423_g.aimedBow = field_82425_h.aimedBow = modelBipedMain.aimedBow = true;
+			}
+			
+			if (item instanceof LOTRItemBanner)
+			{
+				field_82423_g.heldItemRight = field_82425_h.heldItemRight = modelBipedMain.heldItemRight = 3;
+			}
+			
+			if (item instanceof ItemFood || (item instanceof LOTRItemMug && item != LOTRMod.mug) || item instanceof LOTRItemMugBrewable || item == LOTRMod.hobbitPipe)
+			{
+				field_82423_g.heldItemRight = field_82425_h.heldItemRight = modelBipedMain.heldItemRight = 3;
+			}
 		}
     }
 	

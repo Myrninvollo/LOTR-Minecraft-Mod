@@ -47,7 +47,7 @@ public abstract class LOTREntityWarg extends LOTREntityNPC
 		tasks.addTask(3, new LOTREntityAIFollowHiringPlayer(this));
         tasks.addTask(4, new EntityAIWander(this, 1D));
         tasks.addTask(5, new EntityAIWatchClosest2(this, EntityPlayer.class, 12F, 0.05F));
-        tasks.addTask(5, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 8F, 0.02F));
+        tasks.addTask(5, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 8F, 0.05F));
         tasks.addTask(6, new EntityAIWatchClosest(this, EntityLiving.class, 12F, 0.02F));
         tasks.addTask(7, new EntityAILookIdle(this));
         targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));

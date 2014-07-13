@@ -7,6 +7,8 @@ import lotr.common.LOTRFoods;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
+import lotr.common.entity.ai.LOTREntityAIDrink;
+import lotr.common.entity.ai.LOTREntityAIEat;
 import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
@@ -66,10 +68,12 @@ public class LOTREntityDwarf extends LOTREntityNPC
 		tasks.addTask(8, new LOTREntityAINPCFollowSpouse(this, 1.1D));
 		tasks.addTask(9, new EntityAIOpenDoor(this, true));
         tasks.addTask(10, new EntityAIWander(this, 1D));
-        tasks.addTask(11, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.2F));
-        tasks.addTask(11, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
-        tasks.addTask(12, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
-        tasks.addTask(13, new EntityAILookIdle(this));
+        tasks.addTask(11, new LOTREntityAIEat(this, LOTRFoods.DWARF, 6000));
+        tasks.addTask(11, new LOTREntityAIDrink(this, LOTRFoods.DWARF_DRINK, 6000));
+        tasks.addTask(12, new EntityAIWatchClosest2(this, EntityPlayer.class, 8F, 0.2F));
+        tasks.addTask(12, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.1F));
+        tasks.addTask(13, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
+        tasks.addTask(14, new EntityAILookIdle(this));
         targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
         targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
         targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
@@ -95,8 +99,6 @@ public class LOTREntityDwarf extends LOTREntityNPC
 		super.entityInit();
 		familyInfo.setNPCMale(true);
 		dataWatcher.addObject(18, LOTRNames.getRandomDwarfName(familyInfo.isNPCMale(), rand));
-		dataWatcher.addObject(19, Byte.valueOf((byte)0));
-		dataWatcher.addObject(20, Byte.valueOf((byte)0));
 	}
 	
 	@Override
@@ -159,45 +161,22 @@ public class LOTREntityDwarf extends LOTREntityNPC
 		dataWatcher.updateObject(18, name);
 	}
 	
-	public int getEatingTick()
-	{
-		return dataWatcher.getWatchableObjectByte(19);
-	}
-	
-	public void setEatingTick(int i)
-	{
-		dataWatcher.updateObject(19, Byte.valueOf((byte)i));
-	}
-	
-	public int getDrinkingTick()
-	{
-		return dataWatcher.getWatchableObjectByte(20);
-	}
-	
-	public void setDrinkingTick(int i)
-	{
-		dataWatcher.updateObject(20, Byte.valueOf((byte)i));
-	}
-	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbt)
 	{
 		super.writeEntityToNBT(nbt);
 		nbt.setString("DwarfName", getDwarfName());
-		nbt.setByte("DwarfEating", (byte)getEatingTick());
-		nbt.setByte("DwarfDrinking", (byte)getDrinkingTick());
 	}
 	
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbt)
 	{
 		super.readEntityFromNBT(nbt);
+		
 		if (nbt.hasKey("DwarfName"))
 		{
 			setDwarfName(nbt.getString("DwarfName"));
 		}
-		setEatingTick(nbt.getByte("DwarfEating"));
-		setDrinkingTick(nbt.getByte("DwarfDrinking"));
 		
 		if (nbt.hasKey("DwarfGender"))
 		{
@@ -243,8 +222,6 @@ public class LOTREntityDwarf extends LOTREntityNPC
 				if (weapon == null || weapon.getItem() != getDwarfDagger())
 				{
 					setCurrentItemOrArmor(0, new ItemStack(getDwarfDagger()));
-					setEatingTick(0);
-					setDrinkingTick(0);
 					weaponChangeCooldown = 20;
 				}
 			}
@@ -261,68 +238,6 @@ public class LOTREntityDwarf extends LOTREntityNPC
 						setCurrentItemOrArmor(0, null);
 					}
 				}
-			}
-		}
-		
-		if (!worldObj.isRemote && getAttackTarget() == null && getEquipmentInSlot(0) == null && rand.nextInt(10000) == 0)
-		{
-			setCurrentItemOrArmor(0, LOTRFoods.DWARF.getRandomFood(rand));
-			setEatingTick(32);
-		}
-		
-		if (getEatingTick() > 0)
-		{
-			if (!worldObj.isRemote)
-			{
-				setEatingTick(getEatingTick() - 1);
-			}
-			
-			if (getEquipmentInSlot(0) != null && getEatingTick() % 4 == 0)
-			{
-				for (int i = 0; i < 5; i++)
-				{
-					Vec3 vec1 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.1D, Math.random() * 0.1D + 0.1D, 0.0D);
-					vec1.rotateAroundX(-rotationPitch * (float)Math.PI / 180F);
-					vec1.rotateAroundY(-rotationYaw * (float)Math.PI / 180F);
-					Vec3 vec2 = Vec3.createVectorHelper(((double)rand.nextFloat() - 0.5D) * 0.3D, (double)(-rand.nextFloat()) * 0.6D - 0.3D, 0.6D);
-					vec2.rotateAroundX(-rotationPitch * (float)Math.PI / 180F);
-					vec2.rotateAroundY(-rotationYaw * (float)Math.PI / 180F);
-					vec2 = vec2.addVector(posX, posY + (double)getEyeHeight(), posZ);
-					worldObj.spawnParticle("iconcrack_" + Item.getIdFromItem(getEquipmentInSlot(0).getItem()), vec2.xCoord, vec2.yCoord, vec2.zCoord, vec1.xCoord, vec1.yCoord + 0.05D, vec1.zCoord);
-				}
-				
-				playSound("random.eat", 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
-			}
-			
-			if (getEatingTick() == 0)
-			{
-				setCurrentItemOrArmor(0, null);
-				heal(4F);
-			}
-		}
-		
-		if (!worldObj.isRemote && getAttackTarget() == null && getEquipmentInSlot(0) == null && rand.nextInt(10000) == 0)
-		{
-			setCurrentItemOrArmor(0, LOTRFoods.DWARF_DRINK.getRandomFood(rand));
-			setDrinkingTick(32);
-		}
-		
-		if (getDrinkingTick() > 0)
-		{
-			if (!worldObj.isRemote)
-			{
-				setDrinkingTick(getDrinkingTick() - 1);
-			}
-			
-			if (getEquipmentInSlot(0) != null && getDrinkingTick() % 4 == 0)
-			{
-				playSound("random.drink", 0.5F, rand.nextFloat() * 0.1F + 0.9F);
-			}
-			
-			if (getDrinkingTick() == 0)
-			{
-				setCurrentItemOrArmor(0, null);
-				heal(2F);
 			}
 		}
 	}
@@ -439,11 +354,6 @@ public class LOTREntityDwarf extends LOTREntityNPC
 	public int getMaxSpawnedInChunk()
 	{
 		return 6;
-	}
-	
-	public boolean isConsuming()
-	{
-		return getEatingTick() > 0 || getDrinkingTick() > 0;
 	}
 	
 	@Override

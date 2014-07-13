@@ -34,9 +34,6 @@ public class LOTREntityHobbitBartender extends LOTREntityHobbit implements LOTRT
 	}
 	
 	@Override
-	public void onHobbitUpdate() {}
-	
-	@Override
 	public void dropHobbitItems(boolean flag, int i)
 	{
 		int count = rand.nextInt(3) + rand.nextInt(i + 1);

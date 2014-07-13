@@ -5,6 +5,7 @@ import lotr.common.LOTRCreativeTabs;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
 import lotr.common.block.LOTRBlockMug;
+import lotr.common.entity.npc.LOTREntityNPC;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -175,4 +176,9 @@ public class LOTRItemMug extends Item
 
         return !entityplayer.capabilities.isCreativeMode ? new ItemStack(LOTRMod.mug) : itemstack;
     }
+	
+	public void applyToNPC(LOTREntityNPC npc, ItemStack itemstack)
+	{
+		npc.heal((float)foodHealAmount);
+	}
 }

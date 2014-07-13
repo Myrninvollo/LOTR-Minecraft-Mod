@@ -65,10 +65,7 @@ public class LOTREntityHobbitOrcharder extends LOTREntityHobbit implements LOTRT
 		
 		return data;
 	}
-	
-	@Override
-	public void onHobbitUpdate() {}
-	
+
 	@Override
 	public int getAlignmentBonus()
 	{

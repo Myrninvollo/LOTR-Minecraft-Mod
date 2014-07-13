@@ -52,9 +52,6 @@ public class LOTREntityHobbitFarmer extends LOTREntityHobbit implements LOTRTrad
 	}
 	
 	@Override
-	public void onHobbitUpdate() {}
-	
-	@Override
 	public int getAlignmentBonus()
 	{
 		return LOTRAlignmentValues.HOBBIT_FARMER_BONUS;

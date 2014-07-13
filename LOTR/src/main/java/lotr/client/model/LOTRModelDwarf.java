@@ -127,11 +127,6 @@ public class LOTRModelDwarf extends LOTRModelBiped
             bipedHeadwear.rotationPointY = 2F;
         }
 		
-		if (((LOTREntityDwarf)entity).isConsuming())
-		{
-			bipedRightArm.rotateAngleX = -60F / (180F / (float)Math.PI);
-		}
-		
 		bipedChest.rotateAngleX = bipedBody.rotateAngleX;
 		bipedChest.rotateAngleY = bipedBody.rotateAngleY;
 		bipedChest.rotateAngleZ = bipedBody.rotateAngleZ;

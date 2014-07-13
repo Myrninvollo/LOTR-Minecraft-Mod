@@ -74,7 +74,7 @@ public class LOTREntityDunlendingBartender extends LOTREntityDunlending implemen
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.DUNLENDING_BARTENDER_TRADE && isFriendly(entityplayer);
+		return isFriendly(entityplayer);
 	}
 	
 	@Override

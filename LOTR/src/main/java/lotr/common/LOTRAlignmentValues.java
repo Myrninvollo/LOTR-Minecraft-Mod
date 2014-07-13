@@ -135,7 +135,6 @@ public class LOTRAlignmentValues
 	public static int ROHAN_BLACKSMITH_TRADE = 50;
 	
 	public static int DUNLENDING_WARLORD_TRADE = 100;
-	public static int DUNLENDING_BARTENDER_TRADE = 1;
 	
 	public static int GONDOR_BLACKSMITH_TRADE = 50;
 	public static int GONDORIAN_CAPTAIN_TRADE = 100;

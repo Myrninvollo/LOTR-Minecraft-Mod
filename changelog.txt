@@ -3,6 +3,7 @@ Public Beta 19
 + Added protective functions for a banner placed on a gold block: prevention of enemy mob spawns, and protection against enemy players breaking, placing, or using blocks, within a 32-block cubic radius
 + Added more available custom waypoints as a reward for earning Middle-earth achievements
 + Added Ranger Watchtowers
++ Added more orc skins
 + Added Sarlluin and Sarncaran deposits underground within their respective biomes
 + Added the ability to light Beacons of Gondor with torches
 + Added an updated German translation

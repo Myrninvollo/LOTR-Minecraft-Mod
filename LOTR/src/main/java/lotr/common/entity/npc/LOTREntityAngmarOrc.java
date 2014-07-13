@@ -58,7 +58,7 @@ public class LOTREntityAngmarOrc extends LOTREntityOrc
 		setCurrentItemOrArmor(2, new ItemStack(LOTRMod.legsAngmar));
 		setCurrentItemOrArmor(3, new ItemStack(LOTRMod.bodyAngmar));
 		
-		if (rand.nextInt(10) != 0)
+		if (rand.nextInt(5) != 0)
 		{
 			setCurrentItemOrArmor(4, new ItemStack(LOTRMod.helmetAngmar));
 		}

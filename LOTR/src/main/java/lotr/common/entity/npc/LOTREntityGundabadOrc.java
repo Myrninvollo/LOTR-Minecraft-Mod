@@ -192,7 +192,7 @@ public class LOTREntityGundabadOrc extends LOTREntityOrc
 			setCurrentItemOrArmor(3, new ItemStack(LOTRMod.bodyWarg));
 		}
 		
-		if (rand.nextInt(10) != 0)
+		if (rand.nextInt(3) != 0)
 		{
 			i = rand.nextInt(5);
 			if (i == 0)

@@ -227,12 +227,12 @@ public class LOTRComponentDwarvenMineCorridor extends StructureComponent
 				
                 if (random.nextInt(80) == 0)
                 {
-                    placeBlockAtCurrentPosition(world, LOTRMod.dwarvenTable, 0, 2, 0, k - 1, structureBoundingBox);
+                    placeBlockAtCurrentPosition(world, Blocks.crafting_table, 0, 2, 0, k - 1, structureBoundingBox);
                 }
 
                 if (random.nextInt(80) == 0)
                 {
-                    placeBlockAtCurrentPosition(world, LOTRMod.dwarvenTable, 0, 0, 0, k + 1, structureBoundingBox);
+                    placeBlockAtCurrentPosition(world, Blocks.crafting_table, 0, 0, 0, k + 1, structureBoundingBox);
                 }
 				
                 if (random.nextInt(120) == 0)

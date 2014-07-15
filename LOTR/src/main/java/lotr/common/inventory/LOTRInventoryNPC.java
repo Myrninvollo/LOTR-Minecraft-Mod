@@ -6,19 +6,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-public class LOTRInventoryHiredNPC extends InventoryBasic
+public class LOTRInventoryNPC extends InventoryBasic
 {
 	private LOTREntityNPC theEntity;
+	private String nbtName;
 	
-	public LOTRInventoryHiredNPC(LOTREntityNPC npc, int i)
+	public LOTRInventoryNPC(String s, LOTREntityNPC npc, int i)
 	{
-		super("hiredNPC", true, i);
+		super(s, true, i);
 		theEntity = npc;
+		nbtName = s;
 	}
 	
     public void readFromNBT(NBTTagCompound nbt)
     {
-        NBTTagList items = nbt.getTagList("HiredInventory", new NBTTagCompound().getId());
+        NBTTagList items = nbt.getTagList(nbtName, new NBTTagCompound().getId());
 		
         for (int i = 0; i < items.tagCount(); i++)
         {
@@ -48,7 +50,7 @@ public class LOTRInventoryHiredNPC extends InventoryBasic
             }
         }
 
-        nbt.setTag("HiredInventory", items);
+        nbt.setTag(nbtName, items);
     }
 	
     public void dropAllItems()

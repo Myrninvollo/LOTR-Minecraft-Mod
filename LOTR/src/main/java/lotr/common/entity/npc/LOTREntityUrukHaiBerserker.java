@@ -18,14 +18,7 @@ public class LOTREntityUrukHaiBerserker extends LOTREntityUrukHai
 	public LOTREntityUrukHaiBerserker(World world)
 	{
 		super(world);
-		for (int i = 0; i < tasks.taskEntries.size(); i++)
-		{
-			EntityAITaskEntry taskEntry = (EntityAITaskEntry)tasks.taskEntries.get(i);
-			if (taskEntry.action instanceof EntityAIAvoidEntity)
-			{
-				tasks.removeTask(taskEntry.action);
-			}
-		}
+		removeTasksOfType(EntityAIAvoidEntity.class);
 		isBombardier = true;
 	}
 	

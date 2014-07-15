@@ -19,9 +19,11 @@ import lotr.common.entity.ai.LOTREntityAINPCFollowParent;
 import lotr.common.entity.ai.LOTREntityAINPCFollowSpouse;
 import lotr.common.entity.ai.LOTREntityAINPCMarry;
 import lotr.common.entity.ai.LOTREntityAINPCMate;
+import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import lotr.common.world.biome.LOTRBiomeGenBlueMountains;
 import lotr.common.world.biome.LOTRBiomeGenIronHills;
 import lotr.common.world.biome.LOTRBiomeGenRedMountains;
+import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -49,8 +51,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class LOTREntityDwarf extends LOTREntityNPC
 {
-	private int weaponChangeCooldown = 0;
-	
 	public LOTREntityDwarf(World world)
 	{
 		super(world);
@@ -201,44 +201,15 @@ public class LOTREntityDwarf extends LOTREntityNPC
 	}
 	
 	@Override
-	public void onLivingUpdate()
+	public void onAttackModeChange(AttackMode mode)
 	{
-		super.onLivingUpdate();
-		onDwarfUpdate();
-	}
-	
-	public void onDwarfUpdate()
-	{
-		if (familyInfo.getNPCAge() < 0)
+		if (mode == AttackMode.IDLE)
 		{
-			return;
+			setCurrentItemOrArmor(0, null);
 		}
-		
-		if (!worldObj.isRemote)
+		else
 		{
-			ItemStack weapon = getEquipmentInSlot(0);
-			if (getAttackTarget() != null)
-			{
-				if (weapon == null || weapon.getItem() != getDwarfDagger())
-				{
-					setCurrentItemOrArmor(0, new ItemStack(getDwarfDagger()));
-					weaponChangeCooldown = 20;
-				}
-			}
-			else
-			{
-				if (weapon != null && weapon.getItem() == getDwarfDagger())
-				{
-					if (weaponChangeCooldown > 0)
-					{
-						weaponChangeCooldown--;
-					}
-					else
-					{
-						setCurrentItemOrArmor(0, null);
-					}
-				}
-			}
+			setCurrentItemOrArmor(0, new ItemStack(getDwarfDagger()));
 		}
 	}
 	
@@ -264,27 +235,10 @@ public class LOTREntityDwarf extends LOTREntityNPC
 		{
 			dropItem(LOTRMod.dwarfBone, 1);
 		}
-		
-		int count = rand.nextInt(3) + rand.nextInt(i + 1);
-		for (int k = 0; k < count; k++)
+
+		if (rand.nextBoolean())
 		{
-			j = rand.nextInt(10);
-			switch(j)
-			{
-				case 0: case 1: case 2: case 3:
-					entityDropItem(LOTRFoods.DWARF.getRandomFood(rand), 0F);
-					break;
-				case 4:
-					Item drink = LOTRFoods.DWARF_DRINK.getRandomFood(rand).getItem();
-					entityDropItem(new ItemStack(drink, 1, 1 + rand.nextInt(3)), 0F);
-					break;
-				case 5: case 6:
-					entityDropItem(new ItemStack(Items.coal), 0F);
-					break;
-				case 7: case 8: case 9:
-					entityDropItem(new ItemStack(Blocks.torch, 1 + rand.nextInt(2)), 0F);
-					break;
-			}
+			dropChestContents(LOTRChestContents.DWARF_HOUSE_LARDER, 0, 2 + i);
 		}
 		
 		if (flag)

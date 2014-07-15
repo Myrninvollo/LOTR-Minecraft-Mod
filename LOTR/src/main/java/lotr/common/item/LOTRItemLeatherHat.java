@@ -23,6 +23,7 @@ public class LOTRItemLeatherHat extends LOTRItemArmor
 	public static int HAT_SHIRRIFF_CHIEF = 0x23201D;
 	public static int FEATHER_WHITE = 0xFFFFFF;
 	public static int FEATHER_SHIRRIFF_CHIEF = 0x339919;
+	public static int HAT_BLACK = 0x000000;
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon featherIcon;

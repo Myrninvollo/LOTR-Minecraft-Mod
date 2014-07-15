@@ -222,16 +222,11 @@ public class LOTRWorldGenHobbitFarm extends LOTRWorldGenStructureBase2
 					setBlockAndMetadata(world, i1, j1, k1, wood2Block, wood2Meta);
 				}
 			}
-			
-			setBlockAndMetadata(world, -6 + stair, j1, -6, wood1Stair, 1);
-			setBlockAndMetadata(world, -6 + stair, j1, 7, wood1Stair, 1);
-			setBlockAndMetadata(world, 5 - stair, j1, -6, wood1Stair, 0);
-			setBlockAndMetadata(world, 5 - stair, j1, 7, wood1Stair, 0);
-			
-			for (int k1 = -5; k1 <= 6; k1++)
+
+			for (int k1 = -6; k1 <= 7; k1++)
 			{
-				setBlockAndMetadata(world, -6 + stair, j1, k1, Blocks.stone_brick_stairs, 1);
-				setBlockAndMetadata(world, 5 - stair, j1, k1, Blocks.stone_brick_stairs, 0);
+				setBlockAndMetadata(world, -6 + stair, j1, k1, LOTRMod.stairsThatch, 1);
+				setBlockAndMetadata(world, 5 - stair, j1, k1, LOTRMod.stairsThatch, 0);
 			}
 		}
 		
@@ -283,11 +278,9 @@ public class LOTRWorldGenHobbitFarm extends LOTRWorldGenStructureBase2
 				setBlockAndMetadata(world, i1, 7, k1, Blocks.glass_pane, 0);
 			}
 			
-			setBlockAndMetadata(world, i1, 10, -6, wood1SlabBlock, wood1SlabMeta);
-			setBlockAndMetadata(world, i1, 10, 7, wood1SlabBlock, wood1SlabMeta);
-			for (int k1 = -5; k1 <= 6; k1++)
+			for (int k1 = -6; k1 <= 7; k1++)
 			{
-				setBlockAndMetadata(world, i1, 10, k1, Blocks.stone_slab, 5);
+				setBlockAndMetadata(world, i1, 10, k1, LOTRMod.slabSingleThatch, 0);
 			}
 		}
 		

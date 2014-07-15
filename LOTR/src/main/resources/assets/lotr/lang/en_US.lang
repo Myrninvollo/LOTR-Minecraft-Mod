@@ -987,6 +987,7 @@ entity.lotr.NearHaradMineralsTrader.name=Near Harad Minerals Trader
 entity.lotr.NearHaradPlantsTrader.name=Near Harad Plants Trader
 entity.lotr.NearHaradFoodTrader.name=Near Harad Food Trader
 entity.lotr.BlueDwarfMerchant.name=Blue Mountains Merchant
+entity.lotr.Bandit.name=Bandit
 
 lotr.travellingTrader.arrive=%s has arrived nearby
 lotr.travellingTrader.arriveMP=%s has arrived near %s
@@ -1392,6 +1393,8 @@ lotr.achievement.travel40.title=...Down From the Door...
 lotr.achievement.travel40.desc=Travel to 40 different regions of Middle-earth
 lotr.achievement.travel50.title=...Where It Began
 lotr.achievement.travel50.desc=Travel to 50 different regions of Middle-earth
+lotr.achievement.killThievingBandit.title=Stand and Deliver!
+lotr.achievement.killThievingBandit.desc=Kill a bandit who has stolen from you
 
 lotr.achievement.killHobbit.title=Hobbit Slayer
 lotr.achievement.killHobbit.desc=Kill a hobbit

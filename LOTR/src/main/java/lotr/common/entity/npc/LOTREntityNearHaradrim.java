@@ -12,9 +12,11 @@ import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
 import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.animal.LOTREntityShirePony;
+import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import lotr.common.world.biome.LOTRBiomeGenHarondor;
 import lotr.common.world.biome.LOTRBiomeGenNearHarad.ImmuneToHeat;
 import lotr.common.world.biome.LOTRBiomeGenNearHaradFertile;
+import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -157,6 +159,19 @@ public class LOTREntityNearHaradrim extends LOTREntityNPC implements ImmuneToHea
 			setHaradName(nbt.getString("HaradrimName"));
 		}
 	}
+	
+	@Override
+	public void onAttackModeChange(AttackMode mode)
+	{
+		if (mode == AttackMode.IDLE)
+		{
+			setCurrentItemOrArmor(0, null);
+		}
+		else
+		{
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerNearHarad));
+		}
+	}
 
 	@Override
 	protected void dropFewItems(boolean flag, int i)
@@ -174,34 +189,9 @@ public class LOTREntityNearHaradrim extends LOTREntityNPC implements ImmuneToHea
 	
 	protected void dropHaradrimItems(boolean flag, int i)
 	{
-		int count = rand.nextInt(3) + rand.nextInt(i + 1);
-		for (int k = 0; k < count; k++)
+		if (rand.nextBoolean())
 		{
-			int j = rand.nextInt(10);
-			switch(j)
-			{
-				case 0: case 1: case 2: case 3:
-					entityDropItem(LOTRFoods.NEAR_HARAD.getRandomFood(rand), 0F);
-					break;
-				case 4:
-					entityDropItem(new ItemStack(Items.string, 1 + rand.nextInt(3)), 0F);
-					break;
-				case 5:
-					entityDropItem(new ItemStack(Items.paper, 2 + rand.nextInt(4)), 0F);
-					break;
-				case 6:
-					entityDropItem(new ItemStack(Items.book, 1 + rand.nextInt(2)), 0F);
-					break;
-				case 7:
-					entityDropItem(new ItemStack(Items.bowl, 1 + rand.nextInt(4)), 0F);
-					break;
-				case 8:
-					entityDropItem(new ItemStack(LOTRMod.mug), 0F);
-					break;
-				case 9:
-					entityDropItem(new ItemStack(LOTRMod.mugAraq, 1, 1 + rand.nextInt(3)), 0F);
-					break;
-			}
+			dropChestContents(LOTRChestContents.NEAR_HARAD_HOUSE, 0, 2 + i);
 		}
 	}
 	

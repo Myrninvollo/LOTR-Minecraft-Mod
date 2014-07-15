@@ -4,6 +4,7 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
+import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import lotr.common.entity.projectile.LOTREntityThrownRock;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
@@ -25,7 +26,6 @@ public class LOTREntityMountainTroll extends LOTREntityTroll implements IRangedA
 	
 	private EntityAIBase rangedAttackAI = getTrollRangedAttackAI();
 	private EntityAIBase meleeAttackAI;
-	private int weaponChangeCooldown = 0;
 	
 	public LOTREntityMountainTroll(World world)
 	{
@@ -83,53 +83,33 @@ public class LOTREntityMountainTroll extends LOTREntityTroll implements IRangedA
 	}
 	
 	@Override
-	public void onLivingUpdate()
+	public void onAttackModeChange(AttackMode mode)
 	{
-		super.onLivingUpdate();
-		
-		if (!worldObj.isRemote)
+		if (mode == AttackMode.IDLE)
 		{
-			if (getAttackTarget() != null)
-			{
-				double d = getDistanceSqToEntity(getAttackTarget());
-				if (d < 144D)
-				{
-					if (isThrowingRocks())
-					{
-						tasks.removeTask(rangedAttackAI);
-						tasks.addTask(3, meleeAttackAI);
-						setThrowingRocks(false);
-						weaponChangeCooldown = 20;
-					}
-				}
-				else if (d < getWeaponChangeThresholdRangeSq())
-				{
-					if (!isThrowingRocks())
-					{
-						tasks.removeTask(meleeAttackAI);
-						tasks.addTask(3, rangedAttackAI);
-						setThrowingRocks(true);
-						weaponChangeCooldown = 20;
-					}
-				}
-			}
-			else
-			{
-				if (weaponChangeCooldown > 0)
-				{
-					weaponChangeCooldown--;
-				}
-				else
-				{
-					if (isThrowingRocks())
-					{
-						tasks.removeTask(rangedAttackAI);
-						tasks.removeTask(meleeAttackAI);
-						setThrowingRocks(false);
-					}
-				}
-			}
+			tasks.removeTask(rangedAttackAI);
+			tasks.removeTask(meleeAttackAI);
+			setThrowingRocks(false);
 		}
+		
+		if (mode == AttackMode.MELEE)
+		{
+			tasks.removeTask(rangedAttackAI);
+			tasks.addTask(3, meleeAttackAI);
+			setThrowingRocks(false);
+		}
+		
+		if (mode == AttackMode.RANGED)
+		{
+			tasks.removeTask(meleeAttackAI);
+			tasks.addTask(3, rangedAttackAI);
+			setThrowingRocks(true);
+		}
+	}
+	
+	protected double getMeleeRange()
+	{
+		return 10D;
 	}
 	
 	@Override

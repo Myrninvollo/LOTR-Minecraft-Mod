@@ -6,6 +6,4 @@ import net.minecraft.item.Item;
 public interface LOTRBannerBearer
 {
 	public abstract LOTRFaction getFaction();
-	
-	public abstract Item getWeaponItem();
 }

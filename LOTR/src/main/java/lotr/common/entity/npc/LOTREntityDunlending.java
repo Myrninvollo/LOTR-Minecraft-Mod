@@ -14,6 +14,7 @@ import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
 import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetBasic;
 import lotr.common.world.biome.LOTRBiomeGenDunland;
+import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -185,36 +186,7 @@ public class LOTREntityDunlending extends LOTREntityNPC
 	{
 		if (rand.nextInt(5) == 0)
 		{
-			int j = 1 + rand.nextInt(2) + rand.nextInt(i + 1);
-			for (int k = 0; k < j; k++)
-			{
-				int l = rand.nextInt(9);
-				switch(l)
-				{
-					case 0: case 1: case 2:
-						entityDropItem(LOTRFoods.DUNLENDING.getRandomFood(rand), 0F);
-						break;
-					case 3:
-						Item drink = LOTRFoods.DUNLENDING_DRINK.getRandomFood(rand).getItem();
-						entityDropItem(new ItemStack(drink, 1, 1 + rand.nextInt(3)), 0F);
-						break;
-					case 4:
-						entityDropItem(new ItemStack(Items.leather, 1 + rand.nextInt(2)), 0F);
-						break;
-					case 5:
-						entityDropItem(new ItemStack(Items.feather, 1 + rand.nextInt(2)), 0F);
-						break;
-					case 6:
-						entityDropItem(new ItemStack(Items.flint, 1 + rand.nextInt(3)), 0F);
-						break;
-					case 7:
-						entityDropItem(new ItemStack(Items.flint_and_steel, 1, rand.nextInt(40)), 0F);
-						break;
-					case 8:
-						entityDropItem(new ItemStack(Items.stick, 1 + rand.nextInt(4)), 0F);
-						break;
-				}
-			}
+			dropChestContents(LOTRChestContents.DUNLENDING_HOUSE, 0, 2 + i);
 		}
 	}
 	

@@ -7,6 +7,7 @@ import lotr.common.entity.ai.LOTREntityAIDrink;
 import lotr.common.entity.ai.LOTREntityAIEat;
 import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
+import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,7 +38,6 @@ public abstract class LOTREntityRanger extends LOTREntityNPC implements IRangedA
 {
 	public EntityAIBase rangedAttackAI = createRangerRangedAttackAI();
 	public EntityAIBase meleeAttackAI = createRangerMeleeAttackAI();
-	public int weaponChangeCooldown = 0;
 	private int sneakCooldown = 0;
 	private EntityLivingBase prevRangerTarget;
 	
@@ -165,48 +165,6 @@ public abstract class LOTREntityRanger extends LOTREntityNPC implements IRangedA
 		
 		if (!worldObj.isRemote)
 		{
-			ItemStack weapon = getEquipmentInSlot(0);
-			if (getAttackTarget() != null)
-			{
-				double d = getDistanceSqToEntity(getAttackTarget());
-				if (d < 16D)
-				{
-					if (weapon == null || weapon.getItem() != getRangerSwordId())
-					{
-						tasks.removeTask(rangedAttackAI);
-						tasks.addTask(2, meleeAttackAI);
-						setCurrentItemOrArmor(0, new ItemStack(getRangerSwordId()));
-						weaponChangeCooldown = 20;
-					}
-				}
-				else if (d < getWeaponChangeThresholdRangeSq())
-				{
-					if (weapon == null || weapon.getItem() != getRangerBowId())
-					{
-						tasks.removeTask(meleeAttackAI);
-						tasks.addTask(2, rangedAttackAI);
-						setCurrentItemOrArmor(0, new ItemStack(getRangerBowId()));
-						weaponChangeCooldown = 20;
-					}
-				}
-			}
-			else
-			{
-				if (weapon != null)
-				{
-					if (weaponChangeCooldown > 0)
-					{
-						weaponChangeCooldown--;
-					}
-					else
-					{
-						tasks.removeTask(rangedAttackAI);
-						tasks.removeTask(meleeAttackAI);
-						setCurrentItemOrArmor(0, null);
-					}
-				}
-			}
-			
 			if (isRangerSneaking())
 			{
 				if (getAttackTarget() == null)
@@ -229,6 +187,31 @@ public abstract class LOTREntityRanger extends LOTREntityNPC implements IRangedA
 			{
 				sneakCooldown = 0;
 			}
+		}
+	}
+	
+	@Override
+	public void onAttackModeChange(AttackMode mode)
+	{
+		if (mode == AttackMode.IDLE)
+		{
+			tasks.removeTask(rangedAttackAI);
+			tasks.removeTask(meleeAttackAI);
+			setCurrentItemOrArmor(0, null);
+		}
+		
+		if (mode == AttackMode.MELEE)
+		{
+			tasks.removeTask(rangedAttackAI);
+			tasks.addTask(2, meleeAttackAI);
+			setCurrentItemOrArmor(0, new ItemStack(getRangerSwordId()));
+		}
+		
+		if (mode == AttackMode.RANGED)
+		{
+			tasks.removeTask(meleeAttackAI);
+			tasks.addTask(2, rangedAttackAI);
+			setCurrentItemOrArmor(0, new ItemStack(getRangerBowId()));
 		}
 	}
 	

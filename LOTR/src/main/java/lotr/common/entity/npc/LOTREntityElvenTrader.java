@@ -63,8 +63,10 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
     }
 	
 	@Override
-	public void onElfUpdate()
+	public void onLivingUpdate()
 	{
+		super.onLivingUpdate();
+		
 		if (isEntityAlive())
 		{
 			travellingTraderInfo.onUpdate();
@@ -74,30 +76,6 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 				if (travellingTraderInfo.timeUntilDespawn == 0)
 				{
 					worldObj.setEntityState(this, (byte)15);
-				}
-			
-				ItemStack heldItem = getEquipmentInSlot(0);
-				if (getAttackTarget() != null)
-				{
-					if (heldItem == null || heldItem.getItem() != getElfSwordId())
-					{
-						setCurrentItemOrArmor(0, new ItemStack(getElfSwordId(), 1, 0));
-						weaponChangeCooldown = 20;
-					}
-				}
-				else
-				{
-					if (heldItem != null && heldItem.getItem() == getElfSwordId())
-					{
-						if (weaponChangeCooldown > 0)
-						{
-							weaponChangeCooldown--;
-						}
-						else
-						{
-							setCurrentItemOrArmor(0, null);
-						}
-					}
 				}
 			}
 		}

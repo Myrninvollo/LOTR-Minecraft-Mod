@@ -12,6 +12,7 @@ import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
+import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import lotr.common.world.biome.LOTRBiomeGenLothlorien;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -43,7 +44,6 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 {
 	protected EntityAIBase rangedAttackAI = createElfRangedAttackAI();
 	protected EntityAIBase meleeAttackAI = createElfMeleeAttackAI();
-	protected int weaponChangeCooldown = 0;
 	
 	public LOTREntityElf(World world)
 	{
@@ -145,57 +145,27 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 	}
 	
 	@Override
-	public void onLivingUpdate()
+	public void onAttackModeChange(AttackMode mode)
 	{
-		super.onLivingUpdate();
-		onElfUpdate();
-	}
-	
-	public void onElfUpdate()
-	{
-		if (!worldObj.isRemote)
+		if (mode == AttackMode.IDLE)
 		{
-			ItemStack weapon = getEquipmentInSlot(0);
-			if (getAttackTarget() != null)
-			{
-				double d = getDistanceSqToEntity(getAttackTarget());
-				if (d < 16D)
-				{
-					if (weapon == null || weapon.getItem() != getElfSwordId())
-					{
-						tasks.removeTask(rangedAttackAI);
-						tasks.addTask(2, meleeAttackAI);
-						setCurrentItemOrArmor(0, new ItemStack(getElfSwordId(), 1, 0));
-						weaponChangeCooldown = 20;
-					}
-				}
-				else if (d < getWeaponChangeThresholdRangeSq())
-				{
-					if (weapon == null || weapon.getItem() != getElfBowId())
-					{
-						tasks.removeTask(meleeAttackAI);
-						tasks.addTask(2, rangedAttackAI);
-						setCurrentItemOrArmor(0, new ItemStack(getElfBowId(), 1, 0));
-						weaponChangeCooldown = 20;
-					}
-				}
-			}
-			else
-			{
-				if (weapon != null)
-				{
-					if (weaponChangeCooldown > 0)
-					{
-						weaponChangeCooldown--;
-					}
-					else
-					{
-						tasks.removeTask(rangedAttackAI);
-						tasks.removeTask(meleeAttackAI);
-						setCurrentItemOrArmor(0, null);
-					}
-				}
-			}
+			tasks.removeTask(rangedAttackAI);
+			tasks.removeTask(meleeAttackAI);
+			setCurrentItemOrArmor(0, null);
+		}
+		
+		if (mode == AttackMode.MELEE)
+		{
+			tasks.removeTask(rangedAttackAI);
+			tasks.addTask(2, meleeAttackAI);
+			setCurrentItemOrArmor(0, new ItemStack(getElfSwordId(), 1, 0));
+		}
+		
+		if (mode == AttackMode.RANGED)
+		{
+			tasks.removeTask(meleeAttackAI);
+			tasks.addTask(2, rangedAttackAI);
+			setCurrentItemOrArmor(0, new ItemStack(getElfBowId(), 1, 0));
 		}
 	}
 	

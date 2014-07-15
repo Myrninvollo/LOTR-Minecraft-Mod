@@ -2,6 +2,7 @@ Public Beta 19
 
 + Added protective functions for a banner placed on a gold block: prevention of enemy mob spawns, and protection against enemy players breaking, placing, or using blocks, within a 32-block cubic radius
 + Added more available custom waypoints as a reward for earning Middle-earth achievements
++ Added bandits
 + Added Ranger Watchtowers
 + Added eating and drinking AI to many more NPCs
 + Added more skins for orcs, Uruk-hai, and Gondor Soldiers
@@ -10,8 +11,11 @@ Public Beta 19
 + Added an updated German translation
 
 * Increased the health of elves and dwarves
-* Fixed skeletal wraiths falling through the ground
+* Banner bearers now carry banners in the left hand so they do not disappear in battle
+* Near Haradrim now defend themselves with daggers
 * Dunlending Bartenders now trade at Dunland alignment 0
+* Fixed skeletal wraiths falling through the ground
+* Hobbit Farmhouse roofs are now made of thatch blocks
 
 Public Beta 18.2
 

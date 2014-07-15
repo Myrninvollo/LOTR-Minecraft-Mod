@@ -4,6 +4,7 @@ import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
+import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -63,5 +64,5 @@ public class LOTREntityNearHaradrimWarrior extends LOTREntityNearHaradrim
 	}
 	
 	@Override
-	protected void dropHaradrimItems(boolean flag, int i) {}
+	public void onAttackModeChange(AttackMode mode) {}
 }

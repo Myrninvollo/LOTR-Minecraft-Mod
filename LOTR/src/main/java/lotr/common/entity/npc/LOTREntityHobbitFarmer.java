@@ -7,6 +7,7 @@ import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.item.LOTRItemLeatherHat;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
@@ -20,14 +21,7 @@ public class LOTREntityHobbitFarmer extends LOTREntityHobbit implements LOTRTrad
 	public LOTREntityHobbitFarmer(World world)
 	{
 		super(world);
-		for (int i = 0; i < tasks.taskEntries.size(); i++)
-		{
-			EntityAITaskEntry taskEntry = (EntityAITaskEntry)tasks.taskEntries.get(i);
-			if (taskEntry.action instanceof EntityAIPanic)
-			{
-				tasks.removeTask(taskEntry.action);
-			}
-		}
+		removeTasksOfType(EntityAIPanic.class);
 		tasks.addTask(2, new LOTREntityAIAttackOnCollide(this, 1.2D, false));
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 

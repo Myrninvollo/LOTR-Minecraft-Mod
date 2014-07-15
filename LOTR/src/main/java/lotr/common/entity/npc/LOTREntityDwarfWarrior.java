@@ -2,6 +2,7 @@ package lotr.common.entity.npc;
 
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRMod;
+import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -45,7 +46,7 @@ public class LOTREntityDwarfWarrior extends LOTREntityDwarf
 	}
 	
 	@Override
-	public void onDwarfUpdate() {}
+	public void onAttackModeChange(AttackMode mode) {}
 	
 	@Override
 	public int getAlignmentBonus()

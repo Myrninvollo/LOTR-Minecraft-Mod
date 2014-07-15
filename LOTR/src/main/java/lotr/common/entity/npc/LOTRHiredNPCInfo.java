@@ -3,7 +3,7 @@ package lotr.common.entity.npc;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lotr.common.LOTRLevelData;
-import lotr.common.inventory.LOTRInventoryHiredNPC;
+import lotr.common.inventory.LOTRInventoryNPC;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,7 +36,7 @@ public class LOTRHiredNPCInfo
 	public static int GUARD_RANGE_MAX = 64;
 	private int guardRange = GUARD_RANGE_MIN;
 	private Task task = Task.WARRIOR;
-	private LOTRInventoryHiredNPC hiredInventory;
+	private LOTRInventoryNPC hiredInventory;
 	
 	public enum Task
 	{
@@ -88,11 +88,11 @@ public class LOTRHiredNPCInfo
 		
 		if (task == Task.FARMER)
 		{
-			hiredInventory = new LOTRInventoryHiredNPC(theEntity, 3);
+			hiredInventory = new LOTRInventoryNPC("HiredInventory", theEntity, 3);
 		}
 	}
 	
-	public LOTRInventoryHiredNPC getHiredInventory()
+	public LOTRInventoryNPC getHiredInventory()
 	{
 		return hiredInventory;
 	}

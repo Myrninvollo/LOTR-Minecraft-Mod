@@ -3,6 +3,7 @@ package lotr.common.world.structure;
 import java.util.Random;
 
 import lotr.common.LOTRMod;
+import lotr.common.item.LOTRItemMugBrewable;
 import lotr.common.item.LOTRItemPouch;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.init.Blocks;
@@ -147,6 +148,11 @@ public class LOTRChestContents
 					itemstack.stackSize = itemstack.getMaxStackSize();
 				}
 				
+				if (itemstack.getItem() instanceof LOTRItemMugBrewable)
+				{
+					itemstack.setItemDamage(1 + random.nextInt(3));
+				}
+				
 				if (random.nextInt(4) == 0 && itemstack.isItemEnchantable() && itemstack.getItem().getItemEnchantability() > 0)
 				{
 					int enchantability = EnchantmentHelper.calcItemStackEnchantability(random, 1, 8, itemstack);
@@ -160,7 +166,7 @@ public class LOTRChestContents
 	
 	public static int getRandomItemAmount(LOTRChestContents itemPool, Random random)
 	{
-		return itemPool.minItems + random.nextInt(itemPool.maxItems - itemPool.minItems + 1);
+		return MathHelper.getRandomIntegerInRange(random, itemPool.minItems, itemPool.maxItems);
 	}
 
 	static
@@ -204,7 +210,11 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.cherry), 2, 4, 50),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.mug), 1, 2, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.plate), 1, 2, 100),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.hobbitPancake), 1, 3, 10)
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.hobbitPancake), 1, 3, 10),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAle), 1, 1, 100),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugCider), 1, 1, 50),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugPerry), 1, 1, 50),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugCherryLiqueur), 1, 1, 25)
 		});
 		
 		HOBBIT_HOLE_TREASURE = new LOTRChestContents(3, 6, new WeightedRandomChestContent[]
@@ -248,8 +258,7 @@ public class LOTRChestContents
 		{
 			new WeightedRandomChestContent(new ItemStack(Items.book), 1, 3, 50),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.mug), 1, 3, 50),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugMiruvor, 1, 1), 1, 1, 25),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugMiruvor, 1, 2), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugMiruvor), 1, 1, 50),
 			new WeightedRandomChestContent(new ItemStack(Items.arrow), 2, 6, 50),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.elvenBow), 1, 1, 25),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.swordHighElven), 1, 1, 10),
@@ -365,9 +374,7 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(Items.stick), 8, 16, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.coal), 1, 4, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.iron_ingot), 1, 3, 50),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAle, 1, 1), 1, 1, 50),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAle, 1, 2), 1, 1, 25),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAle, 1, 3), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAle), 1, 1, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.arrow), 2, 8, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.daggerIron), 1, 1, 10),
 			new WeightedRandomChestContent(new ItemStack(Items.iron_sword), 1, 1, 10),
@@ -475,10 +482,7 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.orcBow), 1, 1, 75),
 			new WeightedRandomChestContent(new ItemStack(Items.arrow), 2, 7, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.maggotyBread), 1, 3, 100),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 1), 1, 1, 75),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 2), 1, 1, 50),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 3), 1, 1, 25),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 4), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught), 1, 1, 200)
 		}).enablePouches().enableEnchantedBooks();
 		
 		GUNDABAD_TENT = new LOTRChestContents(1, 2, new WeightedRandomChestContent[]
@@ -488,9 +492,7 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(Items.stick), 8, 16, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.coal), 1, 4, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.orcSteel), 1, 3, 100),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 1), 1, 1, 50),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 2), 1, 1, 25),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 3), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught), 1, 1, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.arrow), 2, 8, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.daggerOrc), 1, 1, 10),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.daggerOrcPoisoned), 1, 1, 10),
@@ -534,9 +536,7 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.axeWoodElven), 1, 1, 10),
 			new WeightedRandomChestContent(new ItemStack(Items.arrow), 2, 6, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.sapling, 1, 2), 1, 3, 75),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugRedWine, 1, 1), 1, 1, 25),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugRedWine, 1, 2), 1, 1, 25),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugRedWine, 1, 3), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugRedWine), 1, 1, 75),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.lembas), 1, 1, 25),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.mug), 1, 3, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.string), 1, 3, 100),
@@ -586,7 +586,6 @@ public class LOTRChestContents
 		
 		DWARVEN_MINE_CORRIDOR = new LOTRChestContents(3, 6, new WeightedRandomChestContent[]
 		{
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.dwarfSteel), 1, 4, 75),
 			new WeightedRandomChestContent(new ItemStack(Items.iron_ingot), 1, 4, 75),
 			new WeightedRandomChestContent(new ItemStack(Items.gold_ingot), 1, 3, 50),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.silver), 1, 3, 50),
@@ -594,8 +593,6 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.mithril), 1, 1, 10),
 			new WeightedRandomChestContent(new ItemStack(Items.coal), 3, 8, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.bread), 1, 3, 100),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.pickaxeDwarven), 1, 1, 75),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.shovelDwarven), 1, 1, 75),
 			new WeightedRandomChestContent(new ItemStack(Items.glowstone_dust), 2, 8, 75),
 			new WeightedRandomChestContent(new ItemStack(Blocks.torch), 2, 6, 100)
 		});
@@ -649,9 +646,7 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(Items.apple), 1, 3, 75),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.lembas), 1, 1, 25),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.mallornNut), 1, 2, 75),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugMiruvor, 1, 1), 1, 1, 10),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugMiruvor, 1, 2), 1, 1, 10),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugMiruvor, 1, 3), 1, 1, 10),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugMiruvor), 1, 1, 30),
 			new WeightedRandomChestContent(new ItemStack(Items.compass), 1, 1, 25)
 		}).enablePouches().enableEnchantedBooks();
 		
@@ -662,8 +657,7 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(Items.bow), 1, 1, 75),
 			new WeightedRandomChestContent(new ItemStack(Items.bread), 1, 3, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.mug), 1, 2, 100),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugMead, 1, 1), 1, 1, 50),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugMead, 1, 2), 1, 1, 50),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugMead), 1, 1, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.apple), 1, 3, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.saddle), 1, 1, 75),
 			new WeightedRandomChestContent(new ItemStack(Items.lead), 1, 2, 75),
@@ -693,9 +687,7 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(Items.stick), 8, 16, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.coal), 1, 4, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.urukSteel), 1, 3, 100),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 1), 1, 1, 50),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 2), 1, 1, 25),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 3), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught), 1, 1, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.crossbowBolt), 2, 8, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.daggerUruk), 1, 1, 25),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.daggerUrukPoisoned), 1, 1, 25),
@@ -757,9 +749,7 @@ public class LOTRChestContents
 		GONDOR_FORTRESS_DRINKS = new LOTRChestContents(2, 4, new WeightedRandomChestContent[]
 		{
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.mug), 1, 2, 100),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAle, 1, 1), 1, 1, 20),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAle, 1, 2), 1, 1, 20),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAle, 1, 3), 1, 1, 10)
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAle), 1, 1, 50)
 		});
 		
 		GONDOR_FORTRESS_SUPPLIES = new LOTRChestContents(4, 6, new WeightedRandomChestContent[]
@@ -810,9 +800,7 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(Items.stick), 8, 16, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.nauriteGem), 1, 4, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.orcSteel), 1, 3, 100),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 1), 1, 1, 50),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 2), 1, 1, 25),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught, 1, 3), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught), 1, 1, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.arrow), 2, 8, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.daggerOrc), 1, 1, 25),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.daggerOrcPoisoned), 1, 1, 25),
@@ -853,9 +841,7 @@ public class LOTRChestContents
 				new WeightedRandomChestContent(new ItemStack(Items.wheat), 1, 5, 50),
 				new WeightedRandomChestContent(new ItemStack(LOTRMod.plate), 1, 3, 50),
 				new WeightedRandomChestContent(new ItemStack(LOTRMod.mug), 1, 3, 100),
-				new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAraq, 1, 1), 1, 1, 25),
-				new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAraq, 1, 2), 1, 1, 25),
-				new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAraq, 1, 3), 1, 1, 25)
+				new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAraq), 1, 1, 75)
 		}).enablePouches().enableEnchantedBooks();
 		
 		NEAR_HARAD_TOWER = new LOTRChestContents(4, 6, new WeightedRandomChestContent[]

@@ -3,6 +3,7 @@ package lotr.common.entity.npc;
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
+import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import lotr.common.item.LOTRItemSpear;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -58,56 +59,15 @@ public class LOTREntityWoodElfWarrior extends LOTREntityWoodElfScout
 	}
 	
 	@Override
-	public void onElfUpdate()
+	public void onAttackModeChange(AttackMode mode)
 	{
-		if (!worldObj.isRemote)
+		if (mode == AttackMode.IDLE)
 		{
-			ItemStack weapon = getEquipmentInSlot(0);
-			if (weapon != null && weapon.getItem() instanceof LOTRItemSpear)
-			{
-				return;
-			}
-			
-			if (getAttackTarget() != null)
-			{
-				double d = getDistanceSqToEntity(getAttackTarget());
-				if (d < 16D)
-				{
-					if (weapon == null || weapon.getItem() != getElfSwordId())
-					{
-						tasks.removeTask(rangedAttackAI);
-						tasks.addTask(2, meleeAttackAI);
-						setCurrentItemOrArmor(0, new ItemStack(getElfSwordId(), 1, 0));
-						weaponChangeCooldown = 20;
-					}
-				}
-				else if (d < getWeaponChangeThresholdRangeSq())
-				{
-					if (weapon == null || weapon.getItem() != getElfBowId())
-					{
-						tasks.removeTask(meleeAttackAI);
-						tasks.addTask(2, rangedAttackAI);
-						setCurrentItemOrArmor(0, new ItemStack(getElfBowId(), 1, 0));
-						weaponChangeCooldown = 20;
-					}
-				}
-			}
-			else
-			{
-				if (weapon == null || weapon.getItem() != getElfSwordId())
-				{
-					if (weaponChangeCooldown > 0)
-					{
-						weaponChangeCooldown--;
-					}
-					else
-					{
-						tasks.removeTask(rangedAttackAI);
-						tasks.addTask(2, meleeAttackAI);
-						setCurrentItemOrArmor(0, new ItemStack(getElfSwordId(), 1, 0));
-					}
-				}
-			}
+			setCurrentItemOrArmor(0, new ItemStack(getElfSwordId(), 1, 0));
+		}
+		else
+		{
+			super.onAttackModeChange(mode);
 		}
 	}
 	

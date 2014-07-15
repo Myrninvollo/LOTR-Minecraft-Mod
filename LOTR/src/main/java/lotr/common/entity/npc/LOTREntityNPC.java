@@ -12,6 +12,7 @@ import java.util.Random;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTREventHandler;
 import lotr.common.LOTRFaction;
+import lotr.common.LOTRFoods;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
 import lotr.common.entity.LOTREntities;
@@ -27,7 +28,9 @@ import lotr.common.inventory.LOTRContainerUnitTrade;
 import lotr.common.item.LOTRItemBanner;
 import lotr.common.item.LOTRItemLeatherHat;
 import lotr.common.item.LOTRItemPouch;
+import lotr.common.item.LOTRItemSpear;
 import lotr.common.world.biome.LOTRBiome;
+import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -36,8 +39,10 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
@@ -45,6 +50,8 @@ import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -69,27 +76,43 @@ public abstract class LOTREntityNPC extends EntityCreature
 
 	private float npcWidth = -1F;
 	private float npcHeight;
-	public boolean isNPCPersistent = false;
-	public int npcTalkTick = 0;
-	public boolean liftSpawnRestrictions = false;
-	public LOTRHiredNPCInfo hiredNPCInfo;
-	private EntityLivingBase prevAttackTarget;
-	public String npcLocationName;
-	private boolean hasSpecificLocationName;
-	private boolean hurtOnlyByPlates = true;
-	public boolean spawnRidingHorse;
-	private boolean ridingHorse;
-	public int spawnCountValue = 1;
-	private ItemStack[] festiveItems = new ItemStack[5];
-	private Random festiveRand = new Random();
-	private boolean initFestiveItems = false;
-	public LOTRTraderNPCInfo traderNPCInfo;
+	
 	public boolean isPassive = false;
 	public boolean isImmuneToFrost = false;
 	protected boolean spawnsInDarkness = false;
+	
+	public boolean isNPCPersistent = false;
+	public boolean liftSpawnRestrictions = false;
+	public int spawnCountValue = 1;
+	
+	public String npcLocationName;
+	private boolean hasSpecificLocationName;
+	
+	public boolean spawnRidingHorse;
+	private boolean ridingHorse;
+	
+	public LOTRHiredNPCInfo hiredNPCInfo;
+	public LOTRTraderNPCInfo traderNPCInfo;
 	public LOTRFamilyInfo familyInfo;
+	
+	protected enum AttackMode
+	{
+		MELEE,
+		RANGED,
+		IDLE
+	}
+	private AttackMode prevAttackMode = AttackMode.IDLE;
+	
 	private boolean hasDefaultHeldItem = false;
 	private ItemStack defaultHeldItem;
+	
+	private ItemStack[] festiveItems = new ItemStack[5];
+	private Random festiveRand = new Random();
+	private boolean initFestiveItems = false;
+	
+	private EntityLivingBase prevAttackTarget;
+	public int npcTalkTick = 0;
+	private boolean hurtOnlyByPlates = true;
 	
 	public LOTREntityNPC(World world)
 	{
@@ -144,6 +167,26 @@ public abstract class LOTREntityNPC extends EntityCreature
 		{
 			System.out.println("Error adding LOTR target tasks to entity " + entity.toString());
 			e.printStackTrace();
+		}
+	}
+	
+	protected void removeTasksOfType(Class c)
+	{
+		for (int i = 0; i < tasks.taskEntries.size(); i++)
+		{
+			EntityAITaskEntry taskEntry = (EntityAITaskEntry)tasks.taskEntries.get(i);
+			if (c.isAssignableFrom(taskEntry.action.getClass()))
+			{
+				tasks.removeTask(taskEntry.action);
+			}
+		}
+		for (int i = 0; i < targetTasks.taskEntries.size(); i++)
+		{
+			EntityAITaskEntry taskEntry = (EntityAITaskEntry)targetTasks.taskEntries.get(i);
+			if (c.isAssignableFrom(taskEntry.action.getClass()))
+			{
+				targetTasks.removeTask(taskEntry.action);
+			}
 		}
 	}
 	
@@ -475,36 +518,63 @@ public abstract class LOTREntityNPC extends EntityCreature
 			}
 		}
 		
-		if (!worldObj.isRemote && this instanceof LOTRBannerBearer)
+		if (!worldObj.isRemote && !isChild())
 		{
-			LOTRBannerBearer thisAsBannerBearer = (LOTRBannerBearer)this;
 			ItemStack weapon = getEquipmentInSlot(0);
-			if (getAttackTarget() == null)
+			boolean carryingSpear = weapon != null && weapon.getItem() instanceof LOTRItemSpear;
+			if (getAttackTarget() != null && !carryingSpear)
 			{
-				if (weapon == null || weapon.getItem() != LOTRMod.banner)
+				double d = getDistanceSqToEntity(getAttackTarget());
+				if (d < getMeleeRangeSq())
 				{
-					setCurrentItemOrArmor(0, new ItemStack(LOTRMod.banner, 1, LOTRItemBanner.getSubtypeForFaction(getFaction())));
+					if (prevAttackMode != AttackMode.MELEE)
+					{
+						prevAttackMode = AttackMode.MELEE;
+						onAttackModeChange(AttackMode.MELEE);
+					}
+				}
+				else if (d < getMaxCombatRangeSq())
+				{
+					if (prevAttackMode != AttackMode.RANGED)
+					{
+						prevAttackMode = AttackMode.RANGED;
+						onAttackModeChange(AttackMode.RANGED);
+					}
 				}
 			}
 			else
 			{
-				if (weapon == null || weapon.getItem() != thisAsBannerBearer.getWeaponItem())
+				if (prevAttackMode != AttackMode.IDLE)
 				{
-					setCurrentItemOrArmor(0, new ItemStack(thisAsBannerBearer.getWeaponItem()));
+					prevAttackMode = AttackMode.IDLE;
+					onAttackModeChange(AttackMode.IDLE);
 				}
 			}
 		}
 	}
 	
-	protected double getWeaponChangeThresholdRange()
+	protected void onAttackModeChange(AttackMode mode) {}
+	
+	protected double getMeleeRange()
+	{
+		return 4D;
+	}
+	
+	protected final double getMeleeRangeSq()
+	{
+		double d = getMeleeRange();
+		return d * d;
+	}
+	
+	protected final double getMaxCombatRange()
 	{
 		double d = getEntityAttribute(SharedMonsterAttributes.followRange).getAttributeValue();
 		return d * 0.95D;
 	}
 	
-	protected double getWeaponChangeThresholdRangeSq()
+	protected final double getMaxCombatRangeSq()
 	{
-		double d = getWeaponChangeThresholdRange();
+		double d = getMaxCombatRange();
 		return d * d;
 	}
 	
@@ -572,17 +642,14 @@ public abstract class LOTREntityNPC extends EntityCreature
 			}
 			clearDefaultHeldItem();
 		}
+		
+		onAttackModeChange(AttackMode.IDLE);
 	}
 	
 	@Override
     public ItemStack getPickedResult(MovingObjectPosition target)
     {
-		int id = LOTREntities.getEntityID(this);
-		if (id > 0 && LOTREntities.creatures.containsKey(id))
-		{
-			return new ItemStack(LOTRMod.spawnEgg, 1, id);
-		}
-		return null;
+		return new ItemStack(LOTRMod.spawnEgg, 1, LOTREntities.getEntityID(this));
     }
 	
 	@Override
@@ -766,6 +833,20 @@ public abstract class LOTREntityNPC extends EntityCreature
 						setCurrentItemOrArmor(j, null);
 					}
 				}
+			}
+		}
+	}
+	
+	protected void dropChestContents(LOTRChestContents items, int min, int max)
+	{
+		IInventory drops = new InventoryBasic("drops", false, max * 10);
+		LOTRChestContents.fillInventory(drops, rand, items, MathHelper.getRandomIntegerInRange(rand, min, max));
+		for (int i = 0; i < drops.getSizeInventory(); i++)
+		{
+			ItemStack item = drops.getStackInSlot(i);
+			if (item != null)
+			{
+				entityDropItem(item, 0F);
 			}
 		}
 	}
@@ -1046,22 +1127,17 @@ public abstract class LOTREntityNPC extends EntityCreature
 		
 		int banners = 0;
 		
-		List entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, boundingBox.expand(16D, 16D, 16D));
+		List entities = worldObj.getEntitiesWithinAABB(LOTRBannerBearer.class, boundingBox.expand(16D, 16D, 16D));
 		for (int i = 0; i < entities.size(); i++)
 		{
 			EntityLivingBase entity = (EntityLivingBase)entities.get(i);
-			if (entity.isEntityAlive() && entity.getEquipmentInSlot(0) != null)
+			if (entity != this && entity.isEntityAlive() && LOTRMod.getNPCFaction(entity) == getFaction())
 			{
-				ItemStack item = entity.getEquipmentInSlot(0);
-				LOTRFaction faction = LOTRItemBanner.getFaction(item);
-				if (faction == getFaction())
-				{
-					banners++;
-				}
+				banners++;
 			}
 		}
 		
-		return Math.min(banners, 4);
+		return Math.min(banners, 5);
 	}
 	
 	public ItemStack createAlignmentReward()

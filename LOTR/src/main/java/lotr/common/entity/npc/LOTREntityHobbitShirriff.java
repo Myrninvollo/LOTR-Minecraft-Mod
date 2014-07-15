@@ -35,7 +35,6 @@ public class LOTREntityHobbitShirriff extends LOTREntityHobbit implements IRange
 {
 	public EntityAIBase rangedAttackAI = createHobbitRangedAttackAI();
 	public EntityAIBase meleeAttackAI = createHobbitMeleeAttackAI();
-	public int weaponChangeCooldown = 0;
 	
 	public LOTREntityHobbitShirriff(World world)
 	{
@@ -93,53 +92,27 @@ public class LOTREntityHobbitShirriff extends LOTREntityHobbit implements IRange
 	}
 	
 	@Override
-	public void onLivingUpdate()
+	public void onAttackModeChange(AttackMode mode)
 	{
-		super.onLivingUpdate();
-		
-		if (!worldObj.isRemote)
+		if (mode == AttackMode.IDLE)
 		{
-			ItemStack weapon = getEquipmentInSlot(0);
-			if (getAttackTarget() != null)
-			{
-				double d = getDistanceSqToEntity(getAttackTarget());
-				if (d < 16D)
-				{
-					if (weapon == null || weapon.getItem() != getHobbitMeleeWeaponId())
-					{
-						tasks.removeTask(rangedAttackAI);
-						tasks.addTask(2, meleeAttackAI);
-						setCurrentItemOrArmor(0, new ItemStack(getHobbitMeleeWeaponId(), 1, 0));
-						weaponChangeCooldown = 20;
-					}
-				}
-				else if (d < getWeaponChangeThresholdRangeSq())
-				{
-					if (weapon == null || weapon.getItem() != getHobbitRangedWeaponId())
-					{
-						tasks.removeTask(meleeAttackAI);
-						tasks.addTask(2, rangedAttackAI);
-						setCurrentItemOrArmor(0, new ItemStack(getHobbitRangedWeaponId(), 1, 0));
-						weaponChangeCooldown = 20;
-					}
-				}
-			}
-			else
-			{
-				if (weapon != null)
-				{
-					if (weaponChangeCooldown > 0)
-					{
-						weaponChangeCooldown--;
-					}
-					else
-					{
-						tasks.removeTask(rangedAttackAI);
-						tasks.removeTask(meleeAttackAI);
-						setCurrentItemOrArmor(0, null);
-					}
-				}
-			}
+			tasks.removeTask(rangedAttackAI);
+			tasks.removeTask(meleeAttackAI);
+			setCurrentItemOrArmor(0, null);
+		}
+		
+		if (mode == AttackMode.MELEE)
+		{
+			tasks.removeTask(rangedAttackAI);
+			tasks.addTask(2, meleeAttackAI);
+			setCurrentItemOrArmor(0, new ItemStack(getHobbitMeleeWeaponId(), 1, 0));
+		}
+		
+		if (mode == AttackMode.RANGED)
+		{
+			tasks.removeTask(meleeAttackAI);
+			tasks.addTask(2, rangedAttackAI);
+			setCurrentItemOrArmor(0, new ItemStack(getHobbitRangedWeaponId(), 1, 0));
 		}
 	}
 	

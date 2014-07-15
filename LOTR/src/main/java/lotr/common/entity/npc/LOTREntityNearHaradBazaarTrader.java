@@ -3,6 +3,8 @@ package lotr.common.entity.npc;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRLevelData;
+import lotr.common.LOTRMod;
+import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,6 +38,19 @@ public class LOTREntityNearHaradBazaarTrader extends LOTREntityNearHaradrim impl
 		setCurrentItemOrArmor(0, new ItemStack(heldItem));
 		return data;
     }
+	
+	@Override
+	public void onAttackModeChange(AttackMode mode)
+	{
+		if (mode == AttackMode.IDLE)
+		{
+			setCurrentItemOrArmor(0, new ItemStack(heldItem));
+		}
+		else
+		{
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerNearHarad));
+		}
+	}
 	
 	@Override
 	public int getAlignmentBonus()

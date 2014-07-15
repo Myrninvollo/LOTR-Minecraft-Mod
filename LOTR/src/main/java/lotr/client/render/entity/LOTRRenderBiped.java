@@ -8,6 +8,7 @@ import java.util.UUID;
 import lotr.client.LOTRClientProxy;
 import lotr.client.model.LOTRModelBiped;
 import lotr.common.LOTRMod;
+import lotr.common.entity.npc.LOTRBannerBearer;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.item.LOTRItemBanner;
 import lotr.common.item.LOTRItemMug;
@@ -81,27 +82,47 @@ public abstract class LOTRRenderBiped extends RenderBiped
     {
 		super.func_82420_a(entity, itemstack);
 		
+		setupHeldItems(entity, itemstack, true);
+		setupHeldItems(entity, getHeldItemLeft(entity), false);
+    }
+	
+	private void setupHeldItems(EntityLiving entity, ItemStack itemstack, boolean rightArm)
+	{
+		int value = 0;
+		boolean aimBow = false;
+		
 		if (itemstack != null)
 		{
 			Item item = itemstack.getItem();
 			
 			if (!(item instanceof LOTRItemSpear) && item.getItemUseAction(itemstack) == EnumAction.bow)
 			{
-				field_82423_g.heldItemRight = field_82425_h.heldItemRight = modelBipedMain.heldItemRight = 3;
-				field_82423_g.aimedBow = field_82425_h.aimedBow = modelBipedMain.aimedBow = true;
+				value = 3;
+				aimBow = true;
 			}
 			
 			if (item instanceof LOTRItemBanner)
 			{
-				field_82423_g.heldItemRight = field_82425_h.heldItemRight = modelBipedMain.heldItemRight = 3;
+				value = 3;
 			}
 			
 			if (item instanceof ItemFood || (item instanceof LOTRItemMug && item != LOTRMod.mug) || item instanceof LOTRItemMugBrewable || item == LOTRMod.hobbitPipe)
 			{
-				field_82423_g.heldItemRight = field_82425_h.heldItemRight = modelBipedMain.heldItemRight = 3;
+				value = 3;
 			}
 		}
-    }
+		
+		if (rightArm)
+		{
+			field_82423_g.heldItemRight = field_82425_h.heldItemRight = modelBipedMain.heldItemRight = value;
+		}
+		else
+		{
+			field_82423_g.heldItemLeft = field_82425_h.heldItemLeft = modelBipedMain.heldItemLeft = value;
+		}
+		
+		field_82423_g.aimedBow = field_82425_h.aimedBow = modelBipedMain.aimedBow = aimBow;
+	}
 	
 	@Override
 	protected void renderEquippedItems(EntityLivingBase entity, float f)
@@ -234,6 +255,15 @@ public abstract class LOTRRenderBiped extends RenderBiped
 		if (heldItemLeft != null)
 		{
             GL11.glPushMatrix();
+            
+            if (mainModel.isChild)
+            {
+                float f1 = 0.5F;
+                GL11.glTranslatef(0F, 0.625F, 0F);
+                GL11.glRotatef(-20F, -1F, 0F, 0F);
+                GL11.glScalef(f1, f1, f1);
+            }
+            
             modelBipedMain.bipedLeftArm.postRender(0.0625F);
             GL11.glTranslatef(0.0625F, 0.4375F, 0.0625F);
 
@@ -248,6 +278,21 @@ public abstract class LOTRRenderBiped extends RenderBiped
                 GL11.glRotatef(20F, 1F, 0F, 0F);
                 GL11.glRotatef(45F, 0F, 1F, 0F);
                 GL11.glScalef(-f1, -f1, f1);
+            }
+            else if (heldItemLeft.getItem().isFull3D())
+            {
+                float f1 = 0.625F;
+
+                if (heldItemLeft.getItem().shouldRotateAroundWhenRendering())
+                {
+                    GL11.glRotatef(180F, 0F, 0F, 1F);
+                    GL11.glTranslatef(0F, -getHeldItemYTranslation(), 0F);
+                }
+
+                GL11.glTranslatef(0F, getHeldItemYTranslation(), 0F);
+                GL11.glScalef(f1, -f1, f1);
+                GL11.glRotatef(-100F, 1F, 0F, 0F);
+                GL11.glRotatef(45F, 0F, 1F, 0F);
             }
             else
             {
@@ -290,6 +335,15 @@ public abstract class LOTRRenderBiped extends RenderBiped
 	
 	public ItemStack getHeldItemLeft(EntityLivingBase entity)
 	{
-		return ((LOTREntityNPC)entity).isTrader() ? new ItemStack(LOTRMod.silverCoin) : null;
+		if (entity instanceof LOTRBannerBearer)
+		{
+			LOTRBannerBearer bannerBearer = (LOTRBannerBearer)entity;
+			return new ItemStack(LOTRMod.banner, 1, LOTRItemBanner.getSubtypeForFaction(bannerBearer.getFaction()));
+		}
+		if (entity instanceof LOTREntityNPC && ((LOTREntityNPC)entity).isTrader())
+		{
+			return new ItemStack(LOTRMod.silverCoin);
+		}
+		return null;
 	}
 }

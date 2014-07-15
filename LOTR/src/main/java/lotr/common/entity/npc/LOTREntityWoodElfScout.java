@@ -55,8 +55,10 @@ public class LOTREntityWoodElfScout extends LOTREntityWoodElf
     }
 	
 	@Override
-	public void onElfUpdate()
+	public void onLivingUpdate()
 	{
+		super.onLivingUpdate();
+		
 		if (!worldObj.isRemote && isEntityAlive() && ridingEntity == null)
 		{
 			ItemStack currentItem = getEquipmentInSlot(0);

@@ -239,6 +239,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement hireFarmer;
 	public static LOTRAchievement travel40;
 	public static LOTRAchievement travel50;
+	public static LOTRAchievement killThievingBandit;
 	
 	public static LOTRAchievement killHobbit;
 	public static LOTRAchievement sellPipeweedLeaf;
@@ -542,6 +543,7 @@ public class LOTRAchievement implements Comparable
 		hireFarmer = new LOTRAchievement(GENERAL, 47, Items.iron_hoe, "hireFarmer");
 		travel40 = new LOTRAchievement(GENERAL, 48, Items.map, "travel40").setSpecial();
 		travel50 = new LOTRAchievement(GENERAL, 49, Items.map, "travel50").setSpecial();
+		killThievingBandit = new LOTRAchievement(GENERAL, 50, LOTRMod.leatherHat, "killThievingBandit");
 
 		killHobbit = new LOTRAchievement(SHIRE, 0, LOTRMod.hobbitBone, "killHobbit").setRequiresEnemy(LOTRFaction.HOBBIT);
 		sellPipeweedLeaf = new LOTRAchievement(SHIRE, 1, LOTRMod.pipeweedLeaf, "sellPipeweedLeaf").setRequiresAlly(LOTRFaction.HOBBIT);

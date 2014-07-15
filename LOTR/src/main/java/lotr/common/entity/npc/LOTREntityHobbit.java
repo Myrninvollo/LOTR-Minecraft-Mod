@@ -15,6 +15,7 @@ import lotr.common.entity.ai.LOTREntityAINPCFollowSpouse;
 import lotr.common.entity.ai.LOTREntityAINPCMarry;
 import lotr.common.entity.ai.LOTREntityAINPCMate;
 import lotr.common.world.biome.LOTRBiomeGenShire;
+import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -201,44 +202,14 @@ public class LOTREntityHobbit extends LOTREntityNPC
 		
 	public void dropHobbitItems(boolean flag, int i)
 	{
-		int count = rand.nextInt(3) + rand.nextInt(i + 1);
-		for (int k = 0; k < count; k++)
+		if (rand.nextBoolean())
 		{
-			int j = rand.nextInt(14);
-			switch(j)
-			{
-				case 0: case 1: case 2: case 3:
-					entityDropItem(LOTRFoods.HOBBIT.getRandomFood(rand), 0F);
-					break;
-				case 4:
-					entityDropItem(new ItemStack(Items.string, 1 + rand.nextInt(3)), 0F);
-					break;
-				case 5:
-					entityDropItem(new ItemStack(Items.paper, 2 + rand.nextInt(4)), 0F);
-					break;
-				case 6:
-					entityDropItem(new ItemStack(Items.book, 1 + rand.nextInt(2)), 0F);
-					break;
-				case 7:
-					entityDropItem(new ItemStack(Items.bowl, 1 + rand.nextInt(4)), 0F);
-					break;
-				case 8:
-					entityDropItem(new ItemStack(Items.wooden_hoe, 1, rand.nextInt(30)), 0F);
-					break;
-				case 9:
-					entityDropItem(new ItemStack(LOTRMod.hobbitPipe, 1, rand.nextInt(100)), 0F);
-					break;
-				case 10: case 11:
-					entityDropItem(new ItemStack(LOTRMod.pipeweed, 1 + rand.nextInt(2)), 0F);
-					break;
-				case 12:
-					entityDropItem(new ItemStack(LOTRMod.mug), 0F);
-					break;
-				case 13:
-					Item drink = LOTRFoods.HOBBIT_DRINK.getRandomFood(rand).getItem();
-					entityDropItem(new ItemStack(drink, 1, rand.nextInt(4)), 0F);
-					break;
-			}
+			dropChestContents(LOTRChestContents.HOBBIT_HOLE_STUDY, 0, 1 + i);
+		}
+		
+		if (rand.nextBoolean())
+		{
+			dropChestContents(LOTRChestContents.HOBBIT_HOLE_LARDER, 0, 2 + i);
 		}
 	}
 	

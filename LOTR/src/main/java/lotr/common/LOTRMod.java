@@ -1941,6 +1941,7 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityNearHaradPlantsTrader.class, "NearHaradPlantsTrader", 127, 0xCE967D, 0x917D77);
 		LOTREntities.registerCreature(LOTREntityNearHaradFoodTrader.class, "NearHaradFoodTrader", 128, 0xCE967D, 0x917D77);
 		LOTREntities.registerCreature(LOTREntityBlueDwarfMerchant.class, "BlueDwarfMerchant", 129, 0xF9876D, 0xEA5620);
+		LOTREntities.registerCreature(LOTREntityBandit.class, "Bandit", 130, 0xF79574, 0x513B21);
 
 		LOTREntities.registerEntity(LOTREntityPortal.class, "Portal", 200, 80, 3, true);
 		LOTREntities.registerEntity(LOTREntitySmokeRing.class, "SmokeRing", 201, 64, 10, true);

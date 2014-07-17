@@ -452,7 +452,7 @@ public class LOTREventHandler implements IFuelHandler
 					if (entity instanceof EntityPlayer)
 					{
 						int alignment = LOTRLevelData.getAlignment((EntityPlayer)entity, faction);
-						if (alignment < 0)
+						if (alignment <= 0)
 						{
 							protectingEnemyFaction = faction;
 							break bannerSearch;
@@ -523,7 +523,8 @@ public class LOTREventHandler implements IFuelHandler
 			if (itemstack != null && itemstack.getItem() == LOTRMod.mug && world.getBlock(i, j, k) == Blocks.cauldron && world.getBlockMetadata(i, j, k) > 0)
 			{
 				LOTRMod.proxy.fillMugFromCauldron(world, i, j, k, side, itemstack);
-				if (--itemstack.stackSize <= 0)
+				itemstack.stackSize--;
+				if (itemstack.stackSize <= 0)
 				{
 					entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(LOTRMod.mugWater));
 				}
@@ -563,24 +564,27 @@ public class LOTREventHandler implements IFuelHandler
 				for (int l = 0; l < trees.size(); l++)
 				{
 					LOTREntityTree tree = (LOTREntityTree)trees.get(l);
-					if (!tree.hiredNPCInfo.isActive || tree.hiredNPCInfo.getHiringPlayer() != entityplayer)
+					
+					if (tree.hiredNPCInfo.isActive && tree.hiredNPCInfo.getHiringPlayer() == entityplayer)
 					{
-						tree.setAttackTarget(entityplayer);
-						
-						if (tree instanceof LOTREntityEnt && !sentMessage)
+						tree.hiredNPCInfo.dismissUnit();
+					}
+					
+					tree.setAttackTarget(entityplayer);
+					
+					if (tree instanceof LOTREntityEnt && !sentMessage)
+					{
+						entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(tree, "ent_defendTrees", entityplayer));
+						tree.markNPCSpoken();
+						sentMessage = true;
+					}
+					
+					if (world.getBiomeGenForCoords(i, k) instanceof LOTRBiomeGenFangorn)
+					{
+						if (!penalty)
 						{
-							entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(tree, "ent_defendTrees", entityplayer));
-							tree.markNPCSpoken();
-							sentMessage = true;
-						}
-						
-						if (world.getBiomeGenForCoords(i, k) instanceof LOTRBiomeGenFangorn)
-						{
-							if (!penalty)
-							{
-								LOTRLevelData.addAlignment(entityplayer, LOTRAlignmentValues.FANGORN_TREE_PENALTY, LOTRFaction.FANGORN, i + 0.5D, j + 0.5D, k + 0.5D);
-								penalty = true;
-							}
+							LOTRLevelData.addAlignment(entityplayer, LOTRAlignmentValues.FANGORN_TREE_PENALTY, LOTRFaction.FANGORN, i + 0.5D, j + 0.5D, k + 0.5D);
+							penalty = true;
 						}
 					}
 				}

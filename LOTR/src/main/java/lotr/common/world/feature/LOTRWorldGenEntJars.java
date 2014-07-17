@@ -30,7 +30,7 @@ public class LOTRWorldGenEntJars extends WorldGenerator
 					int amount = random.nextInt(LOTRTileEntityEntJar.MAX_CAPACITY + 1);
 					for (int l1 = 0; l1 < amount; l1++)
 					{
-						((LOTRTileEntityEntJar)tileentity).fillFromRain();
+						((LOTRTileEntityEntJar)tileentity).fillWithWater();
 					}
 				}
 			}

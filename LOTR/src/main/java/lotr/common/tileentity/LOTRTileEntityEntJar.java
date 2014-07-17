@@ -1,8 +1,5 @@
 package lotr.common.tileentity;
 
-import lotr.common.LOTRMod;
-import lotr.common.world.biome.LOTRBiomeGenFangorn;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -12,56 +9,47 @@ import net.minecraft.tileentity.TileEntity;
 
 public class LOTRTileEntityEntJar extends TileEntity
 {
-	public Item drinkItem;
+	public int drinkMeta = -1;
 	public int drinkAmount;
 	public static int MAX_CAPACITY = 6;
 	
 	@Override
 	public void updateEntity()
 	{
-		if (!worldObj.isRemote && worldObj.canLightningStrikeAt(xCoord, yCoord, zCoord) && worldObj.getBiomeGenForCoords(xCoord, zCoord) instanceof LOTRBiomeGenFangorn)
+		if (!worldObj.isRemote && worldObj.canLightningStrikeAt(xCoord, yCoord, zCoord))
 		{
-			if (worldObj.rand.nextInt(4000) == 0)
+			if (worldObj.rand.nextInt(1000) == 0)
 			{
-				fillFromRain();
+				fillWithWater();
 			}
 		}
 	}
 	
-	public boolean fillFrom(ItemStack itemstack)
+	public boolean fillFromBowl(ItemStack itemstack)
 	{
-		if (drinkItem == null)
+		if (drinkMeta == -1 && drinkAmount == 0)
 		{
-			drinkItem = itemstack.getItem();
+			drinkMeta = itemstack.getItemDamage();
 			drinkAmount++;
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			return true;
 		}
-		else if (drinkItem == itemstack.getItem() && drinkAmount < MAX_CAPACITY)
+		else if (drinkMeta == itemstack.getItemDamage() && drinkAmount < MAX_CAPACITY)
 		{
 			drinkAmount++;
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			return true;
 		}
 		return false;
 	}
 	
-	public void fillFromRain()
+	public void fillWithWater()
 	{
-		if (drinkItem == null)
-		{
-			if (worldObj.rand.nextBoolean())
-			{
-				drinkItem = LOTRMod.entDraughtGreen;
-			}
-			else
-			{
-				drinkItem = LOTRMod.entDraughtBrown;
-			}
-			drinkAmount++;
-		}
-		else if (drinkAmount < MAX_CAPACITY)
+		if (drinkMeta == -1 && drinkAmount < MAX_CAPACITY)
 		{
 			drinkAmount++;
 		}
+		drinkAmount = Math.min(drinkAmount, MAX_CAPACITY);
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
@@ -70,15 +58,17 @@ public class LOTRTileEntityEntJar extends TileEntity
 		drinkAmount--;
 		if (drinkAmount <= 0)
 		{
-			drinkItem = null;
+			drinkMeta = -1;
 		}
+		drinkAmount = Math.max(drinkAmount, 0);
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	@Override
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
-        nbt.setInteger("DrinkID", Item.getIdFromItem(drinkItem));
+        nbt.setInteger("DrinkMeta", drinkMeta);
 		nbt.setInteger("DrinkAmount", drinkAmount);
     }
 
@@ -86,12 +76,8 @@ public class LOTRTileEntityEntJar extends TileEntity
     public void readFromNBT(NBTTagCompound nbt)
     {
 		super.readFromNBT(nbt);
-		drinkItem = Item.getItemById(nbt.getInteger("DrinkID"));
+		drinkMeta = nbt.getInteger("DrinkMeta");
 		drinkAmount = nbt.getInteger("DrinkAmount");
-		if (drinkItem == null)
-		{
-			drinkAmount = 0;
-		}
 	}
 	
 	@Override

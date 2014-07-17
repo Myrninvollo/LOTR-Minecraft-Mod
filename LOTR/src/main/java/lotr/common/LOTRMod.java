@@ -17,6 +17,7 @@ import lotr.common.entity.npc.*;
 import lotr.common.entity.projectile.*;
 import lotr.common.item.*;
 import lotr.common.recipe.LOTRBrewingRecipes;
+import lotr.common.recipe.LOTREntJarRecipes;
 import lotr.common.recipe.LOTRRecipes;
 import lotr.common.tileentity.*;
 import lotr.common.world.LOTRWorldProvider;
@@ -257,6 +258,7 @@ public class LOTRMod
 	public static Block slabSingleThatch;
 	public static Block slabDoubleThatch;
 	public static Block stairsThatch;
+	public static Block fangornPlant;
 
 	public static Item goldRing;
 	public static Item pouch;
@@ -471,8 +473,7 @@ public class LOTRMod
 	public static Item bootsDunlending;
 	public static Item dunlendingClub;
 	public static Item dunlendingTrident;
-	public static Item entDraughtGreen;
-	public static Item entDraughtBrown;
+	public static Item entDraught;
 	public static Item mugDwarvenAle;
 	public static Item maggotyBread;
 	public static Item morgulSteel;
@@ -775,6 +776,7 @@ public class LOTRMod
 		slabSingleThatch = new LOTRBlockSlabThatch(false).setHardness(0.5F).setStepSound(Block.soundTypeGrass).setBlockName("lotr:slabSingleThatch");
 		slabDoubleThatch = new LOTRBlockSlabThatch(true).setHardness(0.5F).setStepSound(Block.soundTypeGrass).setBlockName("lotr:slabDoubleThatch");
 		stairsThatch = new LOTRBlockStairs(thatch, 0).setBlockName("lotr:stairsThatch");
+		fangornPlant = new LOTRBlockFangornPlant().setStepSound(Block.soundTypeGrass).setBlockName("lotr:fangornPlant");
 		
 		goldRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMagic).setUnlocalizedName("lotr:goldRing");
 		pouch = new LOTRItemPouch().setUnlocalizedName("lotr:pouch");
@@ -805,8 +807,8 @@ public class LOTRMod
 		mugAle = new LOTRItemMugBrewable(0.3F).setDrinkStats(3, 0.3F).setUnlocalizedName("lotr:mugAle");
 		mugChocolate = new LOTRItemMug(false).setDrinkStats(6, 0.6F).setUnlocalizedName("lotr:mugChocolate");
 		appleCrumbleItem = new ItemReed(appleCrumble).setMaxStackSize(1).setCreativeTab(LOTRCreativeTabs.tabFood).setUnlocalizedName("lotr:appleCrumble");
-		mugMiruvor = new LOTRItemMugBrewable(0F).setDrinkStats(6, 0.6F).addPotionEffect(Potion.damageBoost.id, 30).setUnlocalizedName("lotr:mugMiruvor");
-		mugOrcDraught = new LOTRItemMugBrewable(0F).setDrinkStats(6, 0.6F).addPotionEffect(Potion.damageBoost.id, 40).setDamageAmount(2).setUnlocalizedName("lotr:mugOrcDraught");
+		mugMiruvor = new LOTRItemMugBrewable(0F).setDrinkStats(8, 0.8F).addPotionEffect(Potion.damageBoost.id, 40).addPotionEffect(Potion.moveSpeed.id, 40).setUnlocalizedName("lotr:mugMiruvor");
+		mugOrcDraught = new LOTRItemMugBrewable(0F).setDrinkStats(6, 0.6F).addPotionEffect(Potion.damageBoost.id, 60).addPotionEffect(Potion.moveSpeed.id, 60).setDamageAmount(2).setUnlocalizedName("lotr:mugOrcDraught");
 		scimitarOrc = new LOTRItemSword(toolOrc).setUnlocalizedName("lotr:scimitarOrc");
 		helmetOrc = new LOTRItemArmor(armorOrc, 0).setUnlocalizedName("lotr:helmetOrc");
 		bodyOrc = new LOTRItemArmor(armorOrc, 1).setUnlocalizedName("lotr:bodyOrc");
@@ -973,12 +975,12 @@ public class LOTRMod
 		mugPerry = new LOTRItemMugBrewable(0.3F).setDrinkStats(4, 0.4F).setUnlocalizedName("lotr:mugPerry");
 		mugCherryLiqueur = new LOTRItemMugBrewable(1F).setDrinkStats(3, 0.3F).setUnlocalizedName("lotr:mugCherryLiqueur");
 		mugRum = new LOTRItemMugBrewable(1.5F).setDrinkStats(3, 0.3F).setUnlocalizedName("lotr:mugRum");
-		mugAthelasBrew = new LOTRItemMugBrewable(0F).setDrinkStats(6, 0.6F).addPotionEffect(Potion.damageBoost.id, 60).addPotionEffect(Potion.regeneration.id, 30).setUnlocalizedName("lotr:mugAthelasBrew");
+		mugAthelasBrew = new LOTRItemMugBrewable(0F).setDrinkStats(6, 0.6F).addPotionEffect(Potion.damageBoost.id, 120).addPotionEffect(Potion.regeneration.id, 60).setUnlocalizedName("lotr:mugAthelasBrew");
 		armorStandItem = new LOTRItemArmorStand().setUnlocalizedName("lotr:armorStand");
 		pebble = new Item().setCreativeTab(LOTRCreativeTabs.tabCombat).setUnlocalizedName("lotr:pebble");
 		sling = new LOTRItemSling().setUnlocalizedName("lotr:sling");
 		mysteryWeb = new LOTRItemMysteryWeb().setUnlocalizedName("lotr:mysteryWeb");
-		mugDwarvenTonic = new LOTRItemMugBrewable(0.2F).setDrinkStats(4, 0.4F).addPotionEffect(Potion.nightVision.id, 90).setUnlocalizedName("lotr:mugDwarvenTonic");
+		mugDwarvenTonic = new LOTRItemMugBrewable(0.2F).setDrinkStats(4, 0.4F).addPotionEffect(Potion.nightVision.id, 240).setUnlocalizedName("lotr:mugDwarvenTonic");
 		helmetRanger = new LOTRItemArmor(armorRanger, 0).setUnlocalizedName("lotr:helmetRanger");
 		bodyRanger = new LOTRItemArmor(armorRanger, 1).setUnlocalizedName("lotr:bodyRanger");
 		legsRanger = new LOTRItemArmor(armorRanger, 2).setUnlocalizedName("lotr:legsRanger");
@@ -989,8 +991,7 @@ public class LOTRMod
 		bootsDunlending = new LOTRItemArmor(armorDunlending, 3).setUnlocalizedName("lotr:bootsDunlending");
 		dunlendingClub = new LOTRItemHammer(ToolMaterial.WOOD).setUnlocalizedName("lotr:dunlendingClub");
 		dunlendingTrident = new LOTRItemTrident(ToolMaterial.IRON).setUnlocalizedName("lotr:dunlendingTrident");
-		entDraughtGreen = new LOTRItemEntDraught().addPotionEffect(Potion.moveSpeed.id, 60).addPotionEffect(Potion.digSpeed.id, 60).addPotionEffect(Potion.damageBoost.id, 60).setUnlocalizedName("lotr:entDraughtGreen");
-		entDraughtBrown = new LOTRItemEntDraught().setDrinkStats(8, 0.8F).setUnlocalizedName("lotr:entDraughtBrown");
+		entDraught = new LOTRItemEntDraught().setUnlocalizedName("lotr:entDraught");
 		mugDwarvenAle = new LOTRItemMugBrewable(0.4F).setDrinkStats(3, 0.3F).setUnlocalizedName("lotr:mugDwarvenAle");
 		maggotyBread = new LOTRItemFood(4, 0.5F, false).setPotionEffect(Potion.hunger.id, 20, 0, 0.4F).setUnlocalizedName("lotr:maggotyBread");
 		morgulSteel = new Item().setCreativeTab(LOTRCreativeTabs.tabMaterials).setUnlocalizedName("lotr:morgulSteel");
@@ -1319,6 +1320,7 @@ public class LOTRMod
 		registerBlock(slabSingleThatch, LOTRBlockSlabBase.SlabItems.ThatchSingle.class);
 		registerBlock(slabDoubleThatch, LOTRBlockSlabBase.SlabItems.ThatchDouble.class);
 		registerBlock(stairsThatch);
+		registerBlock(fangornPlant, LOTRItemBlockMetadata.class);
 		
 		registerItem(goldRing);
 		registerItem(pouch);
@@ -1533,8 +1535,7 @@ public class LOTRMod
 		registerItem(bootsDunlending);
 		registerItem(dunlendingClub);
 		registerItem(dunlendingTrident);
-		registerItem(entDraughtGreen);
-		registerItem(entDraughtBrown);
+		registerItem(entDraught);
 		registerItem(mugDwarvenAle);
 		registerItem(maggotyBread);
 		registerItem(morgulSteel);
@@ -1980,6 +1981,7 @@ public class LOTRMod
 		LOTRSpeech.loadAllSpeechBanks();
 		LOTRNames.loadAllNameBanks();
 		LOTRBrewingRecipes.createBrewingRecipes();
+		LOTREntJarRecipes.createDraughtRecipes();
 		LOTRAchievement.createAchievements();
 		LOTRStructures.registerStructures();
 		

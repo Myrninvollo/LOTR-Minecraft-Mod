@@ -429,6 +429,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement alignmentGood10_FANGORN;
 	public static LOTRAchievement alignmentGood100_FANGORN;
 	public static LOTRAchievement alignmentGood1000_FANGORN;
+	public static LOTRAchievement summonHuorn;
 	
 	public static LOTRAchievement killGondorSoldier;
 	public static LOTRAchievement lightGondorBeacon;
@@ -726,13 +727,14 @@ public class LOTRAchievement implements Comparable
 		alignmentGood1000_DUNLAND = new LOTRAchievement(DUNLAND, 9, LOTRMod.goldRing, "alignmentGood1000_DUNLAND").setRequiresAlly(LOTRFaction.DUNLAND).setSpecial();
 
 		killEnt = new LOTRAchievement(FANGORN, 0, Blocks.log, "killEnt").setRequiresEnemy(LOTRFaction.FANGORN);
-		drinkEntDraught = new LOTRAchievement(FANGORN, 1, LOTRMod.entDraughtGreen, "drinkEntDraught");
+		drinkEntDraught = new LOTRAchievement(FANGORN, 1, LOTRMod.entDraught, "drinkEntDraught");
 		killHuorn = new LOTRAchievement(FANGORN, 2, Blocks.log, "killHuorn").setRequiresEnemy(LOTRFaction.FANGORN);
 		talkEnt = new LOTRAchievement(FANGORN, 3, Blocks.log, "talkEnt");
 		enterFangorn = new LOTRAchievement(FANGORN, 4, Blocks.leaves, "enterFangorn").setBiomeAchievement();
 		alignmentGood10_FANGORN = new LOTRAchievement(FANGORN, 5, LOTRMod.goldRing, "alignmentGood10_FANGORN").setRequiresAlly(LOTRFaction.FANGORN).setSpecial();
 		alignmentGood100_FANGORN = new LOTRAchievement(FANGORN, 6, LOTRMod.goldRing, "alignmentGood100_FANGORN").setRequiresAlly(LOTRFaction.FANGORN).setSpecial();
 		alignmentGood1000_FANGORN = new LOTRAchievement(FANGORN, 7, LOTRMod.goldRing, "alignmentGood1000_FANGORN").setRequiresAlly(LOTRFaction.FANGORN).setSpecial();
+		summonHuorn = new LOTRAchievement(FANGORN, 8, new ItemStack(LOTRMod.entDraught, 1, 2), "summonHuorn").setRequiresAlly(LOTRFaction.FANGORN);
 
 		killGondorSoldier = new LOTRAchievement(GONDOR, 0, LOTRMod.swordGondor, "killGondorSoldier").setRequiresEnemy(LOTRFaction.GONDOR);
 		lightGondorBeacon = new LOTRAchievement(GONDOR, 1, LOTRMod.beacon, "lightGondorBeacon");

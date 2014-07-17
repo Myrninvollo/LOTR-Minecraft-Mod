@@ -127,13 +127,13 @@ public class LOTRBrewingRecipes
 
 						if (next instanceof ItemStack)
 						{
-							match = checkItemEquals((ItemStack)next, itemstack);
+							match = LOTRRecipes.checkItemEquals((ItemStack)next, itemstack);
 						}
 						else if (next instanceof ArrayList)
 						{
 							for (ItemStack item : (ArrayList<ItemStack>)next)
 							{
-								match = match || checkItemEquals(item, itemstack);
+								match = match || LOTRRecipes.checkItemEquals(item, itemstack);
 							}
 						}
 
@@ -160,9 +160,4 @@ public class LOTRBrewingRecipes
 		
 		return null;
 	}
-	
-    private static boolean checkItemEquals(ItemStack target, ItemStack input)
-    {
-        return (target.getItem().equals(input.getItem()) && (target.getItemDamage() == OreDictionary.WILDCARD_VALUE || target.getItemDamage() == input.getItemDamage()));
-    }
 }

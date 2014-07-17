@@ -88,7 +88,7 @@ public class LOTREntityAIAttackOnCollide extends EntityAIBase
 		{
 			return false;
 		}
-		else if (!entityTarget.isEntityAlive())
+		else if (entityTarget == null || !entityTarget.isEntityAlive())
 		{
 			return false;
 		}

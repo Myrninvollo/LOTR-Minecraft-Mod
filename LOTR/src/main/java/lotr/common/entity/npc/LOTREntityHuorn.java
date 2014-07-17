@@ -11,7 +11,7 @@ public class LOTREntityHuorn extends LOTREntityHuornBase
 	public LOTREntityHuorn(World world)
 	{
 		super(world);
-		addTargetTasks(2, LOTREntityAINearestAttackableTargetHuorn.class);
+		addTargetTasks(4, LOTREntityAINearestAttackableTargetHuorn.class);
 	}
 	
 	@Override

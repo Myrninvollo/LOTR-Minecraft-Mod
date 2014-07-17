@@ -119,28 +119,10 @@ public class LOTREntityBandit extends LOTREntityNPC
 			dropItem(Items.bone, 1);
 		}
 		
-		int coins = 10 + rand.nextInt(30) + rand.nextInt(i * 5);
+		int coins = 10 + rand.nextInt(20) + rand.nextInt((i + 1) * 10);
 		for (int k = 0; k < coins; k++)
 		{
 			dropItem(LOTRMod.silverCoin, 1);
-		}
-		
-		int drops = 1 + rand.nextInt(3) + rand.nextInt(i + 1);
-		for (int k = 0; k < drops; k++)
-		{
-			int randomDrop = rand.nextInt(4);
-			switch (randomDrop)
-			{
-				case 0:
-					entityDropItem(new ItemStack(Items.bread, 1 + rand.nextInt(3)), 0F);
-					break;
-				case 1:
-					entityDropItem(new ItemStack(LOTRMod.mugAle, 1, rand.nextInt(5)), 0F);
-					break;
-				case 2: case 3:
-					entityDropItem(new ItemStack(Items.bread, 1 + rand.nextInt(3)), 0F);
-					break;
-			}
 		}
 	}
 
@@ -154,7 +136,7 @@ public class LOTREntityBandit extends LOTREntityNPC
 			banditInventory.dropAllItems();
 		}
 		
-		if (!worldObj.isRemote) // && hasStolenStuff && damagesource.getEntity() instanceof EntityPlayer)
+		if (!worldObj.isRemote && damagesource.getEntity() instanceof EntityPlayer) // && hasStolenStuff
 		{
 			EntityPlayer entityplayer = (EntityPlayer)damagesource.getEntity();
 			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.killThievingBandit);

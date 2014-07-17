@@ -82,7 +82,7 @@ public class LOTRBiomeGenBreeland extends LOTRBiome
 	@Override
 	public float getChanceToSpawnAnimals()
 	{
-		return 0.2F;
+		return 0.25F;
 	}
 	
 	@Override

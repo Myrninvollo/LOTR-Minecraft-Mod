@@ -1086,6 +1086,7 @@ public class LOTRRecipes
 		GameRegistry.addSmelting(wood, new ItemStack(Items.coal, 1, 1), 0.15F);
 		GameRegistry.addSmelting(fruitWood, new ItemStack(Items.coal, 1, 1), 0.15F);
 		GameRegistry.addSmelting(wood2, new ItemStack(Items.coal, 1, 1), 0.15F);
+		GameRegistry.addSmelting(wood3, new ItemStack(Items.coal, 1, 1), 0.15F);
 		
 		GameRegistry.addSmelting(oreCopper, new ItemStack(copper), 0.35F);
 		GameRegistry.addSmelting(oreTin, new ItemStack(tin), 0.35F);
@@ -2457,5 +2458,10 @@ public class LOTRRecipes
 		}
 
 		return null;
+    }
+    
+    public static boolean checkItemEquals(ItemStack target, ItemStack input)
+    {
+        return target.getItem().equals(input.getItem()) && (target.getItemDamage() == OreDictionary.WILDCARD_VALUE || target.getItemDamage() == input.getItemDamage());
     }
 }

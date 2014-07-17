@@ -33,7 +33,6 @@ public class LOTRBlockBrick extends Block
 		{
 			j = 0;
 		}
-		
 		return brickIcons[j];
 	}
 	

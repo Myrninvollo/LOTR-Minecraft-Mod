@@ -19,9 +19,11 @@ public abstract class LOTREntityTree extends LOTREntityNPC
 {
 	public static Block[] WOOD_BLOCKS = new Block[] {Blocks.log, LOTRMod.wood2, Blocks.log};
 	public static Block[] LEAF_BLOCKS = new Block[] {Blocks.leaves, LOTRMod.leaves2, Blocks.leaves};
+	public static Block[] SAPLING_BLOCKS = new Block[] {Blocks.sapling, LOTRMod.sapling2, Blocks.sapling};
 	
 	public static int[] WOOD_META = new int[] {0, 1, 2};
 	public static int[] LEAF_META = new int[] {0, 1, 2};
+	public static int[] SAPLING_META = new int[] {0, 1, 2};
 
 	public static String[] TYPES = new String[] {"oak", "beech", "birch"};
 	

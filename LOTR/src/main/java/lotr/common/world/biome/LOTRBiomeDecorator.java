@@ -453,19 +453,19 @@ public class LOTRBiomeDecorator
 			
 			genStandardOre(3, sulfurGen, 0, 64);
 			genStandardOre(3, saltpeterGen, 0, 64);
-	    }
 		
-		if (biome instanceof LOTRBiomeGenMistyMountains || biome instanceof LOTRBiomeGenForodwaithMountains)
-		{
-			genStandardOre(20, dirtGen, 128, 256);
-			genStandardOre(10, gravelGen, 128, 256);
-			
-			genStandardOre(10, coalGen, 128, 256);
-			genStandardOre(10, ironGen, 64, 128);
-			
-			genStandardOre(4, copperGen, 64, 128);
-			genStandardOre(4, tinGen, 64, 128);
-		}
+			if (biome.rootHeight > 1F)
+			{
+				genStandardOre(20, dirtGen, 128, 256);
+				genStandardOre(10, gravelGen, 128, 256);
+				
+				genStandardOre(10, coalGen, 128, 256);
+				genStandardOre(10, ironGen, 64, 128);
+				
+				genStandardOre(4, copperGen, 64, 128);
+				genStandardOre(4, tinGen, 64, 128);
+			}
+	    }
 		
 		if (biome instanceof LOTRBiomeGenIronHills || biome instanceof LOTRBiomeGenBlueMountains)
 		{

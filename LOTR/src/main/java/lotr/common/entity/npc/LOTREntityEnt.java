@@ -5,6 +5,7 @@ import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
+import lotr.common.item.LOTRItemEntDraught;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -16,6 +17,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityAIWatchClosest2;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -146,7 +148,7 @@ public class LOTREntityEnt extends LOTREntityTree
 		
 		if (flag)
 		{
-			int dropChance = 20 - (i * 3);
+			int dropChance = 10 - (i * 2);
 			if (dropChance < 1)
 			{
 				dropChance = 1;
@@ -154,14 +156,7 @@ public class LOTREntityEnt extends LOTREntityTree
 			
 			if (rand.nextInt(dropChance) == 0)
 			{
-				if (rand.nextBoolean())
-				{
-					dropItem(LOTRMod.entDraughtGreen, 1);
-				}
-				else
-				{
-					dropItem(LOTRMod.entDraughtBrown, 1);
-				}
+				entityDropItem(new ItemStack(LOTRMod.entDraught, 1, rand.nextInt(LOTRItemEntDraught.draughtTypes.length)), 0F);
 			}
 		}
 	}

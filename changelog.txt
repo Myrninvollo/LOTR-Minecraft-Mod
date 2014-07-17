@@ -4,9 +4,14 @@ Public Beta 19
 + Added more available custom waypoints as a reward for earning Middle-earth achievements
 + Added bandits
 + Added Ranger Watchtowers
++ Added several new Fangorn plants and new Ent-draught types
++ Added a better Ent-draught system: rain now fills jars in any biome, jars can also be filled from water containers, and Fangorn plants added to a jar of water turns it into draught
++ Added the ability to summon hired Huorns through the use of golden ent draught
 + Added eating and drinking AI to many more NPCs
++ Added a speed boost effect to Miruvor and Orc Draught
 + Added more skins for orcs, Uruk-hai, and Gondor Soldiers
 + Added Sarlluin and Sarncaran deposits underground within their respective biomes
++ Added additional ore generation at higher layers in all mountain biomes
 + Added the ability to light Beacons of Gondor with torches
 + Added an updated German translation
 
@@ -14,8 +19,11 @@ Public Beta 19
 * Banner bearers now carry banners in the left hand so they do not disappear in battle
 * Near Haradrim now defend themselves with daggers
 * Dunlending Bartenders now trade at Dunland alignment 0
+* Ent-draughts are now poisonous to enemies of Fangorn
+* Players can no longer drink straight from ent jars
 * Fixed skeletal wraiths falling through the ground
 * Hobbit Farmhouse roofs are now made of thatch blocks
+* Removed the region of Brown Lands to the east of Mordor
 
 Public Beta 18.2
 

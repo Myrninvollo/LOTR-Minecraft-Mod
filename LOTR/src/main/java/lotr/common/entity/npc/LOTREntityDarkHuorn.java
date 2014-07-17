@@ -12,7 +12,7 @@ public class LOTREntityDarkHuorn extends LOTREntityHuornBase
 	public LOTREntityDarkHuorn(World world)
 	{
 		super(world);
-		addTargetTasks(2, LOTREntityAINearestAttackableTargetHuorn.class);
+		addTargetTasks(4, LOTREntityAINearestAttackableTargetHuorn.class);
 		spawnCountValue = 2;
 	}
 	

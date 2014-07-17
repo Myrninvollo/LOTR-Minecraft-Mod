@@ -136,6 +136,8 @@ public class LOTRAlignmentValues
 	
 	public static int DUNLENDING_WARLORD_TRADE = 100;
 	
+	public static int SPAWN_HUORN = 500;
+	
 	public static int GONDOR_BLACKSMITH_TRADE = 50;
 	public static int GONDORIAN_CAPTAIN_TRADE = 100;
 	

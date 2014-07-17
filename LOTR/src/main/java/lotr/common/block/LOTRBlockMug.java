@@ -139,7 +139,7 @@ public class LOTRBlockMug extends BlockContainer
 				else
 				{
 					itemstack.stackSize--;
-					if (itemstack.stackSize <= 1)
+					if (itemstack.stackSize <= 0)
 					{
 						entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, mugItem);
 					}

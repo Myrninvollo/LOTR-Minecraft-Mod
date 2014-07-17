@@ -58,7 +58,8 @@ public class LOTREntityZebra extends LOTREntityHorse
 
         if (itemstack != null && itemstack.getItem() == Items.bucket && !entityplayer.capabilities.isCreativeMode)
         {
-            if (itemstack.stackSize-- == 1)
+        	itemstack.stackSize--;
+            if (itemstack.stackSize <= 0)
             {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.milk_bucket));
             }

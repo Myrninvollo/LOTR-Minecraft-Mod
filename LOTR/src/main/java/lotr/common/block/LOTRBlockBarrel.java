@@ -119,7 +119,7 @@ public class LOTRBlockBarrel extends BlockContainer
 		if (barrelDrink != null && side == world.getBlockMetadata(i, j, k) && itemstack != null && itemstack.getItem() == LOTRMod.mug)
 		{
 			itemstack.stackSize--;
-			if (itemstack.stackSize == 0)
+			if (itemstack.stackSize <= 0)
 			{
 				entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, barrelDrink);
 			}

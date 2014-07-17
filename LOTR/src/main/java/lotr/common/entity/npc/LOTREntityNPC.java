@@ -522,32 +522,35 @@ public abstract class LOTREntityNPC extends EntityCreature
 		{
 			ItemStack weapon = getEquipmentInSlot(0);
 			boolean carryingSpear = weapon != null && weapon.getItem() instanceof LOTRItemSpear;
-			if (getAttackTarget() != null && !carryingSpear)
+			if (!carryingSpear)
 			{
-				double d = getDistanceSqToEntity(getAttackTarget());
-				if (d < getMeleeRangeSq())
+				if (getAttackTarget() != null)
 				{
-					if (prevAttackMode != AttackMode.MELEE)
+					double d = getDistanceSqToEntity(getAttackTarget());
+					if (d < getMeleeRangeSq())
 					{
-						prevAttackMode = AttackMode.MELEE;
-						onAttackModeChange(AttackMode.MELEE);
+						if (prevAttackMode != AttackMode.MELEE)
+						{
+							prevAttackMode = AttackMode.MELEE;
+							onAttackModeChange(AttackMode.MELEE);
+						}
+					}
+					else if (d < getMaxCombatRangeSq())
+					{
+						if (prevAttackMode != AttackMode.RANGED)
+						{
+							prevAttackMode = AttackMode.RANGED;
+							onAttackModeChange(AttackMode.RANGED);
+						}
 					}
 				}
-				else if (d < getMaxCombatRangeSq())
+				else
 				{
-					if (prevAttackMode != AttackMode.RANGED)
+					if (prevAttackMode != AttackMode.IDLE)
 					{
-						prevAttackMode = AttackMode.RANGED;
-						onAttackModeChange(AttackMode.RANGED);
+						prevAttackMode = AttackMode.IDLE;
+						onAttackModeChange(AttackMode.IDLE);
 					}
-				}
-			}
-			else
-			{
-				if (prevAttackMode != AttackMode.IDLE)
-				{
-					prevAttackMode = AttackMode.IDLE;
-					onAttackModeChange(AttackMode.IDLE);
 				}
 			}
 		}

@@ -435,10 +435,6 @@ public enum LOTRFaction
 	
 	public ItemStack createAlignmentReward()
 	{
-		if (this == WOOD_ELF)
-		{
-			return new ItemStack(LOTRMod.anduril);
-		}
 		return null;
 	}
 	

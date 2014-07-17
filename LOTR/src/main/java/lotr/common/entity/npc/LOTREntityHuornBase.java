@@ -1,6 +1,10 @@
 package lotr.common.entity.npc;
 
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
+import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
+import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
+import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
+import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -25,8 +29,12 @@ public abstract class LOTREntityHuornBase extends LOTREntityTree
 		origHeight = height;
 		getNavigator().setAvoidsWater(true);
 		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new LOTREntityAIAttackOnCollide(this, 1.5D, false));
-        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		tasks.addTask(1, new LOTREntityAIHiredRemainStill(this));
+		tasks.addTask(2, new LOTREntityAIAttackOnCollide(this, 1.5D, false));
+		tasks.addTask(3, new LOTREntityAIFollowHiringPlayer(this));
+		targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
+        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
+        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
 	}
 	
 	@Override
@@ -105,10 +113,10 @@ public abstract class LOTREntityHuornBase extends LOTREntityTree
 		
 		if (!worldObj.isRemote)
 		{
-			boolean flag = getAttackTarget() != null;
-			if (flag != isHuornActive())
+			boolean active = !getNavigator().noPath();
+			if (active != isHuornActive())
 			{
-				setHuornActive(flag);
+				setHuornActive(active);
 			}
 		}
 	}

@@ -1,9 +1,13 @@
 package lotr.client.render.entity;
 
+import lotr.client.LOTRClientProxy;
 import lotr.client.model.LOTRModelHuorn;
+import lotr.common.entity.npc.LOTREntityHuorn;
 import lotr.common.entity.npc.LOTREntityHuornBase;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -22,6 +26,21 @@ public class LOTRRenderHuorn extends RenderLiving
     {
         return faceTexture;
     }
+	
+	@Override
+	public void doRender(EntityLiving entity, double d, double d1, double d2, float f, float f1)
+	{
+		super.doRender(entity, d, d1, d2, f, f1);
+		
+		if (Minecraft.isGuiEnabled() && ((LOTREntityHuornBase)entity).hiredNPCInfo.getHiringPlayer() == renderManager.livingPlayer)
+		{
+			if (entity.riddenByEntity == null)
+			{
+				func_147906_a(entity, "Hired", d, d1 + 3.5D, d2, 64);
+			}
+			LOTRClientProxy.renderHealthBar(entity, d, d1 + 3.5D, d2, 64, renderManager);
+		}
+	}
 	
 	@Override
     protected void renderLivingAt(EntityLivingBase entity, double d, double d1, double d2)

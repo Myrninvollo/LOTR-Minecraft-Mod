@@ -2,7 +2,10 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.npc.LOTREntityElvenTrader;
@@ -11,6 +14,8 @@ import lotr.common.entity.npc.LOTREntityHuorn;
 import lotr.common.world.feature.LOTRWorldGenBigTrees;
 import lotr.common.world.feature.LOTRWorldGenEntJars;
 import lotr.common.world.feature.LOTRWorldGenFangornTrees;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
@@ -36,14 +41,20 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 		
 		hasPodzol = true;
 		decorator.treesPerChunk = 12;
-		decorator.logsPerChunk = 3;
-		decorator.flowersPerChunk = 4;
+		decorator.logsPerChunk = 5;
+		decorator.flowersPerChunk = 6;
 		decorator.doubleFlowersPerChunk = 1;
 		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 6;
 		decorator.enableFern = true;
 		
 		registerForestFlowers();
+		addFlower(LOTRMod.fangornPlant, 0, 1);
+		addFlower(LOTRMod.fangornPlant, 1, 1);
+		addFlower(LOTRMod.fangornPlant, 2, 1);
+		addFlower(LOTRMod.fangornPlant, 3, 1);
+		addFlower(LOTRMod.fangornPlant, 4, 1);
+		addFlower(LOTRMod.fangornPlant, 5, 1);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 	}
@@ -71,7 +82,7 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 	{
 		super.decorate(world, random, i, k);
 		
-		if (random.nextInt(20) == 0)
+		if (random.nextInt(10) == 0)
 		{
             int i1 = i + random.nextInt(16) + 8;
             int k1 = k + random.nextInt(16) + 8;
@@ -118,6 +129,6 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 	@Override
 	public float getChanceToSpawnAnimals()
 	{
-		return 0.1F;
+		return 0.25F;
 	}
 }

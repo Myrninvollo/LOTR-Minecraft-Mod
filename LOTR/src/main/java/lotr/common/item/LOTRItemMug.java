@@ -115,7 +115,8 @@ public class LOTRItemMug extends Item
 				
 				if (world.getBlock(i, j, k).getMaterial() == Material.water && world.getBlockMetadata(i, j, k) == 0)
 				{
-					if (--itemstack.stackSize <= 0)
+					itemstack.stackSize--;
+					if (itemstack.stackSize <= 0)
 					{
 						world.playSoundAtEntity(entityplayer, "lotr:item.mug_fill", 0.5F, 0.8F + (world.rand.nextFloat() * 0.4F));
 						return new ItemStack(LOTRMod.mugWater);

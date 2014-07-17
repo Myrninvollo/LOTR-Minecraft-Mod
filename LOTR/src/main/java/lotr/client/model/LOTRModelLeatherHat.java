@@ -1,7 +1,9 @@
 package lotr.client.model;
 
 import lotr.common.entity.npc.LOTREntityDwarf;
+import lotr.common.entity.npc.LOTREntityElf;
 import lotr.common.entity.npc.LOTREntityHobbit;
+import lotr.common.entity.npc.LOTREntityOrc;
 import lotr.common.item.LOTRItemLeatherHat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -22,6 +24,8 @@ public class LOTRModelLeatherHat extends LOTRModelBiped
 	private ModelBiped internalModelBiped;
 	private ModelBiped HUMAN;
 	private ModelBiped DWARF;
+	private ModelBiped ELF;
+	private ModelBiped ORC;
 	private ModelBiped HOBBIT;
 	
 	public LOTRModelLeatherHat()
@@ -40,6 +44,8 @@ public class LOTRModelLeatherHat extends LOTRModelBiped
 		
 		HUMAN = new LOTRModelBiped(f);
 		DWARF = new LOTRModelDwarf(f);
+		ELF = new LOTRModelElf(f);
+		ORC = new LOTRModelOrc(f);
 		HOBBIT = new LOTRModelHobbit(f);
 	}
 	
@@ -52,6 +58,14 @@ public class LOTRModelLeatherHat extends LOTRModelBiped
 		else if (entity instanceof LOTREntityHobbit)
 		{
 			internalModelBiped = HOBBIT;
+		}
+		else if (entity instanceof LOTREntityElf)
+		{
+			internalModelBiped = ELF;
+		}
+		else if (entity instanceof LOTREntityOrc)
+		{
+			internalModelBiped = ORC;
 		}
 		else
 		{

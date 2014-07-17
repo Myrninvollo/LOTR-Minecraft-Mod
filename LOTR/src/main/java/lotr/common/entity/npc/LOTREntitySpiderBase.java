@@ -158,7 +158,7 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
         if (getSpiderType() == VENOM_POISON && itemstack != null && itemstack.getItem() == Items.glass_bottle)
         {
 			itemstack.stackSize--;
-            if (itemstack.stackSize == 1)
+            if (itemstack.stackSize <= 0)
             {
                 entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(LOTRMod.bottlePoison));
             }

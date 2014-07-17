@@ -437,8 +437,24 @@ public class LOTREventHandler implements IFuelHandler
 	
 	public static boolean isProtectedByBanner(World world, int i, int j, int k, EntityLivingBase entity)
 	{
-		LOTRFaction protectingEnemyFaction = null;
+		String protector = null;
 		double range = LOTREntityBanner.PROTECTION_RANGE;
+		double distanceToBanner = 0D;
+		boolean playerHoldingBanner = false;
+		
+		if (entity instanceof EntityPlayer)
+		{
+			EntityPlayer entityplayer = (EntityPlayer)entity;
+			if (entityplayer.getHeldItem().getItem().equals(LOTRMod.banner))
+			{
+				playerHoldingBanner = true;
+			}
+		}
+		if (playerHoldingBanner)
+		{
+			range *= 2D;
+		}
+		
 		List banners = world.getEntitiesWithinAABB(LOTREntityBanner.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 1, k + 1).expand(range, range, range));
 		if (!banners.isEmpty())
 		{
@@ -451,27 +467,37 @@ public class LOTREventHandler implements IFuelHandler
 					LOTRFaction faction = banner.getBannerFaction();
 					if (entity instanceof EntityPlayer)
 					{
-						int alignment = LOTRLevelData.getAlignment((EntityPlayer)entity, faction);
+						EntityPlayer entityplayer = (EntityPlayer)entity;
+						int alignment = LOTRLevelData.getAlignment(entityplayer, faction);
 						if (alignment <= 0)
 						{
-							protectingEnemyFaction = faction;
+							protector = faction.factionName();
+							distanceToBanner = banner.getDistanceToEntity(entityplayer);
 							break bannerSearch;
 						}
 					}
 					else if (LOTRMod.getNPCFaction(entity).isEnemy(faction))
 					{
-						protectingEnemyFaction = faction;
+						protector = faction.factionName();
+						distanceToBanner = banner.getDistanceToEntity(entity);
 						break bannerSearch;
 					}
 				}
 			}
 		}
 		
-		if (protectingEnemyFaction != null)
+		if (protector != null)
 		{
 			if (entity instanceof EntityPlayer)
 			{
-				((EntityPlayer)entity).addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLand", new Object[] {protectingEnemyFaction.factionName()}));
+				if (playerHoldingBanner && distanceToBanner > range)
+				{
+					((EntityPlayer)entity).addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLandBanner", new Object[] {protector}));
+				}
+				else
+				{
+					((EntityPlayer)entity).addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLand", new Object[] {protector}));
+				}
 			}
 			return true;
 		}

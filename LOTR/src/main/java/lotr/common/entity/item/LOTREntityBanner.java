@@ -1,5 +1,8 @@
 package lotr.common.entity.item;
 
+import java.util.UUID;
+
+import lotr.common.LOTREventHandler;
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.item.LOTRItemBanner;
@@ -9,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
@@ -18,6 +22,10 @@ import net.minecraft.world.World;
 public class LOTREntityBanner extends Entity
 {
 	public static double PROTECTION_RANGE = 32D;
+	
+	public static int MAX_PLAYERS = 5;
+	public boolean playerSpecificProtection;
+	public UUID[] allowedPlayers = new UUID[MAX_PLAYERS];
 	
 	public LOTREntityBanner(World world)
 	{
@@ -105,13 +113,17 @@ public class LOTREntityBanner extends Entity
 	@Override
     public void writeEntityToNBT(NBTTagCompound nbt)
     {
-        nbt.setByte("BannerType", (byte)getBannerType());
+		nbt.setByte("BannerType", (byte)getBannerType());
+        nbt.setBoolean("PlayerProtection", playerSpecificProtection);
+        
+        NBTTagList allowedPlayers = new NBTTagList();
     }
 
     @Override
     public void readEntityFromNBT(NBTTagCompound nbt)
     {
-		setBannerType(nbt.getByte("BannerType"));
+    	setBannerType(nbt.getByte("BannerType"));
+    	playerSpecificProtection = nbt.getBoolean("PlayerProtection");
     }
 	
 	@Override
@@ -129,6 +141,25 @@ public class LOTREntityBanner extends Entity
     {
 		if (!isDead && !worldObj.isRemote)
 		{
+			if (isProtectingTerritory())
+			{
+				Entity entity = damagesource.getEntity();
+				if (entity instanceof EntityPlayer)
+				{
+					int i = MathHelper.floor_double(posX);
+					int j = MathHelper.floor_double(boundingBox.minY);
+					int k = MathHelper.floor_double(posZ);
+					if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, ((EntityPlayer)entity)))
+					{
+						return false;
+					}
+				}
+				else
+				{
+					return false;
+				}
+			}
+			
 			setDead();
 			setBeenAttacked();
 			worldObj.playSoundAtEntity(this, Blocks.planks.stepSound.getBreakSound(), (Blocks.planks.stepSound.getVolume() + 1F) / 2F, Blocks.planks.stepSound.getPitch() * 0.8F);

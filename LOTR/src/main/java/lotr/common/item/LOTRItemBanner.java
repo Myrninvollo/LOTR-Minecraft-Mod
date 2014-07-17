@@ -140,6 +140,7 @@ public class LOTRItemBanner extends Item
 				if (world.checkNoEntityCollision(banner.boundingBox) && world.getCollidingBoundingBoxes(banner, banner.boundingBox).size() == 0 && !world.isAnyLiquid(banner.boundingBox))
 				{
 					banner.setBannerType(itemstack.getItemDamage());
+					banner.allowedPlayers[0] = entityplayer.getUniqueID();
 					world.spawnEntityInWorld(banner);
 					world.playSoundAtEntity(banner, Blocks.planks.stepSound.func_150496_b(), (Blocks.planks.stepSound.getVolume() + 1F) / 2F, Blocks.planks.stepSound.getPitch() * 0.8F);
 					itemstack.stackSize--;

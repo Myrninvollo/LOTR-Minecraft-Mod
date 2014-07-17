@@ -200,7 +200,7 @@ public class LOTRItemEntDraught extends Item
 								huorn.initCreatureForHire(null);
 								huorn.hiredNPCInfo.isActive = true;
 								huorn.hiredNPCInfo.alignmentRequiredToCommand = LOTRAlignmentValues.SPAWN_HUORN;
-								huorn.hiredNPCInfo.setHiringPlayerName(entityplayer.getCommandSenderName());
+								huorn.hiredNPCInfo.setHiringPlayerUUID(entityplayer.getUniqueID().toString());
 								huorn.hiredNPCInfo.setTask(LOTRHiredNPCInfo.Task.WARRIOR);
 								LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.summonHuorn);
 							}

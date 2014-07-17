@@ -210,7 +210,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 										hiredMountNPC.initCreatureForHire(null);
 										hiredMountNPC.hiredNPCInfo.isActive = true;
 										hiredMountNPC.hiredNPCInfo.alignmentRequiredToCommand = trade.alignmentRequired;
-										hiredMountNPC.hiredNPCInfo.setHiringPlayerName(entityplayer.getCommandSenderName());
+										hiredMountNPC.hiredNPCInfo.setHiringPlayerUUID(entityplayer.getUniqueID().toString());
 										hiredMountNPC.hiredNPCInfo.setTask(task);
 									}
 									else
@@ -225,7 +225,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 								hiredNPC.initCreatureForHire(null);
 								hiredNPC.hiredNPCInfo.isActive = true;
 								hiredNPC.hiredNPCInfo.alignmentRequiredToCommand = trade.alignmentRequired;
-								hiredNPC.hiredNPCInfo.setHiringPlayerName(entityplayer.getCommandSenderName());
+								hiredNPC.hiredNPCInfo.setHiringPlayerUUID(entityplayer.getUniqueID().toString());
 								hiredNPC.hiredNPCInfo.setTask(task);
 								world.spawnEntityInWorld(hiredNPC);
 								

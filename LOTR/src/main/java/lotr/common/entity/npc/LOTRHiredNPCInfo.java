@@ -1,5 +1,7 @@
 package lotr.common.entity.npc;
 
+import java.util.UUID;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lotr.common.LOTRLevelData;
@@ -11,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
@@ -62,19 +65,27 @@ public class LOTRHiredNPCInfo
 		theEntity.getDataWatcher().addObject(28, "");
 	}
 	
-	public String getHiringPlayerName()
+	public String getHiringPlayerUUID()
 	{
 		return theEntity.getDataWatcher().getWatchableObjectString(28);
 	}
 	
-	public void setHiringPlayerName(String s)
+	public void setHiringPlayerUUID(String s)
 	{
 		theEntity.getDataWatcher().updateObject(28, s);
 	}
 	
 	public EntityPlayer getHiringPlayer()
 	{
-		return theEntity.worldObj.getPlayerEntityByName(getHiringPlayerName());
+		try
+		{
+			UUID uuid = UUID.fromString(getHiringPlayerUUID());
+			return uuid == null ? null : theEntity.worldObj.func_152378_a(uuid);
+		}
+		catch (IllegalArgumentException e)
+		{
+			return null;
+		}
 	}
 	
 	public Task getTask()
@@ -123,7 +134,7 @@ public class LOTRHiredNPCInfo
 	{
 		getHiringPlayer().addChatMessage(new ChatComponentTranslation("lotr.hiredNPC.desert", new Object[] {theEntity.getCommandSenderName()}));
 		isActive = false;
-		setHiringPlayerName("");
+		setHiringPlayerUUID("");
 		canMove = true;
 	}
 	
@@ -333,7 +344,7 @@ public class LOTRHiredNPCInfo
 	{
 		NBTTagCompound data = new NBTTagCompound();
 		data.setBoolean("IsActive", isActive);
-		data.setString("HiringPlayerName", getHiringPlayerName());
+		data.setString("HiringPlayerUUID", getHiringPlayerUUID());
 		data.setInteger("AlignmentRequired", alignmentRequiredToCommand);
 		data.setBoolean("CanMove", canMove);
 		data.setBoolean("ObeyHornHaltReady", obeyHornHaltReady);
@@ -355,8 +366,16 @@ public class LOTRHiredNPCInfo
 		NBTTagCompound data = nbt.getCompoundTag("HiredNPCInfo");
 		if (data != null)
 		{
+			if (data.hasKey("HiringPlayerName"))
+			{
+				String name = data.getString("HiringPlayerName");
+				setHiringPlayerUUID(PreYggdrasilConverter.func_152719_a(name));
+			}
+			else
+			{
+				setHiringPlayerUUID(data.getString("HiringPlayerUUID"));
+			}
 			isActive = data.getBoolean("IsActive");
-			setHiringPlayerName(data.getString("HiringPlayerName"));
 			alignmentRequiredToCommand = data.getInteger("AlignmentRequired");
 			canMove = data.getBoolean("CanMove");
 			if (data.hasKey("ObeyHornHaltReady"))

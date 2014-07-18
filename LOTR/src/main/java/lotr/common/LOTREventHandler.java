@@ -3,6 +3,9 @@ package lotr.common;
 import io.netty.buffer.Unpooled;
 
 import java.util.List;
+import java.util.UUID;
+
+import com.mojang.authlib.GameProfile;
 
 import lotr.common.block.LOTRBlockFlowerPot;
 import lotr.common.block.LOTRBlockSaplingBase;
@@ -54,6 +57,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChunkCoordinates;
@@ -468,12 +472,38 @@ public class LOTREventHandler implements IFuelHandler
 					if (entity instanceof EntityPlayer)
 					{
 						EntityPlayer entityplayer = (EntityPlayer)entity;
-						int alignment = LOTRLevelData.getAlignment(entityplayer, faction);
-						if (alignment <= 0)
+						if (banner.playerSpecificProtection)
 						{
-							protector = faction.factionName();
-							distanceToBanner = banner.getDistanceToEntity(entityplayer);
-							break bannerSearch;
+							UUID placingPlayer = banner.allowedPlayers[0];
+							if (placingPlayer != null)
+							{
+								boolean isPlayedWhitelisted = false;
+								for (UUID uuid : banner.allowedPlayers)
+								{
+									if (uuid != null && uuid.equals(entityplayer.getUniqueID()))
+									{
+										isPlayedWhitelisted = true;
+										break;
+									}
+								}
+								if (!isPlayedWhitelisted)
+								{
+									GameProfile profile = new GameProfile(placingPlayer, "");
+									protector = MinecraftServer.getServer().func_147130_as().fillProfileProperties(profile, true).getName();
+									distanceToBanner = banner.getDistanceToEntity(entityplayer);
+									break bannerSearch;
+								}
+							}
+						}
+						else
+						{
+							int alignment = LOTRLevelData.getAlignment(entityplayer, faction);
+							if (alignment <= 0)
+							{
+								protector = faction.factionName();
+								distanceToBanner = banner.getDistanceToEntity(entityplayer);
+								break bannerSearch;
+							}
 						}
 					}
 					else if (LOTRMod.getNPCFaction(entity).isEnemy(faction))

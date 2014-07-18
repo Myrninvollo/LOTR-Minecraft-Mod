@@ -116,7 +116,21 @@ public class LOTREntityBanner extends Entity
 		nbt.setByte("BannerType", (byte)getBannerType());
         nbt.setBoolean("PlayerProtection", playerSpecificProtection);
         
-        NBTTagList allowedPlayers = new NBTTagList();
+        NBTTagList allowedPlayersTags = new NBTTagList();
+        for (int i = 0; i < allowedPlayers.length; i++)
+        {
+        	NBTTagCompound playerData = new NBTTagCompound();
+        	playerData.setInteger("Index", i);
+        	if (allowedPlayers[i] != null)
+        	{
+        		UUID uuid = allowedPlayers[i];
+        		playerData.setLong("UUIDMost", uuid.getMostSignificantBits());
+        		playerData.setLong("UUIDLeast", uuid.getLeastSignificantBits());
+        	}
+        	allowedPlayersTags.appendTag(playerData);
+        }
+        
+        nbt.setTag("AllowedPlayers", allowedPlayersTags);
     }
 
     @Override
@@ -124,6 +138,30 @@ public class LOTREntityBanner extends Entity
     {
     	setBannerType(nbt.getByte("BannerType"));
     	playerSpecificProtection = nbt.getBoolean("PlayerProtection");
+    	
+    	NBTTagList allowedPlayersTags = nbt.getTagList("AllowedPlayers", new NBTTagCompound().getId());
+        for (int i = 0; i < allowedPlayersTags.tagCount(); i++)
+        {
+        	NBTTagCompound playerData = allowedPlayersTags.getCompoundTagAt(i);
+        	int index = playerData.getInteger("Index");
+        	if (playerData.hasKey("UUIDMost") && playerData.hasKey("UUIDLeast"))
+        	{
+        		allowedPlayers[index] = new UUID(playerData.getLong("UUIDMost"), playerData.getLong("UUIDLeast"));
+        	}
+        }
+    }
+    
+    @Override
+    public boolean interactFirst(EntityPlayer entityplayer)
+    {
+    	if (!worldObj.isRemote)
+    	{
+    		if (entityplayer.getUniqueID().equals(allowedPlayers[0]))
+    		{
+    			Open a GUI
+    		}
+    	}
+    	return true;
     }
 	
 	@Override

@@ -87,26 +87,13 @@ public class LOTREntityBanner extends Entity
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
-        motionY -= 0.04D;
 
-        func_145771_j(posX, (boundingBox.minY + boundingBox.maxY) / 2.0D, posZ);
+        func_145771_j(posX, (boundingBox.minY + boundingBox.maxY) / 2D, posZ);
         moveEntity(motionX, motionY, motionZ);
-        float f = 0.98F;
-
-        if (onGround)
+        
+        if (!worldObj.isRemote && !onGround)
         {
-            f = 0.588F;
-            Block block = worldObj.getBlock(MathHelper.floor_double(posX), MathHelper.floor_double(boundingBox.minY) - 1, MathHelper.floor_double(posZ));
-            f = block.slipperiness * 0.98F;
-        }
-
-        motionX *= (double)f;
-        motionY *= 0.98D;
-        motionZ *= (double)f;
-
-        if (onGround)
-        {
-            motionY *= -0.5D;
+        	attackEntityFrom(DamageSource.generic, 1F);
         }
     }
 	
@@ -158,7 +145,7 @@ public class LOTREntityBanner extends Entity
     	{
     		if (entityplayer.getUniqueID().equals(allowedPlayers[0]))
     		{
-    			Open a GUI
+    			//Open a GUI
     		}
     	}
     	return true;
@@ -179,25 +166,6 @@ public class LOTREntityBanner extends Entity
     {
 		if (!isDead && !worldObj.isRemote)
 		{
-			if (isProtectingTerritory())
-			{
-				Entity entity = damagesource.getEntity();
-				if (entity instanceof EntityPlayer)
-				{
-					int i = MathHelper.floor_double(posX);
-					int j = MathHelper.floor_double(boundingBox.minY);
-					int k = MathHelper.floor_double(posZ);
-					if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, ((EntityPlayer)entity)))
-					{
-						return false;
-					}
-				}
-				else
-				{
-					return false;
-				}
-			}
-			
 			setDead();
 			setBeenAttacked();
 			worldObj.playSoundAtEntity(this, Blocks.planks.stepSound.getBreakSound(), (Blocks.planks.stepSound.getVolume() + 1F) / 2F, Blocks.planks.stepSound.getPitch() * 0.8F);

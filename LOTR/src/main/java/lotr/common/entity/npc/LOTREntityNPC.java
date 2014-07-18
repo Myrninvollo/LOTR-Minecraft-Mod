@@ -94,6 +94,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 	public LOTRHiredNPCInfo hiredNPCInfo;
 	public LOTRTraderNPCInfo traderNPCInfo;
 	public LOTRFamilyInfo familyInfo;
+	public LOTRTravellingTraderInfo travellingTraderInfo;
 	
 	protected enum AttackMode
 	{
@@ -132,9 +133,20 @@ public abstract class LOTREntityNPC extends EntityCreature
 	protected void entityInit()
 	{
 		super.entityInit();
+		
 		hiredNPCInfo = new LOTRHiredNPCInfo(this);
 		traderNPCInfo = new LOTRTraderNPCInfo(this);
 		familyInfo = new LOTRFamilyInfo(this);
+		
+		if (this instanceof LOTRTravellingTrader)
+		{
+			travellingTraderInfo = new LOTRTravellingTraderInfo((LOTRTravellingTrader)this);
+		}
+	}
+	
+	public void startTraderVisiting(EntityPlayer entityplayer)
+	{
+		travellingTraderInfo.startVisiting(entityplayer);
 	}
 
 	@Override
@@ -554,6 +566,11 @@ public abstract class LOTREntityNPC extends EntityCreature
 				}
 			}
 		}
+		
+		if (travellingTraderInfo != null)
+		{
+			travellingTraderInfo.onUpdate();
+		}
 	}
 	
 	protected void onAttackModeChange(AttackMode mode) {}
@@ -588,6 +605,10 @@ public abstract class LOTREntityNPC extends EntityCreature
 		hiredNPCInfo.writeToNBT(nbt);
 		traderNPCInfo.writeToNBT(nbt);
 		familyInfo.writeToNBT(nbt);
+		if (travellingTraderInfo != null)
+		{
+			travellingTraderInfo.writeToNBT(nbt);
+		}
 		nbt.setInteger("NPCHomeX", getHomePosition().posX);
 		nbt.setInteger("NPCHomeY", getHomePosition().posY);
 		nbt.setInteger("NPCHomeZ", getHomePosition().posZ);
@@ -620,6 +641,10 @@ public abstract class LOTREntityNPC extends EntityCreature
 		hiredNPCInfo.readFromNBT(nbt);
 		traderNPCInfo.readFromNBT(nbt);
 		familyInfo.readFromNBT(nbt);
+		if (travellingTraderInfo != null)
+		{
+			travellingTraderInfo.readFromNBT(nbt);
+		}
 		setHomeArea(nbt.getInteger("NPCHomeX"), nbt.getInteger("NPCHomeY"), nbt.getInteger("NPCHomeZ"), nbt.getInteger("NPCHomeRadius"));
 		isNPCPersistent = nbt.getBoolean("NPCPersistent");
 		if (nbt.hasKey("NPCLocationName"))
@@ -814,17 +839,13 @@ public abstract class LOTREntityNPC extends EntityCreature
 						if (!dropGuaranteed)
 						{
 							int chance = (20 * equipmentCount) - (i * 4 * equipmentCount);
-							if (chance < 1)
-							{
-								chance = 1;
-							}
+							chance = Math.max(chance, 1);
 							
 							if (rand.nextInt(chance) != 0)
 							{
 								continue equipmentDropLoop;
 							}
 						}
-						
 						
 						if (!dropGuaranteed)
 						{
@@ -855,11 +876,18 @@ public abstract class LOTREntityNPC extends EntityCreature
 	}
 	
 	@Override
+	public final void dropEquipment(boolean flag, int i) {}
+	
+	@Override
 	public void onDeath(DamageSource damagesource)
 	{
-		super.onDeath(damagesource);
-		
 		hiredNPCInfo.onDeath(damagesource);
+		if (travellingTraderInfo != null)
+		{
+			travellingTraderInfo.onDeath();
+		}
+		
+		super.onDeath(damagesource);
 		
 		if (!worldObj.isRemote && damagesource.getEntity() instanceof EntityPlayer)
 		{

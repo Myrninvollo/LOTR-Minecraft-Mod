@@ -84,7 +84,7 @@ public class LOTRTravellingTraderSpawner
 							if (entityTrader.getCanSpawnHere())
 							{
 								world.spawnEntityInWorld(entityTrader);
-								trader.startVisiting(entityplayer);
+								trader.startTraderVisiting(entityplayer);
 								
 								spawned = true;
 								timeUntilTrader = getRandomTraderTime();

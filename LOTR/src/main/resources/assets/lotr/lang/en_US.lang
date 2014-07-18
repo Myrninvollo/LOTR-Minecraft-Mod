@@ -860,6 +860,7 @@ lotr.hiredNPC.status.farming=Farming
 lotr.hiredNPC.status.following=Following
 lotr.hiredNPC.death=Your hired unit %s
 lotr.hiredNPC.desert=Your hired unit %s has deserted
+lotr.hiredNPC.trollStone=Your hired unit %s has turned to stone
 lotr.hiredNPC.alignmentRequired=%s alignment required to command
 
 entity.lotr.generic.entityName=%s, the %s

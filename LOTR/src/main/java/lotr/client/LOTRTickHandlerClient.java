@@ -236,19 +236,22 @@ public class LOTRTickHandlerClient
 					int j = MathHelper.floor_double(entityplayer.posY);
 					int k = MathHelper.floor_double(entityplayer.posZ);
 					
-					BiomeGenBase biome = world.getBiomeGenForCoords(i, k);
-					if (entityplayer.posY >= 72 && biome instanceof LOTRBiomeGenMistyMountains && biome != LOTRBiome.mistyMountainsFoothills && world.canBlockSeeTheSky(i, j, k) && world.getSavedLightValue(EnumSkyBlock.Block, i, j, k) < 7)
+					if (LOTRMod.enableMistyMountainsMist)
 					{
-						if (mistTick < mistTickMax)
+						BiomeGenBase biome = world.getBiomeGenForCoords(i, k);
+						if (entityplayer.posY >= 72 && biome instanceof LOTRBiomeGenMistyMountains && biome != LOTRBiome.mistyMountainsFoothills && world.canBlockSeeTheSky(i, j, k) && world.getSavedLightValue(EnumSkyBlock.Block, i, j, k) < 7)
 						{
-							mistTick++;
+							if (mistTick < mistTickMax)
+							{
+								mistTick++;
+							}
 						}
-					}
-					else
-					{
-						if (mistTick > 0)
+						else
 						{
-							mistTick--;
+							if (mistTick > 0)
+							{
+								mistTick--;
+							}
 						}
 					}
 					
@@ -511,11 +514,14 @@ public class LOTRTickHandlerClient
 					}
 				}
 				
-				if (mistTick > 0)
+				if (LOTRMod.enableMistyMountainsMist)
 				{
-					float mistFactor = (float)mc.thePlayer.posY / 256F;
-					mistFactor *= 0.75F;
-					renderOverlay(((float)mistTick / (float)mistTickMax) * mistFactor, mc, mistOverlay);
+					if (mistTick > 0)
+					{
+						float mistFactor = (float)mc.thePlayer.posY / 256F;
+						mistFactor *= 0.75F;
+						renderOverlay(((float)mistTick / (float)mistTickMax) * mistFactor, mc, mistOverlay);
+					}
 				}
 				
 				if (frostTick > 0)

@@ -604,6 +604,7 @@ public class LOTRMod
 	public static boolean alignmentMoveWhenBoss;
 	public static boolean displayAlignmentAboveHead;
 	public static boolean enableLOTRSky;
+	public static boolean enableMistyMountainsMist;
 	
 	public static List unnamedItems = new ArrayList();
 	private static List woodenSlabRecipes = new ArrayList();
@@ -1666,6 +1667,7 @@ public class LOTRMod
 		alignmentMoveWhenBoss = config.get("general", "Move alignment when boss", true, "If set to true, the alignment bar is moved down while the boss status bar is displayed").getBoolean(true);
 		displayAlignmentAboveHead = config.get("general", "Display alignment above head", true, "Enable or disable the rendering of other players' alignment values above their heads").getBoolean(true);
 		enableLOTRSky = config.get("general", "Enable LOTR sky", true, "Enable or disable the new Middle-earth sky").getBoolean(true);
+		enableMistyMountainsMist = config.get("general", "Enable Mist", true, "Enable or disable mist in the Misty Mountains").getBoolean(true);
 
 		if (config.hasChanged())
 		{

@@ -10,20 +10,26 @@ Public Beta 19
 + Added eating and drinking AI to many more NPCs
 + Added a speed boost effect to Miruvor and Orc Draught
 + Added more skins for orcs, Uruk-hai, and Gondor Soldiers
++ Added a death message when a hired troll turns to stone
 + Added Sarlluin and Sarncaran deposits underground within their respective biomes
 + Added additional ore generation at higher layers in all mountain biomes
 + Added the ability to light Beacons of Gondor with torches
 + Added an updated German translation
++ Added a configuration file option to disable mist in the Misty Mountains
 
 * Increased the health of elves and dwarves
 * Banner bearers now carry banners in the left hand so they do not disappear in battle
+* Banners now break instead of falling when the block below is removed
 * Near Haradrim now defend themselves with daggers
 * Dunlending Bartenders now trade at Dunland alignment 0
 * Ent-draughts are now poisonous to enemies of Fangorn
 * Players can no longer drink straight from ent jars
 * Fixed skeletal wraiths falling through the ground
+* Fixed the hired NPC death message saying only 'died' instead of the specific cause of death
+* Fixed NPCs dropping equipment too often
 * Hobbit Farmhouse roofs are now made of thatch blocks
 * Removed the region of Brown Lands to the east of Mordor
+* Fixed the orc bed crafting recipe giving the block instead of the item
 
 Public Beta 18.2
 

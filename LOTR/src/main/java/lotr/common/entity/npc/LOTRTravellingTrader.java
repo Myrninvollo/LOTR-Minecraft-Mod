@@ -5,7 +5,7 @@ import lotr.common.world.biome.LOTRBiome;
 
 public interface LOTRTravellingTrader
 {
-	public abstract void startVisiting(EntityPlayer entityplayer);
+	public abstract void startTraderVisiting(EntityPlayer entityplayer);
 	
 	public abstract LOTREntityNPC createTravellingEscort();
 	

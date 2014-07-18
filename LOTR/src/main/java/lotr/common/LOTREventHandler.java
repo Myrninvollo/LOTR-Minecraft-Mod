@@ -441,6 +441,11 @@ public class LOTREventHandler implements IFuelHandler
 	
 	public static boolean isProtectedByBanner(World world, int i, int j, int k, EntityLivingBase entity)
 	{
+		if (entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.isCreativeMode)
+		{
+			return false;
+		}
+		
 		String protector = null;
 		double range = LOTREntityBanner.PROTECTION_RANGE;
 		double distanceToBanner = 0D;
@@ -449,7 +454,7 @@ public class LOTREventHandler implements IFuelHandler
 		if (entity instanceof EntityPlayer)
 		{
 			EntityPlayer entityplayer = (EntityPlayer)entity;
-			if (entityplayer.getHeldItem().getItem().equals(LOTRMod.banner))
+			if (entityplayer.getHeldItem() != null && entityplayer.getHeldItem().getItem() == LOTRMod.banner)
 			{
 				playerHoldingBanner = true;
 			}

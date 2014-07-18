@@ -256,14 +256,15 @@ public class LOTREntityGollum extends LOTREntityNPC
 	@Override
 	public void onDeath(DamageSource damagesource)
 	{
+		if (getGollumOwner() != null)
+		{
+			getGollumOwner().addChatMessage(func_110142_aN().func_151521_b());
+		}
+		
 		super.onDeath(damagesource);
 		if (!worldObj.isRemote)
 		{
 			inventory.dropAllItems();
-		}
-		if (getGollumOwner() != null)
-		{
-			getGollumOwner().addChatMessage(func_110142_aN().func_151521_b());
 		}
 		LOTRLevelData.hasGollum = 0;
 		LOTRLevelData.gollumRespawnTime = 12000;

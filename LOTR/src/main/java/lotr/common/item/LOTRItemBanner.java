@@ -4,6 +4,7 @@ import static lotr.common.LOTRFaction.*;
 
 import java.util.List;
 
+import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRCreativeTabs;
 import lotr.common.LOTRFaction;
 import lotr.common.entity.item.LOTREntityBanner;
@@ -133,6 +134,14 @@ public class LOTRItemBanner extends Item
         }
 		if (world.getBlock(i, j - 1, k).isSideSolid(world, i, j - 1, k, ForgeDirection.UP))
 		{
+			if (world.getBlock(i,  j - 1,  k) == Blocks.gold_block)
+			{
+				if (!world.isRemote)
+				{
+					LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, 1, getFaction(itemstack));
+				}
+				return false;
+			}
 			if (!world.isRemote)
 			{
 				LOTREntityBanner banner = new LOTREntityBanner(world);

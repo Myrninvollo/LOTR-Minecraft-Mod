@@ -1140,7 +1140,7 @@ public class LOTRRecipes
 	
 	private static void createCommonOrcRecipes()
 	{
-		addRecipeTo(commonOrcRecipes, new ShapedOreRecipe(new ItemStack(orcBed), new Object[]
+		addRecipeTo(commonOrcRecipes, new ShapedOreRecipe(new ItemStack(orcBedItem), new Object[]
 		{
 			"XXX", "YYY", 'X', Blocks.wool, 'Y', "plankWood"
 		}));

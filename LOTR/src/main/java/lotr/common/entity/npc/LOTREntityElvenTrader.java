@@ -22,8 +22,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeable, LOTRTravellingTrader
 {
-	public LOTRTravellingTraderInfo travellingTraderInfo = new LOTRTravellingTraderInfo(this);
-	
 	public LOTREntityElvenTrader(World world)
 	{
 		super(world);
@@ -36,12 +34,6 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 			traderNPCInfo.setBuyTrades(LOTRTradeEntry.getRandomTrades(LOTRTradeEntry.ELVEN_TRADER_BUY, rand, true));
 			traderNPCInfo.setSellTrades(LOTRTradeEntry.getRandomTrades(LOTRTradeEntry.ELVEN_TRADER_SELL, rand, false));
 		}
-	}
-	
-	@Override
-	public void startVisiting(EntityPlayer entityplayer)
-	{
-		travellingTraderInfo.startVisiting(entityplayer);
 	}
 	
 	@Override
@@ -67,16 +59,11 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 	{
 		super.onLivingUpdate();
 		
-		if (isEntityAlive())
+		if (!worldObj.isRemote && isEntityAlive())
 		{
-			travellingTraderInfo.onUpdate();
-			
-			if (!worldObj.isRemote)
+			if (travellingTraderInfo.timeUntilDespawn == 0)
 			{
-				if (travellingTraderInfo.timeUntilDespawn == 0)
-				{
-					worldObj.setEntityState(this, (byte)15);
-				}
+				worldObj.setEntityState(this, (byte)15);
 			}
 		}
 	}
@@ -103,7 +90,6 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 	public void onDeath(DamageSource damagesource)
 	{
 		super.onDeath(damagesource);
-		travellingTraderInfo.onDeath();
 		if (!worldObj.isRemote)
 		{
 			worldObj.setEntityState(this, (byte)15);
@@ -132,20 +118,6 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
             super.handleHealthUpdate(b);
         }
     }
-	
-	@Override
-	public void writeEntityToNBT(NBTTagCompound nbt)
-	{
-		super.writeEntityToNBT(nbt);
-		travellingTraderInfo.writeToNBT(nbt);
-	}
-	
-	@Override
-	public void readEntityFromNBT(NBTTagCompound nbt)
-	{
-		super.readEntityFromNBT(nbt);
-		travellingTraderInfo.readFromNBT(nbt);
-	}
 	
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)

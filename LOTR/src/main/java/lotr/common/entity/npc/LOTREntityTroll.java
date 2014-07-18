@@ -32,6 +32,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -206,6 +207,10 @@ public class LOTREntityTroll extends LOTREntityNPC
 					if (getTrollBurnTime() == 0)
 					{
 						onTrollDeathBySun();
+						if (hiredNPCInfo.isActive && hiredNPCInfo.getHiringPlayer() != null)
+						{
+							hiredNPCInfo.getHiringPlayer().addChatMessage(new ChatComponentTranslation("lotr.hiredNPC.trollStone", new Object[] {getCommandSenderName()}));
+						}
 					}
 				}
 			}

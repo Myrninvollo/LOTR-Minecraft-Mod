@@ -12,8 +12,6 @@ import net.minecraft.world.World;
 
 public class LOTREntityBlueDwarfMerchant extends LOTREntityBlueDwarf implements LOTRTradeable, LOTRTravellingTrader
 {
-	public LOTRTravellingTraderInfo travellingTraderInfo = new LOTRTravellingTraderInfo(this);
-	
 	public LOTREntityBlueDwarfMerchant(World world)
 	{
 		super(world);
@@ -26,13 +24,7 @@ public class LOTREntityBlueDwarfMerchant extends LOTREntityBlueDwarf implements 
 			traderNPCInfo.setSellTrades(LOTRTradeEntry.getRandomTrades(LOTRTradeEntry.BLUE_DWARF_MERCHANT_SELL, rand, false));
 		}
 	}
-	
-	@Override
-	public void startVisiting(EntityPlayer entityplayer)
-	{
-		travellingTraderInfo.startVisiting(entityplayer);
-	}
-	
+
 	@Override
 	public LOTREntityNPC createTravellingEscort()
 	{

@@ -1,5 +1,8 @@
 package lotr.common.entity.item;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+
 import java.util.UUID;
 
 import lotr.common.LOTREventHandler;
@@ -9,10 +12,13 @@ import lotr.common.item.LOTRItemBanner;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
@@ -87,9 +93,14 @@ public class LOTREntityBanner extends Entity
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
+        
+        motionX = motionZ = 0D;
+        motionY -= 0.04D;
 
         func_145771_j(posX, (boundingBox.minY + boundingBox.maxY) / 2D, posZ);
         moveEntity(motionX, motionY, motionZ);
+        
+        motionY *= 0.98D;
         
         if (!worldObj.isRemote && !onGround)
         {
@@ -145,7 +156,13 @@ public class LOTREntityBanner extends Entity
     	{
     		if (entityplayer.getUniqueID().equals(allowedPlayers[0]))
     		{
-    			//Open a GUI
+    			ByteBuf data = Unpooled.buffer();
+    			
+    			data.writeInt(getEntityId());
+    			//for (UUID uuid : allowedPlayers)
+    			
+    			Packet packet = new S3FPacketCustomPayload("lotr.bannerGui", data);
+    			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
     		}
     	}
     	return true;

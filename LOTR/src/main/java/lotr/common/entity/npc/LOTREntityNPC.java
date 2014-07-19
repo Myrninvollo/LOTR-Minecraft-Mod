@@ -1051,7 +1051,7 @@ public abstract class LOTREntityNPC extends EntityCreature
         	int i = MathHelper.floor_double(posX);
             int j = MathHelper.floor_double(boundingBox.minY);
             int k = MathHelper.floor_double(posZ);
-        	if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, this))
+        	if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, this, false))
         	{
         		return false;
         	}

@@ -6,7 +6,9 @@ import java.util.List;
 
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRCreativeTabs;
+import lotr.common.LOTREventHandler;
 import lotr.common.LOTRFaction;
+import lotr.common.LOTRLevelData;
 import lotr.common.entity.item.LOTREntityBanner;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -134,14 +137,26 @@ public class LOTRItemBanner extends Item
         }
 		if (world.getBlock(i, j - 1, k).isSideSolid(world, i, j - 1, k, ForgeDirection.UP))
 		{
-			if (world.getBlock(i,  j - 1,  k) == Blocks.gold_block)
+			if (!entityplayer.capabilities.isCreativeMode && world.getBlock(i, j - 1, k) == Blocks.gold_block)
 			{
-				if (!world.isRemote)
+				if (LOTRLevelData.getAlignment(entityplayer, getFaction(itemstack)) < 1)
 				{
-					LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, 1, getFaction(itemstack));
+					if (!world.isRemote)
+					{
+						LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, 1, getFaction(itemstack));
+					}
+					return false;
 				}
-				return false;
+				else
+				{
+					if (!world.isRemote && LOTREventHandler.isProtectedByBanner(world, i, j, k, entityplayer, false, LOTREntityBanner.PROTECTION_RANGE * 2))
+					{
+						entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLandBanner"));
+						return false;
+					}
+				}
 			}
+			
 			if (!world.isRemote)
 			{
 				LOTREntityBanner banner = new LOTREntityBanner(world);

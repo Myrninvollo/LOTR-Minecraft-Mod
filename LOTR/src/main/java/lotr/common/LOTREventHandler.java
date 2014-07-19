@@ -43,6 +43,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -439,7 +440,12 @@ public class LOTREventHandler implements IFuelHandler
 		}
 	}
 	
-	public static boolean isProtectedByBanner(World world, int i, int j, int k, EntityLivingBase entity)
+	public static boolean isProtectedByBanner(World world, int i, int j, int k, EntityLivingBase entity, boolean sendMessage)
+	{
+		return isProtectedByBanner(world, i, j, k, entity, sendMessage, LOTREntityBanner.PROTECTION_RANGE);
+	}
+
+	public static boolean isProtectedByBanner(World world, int i, int j, int k, EntityLivingBase entity, boolean sendMessage, double range)
 	{
 		if (entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.isCreativeMode)
 		{
@@ -447,22 +453,6 @@ public class LOTREventHandler implements IFuelHandler
 		}
 		
 		String protector = null;
-		double range = LOTREntityBanner.PROTECTION_RANGE;
-		double distanceToBanner = 0D;
-		boolean playerHoldingBanner = false;
-		
-		if (entity instanceof EntityPlayer)
-		{
-			EntityPlayer entityplayer = (EntityPlayer)entity;
-			if (entityplayer.getHeldItem() != null && entityplayer.getHeldItem().getItem() == LOTRMod.banner)
-			{
-				playerHoldingBanner = true;
-			}
-		}
-		if (playerHoldingBanner)
-		{
-			range *= 2D;
-		}
 		
 		List banners = world.getEntitiesWithinAABB(LOTREntityBanner.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 1, k + 1).expand(range, range, range));
 		if (!banners.isEmpty())
@@ -495,7 +485,6 @@ public class LOTREventHandler implements IFuelHandler
 								{
 									GameProfile profile = new GameProfile(placingPlayer, "");
 									protector = MinecraftServer.getServer().func_147130_as().fillProfileProperties(profile, true).getName();
-									distanceToBanner = banner.getDistanceToEntity(entityplayer);
 									break bannerSearch;
 								}
 							}
@@ -506,7 +495,6 @@ public class LOTREventHandler implements IFuelHandler
 							if (alignment <= 0)
 							{
 								protector = faction.factionName();
-								distanceToBanner = banner.getDistanceToEntity(entityplayer);
 								break bannerSearch;
 							}
 						}
@@ -514,7 +502,6 @@ public class LOTREventHandler implements IFuelHandler
 					else if (LOTRMod.getNPCFaction(entity).isEnemy(faction))
 					{
 						protector = faction.factionName();
-						distanceToBanner = banner.getDistanceToEntity(entity);
 						break bannerSearch;
 					}
 				}
@@ -523,16 +510,14 @@ public class LOTREventHandler implements IFuelHandler
 		
 		if (protector != null)
 		{
-			if (entity instanceof EntityPlayer)
+			if (entity instanceof EntityPlayerMP)
 			{
-				if (playerHoldingBanner && distanceToBanner > range)
+				EntityPlayerMP entityplayer = (EntityPlayerMP)entity;
+				if (sendMessage)
 				{
-					((EntityPlayer)entity).addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLandBanner", new Object[] {protector}));
+					entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLand", new Object[] {protector}));
 				}
-				else
-				{
-					((EntityPlayer)entity).addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLand", new Object[] {protector}));
-				}
+				entityplayer.sendContainerToPlayer(entityplayer.inventoryContainer);
 			}
 			return true;
 		}
@@ -564,7 +549,7 @@ public class LOTREventHandler implements IFuelHandler
 		
 		if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
 		{
-			if (!world.isRemote && isProtectedByBanner(world, i, j, k, entityplayer))
+			if (!world.isRemote && isProtectedByBanner(world, i, j, k, entityplayer, true))
 			{
 				event.setCanceled(true);
 				return;
@@ -609,7 +594,7 @@ public class LOTREventHandler implements IFuelHandler
 		int j = event.y;
 		int k = event.z;
 		
-		if (!world.isRemote && isProtectedByBanner(world, i, j, k, entityplayer))
+		if (!world.isRemote && isProtectedByBanner(world, i, j, k, entityplayer, true))
 		{
 			event.setCanceled(true);
 			return;

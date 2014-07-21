@@ -516,7 +516,6 @@ public class LOTRMod
 	public static Item daggerWoodElvenPoisoned;
 	public static Item banner;
 	public static Item sulfurMatch;
-	public static Item bannerWall;
 	public static Item swordAngmar;
 	public static Item daggerAngmar;
 	public static Item daggerAngmarPoisoned;
@@ -1035,7 +1034,6 @@ public class LOTRMod
 		daggerWoodElvenPoisoned = new LOTRItemDagger(toolWoodElven, 1).setIsElvenBlade().setUnlocalizedName("lotr:daggerWoodElvenPoisoned");
 		banner = new LOTRItemBanner().setUnlocalizedName("lotr:banner");
 		sulfurMatch = new LOTRItemMatch().setUnlocalizedName("lotr:sulfurMatch");
-		bannerWall = new LOTRItemBannerWall().setUnlocalizedName("lotr:bannerWall");
 		swordAngmar = new LOTRItemSword(toolAngmar).setUnlocalizedName("lotr:swordAngmar");
 		daggerAngmar = new LOTRItemDagger(toolAngmar, 0).setUnlocalizedName("lotr:daggerAngmar");
 		daggerAngmarPoisoned = new LOTRItemDagger(toolAngmar, 1).setUnlocalizedName("lotr:daggerAngmarPoisoned");
@@ -1578,7 +1576,6 @@ public class LOTRMod
 		registerItem(daggerRohanPoisoned);
 		registerItem(daggerWoodElvenPoisoned);
 		registerItem(banner);
-		registerItem(bannerWall);
 		registerItem(sulfurMatch);
 		registerItem(swordAngmar);
 		registerItem(daggerAngmar);

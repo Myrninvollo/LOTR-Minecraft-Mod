@@ -1447,10 +1447,6 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 2), new Object[]
-		{
-			"X", "Y", 'X', "plankWood", 'Y', Blocks.wool
-		}));
     }
 	
 	private static void createElvenRecipes()
@@ -1571,10 +1567,6 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', mallornStick, 'Z', new ItemStack(planks, 1, 1)
 		}));
-		elvenRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 3), new Object[]
-		{
-			"X", "Y", 'X', new ItemStack(planks, 1, 1), 'Y', Blocks.wool
-		}));
 	}
 	
 	private static void createDwarvenRecipes()
@@ -1646,10 +1638,6 @@ public class LOTRRecipes
 		dwarvenRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 7), new Object[]
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
-		}));
-		dwarvenRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 7), new Object[]
-		{
-			"X", "Y", 'X', "plankWood", 'Y', Blocks.wool
 		}));
 	}
 	
@@ -1755,10 +1743,6 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
-		urukRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 6), new Object[]
-		{
-			"X", "Y", 'X', "plankWood", 'Y', Blocks.wool
-		}));
 	}
 	
 	private static void createWoodElvenRecipes()
@@ -1846,10 +1830,6 @@ public class LOTRRecipes
 		woodElvenRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 4), new Object[]
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
-		}));
-		woodElvenRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 4), new Object[]
-		{
-			"X", "Y", 'X', "plankWood", 'Y', Blocks.wool
 		}));
 	}
 	
@@ -1971,10 +1951,6 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
-		gondorianRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 0), new Object[]
-		{
-			"X", "Y", 'X', "plankWood", 'Y', Blocks.wool
-		}));
 	}
 	
 	private static void createRohirricRecipes()
@@ -2039,10 +2015,6 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
-		rohirricRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 1), new Object[]
-		{
-			"X", "Y", 'X', "plankWood", 'Y', Blocks.wool
-		}));
 		rohirricRecipes.add(new ShapedOreRecipe(new ItemStack(battleaxeRohan), new Object[]
 		{
 			"XXX", "XYX", " Y ", 'X', Items.iron_ingot, 'Y', "stickWood"
@@ -2082,10 +2054,6 @@ public class LOTRRecipes
 		dunlendingRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 5), new Object[]
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
-		}));
-		dunlendingRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 5), new Object[]
-		{
-			"X", "Y", 'X', "plankWood", 'Y', Blocks.wool
 		}));
 	}
 	
@@ -2223,10 +2191,6 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
-		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 8), new Object[]
-		{
-			"X", "Y", 'X', "plankWood", 'Y', Blocks.wool
-		}));
     }
     
     private static void createNearHaradRecipes()
@@ -2238,10 +2202,6 @@ public class LOTRRecipes
     	nearHaradRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 9), new Object[]
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
-		}));
-    	nearHaradRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 9), new Object[]
-		{
-			"X", "Y", 'X', "plankWood", 'Y', Blocks.wool
 		}));
     	nearHaradRecipes.add(new ShapedOreRecipe(new ItemStack(scimitarNearHarad), new Object[]
 		{
@@ -2351,10 +2311,6 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
-		highElvenRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 10), new Object[]
-		{
-			"X", "Y", 'X', "plankWood", 'Y', Blocks.wool
-		}));
 		highElvenRecipes.add(new ShapedOreRecipe(new ItemStack(highElvenTorch, 4), new Object[]
 		{
 			"X", "Y", 'X', LOTRMod.quenditeCrystal, 'Y', "stickWood"
@@ -2438,10 +2394,6 @@ public class LOTRRecipes
 		blueMountainsRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 11), new Object[]
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
-		}));
-		blueMountainsRecipes.add(new ShapedOreRecipe(new ItemStack(bannerWall, 1, 11), new Object[]
-		{
-			"X", "Y", 'X', "plankWood", 'Y', Blocks.wool
 		}));
 	}
 

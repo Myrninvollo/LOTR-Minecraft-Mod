@@ -102,13 +102,13 @@ public class LOTREntityBannerWall extends EntityHanging
 		
 		if (flag)
 		{
-			entityDropItem(new ItemStack(LOTRMod.bannerWall, 1, getBannerType()), 0F);
+			entityDropItem(new ItemStack(LOTRMod.banner, 1, getBannerType()), 0F);
 		}
     }
 	
 	@Override
     public ItemStack getPickedResult(MovingObjectPosition target)
     {
-        return new ItemStack(LOTRMod.bannerWall, 1, getBannerType());
+        return new ItemStack(LOTRMod.banner, 1, getBannerType());
     }
 }

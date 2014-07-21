@@ -13,7 +13,7 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-public class LOTRGuiHornSelect extends GuiScreen
+public class LOTRGuiHornSelect extends LOTRGuiScreenBase
 {
 	private static ResourceLocation guiTexture = new ResourceLocation("lotr:gui/horn_select.png");
 	private static RenderItem itemRenderer = new RenderItem();
@@ -66,34 +66,15 @@ public class LOTRGuiHornSelect extends GuiScreen
 		}
 	}
 	
+	@Override
     public void updateScreen()
     {
         super.updateScreen();
-
-        if (!mc.thePlayer.isEntityAlive() || mc.thePlayer.isDead)
-        {
-            mc.thePlayer.closeScreen();
-        }
 		
 		ItemStack itemstack = mc.thePlayer.inventory.getCurrentItem();
 		if (itemstack == null || itemstack.getItem() != LOTRMod.commandHorn || itemstack.getItemDamage() != 0)
 		{
 			mc.thePlayer.closeScreen();
 		}
-    }
-	
-	@Override
-    protected void keyTyped(char c, int i)
-    {
-        if (i == 1 || i == mc.gameSettings.keyBindInventory.getKeyCode())
-        {
-            mc.thePlayer.closeScreen();
-        }
-	}
-	
-	@Override
-    public boolean doesGuiPauseGame()
-    {
-        return false;
     }
 }

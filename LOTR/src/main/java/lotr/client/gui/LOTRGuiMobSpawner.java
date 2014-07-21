@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-public class LOTRGuiMobSpawner extends GuiScreen
+public class LOTRGuiMobSpawner extends LOTRGuiScreenBase
 {
 	private static ResourceLocation guiTexture = new ResourceLocation("lotr:gui/mob_spawner.png");
 	
@@ -253,10 +253,7 @@ public class LOTRGuiMobSpawner extends GuiScreen
 	@Override
     public void updateScreen()
     {
-        if (!mc.thePlayer.isEntityAlive() || mc.thePlayer.isDead || tileEntity == null || worldObj.getBlock(posX, posY, posZ) != LOTRMod.mobSpawner || mc.thePlayer.getDistanceSq(posX + 0.5D, posY + 0.5D, posZ + 0.5D) > 64D)
-        {
-            mc.thePlayer.closeScreen();
-        }
+        super.updateScreen();
 		
 		if (page == 0)
 		{
@@ -383,15 +380,6 @@ public class LOTRGuiMobSpawner extends GuiScreen
 			sendGuiDataToServerTileEntity();
 		}
     }
-	
-	@Override
-    protected void keyTyped(char c, int i)
-    {
-        if (i == 1 || i == mc.gameSettings.keyBindInventory.getKeyCode())
-        {
-            mc.thePlayer.closeScreen();
-        }
-	}
 
 	@Override	
     protected void mouseClicked(int i, int j, int k)
@@ -407,12 +395,6 @@ public class LOTRGuiMobSpawner extends GuiScreen
 		}
         super.mouseClicked(i, j, k);
 		buttonList.clear();
-    }
-	
-	@Override
-    public boolean doesGuiPauseGame()
-    {
-        return false;
     }
 	
 	private String trim(float f)

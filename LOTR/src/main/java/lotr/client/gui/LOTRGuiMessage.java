@@ -8,7 +8,7 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-public class LOTRGuiMessage extends GuiScreen
+public class LOTRGuiMessage extends LOTRGuiScreenBase
 {
 	private static ResourceLocation guiTexture = new ResourceLocation("lotr:gui/message.png");
 
@@ -30,7 +30,7 @@ public class LOTRGuiMessage extends GuiScreen
     {
         guiLeft = (width - xSize) / 2;
 		guiTop = (height - ySize) / 2;
-		buttonList.add(new GuiButton(0, guiLeft + xSize / 2 - 40, guiTop + ySize + 20, 80, 20, "Dismiss"));
+		buttonList.add(new GuiButton(0, guiLeft + xSize / 2 - 40, guiTop + ySize + 20, 80, 20, StatCollector.translateToLocal("lotr.gui.message.dismiss")));
 	}
 	
 	@Override
@@ -57,17 +57,6 @@ public class LOTRGuiMessage extends GuiScreen
 	}
 	
 	@Override
-	public void updateScreen()
-	{
-		super.updateScreen();
-		
-        if (!mc.thePlayer.isEntityAlive() || mc.thePlayer.isDead)
-        {
-            mc.thePlayer.closeScreen();
-        }
-	}
-	
-	@Override
     protected void actionPerformed(GuiButton button)
     {
         if (button.enabled)
@@ -80,8 +69,5 @@ public class LOTRGuiMessage extends GuiScreen
 	}
 	
 	@Override
-    public boolean doesGuiPauseGame()
-    {
-        return false;
-    }
+    protected void keyTyped(char c, int i) {}
 }

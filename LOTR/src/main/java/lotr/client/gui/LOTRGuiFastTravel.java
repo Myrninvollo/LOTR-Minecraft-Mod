@@ -9,7 +9,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.chunk.EmptyChunk;
 
-public class LOTRGuiFastTravel extends GuiScreen
+public class LOTRGuiFastTravel extends LOTRGuiScreenBase
 {
 	private LOTRAbstractWaypoint theWaypoint;
 	private String message;
@@ -52,11 +52,5 @@ public class LOTRGuiFastTravel extends GuiScreen
         }
 
         super.drawScreen(i, j, f);
-    }
-	
-	@Override
-    public boolean doesGuiPauseGame()
-    {
-        return false;
     }
 }

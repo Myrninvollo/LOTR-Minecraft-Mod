@@ -5,6 +5,8 @@ import io.netty.buffer.Unpooled;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.mojang.authlib.GameProfile;
 
 import lotr.common.block.LOTRBlockFlowerPot;
@@ -472,19 +474,23 @@ public class LOTREventHandler implements IFuelHandler
 							UUID placingPlayer = banner.allowedPlayers[0];
 							if (placingPlayer != null)
 							{
-								boolean isPlayedWhitelisted = false;
+								boolean isPlayerWhitelisted = false;
 								for (UUID uuid : banner.allowedPlayers)
 								{
 									if (uuid != null && uuid.equals(entityplayer.getUniqueID()))
 									{
-										isPlayedWhitelisted = true;
+										isPlayerWhitelisted = true;
 										break;
 									}
 								}
-								if (!isPlayedWhitelisted)
+								if (!isPlayerWhitelisted)
 								{
-									GameProfile profile = new GameProfile(placingPlayer, "");
-									protector = MinecraftServer.getServer().func_147130_as().fillProfileProperties(profile, true).getName();
+									GameProfile profile = MinecraftServer.getServer().func_152358_ax().func_152652_a(placingPlayer);
+									if (StringUtils.isEmpty(profile.getName()))
+									{
+										MinecraftServer.getServer().func_147130_as().fillProfileProperties(profile, true);
+									}
+									protector = profile.getName();
 									break bannerSearch;
 								}
 							}

@@ -10,7 +10,7 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
-public class LOTRGuiHiredNPC extends GuiScreen
+public class LOTRGuiHiredNPC extends LOTRGuiScreenBase
 {
 	private static ResourceLocation guiTexture = new ResourceLocation("lotr:gui/npc/hired.png");
     public int xSize = 200;
@@ -60,34 +60,15 @@ public class LOTRGuiHiredNPC extends GuiScreen
 		super.drawScreen(i, j, f);
 	}
 	
+	@Override
     public void updateScreen()
     {
         super.updateScreen();
-
-        if (!mc.thePlayer.isEntityAlive() || mc.thePlayer.isDead)
-        {
-            mc.thePlayer.closeScreen();
-        }
 		
 		if (!theNPC.isEntityAlive() || theNPC.hiredNPCInfo.getHiringPlayer() != mc.thePlayer || theNPC.getDistanceSqToEntity(mc.thePlayer) > 64D)
 		{
 			mc.thePlayer.closeScreen();
 		}
-    }
-	
-	@Override
-    protected void keyTyped(char c, int i)
-    {
-        if (i == 1 || i == mc.gameSettings.keyBindInventory.getKeyCode())
-        {
-            mc.thePlayer.closeScreen();
-        }
-	}
-	
-	@Override
-    public boolean doesGuiPauseGame()
-    {
-        return false;
     }
 	
 	@Override

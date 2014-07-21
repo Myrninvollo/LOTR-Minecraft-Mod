@@ -154,12 +154,24 @@ public class LOTREntityBanner extends Entity
     {
     	if (!worldObj.isRemote)
     	{
-    		if (entityplayer.getUniqueID().equals(allowedPlayers[0]))
+    		if (isProtectingTerritory() && entityplayer.getUniqueID().equals(allowedPlayers[0]))
     		{
     			ByteBuf data = Unpooled.buffer();
     			
     			data.writeInt(getEntityId());
-    			//for (UUID uuid : allowedPlayers)
+    			data.writeBoolean(playerSpecificProtection);
+
+    			for (int i = 0; i < allowedPlayers.length; i++)
+    			{
+    				UUID uuid = allowedPlayers[i];
+    				if (uuid != null)
+    				{
+    					data.writeInt(i);
+    					data.writeLong(uuid.getMostSignificantBits());
+    					data.writeLong(uuid.getLeastSignificantBits());
+    				}
+    			}
+    			data.writeInt(-1);
     			
     			Packet packet = new S3FPacketCustomPayload("lotr.bannerGui", data);
     			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);

@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.util.StatCollector;
 
-public class LOTRGui extends GuiScreen
+public class LOTRGui extends LOTRGuiScreenBase
 {
 	public static int guiIndex = 0;
 	public static Class[] guiClasses = {LOTRGuiMap.class, LOTRGuiAlignment.class, LOTRGuiAchievements.class, LOTRGuiCapes.class, LOTRGuiOptions.class};
@@ -83,11 +83,6 @@ public class LOTRGui extends GuiScreen
 		}
 		
 		super.updateScreen();
-		
-        if (!mc.thePlayer.isEntityAlive() || mc.thePlayer.isDead)
-        {
-            mc.thePlayer.closeScreen();
-        }
 	}
 	
 	@Override
@@ -123,19 +118,4 @@ public class LOTRGui extends GuiScreen
 			}
 		}
 	}
-	
-	@Override
-    protected void keyTyped(char c, int i)
-    {
-        if (i == 1 || i == mc.gameSettings.keyBindInventory.getKeyCode())
-        {
-            mc.thePlayer.closeScreen();
-        }
-	}
-	
-	@Override
-    public boolean doesGuiPauseGame()
-    {
-        return false;
-    }
 }

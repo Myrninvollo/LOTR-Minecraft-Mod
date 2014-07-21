@@ -848,8 +848,18 @@ lotr.gui.dismiss.warning2=You will not be able to get it back.
 
 lotr.gui.fastTravel.travel=Fast-traveling to %s
 
+lotr.gui.message.dismiss=Dismiss
 lotr.gui.message.friendlyFire=It looks like you're trying to attack an allied NPC! With the Friendly Fire setting disabled, you are unable to attack allied NPCs, which stops you from accidentally harming your allies. To enable Friendly Fire, open the Middle-earth menu and navigate to Options.
 lotr.gui.message.notDisplayedAgain=This message will not be displayed again
+
+lotr.gui.bannerEdit.title=Banner Protection
+lotr.gui.bannerEdit.protectionMode.playerSpecific=Protection: Player-specific
+lotr.gui.bannerEdit.protectionMode.playerSpecific.desc.1=Players listed below
+lotr.gui.bannerEdit.protectionMode.playerSpecific.desc.2=can bypass this banner's protection
+lotr.gui.bannerEdit.protectionMode.faction=Protection: Faction
+lotr.gui.bannerEdit.protectionMode.faction.desc.1=Players allied with %s
+lotr.gui.bannerEdit.protectionMode.faction.desc.2=can bypass this banner's protection
+lotr.gui.bannerEdit.invalidUsername=Invalid username!
 
 lotr.hiredNPC.status=Status
 lotr.hiredNPC.status.combat=In combat

@@ -8,10 +8,12 @@ import io.netty.channel.SimpleChannelInboundHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import lotr.common.LOTRCapes.CapeType;
 import lotr.common.entity.LOTREntities;
 import lotr.common.entity.animal.LOTREntityCamel;
+import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.npc.*;
 import lotr.common.entity.npc.LOTRHiredNPCInfo.Task;
 import lotr.common.inventory.*;
@@ -62,6 +64,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.createCWP", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.deleteCWP", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.camelGui", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.editBanner", this);
 	}
 	
 	@Override
@@ -881,6 +884,28 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 					}
 				}
 			}
-		}	
+		}
+		
+		else if (channel.equals("lotr.editBanner"))
+		{
+			int id = data.readInt();
+			World world = DimensionManager.getWorld(data.readByte());
+			if (world != null)
+			{
+				Entity entity = world.getEntityByID(id);
+				if (entity instanceof LOTREntityBanner)
+				{
+					LOTREntityBanner banner = (LOTREntityBanner)entity;
+					banner.playerSpecificProtection = data.readBoolean();
+					
+					int index = 0;
+					while ((index = data.readInt()) > 0)
+					{
+						UUID uuid = new UUID(data.readLong(), data.readLong());
+						banner.allowedPlayers[index] = uuid;
+					}
+				}
+			}
+		}
 	}
 }

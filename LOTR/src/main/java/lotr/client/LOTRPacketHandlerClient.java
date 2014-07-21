@@ -1,6 +1,7 @@
 package lotr.client;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 import lotr.client.fx.LOTREntityAlignmentBonus;
 import lotr.client.fx.LOTREntityGandalfFireballExplodeFX;
+import lotr.client.gui.LOTRGuiBanner;
 import lotr.client.gui.LOTRGuiFastTravel;
 import lotr.client.gui.LOTRGuiHiredFarmer;
 import lotr.client.gui.LOTRGuiHiredWarrior;
@@ -26,12 +28,15 @@ import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
 import lotr.common.LOTROptions;
 import lotr.common.LOTRWaypoint;
+import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.entity.npc.LOTRHiredNPCInfo.Task;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
@@ -84,6 +89,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.rewardItem", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.hearts", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.eatFood", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.bannerGui", this);
 	}
 	
 	@Override
@@ -501,6 +507,25 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			if (entity instanceof LOTREntityNPC)
 			{
 				((LOTREntityNPC)entity).spawnFoodParticles();
+			}
+		}
+		
+		else if (channel.equals("lotr.bannerGui"))
+		{
+			Entity entity = world.getEntityByID(data.readInt());
+			if (entity instanceof LOTREntityBanner)
+			{
+				LOTREntityBanner banner = (LOTREntityBanner)entity;
+				banner.playerSpecificProtection = data.readBoolean();
+				
+				int index = 0;
+				while ((index = data.readInt()) >= 0)
+				{
+					UUID uuid = new UUID(data.readLong(), data.readLong());
+					banner.allowedPlayers[index] = uuid;
+				}
+				
+				mc.displayGuiScreen(new LOTRGuiBanner(banner));
 			}
 		}
 	}

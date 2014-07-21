@@ -3,7 +3,7 @@ package lotr.client.gui;
 import lotr.common.entity.npc.LOTREntityNPC;
 import net.minecraft.client.gui.GuiScreen;
 
-public abstract class LOTRGuiNPCInteract extends GuiScreen
+public abstract class LOTRGuiNPCInteract extends LOTRGuiScreenBase
 {
 	public LOTREntityNPC theEntity;
 	
@@ -28,29 +28,9 @@ public abstract class LOTRGuiNPCInteract extends GuiScreen
 	{
 		super.updateScreen();
 		
-        if (!mc.thePlayer.isEntityAlive() || mc.thePlayer.isDead)
-        {
-            mc.thePlayer.closeScreen();
-        }
-		
 		if (theEntity == null || !theEntity.isEntityAlive() || theEntity.getDistanceSqToEntity(mc.thePlayer) > 100D)
         {
             mc.thePlayer.closeScreen();
         }
 	}
-	
-	@Override
-    protected void keyTyped(char c, int i)
-    {
-        if (i == 1 || i == mc.gameSettings.keyBindInventory.getKeyCode())
-        {
-            mc.thePlayer.closeScreen();
-        }
-	}
-	
-	@Override
-    public boolean doesGuiPauseGame()
-    {
-        return false;
-    }
 }

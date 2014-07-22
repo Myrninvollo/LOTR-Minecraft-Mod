@@ -26,13 +26,14 @@ Public Beta 19
 * Banners can now be placed on walls, and the 'Wall Banner' items have been removed for simplicity
 * Near Haradrim now defend themselves with daggers
 * Dunlending Bartenders now trade at Dunland alignment 0
-* Ent-draughts are now poisonous to enemies of Fangorn
-* Players can no longer drink straight from ent jars
-* Fixed skeletal wraiths falling through the ground
 * Fixed the hired NPC death message saying only 'died' instead of the specific cause of death
 * Fixed NPCs dropping equipment too often
-* Hobbit Farmhouse roofs are now made of thatch blocks
+* Ent-draughts are now poisonous to enemies of Fangorn
+* Players can no longer drink straight from ent jars
+* Fixed mismatched warg armour rendering
+* Fixed skeletal wraiths falling through the ground
 * Removed the region of Brown Lands to the east of Mordor
+* Hobbit Farmhouse roofs are now made of thatch blocks
 * Fixed the orc bed crafting recipe giving the block instead of the item
 
 Public Beta 18.2

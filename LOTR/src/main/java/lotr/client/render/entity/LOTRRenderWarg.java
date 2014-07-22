@@ -100,7 +100,7 @@ public class LOTRRenderWarg extends RenderLiving
 		}
 		else
 		{
-			ItemStack itemstack = ((LOTREntityWarg)entityliving).getEquipmentInSlot(3 - i);
+			ItemStack itemstack = ((LOTREntityWarg)entityliving).getEquipmentInSlot(4 - i);
 			if (itemstack != null)
 			{
 				Item item = itemstack.getItem();

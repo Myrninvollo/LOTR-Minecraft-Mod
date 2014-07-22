@@ -101,17 +101,21 @@ public class LOTRItemBanner extends Item
 	@Override
 	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int side, float f, float f1, float f2)
 	{
+		if (world.getBlock(i, j, k).isReplaceable(world, i, j, k))
+		{
+			side = 1;
+		}
+		else if (side == 1)
+		{
+			j++;
+		}
+		
 		if (side == 0)
 		{
 			return false;
 		}
 		else if (side == 1)
 		{
-			if (!world.getBlock(i, j, k).isReplaceable(world, i, j, k))
-			{
-				j++;
-			}
-			
 			if (!entityplayer.canPlayerEdit(i, j, k, side, itemstack))
 	        {
 	            return false;

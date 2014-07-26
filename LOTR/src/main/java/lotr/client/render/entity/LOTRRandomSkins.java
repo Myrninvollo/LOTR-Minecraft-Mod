@@ -7,7 +7,6 @@ import java.util.Random;
 import lotr.common.entity.npc.LOTREntityNPC;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureUtil;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
 public class LOTRRandomSkins

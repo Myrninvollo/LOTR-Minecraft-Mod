@@ -429,7 +429,7 @@ public class LOTREventHandler implements IFuelHandler
 	@SubscribeEvent
 	public void onStartTrackingEntity(PlayerEvent.StartTracking event)
 	{
-		Entity entity = event.entity;
+		Entity entity = event.target;
 		EntityPlayer entityplayer = event.entityPlayer;
 		
 		if (!entity.worldObj.isRemote && entity instanceof LOTREntityNPC)

@@ -2,8 +2,6 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
@@ -14,8 +12,8 @@ import lotr.common.entity.npc.LOTREntityHuorn;
 import lotr.common.world.feature.LOTRWorldGenBigTrees;
 import lotr.common.world.feature.LOTRWorldGenEntJars;
 import lotr.common.world.feature.LOTRWorldGenFangornTrees;
+import lotr.common.world.feature.LOTRWorldGenWaterPlant;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
@@ -81,6 +79,20 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 	public void decorate(World world, Random random, int i, int k)
 	{
 		super.decorate(world, random, i, k);
+		
+		if (random.nextInt(2) == 0)
+		{
+			int i1 = i + random.nextInt(16) + 8;
+            int k1 = k + random.nextInt(16) + 8;
+            int j1;
+			
+            for (j1 = 64 + random.nextInt(64); j1 > 0 && world.getBlock(i1, j1 - 1, k1) == Blocks.air; j1--)
+            {
+                ;
+            }
+            
+            new LOTRWorldGenWaterPlant(LOTRMod.fangornRiverweed).generate(world, random, i1, j1, k1);
+		}
 		
 		if (random.nextInt(10) == 0)
 		{

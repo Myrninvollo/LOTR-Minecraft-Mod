@@ -38,11 +38,11 @@ public class LOTRRenderHobbit extends LOTRRenderBiped
         LOTREntityHobbit hobbit = (LOTREntityHobbit)entity;
 		if (hobbit.familyInfo.isNPCMale())
 		{
-			return LOTRRandomSkins.getRandomSkin(hobbitSkinsMale, entity);
+			return LOTRRandomSkins.getRandomSkin(hobbitSkinsMale, hobbit);
 		}
 		else
 		{
-			return LOTRRandomSkins.getRandomSkin(hobbitSkinsFemale, entity);
+			return LOTRRandomSkins.getRandomSkin(hobbitSkinsFemale, hobbit);
 		}
     }
 	

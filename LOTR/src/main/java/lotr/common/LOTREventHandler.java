@@ -1,13 +1,10 @@
 package lotr.common;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
 import java.util.List;
 import java.util.UUID;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.mojang.authlib.GameProfile;
 
 import lotr.common.block.LOTRBlockFlowerPot;
 import lotr.common.block.LOTRBlockSaplingBase;
@@ -19,11 +16,37 @@ import lotr.common.entity.animal.LOTREntityZebra;
 import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.item.LOTREntityTraderRespawn;
 import lotr.common.entity.item.LOTREntityWargskinRug;
-import lotr.common.entity.npc.*;
+import lotr.common.entity.npc.LOTREntityEnt;
+import lotr.common.entity.npc.LOTREntityHobbitShirriff;
+import lotr.common.entity.npc.LOTREntityHuornBase;
+import lotr.common.entity.npc.LOTREntityMarshWraith;
+import lotr.common.entity.npc.LOTREntityMirkwoodSpider;
+import lotr.common.entity.npc.LOTREntityMordorSpider;
+import lotr.common.entity.npc.LOTREntityNPC;
+import lotr.common.entity.npc.LOTREntityOlogHai;
+import lotr.common.entity.npc.LOTREntityOrc;
+import lotr.common.entity.npc.LOTREntityRanger;
+import lotr.common.entity.npc.LOTREntityRohirrim;
+import lotr.common.entity.npc.LOTREntityTree;
+import lotr.common.entity.npc.LOTREntityWargBombardier;
+import lotr.common.entity.npc.LOTRSpeech;
+import lotr.common.entity.npc.LOTRTradeable;
+import lotr.common.entity.npc.LOTRUnitTradeable;
 import lotr.common.entity.projectile.LOTREntityCrossbowBolt;
 import lotr.common.entity.projectile.LOTREntitySpear;
 import lotr.common.entity.projectile.LOTREntityThrowingAxe;
-import lotr.common.inventory.*;
+import lotr.common.inventory.LOTRContainerAngmarTable;
+import lotr.common.inventory.LOTRContainerBlueDwarvenTable;
+import lotr.common.inventory.LOTRContainerDunlendingTable;
+import lotr.common.inventory.LOTRContainerDwarvenTable;
+import lotr.common.inventory.LOTRContainerElvenTable;
+import lotr.common.inventory.LOTRContainerGondorianTable;
+import lotr.common.inventory.LOTRContainerHighElvenTable;
+import lotr.common.inventory.LOTRContainerMorgulTable;
+import lotr.common.inventory.LOTRContainerNearHaradTable;
+import lotr.common.inventory.LOTRContainerRohirricTable;
+import lotr.common.inventory.LOTRContainerUrukTable;
+import lotr.common.inventory.LOTRContainerWoodElvenTable;
 import lotr.common.item.LOTRItemPouch;
 import lotr.common.world.biome.LOTRBiomeGenDeadMarshes;
 import lotr.common.world.biome.LOTRBiomeGenFangorn;
@@ -45,7 +68,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -78,13 +100,18 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent.AllowDespawn;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.mojang.authlib.GameProfile;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.eventhandler.Event;
@@ -396,6 +423,25 @@ public class LOTREventHandler implements IFuelHandler
 					LOTREntityNPC.addTargetTasks(entitycreature, 100, LOTREntityAINearestAttackableTargetBasic.class);
 				}
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onStartTrackingEntity(PlayerEvent.StartTracking event)
+	{
+		Entity entity = event.entity;
+		EntityPlayer entityplayer = event.entityPlayer;
+		
+		if (!entity.worldObj.isRemote && entity instanceof LOTREntityNPC)
+		{
+			ByteBuf data = Unpooled.buffer();
+			
+			data.writeInt(entity.getEntityId());
+			data.writeLong(entity.getUniqueID().getMostSignificantBits());
+			data.writeLong(entity.getUniqueID().getLeastSignificantBits());
+			
+			Packet packet = new S3FPacketCustomPayload("lotr.npcUUID", data);
+			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
 		}
 	}
 	

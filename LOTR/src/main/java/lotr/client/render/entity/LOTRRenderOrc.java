@@ -36,11 +36,12 @@ public class LOTRRenderOrc extends LOTRRenderBiped
 	@Override
     protected ResourceLocation getEntityTexture(Entity entity)
     {
+		LOTREntityOrc orc = (LOTREntityOrc)entity;
         if (entity instanceof LOTREntityUrukHai)
 		{
-			return LOTRRandomSkins.getRandomSkin(urukSkins, entity);
+			return LOTRRandomSkins.getRandomSkin(urukSkins, orc);
 		}
-        return LOTRRandomSkins.getRandomSkin(orcSkins, entity);
+        return LOTRRandomSkins.getRandomSkin(orcSkins, orc);
     }
 	
 	@Override

@@ -47,8 +47,8 @@ public class LOTRBiomeGenAngmar extends LOTRBiome
 
 		spawnableEvilList.clear();
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityAngmarOrc.class, 20, 4, 6));
-		spawnableEvilList.add(new SpawnListEntry(LOTREntityAngmarOrcArcher.class, 7, 4, 6));
-		spawnableEvilList.add(new SpawnListEntry(LOTREntityAngmarOrcBombardier.class, 3, 1, 2));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityAngmarOrcArcher.class, 10, 4, 6));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityAngmarOrcBombardier.class, 5, 1, 2));
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityAngmarOrcWarrior.class, 15, 4, 4));
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityTroll.class, 40, 1, 3));
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityMountainTroll.class, 30, 1, 3));

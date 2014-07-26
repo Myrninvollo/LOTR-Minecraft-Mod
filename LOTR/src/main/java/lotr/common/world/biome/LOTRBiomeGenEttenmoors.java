@@ -4,6 +4,11 @@ import java.util.Random;
 
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
+import lotr.common.entity.npc.LOTREntityAngmarOrc;
+import lotr.common.entity.npc.LOTREntityAngmarOrcArcher;
+import lotr.common.entity.npc.LOTREntityAngmarOrcBombardier;
+import lotr.common.entity.npc.LOTREntityAngmarOrcWarrior;
+import lotr.common.entity.npc.LOTREntityAngmarWarg;
 import lotr.common.entity.npc.LOTREntityGundabadWarg;
 import lotr.common.entity.npc.LOTREntityMountainTroll;
 import lotr.common.entity.npc.LOTREntityTroll;
@@ -12,6 +17,7 @@ import lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenMegaPineTree;
 import net.minecraft.world.gen.feature.WorldGenTaiga1;
@@ -33,6 +39,9 @@ public class LOTRBiomeGenEttenmoors extends LOTRBiome
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityTroll.class, 40, 1, 3));
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityMountainTroll.class, 20, 1, 3));
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityGundabadWarg.class, 10, 4, 4));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityAngmarOrc.class, 10, 4, 6));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityAngmarOrcArcher.class, 5, 4, 6));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityAngmarWarg.class, 5, 4, 4));
 		
 		decorator.flowersPerChunk = 1;
 		decorator.grassPerChunk = 2;

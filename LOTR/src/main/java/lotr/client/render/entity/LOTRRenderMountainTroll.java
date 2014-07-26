@@ -1,7 +1,10 @@
 package lotr.client.render.entity;
 
+import java.util.List;
+
 import lotr.client.model.LOTRModelTroll;
 import lotr.common.entity.npc.LOTREntityMountainTroll;
+import lotr.common.entity.npc.LOTREntityTroll;
 import lotr.common.entity.projectile.LOTREntityThrownRock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,18 +14,20 @@ import org.lwjgl.opengl.GL11;
 
 public class LOTRRenderMountainTroll extends LOTRRenderTroll
 {
-	private static ResourceLocation skin = new ResourceLocation("lotr:mob/troll/mountainTroll.png");
+	private static List mountainTrollSkins;
+	
 	private LOTREntityThrownRock heldRock;
 	
     public LOTRRenderMountainTroll()
     {
         super();
+        mountainTrollSkins = LOTRRandomSkins.loadSkinsList("lotr:mob/troll/mountainTroll");
     }
 	
 	@Override
     protected ResourceLocation getEntityTexture(Entity entity)
     {
-        return skin;
+		return LOTRRandomSkins.getRandomSkin(mountainTrollSkins, (LOTREntityTroll)entity);
     }
 	
 	@Override

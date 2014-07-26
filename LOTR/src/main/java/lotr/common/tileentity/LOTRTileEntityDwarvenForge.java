@@ -22,7 +22,7 @@ public class LOTRTileEntityDwarvenForge extends LOTRTileEntityAlloyForge
 	}
 
 	@Override
-	protected ItemStack getSmeltingResult(ItemStack itemstack)
+	public ItemStack getSmeltingResult(ItemStack itemstack)
 	{
 		if (itemstack.getItem() == Item.getItemFromBlock(LOTRMod.oreMithril))
 		{
@@ -35,11 +35,6 @@ public class LOTRTileEntityDwarvenForge extends LOTRTileEntityAlloyForge
 	@Override
 	protected ItemStack getAlloySmeltingResult(ItemStack itemstack, ItemStack alloyItem)
 	{
-		if (alloyItem == null)
-		{
-			return null;
-		}
-		
 		if (isIron(itemstack) && alloyItem.getItem() == Items.coal)
 		{
 			return new ItemStack(LOTRMod.dwarfSteel);

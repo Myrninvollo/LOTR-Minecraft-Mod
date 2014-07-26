@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTREventHandler;
@@ -156,6 +157,11 @@ public abstract class LOTREntityNPC extends EntityCreature
         getAttributeMap().registerAttribute(npcAttackDamage);
 		getAttributeMap().registerAttribute(horseAttackSpeed);
     }
+	
+	public void setUniqueID(UUID uuid)
+	{
+		entityUniqueID = uuid;
+	}
 	
 	public void addTargetTasks(int i)
 	{

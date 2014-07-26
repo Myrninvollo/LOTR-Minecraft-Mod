@@ -54,12 +54,6 @@ public class LOTREntityDunlendingWarrior extends LOTREntityDunlending
     }
 	
 	@Override
-	public boolean canPickUpLoot()
-	{
-		return false;
-	}
-	
-	@Override
 	public int getAlignmentBonus()
 	{
 		return LOTRAlignmentValues.DUNLENDING_WARRIOR_BONUS;

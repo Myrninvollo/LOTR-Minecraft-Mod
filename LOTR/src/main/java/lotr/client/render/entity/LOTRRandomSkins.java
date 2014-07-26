@@ -44,18 +44,14 @@ public class LOTRRandomSkins
 		return list;
 	}
 	
-	public static ResourceLocation getRandomSkin(List skins, Entity entity)
+	public static ResourceLocation getRandomSkin(List skins, LOTREntityNPC entity)
 	{
 		if (skins == null || skins.isEmpty())
 		{
 			return missingTexture;
 		}
 		
-		long l = (long)entity.getEntityId();
-		if (entity instanceof LOTREntityNPC)
-		{
-			l = (long)((LOTREntityNPC)entity).getNPCName().hashCode();
-		}
+		long l = entity.getUniqueID().getLeastSignificantBits();
 		rand.setSeed(l);
 		int i = rand.nextInt(skins.size());
 		return (ResourceLocation)skins.get(i);

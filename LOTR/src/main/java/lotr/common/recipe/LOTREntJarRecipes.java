@@ -20,7 +20,7 @@ public class LOTREntJarRecipes
 		addDraughtRecipe(new ItemStack(LOTRMod.fangornPlant, 1, 3), new ItemStack(LOTRMod.entDraught, 1, 3));
 		addDraughtRecipe(new ItemStack(LOTRMod.fangornPlant, 1, 4), new ItemStack(LOTRMod.entDraught, 1, 4));
 		addDraughtRecipe(new ItemStack(LOTRMod.fangornPlant, 1, 5), new ItemStack(LOTRMod.entDraught, 1, 5));
-		addDraughtRecipe(new ItemStack(LOTRMod.fangornPlant, 1, 6), new ItemStack(LOTRMod.entDraught, 1, 6));
+		addDraughtRecipe(new ItemStack(LOTRMod.fangornRiverweed), new ItemStack(LOTRMod.entDraught, 1, 6));
 	}
 	
 	private static void addDraughtRecipe(ItemStack ingredient, ItemStack result)

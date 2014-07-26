@@ -54,33 +54,33 @@ public class LOTRRenderElf extends LOTRRenderBiped
 		{
 			if (male)
 			{
-				return LOTRRandomSkins.getRandomSkin(highElfSkinsMale, entity);
+				return LOTRRandomSkins.getRandomSkin(highElfSkinsMale, elf);
 			}
 			else
 			{
-				return LOTRRandomSkins.getRandomSkin(highElfSkinsFemale, entity);
+				return LOTRRandomSkins.getRandomSkin(highElfSkinsFemale, elf);
 			}
 		}
 		else if (elf instanceof LOTREntityWoodElf)
 		{
 			if (male)
 			{
-				return LOTRRandomSkins.getRandomSkin(woodElfSkinsMale, entity);
+				return LOTRRandomSkins.getRandomSkin(woodElfSkinsMale, elf);
 			}
 			else
 			{
-				return LOTRRandomSkins.getRandomSkin(woodElfSkinsFemale, entity);
+				return LOTRRandomSkins.getRandomSkin(woodElfSkinsFemale, elf);
 			}
 		}
 		else
 		{
 			if (male)
 			{
-				return LOTRRandomSkins.getRandomSkin(galadhrimSkinsMale, entity);
+				return LOTRRandomSkins.getRandomSkin(galadhrimSkinsMale, elf);
 			}
 			else
 			{
-				return LOTRRandomSkins.getRandomSkin(galadhrimSkinsFemale, entity);
+				return LOTRRandomSkins.getRandomSkin(galadhrimSkinsFemale, elf);
 			}
 		}
     }

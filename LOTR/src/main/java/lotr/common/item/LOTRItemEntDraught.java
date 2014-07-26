@@ -23,7 +23,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -40,8 +42,7 @@ public class LOTRItemEntDraught extends Item
 		new DraughtInfo("yellow", 0, 0F).addEffect(Potion.regeneration.id, 60),
 		new DraughtInfo("red", 0, 0F).addEffect(Potion.fireResistance.id, 180),
 		new DraughtInfo("silver", 0, 0F).addEffect(Potion.nightVision.id, 180),
-		new DraughtInfo("blue", 0, 0F).addEffect(Potion.waterBreathing.id, 180),
-		new DraughtInfo("pink", 0, 0F).addEffect(Potion.resistance.id, 120)
+		new DraughtInfo("blue", 0, 0F).addEffect(Potion.waterBreathing.id, 180)
 	};
 	
 	public LOTRItemEntDraught()
@@ -102,6 +103,13 @@ public class LOTRItemEntDraught extends Item
     }
 	
 	@Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack itemstack, EntityPlayer entityplayer, List list, boolean flag)
+	{
+        LOTRItemMugBrewable.addPotionEffectsToTooltip(itemstack, entityplayer, list, flag, getDraughtInfo(itemstack).effects);
+	}
+	
+	@Override
     public int getMaxItemUseDuration(ItemStack itemstack)
     {
         return 32;
@@ -151,7 +159,7 @@ public class LOTRItemEntDraught extends Item
 				for (int i = 0; i < effects.size(); i++)
 				{
 					PotionEffect effect = (PotionEffect)effects.get(i);
-					entityplayer.addPotionEffect(new PotionEffect(effect.getPotionID(), 20 * effect.getDuration()));
+					entityplayer.addPotionEffect(new PotionEffect(effect.getPotionID(), effect.getDuration()));
 				}
 			}
 		}
@@ -236,7 +244,7 @@ public class LOTRItemEntDraught extends Item
 		
 		public DraughtInfo addEffect(int i, int j)
 		{
-			effects.add(new PotionEffect(i, j));
+			effects.add(new PotionEffect(i, j * 20));
 			return this;
 		}
 	}

@@ -6,6 +6,9 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
+import lotr.common.entity.npc.LOTREntityDunlending;
+import lotr.common.entity.npc.LOTREntityDunlendingArcher;
+import lotr.common.entity.npc.LOTREntityDunlendingWarrior;
 import lotr.common.entity.npc.LOTREntityElvenTrader;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.structure.LOTRWorldGenGondorObelisk;
@@ -14,6 +17,7 @@ import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import lotr.common.world.structure2.LOTRWorldGenRuinedHouse;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenTaiga2;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -29,6 +33,8 @@ public class LOTRBiomeGenEnedwaith extends LOTRBiome
 		spawnableCreatureList.add(new SpawnListEntry(LOTREntityHorse.class, 5, 2, 6));
 
 		spawnableEvilList.clear();
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityDunlendingWarrior.class, 10, 4, 6));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityDunlendingArcher.class, 5, 4, 6));
 		
 		decorator.treesPerChunk = 0;
 		decorator.flowersPerChunk = 1;
@@ -109,5 +115,11 @@ public class LOTRBiomeGenEnedwaith extends LOTRBiome
 	public float getChanceToSpawnAnimals()
 	{
 		return 0.1F;
+	}
+	
+	@Override
+	public int spawnCountMultiplier()
+	{
+		return 5;
 	}
 }

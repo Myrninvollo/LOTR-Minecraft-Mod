@@ -32,7 +32,7 @@ public class LOTRBiomeGenNindalf extends LOTRBiome
 		
 		spawnableEvilList.clear();
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorOrc.class, 20, 4, 6));
-		spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorOrcArcher.class, 7, 4, 6));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorOrcArcher.class, 10, 4, 6));
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorOrcBombardier.class, 3, 1, 2));
 		
 		decorator.quagmirePerChunk = 2;

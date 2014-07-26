@@ -69,7 +69,6 @@ public class LOTRReflection
     {
     	// setWorldInfo will be tested automatically
     	getHorseJumpStrength();
-    	isBadEffect(Potion.blindness);
     	getStackList(new InventoryCrafting(new ContainerChest(new InventoryBasic("test", false, 1), new InventoryBasic("test", false, 1)), 1, 1));
     	getStemFruitBlock((BlockStem)Blocks.melon_stem);
     	getCropItem((BlockCrops)Blocks.potatoes);
@@ -97,19 +96,6 @@ public class LOTRReflection
 		{
 			logFailure(e);
 			return null;
-		}
-	}
-	
-	public static boolean isBadEffect(Potion potion)
-	{
-		try
-		{
-			return ObfuscationReflectionHelper.getPrivateValue(Potion.class, potion, "isBadEffect", "field_76418_K");
-		}
-		catch (Exception e)
-		{
-			logFailure(e);
-			return false;
 		}
 	}
 	

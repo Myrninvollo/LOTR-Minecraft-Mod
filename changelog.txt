@@ -10,10 +10,14 @@ Public Beta 19
 + Added several new Fangorn plants and new Ent-draught types
 + Added a better Ent-draught system: rain now fills jars in any biome, jars can also be filled from water containers, and Fangorn plants added to a jar of water turn it into draught
 + Added the ability to summon hired Huorns through the use of golden ent draught
-+ Added eating and drinking AI to many more NPCs
 + Added a speed boost effect to Miruvor and Orc Draught
-+ Added more skins for orcs, Uruk-hai, and Gondor Soldiers
++ Added potion effect tooltip information for brewable drinks and Ent-draughts
++ Added eating and drinking AI to many more NPCs
 + Added a death message when a hired troll turns to stone
++ Added more skins for orcs, Uruk-hai, Olog-hai, and Gondor Soldiers
++ Added Angmar orc spawning in the Ettenmoors biome
++ Added Mordor orcs in the Dagorlad biome
++ Added rare Dunlending spawns in the Enedwaith biome
 + Added Sarlluin and Sarncaran deposits underground within their respective biomes
 + Added additional ore generation at higher layers in all mountain biomes
 + Added the ability to light Beacons of Gondor with torches
@@ -21,6 +25,7 @@ Public Beta 19
 + Added a configuration file option to disable mist in the Misty Mountains
 
 * Increased the health of elves and dwarves
+* Fixed dwarven merchants not spawning
 * Banner bearers now carry banners in the left hand so they do not disappear in battle
 * Banners now break instead of falling when the block below is removed
 * Banners can now be placed on walls, and the 'Wall Banner' items have been removed for simplicity

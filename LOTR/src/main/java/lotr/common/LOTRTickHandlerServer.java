@@ -77,6 +77,7 @@ public class LOTRTickHandlerServer
 	static
 	{
 		travellingTraders.add(new LOTRTravellingTraderSpawner(LOTREntityElvenTrader.class));
+		travellingTraders.add(new LOTRTravellingTraderSpawner(LOTREntityBlueDwarfMerchant.class));
 	}
 	
 	public static HashMap playersInPortals = new HashMap();

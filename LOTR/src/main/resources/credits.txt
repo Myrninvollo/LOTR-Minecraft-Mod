@@ -12,7 +12,7 @@ Spielerninja Ninja - camel model
 
 Textures:
 
-Gruk Kacep - Haradrim armour, scimitar, Far Haradrim skins, High Elf skins, Blue Mountains dwarf skins and armour, Gondor Soldier skin variant, Uruk-hai skin variant
+Gruk Kacep - Haradrim armour, scimitar, Far Haradrim skins, High Elf skins, Blue Mountains dwarf skins and armour, Gondor Soldier skin variant, Uruk-hai skin variant, Olog-hai skin and armour variants
 Cristobal Andres Ortiz Correa - Near and Far Haradrim skins
 Yorick Hamletson - Rohirrim skin variant, bronze achievement cape, faction capes
 Hooi Baal - Rohirric battleaxe

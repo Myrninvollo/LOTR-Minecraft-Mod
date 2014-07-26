@@ -7,14 +7,16 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRCreativeTabs;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
-import lotr.common.LOTRReflection;
 import lotr.common.entity.npc.LOTREntityNPC;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -58,7 +60,7 @@ public class LOTRItemMugBrewable extends Item
 	
 	public LOTRItemMugBrewable addPotionEffect(int i, int j)
 	{
-		potionEffects.add(new PotionEffect(i, j));
+		potionEffects.add(new PotionEffect(i, j * 20));
 		return this;
 	}
 	
@@ -66,6 +68,28 @@ public class LOTRItemMugBrewable extends Item
 	{
 		damageAmount = i;
 		return this;
+	}
+	
+	private float getStrength(ItemStack itemstack)
+	{
+		int i = itemstack.getItemDamage();
+		if (i < 0 || i >= strengths.length)
+		{
+			i = 0;
+		}
+		return strengths[i];
+	}
+	
+	private List convertPotionEffectsForStrength(float strength)
+	{
+		List list = new ArrayList();
+		for (int i = 0; i < potionEffects.size(); i++)
+		{
+			PotionEffect base = (PotionEffect)potionEffects.get(i);
+			PotionEffect modified = new PotionEffect(base.getPotionID(), (int)((float)base.getDuration() * strength));
+			list.add(modified);
+		}
+		return list;
 	}
 	
 	@Override
@@ -77,12 +101,14 @@ public class LOTRItemMugBrewable extends Item
 		{
 			i = 0;
 		}
+		float strength = getStrength(itemstack);
+		
         list.add(StatCollector.translateToLocal("item.lotr.drink." + strengthNames[i]));
         
         if (alcoholicity > 0F)
         {
         	EnumChatFormatting c = EnumChatFormatting.GREEN;
-        	float f = alcoholicity * strengths[i] * 10F;
+        	float f = alcoholicity * strength * 10F;
         	if (f < 2F)
         	{
         		c = EnumChatFormatting.GREEN;
@@ -105,6 +131,34 @@ public class LOTRItemMugBrewable extends Item
         	}
         	list.add(c + StatCollector.translateToLocal("item.lotr.drink.alcoholicity") + ": " + String.format("%.2f", f) + "%");
         }
+        
+        addPotionEffectsToTooltip(itemstack, entityplayer, list, flag, convertPotionEffectsForStrength(strength));
+	}
+	
+	public static void addPotionEffectsToTooltip(ItemStack itemstack, EntityPlayer entityplayer, List list, boolean flag, List itemEffects)
+	{
+		if (!itemEffects.isEmpty())
+		{
+			ItemStack potionEquivalent = new ItemStack(Items.potionitem);
+			potionEquivalent.setItemDamage(69);
+			NBTTagList effectsData = new NBTTagList();
+			
+        	for (int l = 0; l < itemEffects.size(); l++)
+        	{
+        		PotionEffect effect = (PotionEffect)itemEffects.get(l);
+        		NBTTagCompound nbt = new NBTTagCompound();
+        		effect.writeCustomPotionEffectToNBT(nbt);
+        		effectsData.appendTag(nbt);
+        	}
+        	
+        	potionEquivalent.setTagCompound(new NBTTagCompound());
+        	potionEquivalent.getTagCompound().setTag("CustomPotionEffects", effectsData);
+        	
+        	List effectTooltips = new ArrayList();
+        	potionEquivalent.getItem().addInformation(potionEquivalent, entityplayer, effectTooltips, flag);
+        	
+        	list.addAll(effectTooltips);
+		}
 	}
 	
 	@Override
@@ -145,12 +199,7 @@ public class LOTRItemMugBrewable extends Item
 	@Override
     public ItemStack onEaten(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
-		int i = itemstack.getItemDamage();
-		if (i < 0 || i >= strengths.length)
-		{
-			i = 0;
-		}
-		float strength = strengths[i];
+		float strength = getStrength(itemstack);
 
 		if (entityplayer.canEat(false))
 		{
@@ -162,16 +211,17 @@ public class LOTRItemMugBrewable extends Item
 			int duration = (int)(60F * (1F + itemRand.nextFloat() * 0.5F) * alcoholicity * strength);
 			if (duration >= 1)
 			{
-				entityplayer.addPotionEffect(new PotionEffect(Potion.confusion.id, 20 * duration));
+				entityplayer.addPotionEffect(new PotionEffect(Potion.confusion.id, duration));
 			}
 		}
 		
 		if (!world.isRemote)
 		{
-			for (int i1 = 0; i1 < potionEffects.size(); i1++)
+			List effects = convertPotionEffectsForStrength(strength);
+			for (int i = 0; i < effects.size(); i++)
 			{
-				PotionEffect effect = (PotionEffect)potionEffects.get(i1);
-				entityplayer.addPotionEffect(new PotionEffect(effect.getPotionID(), 20 * (int)((float)effect.getDuration() * strength)));
+				PotionEffect effect = (PotionEffect)effects.get(i);
+				entityplayer.addPotionEffect(effect);
 			}
 		}
 		
@@ -191,10 +241,10 @@ public class LOTRItemMugBrewable extends Item
 			{
 				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.drinkAthelasBrew);
 				
-				for (int l = 0; l < Potion.potionTypes.length; l++)
+				for (int i = 0; i < Potion.potionTypes.length; i++)
 				{
-					Potion potion = Potion.potionTypes[l];
-					if (potion != null && LOTRReflection.isBadEffect(potion))
+					Potion potion = Potion.potionTypes[i];
+					if (potion != null && potion.isBadEffect())
 					{
 						entityplayer.removePotionEffect(potion.id);
 					}
@@ -217,19 +267,15 @@ public class LOTRItemMugBrewable extends Item
 	
 	public void applyToNPC(LOTREntityNPC npc, ItemStack itemstack)
 	{
-		int i = itemstack.getItemDamage();
-		if (i < 0 || i >= strengths.length)
-		{
-			i = 0;
-		}
-		float strength = strengths[i];
+		float strength = getStrength(itemstack);
 		
 		npc.heal(foodHealAmount * strength);
 
-		for (int i1 = 0; i1 < potionEffects.size(); i1++)
+		List effects = convertPotionEffectsForStrength(strength);
+		for (int i = 0; i < effects.size(); i++)
 		{
-			PotionEffect effect = (PotionEffect)potionEffects.get(i1);
-			npc.addPotionEffect(new PotionEffect(effect.getPotionID(), 20 * (int)((float)effect.getDuration() * strength)));
+			PotionEffect effect = (PotionEffect)effects.get(i);
+			npc.addPotionEffect(effect);
 		}
 		
 		if (damageAmount > 0)

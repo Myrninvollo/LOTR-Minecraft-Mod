@@ -142,7 +142,7 @@ public class LOTRContainerAlloyForge extends Container
             }
             else if (i >= 8 && i != 12)
             {
-                if (theForge.isSmeltableItem(itemstack1))
+                if (theForge.getSmeltingResult(itemstack1) != null)
                 {
                     if (!mergeItemStack(itemstack1, 4, 8, false))
                     {

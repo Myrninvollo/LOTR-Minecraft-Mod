@@ -14,7 +14,7 @@ public class LOTRBlockFangornPlant extends LOTRBlockFlower
 {
 	@SideOnly(Side.CLIENT)
 	private IIcon[] plantIcons;
-	private String[] plantNames = new String[] {"green", "brown", "gold", "yellow", "red", "silver", "blue"};
+	private String[] plantNames = new String[] {"green", "brown", "gold", "yellow", "red", "silver"};
 	
 	public LOTRBlockFangornPlant()
 	{

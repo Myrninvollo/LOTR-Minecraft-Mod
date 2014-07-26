@@ -90,6 +90,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.hearts", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.eatFood", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.bannerGui", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.npcUUID", this);
 	}
 	
 	@Override
@@ -526,6 +527,17 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 				}
 				
 				mc.displayGuiScreen(new LOTRGuiBanner(banner));
+			}
+		}
+		
+		else if (channel.equals("lotr.npcUUID"))
+		{
+			Entity entity = world.getEntityByID(data.readInt());
+			if (entity instanceof LOTREntityNPC)
+			{
+				LOTREntityNPC npc = (LOTREntityNPC)entity;
+				UUID uuid = new UUID(data.readLong(), data.readLong());
+				npc.setUniqueID(uuid);
 			}
 		}
 	}

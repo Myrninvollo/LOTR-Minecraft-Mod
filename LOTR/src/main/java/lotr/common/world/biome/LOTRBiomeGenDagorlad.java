@@ -4,11 +4,15 @@ import java.util.Random;
 
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
+import lotr.common.entity.npc.LOTREntityMordorOrc;
+import lotr.common.entity.npc.LOTREntityMordorOrcArcher;
+import lotr.common.entity.npc.LOTREntityMordorOrcBombardier;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenCharredTrees;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import cpw.mods.fml.relauncher.Side;
@@ -28,6 +32,9 @@ public class LOTRBiomeGenDagorlad extends LOTRBiome
 		spawnableWaterCreatureList.clear();
 		
 		spawnableEvilList.clear();
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorOrc.class, 20, 4, 6));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorOrcArcher.class, 10, 4, 6));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorOrcBombardier.class, 3, 1, 2));
 		
 		decorator.treesPerChunk = 0;
 		decorator.flowersPerChunk = 0;
@@ -110,5 +117,11 @@ public class LOTRBiomeGenDagorlad extends LOTRBiome
 		fog.yCoord *= 0.4D;
 		fog.zCoord *= 0.4D;
 		return fog;
+	}
+	
+	@Override
+	public int spawnCountMultiplier()
+	{
+		return 3;
 	}
 }

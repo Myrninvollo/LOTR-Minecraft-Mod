@@ -26,7 +26,7 @@ public class LOTRRenderRanger extends LOTRRenderBiped
 	@Override
     protected ResourceLocation getEntityTexture(Entity entity)
     {
-		return LOTRRandomSkins.getRandomSkin(rangerSkins, entity);
+		return LOTRRandomSkins.getRandomSkin(rangerSkins, (LOTREntityRanger)entity);
     }
 	
 	private void doRangerInvisibility()

@@ -295,7 +295,7 @@ public abstract class LOTRTileEntityAlloyForge extends TileEntity implements IIn
         }
         else
         {
-			if (getAlloySmeltingResult(inventory[i], inventory[i - 4]) != null)
+			if (inventory[i - 4] != null && getAlloySmeltingResult(inventory[i], inventory[i - 4]) != null)
 			{
 				ItemStack result = getAlloySmeltingResult(inventory[i], inventory[i - 4]);
 				
@@ -310,12 +310,11 @@ public abstract class LOTRTileEntityAlloyForge extends TileEntity implements IIn
 				}
 			}
 
-			if (!isSmeltableItem(inventory[i]))
+			ItemStack result = getSmeltingResult(inventory[i]);
+			if (result == null)
 			{
 				return false;
 			}
-			
-			ItemStack result = getSmeltingResult(inventory[i]);
 			
 			if (inventory[i + 4] == null)
 			{
@@ -383,40 +382,34 @@ public abstract class LOTRTileEntityAlloyForge extends TileEntity implements IIn
 			}
         }
     }
-	
-	public boolean isSmeltableItem(ItemStack itemstack)
+
+	public ItemStack getSmeltingResult(ItemStack itemstack)
 	{
-		if (itemstack == null)
-		{
-			return false;
-		}
+		boolean isStoneMaterial = false;
 		
 		if (itemstack.getItem() == Item.getItemFromBlock(Blocks.sand) || itemstack.getItem() == Items.clay_ball)
 		{
-			return true;
+			isStoneMaterial = true;
 		}
 		
 		Block block = Block.getBlockFromItem(itemstack.getItem());
 		if (block != null && block.getMaterial() == Material.rock)
 		{
-			return getSmeltingResult(itemstack) != null;
+			isStoneMaterial = true;
 		}
 		
-		return false;
-	}
-
-	protected ItemStack getSmeltingResult(ItemStack itemstack)
-	{
-		return FurnaceRecipes.smelting().getSmeltingResult(itemstack);
+		if (isStoneMaterial)
+		{
+			return FurnaceRecipes.smelting().getSmeltingResult(itemstack);
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	protected ItemStack getAlloySmeltingResult(ItemStack itemstack, ItemStack alloyItem)
 	{
-		if (alloyItem == null)
-		{
-			return null;
-		}
-		
 		if ((isCopper(itemstack) && isTin(alloyItem)) || isTin(itemstack) && isCopper(alloyItem))
 		{
 			return new ItemStack(LOTRMod.bronze, 2);
@@ -467,7 +460,7 @@ public abstract class LOTRTileEntityAlloyForge extends TileEntity implements IIn
 	{
         if (slot > 3 && slot < 8)
 		{
-			return itemstack == null ? false : isSmeltableItem(itemstack);
+			return itemstack == null ? false : getSmeltingResult(itemstack) != null;
 		}
 		else if (slot < 12)
 		{

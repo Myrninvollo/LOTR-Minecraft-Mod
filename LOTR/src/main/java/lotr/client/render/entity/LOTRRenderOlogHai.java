@@ -1,6 +1,10 @@
 package lotr.client.render.entity;
 
+import java.util.List;
+
 import lotr.client.model.LOTRModelTroll;
+import lotr.common.entity.npc.LOTREntityOlogHai;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
@@ -8,23 +12,32 @@ import org.lwjgl.opengl.GL11;
 
 public class LOTRRenderOlogHai extends LOTRRenderTroll
 {
-	private static ResourceLocation ologHaiOutfit = new ResourceLocation("lotr:mob/troll/ologHai.png");
+	private static List ologSkins;
+	private static List ologArmorSkins;
 	
     public LOTRRenderOlogHai()
     {
         super();
+        ologSkins = LOTRRandomSkins.loadSkinsList("lotr:mob/troll/ologHai");
+        ologArmorSkins = LOTRRandomSkins.loadSkinsList("lotr:mob/troll/ologHai_armor");
+    }
+    
+    @Override
+    protected ResourceLocation getEntityTexture(Entity entity)
+    {
+		return LOTRRandomSkins.getRandomSkin(ologSkins, (LOTREntityOlogHai)entity);
     }
 	
 	@Override
-	protected void renderTrollWeapon(EntityLivingBase entityliving, float f)
+	protected void renderTrollWeapon(EntityLivingBase entity, float f)
 	{
 		((LOTRModelTroll)mainModel).renderWarhammer(0.0625F);
 	}
 
 	@Override
-	protected void bindTrollOutfitTexture(EntityLivingBase entityliving)
+	protected void bindTrollOutfitTexture(EntityLivingBase entity)
 	{
-		bindTexture(ologHaiOutfit);
+		bindTexture(LOTRRandomSkins.getRandomSkin(ologArmorSkins, (LOTREntityOlogHai)entity));
 	}
 	
 	@Override

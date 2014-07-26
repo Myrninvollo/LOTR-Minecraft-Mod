@@ -165,7 +165,7 @@ public class LOTREntityDunlending extends LOTREntityNPC
 	@Override
 	public boolean canPickUpLoot()
 	{
-		return true;
+		return getClass() == LOTREntityDunlending.class;
 	}
 	
 	@Override

@@ -1,5 +1,7 @@
 package lotr.client.render.entity;
 
+import java.util.List;
+
 import lotr.client.LOTRClientProxy;
 import lotr.client.model.LOTRModelTroll;
 import lotr.common.LOTRMod;
@@ -16,26 +18,30 @@ import org.lwjgl.opengl.GL11;
 
 public class LOTRRenderTroll extends RenderLiving
 {
-	private static ResourceLocation trollSkin = new ResourceLocation("lotr:mob/troll/troll.png");
+	private static List trollSkins;
+	
 	public static ResourceLocation[] trollOutfits = new ResourceLocation[]
 	{
 		new ResourceLocation("lotr:mob/troll/outfit_0.png"),
 		new ResourceLocation("lotr:mob/troll/outfit_1.png"),
 		new ResourceLocation("lotr:mob/troll/outfit_2.png")
 	};
+	
 	private static ResourceLocation weaponsTexture = new ResourceLocation("lotr:mob/troll/weapons.png");
+	
 	private LOTRModelTroll shirtModel = new LOTRModelTroll(1F, 0);
 	private LOTRModelTroll trousersModel = new LOTRModelTroll(0.75F, 1);
 	
     public LOTRRenderTroll()
     {
         super(new LOTRModelTroll(), 0.5F);
+        trollSkins = LOTRRandomSkins.loadSkinsList("lotr:mob/troll/troll");
     }
 	
 	@Override
     protected ResourceLocation getEntityTexture(Entity entity)
     {
-        return trollSkin;
+		return LOTRRandomSkins.getRandomSkin(trollSkins, (LOTREntityTroll)entity);
     }
 	
 	@Override

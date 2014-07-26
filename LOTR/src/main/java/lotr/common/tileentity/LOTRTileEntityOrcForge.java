@@ -20,19 +20,9 @@ public class LOTRTileEntityOrcForge extends LOTRTileEntityAlloyForge
 	{
 		LOTRBlockOrcForge.setForgeActive(worldObj, xCoord, yCoord, zCoord);
 	}
-	
-	@Override
-	public boolean isSmeltableItem(ItemStack itemstack)
-	{
-		if (itemstack != null && isWood(itemstack))
-		{
-			return true;
-		}
-		return super.isSmeltableItem(itemstack);
-	}
 
 	@Override
-	protected ItemStack getSmeltingResult(ItemStack itemstack)
+	public ItemStack getSmeltingResult(ItemStack itemstack)
 	{
 		if (isWood(itemstack))
 		{
@@ -50,11 +40,6 @@ public class LOTRTileEntityOrcForge extends LOTRTileEntityAlloyForge
 	@Override
 	protected ItemStack getAlloySmeltingResult(ItemStack itemstack, ItemStack alloyItem)
 	{
-		if (alloyItem == null)
-		{
-			return null;
-		}
-		
 		if (isIron(itemstack) && alloyItem.getItem() == Items.coal)
 		{
 			return new ItemStack(LOTRMod.urukSteel);

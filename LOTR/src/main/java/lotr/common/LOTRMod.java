@@ -259,6 +259,7 @@ public class LOTRMod
 	public static Block slabDoubleThatch;
 	public static Block stairsThatch;
 	public static Block fangornPlant;
+	public static Block fangornRiverweed;
 
 	public static Item goldRing;
 	public static Item pouch;
@@ -777,6 +778,7 @@ public class LOTRMod
 		slabDoubleThatch = new LOTRBlockSlabThatch(true).setHardness(0.5F).setStepSound(Block.soundTypeGrass).setBlockName("lotr:slabDoubleThatch");
 		stairsThatch = new LOTRBlockStairs(thatch, 0).setBlockName("lotr:stairsThatch");
 		fangornPlant = new LOTRBlockFangornPlant().setStepSound(Block.soundTypeGrass).setBlockName("lotr:fangornPlant");
+		fangornRiverweed = new LOTRBlockFangornRiverweed().setStepSound(Block.soundTypeGrass).setBlockName("lotr:fangornRiverweed");
 		
 		goldRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMagic).setUnlocalizedName("lotr:goldRing");
 		pouch = new LOTRItemPouch().setUnlocalizedName("lotr:pouch");
@@ -1320,6 +1322,7 @@ public class LOTRMod
 		registerBlock(slabDoubleThatch, LOTRBlockSlabBase.SlabItems.ThatchDouble.class);
 		registerBlock(stairsThatch);
 		registerBlock(fangornPlant, LOTRItemBlockMetadata.class);
+		registerBlock(fangornRiverweed, LOTRItemRiverweed.class);
 		
 		registerItem(goldRing);
 		registerItem(pouch);

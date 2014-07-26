@@ -311,9 +311,9 @@ tile.lotr:fangornPlant.0.name=Tears of Yavanna
 tile.lotr:fangornPlant.1.name=Fangorn's Beard
 tile.lotr:fangornPlant.2.name=Huorn Leaf
 tile.lotr:fangornPlant.3.name=Elfsong
-tile.lotr:fangornPlant.4.name=Sunblossom
-tile.lotr:fangornPlant.5.name=Moonflowers
-tile.lotr:fangornPlant.6.name=Riverweed
+tile.lotr:fangornPlant.4.name=Sunfruit
+tile.lotr:fangornPlant.5.name=Moonflower
+tile.lotr:fangornRiverweed.name=Riverweed
 
 item.lotr:goldRing.name=Gold Ring
 item.lotr:pouch.0.name=Small Pouch

@@ -4,7 +4,6 @@ Credits
 
 Mevans - design, code, assets
 
-ProPercivalalb - original NEI recipe mode compatibility code
 Yorick Hamletson - elf, orc, and dwarf sound effects
 Javier Ortiz - rabbit model, original bird model
 Gruk Kacep - original scorpion model

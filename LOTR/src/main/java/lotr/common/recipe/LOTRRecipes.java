@@ -1639,6 +1639,10 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
+		dwarvenRecipes.add(new ShapedOreRecipe(new ItemStack(spearDwarven), new Object[]
+		{
+			"  X", " Y ", "Y  ", 'X', dwarfSteel, 'Y', "stickWood"
+		}));
 	}
 	
 	private static void createUrukRecipes()
@@ -2394,6 +2398,10 @@ public class LOTRRecipes
 		blueMountainsRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 11), new Object[]
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
+		}));
+		blueMountainsRecipes.add(new ShapedOreRecipe(new ItemStack(spearBlueDwarven), new Object[]
+		{
+			"  X", " Y ", "Y  ", 'X', blueDwarfSteel, 'Y', "stickWood"
 		}));
 	}
 

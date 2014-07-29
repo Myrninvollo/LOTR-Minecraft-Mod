@@ -18,19 +18,23 @@ public class LOTREntityDwarfWarrior extends LOTREntityDwarf
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
 	{
 		data = super.onSpawnWithEgg(data);
-		int i = rand.nextInt(4);
+		int i = rand.nextInt(6);
 		
-		if (i == 0 || i == 1)
+		if (i == 0)
 		{
 			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.swordDwarven));
 		}
-		else if (i == 2)
+		else if (i == 1 || i == 2)
 		{
 			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.battleaxeDwarven));
 		}
-		else if (i == 3)
+		else if (i == 3 || i == 4)
 		{
 			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.hammerDwarven));
+		}
+		else if (i == 5)
+		{
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.spearDwarven));
 		}
 		
 		setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsDwarven));

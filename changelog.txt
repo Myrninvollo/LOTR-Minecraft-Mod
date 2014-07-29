@@ -18,6 +18,7 @@ Public Beta 19
 + Added Angmar orc spawning in the Ettenmoors biome
 + Added Mordor orcs in the Dagorlad biome
 + Added rare Dunlending spawns in the Enedwaith biome
++ Added dwarven and blue dwarven spears
 + Added Sarlluin and Sarncaran deposits underground within their respective biomes
 + Added additional ore generation at higher layers in all mountain biomes
 + Added the ability to light Beacons of Gondor with torches

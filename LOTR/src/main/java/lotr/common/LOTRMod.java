@@ -596,6 +596,8 @@ public class LOTRMod
 	public static Item legsBlueDwarven;
 	public static Item bootsBlueDwarven;
 	public static Item dwarvenRing;
+	public static Item spearDwarven;
+	public static Item spearBlueDwarven;
 	
 	public static int idDimension;
 	public static boolean alwaysShowAlignment;
@@ -1115,6 +1117,8 @@ public class LOTRMod
 		legsBlueDwarven = new LOTRItemArmor(armorBlueDwarven, 2).setUnlocalizedName("lotr:legsBlueDwarven");
 		bootsBlueDwarven = new LOTRItemArmor(armorBlueDwarven, 3).setUnlocalizedName("lotr:bootsBlueDwarven");
 		dwarvenRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMisc).setUnlocalizedName("lotr:dwarvenRing");
+		spearDwarven = new LOTRItemSpear(toolDwarven, swordDwarven).setUnlocalizedName("lotr:spearDwarven");
+		spearBlueDwarven = new LOTRItemSpear(toolBlueDwarven, swordBlueDwarven).setUnlocalizedName("lotr:spearBlueDwarven");
 		
 		try
 		{
@@ -1659,6 +1663,8 @@ public class LOTRMod
 		registerItem(legsBlueDwarven);
 		registerItem(bootsBlueDwarven);
 		registerItem(dwarvenRing);
+		registerItem(spearDwarven);
+		registerItem(spearBlueDwarven);
 		
 		idDimension = config.get("general", "Dimension ID", 100).getInt();
 		alwaysShowAlignment = config.get("general", "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean(false);

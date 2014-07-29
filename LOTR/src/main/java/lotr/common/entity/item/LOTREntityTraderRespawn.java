@@ -7,9 +7,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -285,4 +287,15 @@ public class LOTREntityTraderRespawn extends Entity
 	
 	@Override
 	public void applyEntityCollision(Entity entity) {}
+	
+	@Override
+    public ItemStack getPickedResult(MovingObjectPosition target)
+    {
+		int entityID = LOTREntities.getIDFromString(traderClassID);
+		if (entityID > 0)
+		{
+			return new ItemStack(LOTRMod.spawnEgg, 1, entityID);
+		}
+		return null;
+    }
 }

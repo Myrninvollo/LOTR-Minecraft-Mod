@@ -48,8 +48,7 @@ public class LOTRItemMobSpawner extends ItemBlock
     public void addInformation(ItemStack itemstack, EntityPlayer entityplayer, List list, boolean flag)
 	{
 		String entityName = LOTREntities.getStringFromID(itemstack.getItemDamage());
-		Class entityClass = LOTREntities.getClassFromID(itemstack.getItemDamage());
-		list.add(entityName);
+		list.add(LOTREntities.getFullEntityName(entityName));
 	}
 	
 	@Override

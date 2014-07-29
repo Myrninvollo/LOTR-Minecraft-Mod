@@ -35,16 +35,16 @@ public class LOTRItemOrcBomb extends ItemBlock
 		int strength = LOTRBlockOrcBomb.getBombStrengthLevel(meta);
         if (strength == 1)
 		{
-			list.add(StatCollector.translateToLocal("tile.lotr:orcBomb.doubleStrength"));
+			list.add(StatCollector.translateToLocal("item.lotr.orcBomb.doubleStrength"));
 		}
         if (strength == 2)
 		{
-			list.add(StatCollector.translateToLocal("tile.lotr:orcBomb.tripleStrength"));
+			list.add(StatCollector.translateToLocal("item.lotr.orcBomb.tripleStrength"));
 		}
 		
 		if (LOTRBlockOrcBomb.isFireBomb(meta))
 		{
-			list.add(StatCollector.translateToLocal("tile.lotr:orcBomb.fire"));
+			list.add(StatCollector.translateToLocal("item.lotr.orcBomb.fire"));
 		}
     }
 }

@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -116,7 +117,7 @@ public class LOTRItemPouch extends Item
 			}
 		}
 		int slots = getCapacity(itemstack);
-		list.add(slotsFull + "/" + slots + " slots in use");
+		list.add(StatCollector.translateToLocalFormatted("item.lotr.pouch.slots", new Object[] {slotsFull, slots}));
 	}
 	
 	public static void tryAddItemToPouch(ItemStack pouch, ItemStack itemstack)

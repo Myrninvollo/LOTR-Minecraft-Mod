@@ -125,9 +125,6 @@ tile.lotr:wallStone.14.name=Sarlluin Brick Wall
 tile.lotr:wallStone.15.name=Near Harad Brick Wall
 tile.lotr:barrel.name=Barrel
 tile.lotr:orcBomb.name=Orc Bomb
-tile.lotr:orcBomb.fire=Fire
-tile.lotr:orcBomb.doubleStrength=Double Strength
-tile.lotr:orcBomb.tripleStrength=Triple Strength
 tile.lotr:elanor.name=Elanor
 tile.lotr:niphredil.name=Niphredil
 tile.lotr:stairsMallorn.name=Mallorn Wood Stairs
@@ -704,6 +701,10 @@ item.lotr:dwarvenRing.name=Dwarven Marriage Ring
 item.lotr:spearDwarven.name=Dwarven Spear
 item.lotr:spearBlueDwarven.name=Blue Dwarven Spear
 
+item.lotr.orcBomb.fire=Fire
+item.lotr.orcBomb.doubleStrength=Double Strength
+item.lotr.orcBomb.tripleStrength=Triple Strength
+
 item.lotr.drink.weak=Weak
 item.lotr.drink.light=Light
 item.lotr.drink.moderate=Moderate
@@ -713,6 +714,8 @@ item.lotr.drink.alcoholicity=Alcoholicity
 
 item.lotr.hat.dyed=Dyed
 item.lotr.hat.feathered=Feathered
+
+item.lotr.pouch.slots=%d of %d slots in use
 
 lotr.creativetab.blocks=Middle-earth Blocks
 lotr.creativetab.decorations=Middle-earth Decorations

@@ -80,7 +80,7 @@ public class LOTRClientProxy extends LOTRCommonProxy
 	@Override
 	public void onLoad()
 	{
-		FMLEventChannel channel = NetworkRegistry.INSTANCE.newEventDrivenChannel("lotr");
+		FMLEventChannel channel = NetworkRegistry.INSTANCE.newEventDrivenChannel(LOTRMod.getModID());
 		channel.register(new LOTRPacketHandlerClient(this));
 
 		customEffectRenderer = new LOTREffectRenderer(Minecraft.getMinecraft());

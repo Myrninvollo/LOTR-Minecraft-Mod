@@ -41,8 +41,7 @@ public class LOTRItemSpawnEgg extends Item
 
         if (entityName != null)
         {
-        	String fullEntityName = LOTREntities.getFullEntityName(entityName);
-        	itemName = itemName + " " + StatCollector.translateToLocal("entity." + fullEntityName + ".name");
+        	itemName = itemName + " " + StatCollector.translateToLocal("entity." + LOTREntities.getFullEntityName(entityName) + ".name");
         }
 
         return itemName;
@@ -55,8 +54,7 @@ public class LOTRItemSpawnEgg extends Item
     	String entityName = LOTREntities.getStringFromID(itemstack.getItemDamage());
         if (entityName != null)
         {
-            String fullEntityName = LOTREntities.getFullEntityName(entityName);
-            list.add(fullEntityName);
+            list.add(LOTREntities.getFullEntityName(entityName));
         }
 	}
 

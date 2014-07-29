@@ -15,6 +15,7 @@ Public Beta 19
 + Added eating and drinking AI to many more NPCs
 + Added a death message when a hired troll turns to stone
 + Added the Entity ID of the spawned entity to LOTR spawn eggs' tooltips
++ Added the 'pick block' function for trader respawn coins, which gives the stored trader's spawn egg
 + Added more skins for orcs, Uruk-hai, Olog-hai, and Gondor Soldiers
 + Added Angmar orc spawning in the Ettenmoors biome
 + Added Mordor orcs in the Dagorlad biome
@@ -23,7 +24,6 @@ Public Beta 19
 + Added Sarlluin and Sarncaran deposits underground within their respective biomes
 + Added additional ore generation at higher layers in all mountain biomes
 + Added the ability to light Beacons of Gondor with torches
-+ Added the 'pick block' function for trader respawn coins, which gives the stored trader's spawn egg
 + Added an updated German translation
 + Added a configuration file option to disable mist in the Misty Mountains
 

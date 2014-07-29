@@ -160,6 +160,12 @@ public enum LOTRCapes
 		"Worn by Mr. Gibbs"
 		),
 		
+	SHREK(new String[] {"90dd2523-cefb-48b9-be2c-36759289724a"},
+		"Ogre Cape",
+		"Awarded to the first player",
+		"to discover Shrek's swamp"
+		),
+		
 	LOREMASTER_2013(new String[] {"7bc56da6-f133-4e47-8d0f-a2776762bca6", "a166423a-a1e3-45b1-a4b8-dea69f2bd64e", "a041a9a7-286d-470f-8826-c9ab0b3166dd", "1f9b1c1d-d4fa-49a2-b6a7-fc58bb62d19b", "e3db1a07-846a-4843-98b2-64f4f9331b4a"},
 		"Loremaster's Cape 2013",
 		"Awarded to the top five contributors",

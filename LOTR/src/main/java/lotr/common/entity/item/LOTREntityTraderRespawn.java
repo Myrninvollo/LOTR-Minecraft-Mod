@@ -43,6 +43,7 @@ public class LOTREntityTraderRespawn extends Entity
 	{
 		dataWatcher.addObject(16, Integer.valueOf(0));
 		dataWatcher.addObject(17, Byte.valueOf((byte)0));
+		dataWatcher.addObject(18, "");
 	}
 	
 	public int getScale()
@@ -63,6 +64,16 @@ public class LOTREntityTraderRespawn extends Entity
 	public void setSpawnImminent()
 	{
 		dataWatcher.updateObject(17, Byte.valueOf((byte)1));
+	}
+	
+	public String getClientTraderString()
+	{
+		return dataWatcher.getWatchableObjectString(18);
+	}
+	
+	public void setClientTraderString(String s)
+	{
+		dataWatcher.updateObject(18, s);
 	}
 
 	@Override
@@ -203,6 +214,8 @@ public class LOTREntityTraderRespawn extends Entity
 		
 		if (!worldObj.isRemote)
 		{
+			setClientTraderString(traderClassID);
+			
 			if (!isSpawnImminent() && timeUntilSpawn <= 1200)
 			{
 				setSpawnImminent();
@@ -291,7 +304,7 @@ public class LOTREntityTraderRespawn extends Entity
 	@Override
     public ItemStack getPickedResult(MovingObjectPosition target)
     {
-		int entityID = LOTREntities.getIDFromString(traderClassID);
+		int entityID = LOTREntities.getIDFromString(getClientTraderString());
 		if (entityID > 0)
 		{
 			return new ItemStack(LOTRMod.spawnEgg, 1, entityID);

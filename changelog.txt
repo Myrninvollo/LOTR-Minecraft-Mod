@@ -23,6 +23,7 @@ Public Beta 19
 + Added Sarlluin and Sarncaran deposits underground within their respective biomes
 + Added additional ore generation at higher layers in all mountain biomes
 + Added the ability to light Beacons of Gondor with torches
++ Added the 'pick block' function for trader respawn coins, which gives the stored trader's spawn egg
 + Added an updated German translation
 + Added a configuration file option to disable mist in the Misty Mountains
 

@@ -41,8 +41,7 @@ public class LOTREntities
 	
 	public static String getFullEntityName(String name)
 	{
-		ModContainer container = FMLCommonHandler.instance().findContainerFor(LOTRMod.instance);
-		return String.format("%s.%s", container.getModId(), name);
+		return String.format("%s.%s", LOTRMod.getModID(), name);
 	}
 	
 	public static int getEntityID(Entity entity)

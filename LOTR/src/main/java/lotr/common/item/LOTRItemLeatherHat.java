@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -79,11 +80,11 @@ public class LOTRItemLeatherHat extends LOTRItemArmor
     {
 		if (isHatDyed(itemstack))
 		{
-			list.add("Dyed");
+			list.add(StatCollector.translateToLocal("item.lotr.hat.dyed"));
 		}
 		if (hasFeather(itemstack))
 		{
-			list.add("Feathered");
+			list.add(StatCollector.translateToLocal("item.lotr.hat.feathered"));
 		}
 	}
 	

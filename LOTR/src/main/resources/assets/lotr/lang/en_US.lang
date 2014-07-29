@@ -711,6 +711,9 @@ item.lotr.drink.strong=Strong
 item.lotr.drink.potent=Potent
 item.lotr.drink.alcoholicity=Alcoholicity
 
+item.lotr.hat.dyed=Dyed
+item.lotr.hat.feathered=Feathered
+
 lotr.creativetab.blocks=Middle-earth Blocks
 lotr.creativetab.decorations=Middle-earth Decorations
 lotr.creativetab.food=Middle-earth Food and Drink

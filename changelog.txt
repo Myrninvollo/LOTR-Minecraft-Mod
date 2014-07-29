@@ -14,6 +14,7 @@ Public Beta 19
 + Added potion effect tooltip information for brewable drinks and Ent-draughts
 + Added eating and drinking AI to many more NPCs
 + Added a death message when a hired troll turns to stone
++ Added the Entity ID of the spawned entity to LOTR spawn eggs' tooltips
 + Added more skins for orcs, Uruk-hai, Olog-hai, and Gondor Soldiers
 + Added Angmar orc spawning in the Ettenmoors biome
 + Added Mordor orcs in the Dagorlad biome

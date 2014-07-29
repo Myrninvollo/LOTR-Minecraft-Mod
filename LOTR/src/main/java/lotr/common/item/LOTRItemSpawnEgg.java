@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import lotr.common.LOTRCreativeTabs;
+import lotr.common.LOTRMod;
 import lotr.common.entity.LOTREntities;
 import lotr.common.entity.npc.LOTREntityNPC;
 import net.minecraft.block.Block;
@@ -35,16 +36,29 @@ public class LOTRItemSpawnEgg extends Item
     @Override
     public String getItemStackDisplayName(ItemStack itemstack)
     {
-        String s = ("" + StatCollector.translateToLocal(getUnlocalizedName() + ".name")).trim();
+        String itemName = ("" + StatCollector.translateToLocal(getUnlocalizedName() + ".name")).trim();
         String entityName = LOTREntities.getStringFromID(itemstack.getItemDamage());
 
         if (entityName != null)
         {
-            s = s + " " + StatCollector.translateToLocal("entity.lotr." + entityName + ".name");
+        	String fullEntityName = LOTREntities.getFullEntityName(entityName);
+        	itemName = itemName + " " + StatCollector.translateToLocal("entity." + fullEntityName + ".name");
         }
 
-        return s;
+        return itemName;
     }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack itemstack, EntityPlayer entityplayer, List list, boolean flag)
+    {
+    	String entityName = LOTREntities.getStringFromID(itemstack.getItemDamage());
+        if (entityName != null)
+        {
+            String fullEntityName = LOTREntities.getFullEntityName(entityName);
+            list.add(fullEntityName);
+        }
+	}
 
 	@Override
     @SideOnly(Side.CLIENT)

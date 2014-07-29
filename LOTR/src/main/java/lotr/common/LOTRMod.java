@@ -1122,7 +1122,7 @@ public class LOTRMod
 		
 		try
 		{
-			String prefix = "lotr:";
+			String prefix = getModID() + ":";
 			for (Field field : LOTRMod.class.getFields())
 			{
 				if (field.get(null) instanceof Block)
@@ -2032,6 +2032,12 @@ public class LOTRMod
 	private void registerItem(Item item)
 	{
 		GameRegistry.registerItem(item, item.getUnlocalizedName());
+	}
+	
+	public static String getModID()
+	{
+		ModContainer container = FMLCommonHandler.instance().findContainerFor(instance);
+		return container.getModId();
 	}
 	
 	public static LOTRFaction getNPCFaction(Entity entity)

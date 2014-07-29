@@ -3,6 +3,7 @@ package lotr.client.render.item;
 import java.util.HashMap;
 
 import lotr.client.LOTRClientProxy;
+import lotr.common.LOTRMod;
 import lotr.common.item.LOTRItemSpear;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -22,8 +23,9 @@ public class LOTRRenderLargeItem implements IItemRenderer
 	
 	public static ResourceLocation getLargeItemTexture(Item item)
 	{
+		String prefix = LOTRMod.getModID() + ":";
 		String itemName = item.getUnlocalizedName();
-		String s = "lotr:textures/items/large/" + itemName.substring(itemName.indexOf("lotr:") + 5) + ".png";
+		String s = prefix + "textures/items/large/" + itemName.substring(itemName.indexOf(prefix) + prefix.length()) + ".png";
 		return new ResourceLocation(s);
 	}
 	

@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Multimap;
@@ -19,8 +20,9 @@ public class LOTRItemSpear extends Item
 {
 	public ToolMaterial spearMaterial;
 	private float weaponDamage;
+	public ItemSword swordReplacement;
 	
-	public LOTRItemSpear(ToolMaterial material)
+	public LOTRItemSpear(ToolMaterial material, Item sword)
 	{
 		super();
 		spearMaterial = material;
@@ -28,8 +30,18 @@ public class LOTRItemSpear extends Item
 		setMaxDamage(material.getMaxUses());
 		setFull3D();
 		setCreativeTab(LOTRCreativeTabs.tabCombat);
+		
 		weaponDamage = 3F + material.getDamageVsEntity();
 		BlockDispenser.dispenseBehaviorRegistry.putObject(this, new LOTRDispenserBehaviorSpear());
+		
+		if (sword == null || !(sword instanceof ItemSword))
+		{
+			throw new RuntimeException("Spear must have a sword replacement");
+		}
+		else
+		{
+			swordReplacement = (ItemSword)sword;
+		}
 	}
 	
 	@Override

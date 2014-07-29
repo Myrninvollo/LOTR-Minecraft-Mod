@@ -18,7 +18,7 @@ public class LOTREntityUrukHaiCrossbower extends LOTREntityUrukHai implements IR
 	}
 	
 	@Override
-	public EntityAIBase getOrcAttackAI()
+	public EntityAIBase createOrcAttackAI()
 	{
 		return new EntityAIArrowAttack(this, 1.4D, 30, 40, 16F);
 	}

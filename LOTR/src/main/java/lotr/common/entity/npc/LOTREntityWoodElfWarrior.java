@@ -23,7 +23,7 @@ public class LOTREntityWoodElfWarrior extends LOTREntityWoodElfScout
 	@Override
 	public EntityAIBase createElfMeleeAttackAI()
 	{
-		return new LOTREntityAIAttackOnCollide(this, 1.4D, false).setSpearReplacement(LOTRMod.swordWoodElven);
+		return new LOTREntityAIAttackOnCollide(this, 1.4D, false);
 	}
 	
 	@Override

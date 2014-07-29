@@ -18,9 +18,9 @@ public class LOTREntityAngmarOrc extends LOTREntityOrc
 	}
 	
 	@Override
-	public EntityAIBase getOrcAttackAI()
+	public EntityAIBase createOrcAttackAI()
 	{
-		return new LOTREntityAIAttackOnCollide(this, 1.4D, false).setSpearReplacement(LOTRMod.daggerAngmar);
+		return new LOTREntityAIAttackOnCollide(this, 1.4D, false);
 	}
 	
 	@Override

@@ -47,7 +47,7 @@ public class LOTREntityRohirrim extends LOTREntityRohanMan
 	@Override
 	public EntityAIBase createRohanAttackAI()
 	{
-		return new LOTREntityAIAttackOnCollide(this, 1.45D, false).setSpearReplacement(LOTRMod.swordRohan);
+		return new LOTREntityAIAttackOnCollide(this, 1.45D, false);
 	}
 	
 	@Override

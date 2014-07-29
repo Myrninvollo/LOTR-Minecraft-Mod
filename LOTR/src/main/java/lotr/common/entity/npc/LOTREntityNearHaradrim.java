@@ -65,7 +65,7 @@ public class LOTREntityNearHaradrim extends LOTREntityNPC implements ImmuneToHea
 	
 	public EntityAIBase createHaradrimAttackAI()
 	{
-		return new LOTREntityAIAttackOnCollide(this, 1.5D, true).setSpearReplacement(LOTRMod.scimitarNearHarad);
+		return new LOTREntityAIAttackOnCollide(this, 1.5D, true);
 	}
 
 	@Override

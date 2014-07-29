@@ -19,7 +19,7 @@ public class LOTREntityDunlendingWarrior extends LOTREntityDunlending
 	@Override
 	public EntityAIBase getDunlendingAttackAI()
 	{
-		return new LOTREntityAIAttackOnCollide(this, 1.45D, false).setSpearReplacement(Items.iron_sword);
+		return new LOTREntityAIAttackOnCollide(this, 1.45D, false);
 	}
 	
 	@Override

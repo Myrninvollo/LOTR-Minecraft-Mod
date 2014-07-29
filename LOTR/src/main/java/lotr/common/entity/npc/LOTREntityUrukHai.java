@@ -25,9 +25,9 @@ public class LOTREntityUrukHai extends LOTREntityOrc
 	}
 	
 	@Override
-	public EntityAIBase getOrcAttackAI()
+	public EntityAIBase createOrcAttackAI()
 	{
-		return new LOTREntityAIAttackOnCollide(this, 1.4D, false).setSpearReplacement(LOTRMod.daggerUruk);
+		return new LOTREntityAIAttackOnCollide(this, 1.4D, false);
 	}
 	
 	@Override

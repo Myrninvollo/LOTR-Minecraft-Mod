@@ -26,7 +26,6 @@ public class LOTREntityAIAttackOnCollide extends EntityAIBase
     private int pathCheckTimer;
 	private float rangeFactor;
 	private boolean avoidsWater;
-	private Item spearReplacement;
 	
     public LOTREntityAIAttackOnCollide(EntityCreature entity, double speed, boolean flag)
     {
@@ -44,12 +43,6 @@ public class LOTREntityAIAttackOnCollide extends EntityAIBase
 		avoidsWater = entity.getNavigator().getAvoidsWater();
         setMutexBits(3);
     }
-	
-	public LOTREntityAIAttackOnCollide setSpearReplacement(Item item)
-	{
-		spearReplacement = item;
-		return this;
-	}
 
     @Override
     public boolean shouldExecute()
@@ -143,13 +136,14 @@ public class LOTREntityAIAttackOnCollide extends EntityAIBase
 		ItemStack heldItem = theOwner.getEquipmentInSlot(0);
 		if (heldItem != null && heldItem.getItem() instanceof LOTRItemSpear)
 		{
+			LOTRItemSpear spearItem = (LOTRItemSpear)heldItem.getItem();
 			double d = theOwner.getDistanceToEntity(entityTarget);
 			double range = (double)theOwner.getNavigator().getPathSearchRange();
 			if (d > 4D && d < range * 0.75D)
 			{
 				LOTREntitySpear spear = new LOTREntitySpear(worldObj, theOwner, entityTarget, heldItem.getItem(), 0, 0.75F + ((float)d * 0.025F), 0.5F);
 				worldObj.playSoundAtEntity(theOwner, "random.bow", 1F, 1F / (worldObj.rand.nextFloat() * 0.4F + 1.2F) + 0.25F);
-				theOwner.setCurrentItemOrArmor(0, new ItemStack(spearReplacement));
+				theOwner.setCurrentItemOrArmor(0, new ItemStack(spearItem.swordReplacement));
 				worldObj.spawnEntityInWorld(spear);
 				return;
 			}

@@ -43,7 +43,7 @@ public class LOTREntityGondorSoldier extends LOTREntityGondorMan
 	@Override
 	public EntityAIBase createGondorAttackAI()
 	{
-		return new LOTREntityAIAttackOnCollide(this, 1.45D, false).setSpearReplacement(LOTRMod.daggerGondor);
+		return new LOTREntityAIAttackOnCollide(this, 1.45D, false);
 	}
 	
 	@Override

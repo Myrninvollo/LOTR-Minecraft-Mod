@@ -63,7 +63,7 @@ public abstract class LOTREntityOrc extends LOTREntityNPC
 		tasks.addTask(1, new LOTREntityAIHiredRemainStill(this));
 		tasks.addTask(2, new EntityAIAvoidEntity(this, LOTREntityOrcBomb.class, 12F, 1.5D, 2D));
 		tasks.addTask(3, new LOTREntityAIOrcAvoidGoodPlayer(this, 8F, 1.5D));
-		tasks.addTask(4, getOrcAttackAI());
+		tasks.addTask(4, createOrcAttackAI());
 		tasks.addTask(5, new LOTREntityAIFollowHiringPlayer(this));
 		tasks.addTask(6, new EntityAIOpenDoor(this, true));
         tasks.addTask(7, new EntityAIWander(this, 1D));
@@ -82,7 +82,7 @@ public abstract class LOTREntityOrc extends LOTREntityNPC
 		spawnsInDarkness = true;
 	}
 	
-	public abstract EntityAIBase getOrcAttackAI();
+	public abstract EntityAIBase createOrcAttackAI();
 	
 	@Override
 	public void entityInit()

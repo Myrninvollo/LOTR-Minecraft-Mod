@@ -18,7 +18,7 @@ public class LOTREntityAngmarOrcArcher extends LOTREntityAngmarOrc implements IR
 	}
 	
 	@Override
-	public EntityAIBase getOrcAttackAI()
+	public EntityAIBase createOrcAttackAI()
 	{
 		return new EntityAIArrowAttack(this, 1.25D, 30, 60, 12F);
 	}

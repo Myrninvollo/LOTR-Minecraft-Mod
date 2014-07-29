@@ -18,7 +18,7 @@ public class LOTREntityGundabadOrcArcher extends LOTREntityGundabadOrc implement
 	}
 	
 	@Override
-	public EntityAIBase getOrcAttackAI()
+	public EntityAIBase createOrcAttackAI()
 	{
 		return new EntityAIArrowAttack(this, 1.25D, 30, 60, 12F);
 	}

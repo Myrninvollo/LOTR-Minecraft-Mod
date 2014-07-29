@@ -18,7 +18,7 @@ public class LOTREntityMordorOrcBombardier extends LOTREntityMordorOrc
 	}
 	
 	@Override
-	public EntityAIBase getOrcAttackAI()
+	public EntityAIBase createOrcAttackAI()
 	{
 		tasks.addTask(4, new LOTREntityAIOrcPlaceBomb(this, 1.4D, LOTRMod.daggerOrc));
 		return new LOTREntityAIAttackOnCollide(this, 1.4D, false);

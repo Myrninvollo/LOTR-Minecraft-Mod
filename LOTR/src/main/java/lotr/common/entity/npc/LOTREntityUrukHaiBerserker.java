@@ -23,7 +23,7 @@ public class LOTREntityUrukHaiBerserker extends LOTREntityUrukHai
 	}
 	
 	@Override
-	public EntityAIBase getOrcAttackAI()
+	public EntityAIBase createOrcAttackAI()
 	{
 		tasks.addTask(4, new LOTREntityAIOrcPlaceBomb(this, 1.5D, LOTRMod.scimitarUruk));
 		return new LOTREntityAIAttackOnCollide(this, 2D, false);

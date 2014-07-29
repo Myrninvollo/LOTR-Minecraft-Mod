@@ -845,11 +845,11 @@ public class LOTRMod
 		bodyMithril = new LOTRItemArmor(armorMithril, 1).setUnlocalizedName("lotr:bodyMithril");
 		legsMithril = new LOTRItemArmor(armorMithril, 2).setUnlocalizedName("lotr:legsMithril");
 		bootsMithril = new LOTRItemArmor(armorMithril, 3).setUnlocalizedName("lotr:bootsMithril");
-		spearGondor = new LOTRItemSpear(toolGondor).setUnlocalizedName("lotr:spearGondor");
-		spearOrc = new LOTRItemSpear(toolOrc).setUnlocalizedName("lotr:spearOrc");
-		spearBronze = new LOTRItemSpear(toolBronze).setUnlocalizedName("lotr:spearBronze");
-		spearIron = new LOTRItemSpear(ToolMaterial.IRON).setUnlocalizedName("lotr:spearIron");
-		spearMithril = new LOTRItemSpear(toolMithril).setUnlocalizedName("lotr:spearMithril");
+		spearGondor = new LOTRItemSpear(toolGondor, swordGondor).setUnlocalizedName("lotr:spearGondor");
+		spearOrc = new LOTRItemSpear(toolOrc, scimitarOrc).setUnlocalizedName("lotr:spearOrc");
+		spearBronze = new LOTRItemSpear(toolBronze, swordBronze).setUnlocalizedName("lotr:spearBronze");
+		spearIron = new LOTRItemSpear(ToolMaterial.IRON, Items.iron_sword).setUnlocalizedName("lotr:spearIron");
+		spearMithril = new LOTRItemSpear(toolMithril, swordMithril).setUnlocalizedName("lotr:spearMithril");
 		anduril = new LOTRItemAnduril().setUnlocalizedName("lotr:anduril");
 		dye = new LOTRItemDye().setUnlocalizedName("lotr:dye");
 		mallornStick = new Item().setCreativeTab(LOTRCreativeTabs.tabMaterials).setFull3D().setUnlocalizedName("lotr:mallornStick");
@@ -863,7 +863,7 @@ public class LOTRMod
 		axeElven = new LOTRItemAxe(toolElven).setUnlocalizedName("lotr:axeElven");
 		swordElven = new LOTRItemSword(toolElven).setIsElvenBlade().setUnlocalizedName("lotr:swordElven");
 		hoeElven = new LOTRItemHoe(toolElven).setUnlocalizedName("lotr:hoeElven");
-		spearElven = new LOTRItemSpear(toolElven).setUnlocalizedName("lotr:spearElven");
+		spearElven = new LOTRItemSpear(toolElven, swordElven).setUnlocalizedName("lotr:spearElven");
 		mallornBow = new LOTRItemBow(416, 0, 0.15F, 3, 20).setUnlocalizedName("lotr:mallornBow");
 		helmetElven = new LOTRItemArmor(armorElven, 0).setUnlocalizedName("lotr:helmetElven");
 		bodyElven = new LOTRItemArmor(armorElven, 1).setUnlocalizedName("lotr:bodyElven");
@@ -937,7 +937,7 @@ public class LOTRMod
 		daggerUrukPoisoned = new LOTRItemDagger(toolUruk, 1).setUnlocalizedName("lotr:daggerUrukPoisoned");
 		battleaxeUruk = new LOTRItemBattleaxe(toolUruk).setUnlocalizedName("lotr:battleaxeUruk");
 		hammerUruk = new LOTRItemHammer(toolUruk).setUnlocalizedName("lotr:hammerUruk");
-		spearUruk = new LOTRItemSpear(toolUruk).setUnlocalizedName("lotr:spearUruk");
+		spearUruk = new LOTRItemSpear(toolUruk, scimitarUruk).setUnlocalizedName("lotr:spearUruk");
 		helmetUruk = new LOTRItemArmor(armorUruk, 0).setUnlocalizedName("lotr:helmetUruk");
 		bodyUruk = new LOTRItemArmor(armorUruk, 1).setUnlocalizedName("lotr:bodyUruk");
 		legsUruk = new LOTRItemArmor(armorUruk, 2).setUnlocalizedName("lotr:legsUruk");
@@ -963,7 +963,7 @@ public class LOTRMod
 		ancientItem = new LOTRItemAncientItem().setUnlocalizedName("lotr:ancient");
 		swordRohan = new LOTRItemSword(toolRohan).setUnlocalizedName("lotr:swordRohan");
 		daggerRohan = new LOTRItemDagger(toolRohan, 0).setUnlocalizedName("lotr:daggerRohan");
-		spearRohan = new LOTRItemSpear(toolRohan).setUnlocalizedName("lotr:spearRohan");
+		spearRohan = new LOTRItemSpear(toolRohan, swordRohan).setUnlocalizedName("lotr:spearRohan");
 		helmetRohan = new LOTRItemArmor(armorRohan, 0).setUnlocalizedName("lotr:helmetRohan");
 		bodyRohan = new LOTRItemArmor(armorRohan, 1).setUnlocalizedName("lotr:bodyRohan");
 		legsRohan = new LOTRItemArmor(armorRohan, 2).setUnlocalizedName("lotr:legsRohan");
@@ -1012,7 +1012,7 @@ public class LOTRMod
 		swordWoodElven = new LOTRItemSword(toolWoodElven).setIsElvenBlade().setUnlocalizedName("lotr:swordWoodElven");
 		hoeWoodElven = new LOTRItemHoe(toolWoodElven).setUnlocalizedName("lotr:hoeWoodElven");
 		daggerWoodElven = new LOTRItemDagger(toolWoodElven, 0).setIsElvenBlade().setUnlocalizedName("lotr:daggerWoodElven");
-		spearWoodElven = new LOTRItemSpear(toolWoodElven).setUnlocalizedName("lotr:spearWoodElven");
+		spearWoodElven = new LOTRItemSpear(toolWoodElven, swordWoodElven).setUnlocalizedName("lotr:spearWoodElven");
 		helmetWoodElven = new LOTRItemArmor(armorWoodElven, 0).setUnlocalizedName("lotr:helmetWoodElven");
 		bodyWoodElven = new LOTRItemArmor(armorWoodElven, 1).setUnlocalizedName("lotr:bodyWoodElven");
 		legsWoodElven = new LOTRItemArmor(armorWoodElven, 2).setUnlocalizedName("lotr:legsWoodElven");
@@ -1041,7 +1041,7 @@ public class LOTRMod
 		daggerAngmarPoisoned = new LOTRItemDagger(toolAngmar, 1).setUnlocalizedName("lotr:daggerAngmarPoisoned");
 		battleaxeAngmar = new LOTRItemBattleaxe(toolAngmar).setUnlocalizedName("lotr:battleaxeAngmar");
 		hammerAngmar = new LOTRItemHammer(toolAngmar).setUnlocalizedName("lotr:hammerAngmar");
-		spearAngmar = new LOTRItemSpear(toolAngmar).setUnlocalizedName("lotr:spearAngmar");
+		spearAngmar = new LOTRItemSpear(toolAngmar, swordAngmar).setUnlocalizedName("lotr:spearAngmar");
 		shovelAngmar = new LOTRItemShovel(toolAngmar).setUnlocalizedName("lotr:shovelAngmar");
 		pickaxeAngmar = new LOTRItemPickaxe(toolAngmar).setUnlocalizedName("lotr:pickaxeAngmar");
 		axeAngmar = new LOTRItemAxe(toolAngmar).setUnlocalizedName("lotr:axeAngmar");
@@ -1090,11 +1090,11 @@ public class LOTRMod
 		hoeHighElven = new LOTRItemHoe(toolHighElven).setUnlocalizedName("lotr:hoeHighElven");
 		daggerHighElven = new LOTRItemDagger(toolHighElven, 0).setIsElvenBlade().setUnlocalizedName("lotr:daggerHighElven");
 		daggerHighElvenPoisoned = new LOTRItemDagger(toolHighElven, 1).setIsElvenBlade().setUnlocalizedName("lotr:daggerHighElvenPoisoned");
-		spearHighElven = new LOTRItemSpear(toolHighElven).setUnlocalizedName("lotr:spearHighElven");
+		spearHighElven = new LOTRItemSpear(toolHighElven, swordHighElven).setUnlocalizedName("lotr:spearHighElven");
 		highElvenBedItem = new LOTRItemBed(highElvenBed).setUnlocalizedName("lotr:highElvenBed");
 		daggerNearHarad = new LOTRItemDagger(toolNearHarad, 0).setUnlocalizedName("lotr:daggerNearHarad");
 		daggerNearHaradPoisoned = new LOTRItemDagger(toolNearHarad, 1).setUnlocalizedName("lotr:daggerNearHaradPoisoned");
-		spearNearHarad = new LOTRItemSpear(toolNearHarad).setUnlocalizedName("lotr:spearNearHarad");
+		spearNearHarad = new LOTRItemSpear(toolNearHarad, scimitarNearHarad).setUnlocalizedName("lotr:spearNearHarad");
 		nearHaradBow = new LOTRItemBow(484, 0.4D, 0.5F, 3, 30).setUnlocalizedName("lotr:nearHaradBow");
 		date = new LOTRItemHangingFruit(2, 0.3F, false, dateBlock).setUnlocalizedName("lotr:date");
 		mugAraq = new LOTRItemMugBrewable(1.4F).setDrinkStats(4, 0.4F).setUnlocalizedName("lotr:mugAraq");

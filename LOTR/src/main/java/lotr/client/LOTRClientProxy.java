@@ -1,5 +1,6 @@
 package lotr.client;
 
+import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
 
 import lotr.client.fx.*;
@@ -204,7 +205,6 @@ public class LOTRClientProxy extends LOTRCommonProxy
 		
 		try
 		{
-			String prefix = "lotr:";
 			for (Field field : LOTRMod.class.getFields())
 			{
 				if (field.get(null) instanceof Item)
@@ -231,11 +231,15 @@ public class LOTRClientProxy extends LOTRCommonProxy
 					}
 					else
 					{
-						ResourceLocation large = LOTRRenderLargeItem.getLargeItemTexture(item);
-						if (Minecraft.getMinecraft().getResourceManager().getResource(large) != null)
+						try
 						{
-							MinecraftForgeClient.registerItemRenderer(item, new LOTRRenderLargeItem());
+							ResourceLocation large = LOTRRenderLargeItem.getLargeItemTexture(item);
+							if (Minecraft.getMinecraft().getResourceManager().getResource(large) != null)
+							{
+								MinecraftForgeClient.registerItemRenderer(item, new LOTRRenderLargeItem());
+							}
 						}
+						catch (FileNotFoundException e) {}
 					}
 				}
 			}

@@ -32,6 +32,7 @@ Public Beta 19
 * Banner bearers now carry banners in the left hand so they do not disappear in battle
 * Banners now break instead of falling when the block below is removed
 * Banners can now be placed on walls, and the 'Wall Banner' items have been removed for simplicity
+* Reduced the speed at which hired NPCs heal without banner bearers nearby
 * Near Haradrim now defend themselves with daggers
 * Dunlending Bartenders now trade at Dunland alignment 0
 * Fixed the hired NPC death message saying only 'died' instead of the specific cause of death

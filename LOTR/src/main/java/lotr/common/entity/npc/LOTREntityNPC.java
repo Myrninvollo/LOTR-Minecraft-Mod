@@ -386,14 +386,30 @@ public abstract class LOTREntityNPC extends EntityCreature
 	{
 		super.onLivingUpdate();
 		
-		familyInfo.onUpdate();
 		rescaleNPC(getNPCScale());
+
+		if (!worldObj.isRemote && getAttackTarget() != null)
+		{
+			EntityLivingBase entity = getAttackTarget();
+			if (!entity.isEntityAlive() || (entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.isCreativeMode))
+			{
+				setAttackTarget(null);
+			}
+		}
+		
+		familyInfo.onUpdate();
+		hiredNPCInfo.onUpdate();
+		
+		if (travellingTraderInfo != null)
+		{
+			travellingTraderInfo.onUpdate();
+		}
 		
 		if (!worldObj.isRemote && isEntityAlive() && (isTrader() || hiredNPCInfo.isActive))
 		{
-			if ((getAttackTarget() == null || !getAttackTarget().isEntityAlive()) && getHealth() < getMaxHealth())
+			if (getAttackTarget() == null && getHealth() < getMaxHealth())
 			{
-				boolean timeHeal =  worldObj.getWorldTime() % 40L == 20L;
+				boolean timeHeal =  worldObj.getWorldTime() % 80L == 40L;
 				boolean bannersHeal = false;
 				
 				if (hiredNPCInfo.isActive)
@@ -401,7 +417,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 					int banners = nearbyBanners();
 					if (banners > 0)
 					{
-						bannersHeal = worldObj.getWorldTime() % (200L - (long)(banners * 30L)) == 0L;
+						bannersHeal = worldObj.getWorldTime() % (240L - (long)(banners * 40L)) == 0L;
 					}
 				}
 				
@@ -416,9 +432,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 			}
 		}
 		
-		hiredNPCInfo.onUpdate();
-		
-		if (!worldObj.isRemote && isEntityAlive() && (getAttackTarget() == null || !getAttackTarget().isEntityAlive()))
+		if (!worldObj.isRemote && isEntityAlive() && getAttackTarget() == null)
 		{
 			boolean flag = false;
 			
@@ -517,15 +531,6 @@ public abstract class LOTREntityNPC extends EntityCreature
 				}
 			}
 		}
-		
-		if (!worldObj.isRemote && getAttackTarget() != null)
-		{
-			EntityLivingBase entity = getAttackTarget();
-			if (!entity.isEntityAlive() || (entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.isCreativeMode))
-			{
-				setAttackTarget(null);
-			}
-		}
 	
 		if (!worldObj.isRemote)
 		{
@@ -571,11 +576,6 @@ public abstract class LOTREntityNPC extends EntityCreature
 					}
 				}
 			}
-		}
-		
-		if (travellingTraderInfo != null)
-		{
-			travellingTraderInfo.onUpdate();
 		}
 	}
 	

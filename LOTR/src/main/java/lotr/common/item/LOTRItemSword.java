@@ -27,6 +27,11 @@ public class LOTRItemSword extends ItemSword
 		return this;
 	}
 	
+	public boolean isElvenBlade()
+	{
+		return isElvenBlade;
+	}
+	
 	@Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconregister)

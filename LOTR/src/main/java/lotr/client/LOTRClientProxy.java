@@ -1,5 +1,7 @@
 package lotr.client;
 
+import java.lang.reflect.Field;
+
 import lotr.client.fx.*;
 import lotr.client.model.*;
 import lotr.client.render.*;
@@ -11,7 +13,9 @@ import lotr.common.entity.animal.*;
 import lotr.common.entity.item.*;
 import lotr.common.entity.npc.*;
 import lotr.common.entity.projectile.*;
+import lotr.common.item.*;
 import lotr.common.tileentity.*;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelHorse;
 import net.minecraft.client.renderer.Tessellator;
@@ -196,51 +200,50 @@ public class LOTRClientProxy extends LOTRCommonProxy
 		MinecraftForgeClient.registerItemRenderer(LOTRMod.hobbitPipe, new LOTRRenderBlownItem());
 		MinecraftForgeClient.registerItemRenderer(LOTRMod.commandHorn, new LOTRRenderBlownItem());
 		
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.sting, new LOTRRenderElvenBlade(32D));
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.swordElven, new LOTRRenderElvenBlade(24D));
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.daggerElven, new LOTRRenderElvenBlade(24D));
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.swordWoodElven, new LOTRRenderElvenBlade(24D));
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.daggerWoodElven, new LOTRRenderElvenBlade(24D));
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.daggerElvenPoisoned, new LOTRRenderElvenBlade(24D));
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.daggerWoodElvenPoisoned, new LOTRRenderElvenBlade(24D));
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.swordHighElven, new LOTRRenderElvenBlade(24D));
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.daggerHighElven, new LOTRRenderElvenBlade(24D));
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.daggerHighElvenPoisoned, new LOTRRenderElvenBlade(24D));
-		
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.orcTorchItem, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.sauronMace, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.gandalfStaffWhite, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearGondor, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearOrc, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearBronze, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearIron, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearMithril, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.anduril, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearElven, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.scimitarUruk, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearUruk, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.trollBone, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearRohan, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.dunlendingClub, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.dunlendingTrident, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearWoodElven, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.commandSword, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearAngmar, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.scimitarNearHarad, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearHighElven, new LOTRRenderLargeItem());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.spearNearHarad, new LOTRRenderLargeItem());
-		
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.mallornBow, new LOTRRenderBow());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.elvenBow, new LOTRRenderBow());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.orcBow, new LOTRRenderBow());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.mirkwoodBow, new LOTRRenderBow());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.nearHaradBow, new LOTRRenderBow());
-		
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.urukCrossbow, new LOTRRenderCrossbow());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.ironCrossbow, new LOTRRenderCrossbow());
-		MinecraftForgeClient.registerItemRenderer(LOTRMod.mithrilCrossbow, new LOTRRenderCrossbow());
-		
 		MinecraftForgeClient.registerItemRenderer(LOTRMod.banner, new LOTRRenderBannerItem());
+		
+		try
+		{
+			String prefix = "lotr:";
+			for (Field field : LOTRMod.class.getFields())
+			{
+				if (field.get(null) instanceof Item)
+				{
+					Item item = (Item)field.get(null);
+					
+					if (item instanceof LOTRItemCrossbow)
+					{
+						MinecraftForgeClient.registerItemRenderer(item, new LOTRRenderCrossbow());
+					}
+					else if (item instanceof LOTRItemBow)
+					{
+						MinecraftForgeClient.registerItemRenderer(item, new LOTRRenderBow());
+					}
+					else if (item instanceof LOTRItemSword && ((LOTRItemSword)item).isElvenBlade())
+					{
+						double d = 24D;
+						if (item == LOTRMod.sting)
+						{
+							d = 40D;
+						}
+						
+						MinecraftForgeClient.registerItemRenderer(item, new LOTRRenderElvenBlade(d));
+					}
+					else
+					{
+						ResourceLocation large = LOTRRenderLargeItem.getLargeItemTexture(item);
+						if (Minecraft.getMinecraft().getResourceManager().getResource(large) != null)
+						{
+							MinecraftForgeClient.registerItemRenderer(item, new LOTRRenderLargeItem());
+						}
+					}
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
     public static void renderHealthBar(EntityLivingBase entity, double d, double d1, double d2, int i, RenderManager renderManager)

@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -18,6 +19,13 @@ import org.lwjgl.opengl.GL11;
 public class LOTRRenderLargeItem implements IItemRenderer
 {
 	private static HashMap largeItemTextures = new HashMap();
+	
+	public static ResourceLocation getLargeItemTexture(Item item)
+	{
+		String itemName = item.getUnlocalizedName();
+		String s = "lotr:textures/items/large/" + itemName.substring(itemName.indexOf("lotr:") + 5) + ".png";
+		return new ResourceLocation(s);
+	}
 	
 	@Override
     public boolean handleRenderType(ItemStack itemstack, ItemRenderType type)
@@ -35,7 +43,9 @@ public class LOTRRenderLargeItem implements IItemRenderer
     public void renderItem(ItemRenderType type, ItemStack itemstack, Object... data)
 	{
 		GL11.glPushMatrix();
-		if (itemstack.getItem() instanceof LOTRItemSpear && data[1] instanceof EntityPlayer && ((EntityPlayer)data[1]).getItemInUse() == itemstack)
+		
+		Item item = itemstack.getItem();
+		if (item instanceof LOTRItemSpear && data[1] instanceof EntityPlayer && ((EntityPlayer)data[1]).getItemInUse() == itemstack)
 		{
 			GL11.glRotatef(260F, 0F, 0F, 1F);
 			GL11.glTranslatef(-1F, 0F, 0F);
@@ -44,17 +54,16 @@ public class LOTRRenderLargeItem implements IItemRenderer
 		GL11.glScalef(2F, 2F, 1F);
 		TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
 		ResourceLocation texture = null;
-		String itemName = itemstack.getItem().getUnlocalizedName();
 		
-		if (largeItemTextures.get(itemName) != null)
+		
+		if (largeItemTextures.get(item) != null)
 		{
-			texture = (ResourceLocation)largeItemTextures.get(itemName);
+			texture = (ResourceLocation)largeItemTextures.get(item);
 		}
 		else
 		{
-			String s = "lotr:textures/items/large/" + itemName.substring(itemName.indexOf("lotr:") + 5) + ".png";
-			texture = new ResourceLocation(s);
-			largeItemTextures.put(itemName, texture);
+			texture = getLargeItemTexture(item);
+			largeItemTextures.put(item, texture);
 		}
 
 		textureManager.bindTexture(texture);

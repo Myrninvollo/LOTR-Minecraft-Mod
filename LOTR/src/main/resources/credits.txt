@@ -25,7 +25,7 @@ Language translations:
 Stefan Gruno - German
 Ilya Shoor - Russian
 Cristobal Andres Ortiz Correa - Spanish (Mexico)
-Goran Dragic - Serbian
+Goran Dragic - Serbian, Croatian
 Maximiliano Penna - Spanish (Argentina)
 Yorick Hamletson - Pirate
 M.G. - Croatian

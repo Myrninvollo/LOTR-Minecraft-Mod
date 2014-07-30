@@ -9,6 +9,7 @@ import lotr.common.entity.ai.LOTREntityAIGollumFollowOwner;
 import lotr.common.entity.ai.LOTREntityAIGollumPanic;
 import lotr.common.entity.ai.LOTREntityAIGollumRemainStill;
 import lotr.common.inventory.LOTRInventoryGollum;
+import lotr.common.inventory.LOTRInventoryNPC;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -31,8 +32,7 @@ public class LOTREntityGollum extends LOTREntityNPC
 	private int eatingTick;
 	public int prevFishTime = 400;
 	public boolean isFishing;
-	public LOTRInventoryGollum inventory = new LOTRInventoryGollum(this);
-	public static String OWNER_NAME = "CaptainGlobox";
+	public LOTRInventoryNPC inventory = new LOTRInventoryNPC("gollum", this, 9);
 
 	public LOTREntityGollum(World world)
 	{
@@ -266,9 +266,6 @@ public class LOTREntityGollum extends LOTREntityNPC
 		{
 			inventory.dropAllItems();
 		}
-		LOTRLevelData.hasGollum = 0;
-		LOTRLevelData.gollumRespawnTime = 12000;
-		LOTRLevelData.needsSave = true;
 	}
 	
 	@Override

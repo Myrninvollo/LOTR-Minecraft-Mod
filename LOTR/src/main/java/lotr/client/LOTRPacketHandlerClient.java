@@ -69,7 +69,6 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.staffWhite", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.fireball", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.trades", this);
-		NetworkRegistry.INSTANCE.newChannel("lotr.findMelon", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.options", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.message", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.hiredGui", this);
@@ -109,10 +108,6 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			LOTRLevelData.middleEarthPortalY = data.readInt();
 			LOTRLevelData.middleEarthPortalZ = data.readInt();
 			LOTRLevelData.beaconState = data.readByte();
-			if (data.readBoolean())
-			{
-				LOTRLevelData.setPlayerFoundMelon(entityplayer);
-			}
 			LOTRLevelData.setFriendlyFire(entityplayer, data.readBoolean());
 			LOTRLevelData.setEnableHiredDeathMessages(entityplayer, data.readBoolean());
 			LOTRLevelData.setFastTravelTimer(entityplayer, data.readInt());
@@ -295,11 +290,6 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			
 			LOTRLevelData.setClientCape(player, cape);
 			LOTRLevelData.setClientEnableCape(player, enable);
-		}
-		
-		else if (channel.equals("lotr.findMelon"))
-		{
-			LOTRLevelData.setPlayerFoundMelon(entityplayer);
 		}
 		
 		else if (channel.equals("lotr.options"))

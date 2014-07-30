@@ -53,7 +53,9 @@ import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 public class LOTRTickHandlerServer
 {
 	public static List structureSpawning = new ArrayList();
-	static
+	public static List travellingTraders = new ArrayList();
+	
+	public static void createSpawningLists()
 	{
 		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.beaconTowerLocations).setCheckInfo(16, -12, 12, LOTREntityGondorSoldier.class, 4).setSpawnInfo(2, -2, 2, LOTREntityGondorSoldier.class, LOTREntityGondorArcher.class, 16).addSpawnBlock(LOTRMod.slabDouble, 2).addSpecialEquipment(4, new ItemStack(LOTRMod.helmetGondorWinged)));
 		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.gondorFortressLocations).setCheckInfo(24, -8, 18, LOTREntityGondorSoldier.class, 12).setSpawnInfo(4, 2, 17, LOTREntityGondorSoldier.class, LOTREntityGondorArcher.class, 32).addSpawnBlock(LOTRMod.brick, 1).addSpawnBlock(LOTRMod.brick, 2).addSpawnBlock(LOTRMod.brick, 3));
@@ -71,11 +73,7 @@ public class LOTRTickHandlerServer
 		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.nearHaradFortressLocations).setCheckInfo(20, -8, 12, LOTREntityNearHaradrim.class, 12).setSpawnInfo(8, 1, 2, LOTREntityNearHaradrimWarrior.class, LOTREntityNearHaradrimArcher.class, 12).addSpawnBlock(Blocks.grass).addSpawnBlock(Blocks.sand));
 		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.nearHaradCampLocations).setCheckInfo(20, -12, 12, LOTREntityNearHaradrim.class, 4).setSpawnInfo(8, -4, 4, LOTREntityNearHaradrimWarrior.class, LOTREntityNearHaradrimWarrior.class, 16).addSpawnBlock(Blocks.sand));
 		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.rangerWatchtowerLocations).setCheckInfo(24, -12, 20, LOTREntityRangerNorth.class, 8).setSpawnInfo(4, -4, 4, LOTREntityRangerNorth.class, LOTREntityRangerNorth.class, 16).addSpawnBlock(Blocks.grass));
-	}
-	
-	public static List travellingTraders = new ArrayList();
-	static
-	{
+
 		travellingTraders.add(new LOTRTravellingTraderSpawner(LOTREntityElvenTrader.class));
 		travellingTraders.add(new LOTRTravellingTraderSpawner(LOTREntityBlueDwarfMerchant.class));
 	}
@@ -130,7 +128,7 @@ public class LOTRTickHandlerServer
 			if (world.getWorldInfo().getClass() != LOTRDerivedWorldInfo.class)
 			{
 				LOTRReflection.setWorldInfo((WorldServer)world, new LOTRDerivedWorldInfo(DimensionManager.getWorld(0).getWorldInfo()));
-				System.out.println("Replaced LOTR world info");
+				System.out.println("Successfully replaced LOTR world info");
 			}
 			
 			if (!world.playerEntities.isEmpty())
@@ -139,44 +137,6 @@ public class LOTRTickHandlerServer
 				{
 					LOTRTravellingTraderSpawner obj = (LOTRTravellingTraderSpawner)travellingTraders.get(i);
 					obj.performSpawning(world);
-				}
-				
-				if (LOTRLevelData.gollumRespawnTime > 0)
-				{
-					LOTRLevelData.gollumRespawnTime--;
-				}
-				else
-				{
-					if (LOTRLevelData.hasGollum == 0)
-					{
-						EntityPlayer entityplayer = world.getPlayerEntityByName(LOTREntityGollum.OWNER_NAME);
-						if (entityplayer != null)
-						{
-							gollumSpawningLoop:
-							for (int attempts = 0; attempts < 16; attempts++)
-							{
-								int i = MathHelper.floor_double(entityplayer.posX) - 8 + world.rand.nextInt(17);
-								int j = MathHelper.floor_double(entityplayer.boundingBox.minY) - 4 + world.rand.nextInt(9);
-								int k = MathHelper.floor_double(entityplayer.posZ) - 8 + world.rand.nextInt(17);
-								if (world.getBlock(i, j - 1, k).isNormalCube() && !world.getBlock(i, j, k).isNormalCube() && !world.getBlock(i, j + 1, k).isNormalCube())
-								{
-									LOTREntityGollum gollum = new LOTREntityGollum(world);
-									gollum.setLocationAndAngles(i + 0.5D, j, k + 0.5D, world.rand.nextFloat() * 360F, 0F);
-									if (gollum.getCanSpawnHere())
-									{
-										world.spawnEntityInWorld(gollum);
-										gollum.setGollumOwnerName(LOTREntityGollum.OWNER_NAME);
-										gollum.playLivingSound();
-										entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(gollum, "gollum_spawn", entityplayer));
-										
-										LOTRLevelData.hasGollum = 1;
-										LOTRLevelData.needsSave = true;
-										break gollumSpawningLoop;
-									}
-								}
-							}
-						}
-					}
 				}
 				
 				if (LOTRMod.isNewYearsDay())

@@ -78,10 +78,6 @@ public class LOTREntityMysteryWeb extends EntityThrowable
 				if (rand.nextInt(500) == 0)
 				{
 					item = new ItemStack(Items.melon, 64);
-					if (getThrower() instanceof EntityPlayer)
-					{
-						LOTRLevelData.setPlayerFoundMelon((EntityPlayer)getThrower());
-					}
 				}
 				if (item != null)
 				{

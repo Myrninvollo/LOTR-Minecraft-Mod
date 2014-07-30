@@ -110,6 +110,8 @@ public class LOTRCommonProxy implements IGuiHandler
 	
 	public void onLoad() {}
 	
+	public void onPostload() {}
+	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer entityplayer, World world, int i, int j, int k)
 	{

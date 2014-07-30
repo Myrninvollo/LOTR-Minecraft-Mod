@@ -1,5 +1,6 @@
 package lotr.common;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -1991,13 +1992,17 @@ public class LOTRMod
 		LOTRBrewingRecipes.createBrewingRecipes();
 		LOTREntJarRecipes.createDraughtRecipes();
 		LOTRAchievement.createAchievements();
+		LOTRTickHandlerServer.createSpawningLists();
 		LOTRStructures.registerStructures();
 		
 		LOTRReflection.testAll();
 	}
 	
 	@Mod.EventHandler
-	public void postload(FMLPostInitializationEvent event) {}
+	public void postload(FMLPostInitializationEvent event)
+	{
+		proxy.onPostload();
+	}
 	
 	@Mod.EventHandler
 	public void onServerStarting(FMLServerStartingEvent event)

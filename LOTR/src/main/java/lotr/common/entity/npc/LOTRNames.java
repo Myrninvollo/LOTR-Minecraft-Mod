@@ -15,6 +15,8 @@ import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import com.google.common.base.Charsets;
+
 import lotr.common.LOTRMod;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ModContainer;
@@ -47,7 +49,7 @@ public class LOTRNames
 						try
 						{
 							s = s.substring(0, i);
-							BufferedReader reader = new BufferedReader(new InputStreamReader(zip.getInputStream(entry), "utf-8"));
+							BufferedReader reader = new BufferedReader(new InputStreamReader(zip.getInputStream(entry), Charsets.UTF_8.name()));
 							nameBankNamesAndReaders.put(s, reader);
 						}
 						catch (Exception e)
@@ -73,7 +75,7 @@ public class LOTRNames
 					try
 					{
 						s = s.substring(0, i);
-						BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
+						BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8.name()));
 						nameBankNamesAndReaders.put(s, reader);
 					}
 					catch (Exception e)

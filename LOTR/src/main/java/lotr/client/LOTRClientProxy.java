@@ -9,19 +9,21 @@ import lotr.client.render.*;
 import lotr.client.render.entity.*;
 import lotr.client.render.item.*;
 import lotr.client.render.tileentity.*;
-import lotr.common.*;
+import lotr.common.LOTRCommonProxy;
+import lotr.common.LOTRMod;
+import lotr.common.LOTRTickHandlerServer;
 import lotr.common.entity.animal.*;
 import lotr.common.entity.item.*;
 import lotr.common.entity.npc.*;
 import lotr.common.entity.projectile.*;
-import lotr.common.item.*;
+import lotr.common.item.LOTRItemBow;
+import lotr.common.item.LOTRItemCrossbow;
+import lotr.common.item.LOTRItemSword;
 import lotr.common.tileentity.*;
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelHorse;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -248,6 +250,11 @@ public class LOTRClientProxy extends LOTRCommonProxy
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void onPostload()
+	{
+		LOTRLang.updateTranslations();
 	}
 	
     public static void renderHealthBar(EntityLivingBase entity, double d, double d1, double d2, int i, RenderManager renderManager)

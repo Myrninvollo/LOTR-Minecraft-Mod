@@ -600,11 +600,6 @@ public class LOTRGuiMap extends LOTRGui
         }
     }
 	
-    private void drawCenteredString(String s, int i, int j, int k)
-    {
-        fontRendererObj.drawString(s, i - fontRendererObj.getStringWidth(s) / 2, j, k);
-    }
-	
 	private boolean canTeleport()
 	{
 		if (!isMiddleEarth())

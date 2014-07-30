@@ -790,6 +790,65 @@ lotr.gui.alignment.title=Middle-earth Alignment
 
 lotr.gui.achievements.title=Middle-earth Achievements
 
+lotr.capes.category.ALIGNMENT=Alignment Capes
+lotr.capes.category.ACHIEVABLE=Achievable Capes
+lotr.capes.category.EXCLUSIVE=Exclusive Capes
+
+lotr.capes.ALIGNMENT_BLUE_MOUNTAINS.name=Cape of Ered Luin
+lotr.capes.ALIGNMENT_BLUE_MOUNTAINS.desc=Awarded for reaching +1000 alignment with the Dwarves of the Blue Mountains
+lotr.capes.ALIGNMENT_HIGH_ELF.name=Cape of the Fair Realm
+lotr.capes.ALIGNMENT_HIGH_ELF.desc=Awarded for reaching +1000 alignment with the High Elves
+lotr.capes.ALIGNMENT_ANGMAR.name=Cape of Black Sorcery
+lotr.capes.ALIGNMENT_ANGMAR.desc=Awarded for reaching +1000 alignment with Angmar
+lotr.capes.ALIGNMENT_WOOD_ELF.name=Cape of the Greenwood
+lotr.capes.ALIGNMENT_WOOD_ELF.desc=Awarded for reaching +1000 alignment with the Wood-elves
+lotr.capes.ALIGNMENT_DWARF.name=Cape of Seven Stars
+lotr.capes.ALIGNMENT_DWARF.desc=Awarded for reaching +1000 alignment with Durin's Folk
+lotr.capes.ALIGNMENT_GALADHRIM.name=Cape of the Golden Wood
+lotr.capes.ALIGNMENT_GALADHRIM.desc=Awarded for reaching +1000 alignment with the Galadhrim
+lotr.capes.ALIGNMENT_DUNLAND.name=Cape of the Wild Men
+lotr.capes.ALIGNMENT_DUNLAND.desc=Awarded for reaching +1000 alignment with the Dunlendings
+lotr.capes.ALIGNMENT_ROHAN.name=Cape of the Horse-lords
+lotr.capes.ALIGNMENT_ROHAN.desc=Awarded for reaching +1000 alignment with the Rohirrim
+lotr.capes.ALIGNMENT_URUK_HAI.name=Cape of the White Hand
+lotr.capes.ALIGNMENT_URUK_HAI.desc=Awarded for reaching +1000 alignment with the Uruk-hai
+lotr.capes.ALIGNMENT_GONDOR.name=Cape of Nimloth
+lotr.capes.ALIGNMENT_GONDOR.desc=Awarded for reaching +1000 alignment with Gondor
+lotr.capes.ALIGNMENT_MORDOR.name=Cape of Shadows
+lotr.capes.ALIGNMENT_MORDOR.desc=Awarded for reaching +1000 alignment with Mordor
+lotr.capes.ALIGNMENT_NEAR_HARAD.name=Cape of the Serpent
+lotr.capes.ALIGNMENT_NEAR_HARAD.desc=Awarded for reaching +1000 alignment with the Near Haradrim
+
+lotr.capes.ACHIEVEMENT_BRONZE.name=Bronze Adventurer's Cape
+lotr.capes.ACHIEVEMENT_BRONZE.desc=Available upon earning 25 achievements in Middle-earth
+lotr.capes.ACHIEVEMENT_SILVER.name=Silver Adventurer's Cape
+lotr.capes.ACHIEVEMENT_SILVER.desc=Available upon earning 50 achievements in Middle-earth
+lotr.capes.ACHIEVEMENT_GOLD.name=Golden Adventurer's Cape
+lotr.capes.ACHIEVEMENT_GOLD.desc=Available upon earning 100 achievements in Middle-earth
+lotr.capes.ACHIEVEMENT_MITHRIL.name=Mithril Adventurer's Cape
+lotr.capes.ACHIEVEMENT_MITHRIL.desc=Available upon earning 200 achievements in Middle-earth
+lotr.capes.DEFEAT_MTC.name=Trollslayer's Cape
+lotr.capes.DEFEAT_MTC.desc=Earned by defeating the Mountain Troll Chieftain
+
+lotr.capes.ELVEN_CONTEST.name=Elven Contest Cape
+lotr.capes.ELVEN_CONTEST.desc=Awarded as a prize in Building Contest #1 (Elven)
+lotr.capes.EVIL_CONTEST.name=Evil Contest Cape
+lotr.capes.EVIL_CONTEST.desc=Awarded as a prize in Building Contest #2 (Evil)
+lotr.capes.SHIRE_CONTEST.name=Shire Contest Cape
+lotr.capes.SHIRE_CONTEST.desc=Awarded as a prize in Building Contest #3 (Shire)
+lotr.capes.GONDOR_CONTEST.name=Gondor Contest Cape
+lotr.capes.GONDOR_CONTEST.desc=Awarded as a prize in Building Contest #4 (Gondor)
+lotr.capes.STRUCTURE_CONTEST.name=Architect's Cape
+lotr.capes.STRUCTURE_CONTEST.desc=Awarded for having your build implemented into the mod in Structure Contest #1
+lotr.capes.MOD.name=Modder's Cape
+lotr.capes.MOD.desc=Worn by the creator of the mod and the administration team
+lotr.capes.ELECTRICIAN.name=Electrician's Cape
+lotr.capes.ELECTRICIAN.desc=Worn by Mr. Gibbs
+lotr.capes.SHREK.name=Ogre Cape
+lotr.capes.SHREK.desc=Awarded for making a magical discovery
+lotr.capes.LOREMASTER_2013.name=Loremaster's Cape 2013
+lotr.capes.LOREMASTER_2013.desc=Awarded to the top five contributors on the mod's wiki during 2013
+
 lotr.gui.capes.title=Middle-earth Capes
 lotr.gui.capes.select=Select Cape
 lotr.gui.capes.selected=Cape Selected!

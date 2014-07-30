@@ -32,4 +32,9 @@ public abstract class LOTRGuiScreenBase extends GuiScreen
     {
         return false;
     }
+	
+	protected void drawCenteredString(String s, int x, int y, int c)
+	{
+		fontRendererObj.drawString(s, x - fontRendererObj.getStringWidth(s) / 2, y, c);
+	}
 }

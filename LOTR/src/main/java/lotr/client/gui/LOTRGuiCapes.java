@@ -1,5 +1,7 @@
 package lotr.client.gui;
 
+import java.util.List;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lotr.common.LOTRCapes;
@@ -52,8 +54,9 @@ public class LOTRGuiCapes extends LOTRGui
 	{
 		drawDefaultBackground();
 		GL11.glColor4f(1F, 1F, 1F, 1F);
+		
 		String s = StatCollector.translateToLocal("lotr.gui.capes.title");
-		fontRendererObj.drawString(s, guiLeft + 100 - fontRendererObj.getStringWidth(s) / 2, guiTop - 30, 0xFFFFFF);
+		drawCenteredString(s, guiLeft + 100, guiTop - 30, 0xFFFFFF);
 		
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
 		RenderHelper.enableStandardItemLighting();
@@ -82,27 +85,27 @@ public class LOTRGuiCapes extends LOTRGui
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		
-		int i1 = guiLeft + (xSize / 2);
-		int j1 = guiTop + 145;
-		for (int l = 0; l < currentCape.capeDescription.length; l++)
+		int x = guiLeft + (xSize / 2);
+		int y = guiTop + 145;
+		
+		s = currentCape.getCapeName();
+		drawCenteredString(s, x, y, 0xFFFFFF);
+		
+		y += fontRendererObj.FONT_HEIGHT * 2;
+		
+		List desc = fontRendererObj.listFormattedStringToWidth(currentCape.getCapeDesc(), 200);
+		for (int l = 0; l < desc.size(); l++)
 		{
-			String s1 = currentCape.capeDescription[l];
-			fontRendererObj.drawString(s1, i1 - fontRendererObj.getStringWidth(s1) / 2, j1, 0xFFFFFF);
-			if (l == 0)
-			{
-				j1 += fontRendererObj.FONT_HEIGHT * 2;
-			}
-			else
-			{
-				j1 += fontRendererObj.FONT_HEIGHT;
-			}
+			s = (String)desc.get(l);
+			drawCenteredString(s, x, y, 0xFFFFFF);
+			y += fontRendererObj.FONT_HEIGHT;
 		}
 		
 		((GuiButton)buttonList.get(2)).enabled = currentCapeID > 0;
 		((GuiButton)buttonList.get(3)).enabled = currentCape.canPlayerWearCape(mc.thePlayer);
 		((GuiButton)buttonList.get(3)).displayString = LOTRLevelData.getCape(mc.thePlayer) == currentCape ? StatCollector.translateToLocal("lotr.gui.capes.selected") : StatCollector.translateToLocal("lotr.gui.capes.select");
 		((GuiButton)buttonList.get(4)).enabled = currentCapeID < currentCapeType.list.size() - 1;
-		((GuiButton)buttonList.get(5)).displayString = currentCapeType.displayName;
+		((GuiButton)buttonList.get(5)).displayString = currentCapeType.getDisplayName();
 		
 		super.drawScreen(i, j, f);
 	}

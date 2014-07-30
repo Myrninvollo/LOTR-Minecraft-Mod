@@ -15,6 +15,8 @@ import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import com.google.common.base.Charsets;
+
 import lotr.common.LOTRMod;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,7 +56,7 @@ public class LOTRSpeech
 						try
 						{
 							s = s.substring(0, i);
-							BufferedReader reader = new BufferedReader(new InputStreamReader(zip.getInputStream(entry), "utf-8"));
+							BufferedReader reader = new BufferedReader(new InputStreamReader(zip.getInputStream(entry), Charsets.UTF_8.name()));
 							speechBankNamesAndReaders.put(s, reader);
 						}
 						catch (Exception e)
@@ -80,7 +82,7 @@ public class LOTRSpeech
 					try
 					{
 						s = s.substring(0, i);
-						BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
+						BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8.name()));
 						speechBankNamesAndReaders.put(s, reader);
 					}
 					catch (Exception e)

@@ -48,8 +48,6 @@ public class LOTRLevelData
 	public static int middleEarthPortalZ;
 	public static int beaconState;
 	public static int structuresBanned;
-	public static int hasGollum;
-	public static int gollumRespawnTime;
 	public static int fastTravelCooldown;
 	
 	public static List beaconTowerLocations = new ArrayList();
@@ -82,7 +80,6 @@ public class LOTRLevelData
 	public static Set playersCheckedAchievements = new HashSet();
 	public static Set playersCheckedAlignments = new HashSet();
 	public static Set bannedStructurePlayers = new HashSet();
-	private static Set melonFinders = new HashSet();
 	private static Set hiddenAlignments = new HashSet();
 	private static Set hiddenMapPlayers = new HashSet();
 	
@@ -116,8 +113,6 @@ public class LOTRLevelData
 			levelData.setInteger("MiddleEarthZ", middleEarthPortalZ);
 			levelData.setInteger("BeaconState", beaconState);
 			levelData.setInteger("StructuresBanned", structuresBanned);
-			levelData.setInteger("HasGollum", hasGollum);
-			levelData.setInteger("GollumRespawnTime", gollumRespawnTime);
 			levelData.setInteger("FastTravel", fastTravelCooldown);
 			
 			NBTTagCompound travellingTraderData = new NBTTagCompound();
@@ -328,7 +323,6 @@ public class LOTRLevelData
 			levelData.setTag("PlayersCheckedAchievements", savePlayerSet(playersCheckedAchievements));
 			levelData.setTag("PlayersCheckedAlignments", savePlayerSet(playersCheckedAlignments));
 			levelData.setTag("BannedStructurePlayers", savePlayerSet(bannedStructurePlayers));
-			levelData.setTag("MelonFinders", savePlayerSet(melonFinders));
 			levelData.setTag("HiddenAlignments", savePlayerSet(hiddenAlignments));
 			levelData.setTag("HiddenMapPlayers", savePlayerSet(hiddenMapPlayers));
 			
@@ -419,15 +413,7 @@ public class LOTRLevelData
 			middleEarthPortalZ = levelData.getInteger("MiddleEarthZ");
 			beaconState = levelData.getInteger("BeaconState");
 			structuresBanned = levelData.getInteger("StructuresBanned");
-			hasGollum = levelData.getInteger("HasGollum");
-			if (levelData.hasKey("GollumRespawnTime"))
-			{
-				gollumRespawnTime = levelData.getInteger("GollumRespawnTime");
-			}
-			else
-			{
-				gollumRespawnTime = 12000;
-			}
+
 			if (levelData.hasKey("FastTravel"))
 			{
 				fastTravelCooldown = levelData.getInteger("FastTravel");
@@ -612,7 +598,6 @@ public class LOTRLevelData
 			loadPlayerSet(levelData, playersCheckedAchievements, "PlayersCheckedAchievements");
 			loadPlayerSet(levelData, playersCheckedAlignments, "PlayersCheckedAlignments");
 			loadPlayerSet(levelData, bannedStructurePlayers, "BannedStructurePlayers");
-			loadPlayerSet(levelData, melonFinders, "MelonFinders");
 			loadPlayerSet(levelData, hiddenAlignments, "HiddenAlignments");
 			loadPlayerSet(levelData, hiddenMapPlayers, "HiddenMapPlayers");
 			
@@ -728,7 +713,6 @@ public class LOTRLevelData
     	data.writeInt(middleEarthPortalY);
     	data.writeInt(middleEarthPortalZ);
     	data.writeByte((byte)beaconState);
-    	data.writeBoolean(getPlayerFoundMelon(entityplayer));
     	data.writeBoolean(getFriendlyFire(entityplayer));
     	data.writeBoolean(getEnableHiredDeathMessages(entityplayer));
     	data.writeInt(getFastTravelTimer(entityplayer));
@@ -1486,23 +1470,6 @@ public class LOTRLevelData
 		
 		S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.options", data);
 		((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
-	}
-	
-	public static boolean getPlayerFoundMelon(EntityPlayer entityplayer)
-	{
-		return melonFinders.contains(entityplayer.getUniqueID());
-	}
-	
-	public static void setPlayerFoundMelon(EntityPlayer entityplayer)
-	{
-		melonFinders.add(entityplayer.getUniqueID());
-		
-		if (!entityplayer.worldObj.isRemote)
-		{
-			needsSave = true;
-			S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.findMelon", Unpooled.buffer(0));
-			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
-		}
 	}
 	
 	public static boolean getHideAlignment(EntityPlayer entityplayer)

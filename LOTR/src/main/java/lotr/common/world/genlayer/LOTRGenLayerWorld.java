@@ -84,7 +84,8 @@ public class LOTRGenLayerWorld extends GenLayer
 			try
 			{
 				BufferedImage biomeImage = null;
-				
+				String imageName = "/assets/lotr/map/map.png";
+						
 				ModContainer mc = FMLCommonHandler.instance().findContainerFor(LOTRMod.instance);
 				if (mc.getSource().isFile())
 				{
@@ -93,7 +94,7 @@ public class LOTRGenLayerWorld extends GenLayer
 					while (entries.hasMoreElements())
 					{
 						ZipEntry entry = (ZipEntry)entries.nextElement();
-						if (entry.getName().equals("assets/lotr/map/map.png"))
+						if (entry.getName().endsWith(imageName))
 						{
 							biomeImage = ImageIO.read(zip.getInputStream(entry));
 						}
@@ -102,7 +103,7 @@ public class LOTRGenLayerWorld extends GenLayer
 				}
 				else
 				{
-					File file = new File(LOTRMod.class.getResource("/assets/lotr/map/map.png").toURI());
+					File file = new File(LOTRMod.class.getResource(imageName).toURI());
 					biomeImage = ImageIO.read(new FileInputStream(file));
 				}
 				

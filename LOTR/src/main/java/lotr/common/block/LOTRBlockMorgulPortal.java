@@ -35,12 +35,7 @@ public class LOTRBlockMorgulPortal extends LOTRBlockPortal
 		double d = (double)((float)i + random.nextFloat());
 		double d1 = (double)((float)j + 0.8F);
 		double d2 = (double)((float)k + random.nextFloat());
-		double d3 = -0.05D + (double)(random.nextFloat() * 0.1D);
-		double d4 = 0.1D + (double)(random.nextFloat() * 0.1D);
-		double d5 = -0.05D + (double)(random.nextFloat() * 0.1D);
-		LOTRMod.proxy.spawnParticle("morgulPortal", d, d1, d2, d3, d4, d5);
-		
-        super.randomDisplayTick(world, i, j, k, random);
+		LOTRMod.proxy.spawnParticle("morgulPortal", d, d1, d2, 0D, 0D, 0D);
     }
 	
 	@Override

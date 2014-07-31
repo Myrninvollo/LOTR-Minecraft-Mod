@@ -24,6 +24,7 @@ Public Beta 19
 + Added Sarlluin and Sarncaran deposits underground within their respective biomes
 + Added additional ore generation at higher layers in all mountain biomes
 + Added the ability to light Beacons of Gondor with torches
++ Added Morgul Torches
 + Added cape names and descriptions to the language file
 + Added an automatic language file update-helper which adds any missing keys to LOTR language files to make updating them easier - see .minecraft/mods/LOTR_UpdatedLangFiles
 + Added an updated German translation

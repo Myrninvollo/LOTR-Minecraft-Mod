@@ -84,11 +84,7 @@ public class LOTREntitySauron extends LOTREntityNPC
 		
 		if (!worldObj.isRemote && getHealth() < getMaxHealth() && worldObj.getWorldTime() % 10L == 0)
 		{
-			setHealth(getHealth() + 2F);
-			if (getHealth() > getMaxHealth())
-			{
-				setHealth(getMaxHealth());
-			}
+			heal(2F);
 		}
 		
 		if (getIsUsingMace())

@@ -112,10 +112,10 @@ public class LOTRWorldGenAngmarShrine extends LOTRWorldGenStructureBase
 		
 		setBlockAndNotifyAdequately(world, i, j + 4, k, LOTRMod.angmarTable, 0);
 
-		placeOrcTorch(world, i - 2, j + 3, k - 2);
-		placeOrcTorch(world, i - 2, j + 3, k + 2);
-		placeOrcTorch(world, i + 2, j + 3, k - 2);
-		placeOrcTorch(world, i + 2, j + 3, k + 2);
+		setBlockAndNotifyAdequately(world, i - 2, j + 3, k - 2, LOTRMod.morgulTorch, 5);
+		setBlockAndNotifyAdequately(world, i - 2, j + 3, k + 2, LOTRMod.morgulTorch, 5);
+		setBlockAndNotifyAdequately(world, i + 2, j + 3, k - 2, LOTRMod.morgulTorch, 5);
+		setBlockAndNotifyAdequately(world, i + 2, j + 3, k + 2, LOTRMod.morgulTorch, 5);
 		
 		int pillars = 4 + random.nextInt(5);
 		for (int p = 0; p < pillars; p++)

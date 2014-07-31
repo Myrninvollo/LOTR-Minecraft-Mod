@@ -261,6 +261,7 @@ public class LOTRMod
 	public static Block stairsThatch;
 	public static Block fangornPlant;
 	public static Block fangornRiverweed;
+	public static Block morgulTorch;
 
 	public static Item goldRing;
 	public static Item pouch;
@@ -782,6 +783,7 @@ public class LOTRMod
 		stairsThatch = new LOTRBlockStairs(thatch, 0).setBlockName("lotr:stairsThatch");
 		fangornPlant = new LOTRBlockFangornPlant().setStepSound(Block.soundTypeGrass).setBlockName("lotr:fangornPlant");
 		fangornRiverweed = new LOTRBlockFangornRiverweed().setStepSound(Block.soundTypeGrass).setBlockName("lotr:fangornRiverweed");
+		morgulTorch = new LOTRBlockMorgulTorch().setHardness(0F).setStepSound(Block.soundTypeWood).setLightLevel(0.875F).setBlockName("lotr:morgulTorch");
 		
 		goldRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMagic).setUnlocalizedName("lotr:goldRing");
 		pouch = new LOTRItemPouch().setUnlocalizedName("lotr:pouch");
@@ -1328,6 +1330,7 @@ public class LOTRMod
 		registerBlock(stairsThatch);
 		registerBlock(fangornPlant, LOTRItemBlockMetadata.class);
 		registerBlock(fangornRiverweed, LOTRItemRiverweed.class);
+		registerBlock(morgulTorch);
 		
 		registerItem(goldRing);
 		registerItem(pouch);
@@ -1828,7 +1831,7 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityShirePony.class, "ShirePony", 4, 0x5D3B2A, 0xC6A38B);
 		LOTREntities.registerCreature(LOTREntityMordorWarg.class, "MordorWarg", 5, 0x463329, 0x291D16);
 		LOTREntities.registerCreature(LOTREntityGondorSoldier.class, "GondorSoldier", 6, 0x514C4C, 0xE5DADA);
-		LOTREntities.registerCreature(LOTREntitySauron.class, "Sauron", 7);
+		//empty slot
 		LOTREntities.registerCreature(LOTREntityElf.class, "GaladhrimElf", 8, 0x8E7961, 0xF2EDAB);
 		LOTREntities.registerCreature(LOTREntityHobbitBartender.class, "HobbitBartender", 9, 0xFF9F7F, 0x7A3A23);
 		LOTREntities.registerCreature(LOTREntityHobbitDrunkard.class, "HobbitDrunkard", 10, 0xFF9F7F, 0x7A3A23);
@@ -1857,7 +1860,7 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityTroll.class, "Troll", 33, 0xA58752, 0x49311E);
 		LOTREntities.registerCreature(LOTREntityOlogHai.class, "OlogHai", 34, 0x3F483C, 0x222322);
 		LOTREntities.registerCreature(LOTREntityElfLord.class, "GaladhrimLord", 35, 0xC1BEBA, 0xEAB956);
-		LOTREntities.registerCreature(LOTREntityGollum.class, "Gollum", 36);
+		//empty slot
 		LOTREntities.registerCreature(LOTREntityMirkwoodSpider.class, "MirkwoodSpider", 37, 0x282521, 0x141110);
 		LOTREntities.registerCreature(LOTREntityWoodElf.class, "WoodElf", 38, 0x235121, 0xFFCE9E);
 		LOTREntities.registerCreature(LOTREntityWoodElfScout.class, "WoodElfScout", 39, 0x05210C, 0x3B6033);
@@ -1953,24 +1956,28 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityBlueDwarfMerchant.class, "BlueDwarfMerchant", 129, 0xF9876D, 0xEA5620);
 		LOTREntities.registerCreature(LOTREntityBandit.class, "Bandit", 130, 0xF79574, 0x513B21);
 
-		LOTREntities.registerEntity(LOTREntityPortal.class, "Portal", 200, 80, 3, true);
-		LOTREntities.registerEntity(LOTREntitySmokeRing.class, "SmokeRing", 201, 64, 10, true);
-		LOTREntities.registerEntity(LOTREntityOrcBomb.class, "OrcBomb", 202, 160, 10, true);
-		LOTREntities.registerEntity(LOTREntityGandalfFireball.class, "GandalfFireball", 203, 64, 10, true);
-		LOTREntities.registerEntity(LOTREntitySpear.class, "Spear", 204, 64, Integer.MAX_VALUE, false);
-		LOTREntities.registerEntity(LOTREntityPlate.class, "Plate", 205, 64, 10, true);
-		LOTREntities.registerEntity(LOTREntityWargskinRug.class, "WargRug", 206, 80, 3, true);
-		LOTREntities.registerEntity(LOTREntityMarshWraithBall.class, "MarshWraithBall", 207, 64, 10, true);
-		LOTREntities.registerEntity(LOTREntityThrowingAxe.class, "ThrowingAxe", 208, 64, Integer.MAX_VALUE, false);
-		LOTREntities.registerEntity(LOTREntityCrossbowBolt.class, "CrossbowBolt", 209, 64, Integer.MAX_VALUE, false);
-		LOTREntities.registerEntity(LOTREntityStoneTroll.class, "StoneTroll", 210, 80, 3, true);
-		LOTREntities.registerEntity(LOTREntityPebble.class, "Pebble", 211, 64, 10, true);
-		LOTREntities.registerEntity(LOTREntityMysteryWeb.class, "MysteryWeb", 212, 64, 10, true);
-		LOTREntities.registerEntity(LOTREntityTraderRespawn.class, "TraderRespawn", 213, 80, 3, true);
-		LOTREntities.registerEntity(LOTREntityThrownRock.class, "ThrownRock", 214, 64, 10, true);
-		LOTREntities.registerEntity(LOTREntityBarrel.class, "Barrel", 215, 80, 3, true);
-		LOTREntities.registerEntity(LOTREntityBanner.class, "Banner", 216, 160, 3, true);
-		LOTREntities.registerEntity(LOTREntityBannerWall.class, "WallBanner", 217, 160, Integer.MAX_VALUE, false);
+		LOTREntities.registerCreature(LOTREntitySauron.class, "Sauron", 1000);
+		LOTREntities.registerCreature(LOTREntityGollum.class, "Gollum", 1001);
+		LOTREntities.registerCreature(LOTREntitySaruman.class, "Saruman", 1002, 0xE6E6E6, 0xB3B3B3);
+		
+		LOTREntities.registerEntity(LOTREntityPortal.class, "Portal", 2000, 80, 3, true);
+		LOTREntities.registerEntity(LOTREntitySmokeRing.class, "SmokeRing", 2001, 64, 10, true);
+		LOTREntities.registerEntity(LOTREntityOrcBomb.class, "OrcBomb", 2002, 160, 10, true);
+		LOTREntities.registerEntity(LOTREntityGandalfFireball.class, "GandalfFireball", 2003, 64, 10, true);
+		LOTREntities.registerEntity(LOTREntitySpear.class, "Spear", 2004, 64, Integer.MAX_VALUE, false);
+		LOTREntities.registerEntity(LOTREntityPlate.class, "Plate", 2005, 64, 10, true);
+		LOTREntities.registerEntity(LOTREntityWargskinRug.class, "WargRug", 2006, 80, 3, true);
+		LOTREntities.registerEntity(LOTREntityMarshWraithBall.class, "MarshWraithBall", 2007, 64, 10, true);
+		LOTREntities.registerEntity(LOTREntityThrowingAxe.class, "ThrowingAxe", 2008, 64, Integer.MAX_VALUE, false);
+		LOTREntities.registerEntity(LOTREntityCrossbowBolt.class, "CrossbowBolt", 2009, 64, Integer.MAX_VALUE, false);
+		LOTREntities.registerEntity(LOTREntityStoneTroll.class, "StoneTroll", 2010, 80, 3, true);
+		LOTREntities.registerEntity(LOTREntityPebble.class, "Pebble", 2011, 64, 10, true);
+		LOTREntities.registerEntity(LOTREntityMysteryWeb.class, "MysteryWeb", 2012, 64, 10, true);
+		LOTREntities.registerEntity(LOTREntityTraderRespawn.class, "TraderRespawn", 2013, 80, 3, true);
+		LOTREntities.registerEntity(LOTREntityThrownRock.class, "ThrownRock", 2014, 64, 10, true);
+		LOTREntities.registerEntity(LOTREntityBarrel.class, "Barrel", 2015, 80, 3, true);
+		LOTREntities.registerEntity(LOTREntityBanner.class, "Banner", 2016, 160, 3, true);
+		LOTREntities.registerEntity(LOTREntityBannerWall.class, "WallBanner", 2017, 160, Integer.MAX_VALUE, false);
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
 		

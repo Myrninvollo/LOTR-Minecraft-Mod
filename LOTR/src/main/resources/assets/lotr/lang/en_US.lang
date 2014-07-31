@@ -311,6 +311,7 @@ tile.lotr:fangornPlant.3.name=Elfsong
 tile.lotr:fangornPlant.4.name=Sunfruit
 tile.lotr:fangornPlant.5.name=Moonflower
 tile.lotr:fangornRiverweed.name=Riverweed
+tile.lotr:morgulTorch.name=Morgul Torch
 
 item.lotr:goldRing.name=Gold Ring
 item.lotr:pouch.0.name=Small Pouch
@@ -1066,6 +1067,10 @@ entity.lotr.NearHaradPlantsTrader.name=Near Harad Plants Trader
 entity.lotr.NearHaradFoodTrader.name=Near Harad Food Trader
 entity.lotr.BlueDwarfMerchant.name=Blue Mountains Merchant
 entity.lotr.Bandit.name=Bandit
+
+entity.lotr.Sauron.name=Sauron
+entity.lotr.Gollum.name=Gollum
+entity.lotr.Saruman.name=Saruman
 
 lotr.travellingTrader.arrive=%s has arrived nearby
 lotr.travellingTrader.arriveMP=%s has arrived near %s

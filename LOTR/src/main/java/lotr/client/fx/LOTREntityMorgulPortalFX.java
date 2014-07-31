@@ -15,9 +15,9 @@ public class LOTREntityMorgulPortalFX extends EntitySpellParticleFX
 		particleBlue = 0.4F;
 		particleScale = 0.5F + rand.nextFloat() * 0.5F;
 		particleMaxAge = 20 + rand.nextInt(20);
-		motionX = d3;
-		motionY = d4;
-		motionZ = d5;
+		motionX = -0.05D + (double)(rand.nextFloat() * 0.1D);
+		motionY = 0.1D + (double)(rand.nextFloat() * 0.1D);
+		motionZ = -0.05D + (double)(rand.nextFloat() * 0.1D);
 	}
 	
 	@Override

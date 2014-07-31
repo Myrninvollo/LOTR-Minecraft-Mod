@@ -1179,6 +1179,10 @@ public class LOTRRecipes
 		{
 			"X X", "X X", 'X', morgulSteel
 		}));
+		addRecipeTo(morgulAndAngmarRecipes, new ShapedOreRecipe(new ItemStack(morgulTorch, 4), new Object[]
+		{
+			"X", "Y", 'X', guldurilCrystal, 'Y', "stickWood"
+		}));
 	}
 	
 	private static void createCommonElfRecipes()

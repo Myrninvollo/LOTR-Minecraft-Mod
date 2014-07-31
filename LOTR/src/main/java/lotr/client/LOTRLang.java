@@ -3,14 +3,11 @@ package lotr.client;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
+import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -19,8 +16,6 @@ import java.util.zip.ZipFile;
 import lotr.common.LOTRMod;
 
 import org.apache.commons.io.FilenameUtils;
-
-import com.google.common.base.Charsets;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ModContainer;
@@ -95,9 +90,9 @@ public class LOTRLang
 				
 				File newLang = new File(newLangFolder, name);
 				newLang.createNewFile();
-				PrintWriter writer = new PrintWriter(newLang, "UTF-8");
+				PrintStream writer = new PrintStream(new FileOutputStream(newLang), true, "UTF-8");
 
-				BufferedReader en_US_reader = new BufferedReader(new InputStreamReader(zip.getInputStream(en_US)));
+				BufferedReader en_US_reader = new BufferedReader(new InputStreamReader(zip.getInputStream(en_US), "UTF-8"));
 				String en_US_line = "";
 				while ((en_US_line = en_US_reader.readLine()) != null)
 				{
@@ -136,7 +131,7 @@ public class LOTRLang
 						}
 					}
 				}
-				
+
 				writer.close();
 				en_US_reader.close();
 			}
@@ -149,8 +144,8 @@ public class LOTRLang
 	
 	private static void copyZipEntryToFile(ZipFile zip, ZipEntry entry, File copy) throws IOException
 	{
-		BufferedReader reader = new BufferedReader(new InputStreamReader(zip.getInputStream(entry)));
-		PrintWriter writer = new PrintWriter(copy);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(zip.getInputStream(entry), "UTF-8"));
+		PrintStream writer = new PrintStream(new FileOutputStream(copy), true, "UTF-8");
 		String line = "";
 		while ((line = reader.readLine()) != null)
 		{
@@ -164,7 +159,7 @@ public class LOTRLang
 	{
 		File readme = new File(folder, "readme.txt");
 		readme.createNewFile();
-		PrintWriter writer = new PrintWriter(readme, Charsets.UTF_8.name());
+		PrintStream writer = new PrintStream(new FileOutputStream(readme));
 		writer.println("LOTR lang file update-helper");
 		writer.println();
 		writer.println("The purpose of this helper is to assist people in updating the mod's lang files after a mod update.");

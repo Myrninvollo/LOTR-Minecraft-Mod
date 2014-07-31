@@ -2,9 +2,9 @@ package lotr.common.entity;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,31 +57,31 @@ public class LOTREntityRegistry
 			{
 				if (config.createNewFile())
 				{
-					PrintWriter printwriter = new PrintWriter(new FileWriter(config));
-					printwriter.println("#Lines starting with '#' will be ignored");
-					printwriter.println("#");
-					printwriter.println("#Use this file to register entities with the LOTR alignment system.");
-					printwriter.println("#");
-					printwriter.println("#An example format for registering an entity is as follows: (do not use spaces)");
-					printwriter.println("#name=LOTR.MordorOrc,faction=MORDOR,targetEnemies=true,bonus=1");
-					printwriter.println("#");
-					printwriter.println("#'name' is the entity name, prefixed with the associated mod ID.");
-					printwriter.println("#The mod ID can be found in the Mod List on the main menu - for example, \"LOTR\" for the LOTR mod.");
-					printwriter.println("#The entity name is not necessarily the in-game name. It is the name used to register the entity in the code.");
-					printwriter.println("#You may be able to discover the entity name in the mod's language file if there is one - otherwise, contact the mod author.");
-					printwriter.println("#The mod ID and entity name must be separated by a '.' character.");
-					printwriter.println("#Vanilla entities have no mod ID and therefore no prefix.");
-					printwriter.println("#");
-					printwriter.println("#'faction' can be " + allFactions);
-					printwriter.println("#");
-					printwriter.println("#'targetEnemies' can be true or false.");
-					printwriter.println("#If true, the entity will be equipped with AI modules to target its enemies.");
-					printwriter.println("#Actual combat behaviour may or may not be present, depending on whether the entity is designed with combat AI modules.");
-					printwriter.println("#");
-					printwriter.println("#'bonus' is the alignment bonus awarded to a player who kills the entity.");
-					printwriter.println("#It can be positive, negative, or zero, in which case no bonus will be awarded.");
-					printwriter.println("#");
-					printwriter.close();
+					PrintStream writer = new PrintStream(new FileOutputStream(config));
+					writer.println("#Lines starting with '#' will be ignored");
+					writer.println("#");
+					writer.println("#Use this file to register entities with the LOTR alignment system.");
+					writer.println("#");
+					writer.println("#An example format for registering an entity is as follows: (do not use spaces)");
+					writer.println("#name=LOTR.MordorOrc,faction=MORDOR,targetEnemies=true,bonus=1");
+					writer.println("#");
+					writer.println("#'name' is the entity name, prefixed with the associated mod ID.");
+					writer.println("#The mod ID can be found in the Mod List on the main menu - for example, \"LOTR\" for the LOTR mod.");
+					writer.println("#The entity name is not necessarily the in-game name. It is the name used to register the entity in the code.");
+					writer.println("#You may be able to discover the entity name in the mod's language file if there is one - otherwise, contact the mod author.");
+					writer.println("#The mod ID and entity name must be separated by a '.' character.");
+					writer.println("#Vanilla entities have no mod ID and therefore no prefix.");
+					writer.println("#");
+					writer.println("#'faction' can be " + allFactions);
+					writer.println("#");
+					writer.println("#'targetEnemies' can be true or false.");
+					writer.println("#If true, the entity will be equipped with AI modules to target its enemies.");
+					writer.println("#Actual combat behaviour may or may not be present, depending on whether the entity is designed with combat AI modules.");
+					writer.println("#");
+					writer.println("#'bonus' is the alignment bonus awarded to a player who kills the entity.");
+					writer.println("#It can be positive, negative, or zero, in which case no bonus will be awarded.");
+					writer.println("#");
+					writer.close();
 				}
 			}
 			else

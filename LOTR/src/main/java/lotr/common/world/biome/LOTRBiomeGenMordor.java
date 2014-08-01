@@ -3,6 +3,7 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.npc.LOTREntityMordorOrc;
@@ -10,6 +11,9 @@ import lotr.common.entity.npc.LOTREntityMordorOrcArcher;
 import lotr.common.entity.npc.LOTREntityMordorOrcBombardier;
 import lotr.common.entity.npc.LOTREntityMordorWarg;
 import lotr.common.entity.npc.LOTREntityOlogHai;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenCharredTrees;
 import lotr.common.world.feature.LOTRWorldGenMordorMoss;
@@ -63,6 +67,8 @@ public class LOTRBiomeGenMordor extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenMordorTower(false), 400);
 
 		waterColorMultiplier = 0x3F2007;
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	@Override

@@ -3,6 +3,7 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
@@ -10,6 +11,9 @@ import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
 import lotr.common.entity.npc.LOTREntityElvenTrader;
 import lotr.common.entity.npc.LOTREntityHighElf;
 import lotr.common.entity.npc.LOTREntityHighElfWarrior;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBigTrees;
 import lotr.common.world.feature.LOTRWorldGenHugeTrees;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
@@ -50,6 +54,10 @@ public class LOTRBiomeGenLindon extends LOTRBiome
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

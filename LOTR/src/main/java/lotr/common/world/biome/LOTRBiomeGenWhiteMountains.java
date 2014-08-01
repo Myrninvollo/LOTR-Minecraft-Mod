@@ -1,7 +1,11 @@
 package lotr.common.world.biome;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.structure.LOTRWorldGenBeaconTower;
 
 public class LOTRBiomeGenWhiteMountains extends LOTRBiomeGenGondor
@@ -22,6 +26,10 @@ public class LOTRBiomeGenWhiteMountains extends LOTRBiomeGenGondor
 		
 		decorator.clearRandomStructures();
 		decorator.addRandomStructure(new LOTRWorldGenBeaconTower(false), 50);
+		
+		setBanditChance(LOTRBanditSpawner.RARE);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.MORDOR, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

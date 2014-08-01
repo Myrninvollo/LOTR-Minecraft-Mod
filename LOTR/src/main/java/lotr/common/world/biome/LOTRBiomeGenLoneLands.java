@@ -3,12 +3,16 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
 import lotr.common.entity.npc.LOTREntityElvenTrader;
 import lotr.common.entity.npc.LOTREntityGundabadWarg;
 import lotr.common.entity.npc.LOTREntityRangerNorth;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBigTrees;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
@@ -61,6 +65,12 @@ public class LOTRBiomeGenLoneLands extends LOTRBiome
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
+		
+		setBanditChance(LOTRBanditSpawner.COMMON);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.COMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.RANGER_NORTH, LOTRInvasionSpawner.COMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.ANGMAR, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

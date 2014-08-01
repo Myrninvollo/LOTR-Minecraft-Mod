@@ -4,6 +4,7 @@ import java.util.Random;
 
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.npc.LOTREntityGundabadWarg;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.structure2.LOTRWorldGenRuinedHouse;
 import net.minecraft.entity.passive.EntityWolf;
@@ -37,6 +38,8 @@ public class LOTRBiomeGenTundra extends LOTRBiome
 		registerTaigaFlowers();
 		
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1500);
+		
+		setBanditChance(LOTRBanditSpawner.UNCOMMON);
 	}
 	
 	@Override

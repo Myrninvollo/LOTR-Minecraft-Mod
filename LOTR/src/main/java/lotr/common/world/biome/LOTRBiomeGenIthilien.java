@@ -3,6 +3,7 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityBird;
@@ -14,6 +15,9 @@ import lotr.common.entity.npc.LOTREntityMordorOrc;
 import lotr.common.entity.npc.LOTREntityMordorOrcArcher;
 import lotr.common.entity.npc.LOTREntityMordorOrcBombardier;
 import lotr.common.entity.npc.LOTREntityRangerIthilien;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import lotr.common.world.structure.LOTRWorldGenGondorObelisk;
 import lotr.common.world.structure.LOTRWorldGenGondorRuins;
@@ -73,6 +77,11 @@ public class LOTRBiomeGenIthilien extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenGondorObelisk(false), 800);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
+		
+		setBanditChance(LOTRBanditSpawner.UNCOMMON);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GONDOR, LOTRInvasionSpawner.COMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.MORDOR, LOTRInvasionSpawner.COMMON));
 	}
 	
 	@Override

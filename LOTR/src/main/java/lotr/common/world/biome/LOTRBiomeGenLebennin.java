@@ -2,20 +2,21 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenForest;
-import net.minecraft.world.gen.feature.WorldGenerator;
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.animal.LOTREntityButterfly;
-import lotr.common.entity.animal.LOTREntityRabbit;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBigTrees;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+import net.minecraft.world.gen.feature.WorldGenForest;
+import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class LOTRBiomeGenLebennin extends LOTRBiomeGenGondor
 {
@@ -34,6 +35,10 @@ public class LOTRBiomeGenLebennin extends LOTRBiomeGenGondor
 		decorator.flowersPerChunk = 5;
 		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 6;
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
+		
+		invasionSpawns.clear();
 	}
 	
 	@Override

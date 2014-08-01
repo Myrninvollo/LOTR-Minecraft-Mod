@@ -1,6 +1,7 @@
 package lotr.common.world.biome;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.world.LOTRBanditSpawner;
 
 public class LOTRBiomeGenMirkwoodRiver extends LOTRBiomeGenMirkwood
 {
@@ -12,6 +13,8 @@ public class LOTRBiomeGenMirkwoodRiver extends LOTRBiomeGenMirkwood
 		
 		spawnableGoodList.clear();
 		spawnableEvilList.clear();
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	@Override

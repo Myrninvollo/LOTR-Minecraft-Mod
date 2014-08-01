@@ -9,6 +9,7 @@ import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.animal.LOTREntityButterfly;
 import lotr.common.entity.npc.LOTREntityElf;
 import lotr.common.entity.npc.LOTREntityElfWarrior;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenMallornLarge;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import net.minecraft.util.Vec3;
@@ -52,6 +53,8 @@ public class LOTRBiomeGenLothlorien extends LOTRBiome
 		flowers.clear();
 		addFlower(LOTRMod.elanor, 0, 20);
 		addFlower(LOTRMod.niphredil, 0, 10);
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	@Override

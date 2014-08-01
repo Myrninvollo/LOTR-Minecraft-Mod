@@ -1349,6 +1349,8 @@ chat.lotr.mountOwnedByNPC=This mount was owned by an NPC - you cannot interact w
 chat.lotr.alignmentRewardItem=Congratulations on reaching %d alignment with the %s faction! Visit a unit trader to claim your reward
 chat.lotr.protectedLand=This land is under the protection of %s!
 chat.lotr.protectedLandBanner=You may not place a protection banner this close to land under the protection of another banner
+chat.lotr.banditSteal=A bandit stole some items from your inventory!
+chat.lotr.invasion.start=%s have launched an invasion nearby!
 
 commands.lotr.alignment.usage=/alignment <set|add> <faction> <amount> [player]
 commands.lotr.alignment.noFaction=No faction with name %s

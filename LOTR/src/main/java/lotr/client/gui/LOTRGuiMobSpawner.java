@@ -157,7 +157,7 @@ public class LOTRGuiMobSpawner extends LOTRGuiScreenBase
 		mobControls.add(new LOTRGuiSlider(1, guiLeft + xSize / 2 - 112, guiTop + 76, 224, 20, "Max Health: " + maxHealth, (float)((maxHealth - 1) / 199F)));
 		mobControls.add(new LOTRGuiSlider(2, guiLeft + xSize / 2 - 112, guiTop + 100, 224, 20, "Navigator Range: " + navigatorRange, (float)((navigatorRange - 1) / 99F)));
 		mobControls.add(new LOTRGuiSlider(3, guiLeft + xSize / 2 - 112, guiTop + 124, 224, 20, "Movement Speed: " + trim(moveSpeed), (moveSpeed - 0.01F) / 0.99F));
-		mobControls.add(new LOTRGuiSlider(4, guiLeft + xSize / 2 - 112, guiTop + 148, 224, 20, "Attack Damage: " + attackDamage, (float)((attackDamage - 1) / 19F)));
+		mobControls.add(new LOTRGuiSlider(4, guiLeft + xSize / 2 - 112, guiTop + 148, 224, 20, "Base Attack Damage: " + attackDamage, (float)((attackDamage - 1) / 19F)));
 	}
 	
     public void setWorldAndResolution(Minecraft mc, int i, int j)
@@ -369,7 +369,7 @@ public class LOTRGuiMobSpawner extends LOTRGuiScreenBase
 			if (slider_attackDamage.dragging)
 			{
 				attackDamage = Math.round(slider_attackDamage.sliderValue * 19F) + 1;
-				slider_attackDamage.displayString = "Attack Damage: " + attackDamage;
+				slider_attackDamage.displayString = "Base Attack Damage: " + attackDamage;
 				needsUpdate = true;
 			}
 		}

@@ -2,6 +2,7 @@ package lotr.common.entity.animal;
 
 import lotr.common.LOTRMod;
 import lotr.common.entity.LOTREntities;
+import lotr.common.entity.LOTRMountFunctions;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.entity.ai.LOTREntityAIHiredHorseRemainStill;
 import lotr.common.entity.ai.LOTREntityAIHorseFollowHiringPlayer;
@@ -10,7 +11,6 @@ import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.entity.npc.LOTRNPCMount;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -25,12 +25,9 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -97,14 +94,7 @@ public class LOTREntityWildBoar extends EntityPig implements LOTRNPCMount
 	{
 		dataWatcher.updateObject(21, Byte.valueOf(flag ? (byte)1 : (byte)0));
 	}
-	
-	@Override
-	public void setNavigatorRangeFrom(LOTREntityNPC npc)
-	{
-		double d = npc.getEntityAttribute(SharedMonsterAttributes.followRange).getAttributeValue();
-		getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(d);
-	}
-	
+
 	@Override
     protected void applyEntityAttributes()
     {
@@ -143,32 +133,10 @@ public class LOTREntityWildBoar extends EntityPig implements LOTRNPCMount
 
 		super.onLivingUpdate();
 		
+		LOTRMountFunctions.update(this);
+		
         if (!worldObj.isRemote)
         {
-            if (rand.nextInt(900) == 0 && isEntityAlive())
-            {
-                heal(1F);
-            }
-
-			if (getAttackTarget() != null)
-			{
-				EntityLivingBase entity = getAttackTarget();
-				if (!entity.isEntityAlive() || (entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.isCreativeMode))
-				{
-					setAttackTarget(null);
-				}
-			}
-			
-			if (riddenByEntity instanceof EntityLiving)
-			{
-				EntityLivingBase target = ((EntityLiving)riddenByEntity).getAttackTarget();
-				setAttackTarget(target);
-			}
-			else if (riddenByEntity instanceof EntityPlayer)
-			{
-				setAttackTarget(null);
-			}
-			
 			setBoarEnraged(getAttackTarget() != null);
 		}
 		
@@ -182,17 +150,9 @@ public class LOTREntityWildBoar extends EntityPig implements LOTRNPCMount
 		{
 			return false;
 		}
-		if (getBelongsToNPC())
+		if (LOTRMountFunctions.interact(this, entityplayer))
 		{
-			if (riddenByEntity == null)
-			{
-				if (!worldObj.isRemote)
-				{
-					entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.mountOwnedByNPC"));
-				}
-				return true;
-			}
-			return false;
+			return true;
 		}
 		return super.interact(entityplayer);
 	}
@@ -232,50 +192,15 @@ public class LOTREntityWildBoar extends EntityPig implements LOTRNPCMount
     }
 	
 	@Override
-    public void moveEntityWithHeading(float f, float f1)
+    public void moveEntityWithHeading(float strafe, float forward)
     {
-        if (riddenByEntity != null && riddenByEntity instanceof EntityPlayer && getSaddled())
-        {
-            prevRotationYaw = rotationYaw = riddenByEntity.rotationYaw;
-            rotationPitch = riddenByEntity.rotationPitch * 0.5F;
-            setRotation(rotationYaw, rotationPitch);
-            rotationYawHead = renderYawOffset = rotationYaw;
-            f = ((EntityLivingBase)riddenByEntity).moveStrafing * 0.5F;
-            f1 = ((EntityLivingBase)riddenByEntity).moveForward;
-
-            if (f1 <= 0F)
-            {
-                f1 *= 0.25F;
-            }
-
-            stepHeight = 1F;
-            jumpMovementFactor = getAIMoveSpeed() * 0.1F;
-
-            if (!worldObj.isRemote)
-            {
-                setAIMoveSpeed((float)getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue() * 0.75F);
-                super.moveEntityWithHeading(f, f1);
-            }
-
-            prevLimbSwingAmount = limbSwingAmount;
-            double d0 = posX - prevPosX;
-            double d1 = posZ - prevPosZ;
-            float f4 = MathHelper.sqrt_double(d0 * d0 + d1 * d1) * 4F;
-
-            if (f4 > 1F)
-            {
-                f4 = 1F;
-            }
-
-            limbSwingAmount += (f4 - limbSwingAmount) * 0.4F;
-            limbSwing += limbSwingAmount;
-        }
-        else
-        {
-            stepHeight = 0.5F;
-            jumpMovementFactor = 0.02F;
-            super.moveEntityWithHeading(f, f1);
-        }
+		LOTRMountFunctions.move(this, strafe, forward);
+    }
+	
+	@Override
+    public void super_moveEntityWithHeading(float strafe, float forward)
+    {
+		super.moveEntityWithHeading(strafe, forward);
     }
 
 	@Override
@@ -285,16 +210,6 @@ public class LOTREntityWildBoar extends EntityPig implements LOTRNPCMount
         boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), f);
         return flag;
     }
-	
-	@Override
-	public boolean attackEntityFrom(DamageSource damagesource, float f)
-	{
-		if (riddenByEntity != null && damagesource.getEntity() == riddenByEntity)
-		{
-			return false;
-		}
-		return super.attackEntityFrom(damagesource, f);
-	}
 
 	@Override
     protected void dropFewItems(boolean flag, int i)

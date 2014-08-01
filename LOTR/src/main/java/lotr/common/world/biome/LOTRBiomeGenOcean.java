@@ -4,6 +4,7 @@ import java.util.Random;
 
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenBigTrees;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import lotr.common.world.structure.LOTRWorldGenUnderwaterElvenRuin;
@@ -30,6 +31,8 @@ public class LOTRBiomeGenOcean extends LOTRBiome
 		decorator.doubleGrassPerChunk = 1;
 		
 		decorator.addRandomStructure(new LOTRWorldGenNumenorRuin(false), 500);
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	@Override

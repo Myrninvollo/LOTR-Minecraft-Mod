@@ -12,11 +12,20 @@ import java.util.UUID;
 
 import lotr.common.LOTRCapes.CapeType;
 import lotr.common.entity.LOTREntities;
+import lotr.common.entity.LOTRMountFunctions;
 import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.item.LOTREntityBanner;
-import lotr.common.entity.npc.*;
+import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.entity.npc.LOTRHiredNPCInfo.Task;
-import lotr.common.inventory.*;
+import lotr.common.entity.npc.LOTRNPCMount;
+import lotr.common.entity.npc.LOTRTradeEntry;
+import lotr.common.entity.npc.LOTRTradeable;
+import lotr.common.entity.npc.LOTRUnitTradeEntry;
+import lotr.common.entity.npc.LOTRUnitTradeable;
+import lotr.common.inventory.LOTRContainerBarrel;
+import lotr.common.inventory.LOTRContainerPouch;
+import lotr.common.inventory.LOTRContainerTrade;
+import lotr.common.inventory.LOTRContainerUnitTrade;
 import lotr.common.tileentity.LOTRTileEntityMobSpawner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -235,12 +244,12 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 								if (hiredMount != null)
 								{
 									hiredNPC.mountEntity(hiredMount);
-									if (hiredMount instanceof LOTRNPCMount)
+									if (hiredMount instanceof LOTRNPCMount && !(hiredMount instanceof LOTREntityNPC))
 									{
 										hiredNPC.setRidingHorse(true);
 										LOTRNPCMount hiredHorse = (LOTRNPCMount)hiredMount;
 										hiredHorse.setBelongsToNPC(true);
-										hiredHorse.setNavigatorRangeFrom(hiredNPC);
+										LOTRMountFunctions.setNavigatorRangeFromNPC(hiredHorse, hiredNPC);
 									}
 								}
 								

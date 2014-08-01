@@ -2,15 +2,18 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
+import lotr.common.LOTRFaction;
 import lotr.common.entity.npc.LOTREntityUrukHai;
 import lotr.common.entity.npc.LOTREntityUrukHaiBerserker;
 import lotr.common.entity.npc.LOTREntityUrukHaiCrossbower;
 import lotr.common.entity.npc.LOTREntityUrukWarg;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBlastedLand;
 import lotr.common.world.feature.LOTRWorldGenCharredTrees;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.feature.LOTRWorldGenFangornTrees;
-import lotr.common.world.feature.LOTRWorldGenLogs;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
@@ -36,6 +39,11 @@ public class LOTRBiomeGenFangornWasteland extends LOTRBiome
 		decorator.grassPerChunk = 3;
 		decorator.doubleGrassPerChunk = 3;
 		decorator.enableFern = true;
+		
+		setBanditChance(LOTRBanditSpawner.UNCOMMON);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.URUK_HAI, LOTRInvasionSpawner.UNCOMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.ROHAN, LOTRInvasionSpawner.UNCOMMON));
 	}
 	
 	@Override

@@ -3,11 +3,15 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.animal.LOTREntityRabbit;
 import lotr.common.entity.npc.LOTREntityGundabadWarg;
 import lotr.common.entity.npc.LOTREntityTroll;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBigTrees;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenLarch;
@@ -50,6 +54,12 @@ public class LOTRBiomeGenColdfells extends LOTRBiome
 		decorator.generateTrollHoard = true;
 		
 		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 500);
+		
+		setBanditChance(LOTRBanditSpawner.UNCOMMON);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.RANGER_NORTH, LOTRInvasionSpawner.UNCOMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.UNCOMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.ANGMAR, LOTRInvasionSpawner.UNCOMMON));
 	}
 	
 	@Override

@@ -3,6 +3,7 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.npc.LOTREntityBlueDwarf;
@@ -10,6 +11,9 @@ import lotr.common.entity.npc.LOTREntityBlueDwarfAxeThrower;
 import lotr.common.entity.npc.LOTREntityBlueDwarfMiner;
 import lotr.common.entity.npc.LOTREntityBlueDwarfWarrior;
 import lotr.common.entity.npc.LOTREntityElvenTrader;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.structure.LOTRWorldGenBlueMountainsHouse;
 import lotr.common.world.structure.LOTRWorldGenBlueMountainsStronghold;
 import net.minecraft.init.Blocks;
@@ -55,6 +59,10 @@ public class LOTRBiomeGenBlueMountains extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenBlueMountainsStronghold(false), 500);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
+		
+		setBanditChance(LOTRBanditSpawner.RARE);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.UNCOMMON));
 	}
 	
 	@Override

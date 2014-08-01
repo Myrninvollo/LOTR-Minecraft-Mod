@@ -5,6 +5,7 @@ import lotr.common.LOTRCommonProxy;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
 import lotr.common.entity.LOTREntities;
+import lotr.common.entity.LOTRMountFunctions;
 import lotr.common.entity.ai.LOTREntityAIHiredHorseRemainStill;
 import lotr.common.entity.ai.LOTREntityAIHorseFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHorseMoveToRiderTarget;
@@ -13,7 +14,6 @@ import lotr.common.entity.npc.LOTRNPCMount;
 import lotr.common.world.biome.LOTRBiomeGenNearHarad.ImmuneToHeat;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFollowParent;
@@ -26,18 +26,15 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.AnimalChest;
-import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.inventory.IInvBasic;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -74,6 +71,7 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
 		dataWatcher.addObject(18, Byte.valueOf((byte)0));
 	}
 	
+	@Override
 	public boolean getSaddled()
     {
 		if (getBelongsToNPC())
@@ -119,13 +117,6 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
 	}
 	
 	@Override
-	public void setNavigatorRangeFrom(LOTREntityNPC npc)
-	{
-		double d = npc.getEntityAttribute(SharedMonsterAttributes.followRange).getAttributeValue();
-		getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(d);
-	}
-	
-	@Override
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
@@ -156,35 +147,13 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
 	{
 		super.onLivingUpdate();
 		
+		LOTRMountFunctions.update(this);
+		
         if (!worldObj.isRemote)
         {
-            if (rand.nextInt(900) == 0 && isEntityAlive())
-            {
-                heal(1F);
-            }
-
-			if (getAttackTarget() != null)
+        	if (riddenByEntity instanceof EntityPlayer && getSaddled())
 			{
-				EntityLivingBase entity = getAttackTarget();
-				if (!entity.isEntityAlive() || (entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.isCreativeMode))
-				{
-					setAttackTarget(null);
-				}
-			}
-			
-			if (riddenByEntity instanceof EntityLiving)
-			{
-				EntityLivingBase target = ((EntityLiving)riddenByEntity).getAttackTarget();
-				setAttackTarget(target);
-			}
-			else if (riddenByEntity instanceof EntityPlayer)
-			{
-				setAttackTarget(null);
-				
-				if (getSaddled())
-				{
-					LOTRLevelData.addAchievement((EntityPlayer)riddenByEntity, LOTRAchievement.rideCamel);
-				}
+				LOTRLevelData.addAchievement((EntityPlayer)riddenByEntity, LOTRAchievement.rideCamel);
 			}
 		}
 	}
@@ -246,46 +215,36 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
 	{
 		ItemStack itemstack = entityplayer.inventory.getCurrentItem();
 		
-		if (getBelongsToNPC())
+		if (LOTRMountFunctions.interact(this, entityplayer))
 		{
-			if (riddenByEntity == null)
-			{
-				if (!worldObj.isRemote)
-				{
-					entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.mountOwnedByNPC"));
-				}
-				return true;
-			}
-			return false;
+			return true;
 		}
-		else
-		{
-			if (!isChild() && entityplayer.isSneaking())
-	        {
-	            openGUI(entityplayer);
-	            return true;
-	        }
-			else if (super.interact(entityplayer))
-	        {
-	            return true;
-	        }
-			else if (!isChild() && !hasChest() && itemstack != null && itemstack.getItem() == Item.getItemFromBlock(Blocks.chest))
-            {
-                setHasChest(true);
-                playSound("mob.horse.leather", 0.5F, 1F);
-                setupInventory();
-               	return true;
-            }
-	        else if (!isChild() && !worldObj.isRemote && (riddenByEntity == null || riddenByEntity == entityplayer))
-	        {
-	            entityplayer.mountEntity(this);
-	            return true;
-	        }
-	        else
-	        {
-	            return false;
-	        }
-		}
+		
+		if (!isChild() && entityplayer.isSneaking())
+        {
+            openGUI(entityplayer);
+            return true;
+        }
+		else if (super.interact(entityplayer))
+        {
+            return true;
+        }
+		else if (!isChild() && !hasChest() && itemstack != null && itemstack.getItem() == Item.getItemFromBlock(Blocks.chest))
+        {
+            setHasChest(true);
+            playSound("mob.horse.leather", 0.5F, 1F);
+            setupInventory();
+           	return true;
+        }
+        else if (!isChild() && !worldObj.isRemote && (riddenByEntity == null || riddenByEntity == entityplayer))
+        {
+            entityplayer.mountEntity(this);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 	}
 	
 	public void openGUI(EntityPlayer entityplayer)
@@ -358,61 +317,16 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
     }
 	
 	@Override
-    public void moveEntityWithHeading(float f, float f1)
+    public void moveEntityWithHeading(float strafe, float forward)
     {
-        if (riddenByEntity != null && riddenByEntity instanceof EntityPlayer && getSaddled())
-        {
-            prevRotationYaw = rotationYaw = riddenByEntity.rotationYaw;
-            rotationPitch = riddenByEntity.rotationPitch * 0.5F;
-            setRotation(rotationYaw, rotationPitch);
-            rotationYawHead = renderYawOffset = rotationYaw;
-            f = ((EntityLivingBase)riddenByEntity).moveStrafing * 0.5F;
-            f1 = ((EntityLivingBase)riddenByEntity).moveForward;
-
-            if (f1 <= 0F)
-            {
-                f1 *= 0.25F;
-            }
-
-            stepHeight = 1F;
-            jumpMovementFactor = getAIMoveSpeed() * 0.1F;
-
-            if (!worldObj.isRemote)
-            {
-                setAIMoveSpeed((float)getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
-                super.moveEntityWithHeading(f, f1);
-            }
-
-            prevLimbSwingAmount = limbSwingAmount;
-            double d0 = posX - prevPosX;
-            double d1 = posZ - prevPosZ;
-            float f4 = MathHelper.sqrt_double(d0 * d0 + d1 * d1) * 4F;
-
-            if (f4 > 1F)
-            {
-                f4 = 1F;
-            }
-
-            limbSwingAmount += (f4 - limbSwingAmount) * 0.4F;
-            limbSwing += limbSwingAmount;
-        }
-        else
-        {
-            stepHeight = 0.5F;
-            jumpMovementFactor = 0.02F;
-            super.moveEntityWithHeading(f, f1);
-        }
+		LOTRMountFunctions.move(this, strafe, forward);
     }
 	
 	@Override
-	public boolean attackEntityFrom(DamageSource damagesource, float f)
-	{
-		if (riddenByEntity != null && damagesource.getEntity() == riddenByEntity)
-		{
-			return false;
-		}
-		return super.attackEntityFrom(damagesource, f);
-	}
+    public void super_moveEntityWithHeading(float strafe, float forward)
+    {
+		super.moveEntityWithHeading(strafe, forward);
+    }
 	
 	@Override
 	public void onDeath(DamageSource damagesource)

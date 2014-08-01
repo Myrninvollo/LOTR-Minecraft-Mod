@@ -73,7 +73,7 @@ public class LOTREntityUrukHaiBerserker extends LOTREntityUrukHai
     {
         if (b == 15)
         {
-            worldObj.spawnParticle("smoke", posX + (rand.nextDouble() - 0.5D) * (double)width, posY + rand.nextDouble() * (double)height, posZ + (rand.nextDouble() - 0.5D) * (double)width, 0.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle("smoke", posX + (rand.nextDouble() - 0.5D) * (double)width, posY + rand.nextDouble() * (double)height, posZ + (rand.nextDouble() - 0.5D) * (double)width, 0D, 0D, 0D);
         }
         else
         {

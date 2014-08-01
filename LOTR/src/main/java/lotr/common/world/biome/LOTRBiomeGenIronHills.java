@@ -3,6 +3,7 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityWildBoar;
@@ -11,6 +12,9 @@ import lotr.common.entity.npc.LOTREntityDwarf;
 import lotr.common.entity.npc.LOTREntityDwarfAxeThrower;
 import lotr.common.entity.npc.LOTREntityDwarfMiner;
 import lotr.common.entity.npc.LOTREntityDwarfWarrior;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.structure.LOTRWorldGenDwarfHouse;
 import lotr.common.world.structure.LOTRWorldGenDwarvenTower;
 import net.minecraft.init.Blocks;
@@ -54,6 +58,10 @@ public class LOTRBiomeGenIronHills extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenDwarvenTower(false), 300);
 		
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
+		
+		setBanditChance(LOTRBanditSpawner.RARE);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.UNCOMMON));
 	}
 	
 	@Override

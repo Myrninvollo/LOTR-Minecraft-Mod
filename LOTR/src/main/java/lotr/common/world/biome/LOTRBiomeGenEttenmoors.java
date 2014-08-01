@@ -3,21 +3,22 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.npc.LOTREntityAngmarOrc;
 import lotr.common.entity.npc.LOTREntityAngmarOrcArcher;
-import lotr.common.entity.npc.LOTREntityAngmarOrcBombardier;
-import lotr.common.entity.npc.LOTREntityAngmarOrcWarrior;
 import lotr.common.entity.npc.LOTREntityAngmarWarg;
 import lotr.common.entity.npc.LOTREntityGundabadWarg;
 import lotr.common.entity.npc.LOTREntityMountainTroll;
 import lotr.common.entity.npc.LOTREntityTroll;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenMegaPineTree;
 import net.minecraft.world.gen.feature.WorldGenTaiga1;
@@ -54,6 +55,12 @@ public class LOTRBiomeGenEttenmoors extends LOTRBiome
 		decorator.generateTrollHoard = true;
 		
 		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 500);
+		
+		setBanditChance(LOTRBanditSpawner.UNCOMMON);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.RANGER_NORTH, LOTRInvasionSpawner.UNCOMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.COMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.ANGMAR, LOTRInvasionSpawner.COMMON));
 	}
 	
 	@Override

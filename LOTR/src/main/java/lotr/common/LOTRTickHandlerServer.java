@@ -3,7 +3,6 @@ package lotr.common;
 import io.netty.buffer.Unpooled;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -12,9 +11,39 @@ import java.util.Set;
 import lotr.common.block.LOTRBlockCraftingTable;
 import lotr.common.block.LOTRBlockPortal;
 import lotr.common.entity.item.LOTREntityPortal;
-import lotr.common.entity.npc.*;
+import lotr.common.entity.npc.LOTREntityBlueDwarf;
+import lotr.common.entity.npc.LOTREntityBlueDwarfAxeThrower;
+import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
+import lotr.common.entity.npc.LOTREntityBlueDwarfWarrior;
+import lotr.common.entity.npc.LOTREntityDunlending;
+import lotr.common.entity.npc.LOTREntityDunlendingArcher;
+import lotr.common.entity.npc.LOTREntityDunlendingWarrior;
+import lotr.common.entity.npc.LOTREntityDwarf;
+import lotr.common.entity.npc.LOTREntityDwarfAxeThrower;
+import lotr.common.entity.npc.LOTREntityDwarfWarrior;
+import lotr.common.entity.npc.LOTREntityElvenTrader;
+import lotr.common.entity.npc.LOTREntityGondorArcher;
+import lotr.common.entity.npc.LOTREntityGondorSoldier;
+import lotr.common.entity.npc.LOTREntityGundabadOrc;
+import lotr.common.entity.npc.LOTREntityGundabadOrcArcher;
+import lotr.common.entity.npc.LOTREntityMordorOrc;
+import lotr.common.entity.npc.LOTREntityNearHaradrim;
+import lotr.common.entity.npc.LOTREntityNearHaradrimArcher;
+import lotr.common.entity.npc.LOTREntityNearHaradrimWarrior;
+import lotr.common.entity.npc.LOTREntityNurnSlave;
+import lotr.common.entity.npc.LOTREntityRanger;
+import lotr.common.entity.npc.LOTREntityRangerNorth;
+import lotr.common.entity.npc.LOTREntityRohirrim;
+import lotr.common.entity.npc.LOTREntityRohirrimArcher;
+import lotr.common.entity.npc.LOTREntityUrukHai;
+import lotr.common.entity.npc.LOTREntityUrukHaiCrossbower;
+import lotr.common.entity.npc.LOTREntityWoodElf;
+import lotr.common.entity.npc.LOTREntityWoodElfScout;
+import lotr.common.entity.npc.LOTREntityWoodElfWarrior;
 import lotr.common.item.LOTRItemStructureSpawner;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.LOTRDerivedWorldInfo;
+import lotr.common.world.LOTRInvasionSpawner;
 import lotr.common.world.LOTRSpawnerNPCs;
 import lotr.common.world.LOTRStructureSpawningInfo;
 import lotr.common.world.LOTRTeleporter;
@@ -44,7 +73,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -138,6 +166,10 @@ public class LOTRTickHandlerServer
 					LOTRTravellingTraderSpawner obj = (LOTRTravellingTraderSpawner)travellingTraders.get(i);
 					obj.performSpawning(world);
 				}
+				
+				LOTRBanditSpawner.performSpawning(world);
+				
+				LOTRInvasionSpawner.performSpawning(world);
 				
 				if (LOTRMod.isNewYearsDay())
 				{

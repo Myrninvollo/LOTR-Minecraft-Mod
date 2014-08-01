@@ -2,6 +2,8 @@ package lotr.common.entity.animal;
 
 import lotr.common.LOTRMod;
 import lotr.common.entity.LOTREntities;
+import lotr.common.entity.LOTRMountFunctions;
+import lotr.common.entity.npc.LOTRNPCMount;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.entity.EntityAgeable;
@@ -27,7 +29,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-public class LOTREntityGiraffe extends EntityAnimal
+public class LOTREntityGiraffe extends EntityAnimal implements LOTRNPCMount
 {
     public LOTREntityGiraffe(World world)
     {
@@ -49,7 +51,7 @@ public class LOTREntityGiraffe extends EntityAnimal
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25D);
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
     }
 	
@@ -59,6 +61,15 @@ public class LOTREntityGiraffe extends EntityAnimal
         super.entityInit();
 		dataWatcher.addObject(16, Byte.valueOf((byte)0));
     }
+	
+	@Override
+	public boolean getBelongsToNPC()
+	{
+		return false;
+	}
+	
+	@Override
+	public void setBelongsToNPC(boolean flag) {}
 	
 	@Override
     public void writeEntityToNBT(NBTTagCompound nbt)
@@ -99,50 +110,15 @@ public class LOTREntityGiraffe extends EntityAnimal
     }
 	
 	@Override
-    public void moveEntityWithHeading(float f, float f1)
+    public void moveEntityWithHeading(float strafe, float forward)
     {
-        if (riddenByEntity != null && riddenByEntity instanceof EntityPlayer && getSaddled())
-        {
-            prevRotationYaw = rotationYaw = riddenByEntity.rotationYaw;
-            rotationPitch = riddenByEntity.rotationPitch * 0.5F;
-            setRotation(rotationYaw, rotationPitch);
-            rotationYawHead = renderYawOffset = rotationYaw;
-            f = ((EntityLivingBase)riddenByEntity).moveStrafing * 0.5F;
-            f1 = ((EntityLivingBase)riddenByEntity).moveForward;
-
-            if (f1 <= 0F)
-            {
-                f1 *= 0.25F;
-            }
-
-            stepHeight = 1F;
-            jumpMovementFactor = getAIMoveSpeed() * 0.1F;
-
-            if (!worldObj.isRemote)
-            {
-                setAIMoveSpeed((float)getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
-                super.moveEntityWithHeading(f, f1);
-            }
-
-            prevLimbSwingAmount = limbSwingAmount;
-            double d0 = posX - prevPosX;
-            double d1 = posZ - prevPosZ;
-            float f4 = MathHelper.sqrt_double(d0 * d0 + d1 * d1) * 4F;
-
-            if (f4 > 1F)
-            {
-                f4 = 1F;
-            }
-
-            limbSwingAmount += (f4 - limbSwingAmount) * 0.4F;
-            limbSwing += limbSwingAmount;
-        }
-        else
-        {
-            stepHeight = 0.5F;
-            jumpMovementFactor = 0.02F;
-            super.moveEntityWithHeading(f, f1);
-        }
+		LOTRMountFunctions.move(this, strafe, forward);
+    }
+	
+	@Override
+    public void super_moveEntityWithHeading(float strafe, float forward)
+    {
+		super.moveEntityWithHeading(strafe, forward);
     }
 	
 	@Override
@@ -150,23 +126,7 @@ public class LOTREntityGiraffe extends EntityAnimal
 	{
 		super.onLivingUpdate();
 		
-        if (!worldObj.isRemote)
-        {
-            if (rand.nextInt(900) == 0 && isEntityAlive())
-            {
-                heal(1F);
-            }
-        }
-	}
-	
-	@Override
-	public boolean attackEntityFrom(DamageSource damagesource, float f)
-	{
-		if (riddenByEntity != null && damagesource.getEntity() == riddenByEntity)
-		{
-			return false;
-		}
-		return super.attackEntityFrom(damagesource, f);
+		LOTRMountFunctions.update(this);
 	}
 	
 	@Override
@@ -182,6 +142,12 @@ public class LOTREntityGiraffe extends EntityAnimal
         {
             return true;
         }
+        
+        if (LOTRMountFunctions.interact(this, entityplayer))
+		{
+			return true;
+		}
+        
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
         if (!isChild() && !getSaddled() && riddenByEntity == null && itemstack != null && itemstack.getItem() == Items.saddle)
 		{
@@ -204,6 +170,7 @@ public class LOTREntityGiraffe extends EntityAnimal
         }
     }
 	
+	@Override
     public boolean getSaddled()
     {
         return (dataWatcher.getWatchableObjectByte(16) & 1) != 0;

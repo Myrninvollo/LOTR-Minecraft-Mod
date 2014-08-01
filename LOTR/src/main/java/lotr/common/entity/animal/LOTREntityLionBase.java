@@ -71,7 +71,7 @@ public abstract class LOTREntityLionBase extends EntityAnimal
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(18D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(30D);
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2F);
         getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4D);
     }
@@ -177,29 +177,33 @@ public abstract class LOTREntityLionBase extends EntityAnimal
 	@Override
     public boolean attackEntityFrom(DamageSource damagesource, float f)
     {
-		Entity attacker = damagesource.getEntity();
-		if (isChild())
+		boolean flag = super.attackEntityFrom(damagesource, f);
+		if (flag)
 		{
-			fleeingTick = 60;
-			List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(12D, 12D, 12D));
-            for (int j = 0; j < list.size(); j++)
-            {
-				Entity entity = (Entity)list.get(j);
-				if (entity instanceof LOTREntityLionBase)
-				{
-					LOTREntityLionBase lion = (LOTREntityLionBase)entity;
-					if (!lion.isChild() && attacker != null && attacker instanceof EntityLivingBase)
+			Entity attacker = damagesource.getEntity();
+			if (isChild())
+			{
+				fleeingTick = 60;
+				List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(12D, 12D, 12D));
+	            for (int j = 0; j < list.size(); j++)
+	            {
+					Entity entity = (Entity)list.get(j);
+					if (entity instanceof LOTREntityLionBase)
 					{
-						lion.becomeAngryAt((EntityLivingBase)attacker);
+						LOTREntityLionBase lion = (LOTREntityLionBase)entity;
+						if (!lion.isChild() && attacker != null && attacker instanceof EntityLivingBase)
+						{
+							lion.becomeAngryAt((EntityLivingBase)attacker);
+						}
 					}
 				}
 			}
+			else if (attacker != null && attacker instanceof EntityLivingBase)
+			{
+				becomeAngryAt((EntityLivingBase)attacker);
+			}
 		}
-		else if (attacker != null && attacker instanceof EntityLivingBase)
-		{
-			becomeAngryAt((EntityLivingBase)attacker);
-		}
-        return super.attackEntityFrom(damagesource, f);
+        return flag;
     }
 	
 	private void becomeAngryAt(EntityLivingBase entity)

@@ -1,6 +1,5 @@
 package lotr.common.world.biome;
 
-
 public class LOTRBiomeGenLothlorienClearing extends LOTRBiomeGenLothlorien
 {
 	public LOTRBiomeGenLothlorienClearing(int i)

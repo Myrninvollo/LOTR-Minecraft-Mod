@@ -6,6 +6,7 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.animal.LOTREntityDesertScorpion;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.structure.LOTRWorldGenHaradObelisk;
@@ -50,6 +51,8 @@ public class LOTRBiomeGenNearHarad extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenHaradObelisk(false), 3000);
 		decorator.addRandomStructure(new LOTRWorldGenNearHaradFortress(false), 3000);
 		decorator.addRandomStructure(new LOTRWorldGenNearHaradDesertCamp(false), 3000);
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	@Override

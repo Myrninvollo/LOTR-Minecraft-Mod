@@ -6,6 +6,7 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenLarch;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -34,6 +35,8 @@ public class LOTRBiomeGenRedMountains extends LOTRBiome
 		registerMountainsFlowers();
 		
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
+		
+		setBanditChance(LOTRBanditSpawner.RARE);
 	}
 	
 	@Override

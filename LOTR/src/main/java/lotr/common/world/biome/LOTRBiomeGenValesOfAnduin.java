@@ -3,11 +3,15 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
 import lotr.common.entity.npc.LOTREntityElvenTrader;
 import lotr.common.entity.npc.LOTREntityGundabadWarg;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenLarch;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
@@ -49,6 +53,10 @@ public class LOTRBiomeGenValesOfAnduin extends LOTRBiome
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
+		
+		setBanditChance(LOTRBanditSpawner.UNCOMMON);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

@@ -3,6 +3,7 @@ package lotr.common.entity.animal;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRReflection;
 import lotr.common.entity.LOTREntities;
+import lotr.common.entity.LOTRMountFunctions;
 import lotr.common.entity.ai.LOTREntityAIHiredHorseRemainStill;
 import lotr.common.entity.ai.LOTREntityAIHorseFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHorseMoveToRiderTarget;
@@ -124,10 +125,10 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		dataWatcher.updateObject(26, Byte.valueOf(flag ? (byte)1 : (byte)0));
 	}
 	
-	public void setNavigatorRangeFrom(LOTREntityNPC npc)
+	@Override
+	public boolean getSaddled()
 	{
-		double d = npc.getEntityAttribute(SharedMonsterAttributes.followRange).getAttributeValue();
-		getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(d);
+		return isHorseSaddled();
 	}
 	
 	@Override
@@ -167,6 +168,12 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		super.moveEntityWithHeading(f, f1);
 		isMoving = false;
 	}
+
+	@Override
+    public void super_moveEntityWithHeading(float strafe, float forward)
+    {
+		super.moveEntityWithHeading(strafe, forward);
+    }
 	
 	@Override
 	public float getBlockPathWeight(int i, int j, int k)
@@ -243,16 +250,6 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		{
 			setMountable(nbt.getBoolean("Mountable"));
 		}
-	}
-	
-	@Override
-	public boolean attackEntityFrom(DamageSource damagesource, float f)
-	{
-		if (riddenByEntity != null && damagesource.getEntity() == riddenByEntity)
-		{
-			return false;
-		}
-		return super.attackEntityFrom(damagesource, f);
 	}
 	
 	@Override

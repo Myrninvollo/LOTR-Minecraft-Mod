@@ -1,6 +1,5 @@
 package lotr.common.world.biome;
 
-
 import lotr.common.entity.npc.LOTREntityEnt;
 
 public class LOTRBiomeGenFangornClearing extends LOTRBiomeGenFangorn

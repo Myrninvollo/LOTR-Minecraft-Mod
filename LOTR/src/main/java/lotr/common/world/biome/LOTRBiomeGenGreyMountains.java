@@ -3,8 +3,12 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.npc.LOTREntityGundabadWarg;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenLarch;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -29,6 +33,11 @@ public class LOTRBiomeGenGreyMountains extends LOTRBiome
 		registerMountainsFlowers();
 		
 		decorator.generateOrcDungeon = true;
+		
+		setBanditChance(LOTRBanditSpawner.RARE);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.RARE));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.DWARF, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

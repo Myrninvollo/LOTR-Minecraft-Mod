@@ -4,6 +4,7 @@ import lotr.common.LOTRAchievement;
 import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.animal.LOTREntityButterfly;
 import lotr.common.entity.animal.LOTREntityRabbit;
+import lotr.common.world.LOTRBanditSpawner;
 import net.minecraft.entity.passive.EntityWolf;
 
 public class LOTRBiomeGenChetwood extends LOTRBiomeGenBreeland
@@ -25,6 +26,8 @@ public class LOTRBiomeGenChetwood extends LOTRBiomeGenBreeland
 		decorator.doubleGrassPerChunk = 1;
 		
 		registerForestFlowers();
+		
+		setBanditChance(LOTRBanditSpawner.UNCOMMON);
 	}
 	
 	@Override

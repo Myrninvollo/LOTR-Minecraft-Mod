@@ -4,6 +4,7 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
+import lotr.common.entity.LOTRMountFunctions;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
@@ -32,7 +33,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public abstract class LOTREntityWarg extends LOTREntityNPC
+public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMount
 {
 	private int eatingTick;
 	
@@ -99,6 +100,7 @@ public abstract class LOTREntityWarg extends LOTREntityNPC
         getEntityAttribute(npcAttackDamage).setBaseValue(3D + (double)rand.nextInt(3));
     }
 	
+	@Override
     public boolean getSaddled()
     {
         return (dataWatcher.getWatchableObjectByte(17) & 1) != 0;
@@ -177,50 +179,24 @@ public abstract class LOTREntityWarg extends LOTREntityNPC
     }
 	
 	@Override
-    public void moveEntityWithHeading(float f, float f1)
+	public boolean getBelongsToNPC()
+	{
+		return false;
+	}
+	
+	@Override
+	public void setBelongsToNPC(boolean flag) {}
+	
+	@Override
+    public void moveEntityWithHeading(float strafe, float forward)
     {
-        if (riddenByEntity != null && riddenByEntity instanceof EntityPlayer && canWargBeRidden() && getSaddled())
-        {
-            prevRotationYaw = rotationYaw = riddenByEntity.rotationYaw;
-            rotationPitch = riddenByEntity.rotationPitch * 0.5F;
-            setRotation(rotationYaw, rotationPitch);
-            rotationYawHead = renderYawOffset = rotationYaw;
-            f = ((EntityLivingBase)riddenByEntity).moveStrafing * 0.5F;
-            f1 = ((EntityLivingBase)riddenByEntity).moveForward;
-
-            if (f1 <= 0F)
-            {
-                f1 *= 0.25F;
-            }
-
-            stepHeight = 1F;
-            jumpMovementFactor = getAIMoveSpeed() * 0.1F;
-
-            if (!worldObj.isRemote)
-            {
-                setAIMoveSpeed((float)getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
-                super.moveEntityWithHeading(f, f1);
-            }
-
-            prevLimbSwingAmount = limbSwingAmount;
-            double d0 = posX - prevPosX;
-            double d1 = posZ - prevPosZ;
-            float f4 = MathHelper.sqrt_double(d0 * d0 + d1 * d1) * 4F;
-
-            if (f4 > 1F)
-            {
-                f4 = 1F;
-            }
-
-            limbSwingAmount += (f4 - limbSwingAmount) * 0.4F;
-            limbSwing += limbSwingAmount;
-        }
-        else
-        {
-            stepHeight = 0.5F;
-            jumpMovementFactor = 0.02F;
-            super.moveEntityWithHeading(f, f1);
-        }
+		LOTRMountFunctions.move(this, strafe, forward);
+    }
+	
+	@Override
+    public void super_moveEntityWithHeading(float strafe, float forward)
+    {
+		super.moveEntityWithHeading(strafe, forward);
     }
 	
 	@Override
@@ -244,13 +220,10 @@ public abstract class LOTREntityWarg extends LOTREntityNPC
 	{
 		super.onLivingUpdate();
 		
+		LOTRMountFunctions.update(this);
+		
         if (!worldObj.isRemote)
         {
-            if (rand.nextInt(900) == 0 && isEntityAlive())
-            {
-                heal(1F);
-            }
-		
 			if (riddenByEntity instanceof EntityPlayer && LOTRLevelData.getAlignment((EntityPlayer)riddenByEntity, getFaction()) < LOTRAlignmentValues.WARG_RIDE)
 			{
 				riddenByEntity.mountEntity(null);
@@ -279,6 +252,11 @@ public abstract class LOTREntityWarg extends LOTREntityNPC
 		if (worldObj.isRemote || hiredNPCInfo.isActive)
 		{
 			return false;
+		}
+		
+		if (LOTRMountFunctions.interact(this, entityplayer))
+		{
+			return true;
 		}
 		
 		if (getAttackTarget() != entityplayer)

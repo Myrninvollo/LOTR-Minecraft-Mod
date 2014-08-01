@@ -18,6 +18,6 @@ public class LOTRNPCTargetSelector implements IEntitySelector
 	@Override
 	public boolean isEntityApplicable(Entity entity)
 	{
-		return LOTRMod.getNPCFaction(entity).isEnemy(ownerFaction) && entity.isEntityAlive();
+		return entity.isEntityAlive() && LOTRMod.getNPCFaction(entity).isEnemy(ownerFaction);
 	}
 }

@@ -10,6 +10,7 @@ import lotr.common.entity.npc.LOTREntityUrukHai;
 import lotr.common.entity.npc.LOTREntityUrukHaiBerserker;
 import lotr.common.entity.npc.LOTREntityUrukHaiCrossbower;
 import lotr.common.entity.npc.LOTREntityUrukWarg;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenLarch;
 import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import net.minecraft.world.World;
@@ -48,6 +49,8 @@ public class LOTRBiomeGenMistyMountains extends LOTRBiome
 		decorator.generateOrcDungeon = true;
 		
 		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 4), 2000);
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	@Override

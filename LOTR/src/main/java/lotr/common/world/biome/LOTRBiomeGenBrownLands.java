@@ -3,7 +3,11 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.structure.LOTRWorldGenStoneRuin;
@@ -34,6 +38,10 @@ public class LOTRBiomeGenBrownLands extends LOTRBiome
 		decorator.grassPerChunk = 1;
 		
 		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 3), 2000);
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.MORDOR, LOTRInvasionSpawner.UNCOMMON));
 	}
 	
 	@Override

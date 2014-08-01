@@ -67,12 +67,13 @@ public class LOTREntityAILionChase extends EntityAIBase
     @Override
     public void startExecuting()
     {
-    	chaseTimer = 200 + theLion.getRNG().nextInt(400);
+    	chaseTimer = 300 + theLion.getRNG().nextInt(400);
     }
     
     @Override
     public void updateTask()
     {
+    	chaseTimer--;
     	theLion.getLookHelper().setLookPositionWithEntity(targetEntity, 30F, 30F);
     	
     	lionRePathDelay--;

@@ -3,10 +3,14 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.npc.LOTREntityNearHaradrimArcher;
 import lotr.common.entity.npc.LOTREntityNearHaradrimWarrior;
 import lotr.common.entity.npc.LOTREntityRangerIthilien;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenDesertTrees;
 import lotr.common.world.structure.LOTRWorldGenHaradObelisk;
@@ -46,6 +50,11 @@ public class LOTRBiomeGenHarondor extends LOTRBiome
 		
 		decorator.addRandomStructure(new LOTRWorldGenHaradObelisk(false), 1000);
 		decorator.addRandomStructure(new LOTRWorldGenNearHaradDesertCamp(false), 1200);
+		
+		setBanditChance(LOTRBanditSpawner.UNCOMMON);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GONDOR, LOTRInvasionSpawner.COMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.NEAR_HARAD, LOTRInvasionSpawner.COMMON));
 	}
 	
 	@Override

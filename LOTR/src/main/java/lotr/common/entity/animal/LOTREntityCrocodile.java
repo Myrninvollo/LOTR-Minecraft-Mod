@@ -53,7 +53,7 @@ public class LOTREntityCrocodile extends EntityMob
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(18D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20D);
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2D);
 		getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4D);
     }

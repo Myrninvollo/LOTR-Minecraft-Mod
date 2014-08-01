@@ -3,6 +3,7 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.entity.animal.LOTREntityFlamingo;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenBanana;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -15,6 +16,8 @@ public class LOTRBiomeGenFarHaradRiver extends LOTRBiomeGenFarHarad
 		
 		spawnableCreatureList.clear();
 		spawnableCreatureList.add(new SpawnListEntry(LOTREntityFlamingo.class, 10, 4, 4));
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	@Override

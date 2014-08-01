@@ -3,13 +3,16 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
-import lotr.common.entity.npc.LOTREntityDunlending;
 import lotr.common.entity.npc.LOTREntityDunlendingArcher;
 import lotr.common.entity.npc.LOTREntityDunlendingWarrior;
 import lotr.common.entity.npc.LOTREntityElvenTrader;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.structure.LOTRWorldGenGondorObelisk;
 import lotr.common.world.structure.LOTRWorldGenGondorRuin;
@@ -17,7 +20,6 @@ import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import lotr.common.world.structure2.LOTRWorldGenRuinedHouse;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenTaiga2;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -50,6 +52,12 @@ public class LOTRBiomeGenEnedwaith extends LOTRBiome
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
+		
+		setBanditChance(LOTRBanditSpawner.COMMON);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.RANGER_NORTH, LOTRInvasionSpawner.RARE));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.RARE));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.DUNLAND, LOTRInvasionSpawner.UNCOMMON));
 	}
 	
 	@Override

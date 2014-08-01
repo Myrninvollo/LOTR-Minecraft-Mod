@@ -1,5 +1,8 @@
 package lotr.common.entity.npc;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import lotr.common.LOTRMod;
@@ -85,13 +88,10 @@ public class LOTRTradeEntry
 		
 		LOTRTradeEntry[] tempTrades = new LOTRTradeEntry[tradePool.length];
 		System.arraycopy(tradePool, 0, tempTrades, 0, tradePool.length);
-		for	(int i = tempTrades.length - 1; i > 0; i--)
-		{
-			int rand = (int)(random.nextDouble() * i);
-			LOTRTradeEntry tempTrade = tempTrades[i];
-			tempTrades[i] = tempTrades[rand];
-			tempTrades[rand] = tempTrade;
-		}
+		
+		List<LOTRTradeEntry> tempTradesAsList = Arrays.asList(tempTrades);
+		Collections.shuffle(tempTradesAsList);
+		tempTrades = tempTradesAsList.toArray(tempTrades);
 		
 		LOTRTradeEntry[] trades = new LOTRTradeEntry[numberTrades];
 		for (int i = 0; i < trades.length; i++)

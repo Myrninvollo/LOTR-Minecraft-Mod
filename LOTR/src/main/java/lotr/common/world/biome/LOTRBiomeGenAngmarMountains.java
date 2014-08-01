@@ -1,6 +1,5 @@
 package lotr.common.world.biome;
 
-
 public class LOTRBiomeGenAngmarMountains extends LOTRBiomeGenAngmar
 {
 	public LOTRBiomeGenAngmarMountains(int i)

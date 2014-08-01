@@ -3,12 +3,16 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityCrebain;
 import lotr.common.entity.animal.LOTREntityRabbit;
 import lotr.common.entity.npc.LOTREntityDunlending;
 import lotr.common.entity.npc.LOTREntityDunlendingArcher;
 import lotr.common.entity.npc.LOTREntityDunlendingWarrior;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.structure.LOTRWorldGenDunlandHillFort;
 import lotr.common.world.structure.LOTRWorldGenDunlendingCampfire;
@@ -53,6 +57,11 @@ public class LOTRBiomeGenDunland extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenDunlendingCampfire(false), 100);
 		decorator.addRandomStructure(new LOTRWorldGenDunlandHillFort(false), 600);
 		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 3), 1500);
+		
+		setBanditChance(LOTRBanditSpawner.COMMON);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.ROHAN, LOTRInvasionSpawner.UNCOMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

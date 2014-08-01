@@ -1,6 +1,5 @@
 package lotr.common.world.biome;
 
-
 public class LOTRBiomeGenIthilienHills extends LOTRBiomeGenIthilien
 {
 	public LOTRBiomeGenIthilienHills(int i)

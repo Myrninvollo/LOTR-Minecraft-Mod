@@ -3,8 +3,12 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.npc.LOTREntityDarkHuorn;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
 import net.minecraft.world.gen.feature.WorldGenCanopyTree;
@@ -30,6 +34,8 @@ public class LOTRBiomeGenOldForest extends LOTRBiome
 		decorator.mushroomsPerChunk = 2;
 		
 		registerForestFlowers();
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	@Override

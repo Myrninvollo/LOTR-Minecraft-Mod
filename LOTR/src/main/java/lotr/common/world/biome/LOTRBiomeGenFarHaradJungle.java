@@ -4,6 +4,7 @@ import java.util.Random;
 
 import lotr.common.entity.animal.LOTREntityFlamingo;
 import lotr.common.entity.animal.LOTREntityJungleScorpion;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -33,6 +34,8 @@ public class LOTRBiomeGenFarHaradJungle extends LOTRBiomeGenFarHarad
         decorator.enableFern = true;
 		
 		registerJungleFlowers();
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
     }
 
     @Override

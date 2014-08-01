@@ -5,6 +5,7 @@ import java.util.Random;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.feature.LOTRWorldGenDesertTrees;
@@ -36,6 +37,8 @@ public class LOTRBiomeGenPertorogwaith extends LOTRBiome
 		decorator.grassPerChunk = 4;
 		decorator.doubleGrassPerChunk = 4;
 		decorator.flowersPerChunk = 0;
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 
 	@Override

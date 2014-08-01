@@ -1,6 +1,5 @@
 package lotr.common.world.biome;
 
-
 import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.animal.LOTREntityButterfly;
 import lotr.common.entity.animal.LOTREntityRabbit;

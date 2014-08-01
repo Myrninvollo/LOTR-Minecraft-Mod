@@ -5,6 +5,7 @@ import java.util.Random;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -31,6 +32,8 @@ public class LOTRBiomeGenRhun extends LOTRBiome
 		decorator.doubleGrassPerChunk = 7;
 		
         registerPlainsFlowers();
+		
+		setBanditChance(LOTRBanditSpawner.RARE);
 	}
 	
 	@Override

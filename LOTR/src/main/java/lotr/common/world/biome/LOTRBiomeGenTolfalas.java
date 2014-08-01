@@ -8,6 +8,7 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
@@ -41,6 +42,8 @@ public class LOTRBiomeGenTolfalas extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenRuinedGondorTower(false), 1500);
 		decorator.addRandomStructure(new LOTRWorldGenGondorObelisk(false), 1500);
 		decorator.addRandomStructure(new LOTRWorldGenGondorRuin(false), 1500);
+		
+		setBanditChance(LOTRBanditSpawner.COMMON);
 	}
 	
 	@Override

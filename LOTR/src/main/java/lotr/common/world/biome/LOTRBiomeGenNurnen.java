@@ -1,6 +1,5 @@
 package lotr.common.world.biome;
 
-
 public class LOTRBiomeGenNurnen extends LOTRBiomeGenNurn
 {
 	public LOTRBiomeGenNurnen(int i)

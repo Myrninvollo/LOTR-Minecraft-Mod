@@ -1,5 +1,6 @@
 package lotr.common.world.biome;
 
+import lotr.common.world.LOTRBanditSpawner;
 import net.minecraft.block.Block;
 
 public class LOTRBiomeGenBeach extends LOTRBiome
@@ -15,6 +16,8 @@ public class LOTRBiomeGenBeach extends LOTRBiome
 		spawnableWaterCreatureList.clear();
 		
 		spawnableEvilList.clear();
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	public LOTRBiomeGenBeach setBeachBlock(Block block)

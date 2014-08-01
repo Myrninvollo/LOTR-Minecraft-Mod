@@ -28,8 +28,9 @@ Cristobal Andres Ortiz Correa - Spanish (Mexico)
 Goran Dragic - Serbian, Croatian
 Maximiliano Penna - Spanish (Argentina)
 Yorick Hamletson - Pirate
-M.G. - Croatian
-Lukas Kuhn - German
+M.G. - Croatian update
+Lukas Kuhn - German update
+Fabio Silvestro - Italian
 
 Structures:
 

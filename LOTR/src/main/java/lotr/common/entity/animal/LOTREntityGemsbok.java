@@ -38,7 +38,7 @@ public class LOTREntityGemsbok extends EntityAnimal
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(16D);
+        getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(22D);
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
     }
 	

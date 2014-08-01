@@ -3,6 +3,10 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -32,6 +36,10 @@ public class LOTRBiomeGenSwanfleet extends LOTRBiomeGenEriador
 		decorator.reedsPerChunk = 10;
 		
 		registerSwampFlowers();
+		
+		setBanditChance(LOTRBanditSpawner.RARE);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

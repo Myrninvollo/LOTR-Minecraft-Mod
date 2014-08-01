@@ -96,6 +96,10 @@ public class LOTRItemDye extends Item
 	
 	public static int isItemDye(ItemStack itemstack)
 	{
+		if (itemstack.getItem() == Items.dye)
+		{
+			return itemstack.getItemDamage();
+		}
 		String oreName = OreDictionary.getOreName(OreDictionary.getOreID(itemstack));
 		for (int j = 0; j < 16; j++)
 		{

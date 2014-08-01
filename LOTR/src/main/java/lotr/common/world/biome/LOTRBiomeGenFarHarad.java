@@ -11,7 +11,7 @@ import lotr.common.entity.animal.LOTREntityLion;
 import lotr.common.entity.animal.LOTREntityLioness;
 import lotr.common.entity.animal.LOTREntityRhino;
 import lotr.common.entity.animal.LOTREntityZebra;
-import lotr.common.world.feature.LOTRWorldGenBaobab;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenDesertTrees;
 import lotr.common.world.feature.LOTRWorldGenDoubleFlower;
@@ -50,6 +50,8 @@ public class LOTRBiomeGenFarHarad extends LOTRBiome
 		decorator.doubleFlowersPerChunk = 1;
 		
 		registerSavannaFlowers();
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 
 	@Override

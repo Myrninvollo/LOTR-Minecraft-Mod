@@ -9,6 +9,7 @@ import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.npc.LOTREntityElvenTrader;
 import lotr.common.entity.npc.LOTREntityEnt;
 import lotr.common.entity.npc.LOTREntityHuorn;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenBigTrees;
 import lotr.common.world.feature.LOTRWorldGenEntJars;
 import lotr.common.world.feature.LOTRWorldGenFangornTrees;
@@ -55,6 +56,8 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 		addFlower(LOTRMod.fangornPlant, 5, 1);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	public LOTRBiomeGenFangorn setBirchFangorn()

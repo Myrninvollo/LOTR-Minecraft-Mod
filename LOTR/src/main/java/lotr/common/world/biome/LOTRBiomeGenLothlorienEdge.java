@@ -2,6 +2,9 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
+import lotr.common.LOTRFaction;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBigTree;

@@ -11,6 +11,7 @@ import lotr.common.entity.animal.LOTRAmbientCreature;
 import lotr.common.entity.animal.LOTREntityWildBoar;
 import lotr.common.entity.npc.LOTREntityGundabadOrc;
 import lotr.common.entity.npc.LOTREntityGundabadOrcArcher;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.genlayer.LOTRGenLayerWorld;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EnumCreatureType;
@@ -298,6 +299,8 @@ public class LOTRBiome extends BiomeGenBase
 	protected List spawnableLOTRAmbientList = new ArrayList();
 	public boolean hasPodzol = false;
 	private List spawnableTraders = new ArrayList();
+	private int banditChance;
+	public List invasionSpawns = new ArrayList();
 	
 	public LOTRBiome(int i)
 	{
@@ -333,6 +336,8 @@ public class LOTRBiome extends BiomeGenBase
 		setGoodEvilWeight(0, 100);
 		
         spawnableCaveCreatureList.add(new SpawnListEntry(EntityBat.class, 10, 8, 8));
+        
+        setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	public LOTRBiome setTemperatureRainfall(float f, float f1)
@@ -441,6 +446,16 @@ public class LOTRBiome extends BiomeGenBase
 	public boolean canSpawnTravellingTrader(Class entityClass)
 	{
 		return spawnableTraders.contains(entityClass);
+	}
+	
+	protected void setBanditChance(int i)
+	{
+		banditChance = i;
+	}
+	
+	public int getBanditChance()
+	{
+		return banditChance;
 	}
 	
 	protected boolean hasDomesticAnimals()

@@ -3,6 +3,7 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
@@ -13,6 +14,9 @@ import lotr.common.entity.npc.LOTREntityGondorSoldier;
 import lotr.common.entity.npc.LOTREntityMordorOrc;
 import lotr.common.entity.npc.LOTREntityMordorOrcArcher;
 import lotr.common.entity.npc.LOTREntityMordorOrcBombardier;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import lotr.common.world.structure.LOTRWorldGenGondorFortress;
 import lotr.common.world.structure.LOTRWorldGenGondorObelisk;
@@ -64,6 +68,10 @@ public class LOTRBiomeGenGondor extends LOTRBiome
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
+		
+		setBanditChance(LOTRBanditSpawner.RARE);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.MORDOR, LOTRInvasionSpawner.UNCOMMON));
 	}
 	
 	@Override

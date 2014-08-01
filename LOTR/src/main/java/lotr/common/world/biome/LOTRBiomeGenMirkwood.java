@@ -3,6 +3,7 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.animal.LOTREntityButterfly;
@@ -10,6 +11,9 @@ import lotr.common.entity.npc.LOTREntityMirkwoodSpider;
 import lotr.common.entity.npc.LOTREntityWoodElf;
 import lotr.common.entity.npc.LOTREntityWoodElfScout;
 import lotr.common.entity.npc.LOTREntityWoodElfWarrior;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenMirkOak;
 import lotr.common.world.feature.LOTRWorldGenWebOfUngoliant;
 import lotr.common.world.structure.LOTRWorldGenRuinedWoodElfTower;
@@ -54,6 +58,10 @@ public class LOTRBiomeGenMirkwood extends LOTRBiome
 			decorator.addRandomStructure(new LOTRWorldGenRuinedWoodElfTower(false), 500);
 			
 			waterColorMultiplier = 0x282344;
+			
+			setBanditChance(LOTRBanditSpawner.NEVER);
+			
+			invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.WOOD_ELF, LOTRInvasionSpawner.UNCOMMON));
 		}
 		else
 		{
@@ -77,6 +85,10 @@ public class LOTRBiomeGenMirkwood extends LOTRBiome
 			
 			decorator.addRandomStructure(new LOTRWorldGenWoodElfHouse(false), 6);
 			decorator.addRandomStructure(new LOTRWorldGenWoodElfTower(false), 100);
+			
+			setBanditChance(LOTRBanditSpawner.NEVER);
+			
+			invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.DOL_GULDUR, LOTRInvasionSpawner.UNCOMMON));
 		}
 		
 		spawnableLOTRAmbientList.add(new SpawnListEntry(LOTREntityButterfly.class, 10, 4, 4));

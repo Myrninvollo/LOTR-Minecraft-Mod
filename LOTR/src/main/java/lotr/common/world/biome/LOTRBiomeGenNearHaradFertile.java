@@ -8,6 +8,7 @@ import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.npc.LOTREntityNearHaradrim;
 import lotr.common.entity.npc.LOTREntityNearHaradrimArcher;
 import lotr.common.entity.npc.LOTREntityNearHaradrimWarrior;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenDatePalm;
 import lotr.common.world.feature.LOTRWorldGenDesertTrees;
 import lotr.common.world.feature.LOTRWorldGenDoubleFlower;
@@ -49,6 +50,8 @@ public class LOTRBiomeGenNearHaradFertile extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenHaradObelisk(false), 3000);
 		decorator.addRandomStructure(new LOTRWorldGenNearHaradVillage(false), 20);
 		decorator.addRandomStructure(new LOTRWorldGenNearHaradFortress(false), 200);
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	@Override

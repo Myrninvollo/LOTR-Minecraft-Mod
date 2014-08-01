@@ -3,11 +3,15 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.npc.LOTREntityMordorOrc;
 import lotr.common.entity.npc.LOTREntityMordorOrcArcher;
 import lotr.common.entity.npc.LOTREntityMordorOrcBombardier;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenGrassPatch;
 import net.minecraft.block.Block;
@@ -46,6 +50,10 @@ public class LOTRBiomeGenEmynMuil extends LOTRBiome
 		fillerBlock = Blocks.stone;
 		
 		decorator.generateOrcDungeon = true;
+		
+		setBanditChance(LOTRBanditSpawner.COMMON);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.MORDOR, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

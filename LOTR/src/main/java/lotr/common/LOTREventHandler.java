@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import lotr.common.block.LOTRBlockFlowerPot;
 import lotr.common.block.LOTRBlockSaplingBase;
+import lotr.common.entity.LOTREntityInvasionSpawner;
 import lotr.common.entity.LOTREntityRegistry;
 import lotr.common.entity.LOTREntityRegistry.RegistryInfo;
 import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetBasic;
@@ -29,6 +30,7 @@ import lotr.common.entity.npc.LOTREntityRanger;
 import lotr.common.entity.npc.LOTREntityRohirrim;
 import lotr.common.entity.npc.LOTREntityTree;
 import lotr.common.entity.npc.LOTREntityWargBombardier;
+import lotr.common.entity.npc.LOTRNPCMount;
 import lotr.common.entity.npc.LOTRSpeech;
 import lotr.common.entity.npc.LOTRTradeable;
 import lotr.common.entity.npc.LOTRUnitTradeable;
@@ -464,6 +466,12 @@ public class LOTREventHandler implements IFuelHandler
 			{
 				traderRespawn.onBreak();
 			}
+		}
+		
+		if (!world.isRemote && entity instanceof LOTREntityInvasionSpawner && entityplayer.capabilities.isCreativeMode)
+		{
+			LOTREntityInvasionSpawner spawner = (LOTREntityInvasionSpawner)entity;
+			spawner.onBreak();
 		}
 	}
 	
@@ -1154,6 +1162,12 @@ public class LOTREventHandler implements IFuelHandler
 		EntityLivingBase entity = event.entityLiving;
 		EntityLivingBase attacker = event.source.getEntity() instanceof EntityLivingBase ? (EntityLivingBase)event.source.getEntity() : null;
 		World world = entity.worldObj;
+		
+		if (entity instanceof LOTRNPCMount && entity.riddenByEntity != null && attacker == entity.riddenByEntity)
+		{
+			event.setCanceled(true);
+			return;
+		}
 		
 		if (attacker instanceof EntityPlayer && !LOTRMod.canPlayerAttackEntity((EntityPlayer)attacker, entity, true))
 		{

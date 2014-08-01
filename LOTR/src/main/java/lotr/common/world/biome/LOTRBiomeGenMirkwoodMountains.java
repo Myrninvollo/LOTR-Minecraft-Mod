@@ -1,6 +1,5 @@
 package lotr.common.world.biome;
 
-
 public class LOTRBiomeGenMirkwoodMountains extends LOTRBiomeGenMirkwood
 {
 	public LOTRBiomeGenMirkwoodMountains(int i)

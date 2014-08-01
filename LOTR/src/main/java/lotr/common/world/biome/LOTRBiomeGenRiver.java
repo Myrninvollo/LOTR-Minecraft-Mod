@@ -1,5 +1,6 @@
 package lotr.common.world.biome;
 
+import lotr.common.world.LOTRBanditSpawner;
 
 public class LOTRBiomeGenRiver extends LOTRBiome
 {
@@ -10,6 +11,8 @@ public class LOTRBiomeGenRiver extends LOTRBiome
 		spawnableCreatureList.clear();
 		
 		spawnableEvilList.clear();
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	@Override

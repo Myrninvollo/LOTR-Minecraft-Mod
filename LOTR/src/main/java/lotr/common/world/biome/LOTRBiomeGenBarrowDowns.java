@@ -2,11 +2,10 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
+import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower;
 import lotr.common.world.structure.LOTRWorldGenStoneRuin;
@@ -15,6 +14,8 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenForest;
 import net.minecraft.world.gen.feature.WorldGenTaiga2;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class LOTRBiomeGenBarrowDowns extends LOTRBiome
 {
@@ -39,6 +40,8 @@ public class LOTRBiomeGenBarrowDowns extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenBDBarrow(false), 5);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 500);
 		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(2, 7), 15);
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	@Override

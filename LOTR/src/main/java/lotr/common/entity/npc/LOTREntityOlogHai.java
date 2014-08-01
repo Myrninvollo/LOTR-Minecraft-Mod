@@ -91,7 +91,7 @@ public class LOTREntityOlogHai extends LOTREntityTroll
 			float attackDamage = (float)getEntityAttribute(LOTREntityNPC.npcAttackDamage).getAttributeValue();
 			float knockbackModifier = 0.25F * attackDamage;
 			entity.addVelocity((double)(-MathHelper.sin(rotationYaw * (float)Math.PI / 180F) * knockbackModifier * 0.5F), 0D, (double)(MathHelper.cos(rotationYaw * (float)Math.PI / 180F) * knockbackModifier * 0.5F));
-			worldObj.playSoundAtEntity(entity, "lotr:troll.ologHai_hammer", 1F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+			worldObj.playSoundAtEntity(entity, "lotr:troll.ologHai_hammer", 1F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 			if (!worldObj.isRemote)
 			{
 				List entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, entity.boundingBox.expand(4D, 4D, 4D));

@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import lotr.common.entity.npc.*;
+import lotr.common.world.LOTRInvasionSpawner.InvasionSpawnEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
@@ -30,7 +32,8 @@ public enum LOTRFaction
 	FAR_HARAD(0x2E6342),
 	HALF_TROLL(0x9E8373),
 	HOSTILE(true),
-	UNALIGNED(false);
+	UNALIGNED(false),
+	BANDIT(false);
 	
 	public static int totalPlayerFactions;
 	
@@ -41,6 +44,7 @@ public enum LOTRFaction
 	public boolean allowEntityRegistry;
 	private String factionName;
 	public float[] factionColors;
+	public List<InvasionSpawnEntry> invasionMobs = new ArrayList<InvasionSpawnEntry>();
 	
 	public static Set playersTakenRewardItem = new HashSet();
 	
@@ -87,6 +91,8 @@ public enum LOTRFaction
 		
 		HOBBIT.addKillPositive(GUNDABAD);
 		
+		HOBBIT.invasionMobs.add(new InvasionSpawnEntry(LOTREntityHobbitShirriff.class, 10));
+		
 		RANGER_NORTH.addEnemy(GUNDABAD);
 		RANGER_NORTH.addEnemy(ANGMAR);
 		RANGER_NORTH.addEnemy(DOL_GULDUR);
@@ -103,6 +109,8 @@ public enum LOTRFaction
 		RANGER_NORTH.addKillPositive(GUNDABAD);
 		RANGER_NORTH.addKillPositive(ANGMAR);
 		
+		RANGER_NORTH.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRangerNorth.class, 10));
+		
 		BLUE_MOUNTAINS.addEnemy(GUNDABAD);
 		BLUE_MOUNTAINS.addEnemy(ANGMAR);
 		BLUE_MOUNTAINS.addEnemy(DOL_GULDUR);
@@ -114,6 +122,9 @@ public enum LOTRFaction
 		BLUE_MOUNTAINS.addKillNegative(DWARF);
 		
 		BLUE_MOUNTAINS.addKillPositive(GUNDABAD);
+		
+		BLUE_MOUNTAINS.invasionMobs.add(new InvasionSpawnEntry(LOTREntityBlueDwarfWarrior.class, 10));
+		BLUE_MOUNTAINS.invasionMobs.add(new InvasionSpawnEntry(LOTREntityBlueDwarfAxeThrower.class, 5));
 		
 		HIGH_ELF.addEnemy(GUNDABAD);
 		HIGH_ELF.addEnemy(ANGMAR);
@@ -131,6 +142,8 @@ public enum LOTRFaction
 		
 		HIGH_ELF.addKillPositive(GUNDABAD);
 		HIGH_ELF.addKillPositive(ANGMAR);
+		
+		HIGH_ELF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityHighElfWarrior.class, 10));
 		
 		GUNDABAD.addEnemy(HOBBIT);
 		GUNDABAD.addEnemy(RANGER_NORTH);
@@ -158,6 +171,10 @@ public enum LOTRFaction
 		GUNDABAD.addKillPositive(DUNLAND);
 		GUNDABAD.addKillPositive(FANGORN);
 		
+		GUNDABAD.invasionMobs.add(new InvasionSpawnEntry(LOTREntityGundabadOrc.class, 10));
+		GUNDABAD.invasionMobs.add(new InvasionSpawnEntry(LOTREntityGundabadOrcArcher.class, 5));
+		GUNDABAD.invasionMobs.add(new InvasionSpawnEntry(LOTREntityGundabadWarg.class, 5));
+		
 		ANGMAR.addEnemy(HOBBIT);
 		ANGMAR.addEnemy(RANGER_NORTH);
 		ANGMAR.addEnemy(BLUE_MOUNTAINS);
@@ -176,6 +193,13 @@ public enum LOTRFaction
 		ANGMAR.addKillPositive(RANGER_NORTH);
 		ANGMAR.addKillPositive(HIGH_ELF);
 		
+		ANGMAR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityAngmarOrc.class, 10));
+		ANGMAR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityAngmarOrcArcher.class, 5));
+		ANGMAR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityAngmarOrcWarrior.class, 5));
+		ANGMAR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityAngmarOrcBombardier.class, 3));
+		ANGMAR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityAngmarWarg.class, 10));
+		ANGMAR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityAngmarWargBombardier.class, 1));
+		
 		WOOD_ELF.addEnemy(GUNDABAD);
 		WOOD_ELF.addEnemy(ANGMAR);
 		WOOD_ELF.addEnemy(DOL_GULDUR);
@@ -192,6 +216,9 @@ public enum LOTRFaction
 		
 		WOOD_ELF.addKillPositive(GUNDABAD);
 		WOOD_ELF.addKillPositive(DOL_GULDUR);
+		
+		WOOD_ELF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityWoodElfWarrior.class, 10));
+		WOOD_ELF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityWoodElfScout.class, 5));
 		
 		DOL_GULDUR.addEnemy(HOBBIT);
 		DOL_GULDUR.addEnemy(RANGER_NORTH);
@@ -211,6 +238,8 @@ public enum LOTRFaction
 		DOL_GULDUR.addKillPositive(WOOD_ELF);
 		DOL_GULDUR.addKillPositive(GALADHRIM);
 		
+		DOL_GULDUR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityMirkwoodSpider.class, 10));
+		
 		DWARF.addEnemy(GUNDABAD);
 		DWARF.addEnemy(ANGMAR);
 		DWARF.addEnemy(DOL_GULDUR);
@@ -222,6 +251,9 @@ public enum LOTRFaction
 		DWARF.addKillNegative(BLUE_MOUNTAINS);
 		
 		DWARF.addKillPositive(GUNDABAD);
+		
+		DWARF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDwarfWarrior.class, 10));
+		DWARF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDwarfAxeThrower.class, 5));
 		
 		GALADHRIM.addEnemy(GUNDABAD);
 		GALADHRIM.addEnemy(ANGMAR);
@@ -240,6 +272,8 @@ public enum LOTRFaction
 		GALADHRIM.addKillPositive(GUNDABAD);
 		GALADHRIM.addKillPositive(DOL_GULDUR);
 		
+		GALADHRIM.invasionMobs.add(new InvasionSpawnEntry(LOTREntityElfWarrior.class, 10));
+		
 		DUNLAND.addEnemy(RANGER_NORTH);
 		DUNLAND.addEnemy(HIGH_ELF);
 		DUNLAND.addEnemy(GUNDABAD);
@@ -257,6 +291,10 @@ public enum LOTRFaction
 		DUNLAND.addKillPositive(ROHAN);
 		DUNLAND.addKillPositive(GONDOR);
 		
+		DUNLAND.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDunlending.class, 10));
+		DUNLAND.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDunlendingWarrior.class, 5));
+		DUNLAND.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDunlendingArcher.class, 5));
+		
 		FANGORN.addEnemy(GUNDABAD);
 		FANGORN.addEnemy(ANGMAR);
 		FANGORN.addEnemy(DOL_GULDUR);
@@ -268,6 +306,9 @@ public enum LOTRFaction
 
 		FANGORN.addKillPositive(GUNDABAD);
 		FANGORN.addKillPositive(URUK_HAI);
+		
+		FANGORN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityEnt.class, 10));
+		FANGORN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityHuorn.class, 20));
 		
 		ROHAN.addEnemy(GUNDABAD);
 		ROHAN.addEnemy(ANGMAR);
@@ -286,6 +327,9 @@ public enum LOTRFaction
 		ROHAN.addKillPositive(URUK_HAI);
 		ROHAN.addKillPositive(MORDOR);
 		
+		ROHAN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRohirrim.class, 10));
+		ROHAN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRohirrimArcher.class, 5));
+		
 		URUK_HAI.addEnemy(HOBBIT);
 		URUK_HAI.addEnemy(RANGER_NORTH);
 		URUK_HAI.addEnemy(BLUE_MOUNTAINS);
@@ -301,6 +345,12 @@ public enum LOTRFaction
 		
 		URUK_HAI.addKillPositive(ROHAN);
 		URUK_HAI.addKillPositive(FANGORN);
+		
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHai.class, 10));
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiCrossbower.class, 5));
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiBerserker.class, 3));
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukWarg.class, 10));
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukWargBombardier.class, 1));
 		
 		GONDOR.addEnemy(GUNDABAD);
 		GONDOR.addEnemy(ANGMAR);
@@ -320,6 +370,9 @@ public enum LOTRFaction
 		GONDOR.addKillPositive(NEAR_HARAD);
 		GONDOR.addKillPositive(FAR_HARAD);
 		GONDOR.addKillPositive(HALF_TROLL);
+		
+		GONDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityGondorSoldier.class, 10));
+		GONDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityGondorArcher.class, 5));
 		
 		MORDOR.addEnemy(HOBBIT);
 		MORDOR.addEnemy(RANGER_NORTH);
@@ -341,6 +394,13 @@ public enum LOTRFaction
 		MORDOR.addKillPositive(ROHAN);
 		MORDOR.addKillPositive(GONDOR);
 		
+		MORDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityMordorOrc.class, 10));
+		MORDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityMordorOrcArcher.class, 5));
+		MORDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityMordorOrcBombardier.class, 3));
+		MORDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityMordorWarg.class, 10));
+		MORDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityMordorWargBombardier.class, 1));
+		MORDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityOlogHai.class, 5));
+		
 		NEAR_HARAD.addEnemy(RANGER_NORTH);
 		NEAR_HARAD.addEnemy(HIGH_ELF);
 		NEAR_HARAD.addEnemy(WOOD_ELF);
@@ -353,6 +413,9 @@ public enum LOTRFaction
 		
 		NEAR_HARAD.addKillPositive(GONDOR);
 		
+		NEAR_HARAD.invasionMobs.add(new InvasionSpawnEntry(LOTREntityNearHaradrimWarrior.class, 10));
+		NEAR_HARAD.invasionMobs.add(new InvasionSpawnEntry(LOTREntityNearHaradrimArcher.class, 5));
+		
 		FAR_HARAD.addEnemy(RANGER_NORTH);
 		FAR_HARAD.addEnemy(HIGH_ELF);
 		FAR_HARAD.addEnemy(WOOD_ELF);
@@ -364,6 +427,8 @@ public enum LOTRFaction
 		FAR_HARAD.addKillNegative(MORDOR);
 		
 		FAR_HARAD.addKillPositive(GONDOR);
+		
+		// No invasion mobs yet
 		
 		HALF_TROLL.addEnemy(HOBBIT);
 		HALF_TROLL.addEnemy(RANGER_NORTH);
@@ -381,6 +446,8 @@ public enum LOTRFaction
 		HALF_TROLL.addKillNegative(MORDOR);
 		
 		HALF_TROLL.addKillPositive(GONDOR);
+		
+		// No invasion mobs yet
 	}
 	
 	public void addEnemy(LOTRFaction f)

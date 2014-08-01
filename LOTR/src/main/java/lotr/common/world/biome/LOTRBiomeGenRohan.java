@@ -3,6 +3,7 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
@@ -14,6 +15,9 @@ import lotr.common.entity.npc.LOTREntityUrukHai;
 import lotr.common.entity.npc.LOTREntityUrukHaiBerserker;
 import lotr.common.entity.npc.LOTREntityUrukHaiCrossbower;
 import lotr.common.entity.npc.LOTREntityUrukWarg;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBlastedLand;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenCharredTrees;
@@ -64,6 +68,10 @@ public class LOTRBiomeGenRohan extends LOTRBiome
 			decorator.addRandomStructure(new LOTRWorldGenUrukWargPit(false), 300);
 			decorator.addRandomStructure(new LOTRWorldGenRuinedRohanWatchtower(false), 300);
 			decorator.addRandomStructure(new LOTRWorldGenBlastedLand(), 24);
+			
+			setBanditChance(LOTRBanditSpawner.UNCOMMON);
+			
+			invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.ROHAN, LOTRInvasionSpawner.COMMON));
 		}
 		else
 		{
@@ -80,6 +88,11 @@ public class LOTRBiomeGenRohan extends LOTRBiome
 			
 			registerTravellingTrader(LOTREntityElvenTrader.class);
 			registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
+			
+			setBanditChance(LOTRBanditSpawner.RARE);
+			
+			invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.DUNLAND, LOTRInvasionSpawner.UNCOMMON));
+			invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.URUK_HAI, LOTRInvasionSpawner.UNCOMMON));
 		}
 		
 		decorator.flowersPerChunk = 4;

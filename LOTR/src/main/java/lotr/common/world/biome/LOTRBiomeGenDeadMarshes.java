@@ -3,10 +3,13 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
-import lotr.common.world.feature.LOTRWorldGenLogs;
 import lotr.common.world.feature.LOTRWorldGenMarshLights;
 import lotr.common.world.genlayer.LOTRGenLayerWorld;
 import lotr.common.world.structure.LOTRWorldGenMarshHut;
@@ -49,6 +52,10 @@ public class LOTRBiomeGenDeadMarshes extends LOTRBiome
 		addFlower(LOTRMod.deadPlant, 0, 10);
 		
 		waterColorMultiplier = 0x382618;
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.MORDOR, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

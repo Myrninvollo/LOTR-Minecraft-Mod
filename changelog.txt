@@ -3,10 +3,9 @@ Public Beta 19
 + Added a 32-block cubic radius of protection around a banner placed on a gold block, which serves two purposes:
 1) Enemy mobs are prevented from spawning
 2) In multiplayer, terrain is protected from being edited or interacted with, either against enemies of the banner's faction, or with a whitelist
-
 + Added more available custom waypoints as a reward for earning Middle-earth achievements
 + Added bandits
-+ Added Ranger Watchtowers
++ Added invasions
 + Added several new Fangorn plants and new Ent-draught types
 + Added a better Ent-draught system: rain now fills jars in any biome, jars can also be filled from water containers, and Fangorn plants added to a jar of water turn it into draught
 + Added the ability to summon hired Huorns through the use of golden ent draught
@@ -20,17 +19,21 @@ Public Beta 19
 + Added Angmar orc spawning in the Ettenmoors biome
 + Added Mordor orcs in the Dagorlad biome
 + Added rare Dunlending spawns in the Enedwaith biome
++ Added Ranger Watchtowers
 + Added dwarven and blue dwarven spears
++ Added the ability to saddle and ride rhinos, and charge them into mobs
 + Added Sarlluin and Sarncaran deposits underground within their respective biomes
 + Added additional ore generation at higher layers in all mountain biomes
 + Added the ability to light Beacons of Gondor with torches
 + Added Morgul Torches
 + Added cape names and descriptions to the language file
 + Added an automatic language file update-helper which adds any missing keys to LOTR language files to make updating them easier - see .minecraft/mods/LOTR_UpdatedLangFiles
-+ Added an updated German translation
++ Added an Italian translation
++ Added updated German and Serbian translations
 + Added a configuration file option to disable mist in the Misty Mountains
 
 * Increased the health of elves and dwarves
+* Increased the health of many Harad animals
 * Fixed dwarven merchants not spawning
 * Banner bearers now carry banners in the left hand so they do not disappear in battle
 * Banners now break instead of falling when the block below is removed
@@ -47,6 +50,7 @@ Public Beta 19
 * Removed the region of Brown Lands to the east of Mordor
 * Hobbit Farmhouse roofs are now made of thatch blocks
 * Fixed the orc bed crafting recipe giving the block instead of the item
+* Fixed all vanilla dyes being treated as black dyes in hat and feather dyeing
 * Changed the Uruk-hai cape and banner to the White Hand of Saruman
 * Renamed some capes
 

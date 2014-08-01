@@ -3,6 +3,7 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.npc.LOTREntityAngmarOrc;
@@ -12,6 +13,9 @@ import lotr.common.entity.npc.LOTREntityAngmarOrcWarrior;
 import lotr.common.entity.npc.LOTREntityAngmarWarg;
 import lotr.common.entity.npc.LOTREntityMountainTroll;
 import lotr.common.entity.npc.LOTREntityTroll;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBlastedLand;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenCharredTrees;
@@ -65,6 +69,11 @@ public class LOTRBiomeGenAngmar extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenAngmarRuin(), 30);
 		decorator.addRandomStructure(new LOTRWorldGenBlastedLand(), 40);
 		decorator.addRandomStructure(new LOTRWorldGenAngmarShrine(false), 200);
+		
+		setBanditChance(LOTRBanditSpawner.NEVER);
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.RANGER_NORTH, LOTRInvasionSpawner.RARE));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.HIGH_ELF, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

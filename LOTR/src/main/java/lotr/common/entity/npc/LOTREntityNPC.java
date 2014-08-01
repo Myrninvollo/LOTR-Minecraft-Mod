@@ -13,10 +13,10 @@ import java.util.UUID;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTREventHandler;
 import lotr.common.LOTRFaction;
-import lotr.common.LOTRFoods;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
 import lotr.common.entity.LOTREntities;
+import lotr.common.entity.LOTRMountFunctions;
 import lotr.common.entity.ai.LOTREntityAIBurningPanic;
 import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetBasic;
 import lotr.common.entity.ai.LOTRNPCTargetSelector;
@@ -26,7 +26,6 @@ import lotr.common.entity.projectile.LOTREntityPebble;
 import lotr.common.entity.projectile.LOTREntityPlate;
 import lotr.common.inventory.LOTRContainerTrade;
 import lotr.common.inventory.LOTRContainerUnitTrade;
-import lotr.common.item.LOTRItemBanner;
 import lotr.common.item.LOTRItemLeatherHat;
 import lotr.common.item.LOTRItemPouch;
 import lotr.common.item.LOTRItemSpear;
@@ -40,10 +39,9 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.RangedAttribute;
@@ -236,9 +234,12 @@ public abstract class LOTREntityNPC extends EntityCreature
 					livingMount.onSpawnWithEgg(null);
 					worldObj.spawnEntityInWorld(livingMount);
 					mountEntity(livingMount);
-					setRidingHorse(true);
-					mount.setBelongsToNPC(true);
-					mount.setNavigatorRangeFrom(this);
+					if (!(mount instanceof LOTREntityNPC))
+					{
+						setRidingHorse(true);
+						mount.setBelongsToNPC(true);
+						LOTRMountFunctions.setNavigatorRangeFromNPC(mount, this);
+					}
 				}
 			}
 		}

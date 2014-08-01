@@ -10,6 +10,7 @@ import lotr.common.block.*;
 import lotr.common.command.*;
 import lotr.common.dispenser.*;
 import lotr.common.entity.LOTREntities;
+import lotr.common.entity.LOTREntityInvasionSpawner;
 import lotr.common.entity.LOTREntityRegistry;
 import lotr.common.entity.LOTREntityRegistry.RegistryInfo;
 import lotr.common.entity.animal.*;
@@ -1978,6 +1979,7 @@ public class LOTRMod
 		LOTREntities.registerEntity(LOTREntityBarrel.class, "Barrel", 2015, 80, 3, true);
 		LOTREntities.registerEntity(LOTREntityBanner.class, "Banner", 2016, 160, 3, true);
 		LOTREntities.registerEntity(LOTREntityBannerWall.class, "WallBanner", 2017, 160, Integer.MAX_VALUE, false);
+		LOTREntities.registerEntity(LOTREntityInvasionSpawner.class, "InvasionSpawner", 2018, 80, 3, true);
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
 		
@@ -2285,7 +2287,7 @@ public class LOTRMod
 			{
 				return false;
 			}
-			else if (target.riddenByEntity != null && getNPCFaction(target.riddenByEntity).isAllied(attackerFaction) && attacker.getAttackTarget() != target.riddenByEntity)
+			else if (target.riddenByEntity != null && getNPCFaction(target.riddenByEntity).isAllied(attackerFaction) && attacker.getAttackTarget() != target && attacker.getAttackTarget() != target.riddenByEntity)
 			{
 				return false;
 			}
@@ -2293,7 +2295,7 @@ public class LOTRMod
 			{
 				return false;
 			}
-			else if (target.riddenByEntity instanceof EntityPlayer && LOTRLevelData.getAlignment((EntityPlayer)target.riddenByEntity, attackerFaction) >= 0 && attacker.getAttackTarget() != target.riddenByEntity)
+			else if (target.riddenByEntity instanceof EntityPlayer && LOTRLevelData.getAlignment((EntityPlayer)target.riddenByEntity, attackerFaction) >= 0 && attacker.getAttackTarget() != target && attacker.getAttackTarget() != target.riddenByEntity)
 			{
 				return false;
 			}
@@ -2319,4 +2321,16 @@ public class LOTRMod
 		}
 		return false;
 	}
+	
+	public static boolean isInventoryEmpty(IInventory inv)
+    {
+    	for (int i = 0; i < inv.getSizeInventory(); i++)
+    	{
+    		if (inv.getStackInSlot(i) != null)
+    		{
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 }

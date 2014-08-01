@@ -76,12 +76,8 @@ public class LOTREntityAIAttackOnCollide extends EntityAIBase
     @Override
     public boolean continueExecuting()
     {
-        EntityLivingBase entity = theOwner.getAttackTarget();
-		if (entity == null)
-		{
-			return false;
-		}
-		else if (entityTarget == null || !entityTarget.isEntityAlive())
+    	entityTarget = theOwner.getAttackTarget();
+    	if (entityTarget == null || !entityTarget.isEntityAlive())
 		{
 			return false;
 		}

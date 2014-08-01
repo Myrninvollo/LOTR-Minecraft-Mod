@@ -3,7 +3,11 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.LOTRAchievement;
+import lotr.common.LOTRFaction;
 import lotr.common.entity.animal.LOTREntityRabbit;
+import lotr.common.world.LOTRBanditSpawner;
+import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenDoubleFlower;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -30,6 +34,11 @@ public class LOTRBiomeGenGladdenFields extends LOTRBiomeGenValesOfAnduin
 		decorator.reedsPerChunk = 10;
 		
 		registerSwampFlowers();
+		
+		setBanditChance(LOTRBanditSpawner.UNCOMMON);
+		
+		invasionSpawns.clear();
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.UNCOMMON));
 	}
 	
 	@Override

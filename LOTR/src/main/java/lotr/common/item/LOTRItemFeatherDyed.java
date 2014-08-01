@@ -16,7 +16,6 @@ public class LOTRItemFeatherDyed extends Item
 	{
 		super();
 		setMaxStackSize(1);
-		setCreativeTab(LOTRCreativeTabs.tabMisc);
 	}
 	
 	@Override

@@ -6,21 +6,23 @@ import io.netty.buffer.Unpooled;
 import java.util.UUID;
 
 import lotr.common.entity.item.LOTREntityBanner;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
-import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
 
+import com.mojang.authlib.Agent;
 import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.GameProfileRepository;
+import com.mojang.authlib.ProfileLookupCallback;
+import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 
 public class LOTRGuiBanner extends LOTRGuiScreenBase
 {
@@ -34,85 +36,84 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
     private GuiButton modeButton;
     private GuiTextField[] allowedPlayers = new GuiTextField[LOTREntityBanner.MAX_PLAYERS];
     private boolean[] invalidUsernames = new boolean[LOTREntityBanner.MAX_PLAYERS];
-	
+
 	public LOTRGuiBanner(LOTREntityBanner banner)
 	{
 		theBanner = banner;
 	}
-	
+
 	@Override
     public void initGui()
     {
         guiLeft = (width - xSize) / 2;
 		guiTop = (height - ySize) / 2;
 		buttonList.add((modeButton = new GuiButton(0, guiLeft + xSize / 2 - 80, guiTop + 20, 160, 20, "")));
-		
+
 		for (int i = 0; i < allowedPlayers.length; i++)
 		{
 			GuiTextField textBox = new GuiTextField(fontRendererObj, guiLeft + xSize / 2 - 80, guiTop + 70 + i * 24, 160, 20);
 			if (theBanner.allowedPlayers[i] != null)
 			{
 				UUID uuid = theBanner.allowedPlayers[i];
-				GameProfile profile = mc.getIntegratedServer().func_152358_ax().func_152652_a(uuid);
-				if (StringUtils.isEmpty(profile.getName()))
+				String username = GameProfileLookup.getUsernameFromUUID(uuid);
+				if (!StringUtils.isEmpty(username))
 				{
-					MinecraftServer.getServer().func_147130_as().fillProfileProperties(profile, true);
+					textBox.setText(username);
 				}
-				textBox.setText(profile.getName());
 			}
 			allowedPlayers[i] = textBox;
 		}
-		
+
 		allowedPlayers[0].setEnabled(false);
 	}
-	
+
 	@Override
 	public void drawScreen(int i, int j, float f)
 	{
 		drawDefaultBackground();
-		
+
 		mc.getTextureManager().bindTexture(guiTexture);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-		
+
 		String title = StatCollector.translateToLocal("lotr.gui.bannerEdit.title");
 		fontRendererObj.drawString(title, guiLeft + xSize / 2 - fontRendererObj.getStringWidth(title) / 2, guiTop + 6, 0x404040);
 
 		if (theBanner.playerSpecificProtection)
 		{
 			modeButton.displayString = StatCollector.translateToLocal("lotr.gui.bannerEdit.protectionMode.playerSpecific");
-			
+
 			String s = StatCollector.translateToLocal("lotr.gui.bannerEdit.protectionMode.playerSpecific.desc.1");
 			fontRendererObj.drawString(s, guiLeft + xSize / 2 - fontRendererObj.getStringWidth(s) / 2, guiTop + 46, 0x404040);
-			
+
 			s = StatCollector.translateToLocal("lotr.gui.bannerEdit.protectionMode.playerSpecific.desc.2");
 			fontRendererObj.drawString(s, guiLeft + xSize / 2 - fontRendererObj.getStringWidth(s) / 2, guiTop + 46 + fontRendererObj.FONT_HEIGHT, 0x404040);
 		}
 		else
 		{
 			modeButton.displayString = StatCollector.translateToLocal("lotr.gui.bannerEdit.protectionMode.faction");
-			
+
 			String s = StatCollector.translateToLocalFormatted("lotr.gui.bannerEdit.protectionMode.faction.desc.1", new Object[] {theBanner.getBannerFaction().factionName()});
 			fontRendererObj.drawString(s, guiLeft + xSize / 2 - fontRendererObj.getStringWidth(s) / 2, guiTop + 46, 0x404040);
-			
+
 			s = StatCollector.translateToLocal("lotr.gui.bannerEdit.protectionMode.faction.desc.2");
 			fontRendererObj.drawString(s, guiLeft + xSize / 2 - fontRendererObj.getStringWidth(s) / 2, guiTop + 46 + fontRendererObj.FONT_HEIGHT, 0x404040);
 		}
-		
+
 		for (int l = 0; l < allowedPlayers.length; l++)
 		{
 			GuiTextField textBox = allowedPlayers[l];
 			textBox.drawTextBox();
 		}
-		
+
 		super.drawScreen(i, j, f);
 	}
-	
+
 	@Override
     public void updateScreen()
     {
 		super.updateScreen();
-		
+
 		for (int l = 0; l < allowedPlayers.length; l++)
 		{
 			GuiTextField textBox = allowedPlayers[l];
@@ -121,7 +122,7 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 			textBox.setEnabled(l != 0 && theBanner.playerSpecificProtection);
 		}
     }
-	
+
 	@Override
     protected void keyTyped(char c, int i)
     {
@@ -136,19 +137,19 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 
         super.keyTyped(c, i);
     }
-	
+
 	@Override
 	protected void mouseClicked(int i, int j, int k)
     {
 		super.mouseClicked(i, j, k);
-		
+
 		for (int l = 1; l < allowedPlayers.length; l++)
 		{
 			GuiTextField textBox = allowedPlayers[l];
 			if (textBox.getVisible())
 			{
 				textBox.mouseClicked(i, j, k);
-				
+
 				String text = textBox.getText();
 				if (!textBox.isFocused() && !StringUtils.isEmpty(text) && !invalidUsernames[l])
 				{
@@ -160,7 +161,7 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 						textBox.setText(StatCollector.translateToLocal("lotr.gui.bannerEdit.invalidUsername"));
 					}
 				}
-				
+
 				if (textBox.isFocused() && invalidUsernames[l])
 				{
 					invalidUsernames[l] = false;
@@ -170,7 +171,7 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 			}
 		}
 	}
-	
+
 	@Override
     protected void actionPerformed(GuiButton button)
     {
@@ -182,14 +183,14 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 			}
 		}
 	}
-	
+
 	@Override
 	public void onGuiClosed()
 	{
 		super.onGuiClosed();
-		
+
 		ByteBuf data = Unpooled.buffer();
-		
+
 		data.writeInt(theBanner.getEntityId());
 		data.writeByte(theBanner.worldObj.provider.dimensionId);
 		data.writeBoolean(theBanner.playerSpecificProtection);
@@ -209,14 +210,50 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 			}
 		}
 		data.writeInt(-1);
-		
+
 		Packet packet = new C17PacketCustomPayload("lotr.editBanner", data);
 		mc.thePlayer.sendQueue.addToSendQueue(packet);
 	}
-	
+
 	private UUID UUIDFromUsername(String name)
 	{
-		GameProfile profile = mc.getIntegratedServer().func_152358_ax().func_152655_a(name);
+		GameProfile profile = GameProfileLookup.getProfileByName(name);
 		return profile == null ? null : profile.getId();
+	}
+	
+	private static class GameProfileLookup
+	{
+		private static Minecraft theMC = Minecraft.getMinecraft();
+		private static YggdrasilAuthenticationService authService = new YggdrasilAuthenticationService(theMC.getProxy(), UUID.randomUUID().toString());
+		private static GameProfileRepository profileRepo = authService.createProfileRepository();
+		
+		public static GameProfile getProfileByName(String name)
+		{
+			final GameProfile[] foundProfiles = new GameProfile[1];
+			
+	        ProfileLookupCallback profilelookupcallback = new ProfileLookupCallback()
+	        {
+	            public void onProfileLookupSucceeded(GameProfile profile)
+	            {
+	            	foundProfiles[0] = profile;
+	            }
+	            public void onProfileLookupFailed(GameProfile profile, Exception exception)
+	            {
+	            	foundProfiles[0] = null;
+	            }
+	        };
+	        
+	        profileRepo.findProfilesByNames(new String[] {name}, Agent.MINECRAFT, profilelookupcallback);
+
+	        return foundProfiles[0];
+		}
+		
+		public static String getUsernameFromUUID(UUID uuid)
+		{
+			GameProfile profile = new GameProfile(uuid, "");
+			theMC.func_152347_ac().fillProfileProperties(profile, true);
+			String username = profile.getName();
+			return username;
+		}
 	}
 }

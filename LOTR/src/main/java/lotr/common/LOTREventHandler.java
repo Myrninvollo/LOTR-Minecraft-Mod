@@ -690,8 +690,7 @@ public class LOTREventHandler implements IFuelHandler
 					
 					if (tree instanceof LOTREntityEnt && !sentMessage)
 					{
-						entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(tree, "ent_defendTrees", entityplayer));
-						tree.markNPCSpoken();
+						tree.sendSpeechBank(entityplayer, "ent_defendTrees");
 						sentMessage = true;
 					}
 					
@@ -875,8 +874,7 @@ public class LOTREventHandler implements IFuelHandler
 										if (!sentMessage && entity instanceof EntityPlayer)
 										{
 											EntityPlayer entityplayer = (EntityPlayer)entity;
-											entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(shirriff, "hobbitShirriff_hostile", entityplayer));
-											shirriff.markNPCSpoken();
+											shirriff.sendSpeechBank(entityplayer, "hobbitShirriff_hostile");
 											sentMessage = true;
 										}
 										if (!playedHorn)
@@ -1342,6 +1340,8 @@ public class LOTREventHandler implements IFuelHandler
 				
 				if (!entityplayer.capabilities.isCreativeMode && LOTRMod.getNPCFaction(entity) != LOTRFaction.UNALIGNED)
 				{
+					boolean sentChatMessage = false;
+					
 					List nearbyAlliedNPCs = world.getEntitiesWithinAABB(EntityLiving.class, entity.boundingBox.expand(8D, 8D, 8D));
 					for (int i = 0; i < nearbyAlliedNPCs.size(); i++)
 					{
@@ -1357,6 +1357,17 @@ public class LOTREventHandler implements IFuelHandler
 						}
 						
 						npc.setAttackTarget(entityplayer);
+						
+						if (!sentChatMessage && npc instanceof LOTREntityNPC)
+						{
+							LOTREntityNPC lotrnpc = (LOTREntityNPC)npc;
+							String speech = lotrnpc.getSpeechBank(entityplayer);
+							if (speech != null)
+							{
+								lotrnpc.sendSpeechBank(entityplayer, speech);
+								sentChatMessage = true;
+							}
+						}
 					}
 				}
 			}
@@ -1395,8 +1406,7 @@ public class LOTREventHandler implements IFuelHandler
 							rohirrim.setAttackTarget(entityplayer);
 							if (!sentMessage)
 							{
-								entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(rohirrim, "rohirrim_avengeHorse", entityplayer));
-								rohirrim.markNPCSpoken();
+								rohirrim.sendSpeechBank(entityplayer, "rohirrim_avengeHorse");
 								sentMessage = true;
 							}
 							

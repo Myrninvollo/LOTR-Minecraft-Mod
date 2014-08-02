@@ -102,7 +102,7 @@ public class LOTREntityBandit extends LOTREntityNPC
 	@Override
 	public LOTRFaction getFaction()
 	{
-		return LOTRFaction.BANDIT;
+		return LOTRFaction.HOSTILE;
 	}
 	
 	@Override
@@ -142,7 +142,7 @@ public class LOTREntityBandit extends LOTREntityNPC
 	{
 		super.onDeath(damagesource);
 		
-		if (!worldObj.isRemote && damagesource.getEntity() instanceof EntityPlayer && !LOTRMod.isInventoryEmpty(banditInventory))
+		if (!worldObj.isRemote && damagesource.getEntity() instanceof EntityPlayer && !banditInventory.isEmpty())
 		{
 			EntityPlayer entityplayer = (EntityPlayer)damagesource.getEntity();
 			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.killThievingBandit);
@@ -159,4 +159,21 @@ public class LOTREntityBandit extends LOTREntityNPC
 	{
 		return "bandit";
 	}
+	
+	public boolean canStealFromPlayerInv(EntityPlayer entityplayer)
+    {
+    	for (int slot = 0; slot < entityplayer.inventory.mainInventory.length; slot++)
+    	{
+    		if (slot == entityplayer.inventory.currentItem)
+    		{
+    			continue;
+    		}
+    		
+    		if (entityplayer.inventory.getStackInSlot(slot) != null)
+    		{
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 }

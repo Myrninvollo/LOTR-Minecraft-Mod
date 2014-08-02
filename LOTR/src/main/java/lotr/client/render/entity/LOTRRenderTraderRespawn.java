@@ -38,7 +38,7 @@ public class LOTRRenderTraderRespawn extends Render
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glTranslatef((float)d, (float)d1, (float)d2);
-		float rotation = interpolateRotation(traderRespawn.prevRotationYaw, traderRespawn.rotationYaw, f1);
+		float rotation = interpolateRotation(traderRespawn.prevSpawnerSpin, traderRespawn.spawnerSpin, f1);
 		float scale = traderRespawn.getScaleFloat(f1);
 		GL11.glRotatef(rotation, 0F, 1F, 0F);
 		GL11.glTranslatef(-0.5F * scale, traderRespawn.getBobbingOffset(f1), 0.03125F * scale);

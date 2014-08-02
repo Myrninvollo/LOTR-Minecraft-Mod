@@ -9,6 +9,7 @@ import lotr.common.LOTRMod;
 import lotr.common.entity.npc.LOTREntityBandit;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -49,7 +50,7 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
     @Override
     public boolean shouldExecute()
     {
-    	if (!LOTRMod.isInventoryEmpty(theBandit.banditInventory))
+    	if (!theBandit.banditInventory.isEmpty())
         {
             return false;
         }
@@ -65,7 +66,7 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
             	{
             		continue;
             	}
-            	if (LOTRMod.isInventoryEmpty(entityplayer.inventory))
+            	if (!theBandit.canStealFromPlayerInv(entityplayer))
             	{
             		continue;
             	}
@@ -111,7 +112,7 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
     @Override
     public boolean continueExecuting()
     {
-    	if (targetPlayer == null || !targetPlayer.isEntityAlive() || targetPlayer.capabilities.isCreativeMode || LOTRMod.isInventoryEmpty(targetPlayer.inventory))
+    	if (targetPlayer == null || !targetPlayer.isEntityAlive() || targetPlayer.capabilities.isCreativeMode || !theBandit.canStealFromPlayerInv(targetPlayer))
     	{
     		return false;
     	}
@@ -128,7 +129,7 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
 
     private void steal()
     {
-    	IInventory inv = targetPlayer.inventory;
+    	InventoryPlayer inv = targetPlayer.inventory;
     	int thefts = MathHelper.getRandomIntegerInRange(theBandit.getRNG(), 1, LOTREntityBandit.MAX_THEFTS);
     	boolean stolenSomething = false;
     	
@@ -171,7 +172,7 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
 		}
     }
     
-    private boolean tryStealItem(IInventory inv, final Item item)
+    private boolean tryStealItem(InventoryPlayer inv, final Item item)
     {
     	return tryStealItem_do(inv, new BanditItemFilter()
     	{
@@ -182,7 +183,7 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
     	});
     }
     
-    private boolean tryStealItem(IInventory inv, final Class itemclass)
+    private boolean tryStealItem(InventoryPlayer inv, final Class itemclass)
     {
     	return tryStealItem_do(inv, new BanditItemFilter()
     	{
@@ -193,7 +194,7 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
     	});
     }
     
-    private boolean tryStealItem(IInventory inv, final List itemList)
+    private boolean tryStealItem(InventoryPlayer inv, final List itemList)
     {
     	return tryStealItem_do(inv, new BanditItemFilter()
     	{
@@ -204,7 +205,7 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
     	});
     }
     
-    private boolean tryStealItem(IInventory inv)
+    private boolean tryStealItem(InventoryPlayer inv)
     {
     	return tryStealItem_do(inv, new BanditItemFilter()
     	{
@@ -215,20 +216,25 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
     	});
     }
     
-    private boolean tryStealItem_do(IInventory inv, BanditItemFilter filter)
+    private boolean tryStealItem_do(InventoryPlayer inv, BanditItemFilter filter)
     {
-    	Integer[] inventoryIndices = new Integer[inv.getSizeInventory()];
-		for (int l = 0; l < inventoryIndices.length; l++)
+    	Integer[] inventorySlots = new Integer[inv.mainInventory.length];
+		for (int l = 0; l < inventorySlots.length; l++)
 		{
-			inventoryIndices[l] = l;
+			inventorySlots[l] = l;
 		}
-		List<Integer> indicesAsList = Arrays.asList(inventoryIndices);
-		Collections.shuffle(indicesAsList);
-		inventoryIndices = indicesAsList.toArray(inventoryIndices);
+		List<Integer> slotsAsList = Arrays.asList(inventorySlots);
+		Collections.shuffle(slotsAsList);
+		inventorySlots = slotsAsList.toArray(inventorySlots);
 		
-		for (int index : inventoryIndices)
+		for (int slot : inventorySlots)
     	{
-			ItemStack itemstack = inv.getStackInSlot(index);
+			if (slot == inv.currentItem)
+			{
+				continue;
+			}
+					
+			ItemStack itemstack = inv.getStackInSlot(slot);
 			if (itemstack == null)
 			{
 				continue;
@@ -236,7 +242,7 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
 			
 			if (filter.isApplicable(itemstack))
 			{
-				stealItem(inv, index);
+				stealItem(inv, slot);
 				return true;
 			}
     	}
@@ -250,9 +256,9 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
     	return Math.max(1, MathHelper.ceiling_float_int(f));
     }
     
-    private void stealItem(IInventory inventoryPlayer, int index)
+    private void stealItem(InventoryPlayer inv, int slot)
     {
-    	ItemStack playerItem = inventoryPlayer.getStackInSlot(index);
+    	ItemStack playerItem = inv.getStackInSlot(slot);
     	int theft = getRandomTheftAmount(playerItem);
     	
     	int banditSlot = 0;
@@ -267,7 +273,7 @@ public class LOTREntityAIBanditSteal extends EntityAIBase
     	playerItem.stackSize -= theft;
     	if (playerItem.stackSize <= 0)
     	{
-    		inventoryPlayer.setInventorySlotContents(index, null);
+    		inv.setInventorySlotContents(slot, null);
     	}
     }
     

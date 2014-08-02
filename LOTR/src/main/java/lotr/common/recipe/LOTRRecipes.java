@@ -1965,7 +1965,7 @@ public class LOTRRecipes
 	{
 		rohirricRecipes.add(new ShapedOreRecipe(new ItemStack(rohirricTable), new Object[]
 		{
-			"XX", "YY", 'X', "plankWood", 'Y', new ItemStack(rock, 1, 2)
+			"XX", "XX", 'X', "plankWood"
 		}));
 		rohirricRecipes.add(new ShapedOreRecipe(new ItemStack(slabSingle2, 6, 1), new Object[]
 		{

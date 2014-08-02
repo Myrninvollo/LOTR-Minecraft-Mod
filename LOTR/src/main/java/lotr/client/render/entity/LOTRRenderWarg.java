@@ -90,7 +90,7 @@ public class LOTRRenderWarg extends RenderLiving
     {
 		if (i == 3)
 		{
-			if (((LOTREntityWarg)entityliving).getSaddled())
+			if (((LOTREntityWarg)entityliving).isMountSaddled())
 			{
 				bindTexture(wargSaddle);
 				setRenderPassModel(saddleModel);

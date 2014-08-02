@@ -212,6 +212,7 @@ public class LOTRItemEntDraught extends Item
 								huorn.hiredNPCInfo.setTask(LOTRHiredNPCInfo.Task.WARRIOR);
 								LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.summonHuorn);
 							}
+
 							for (int l = 0; l < 24; l++)
 							{
 								double d = i + 0.5D - world.rand.nextDouble() * 2D + world.rand.nextDouble() * 2D;
@@ -219,12 +220,19 @@ public class LOTRItemEntDraught extends Item
 								double d2 = k + 0.5D - world.rand.nextDouble() * 2D + world.rand.nextDouble() * 2D;
 								world.spawnParticle("happyVillager", d, d1, d2, 0D, 0D, 0D);
 							}
+							
+							if (!entityplayer.capabilities.isCreativeMode)
+							{
+								entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, new ItemStack(Items.bowl));
+							}
+							
 							return true;
 						}
 					}
 				}
 			}
 		}
+		
 		return false;
     }
 	

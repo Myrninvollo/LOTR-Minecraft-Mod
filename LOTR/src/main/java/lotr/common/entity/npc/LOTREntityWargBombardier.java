@@ -76,7 +76,7 @@ public abstract class LOTREntityWargBombardier extends LOTREntityWarg
 	}
 	
 	@Override
-    public boolean getSaddled()
+    public boolean isMountSaddled()
     {
         return false;
     }

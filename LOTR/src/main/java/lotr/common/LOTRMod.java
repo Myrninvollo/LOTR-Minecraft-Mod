@@ -2321,16 +2321,4 @@ public class LOTRMod
 		}
 		return false;
 	}
-	
-	public static boolean isInventoryEmpty(IInventory inv)
-    {
-    	for (int i = 0; i < inv.getSizeInventory(); i++)
-    	{
-    		if (inv.getStackInSlot(i) != null)
-    		{
-    			return false;
-    		}
-    	}
-    	return true;
-    }
 }

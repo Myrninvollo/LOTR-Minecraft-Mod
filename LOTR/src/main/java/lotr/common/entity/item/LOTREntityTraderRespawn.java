@@ -32,10 +32,14 @@ public class LOTREntityTraderRespawn extends Entity
 	private float traderHomeRadius;
 	private String traderLocationName;
 	
+	public float spawnerSpin;
+	public float prevSpawnerSpin;
+	
 	public LOTREntityTraderRespawn(World world)
 	{
 		super(world);
 		setSize(0.75F, 0.75F);
+		spawnerSpin = rand.nextFloat() * 360F;
 	}
 	
 	@Override
@@ -179,19 +183,18 @@ public class LOTREntityTraderRespawn extends Entity
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
-		prevRotationYaw = rotationYaw;
-		
-		if (isSpawnImminent())
+        
+        prevSpawnerSpin = spawnerSpin;
+        if (isSpawnImminent())
 		{
-			rotationYaw += 24F;
+        	spawnerSpin += 24F;
 		}
 		else
 		{
-			rotationYaw += 6F;
+			spawnerSpin += 6F;
 		}
-
-		prevRotationYaw = MathHelper.wrapAngleTo180_float(prevRotationYaw);
-		rotationYaw = MathHelper.wrapAngleTo180_float(rotationYaw);
+		prevSpawnerSpin = MathHelper.wrapAngleTo180_float(prevSpawnerSpin);
+		spawnerSpin = MathHelper.wrapAngleTo180_float(spawnerSpin);
 		
 		if (getScale() < MAX_SCALE)
 		{

@@ -211,6 +211,7 @@ public class LOTRItemMugBrewable extends Item
 			int duration = (int)(60F * (1F + itemRand.nextFloat() * 0.5F) * alcoholicity * strength);
 			if (duration >= 1)
 			{
+				duration *= 20;
 				entityplayer.addPotionEffect(new PotionEffect(Potion.confusion.id, duration));
 			}
 		}

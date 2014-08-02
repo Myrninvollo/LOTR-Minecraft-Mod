@@ -210,6 +210,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 	public void onChunkLoad()
 	{
 		super.onChunkLoad();
+		removeTasksOfType(LOTREntityAIBurningPanic.class);
 		tasks.addTask(0, new LOTREntityAIBurningPanic(this, 1.5D));
 	}
 	
@@ -313,7 +314,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 		return isEntityAlive() && npcTalkTick == getNPCTalkInterval();
 	}
 	
-	public void markNPCSpoken()
+	private void markNPCSpoken()
 	{
 		npcTalkTick = 0;
 	}
@@ -1094,23 +1095,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 			String speechBank = getSpeechBank(entityplayer);
 			if (speechBank != null)
 			{
-				if (npcLocationName != null)
-				{
-					String displayLocationName = npcLocationName;
-
-					if (!hasSpecificLocationName)
-					{
-						displayLocationName = StatCollector.translateToLocalFormatted(displayLocationName, new Object[] {getNPCName()});
-					}
-					
-					entityplayer.addChatMessage(LOTRSpeech.getNamedLocationSpeechForPlayer(this, displayLocationName, speechBank, entityplayer));
-				}
-				else
-				{
-					entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(this, speechBank, entityplayer));
-				}
-
-				markNPCSpoken();
+				sendSpeechBank(entityplayer, speechBank);
 				
 				if (getTalkAchievement() != null)
 				{
@@ -1121,6 +1106,26 @@ public abstract class LOTREntityNPC extends EntityCreature
 			}
 		}
 		return super.interact(entityplayer);
+	}
+	
+	public void sendSpeechBank(EntityPlayer entityplayer, String speechBank)
+	{
+		if (npcLocationName != null)
+		{
+			String displayLocationName = npcLocationName;
+			if (!hasSpecificLocationName)
+			{
+				displayLocationName = StatCollector.translateToLocalFormatted(displayLocationName, new Object[] {getNPCName()});
+			}
+			
+			entityplayer.addChatMessage(LOTRSpeech.getNamedLocationSpeechForPlayer(this, displayLocationName, speechBank, entityplayer));
+		}
+		else
+		{
+			entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(this, speechBank, entityplayer));
+		}
+		
+		markNPCSpoken();
 	}
 	
 	protected LOTRAchievement getTalkAchievement()

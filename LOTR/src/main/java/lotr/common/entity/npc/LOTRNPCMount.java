@@ -2,7 +2,7 @@ package lotr.common.entity.npc;
 
 public interface LOTRNPCMount
 {
-	public abstract boolean getSaddled();
+	public abstract boolean isMountSaddled();
 	
 	public abstract boolean getBelongsToNPC();
 	

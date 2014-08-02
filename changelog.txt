@@ -1,13 +1,31 @@
 Public Beta 19.1
 
-* Banners placed on gold blocks now prevent invasions within their protection range
++ Added banner bearers to the invasion spawn lists
++ Added chat notifications for when a player angers allied NPCs by killing one of their allies
++ Added a Quenya translation and updated Spanish (Argentina) and Spanish (Mexico) translations
++ Added the Tengwar glyphs on the inside of the Ring Portal
+
+* Changed the Rohirric Crafting Table recipe to four planks
+* Banners placed on gold blocks now prevent invasions and bandits from spawning
+* Fixed a crash in multiplayer when right-clicking a banner placed on a gold block
+* Banner bearers now seek out targets of their own accord
 * Fixed the ladder in the Ranger Watchtower being generated incorrectly
+* Fixed the placement of the chandelier at the top of the Blue Mountains Stronghold
 * Fixed NPCs holding bows and crossbows incorrectly
+* Fixed NPCs becoming angered when bandits are killed
+* Hired NPCs now target bandits
+* Bandits can no longer steal items which are currently being worn or held
 * Fixed strange characters appearing in bandit speech
 * Reduced the strain on the CPU from bandit and invasion spawning
+* Fixed invasion spawners and trader respawn coins moving jerkily
 * Fixed a crash when bandits flee from a player
 * Fixed the saddled camels in Near Harad desert camps not actually being saddled
 * Fixed chests not being consumed when attached to camels
+* Fixed a boar crash
+* Fixed Olog-hai's faces disappearing when they are hurt
+* Fixed a crash when smelting items in an alloy forge
+* Fixed summoning a Huorn not consuming the ent-draught
+* Fixed alcoholic drinks' nausea effect not lasting very long at all
 
 Public Beta 19
 

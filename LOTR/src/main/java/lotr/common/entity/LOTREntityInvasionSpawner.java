@@ -26,11 +26,15 @@ public class LOTREntityInvasionSpawner extends Entity
 	private int mobsRemaining;
 	private int timeSinceLastSpawn = 0;
 	
+	public float spawnerSpin;
+	public float prevSpawnerSpin;
+	
 	public LOTREntityInvasionSpawner(World world)
 	{
 		super(world);
 		setSize(1.5F, 1.5F);
 		renderDistanceWeight = 4D;
+		spawnerSpin = rand.nextFloat() * 360F;
 	}
 	
 	@Override
@@ -60,9 +64,14 @@ public class LOTREntityInvasionSpawner extends Entity
 		return invasionFaction;
 	}
 	
+	private void playHorn()
+	{
+		worldObj.playSoundAtEntity(this, "lotr:item.horn", 4F, 0.65F + rand.nextFloat() * 0.1F);
+	}
+	
 	public void announceInvasion(EntityPlayer entityplayer)
 	{
-		worldObj.playSoundAtEntity(entityplayer, "lotr:item.horn", 4F, 0.7F);
+		playHorn();
 		entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.invasion.start", new Object[] {invasionFaction.factionName()}));
 		mobsRemaining = MathHelper.getRandomIntegerInRange(rand, 30, 70);
 	}
@@ -114,10 +123,10 @@ public class LOTREntityInvasionSpawner extends Entity
         prevPosY = posY;
         prevPosZ = posZ;
         
-		prevRotationYaw = rotationYaw;
-		rotationYaw += 6F;
-		prevRotationYaw = MathHelper.wrapAngleTo180_float(prevRotationYaw);
-		rotationYaw = MathHelper.wrapAngleTo180_float(rotationYaw);
+        prevSpawnerSpin = spawnerSpin;
+		spawnerSpin += 6F;
+		prevSpawnerSpin = MathHelper.wrapAngleTo180_float(prevSpawnerSpin);
+		spawnerSpin = MathHelper.wrapAngleTo180_float(spawnerSpin);
 		
 		motionX = 0D;
 		motionY = 0D;
@@ -139,10 +148,11 @@ public class LOTREntityInvasionSpawner extends Entity
 					if (mobsRemaining > 0)
 					{
 						List nearbyNPCs = worldObj.selectEntitiesWithinAABB(LOTREntityNPC.class, boundingBox.expand(12D, 12D, 12D), new LOTRNPCSelectByFaction(invasionFaction));
-						if (nearbyNPCs.size() < 16 && rand.nextInt(120) == 0)
+						if (nearbyNPCs.size() < 16 && rand.nextInt(160) == 0)
 						{
-							int mobSpawns = MathHelper.getRandomIntegerInRange(rand, 1, 4);
+							int mobSpawns = MathHelper.getRandomIntegerInRange(rand, 1, 6);
 							mobSpawns = Math.min(mobSpawns, mobsRemaining);
+							boolean spawnedAnyMobs = false;
 							
 							mobSpawnLoop:
 							for (int l = 0; l < mobSpawns; l++)
@@ -168,7 +178,7 @@ public class LOTREntityInvasionSpawner extends Entity
 											worldObj.spawnEntityInWorld(npc);
 											npc.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(MOB_RANGE);
 											
-											timeSinceLastSpawn = 0;
+											spawnedAnyMobs = true;
 											mobsRemaining--;
 											
 											if (mobsRemaining > 0)
@@ -182,6 +192,12 @@ public class LOTREntityInvasionSpawner extends Entity
 										}
 									}
 								}
+							}
+							
+							if (spawnedAnyMobs)
+							{
+								timeSinceLastSpawn = 0;
+								playHorn();
 							}
 						}
 					}

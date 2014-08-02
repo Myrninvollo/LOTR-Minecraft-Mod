@@ -21,7 +21,7 @@ public class LOTREntityAINearestAttackableTargetBandit extends LOTREntityAINeare
     public boolean shouldExecute()
     {
     	LOTREntityBandit bandit = (LOTREntityBandit)taskOwner;
-    	if (!LOTRMod.isInventoryEmpty(bandit.banditInventory))
+    	if (!bandit.banditInventory.isEmpty())
     	{
     		return false;
     	}
@@ -32,7 +32,7 @@ public class LOTREntityAINearestAttackableTargetBandit extends LOTREntityAINeare
     protected boolean isPlayerSuitableTarget(EntityPlayer entityplayer)
     {
 		LOTREntityBandit bandit = (LOTREntityBandit)taskOwner;
-		if (!LOTRMod.isInventoryEmpty(entityplayer.inventory))
+		if (bandit.canStealFromPlayerInv(entityplayer))
 		{
 			return false;
 		}

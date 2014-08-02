@@ -509,6 +509,8 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 				LOTREntityBanner banner = (LOTREntityBanner)entity;
 				banner.playerSpecificProtection = data.readBoolean();
 				
+				LOTRGuiBanner gui = new LOTRGuiBanner(banner);
+				
 				int index = 0;
 				while ((index = data.readInt()) >= 0)
 				{
@@ -516,7 +518,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 					banner.allowedPlayers[index] = uuid;
 				}
 				
-				mc.displayGuiScreen(new LOTRGuiBanner(banner));
+				mc.displayGuiScreen(gui);
 			}
 		}
 		

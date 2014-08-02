@@ -72,7 +72,7 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
 	}
 	
 	@Override
-	public boolean getSaddled()
+	public boolean isMountSaddled()
     {
 		if (getBelongsToNPC())
 		{
@@ -157,7 +157,7 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
 		
         if (!worldObj.isRemote)
         {
-        	if (riddenByEntity instanceof EntityPlayer && getSaddled())
+        	if (riddenByEntity instanceof EntityPlayer && isMountSaddled())
 			{
 				LOTRLevelData.addAchievement((EntityPlayer)riddenByEntity, LOTRAchievement.rideCamel);
 			}
@@ -203,13 +203,13 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
 	@Override
 	public void onInventoryChanged(InventoryBasic par1InventoryBasic)
     {
-        boolean saddled = getSaddled();
+        boolean saddled = isMountSaddled();
         
         checkInventory();
 
         if (ticksExisted > 20)
         {
-            if (!saddled && getSaddled())
+            if (!saddled && isMountSaddled())
             {
                 playSound("mob.horse.leather", 0.5F, 1F);
             }
@@ -347,7 +347,7 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
     {
         super.onDeath(damagesource);
         
-        if (!worldObj.isRemote && getSaddled() && !getBelongsToNPC())
+        if (!worldObj.isRemote && isMountSaddled() && !getBelongsToNPC())
         {
 			dropItem(Items.saddle, 1);
 			setSaddled(false);

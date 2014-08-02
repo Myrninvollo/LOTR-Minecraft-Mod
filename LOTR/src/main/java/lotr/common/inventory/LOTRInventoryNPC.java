@@ -1,6 +1,7 @@
 package lotr.common.inventory;
 
 import lotr.common.entity.npc.LOTREntityNPC;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -64,5 +65,17 @@ public class LOTRInventoryNPC extends InventoryBasic
                 setInventorySlotContents(i, null);
             }
         }
+    }
+    
+    public boolean isEmpty()
+    {
+    	for (int i = 0; i < getSizeInventory(); i++)
+    	{
+    		if (getStackInSlot(i) != null)
+    		{
+    			return false;
+    		}
+    	}
+    	return true;
     }
 }

@@ -47,7 +47,7 @@ public class LOTREntityAIBanditFlee extends EntityAIBase
     		return false;
     	}
     	
-    	if (LOTRMod.isInventoryEmpty(theBandit.banditInventory))
+    	if (theBandit.banditInventory.isEmpty())
     	{
     		return false;
     	}

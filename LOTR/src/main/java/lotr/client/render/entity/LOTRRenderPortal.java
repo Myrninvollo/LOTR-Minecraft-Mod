@@ -16,7 +16,8 @@ public class LOTRRenderPortal extends Render
 	private static ResourceLocation ringTexture = new ResourceLocation("lotr:misc/portal.png");
 	private static ResourceLocation writingTexture = new ResourceLocation("lotr:misc/portal_writing.png");
 	private static ModelBase ringModel = new LOTRModelPortal(0);
-	private static ModelBase writingModel = new LOTRModelPortal(1);
+	private static ModelBase writingModelOuter = new LOTRModelPortal(1);
+	private static ModelBase writingModelInner = new LOTRModelPortal(1);
 	
 	@Override
     protected ResourceLocation getEntityTexture(Entity entity)
@@ -34,22 +35,25 @@ public class LOTRRenderPortal extends Render
 		GL11.glNormal3f(0F, 0F, 0F);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glScalef(1F, -1F, 1F);
-		float scale = portal.getScale();
-		if (scale < (float)LOTREntityPortal.MAX_SCALE)
+		float portalScale = portal.getScale();
+		if (portalScale < (float)LOTREntityPortal.MAX_SCALE)
 		{
-			scale += f1;
-			scale /= (float)LOTREntityPortal.MAX_SCALE;
-			GL11.glScalef(scale, scale, scale);
+			portalScale += f1;
+			portalScale /= (float)LOTREntityPortal.MAX_SCALE;
+			GL11.glScalef(portalScale, portalScale, portalScale);
 		}
 		GL11.glRotatef(portal.getPortalRotation(f1), 0F, 1F, 0F);
 		GL11.glRotatef(10F, 1F, 0F, 0F);
 		bindTexture(getEntityTexture(portal));
-		ringModel.render(null, 0F, 0F, 0F, 0F, 0F, 0.0625F);
+		float scale = 0.0625F;
+		ringModel.render(null, 0F, 0F, 0F, 0F, 0F, scale);
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		Tessellator.instance.setBrightness(15728880);
 		bindTexture(writingTexture);
-		writingModel.render(null, 0F, 0F, 0F, 0F, 0F, 0.064F);
+		writingModelOuter.render(null, 0F, 0F, 0F, 0F, 0F, scale * 1.1F);
+		bindTexture(writingTexture);
+		writingModelInner.render(null, 0F, 0F, 0F, 0F, 0F, scale * 0.8F);
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_CULL_FACE);

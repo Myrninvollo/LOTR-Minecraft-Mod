@@ -295,18 +295,23 @@ public abstract class LOTRTileEntityAlloyForge extends TileEntity implements IIn
         }
         else
         {
-			if (inventory[i - 4] != null && getAlloySmeltingResult(inventory[i], inventory[i - 4]) != null)
+			if (inventory[i - 4] != null)
 			{
-				ItemStack result = getAlloySmeltingResult(inventory[i], inventory[i - 4]);
-				
-				if (inventory[i + 4] == null)
+				ItemStack alloyResult = getAlloySmeltingResult(inventory[i], inventory[i - 4]);
+				if (alloyResult != null)
 				{
-					return true;
-				}
-				int resultSize = inventory[i + 4].stackSize + result.stackSize;
-				if (inventory[i + 4].isItemEqual(result) && resultSize <= getInventoryStackLimit() && resultSize <= result.getMaxStackSize())
-				{
-					return true;
+					if (inventory[i + 4] == null)
+					{
+						return true;
+					}
+					else
+					{
+						int resultSize = inventory[i + 4].stackSize + alloyResult.stackSize;
+						if (inventory[i + 4].isItemEqual(alloyResult) && resultSize <= getInventoryStackLimit() && resultSize <= alloyResult.getMaxStackSize())
+						{
+							return true;
+						}
+					}
 				}
 			}
 
@@ -324,6 +329,7 @@ public abstract class LOTRTileEntityAlloyForge extends TileEntity implements IIn
 			{
 				return false;
 			}
+			
 			int resultSize = inventory[i + 4].stackSize + result.stackSize;
 			return (resultSize <= getInventoryStackLimit() && resultSize <= result.getMaxStackSize());
         }
@@ -333,34 +339,41 @@ public abstract class LOTRTileEntityAlloyForge extends TileEntity implements IIn
     {
         if (canSmelt(i))
         {
-			if (getAlloySmeltingResult(inventory[i], inventory[i - 4]) != null && (inventory[i + 4] == null || inventory[i + 4].isItemEqual(getAlloySmeltingResult(inventory[i], inventory[i - 4]))))
+        	boolean smeltedAlloyItem = false;
+        	
+			if (inventory[i - 4] != null)
 			{
-				ItemStack result = getAlloySmeltingResult(inventory[i], inventory[i - 4]);
-
-				if (inventory[i + 4] == null)
+				ItemStack alloyResult = getAlloySmeltingResult(inventory[i], inventory[i - 4]);
+				if (alloyResult != null && (inventory[i + 4] == null || inventory[i + 4].isItemEqual(alloyResult)))
 				{
-					inventory[i + 4] = result.copy();
-				}
-				else if (inventory[i + 4].isItemEqual(result))
-				{
-					inventory[i + 4].stackSize += result.stackSize;
-				}
-
-				inventory[i].stackSize--;
-
-				if (inventory[i].stackSize <= 0)
-				{
-					inventory[i] = null;
-				}
-				
-				inventory[i - 4].stackSize--;
-
-				if (inventory[i - 4].stackSize <= 0)
-				{
-					inventory[i - 4] = null;
+					if (inventory[i + 4] == null)
+					{
+						inventory[i + 4] = alloyResult.copy();
+					}
+					else if (inventory[i + 4].isItemEqual(alloyResult))
+					{
+						inventory[i + 4].stackSize += alloyResult.stackSize;
+					}
+	
+					inventory[i].stackSize--;
+	
+					if (inventory[i].stackSize <= 0)
+					{
+						inventory[i] = null;
+					}
+					
+					inventory[i - 4].stackSize--;
+	
+					if (inventory[i - 4].stackSize <= 0)
+					{
+						inventory[i - 4] = null;
+					}
+					
+					smeltedAlloyItem = true;
 				}
 			}
-			else
+			
+			if (!smeltedAlloyItem)
 			{
 				ItemStack result = getSmeltingResult(inventory[i]);
 

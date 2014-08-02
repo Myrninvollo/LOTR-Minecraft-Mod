@@ -2,6 +2,7 @@ package lotr.common.entity.ai;
 
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
+import lotr.common.entity.npc.LOTREntityBandit;
 import lotr.common.entity.npc.LOTREntityNPC;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.EntityCreature;
@@ -42,12 +43,23 @@ public class LOTREntityAINearestAttackableTargetBasic extends EntityAINearestAtt
 		{
 			return false;
 		}
-		boolean suitable = super.isSuitableTarget(entity, flag);
-		if (suitable && entity instanceof EntityPlayer)
+		
+		if (super.isSuitableTarget(entity, flag))
 		{
-			return isPlayerSuitableTarget((EntityPlayer)entity);
+			if (entity instanceof EntityPlayer)
+			{
+				return isPlayerSuitableTarget((EntityPlayer)entity);
+			}
+			if (entity instanceof LOTREntityBandit)
+			{
+				return taskOwner instanceof LOTREntityNPC && ((LOTREntityNPC)taskOwner).hiredNPCInfo.isActive;
+			}
+			return true;
 		}
-		return suitable;
+		else
+		{
+			return false;
+		}
 	}
 	
 	protected boolean isPlayerSuitableTarget(EntityPlayer entityplayer)

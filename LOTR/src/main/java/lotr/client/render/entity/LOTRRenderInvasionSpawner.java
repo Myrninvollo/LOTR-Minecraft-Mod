@@ -39,7 +39,7 @@ public class LOTRRenderInvasionSpawner extends Render
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glTranslatef((float)d, (float)d1, (float)d2);
-		float rotation = interpolateRotation(spawner.prevRotationYaw, spawner.rotationYaw, f1);
+		float rotation = interpolateRotation(spawner.prevSpawnerSpin, spawner.spawnerSpin, f1);
 		float scale = 1.5F;
 		GL11.glRotatef(rotation, 0F, 1F, 0F);
 		GL11.glTranslatef(-0.5F * scale, 0F, 0.03125F * scale);

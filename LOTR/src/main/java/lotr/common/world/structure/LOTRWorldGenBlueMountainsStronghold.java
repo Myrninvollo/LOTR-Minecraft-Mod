@@ -206,6 +206,7 @@ public class LOTRWorldGenBlueMountainsStronghold extends LOTRWorldGenStructureBa
 		
 		setBlockAndNotifyAdequately(world, i, j + 7, k, LOTRMod.chandelier, 11);
 		setBlockAndNotifyAdequately(world, i, j + 11, k, LOTRMod.chandelier, 11);
+		setBlockAndNotifyAdequately(world, i, j + 12, k, LOTRMod.brick, 6);
 
 		switch (rotation)
 		{

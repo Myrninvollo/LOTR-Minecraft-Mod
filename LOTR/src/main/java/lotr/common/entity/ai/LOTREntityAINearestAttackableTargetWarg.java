@@ -19,7 +19,7 @@ public class LOTREntityAINearestAttackableTargetWarg extends LOTREntityAINearest
     @Override
     public boolean shouldExecute()
     {
-		if (((LOTREntityWarg)taskOwner).getSaddled())
+		if (((LOTREntityWarg)taskOwner).isMountSaddled())
 		{
 			return false;
 		}

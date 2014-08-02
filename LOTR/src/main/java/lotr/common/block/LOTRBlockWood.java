@@ -19,7 +19,7 @@ public class LOTRBlockWood extends LOTRBlockWoodBase
     }
 	
 	@Override
-    public boolean removedByPlayer(World world, EntityPlayer entityplayer, int i, int j, int k)
+    public boolean removedByPlayer(World world, EntityPlayer entityplayer, int i, int j, int k, boolean willHarvest)
     {
         if (!world.isRemote && (world.getBlockMetadata(i, j, k) & 3) == 1 && world.rand.nextInt(3) == 0 && world.getBiomeGenForCoords(i, k) instanceof LOTRBiomeGenLothlorien && LOTRLevelData.getAlignment(entityplayer, LOTRFaction.GALADHRIM) < 0 && !entityplayer.capabilities.isCreativeMode)
 		{
@@ -43,14 +43,13 @@ public class LOTRBlockWood extends LOTRBlockWoodBase
 						elfWarrior.setAttackTarget(entityplayer);
 						if (!sentMessage)
 						{
-							entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(elfWarrior, "elfWarrior_defendTrees", entityplayer));
-							elfWarrior.markNPCSpoken();
+							elfWarrior.sendSpeechBank(entityplayer, "elfWarrior_defendTrees");
 							sentMessage = true;
 						}
 					}
 				}
 			}
 		}
-		return super.removedByPlayer(world, entityplayer, i, j, k);
+		return super.removedByPlayer(world, entityplayer, i, j, k, willHarvest);
     }
 }

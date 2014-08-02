@@ -158,7 +158,7 @@ public class LOTREntityWildBoar extends EntityPig implements LOTRNPCMount
 	}
 	
 	@Override
-	public boolean getSaddled()
+	public boolean isMountSaddled()
 	{
 		if (getBelongsToNPC())
 		{
@@ -234,7 +234,7 @@ public class LOTREntityWildBoar extends EntityPig implements LOTRNPCMount
     {
         super.onDeath(damagesource);
         
-        if (!worldObj.isRemote && getSaddled() && !getBelongsToNPC())
+        if (!worldObj.isRemote && isMountSaddled() && !getBelongsToNPC())
         {
 			dropItem(Items.saddle, 1);
 			setSaddled(false);

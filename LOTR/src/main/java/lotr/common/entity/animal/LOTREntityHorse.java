@@ -126,7 +126,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 	}
 	
 	@Override
-	public boolean getSaddled()
+	public boolean isMountSaddled()
 	{
 		return isHorseSaddled();
 	}

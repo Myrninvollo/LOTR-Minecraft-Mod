@@ -29,7 +29,7 @@ public class LOTRRenderRhino extends RenderLiving
 	@Override
     protected int shouldRenderPass(EntityLivingBase entity, int i, float f)
     {
-		if (i == 0 && ((LOTREntityRhino)entity).getSaddled())
+		if (i == 0 && ((LOTREntityRhino)entity).isMountSaddled())
 		{
 			bindTexture(saddleTexture);
 			return 1;

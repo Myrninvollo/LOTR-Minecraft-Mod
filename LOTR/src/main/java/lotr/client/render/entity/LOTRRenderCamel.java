@@ -31,7 +31,7 @@ public class LOTRRenderCamel extends RenderLiving
     @Override
     protected int shouldRenderPass(EntityLivingBase entity, int i, float f)
     {
-		if (i == 0 && ((LOTREntityCamel)entity).getSaddled())
+		if (i == 0 && ((LOTREntityCamel)entity).isMountSaddled())
 		{
 			bindTexture(saddleTexture);
 			return 1;

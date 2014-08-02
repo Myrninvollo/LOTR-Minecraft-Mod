@@ -75,7 +75,7 @@ public class LOTREntityGiraffe extends EntityAnimal implements LOTRNPCMount
     public void writeEntityToNBT(NBTTagCompound nbt)
     {
         super.writeEntityToNBT(nbt);
-        nbt.setBoolean("Saddled", getSaddled());
+        nbt.setBoolean("Saddled", isMountSaddled());
     }
 
     @Override
@@ -149,7 +149,7 @@ public class LOTREntityGiraffe extends EntityAnimal implements LOTRNPCMount
 		}
         
         ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-        if (!isChild() && !getSaddled() && riddenByEntity == null && itemstack != null && itemstack.getItem() == Items.saddle)
+        if (!isChild() && !isMountSaddled() && riddenByEntity == null && itemstack != null && itemstack.getItem() == Items.saddle)
 		{
 			if (!entityplayer.capabilities.isCreativeMode)
 			{
@@ -159,7 +159,7 @@ public class LOTREntityGiraffe extends EntityAnimal implements LOTRNPCMount
 			playSound("mob.horse.leather", 0.5F, 1F);
 			return true;
 		}
-        else if (getSaddled() && !worldObj.isRemote && (riddenByEntity == null || riddenByEntity == entityplayer))
+        else if (isMountSaddled() && !worldObj.isRemote && (riddenByEntity == null || riddenByEntity == entityplayer))
         {
             entityplayer.mountEntity(this);
             return true;
@@ -171,21 +171,14 @@ public class LOTREntityGiraffe extends EntityAnimal implements LOTRNPCMount
     }
 	
 	@Override
-    public boolean getSaddled()
+    public boolean isMountSaddled()
     {
         return (dataWatcher.getWatchableObjectByte(16) & 1) != 0;
     }
 
     public void setSaddled(boolean flag)
     {
-        if (flag)
-        {
-            dataWatcher.updateObject(16, Byte.valueOf((byte)1));
-        }
-        else
-        {
-            dataWatcher.updateObject(16, Byte.valueOf((byte)0));
-        }
+    	dataWatcher.updateObject(16, Byte.valueOf(flag ? (byte)1 : (byte)0));
     }
 	
 	@Override
@@ -194,7 +187,7 @@ public class LOTREntityGiraffe extends EntityAnimal implements LOTRNPCMount
         super.onDeath(damagesource);
         if (!worldObj.isRemote)
         {
-			if (getSaddled())
+			if (isMountSaddled())
 			{
 				dropItem(Items.saddle, 1);
 				setSaddled(false);

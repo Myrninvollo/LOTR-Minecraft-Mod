@@ -77,7 +77,7 @@ public class LOTRMountFunctions
 	{
 		EntityLiving entity = (EntityLiving)mount;
 		
-		if (entity.riddenByEntity != null && entity.riddenByEntity instanceof EntityPlayer && mount.getSaddled())
+		if (entity.riddenByEntity != null && entity.riddenByEntity instanceof EntityPlayer && mount.isMountSaddled())
         {
 			entity.prevRotationYaw = entity.rotationYaw = entity.riddenByEntity.rotationYaw;
             entity.rotationPitch = entity.riddenByEntity.rotationPitch * 0.5F;

@@ -131,18 +131,7 @@ public class LOTRWorldGenRangerWatchtower extends LOTRWorldGenStructureBase2
 				}
 			}
 		}
-		
-		setGrassToDirt(world, 0, 0, 0);
-		for (int j1 = 1; j1 <= 22; j1++)
-		{
-			setBlockAndMetadata(world, 0, j1, 0, woodBlock, woodMeta);
-			
-			if (j1 <= 15)
-			{
-				setBlockAndMetadata(world, 0, j1, -1, Blocks.ladder, 2);
-			}
-		}
-		
+
 		for (int j1 = 6; j1 <= 19; j1++)
 		{
 			setBlockAndMetadata(world, -2, j1, -2, woodBlock, woodMeta);
@@ -190,8 +179,6 @@ public class LOTRWorldGenRangerWatchtower extends LOTRWorldGenStructureBase2
 			setBlockAndMetadata(world, -3, j1 + 2, 0, Blocks.torch, 5);
 			setBlockAndMetadata(world, 3, j1 + 2, 0, Blocks.torch, 5);
 			
-			setBlockAndMetadata(world, 0, j1 + 1, -1, Blocks.trapdoor, 2);
-			
 			spawnNPCAndSetHome(new LOTREntityRangerNorth(world), world, -1, j1 + 1, 0, 8);
 		}
 		
@@ -213,6 +200,20 @@ public class LOTRWorldGenRangerWatchtower extends LOTRWorldGenStructureBase2
 				}
 			}
 		}
+		
+		setGrassToDirt(world, 0, 0, 0);
+		for (int j1 = 1; j1 <= 22; j1++)
+		{
+			setBlockAndMetadata(world, 0, j1, 0, woodBlock, woodMeta);
+			
+			if (j1 <= 15)
+			{
+				setBlockAndMetadata(world, 0, j1, -1, Blocks.ladder, 2);
+			}
+		}
+		
+		setBlockAndMetadata(world, 0, 6, -1, Blocks.trapdoor, 0);
+		setBlockAndMetadata(world, 0, 11, -1, Blocks.trapdoor, 0);
 		
 		setBlockAndMetadata(world, 0, 17, -2, Blocks.torch, 5);
 		setBlockAndMetadata(world, 0, 17, 2, Blocks.torch, 5);

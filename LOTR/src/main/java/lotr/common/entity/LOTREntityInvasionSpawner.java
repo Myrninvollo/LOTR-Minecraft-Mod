@@ -2,7 +2,9 @@ package lotr.common.entity;
 
 import java.util.List;
 
+import lotr.common.LOTREventHandler;
 import lotr.common.LOTRFaction;
+import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.world.LOTRInvasionSpawner.InvasionSpawnEntry;
 import net.minecraft.entity.Entity;
@@ -36,12 +38,26 @@ public class LOTREntityInvasionSpawner extends Entity
 	
 	public boolean canSpawnerSpawnHere()
     {
+		int i = MathHelper.floor_double(posX);
+		int j = MathHelper.floor_double(boundingBox.minY);
+		int k = MathHelper.floor_double(posZ);
+		
+		if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, this, false))
+		{
+			return false;
+		}
+		
         return worldObj.checkNoEntityCollision(boundingBox) && worldObj.getCollidingBoundingBoxes(this, boundingBox).isEmpty() && !worldObj.isAnyLiquid(boundingBox);
     }
 	
 	public void setFaction(LOTRFaction f)
 	{
 		invasionFaction = f;
+	}
+	
+	public LOTRFaction getFaction()
+	{
+		return invasionFaction;
 	}
 	
 	public void announceInvasion(EntityPlayer entityplayer)

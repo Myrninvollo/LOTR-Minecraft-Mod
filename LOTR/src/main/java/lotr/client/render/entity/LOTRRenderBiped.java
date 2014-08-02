@@ -115,13 +115,12 @@ public abstract class LOTRRenderBiped extends RenderBiped
 		if (rightArm)
 		{
 			field_82423_g.heldItemRight = field_82425_h.heldItemRight = modelBipedMain.heldItemRight = value;
+			field_82423_g.aimedBow = field_82425_h.aimedBow = modelBipedMain.aimedBow = aimBow;
 		}
 		else
 		{
 			field_82423_g.heldItemLeft = field_82425_h.heldItemLeft = modelBipedMain.heldItemLeft = value;
 		}
-		
-		field_82423_g.aimedBow = field_82425_h.aimedBow = modelBipedMain.aimedBow = aimBow;
 	}
 	
 	@Override

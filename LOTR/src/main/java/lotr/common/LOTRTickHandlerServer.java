@@ -167,9 +167,11 @@ public class LOTRTickHandlerServer
 					obj.performSpawning(world);
 				}
 				
-				LOTRBanditSpawner.performSpawning(world);
-				
-				LOTRInvasionSpawner.performSpawning(world);
+				if (world.getWorldTime() % 20L == 0L)
+				{
+					LOTRBanditSpawner.performSpawning(world);
+					LOTRInvasionSpawner.performSpawning(world);
+				}
 				
 				if (LOTRMod.isNewYearsDay())
 				{

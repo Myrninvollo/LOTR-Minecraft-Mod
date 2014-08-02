@@ -81,9 +81,15 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
         return dataWatcher.getWatchableObjectByte(16) == (byte)1;
     }
 
-    public void setSaddled(boolean flag)
+    private void setSaddled(boolean flag)
     {
     	dataWatcher.updateObject(16, Byte.valueOf(flag ? (byte)1 : (byte)0));
+    }
+    
+    public void saddleCamel()
+    {
+    	camelInv.setInventorySlotContents(0, new ItemStack(Items.saddle));
+    	setupInventory();
     }
 	
 	@Override
@@ -231,6 +237,14 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
         }
 		else if (!isChild() && !hasChest() && itemstack != null && itemstack.getItem() == Item.getItemFromBlock(Blocks.chest))
         {
+			if (!entityplayer.capabilities.isCreativeMode)
+			{
+				itemstack.stackSize--;
+				if (itemstack.stackSize <= 0)
+				{
+					entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+				}
+			}
             setHasChest(true);
             playSound("mob.horse.leather", 0.5F, 1F);
             setupInventory();

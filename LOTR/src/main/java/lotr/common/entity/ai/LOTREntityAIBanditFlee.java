@@ -89,7 +89,10 @@ public class LOTREntityAIBanditFlee extends EntityAIBase
 		if (theBandit.getNavigator().noPath())
 		{
 			Vec3 away = RandomPositionGenerator.findRandomTargetBlockAwayFrom(theBandit, (int)range, 10, Vec3.createVectorHelper(targetPlayer.posX, targetPlayer.posY, targetPlayer.posZ));
-			theBandit.getNavigator().tryMoveToXYZ(away.xCoord, away.yCoord, away.zCoord, speed);
+			if (away != null)
+			{
+				theBandit.getNavigator().tryMoveToXYZ(away.xCoord, away.yCoord, away.zCoord, speed);
+			}
 			
 			targetPlayer = findNearestPlayer();
 		}

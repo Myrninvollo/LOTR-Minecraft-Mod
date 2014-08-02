@@ -1,3 +1,14 @@
+Public Beta 19.1
+
+* Banners placed on gold blocks now prevent invasions within their protection range
+* Fixed the ladder in the Ranger Watchtower being generated incorrectly
+* Fixed NPCs holding bows and crossbows incorrectly
+* Fixed strange characters appearing in bandit speech
+* Reduced the strain on the CPU from bandit and invasion spawning
+* Fixed a crash when bandits flee from a player
+* Fixed the saddled camels in Near Harad desert camps not actually being saddled
+* Fixed chests not being consumed when attached to camels
+
 Public Beta 19
 
 + Added a 32-block cubic radius of protection around a banner placed on a gold block, which serves two purposes:

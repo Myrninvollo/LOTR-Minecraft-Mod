@@ -12,9 +12,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 public class LOTRBanditSpawner
 {
 	public static int NEVER = 0;
-	public static int RARE = 400000;
-	public static int UNCOMMON = 150000;
-	public static int COMMON = 40000;
+	public static int RARE = 20000;
+	public static int UNCOMMON = 8000;
+	public static int COMMON = 2000;
 	
 	public static void performSpawning(World world)
 	{

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import lotr.common.LOTRMod;
+import lotr.common.world.feature.LOTRWorldGenBiomeFlowers;
 import lotr.common.world.feature.LOTRWorldGenCaveCobwebs;
-import lotr.common.world.feature.LOTRWorldGenFlowers;
 import lotr.common.world.feature.LOTRWorldGenLogs;
 import lotr.common.world.feature.LOTRWorldGenMordorLava;
 import lotr.common.world.feature.LOTRWorldGenStalactites;
@@ -53,7 +53,7 @@ public class LOTRBiomeDecorator
 	private WorldGenerator sulfurGen = new WorldGenMinable(LOTRMod.oreSulfur, 8);
 	private WorldGenerator saltpeterGen = new WorldGenMinable(LOTRMod.oreSaltpeter, 8);
 	
-	private WorldGenerator flowerGen = new LOTRWorldGenFlowers();
+	private WorldGenerator flowerGen = new LOTRWorldGenBiomeFlowers();
 	private WorldGenerator logGen = new LOTRWorldGenLogs();
     private WorldGenerator mushroomBrownGen = new WorldGenFlowers(Blocks.brown_mushroom);
     private WorldGenerator mushroomRedGen = new WorldGenFlowers(Blocks.red_mushroom);

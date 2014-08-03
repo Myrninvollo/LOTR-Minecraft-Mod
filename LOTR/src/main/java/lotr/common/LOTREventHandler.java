@@ -97,6 +97,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -1493,6 +1494,50 @@ public class LOTREventHandler implements IFuelHandler
 						}
 					}
 				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onServerChat(ServerChatEvent event)
+	{
+		EntityPlayerMP entityplayer = event.player;
+		String message = event.message;
+		
+		if (!entityplayer.capabilities.isCreativeMode && !LOTRLevelData.hasPlayerAskedForGandalf(entityplayer) && StringUtils.containsIgnoreCase(message, "I want Mevans to add Gandalf"))
+		{
+			boolean success = false;
+			
+			factions:
+			for (LOTRFaction faction : LOTRFaction.values())
+			{
+				if (!faction.allowPlayer || faction.invasionMobs.isEmpty())
+				{
+					continue factions;
+				}
+				if (LOTRLevelData.getAlignment(entityplayer, faction) >= 0)
+				{
+					continue factions;
+				}
+				
+				LOTREntityInvasionSpawner invasion = new LOTREntityInvasionSpawner(entityplayer.worldObj);
+				invasion.setFaction(faction);
+				double x = entityplayer.posX;
+				double y = entityplayer.boundingBox.minY + 3D + (entityplayer.getRNG().nextDouble()) * 2D;
+				double z = entityplayer.posZ;
+				invasion.setLocationAndAngles(x, y, z, 0F, 0F);
+				if (invasion.canInvasionSpawnHere())
+				{
+					entityplayer.worldObj.spawnEntityInWorld(invasion);
+					invasion.announceInvasion(entityplayer);
+					success = true;
+					break factions;
+				}
+			}
+			
+			if (success)
+			{
+				LOTRLevelData.setAskedForGandalf(entityplayer, true);
 			}
 		}
 	}

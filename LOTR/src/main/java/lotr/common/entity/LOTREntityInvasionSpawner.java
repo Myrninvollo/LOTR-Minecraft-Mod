@@ -40,7 +40,7 @@ public class LOTREntityInvasionSpawner extends Entity
 	@Override
     protected void entityInit() {}
 	
-	public boolean canSpawnerSpawnHere()
+	public boolean canInvasionSpawnHere()
     {
 		int i = MathHelper.floor_double(posX);
 		int j = MathHelper.floor_double(boundingBox.minY);

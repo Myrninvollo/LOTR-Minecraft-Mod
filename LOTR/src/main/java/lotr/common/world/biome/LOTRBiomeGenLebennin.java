@@ -36,7 +36,7 @@ public class LOTRBiomeGenLebennin extends LOTRBiomeGenGondor
 		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 6;
 		
-		setBanditChance(LOTRBanditSpawner.NEVER);
+		setBanditChance(LOTRBanditSpawner.RARE);
 		
 		invasionSpawns.clear();
 	}

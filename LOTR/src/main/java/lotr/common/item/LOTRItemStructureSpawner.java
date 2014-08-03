@@ -73,7 +73,7 @@ public class LOTRItemStructureSpawner extends Item
 				entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.spawnStructure.disabled"));
 				return false;
 			}
-			if (LOTRLevelData.bannedStructurePlayers.contains(entityplayer.getUniqueID()))
+			if (LOTRLevelData.isPlayerBannedForStructures(entityplayer))
 			{
 				entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.spawnStructure.banned"));
 				return false;

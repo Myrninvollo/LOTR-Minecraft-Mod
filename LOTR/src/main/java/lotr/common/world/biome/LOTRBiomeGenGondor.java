@@ -72,6 +72,7 @@ public class LOTRBiomeGenGondor extends LOTRBiome
 		setBanditChance(LOTRBanditSpawner.RARE);
 		
 		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.MORDOR, LOTRInvasionSpawner.UNCOMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.NEAR_HARAD, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

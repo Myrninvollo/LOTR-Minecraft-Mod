@@ -16,6 +16,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
+
 import lotr.common.inventory.LOTRSlotAlignmentReward;
 import lotr.common.world.LOTRTravellingTraderSpawner;
 import net.minecraft.entity.Entity;
@@ -27,12 +29,14 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 import com.google.common.base.Charsets;
+import com.mojang.authlib.GameProfile;
 
 public class LOTRLevelData
 {
@@ -77,11 +81,12 @@ public class LOTRLevelData
 	public static Map fastTravelTimers = new HashMap();
 	public static Map viewingFactions = new HashMap();
 	
-	public static Set playersCheckedAchievements = new HashSet();
-	public static Set playersCheckedAlignments = new HashSet();
-	public static Set bannedStructurePlayers = new HashSet();
-	private static Set hiddenAlignments = new HashSet();
-	private static Set hiddenMapPlayers = new HashSet();
+	public static Set<UUID> playersCheckedAchievements = new HashSet<UUID>();
+	public static Set<UUID> playersCheckedAlignments = new HashSet<UUID>();
+	private static Set<UUID> bannedStructurePlayers = new HashSet<UUID>();
+	private static Set<UUID> hiddenAlignments = new HashSet<UUID>();
+	private static Set<UUID> hiddenMapPlayers = new HashSet<UUID>();
+	private static Set<UUID> playersAskedForGandalf = new HashSet<UUID>();
 	
 	public static boolean needsLoad = true;
 	public static boolean needsSave = false;
@@ -325,6 +330,7 @@ public class LOTRLevelData
 			levelData.setTag("BannedStructurePlayers", savePlayerSet(bannedStructurePlayers));
 			levelData.setTag("HiddenAlignments", savePlayerSet(hiddenAlignments));
 			levelData.setTag("HiddenMapPlayers", savePlayerSet(hiddenMapPlayers));
+			levelData.setTag("AskedForGandalf", savePlayerSet(playersAskedForGandalf));
 			
 			NBTTagCompound takenAlignmentRewards = new NBTTagCompound();
 			for (LOTRFaction faction : LOTRFaction.values())
@@ -370,20 +376,17 @@ public class LOTRLevelData
 		structureLocations.setTag(name, tags);
 	}
 	
-	private static NBTTagList savePlayerSet(Set playerSet)
+	private static NBTTagList savePlayerSet(Set<UUID> playerSet)
 	{
 		NBTTagList tags = new NBTTagList();
-		Iterator i = playerSet.iterator();
+		Iterator<UUID> i = playerSet.iterator();
 		while (i.hasNext())
 		{
-			Object obj = i.next();
-			if (obj instanceof UUID)
-			{
-				NBTTagCompound nbt = new NBTTagCompound();
-				nbt.setLong("UUIDMost", ((UUID)obj).getMostSignificantBits());
-				nbt.setLong("UUIDLeast", ((UUID)obj).getLeastSignificantBits());
-				tags.appendTag(nbt);
-			}
+			UUID uuid = i.next();
+			NBTTagCompound nbt = new NBTTagCompound();
+			nbt.setLong("UUIDMost", uuid.getMostSignificantBits());
+			nbt.setLong("UUIDLeast", uuid.getLeastSignificantBits());
+			tags.appendTag(nbt);
 		}
 		return tags;
 	}
@@ -600,6 +603,7 @@ public class LOTRLevelData
 			loadPlayerSet(levelData, bannedStructurePlayers, "BannedStructurePlayers");
 			loadPlayerSet(levelData, hiddenAlignments, "HiddenAlignments");
 			loadPlayerSet(levelData, hiddenMapPlayers, "HiddenMapPlayers");
+			loadPlayerSet(levelData, playersAskedForGandalf, "AskedForGandalf");
 			
 			NBTTagCompound takenAlignmentRewards = levelData.getCompoundTag("TakenAlignmentRewards");
 			for (LOTRFaction faction : LOTRFaction.values())
@@ -651,7 +655,7 @@ public class LOTRLevelData
 		}
 	}
 	
-	private static void loadPlayerSet(NBTTagCompound levelData, Set playerSet, String name)
+	private static void loadPlayerSet(NBTTagCompound levelData, Set<UUID> playerSet, String name)
 	{
 		playerSet.clear();
 		NBTTagList tags = levelData.getTagList(name, new NBTTagCompound().getId());
@@ -1109,6 +1113,53 @@ public class LOTRLevelData
 				addAchievement(entityplayer, LOTRAchievement.alignmentGood1000_HALF_TROLL);
 			}
 		}
+	}
+	
+	public static void setPlayerBannedForStructures(String username, boolean flag)
+	{
+		UUID uuid = UUID.fromString(PreYggdrasilConverter.func_152719_a(username));
+		if (uuid != null)
+		{
+			if (flag)
+			{
+				bannedStructurePlayers.add(uuid);
+			}
+			else
+			{
+				bannedStructurePlayers.remove(uuid);
+			}
+			needsSave = true;
+		}
+	}
+	
+	public static boolean isPlayerBannedForStructures(EntityPlayer entityplayer)
+	{
+		return bannedStructurePlayers.contains(entityplayer.getUniqueID());
+	}
+	
+	public static Set<String> getBannedStructurePlayersUsernames()
+	{
+		Set<String> players = new HashSet<String>();
+		
+		Iterator<UUID> it = bannedStructurePlayers.iterator();
+		while (it.hasNext())
+		{
+			UUID uuid = it.next();
+			
+			GameProfile profile = MinecraftServer.getServer().func_152358_ax().func_152652_a(uuid);
+			if (StringUtils.isEmpty(profile.getName()))
+			{
+				MinecraftServer.getServer().func_147130_as().fillProfileProperties(profile, true);
+			}
+			
+			String username = profile.getName();
+			if (!StringUtils.isEmpty(username))
+			{
+				players.add(username);
+			}
+		}
+		
+		return players;
 	}
 
 	public static void setClientAlignment(UUID player, int alignment, LOTRFaction faction)
@@ -1681,6 +1732,24 @@ public class LOTRLevelData
 			boolean flag = hasTakenAlignmentRewardItem(entityplayer, faction);
 			sendTakenAlignmentRewardItemPacket(entityplayer, faction, flag);
 		}
+	}
+	
+	public static boolean hasPlayerAskedForGandalf(EntityPlayer entityplayer)
+	{
+		return playersAskedForGandalf.contains(entityplayer.getUniqueID());
+	}
+	
+	public static void setAskedForGandalf(EntityPlayer entityplayer, boolean flag)
+	{
+		if (flag)
+		{
+			playersAskedForGandalf.add(entityplayer.getUniqueID());
+		}
+		else
+		{
+			playersAskedForGandalf.remove(entityplayer.getUniqueID());
+		}
+		needsSave = true;
 	}
 	
 	public static String getHMSTime(int i)

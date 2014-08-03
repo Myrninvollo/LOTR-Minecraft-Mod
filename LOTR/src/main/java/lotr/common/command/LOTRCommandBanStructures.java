@@ -27,7 +27,7 @@ public class LOTRCommandBanStructures extends CommandBase
 	@Override
     public String getCommandUsage(ICommandSender sender)
     {
-        return "";
+        return "commands.lotr.banStructures.usage";
     }
 
 	@Override
@@ -45,8 +45,7 @@ public class LOTRCommandBanStructures extends CommandBase
 		}
         else
         {
-			LOTRLevelData.bannedStructurePlayers.add(input[0]);
-			LOTRLevelData.needsSave = true;
+			LOTRLevelData.setPlayerBannedForStructures(input[0], true);
 			func_152373_a(sender, this, "commands.lotr.banStructures.banPlayer", new Object[] {input[0]});
 			EntityPlayerMP entityplayer = getPlayer(sender, input[0]);
 			if (entityplayer != null)

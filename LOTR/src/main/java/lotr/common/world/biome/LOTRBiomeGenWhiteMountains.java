@@ -29,6 +29,7 @@ public class LOTRBiomeGenWhiteMountains extends LOTRBiomeGenGondor
 		
 		setBanditChance(LOTRBanditSpawner.RARE);
 		
+		invasionSpawns.clear();
 		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.MORDOR, LOTRInvasionSpawner.RARE));
 	}
 	

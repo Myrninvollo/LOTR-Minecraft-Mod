@@ -2269,7 +2269,7 @@ public class LOTRRecipes
 		}));
 		highElvenRecipes.add(new ShapedOreRecipe(new ItemStack(elvenBow), new Object[]
 		{
-			" XY", "X Y", " XY", 'X', "stickWood", 'Y', Items.string
+			" XY", "X Y", " XY", 'X', Items.iron_ingot, 'Y', Items.string
 		}));
 		highElvenRecipes.add(new ShapedOreRecipe(new ItemStack(shovelHighElven), new Object[]
 		{

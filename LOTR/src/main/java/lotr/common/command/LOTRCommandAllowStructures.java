@@ -46,8 +46,7 @@ public class LOTRCommandAllowStructures extends CommandBase
 		}
         else
         {
-			LOTRLevelData.bannedStructurePlayers.remove(input[0]);
-			LOTRLevelData.needsSave = true;
+        	LOTRLevelData.setPlayerBannedForStructures(input[0], false);
 			func_152373_a(sender, this, "commands.lotr.allowStructures.allowPlayer", new Object[] {input[0]});
 			EntityPlayerMP entityplayer = getPlayer(sender, input[0]);
 			if (entityplayer != null)
@@ -63,7 +62,7 @@ public class LOTRCommandAllowStructures extends CommandBase
 		if (input.length == 1)
 		{
 			List list = new ArrayList();
-			list.addAll(LOTRLevelData.bannedStructurePlayers);
+			list.addAll(LOTRLevelData.getBannedStructurePlayersUsernames());
 			return list;
 		}
         return null;

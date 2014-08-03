@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase.FlowerEntry;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class LOTRWorldGenFlowers extends WorldGenerator
+public class LOTRWorldGenBiomeFlowers extends WorldGenerator
 {
 	@Override
     public boolean generate(World world, Random random, int i, int j, int k)

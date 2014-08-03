@@ -63,13 +63,13 @@ public class LOTRInvasionSpawner
 								{
 									j1 += 3 + world.rand.nextInt(3);
 									
-									LOTREntityInvasionSpawner spawner = new LOTREntityInvasionSpawner(world);
-									spawner.setFaction(faction);
-									spawner.setLocationAndAngles(i1 + 0.5D, j1, k1 + 0.5D, 0F, 0F);
-									if (spawner.canSpawnerSpawnHere())
+									LOTREntityInvasionSpawner invasion = new LOTREntityInvasionSpawner(world);
+									invasion.setFaction(faction);
+									invasion.setLocationAndAngles(i1 + 0.5D, j1, k1 + 0.5D, 0F, 0F);
+									if (invasion.canInvasionSpawnHere())
 									{
-										world.spawnEntityInWorld(spawner);
-										spawner.announceInvasion(entityplayer);
+										world.spawnEntityInWorld(invasion);
+										invasion.announceInvasion(entityplayer);
 										continue invasionSpawningLoop;
 									}
 								}

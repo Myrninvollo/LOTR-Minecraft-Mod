@@ -1,3 +1,11 @@
+Public Beta 20
+
++ Added a rare chance for Near Harad to invade Gondor and Ithilien
++ Added an updated German translation
+
+* Fixed the Elven Bow crafting recipe on the High Elven table
+* Fixed the /ban and /allow structure commands using usernames instead of UUIDs
+
 Public Beta 19.1
 
 + Added banner bearers to the invasion spawn lists

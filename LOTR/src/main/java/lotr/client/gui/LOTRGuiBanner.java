@@ -11,13 +11,13 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.opengl.GL11;
 
+import com.google.common.base.Charsets;
 import com.mojang.authlib.Agent;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.GameProfileRepository;
@@ -29,10 +29,14 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 	private static ResourceLocation guiTexture = new ResourceLocation("lotr:gui/banner_edit.png");
 
 	private LOTREntityBanner theBanner;
+	public String[] usernamesReceived = new String[LOTREntityBanner.MAX_PLAYERS];
+	
 	public int xSize = 200;
     public int ySize = 200;
     private int guiLeft;
     private int guiTop;
+    private boolean firstInit = true;
+    
     private GuiButton modeButton;
     private GuiTextField[] allowedPlayers = new GuiTextField[LOTREntityBanner.MAX_PLAYERS];
     private boolean[] invalidUsernames = new boolean[LOTREntityBanner.MAX_PLAYERS];
@@ -52,19 +56,36 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 		for (int i = 0; i < allowedPlayers.length; i++)
 		{
 			GuiTextField textBox = new GuiTextField(fontRendererObj, guiLeft + xSize / 2 - 80, guiTop + 70 + i * 24, 160, 20);
-			if (theBanner.allowedPlayers[i] != null)
+			
+			if (firstInit)
 			{
-				UUID uuid = theBanner.allowedPlayers[i];
-				String username = GameProfileLookup.getUsernameFromUUID(uuid);
-				if (!StringUtils.isEmpty(username))
+				if (usernamesReceived[i] != null)
 				{
-					textBox.setText(username);
+					textBox.setText(usernamesReceived[i]);
 				}
 			}
+			else
+			{
+				GuiTextField prevTextBox = allowedPlayers[i];
+				if (prevTextBox != null)
+				{
+					String prevText = prevTextBox.getText();
+					if (prevText != null)
+					{
+						textBox.setText(prevText);
+					}
+				}
+			}
+			
 			allowedPlayers[i] = textBox;
 		}
-
+		
 		allowedPlayers[0].setEnabled(false);
+		
+		if (firstInit)
+		{
+			firstInit = false;
+		}
 	}
 
 	@Override
@@ -200,12 +221,11 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 			if (!invalidUsernames[l])
 			{
 				String text = allowedPlayers[l].getText();
-				UUID uuid = UUIDFromUsername(text);
-				if (uuid != null)
+				if (!StringUtils.isEmpty(text))
 				{
 					data.writeInt(l);
-					data.writeLong(uuid.getMostSignificantBits());
-					data.writeLong(uuid.getLeastSignificantBits());
+					data.writeByte(text.length());
+					data.writeBytes(text.getBytes(Charsets.UTF_8));
 				}
 			}
 		}
@@ -246,14 +266,6 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 	        profileRepo.findProfilesByNames(new String[] {name}, Agent.MINECRAFT, profilelookupcallback);
 
 	        return foundProfiles[0];
-		}
-		
-		public static String getUsernameFromUUID(UUID uuid)
-		{
-			GameProfile profile = new GameProfile(uuid, "");
-			theMC.func_152347_ac().fillProfileProperties(profile, true);
-			String username = profile.getName();
-			return username;
 		}
 	}
 }

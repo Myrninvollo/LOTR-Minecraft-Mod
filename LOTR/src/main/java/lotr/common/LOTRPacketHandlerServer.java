@@ -37,11 +37,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 import com.google.common.base.Charsets;
+import com.mojang.authlib.GameProfile;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
@@ -910,8 +912,13 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 					int index = 0;
 					while ((index = data.readInt()) > 0)
 					{
-						UUID uuid = new UUID(data.readLong(), data.readLong());
-						banner.allowedPlayers[index] = uuid;
+						int length = data.readByte();
+						String name = data.readBytes(length).toString(Charsets.UTF_8);
+						UUID uuid = UUID.fromString(PreYggdrasilConverter.func_152719_a(name));
+						if (uuid != null)
+						{
+							banner.allowedPlayers[index] = uuid;
+						}
 					}
 				}
 			}

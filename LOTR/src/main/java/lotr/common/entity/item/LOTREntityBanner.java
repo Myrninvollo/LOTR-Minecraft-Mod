@@ -5,6 +5,11 @@ import io.netty.buffer.Unpooled;
 
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.common.base.Charsets;
+import com.mojang.authlib.GameProfile;
+
 import lotr.common.LOTREventHandler;
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
@@ -19,6 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
@@ -166,9 +172,21 @@ public class LOTREntityBanner extends Entity
     				UUID uuid = allowedPlayers[i];
     				if (uuid != null)
     				{
-    					data.writeInt(i);
-    					data.writeLong(uuid.getMostSignificantBits());
-    					data.writeLong(uuid.getLeastSignificantBits());
+    					System.out.println("Server: UUID " + uuid.toString() + "@" + i);
+    					
+    					GameProfile profile = MinecraftServer.getServer().func_152358_ax().func_152652_a(uuid);
+    					if (StringUtils.isEmpty(profile.getName()))
+						{
+							MinecraftServer.getServer().func_147130_as().fillProfileProperties(profile, true);
+						}
+    					
+    					String username = profile.getName();
+    					if (!StringUtils.isEmpty(username))
+    					{
+	    					data.writeInt(i);
+	    					data.writeByte(username.length());
+	    					data.writeBytes(username.getBytes(Charsets.UTF_8));
+    					}
     				}
     			}
     			data.writeInt(-1);

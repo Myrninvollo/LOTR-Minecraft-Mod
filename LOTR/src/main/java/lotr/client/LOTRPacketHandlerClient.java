@@ -514,8 +514,9 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 				int index = 0;
 				while ((index = data.readInt()) >= 0)
 				{
-					UUID uuid = new UUID(data.readLong(), data.readLong());
-					banner.allowedPlayers[index] = uuid;
+					int length = data.readByte();
+					String name = data.readBytes(length).toString(Charsets.UTF_8);
+					gui.usernamesReceived[index] = name;
 				}
 				
 				mc.displayGuiScreen(gui);

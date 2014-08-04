@@ -161,7 +161,7 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 	public Vec3 getFogColor(Vec3 fog)
 	{
 		fog.xCoord *= 0.2D;
-		fog.yCoord *= 0.6D;
+		fog.yCoord *= 0.5D;
 		fog.zCoord *= 0.3D;
 		return fog;
 	}

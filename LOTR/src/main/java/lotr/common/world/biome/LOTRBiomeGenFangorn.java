@@ -2,6 +2,8 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
@@ -15,6 +17,7 @@ import lotr.common.world.feature.LOTRWorldGenEntJars;
 import lotr.common.world.feature.LOTRWorldGenFangornTrees;
 import lotr.common.world.feature.LOTRWorldGenWaterPlant;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
@@ -145,5 +148,21 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 	public float getChanceToSpawnAnimals()
 	{
 		return 0.25F;
+	}
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public int getSkyColorByTemp(float f)
+    {
+		return 0x76A072;
+    }
+	
+	@Override
+	public Vec3 getFogColor(Vec3 fog)
+	{
+		fog.xCoord *= 0.2D;
+		fog.yCoord *= 0.6D;
+		fog.zCoord *= 0.3D;
+		return fog;
 	}
 }

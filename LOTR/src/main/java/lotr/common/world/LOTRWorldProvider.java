@@ -4,6 +4,7 @@ import lotr.client.render.LOTRSkyRenderer;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
 import lotr.common.world.biome.LOTRBiome;
+import lotr.common.world.biome.LOTRBiomeGenFangorn;
 import lotr.common.world.biome.LOTRBiomeGenMirkwood;
 import lotr.common.world.biome.LOTRBiomeGenOcean;
 import net.minecraft.client.Minecraft;
@@ -283,9 +284,9 @@ public class LOTRWorldProvider extends WorldProvider
     {
 		BiomeGenBase biome = worldObj.getBiomeGenForCoords(i, k);
 		
-		if (biome instanceof LOTRBiomeGenMirkwood && ((LOTRBiomeGenMirkwood)biome).corrupted)
+		if (biome instanceof LOTRBiome)
 		{
-			return true;
+			return ((LOTRBiome)biome).hasFog();
 		}
 		
 		return super.doesXZShowFog(i, k);

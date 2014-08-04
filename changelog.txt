@@ -1,5 +1,6 @@
 Public Beta 20
 
++ Added green fog in Fangorn Forest and dark fog in the Old Forest
 + Added a rare chance for Near Harad to invade Gondor and Ithilien
 + Added an updated German translation
 

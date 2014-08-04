@@ -222,4 +222,10 @@ public class LOTRBiomeGenMirkwood extends LOTRBiome
 		}
 		return super.getFogColor(fog);
 	}
+	
+	@Override
+	public boolean hasFog()
+	{
+		return corrupted;
+	}
 }

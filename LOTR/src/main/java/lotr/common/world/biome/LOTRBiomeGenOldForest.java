@@ -9,6 +9,7 @@ import lotr.common.entity.npc.LOTREntityDarkHuorn;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.LOTRInvasionSpawner;
 import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
 import net.minecraft.world.gen.feature.WorldGenCanopyTree;
@@ -26,7 +27,7 @@ public class LOTRBiomeGenOldForest extends LOTRBiome
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityDarkHuorn.class, 10, 4, 4));
 		
 		hasPodzol = true;
-		decorator.treesPerChunk = 15;
+		decorator.treesPerChunk = 16;
 		decorator.flowersPerChunk = 1;
 		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 5;
@@ -53,6 +54,10 @@ public class LOTRBiomeGenOldForest extends LOTRBiome
 	@Override
     public WorldGenAbstractTree func_150567_a(Random random)
     {
+		if (random.nextInt(10) == 0)
+		{
+			return new WorldGenTrees(false, 16 + random.nextInt(8), 0, 0, false);
+		}
 		if (random.nextInt(3) == 0)
 		{
 			return new WorldGenCanopyTree(false);
@@ -90,4 +95,19 @@ public class LOTRBiomeGenOldForest extends LOTRBiome
     {
 		return 0x30682A;
     }
+	
+	@Override
+	public Vec3 getFogColor(Vec3 fog)
+	{
+		fog.xCoord *= 0.1D;
+		fog.yCoord *= 0.2D;
+		fog.zCoord *= 0.1D;
+		return fog;
+	}
+	
+	@Override
+	public boolean hasFog()
+	{
+		return true;
+	}
 }

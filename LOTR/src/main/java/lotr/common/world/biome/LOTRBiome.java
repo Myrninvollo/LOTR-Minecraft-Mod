@@ -1,9 +1,12 @@
 package lotr.common.world.biome;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRWaypoint;
@@ -292,15 +295,17 @@ public class LOTRBiome extends BiomeGenBase
 	private static Random rand = new Random();
 	
 	protected LOTRBiomeDecorator decorator;
+	
 	public List spawnableGoodList = new ArrayList();
 	public List spawnableEvilList = new ArrayList();
 	private int goodWeight;
 	private int evilWeight;
 	protected List spawnableLOTRAmbientList = new ArrayList();
-	public boolean hasPodzol = false;
 	private List spawnableTraders = new ArrayList();
 	private int banditChance;
 	public List invasionSpawns = new ArrayList();
+	
+	public boolean hasPodzol = false;
 	
 	public LOTRBiome(int i)
 	{
@@ -631,6 +636,11 @@ public class LOTRBiome extends BiomeGenBase
 	public Vec3 getFogColor(Vec3 fog)
 	{
 		return fog;
+	}
+	
+	public boolean hasFog()
+	{
+		return false;
 	}
 	
 	public int spawnCountMultiplier()

@@ -51,9 +51,9 @@ public class LOTRRenderPortal extends Render
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		Tessellator.instance.setBrightness(15728880);
 		bindTexture(writingTexture);
-		writingModelOuter.render(null, 0F, 0F, 0F, 0F, 0F, scale * 1.1F);
+		writingModelOuter.render(null, 0F, 0F, 0F, 0F, 0F, scale * 1.05F);
 		bindTexture(writingTexture);
-		writingModelInner.render(null, 0F, 0F, 0F, 0F, 0F, scale * 0.8F);
+		writingModelInner.render(null, 0F, 0F, 0F, 0F, 0F, scale * 0.9F);
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_CULL_FACE);

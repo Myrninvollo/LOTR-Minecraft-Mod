@@ -14,49 +14,18 @@ import net.minecraft.world.World;
 
 public class LOTREntityShirePony extends LOTREntityHorse
 {
+	public static float PONY_SCALE = 0.8F;
+	
 	public LOTREntityShirePony(World world)
 	{
 		super(world);
-		setSize(1.12F, 1.28F);
-	}
-	
-	@Override
-	public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
-	{
-		if (!worldObj.isRemote)
-		{
-			data = super.onSpawnWithEgg(data);
-			applyShirePonyTransformations();
-			int i = getHorseVariant();
-			int j = i & 255;
-			if (j < 2)
-			{
-				j = 2 + rand.nextInt(5);
-				int k = rand.nextInt(5);
-				i = j | k << 8;
-				setHorseVariant(i);
-			}
-			if (data instanceof EntityHorse.GroupData)
-			{
-				((EntityHorse.GroupData)data).field_111107_a = 1;
-				((EntityHorse.GroupData)data).field_111106_b = j;
-			}
-		}
-		else
-		{
-			int i;
-			int j = 2 + rand.nextInt(5);
-			int k = rand.nextInt(5);
-			i = j | k << 8;
-			setHorseVariant(i);
-		}
-		return data;
+		setSize(width * PONY_SCALE, height * PONY_SCALE);
 	}
 	
 	@Override
 	public int getHorseType()
 	{
-		return worldObj.isRemote ? 0 : super.getHorseType();
+		return worldObj.isRemote ? 0 : 1;
 	}
 	
 	@Override
@@ -66,32 +35,11 @@ public class LOTREntityShirePony extends LOTREntityHorse
     }
 	
 	@Override
-    public String getCommandSenderName()
-    {
-        if (hasCustomNameTag())
-        {
-            return getCustomNameTag();
-        }
-        else
-        {
-        	String s = EntityList.getEntityString(this);
-            return StatCollector.translateToLocal("entity." + s + ".name");
-        }
-    }
-	
-	@Override
-    public EntityAgeable createChild(EntityAgeable entityageable)
+	protected void onLOTRHorseSpawn()
 	{
-		LOTREntityShirePony pony = (LOTREntityShirePony)super.createChild(entityageable);
-		pony.applyShirePonyTransformations();
-        return pony;
-    }
-	
-	public void applyShirePonyTransformations()
-	{
-		setHorseType(1);
         double jumpStrength = getEntityAttribute(LOTRReflection.getHorseJumpStrength()).getBaseValue();
         getEntityAttribute(LOTRReflection.getHorseJumpStrength()).setBaseValue(jumpStrength * 0.5D);
+        
 		double moveSpeed = getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue();
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(moveSpeed * 0.8D);
 	}
@@ -113,28 +61,40 @@ public class LOTREntityShirePony extends LOTREntityHorse
 	@Override
     protected String getLivingSound()
     {
-        super.getLivingSound();
-		return "mob.horse.idle";
+		int i = getHorseType();
+		setHorseType(0);
+        String s = super.getLivingSound();
+        setHorseType(i);
+		return s;
     }
 	
 	@Override
     protected String getHurtSound()
     {
-        super.getHurtSound();
-		return "mob.horse.hit";
+		int i = getHorseType();
+		setHorseType(0);
+        String s = super.getHurtSound();
+        setHorseType(i);
+		return s;
     }
 	
 	@Override
     protected String getDeathSound()
     {
-        super.getDeathSound();
-		return "mob.horse.death";
+		int i = getHorseType();
+		setHorseType(0);
+        String s = super.getDeathSound();
+        setHorseType(i);
+		return s;
     }
 	
 	@Override
     protected String getAngrySoundName()
     {
-        super.getAngrySoundName();
-        return "mob.horse.angry";
+		int i = getHorseType();
+		setHorseType(0);
+        String s = super.getAngrySoundName();
+        setHorseType(i);
+		return s;
     }
 }

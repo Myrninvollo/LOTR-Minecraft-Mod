@@ -166,7 +166,7 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 		}
 		else if (riddenByEntity instanceof LOTREntityNPC)
 		{
-			return (double)height * 0.55D;
+			return (double)height * 0.6D;
 		}
 		return super.getMountedYOffset();
     }

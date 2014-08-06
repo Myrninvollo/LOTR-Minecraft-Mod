@@ -7,6 +7,7 @@ import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.animal.LOTREntityButterfly;
+import lotr.common.entity.animal.LOTREntityElk;
 import lotr.common.entity.npc.LOTREntityMirkwoodSpider;
 import lotr.common.entity.npc.LOTREntityWoodElf;
 import lotr.common.entity.npc.LOTREntityWoodElfScout;
@@ -65,6 +66,8 @@ public class LOTRBiomeGenMirkwood extends LOTRBiome
 		}
 		else
 		{
+			spawnableCreatureList.add(new SpawnListEntry(LOTREntityElk.class, 30, 4, 6));
+			
 			spawnableCaveCreatureList.clear();
 			
 			spawnableGoodList.add(new SpawnListEntry(LOTREntityWoodElf.class, 10, 4, 4));

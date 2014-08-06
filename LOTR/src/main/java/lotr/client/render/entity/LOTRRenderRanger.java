@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import lotr.client.model.LOTRModelBiped;
+import lotr.common.LOTRCapes;
 import lotr.common.entity.npc.LOTREntityRanger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,12 +16,12 @@ import org.lwjgl.opengl.GL11;
 public class LOTRRenderRanger extends LOTRRenderBiped
 {
 	private static List rangerSkins;
-	private static Map capes = new HashMap();
 	
 	public LOTRRenderRanger()
 	{
 		super(new LOTRModelBiped(), 0.5F);
 		rangerSkins = LOTRRandomSkins.loadSkinsList("lotr:mob/ranger/ranger");
+		setCapeTexture(LOTRCapes.ALIGNMENT_RANGER.capeTexture);
 	}
 	
 	@Override
@@ -61,9 +62,6 @@ public class LOTRRenderRanger extends LOTRRenderBiped
 	@Override
 	protected void renderEquippedItems(EntityLivingBase entity, float f)
 	{
-		ResourceLocation cape = loadRangerCape((LOTREntityRanger)entity);
-		setCapeTexture(cape);
-		
 		if (((LOTREntityRanger)entity).isRangerSneaking())
 		{
 			doRangerInvisibility();
@@ -82,22 +80,5 @@ public class LOTRRenderRanger extends LOTRRenderBiped
 			GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
 			GL11.glDepthMask(true);
 		}
-	}
-	
-	private ResourceLocation loadRangerCape(LOTREntityRanger ranger)
-	{
-		String s = ranger.getRangerCape();
-		if (s != null)
-		{
-			ResourceLocation r = (ResourceLocation)capes.get(s);
-			if (r == null)
-			{
-				r = new ResourceLocation("lotr:mob/ranger/" + s + ".png");
-				capes.put(s, r);
-			}
-			bindTexture(r);
-			return r;
-		}
-		return null;
 	}
 }

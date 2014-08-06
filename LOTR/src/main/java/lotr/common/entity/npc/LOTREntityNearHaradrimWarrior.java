@@ -5,6 +5,7 @@ import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
 import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
+import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -56,6 +57,9 @@ public class LOTREntityNearHaradrimWarrior extends LOTREntityNearHaradrim
 		setCurrentItemOrArmor(4, new ItemStack(LOTRMod.helmetNearHarad));
 		return data;
     }
+	
+	@Override
+	protected void dropHaradrimItems(boolean flag, int i) {}
 	
 	@Override
 	public int getAlignmentBonus()

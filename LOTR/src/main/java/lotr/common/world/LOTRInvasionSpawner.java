@@ -18,9 +18,24 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class LOTRInvasionSpawner
 {
-	public static int RARE = 20000;
-	public static int UNCOMMON = 8000;
-	public static int COMMON = 2000;
+	public static int getChance(float probability, int seconds)
+	{
+		int ticks = seconds * 20;
+		
+		double d = (double)probability;
+		d = 1D - d;
+		d = Math.pow(d, 1D / (double)ticks);
+		d = 1D - d;
+		d = 1D / d;
+		d /= 20D;
+		
+		int chance = (int)Math.round(d);
+		return chance;
+	}
+	
+	public static int RARE = getChance(0.1F, 3600);
+	public static int UNCOMMON = getChance(0.3F, 3600);
+	public static int COMMON = getChance(0.9F, 3600);
 	
 	public static void performSpawning(World world)
 	{

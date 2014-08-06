@@ -3,10 +3,7 @@ package lotr.common.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRCreativeTabs;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.npc.LOTREntityNPC;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -245,7 +242,7 @@ public class LOTRItemMugBrewable extends Item
 				for (int i = 0; i < Potion.potionTypes.length; i++)
 				{
 					Potion potion = Potion.potionTypes[i];
-					if (potion != null && potion.isBadEffect())
+					if (potion != null && LOTRReflection.isBadEffect(potion))
 					{
 						entityplayer.removePotionEffect(potion.id);
 					}

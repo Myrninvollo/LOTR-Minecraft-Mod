@@ -180,8 +180,8 @@ public class LOTRBiome extends BiomeGenBase
 		mordorMountains = new LOTRBiomeGenMordorMountains(6).setTemperatureRainfall(2F, 0F).setMinMaxHeight(2F, 3F).setColor(0x444444).setBiomeName("mordorMountains");
 		gondor = new LOTRBiomeGenGondor(7).setTemperatureRainfall(0.8F, 0.8F).setMinMaxHeight(0.1F, 0.12F).setColor(0xC5CC53).setBiomeName("gondor");
 		whiteMountains = new LOTRBiomeGenWhiteMountains(8).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(1.5F, 2F).setColor(0xDFE0CC).setBiomeName("whiteMountains");
-		lothlorien = new LOTRBiomeGenLothlorien(9).setTemperatureRainfall(0.9F, 1F).setMinMaxHeight(0.2F, 0.5F).setColor(0xF2D337).setBiomeName("lothlorien");
-		lothlorienClearing = new LOTRBiomeGenLothlorienClearing(10).setTemperatureRainfall(0.9F, 1F).setMinMaxHeight(0.2F, 0.2F).setColor(0xD0E03E).setBiomeName("lothlorienClearing");
+		lothlorien = new LOTRBiomeGenLothlorien(9).setTemperatureRainfall(0.9F, 1F).setMinMaxHeight(0.2F, 0.3F).setColor(0xF2D337).setBiomeName("lothlorien");
+		lothlorienClearing = new LOTRBiomeGenLothlorienClearing(10).setTemperatureRainfall(0.9F, 1F).setMinMaxHeight(0.2F, 0.1F).setColor(0xD0E03E).setBiomeName("lothlorienClearing");
 		ironHills = new LOTRBiomeGenIronHills(11).setTemperatureRainfall(0.27F, 0.4F).setMinMaxHeight(0.3F, 1.4F).setColor(0xC48C62).setBiomeName("ironHills");
 		deadMarshes = new LOTRBiomeGenDeadMarshes(12).setTemperatureRainfall(0.2F, 1F).setMinMaxHeight(0F, 0.1F).setColor(0x60523B).setBiomeName("deadMarshes");
 		trollshaws = new LOTRBiomeGenTrollshaws(13).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.15F, 1F).setColor(0x9E8D69).setBiomeName("trollshaws");
@@ -210,7 +210,7 @@ public class LOTRBiome extends BiomeGenBase
 		valesOfAnduin = new LOTRBiomeGenValesOfAnduin(36).setTemperatureRainfall(0.8F, 0.8F).setMinMaxHeight(0.1F, 0.1F).setColor(0x30AD75).setBiomeName("valesOfAnduin");
 		valesOfAnduinWoodlands = new LOTRBiomeGenValesOfAnduinWoodlands(37).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.1F, 0.2F).setColor(0x2DAD5E).setBiomeName("valesOfAnduinWoodlands");
 		gladdenFields = new LOTRBiomeGenGladdenFields(38).setTemperatureRainfall(0.6F, 1F).setMinMaxHeight(0.05F, 0.2F).setColor(0x40BC7A).setBiomeName("gladdenFields");
-		lothlorienEdge = new LOTRBiomeGenLothlorienEdge(39).setTemperatureRainfall(0.9F, 1F).setMinMaxHeight(0.2F, 0.3F).setColor(0xEFC743).setBiomeName("lothlorienEdge");
+		lothlorienEdge = new LOTRBiomeGenLothlorienEdge(39).setTemperatureRainfall(0.9F, 1F).setMinMaxHeight(0.2F, 0.2F).setColor(0xEFC743).setBiomeName("lothlorienEdge");
 		forodwaith = new LOTRBiomeGenForodwaith(40).setTemperatureRainfall(0F, 0.2F).setMinMaxHeight(0.1F, 0.1F).setColor(0xC9DAE0).setBiomeName("forodwaith");
 		enedwaith = new LOTRBiomeGenEnedwaith(41).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.2F, 0.3F).setColor(0xADB754).setBiomeName("enedwaith");
 		angmar = new LOTRBiomeGenAngmar(42).setTemperatureRainfall(0.2F, 0.2F).setMinMaxHeight(0.2F, 0.6F).setColor(0x262626).setBiomeName("angmar");

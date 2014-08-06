@@ -9,9 +9,9 @@ public class LOTRFoods
 {
 	public static LOTRFoods HOBBIT = new LOTRFoods(new ItemStack[]
 	{
-		new ItemStack(Items.porkchop),
+		new ItemStack(Items.cooked_porkchop),
 		new ItemStack(Items.cooked_fished),
-		new ItemStack(Items.chicken),
+		new ItemStack(Items.cooked_chicken),
 		new ItemStack(Items.cooked_beef),
 		new ItemStack(LOTRMod.gammon),
 		new ItemStack(Items.baked_potato),
@@ -39,8 +39,8 @@ public class LOTRFoods
 	
 	public static LOTRFoods ROHAN = new LOTRFoods(new ItemStack[]
 	{
-		new ItemStack(Items.porkchop),
-		new ItemStack(Items.chicken),
+		new ItemStack(Items.cooked_porkchop),
+		new ItemStack(Items.cooked_chicken),
 		new ItemStack(Items.cooked_beef),
 		new ItemStack(Items.baked_potato),
 		new ItemStack(Items.apple),
@@ -62,8 +62,8 @@ public class LOTRFoods
 	
 	public static LOTRFoods GONDOR = new LOTRFoods(new ItemStack[]
 	{
-		new ItemStack(Items.porkchop),
-		new ItemStack(Items.chicken),
+		new ItemStack(Items.cooked_porkchop),
+		new ItemStack(Items.cooked_chicken),
 		new ItemStack(Items.cooked_beef),
 		new ItemStack(Items.baked_potato),
 		new ItemStack(LOTRMod.appleGreen),
@@ -84,9 +84,9 @@ public class LOTRFoods
 	
 	public static LOTRFoods DWARF = new LOTRFoods(new ItemStack[]
 	{
-		new ItemStack(Items.porkchop),
+		new ItemStack(Items.cooked_porkchop),
 		new ItemStack(Items.cooked_fished),
-		new ItemStack(Items.chicken),
+		new ItemStack(Items.cooked_chicken),
 		new ItemStack(Items.cooked_beef),
 		new ItemStack(LOTRMod.gammon),
 		new ItemStack(Items.bread)
@@ -102,9 +102,9 @@ public class LOTRFoods
 	
 	public static LOTRFoods DUNLENDING = new LOTRFoods(new ItemStack[]
 	{
-		new ItemStack(Items.porkchop),
+		new ItemStack(Items.cooked_porkchop),
 		new ItemStack(Items.cooked_fished),
-		new ItemStack(Items.chicken),
+		new ItemStack(Items.cooked_chicken),
 		new ItemStack(Items.cooked_beef),
 		new ItemStack(LOTRMod.gammon),
 		new ItemStack(Items.baked_potato),
@@ -155,9 +155,9 @@ public class LOTRFoods
 		new ItemStack(Items.carrot),
 		new ItemStack(Items.baked_potato),
 		new ItemStack(LOTRMod.lettuce),
-		new ItemStack(Items.porkchop),
+		new ItemStack(Items.cooked_porkchop),
 		new ItemStack(Items.cooked_fished),
-		new ItemStack(Items.chicken),
+		new ItemStack(Items.cooked_chicken),
 		new ItemStack(Items.cooked_beef)
 	});
 	

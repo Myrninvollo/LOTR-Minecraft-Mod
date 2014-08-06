@@ -21,6 +21,7 @@ import lotr.client.gui.LOTRGuiMobSpawner;
 import lotr.client.gui.LOTRGuiMorgulTable;
 import lotr.client.gui.LOTRGuiNearHaradTable;
 import lotr.client.gui.LOTRGuiPouch;
+import lotr.client.gui.LOTRGuiRangerTable;
 import lotr.client.gui.LOTRGuiRohirricTable;
 import lotr.client.gui.LOTRGuiTrade;
 import lotr.client.gui.LOTRGuiTradeInteract;
@@ -53,6 +54,7 @@ import lotr.common.inventory.LOTRContainerHobbitOven;
 import lotr.common.inventory.LOTRContainerMorgulTable;
 import lotr.common.inventory.LOTRContainerNearHaradTable;
 import lotr.common.inventory.LOTRContainerPouch;
+import lotr.common.inventory.LOTRContainerRangerTable;
 import lotr.common.inventory.LOTRContainerRohirricTable;
 import lotr.common.inventory.LOTRContainerTrade;
 import lotr.common.inventory.LOTRContainerUnitTrade;
@@ -100,6 +102,7 @@ public class LOTRCommonProxy implements IGuiHandler
 	public static int GUI_ID_HIGH_ELVEN_TABLE = 26;
 	public static int GUI_ID_CAMEL = 27;
 	public static int GUI_ID_BLUE_DWARVEN_TABLE = 28;
+	public static int GUI_ID_RANGER_TABLE = 29;
 	
 	public boolean isClient()
 	{
@@ -245,6 +248,10 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_BLUE_DWARVEN_TABLE)
 		{
 			return new LOTRContainerBlueDwarvenTable(entityplayer.inventory, world, i, j, k);
+		}
+		if (ID == GUI_ID_RANGER_TABLE)
+		{
+			return new LOTRContainerRangerTable(entityplayer.inventory, world, i, j, k);
 		}
 		return null;
 	}
@@ -433,6 +440,10 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_BLUE_DWARVEN_TABLE)
 		{
 			return new LOTRGuiBlueDwarvenTable(entityplayer.inventory, world, i, j, k);
+		}
+		if (ID == GUI_ID_RANGER_TABLE)
+		{
+			return new LOTRGuiRangerTable(entityplayer.inventory, world, i, j, k);
 		}
 		return null;
 	}

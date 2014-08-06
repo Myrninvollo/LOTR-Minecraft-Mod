@@ -29,8 +29,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class LOTRItemBanner extends Item
 {
-	public static String[] bannerTypes = {"gondor", "rohan", "mordor", "lothlorien", "mirkwood", "dunland", "urukHai", "durin", "angmar", "nearHarad", "highElf", "blueMountains"};
-	public static LOTRFaction[] factions = {GONDOR, ROHAN, MORDOR, GALADHRIM, WOOD_ELF, DUNLAND, URUK_HAI, DWARF, ANGMAR, NEAR_HARAD, HIGH_ELF, BLUE_MOUNTAINS};
+	public static String[] bannerTypes = {"gondor", "rohan", "mordor", "lothlorien", "mirkwood", "dunland", "urukHai", "durin", "angmar", "nearHarad", "highElf", "blueMountains", "ranger"};
+	public static LOTRFaction[] factions = {GONDOR, ROHAN, MORDOR, GALADHRIM, WOOD_ELF, DUNLAND, URUK_HAI, DWARF, ANGMAR, NEAR_HARAD, HIGH_ELF, BLUE_MOUNTAINS, RANGER_NORTH};
 	@SideOnly(Side.CLIENT)
 	private IIcon[] bannerIcons;
 	

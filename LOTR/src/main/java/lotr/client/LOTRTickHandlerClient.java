@@ -14,63 +14,46 @@ import lotr.client.fx.LOTREntityDeadMarshFace;
 import lotr.client.gui.LOTRGuiAchievementDisplay;
 import lotr.client.gui.LOTRGuiCapes;
 import lotr.client.render.tileentity.LOTRTileEntityMobSpawnerRenderer;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.block.LOTRBlockLeavesBase;
 import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.item.LOTREntityPortal;
-import lotr.common.item.LOTRItemBow;
-import lotr.common.item.LOTRItemCrossbow;
-import lotr.common.item.LOTRItemSpear;
-import lotr.common.world.biome.LOTRBiome;
-import lotr.common.world.biome.LOTRBiomeGenDeadMarshes;
-import lotr.common.world.biome.LOTRBiomeGenMirkwood;
-import lotr.common.world.biome.LOTRBiomeGenMistyMountains;
+import lotr.common.item.*;
+import lotr.common.world.LOTRWorldProvider;
+import lotr.common.world.biome.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiMainMenu;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.client.event.FOVUpdateEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModContainer;
+import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
@@ -349,7 +332,7 @@ public class LOTRTickHandlerClient
 				{
 					alignmentXPosCurrent = alignmentXPosBase;
 					int interval = (int)(((float)alignmentYPosBase + 20F) / 10F);
-					if (minecraft.currentScreen == null && !minecraft.gameSettings.keyBindPlayerList.isPressed() && !minecraft.gameSettings.showDebugInfo)
+					if (minecraft.currentScreen == null && !minecraft.gameSettings.keyBindPlayerList.getIsKeyPressed() && !minecraft.gameSettings.showDebugInfo)
 					{
 						if (alignmentYPosCurrent < alignmentYPosBase)
 						{
@@ -568,6 +551,18 @@ public class LOTRTickHandlerClient
 		RenderHelper.disableStandardItemLighting();
 		LOTRClientProxy.customEffectRenderer.renderParticles(mc.renderViewEntity, f);
 		mc.entityRenderer.disableLightmap((double)f);
+	}
+	
+	@SubscribeEvent
+	public void getItemTooltip(ItemTooltipEvent event)
+	{
+		ItemStack item = event.itemStack;
+		
+		if (item.getTagCompound() != null && item.getTagCompound().hasKey("LOTROwner"))
+		{
+			String s = item.getTagCompound().getString("LOTROwner");
+			event.toolTip.add(StatCollector.translateToLocalFormatted("item.lotr.itemOwner", new Object[] {s}));
+		}
 	}
 	
 	@SubscribeEvent

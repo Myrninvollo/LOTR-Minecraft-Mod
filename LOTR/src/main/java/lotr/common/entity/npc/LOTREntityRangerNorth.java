@@ -62,10 +62,4 @@ public class LOTREntityRangerNorth extends LOTREntityRanger
 			return "rangerNorth_hostile";
 		}
 	}
-	
-	@Override
-	public String getRangerCape()
-	{
-		return "cape_north";
-	}
 }

@@ -270,19 +270,6 @@ public class LOTRGuiMap extends LOTRGui
 			}
 		}
 		
-		Iterator it = playerLocations.keySet().iterator();
-		while (it.hasNext())
-		{
-			UUID player = (UUID)it.next();
-			PlayerLocationInfo info = (PlayerLocationInfo)playerLocations.get(player);
-			renderPlayer(player, info.name, info.posX, info.posZ, i, j);
-		}
-		
-		if (isMiddleEarth())
-		{
-			renderPlayer(mc.thePlayer.getUniqueID(), mc.thePlayer.getCommandSenderName(), mc.thePlayer.posX, mc.thePlayer.posZ, i, j);
-		}
-		
 		mc.getTextureManager().bindTexture(borderTexture);
 
 		List waypoints = LOTRWaypoint.getListOfAllWaypoints(mc.thePlayer);
@@ -327,6 +314,19 @@ public class LOTRGuiMap extends LOTRGui
 			drawCenteredString(name, stringX, stringY, 0xFFFFFF);
 			
 			drawCenteredString(coords, stringX, stringY + stringHeight + border, 0xFFFFFF);	
+		}
+		
+		Iterator it = playerLocations.keySet().iterator();
+		while (it.hasNext())
+		{
+			UUID player = (UUID)it.next();
+			PlayerLocationInfo info = (PlayerLocationInfo)playerLocations.get(player);
+			renderPlayer(player, info.name, info.posX, info.posZ, i, j);
+		}
+		
+		if (isMiddleEarth())
+		{
+			renderPlayer(mc.thePlayer.getUniqueID(), mc.thePlayer.getCommandSenderName(), mc.thePlayer.posX, mc.thePlayer.posZ, i, j);
 		}
 		
         mc.getTextureManager().bindTexture(borderTexture);

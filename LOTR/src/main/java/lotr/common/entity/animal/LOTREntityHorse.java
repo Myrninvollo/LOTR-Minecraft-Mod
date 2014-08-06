@@ -12,6 +12,7 @@ import lotr.common.entity.npc.LOTRNPCMount;
 import lotr.common.world.biome.LOTRBiomeGenRohan;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityHorse;
@@ -22,6 +23,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -58,27 +60,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		if (!worldObj.isRemote)
 		{
 			data = super.onSpawnWithEgg(data);
-			int i = MathHelper.floor_double(posX);
-			int k = MathHelper.floor_double(posZ);
-			BiomeGenBase biome = worldObj.getBiomeGenForCoords(i, k);
-			
-			if (biome instanceof LOTRBiomeGenRohan)
-			{
-				double maxHealth = getEntityAttribute(SharedMonsterAttributes.maxHealth).getAttributeValue();
-				maxHealth = (double)(maxHealth * (1F + rand.nextFloat() * 0.5F));
-				getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
-				
-				setHealth(getMaxHealth());
-
-				double movementSpeed = getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
-				movementSpeed = (double)(movementSpeed * (1F + rand.nextFloat() * 0.5F));
-				getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(movementSpeed);
-
-				double jumpStrength = getEntityAttribute(LOTRReflection.getHorseJumpStrength()).getAttributeValue();
-				jumpStrength = (double)(jumpStrength * (1F + rand.nextFloat() * 0.5F));
-				getEntityAttribute(LOTRReflection.getHorseJumpStrength()).setBaseValue(jumpStrength);
-			}
-			
+			onLOTRHorseSpawn();
 			return data;
 		}
 		else
@@ -89,6 +71,30 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 			i = j | k << 8;
 			setHorseVariant(i);
 			return data;
+		}
+	}
+	
+	protected void onLOTRHorseSpawn()
+	{
+		int i = MathHelper.floor_double(posX);
+		int k = MathHelper.floor_double(posZ);
+		BiomeGenBase biome = worldObj.getBiomeGenForCoords(i, k);
+		
+		if (biome instanceof LOTRBiomeGenRohan && getClass() == LOTREntityHorse.class)
+		{
+			double maxHealth = getEntityAttribute(SharedMonsterAttributes.maxHealth).getAttributeValue();
+			maxHealth = (double)(maxHealth * (1F + rand.nextFloat() * 0.5F));
+			getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
+			
+			setHealth(getMaxHealth());
+
+			double movementSpeed = getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue();
+			movementSpeed = (double)(movementSpeed * (1F + rand.nextFloat() * 0.5F));
+			getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(movementSpeed);
+
+			double jumpStrength = getEntityAttribute(LOTRReflection.getHorseJumpStrength()).getAttributeValue();
+			jumpStrength = (double)(jumpStrength * (1F + rand.nextFloat() * 0.5F));
+			getEntityAttribute(LOTRReflection.getHorseJumpStrength()).setBaseValue(jumpStrength);
 		}
 	}
 	
@@ -199,15 +205,20 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
     public EntityAgeable createChild(EntityAgeable entityageable)
 	{
 		EntityHorse superHorse = (EntityHorse)super.createChild(entityageable);
+		
 		LOTREntityHorse horse = (LOTREntityHorse)LOTREntities.createEntityByClass(getClass(), worldObj);
 		horse.setHorseType(superHorse.getHorseType());
 		horse.setHorseVariant(superHorse.getHorseVariant());
+		
         double maxHealth = superHorse.getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue();
         horse.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
+        
         double jumpStrength = superHorse.getEntityAttribute(LOTRReflection.getHorseJumpStrength()).getBaseValue();
         horse.getEntityAttribute(LOTRReflection.getHorseJumpStrength()).setBaseValue(jumpStrength);
+        
 		double moveSpeed = superHorse.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue();
         horse.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(moveSpeed);
+        
         return horse;
     }
 	
@@ -257,16 +268,32 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 	{
 		return getBelongsToNPC() && riddenByEntity == null;
 	}
+	
+	@Override
+    public String getCommandSenderName()
+    {
+		if (getClass() == LOTREntityHorse.class)
+		{
+			return super.getCommandSenderName();
+		}
+		else
+		{
+	        if (hasCustomNameTag())
+	        {
+	            return getCustomNameTag();
+	        }
+	        else
+	        {
+	        	String s = EntityList.getEntityString(this);
+	            return StatCollector.translateToLocal("entity." + s + ".name");
+	        }
+		}
+    }
 
 	@Override
     public ItemStack getPickedResult(MovingObjectPosition target)
     {
-		int id = LOTREntities.getEntityID(this);
-		if (id > 0 && LOTREntities.creatures.containsKey(id))
-		{
-			return new ItemStack(LOTRMod.spawnEgg, 1, id);
-		}
-		return null;
+		return new ItemStack(LOTRMod.spawnEgg, 1, LOTREntities.getEntityID(this));
     }
 	
 	@Override

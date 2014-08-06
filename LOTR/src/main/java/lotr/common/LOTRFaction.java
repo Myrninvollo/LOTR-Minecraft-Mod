@@ -13,7 +13,7 @@ import net.minecraft.util.StatCollector;
 public enum LOTRFaction
 {
 	HOBBIT(0x59CE4E),
-	RANGER_NORTH(0x44A839),
+	RANGER_NORTH(0x40703A),
 	BLUE_MOUNTAINS(0x648DBC),
 	HIGH_ELF(0x49C2FF),
 	GUNDABAD(0x966C54),
@@ -109,6 +109,7 @@ public enum LOTRFaction
 		RANGER_NORTH.addKillPositive(ANGMAR);
 		
 		RANGER_NORTH.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRangerNorth.class, 15));
+		RANGER_NORTH.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRangerNorthBannerBearer.class, 2));
 		
 		BLUE_MOUNTAINS.addEnemy(GUNDABAD);
 		BLUE_MOUNTAINS.addEnemy(ANGMAR);

@@ -226,6 +226,8 @@ public class LOTRWorldGenRangerWatchtower extends LOTRWorldGenStructureBase2
 			fillChest(world, random, 0, 16, 1, LOTRChestContents.RANGER_TENT);
 		}
 		
+		setBlockAndMetadata(world, 0, 11, 1, LOTRMod.rangerTable, 0);
+		
 		for (int j1 = 17; j1 <= 18; j1++)
 		{
 			setBlockAndMetadata(world, -2, j1, -2, fenceBlock, fenceMeta);
@@ -254,20 +256,7 @@ public class LOTRWorldGenRangerWatchtower extends LOTRWorldGenStructureBase2
 		setBlockAndMetadata(world, -1, 22, 0, Blocks.torch, 0);
 		setBlockAndMetadata(world, 1, 22, 0, Blocks.torch, 0);
 		
-		for (int j1 = 23; j1 <= 26; j1++)
-		{
-			setBlockAndMetadata(world, 0, j1, 0, fenceBlock, fenceMeta);
-		}
-		
-		for (int j1 = 25; j1 <= 26; j1++)
-		{
-			for (int i1 = 0; i1 >= -1; i1--)
-			{
-				setBlockAndMetadata(world, -1 + i1, j1, 0, Blocks.wool, 13);
-				setBlockAndMetadata(world, -3 + i1, j1, 1, Blocks.wool, 13);
-				setBlockAndMetadata(world, -5 + i1, j1, 2, Blocks.wool, 13);
-			}
-		}
+		placeBanner(world, 0, 23, 0, 0, 12);
 		
 		if (usingPlayer == null)
 		{

@@ -1,11 +1,26 @@
 Public Beta 20
 
-+ Added green fog in Fangorn Forest and dark fog in the Old Forest
-+ Added a rare chance for Near Harad to invade Gondor and Ithilien
-+ Added an updated German translation
++ Added lore for items dropped by NPCs that says who their previous owner was
++ Added a Ranger crafting table, Ranger banner, and Ranger alignment cape
++ Added Ranger banner bearers
 
+Public Beta 19.2
+
++ Added a rare chance for Near Harad to invade Gondor and Ithilien
++ Added green fog in Fangorn Forest and dark fog in the Old Forest
++ Added updated German and Russian translations
+
+* Fixed NPCs talking to you after you kill them
+* Fixed the Island waypoints always being unlocked on the client side on servers
+* Mug crafting now gives two clay mugs
+* Fixed athelas brew causing a crash when used on servers
+* Fixed a crash on servers when brewing ent draught
 * Fixed the Elven Bow crafting recipe on the High Elven table
+* Fixed many food lists containing raw food instead of cooked food
 * Fixed the /ban and /allow structure commands using usernames instead of UUIDs
+* Fixed the alignment meter being displayed while the tab key is pressed
+* The Mordor Mountains no longer trigger the achievement for entering Mordor
+* Fixed Uruk-hai being able to pick up equipment
 
 Public Beta 19.1
 

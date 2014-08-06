@@ -256,7 +256,8 @@ public class LOTRUnitTradeEntry
 		
 		RANGER_NORTH_CAPTAIN = new LOTRUnitTradeEntry[]
 		{
-			new LOTRUnitTradeEntry(LOTREntityRangerNorth.class, 30, 300)
+			new LOTRUnitTradeEntry(LOTREntityRangerNorth.class, 30, 300),
+			new LOTRUnitTradeEntry(LOTREntityRangerNorthBannerBearer.class, 40, 450)
 		};
 		
 		HOBBIT_FARMER = new LOTRUnitTradeEntry[]

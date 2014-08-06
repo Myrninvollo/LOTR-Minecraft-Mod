@@ -1,5 +1,6 @@
 package lotr.client.render.entity;
 
+import lotr.common.entity.animal.LOTREntityShirePony;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.EntityLivingBase;
 
@@ -7,14 +8,15 @@ import org.lwjgl.opengl.GL11;
 
 public class LOTRRenderShirePony extends LOTRRenderHorse
 {
-    public LOTRRenderShirePony(ModelBase model, float f)
+    public LOTRRenderShirePony()
     {
-        super(model, f);
+        super();
     }
 	
 	@Override
 	protected void preRenderCallback(EntityLivingBase entity, float f)
 	{
-		GL11.glScalef(0.8F, 0.8F, 0.8F);
+		float scale = LOTREntityShirePony.PONY_SCALE;
+		GL11.glScalef(scale, scale, scale);
 	}
 }

@@ -2,15 +2,15 @@ package lotr.client.render.entity;
 
 import lotr.common.LOTRMod;
 import lotr.common.entity.animal.LOTREntityHorse;
-import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelHorse;
 import net.minecraft.client.renderer.entity.RenderHorse;
 import net.minecraft.entity.Entity;
 
 public class LOTRRenderHorse extends RenderHorse
 {
-    public LOTRRenderHorse(ModelBase model, float f)
+    public LOTRRenderHorse()
     {
-        super(model, f);
+        super(new ModelHorse(), 0.75F);
     }
 	
 	@Override

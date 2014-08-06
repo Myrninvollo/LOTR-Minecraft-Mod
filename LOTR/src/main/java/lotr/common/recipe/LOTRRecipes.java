@@ -45,11 +45,13 @@ public class LOTRRecipes
 	public static List nearHaradRecipes = new ArrayList();
 	public static List highElvenRecipes = new ArrayList();
 	public static List blueMountainsRecipes = new ArrayList();
+	public static List rangerRecipes = new ArrayList();
 	
 	private static List[] commonOrcRecipes = new List[] {morgulRecipes, urukRecipes, angmarRecipes};
 	private static List[] morgulAndAngmarRecipes = new List[] {morgulRecipes, angmarRecipes};
 	private static List[] commonElfRecipes = new List[] {elvenRecipes, woodElvenRecipes, highElvenRecipes};
 	private static List[] commonDwarfRecipes = new List[] {dwarvenRecipes, blueMountainsRecipes};
+	private static List[] commonDunedainRecipes = new List[] {gondorianRecipes, rangerRecipes};
 	
 	public static void createAllRecipes()
 	{
@@ -72,6 +74,7 @@ public class LOTRRecipes
 		createMorgulAndAngmarRecipes();
 		createCommonElfRecipes();
 		createCommonDwarfRecipes();
+		createCommonDunedainRecipes();
 		
 		createMorgulRecipes();
 		createElvenRecipes();
@@ -85,6 +88,7 @@ public class LOTRRecipes
 		createNearHaradRecipes();
 		createHighElvenRecipes();
 		createBlueMountainsRecipes();
+		createRangerRecipes();
 	}
 
 	private static void registerOres()
@@ -215,7 +219,7 @@ public class LOTRRecipes
 		{
 			shireHeather
 		});
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(clayMug), new Object[]
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(clayMug, 2), new Object[]
 		{
 			"X", "Y", "X", 'X', "ingotTin", 'Y', Items.clay_ball
 		}));
@@ -1309,6 +1313,26 @@ public class LOTRRecipes
 		}));
 	}
 	
+	private static void createCommonDunedainRecipes()
+	{
+		addRecipeTo(commonDunedainRecipes, new ShapedOreRecipe(new ItemStack(helmetRanger), new Object[]
+		{
+			"XXX", "X X", 'X', Items.leather
+		}));
+		addRecipeTo(commonDunedainRecipes, new ShapedOreRecipe(new ItemStack(bodyRanger), new Object[]
+		{
+			"X X", "XXX", "XXX", 'X', Items.leather
+		}));
+		addRecipeTo(commonDunedainRecipes, new ShapedOreRecipe(new ItemStack(legsRanger), new Object[]
+		{
+			"XXX", "X X", "X X", 'X', Items.leather
+		}));
+		addRecipeTo(commonDunedainRecipes, new ShapedOreRecipe(new ItemStack(bootsRanger), new Object[]
+		{
+			"X X", "X X", 'X', Items.leather
+		}));
+	}
+	
     private static void createMorgulRecipes()
     {
 		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(brick, 4, 0), new Object[]
@@ -1939,22 +1963,6 @@ public class LOTRRecipes
 		{
 			"XYX", 'X', Items.feather, 'Y', new ItemStack(helmetGondor, 1, 0)
 		}));
-		gondorianRecipes.add(new ShapedOreRecipe(new ItemStack(helmetRanger), new Object[]
-		{
-			"XXX", "X X", 'X', Items.leather
-		}));
-		gondorianRecipes.add(new ShapedOreRecipe(new ItemStack(bodyRanger), new Object[]
-		{
-			"X X", "XXX", "XXX", 'X', Items.leather
-		}));
-		gondorianRecipes.add(new ShapedOreRecipe(new ItemStack(legsRanger), new Object[]
-		{
-			"XXX", "X X", "X X", 'X', Items.leather
-		}));
-		gondorianRecipes.add(new ShapedOreRecipe(new ItemStack(bootsRanger), new Object[]
-		{
-			"X X", "X X", 'X', Items.leather
-		}));
 		gondorianRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 0), new Object[]
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
@@ -2406,6 +2414,18 @@ public class LOTRRecipes
 		blueMountainsRecipes.add(new ShapedOreRecipe(new ItemStack(spearBlueDwarven), new Object[]
 		{
 			"  X", " Y ", "Y  ", 'X', blueDwarfSteel, 'Y', "stickWood"
+		}));
+	}
+	
+	private static void createRangerRecipes()
+	{
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(rangerTable), new Object[]
+		{
+			"XX", "XX", 'X', "plankWood"
+		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 12), new Object[]
+		{
+			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
 	}
 

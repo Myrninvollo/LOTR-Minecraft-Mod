@@ -67,7 +67,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 	
 	CARN_DUM(ANGMAR, LOTRFaction.ANGMAR, 1000, 510),
 	
-	WEST_GATE(EREGION, UNALIGNED, 1131, 869),
+	WEST_GATE(EREGION, UNALIGNED, 1134, 873),
 	
 	NORTH_DUNLAND(DUNLAND, LOTRFaction.DUNLAND, 1073, 946),
 	SOUTH_DUNLAND(DUNLAND, LOTRFaction.DUNLAND, 1070, 1027),
@@ -319,7 +319,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 		return ordinal();
 	}
 	
-	public static Packet getLoginWaypointsPacket(EntityPlayer entityplayer)
+	public static void sendLoginWaypointsPacket(EntityPlayerMP entityplayer)
 	{
 		List regionsUnlocked = new ArrayList();
 		for (Region region : Region.values())
@@ -330,20 +330,19 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 			}
 		}
 		
-		if (regionsUnlocked.isEmpty())
+		ByteBuf data = Unpooled.buffer();
+		
+		int length = regionsUnlocked.size();
+		data.writeByte(length);
+		
+		for (int i = 0; i < length; i++)
 		{
-			return null;
+			Region region = (Region)regionsUnlocked.get(i);
+			data.writeByte(region.ordinal());
 		}
-		else
-		{
-			ByteBuf data = Unpooled.buffer();
-			for (int i = 0; i < regionsUnlocked.size(); i++)
-			{
-				data.writeByte((byte)((Region)regionsUnlocked.get(i)).ordinal());
-			}
-			Packet packet = new S3FPacketCustomPayload("lotr.loginWP", data);
-			return packet;
-		}
+		
+		Packet packet = new S3FPacketCustomPayload("lotr.loginWP", data);
+		entityplayer.playerNetServerHandler.sendPacket(packet);
 	}
 	
 	public static void clearAllWaypoints()

@@ -312,6 +312,7 @@ tile.lotr:fangornPlant.4.name=Sunfruit
 tile.lotr:fangornPlant.5.name=Moonflower
 tile.lotr:fangornRiverweed.name=Riverweed
 tile.lotr:morgulTorch.name=Morgul Torch
+tile.lotr:rangerCraftingTable.name=Ranger Crafting Table
 
 item.lotr:goldRing.name=Gold Ring
 item.lotr:pouch.0.name=Small Pouch
@@ -619,6 +620,7 @@ item.lotr:banner.8.name=Banner of Angmar
 item.lotr:banner.9.name=Banner of Near Harad
 item.lotr:banner.10.name=Banner of the High Elves
 item.lotr:banner.11.name=Banner of the Blue Mountains
+item.lotr:banner.12.name=Banner of the Rangers
 item.lotr:sulfurMatch.name=Sulfur Match
 item.lotr:swordAngmar.name=Angmar Sword
 item.lotr:daggerAngmar.name=Angmar Dagger
@@ -718,6 +720,8 @@ item.lotr.hat.feathered=Feathered
 
 item.lotr.pouch.slots=%d of %d slots in use
 
+item.lotr.itemOwner=Belonged to: %s
+
 lotr.creativetab.blocks=Middle-earth Blocks
 lotr.creativetab.decorations=Middle-earth Decorations
 lotr.creativetab.food=Middle-earth Food and Drink
@@ -740,6 +744,7 @@ container.lotr.angmarCrafting=Angmar Crafting Table
 container.lotr.nearHaradCrafting=Near Harad Crafting Table
 container.lotr.highElvenCrafting=High Elven Crafting Table
 container.lotr.blueDwarvenCrafting=Blue Mountains Crafting Table
+container.lotr.rangerCrafting=Ranger Crafting Table
 
 container.lotr.hobbitOven=Hobbit Oven
 container.lotr.barrel=Barrel
@@ -795,6 +800,8 @@ lotr.capes.category.ALIGNMENT=Alignment Capes
 lotr.capes.category.ACHIEVABLE=Achievable Capes
 lotr.capes.category.EXCLUSIVE=Exclusive Capes
 
+lotr.capes.ALIGNMENT_RANGER.name=Cape of the Dúnedain
+lotr.capes.ALIGNMENT_RANGER.desc=Awarded for reaching +1000 alignment with the Rangers of the North
 lotr.capes.ALIGNMENT_BLUE_MOUNTAINS.name=Cape of Ered Luin
 lotr.capes.ALIGNMENT_BLUE_MOUNTAINS.desc=Awarded for reaching +1000 alignment with the Dwarves of the Blue Mountains
 lotr.capes.ALIGNMENT_HIGH_ELF.name=Cape of the Fair Realm
@@ -1067,6 +1074,8 @@ entity.lotr.NearHaradPlantsTrader.name=Near Harad Plants Trader
 entity.lotr.NearHaradFoodTrader.name=Near Harad Food Trader
 entity.lotr.BlueDwarfMerchant.name=Blue Mountains Merchant
 entity.lotr.Bandit.name=Bandit
+entity.lotr.RangerNorthBannerBearer.name=Ranger Banner Bearer
+entity.lotr.Elk.name=Woodland Elk
 
 entity.lotr.Sauron.name=Sauron
 entity.lotr.Gollum.name=Gollum
@@ -1197,7 +1206,7 @@ lotr.biome.fangornWasteland.name=Fangorn Wasteland
 lotr.biome.rohanWoodlands.name=Rohan Woodlands
 lotr.biome.gondorWoodlands.name=Gondor Woodlands
 lotr.biome.lake.name=Lake
-lotr.biome.stoneBeach.name=Stone Beach
+lotr.biome.beachStone.name=Stone Beach
 lotr.biome.barrowDowns.name=Barrow-downs
 lotr.biome.fangornClearing.name=Fangorn Clearing
 lotr.biome.ithilienHills.name=Ithilien Hills
@@ -1616,6 +1625,8 @@ lotr.achievement.alignmentGood1000_GUNDABAD.title=Gundabad Scourge
 lotr.achievement.alignmentGood1000_GUNDABAD.desc=Reach +1000 alignment with the Gundabad Orcs
 lotr.achievement.enterBarrowDowns.title=The Hills of the Dead
 lotr.achievement.enterBarrowDowns.desc=Enter the Barrow-downs
+lotr.achievement.useRangerTable.title=Dúnedain Crafter
+lotr.achievement.useRangerTable.desc=Craft an item on the Ranger Crafting Table
 
 lotr.achievement.tradeAngmarCaptain.title=Hour of Vengeance
 lotr.achievement.tradeAngmarCaptain.desc=Hire a unit from an Angmar Orc Chieftain

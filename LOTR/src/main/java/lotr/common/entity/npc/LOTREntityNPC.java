@@ -4,66 +4,39 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
 import java.lang.reflect.Constructor;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTREventHandler;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.LOTREntities;
 import lotr.common.entity.LOTRMountFunctions;
-import lotr.common.entity.ai.LOTREntityAIBurningPanic;
-import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetBasic;
-import lotr.common.entity.ai.LOTRNPCTargetSelector;
+import lotr.common.entity.ai.*;
 import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.entity.item.LOTREntityTraderRespawn;
 import lotr.common.entity.projectile.LOTREntityPebble;
 import lotr.common.entity.projectile.LOTREntityPlate;
 import lotr.common.inventory.LOTRContainerTrade;
 import lotr.common.inventory.LOTRContainerUnitTrade;
-import lotr.common.item.LOTRItemLeatherHat;
-import lotr.common.item.LOTRItemPouch;
-import lotr.common.item.LOTRItemSpear;
+import lotr.common.item.*;
 import lotr.common.world.biome.LOTRBiome;
 import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.RangedAttribute;
+import net.minecraft.entity.ai.attributes.*;
 import net.minecraft.entity.boss.IBossDisplayData;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryBasic;
+import net.minecraft.inventory.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.*;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import com.google.common.collect.Multimap;
@@ -885,6 +858,31 @@ public abstract class LOTREntityNPC extends EntityCreature
 	
 	@Override
 	public final void dropEquipment(boolean flag, int i) {}
+	
+	@Override
+	public EntityItem entityDropItem(ItemStack item, float offset)
+    {
+		return npcDropItem(item, offset, true);
+    }
+	
+	public EntityItem npcDropItem(ItemStack item, float offset, boolean flag)
+	{
+		if (flag)
+		{
+			if (item != null && item.getItem() != null && item.getMaxStackSize() == 1)
+			{
+				if (!item.hasTagCompound())
+				{
+					item.setTagCompound(new NBTTagCompound());
+				}
+				
+				NBTTagCompound nbt = item.getTagCompound();
+				nbt.setString("LOTROwner", getCommandSenderName());
+			}
+		}
+		
+		return super.entityDropItem(item, offset);
+	}
 	
 	@Override
 	public void onDeath(DamageSource damagesource)

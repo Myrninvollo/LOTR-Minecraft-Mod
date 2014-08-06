@@ -72,6 +72,7 @@ public class LOTRReflection
     	getStackList(new InventoryCrafting(new ContainerChest(new InventoryBasic("test", false, 1), new InventoryBasic("test", false, 1)), 1, 1));
     	getStemFruitBlock((BlockStem)Blocks.melon_stem);
     	getCropItem((BlockCrops)Blocks.potatoes);
+    	isBadEffect(Potion.poison);
     }
     
     public static void setWorldInfo(World world, WorldInfo newWorldInfo)
@@ -136,6 +137,19 @@ public class LOTRReflection
 		{
 			logFailure(e);
 			return null;
+		}
+	}
+	
+	public static boolean isBadEffect(Potion potion)
+	{
+		try
+		{
+			return ObfuscationReflectionHelper.getPrivateValue(Potion.class, potion, "isBadEffect", "field_76418_K");
+		}
+		catch (Exception e)
+		{
+			logFailure(e);
+			return false;
 		}
 	}
 }

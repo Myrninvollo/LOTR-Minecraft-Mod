@@ -6,8 +6,7 @@ import lotr.common.LOTRFaction;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -117,5 +116,11 @@ public class LOTREntityUrukHai extends LOTREntityOrc
 	protected float getSoundPitch()
 	{
 		return super.getSoundPitch() * 0.75F;
+	}
+	
+	@Override
+	public boolean canPickUpLoot()
+	{
+		return false;
 	}
 }

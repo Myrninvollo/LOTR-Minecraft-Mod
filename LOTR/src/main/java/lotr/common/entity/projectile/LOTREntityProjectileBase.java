@@ -415,7 +415,7 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
         nbt.setInteger("xTile", xTile);
         nbt.setInteger("yTile", yTile);
         nbt.setInteger("zTile", zTile);
-        nbt.setByte("inTile", (byte)Block.getIdFromBlock(inTile));
+        nbt.setInteger("inTile", Block.getIdFromBlock(inTile));
         nbt.setByte("inData", (byte)inData);
         nbt.setByte("shake", (byte)shake);
         nbt.setByte("inGround", (byte)(inGround ? 1 : 0));
@@ -430,9 +430,9 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
         xTile = nbt.getInteger("xTile");
         yTile = nbt.getInteger("yTile");
         zTile = nbt.getInteger("zTile");
-        inTile = Block.getBlockById(nbt.getByte("inTile") & 0xff);
-        inData = nbt.getByte("inData") & 0xff;
-        shake = nbt.getByte("shake") & 0xff;
+        inTile = Block.getBlockById(nbt.getInteger("inTile"));
+        inData = nbt.getByte("inData");
+        shake = nbt.getByte("shake");
         inGround = nbt.getByte("inGround") == 1;
         setItemID(nbt.getInteger("itemID"));
 		itemDamage = nbt.getInteger("itemDamage");

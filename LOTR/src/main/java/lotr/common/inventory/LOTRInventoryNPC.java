@@ -61,7 +61,7 @@ public class LOTRInventoryNPC extends InventoryBasic
 			ItemStack itemstack = getStackInSlot(i);
             if (itemstack != null)
             {
-                theEntity.entityDropItem(itemstack, 0F);
+                theEntity.npcDropItem(itemstack, 0F, false);
                 setInventorySlotContents(i, null);
             }
         }

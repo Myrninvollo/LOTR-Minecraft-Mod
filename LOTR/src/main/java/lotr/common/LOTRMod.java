@@ -1,26 +1,19 @@
 package lotr.common;
 
-import java.io.File;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 import lotr.common.block.*;
 import lotr.common.command.*;
 import lotr.common.dispenser.*;
-import lotr.common.entity.LOTREntities;
-import lotr.common.entity.LOTREntityInvasionSpawner;
-import lotr.common.entity.LOTREntityRegistry;
+import lotr.common.entity.*;
 import lotr.common.entity.LOTREntityRegistry.RegistryInfo;
 import lotr.common.entity.animal.*;
 import lotr.common.entity.item.*;
 import lotr.common.entity.npc.*;
 import lotr.common.entity.projectile.*;
 import lotr.common.item.*;
-import lotr.common.recipe.LOTRBrewingRecipes;
-import lotr.common.recipe.LOTREntJarRecipes;
-import lotr.common.recipe.LOTRRecipes;
+import lotr.common.recipe.*;
 import lotr.common.tileentity.*;
 import lotr.common.world.LOTRWorldProvider;
 import lotr.common.world.biome.LOTRBiome;
@@ -30,7 +23,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
 import net.minecraft.item.Item.ToolMaterial;
@@ -263,6 +257,7 @@ public class LOTRMod
 	public static Block fangornPlant;
 	public static Block fangornRiverweed;
 	public static Block morgulTorch;
+	public static Block rangerTable;
 
 	public static Item goldRing;
 	public static Item pouch;
@@ -785,6 +780,7 @@ public class LOTRMod
 		fangornPlant = new LOTRBlockFangornPlant().setStepSound(Block.soundTypeGrass).setBlockName("lotr:fangornPlant");
 		fangornRiverweed = new LOTRBlockFangornRiverweed().setStepSound(Block.soundTypeGrass).setBlockName("lotr:fangornRiverweed");
 		morgulTorch = new LOTRBlockMorgulTorch().setHardness(0F).setStepSound(Block.soundTypeWood).setLightLevel(0.875F).setBlockName("lotr:morgulTorch");
+		rangerTable = new LOTRBlockRangerTable().setHardness(2.5F).setStepSound(Block.soundTypeWood).setBlockName("lotr:rangerCraftingTable");
 		
 		goldRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMagic).setUnlocalizedName("lotr:goldRing");
 		pouch = new LOTRItemPouch().setUnlocalizedName("lotr:pouch");
@@ -1332,6 +1328,7 @@ public class LOTRMod
 		registerBlock(fangornPlant, LOTRItemBlockMetadata.class);
 		registerBlock(fangornRiverweed, LOTRItemRiverweed.class);
 		registerBlock(morgulTorch);
+		registerBlock(rangerTable);
 		
 		registerItem(goldRing);
 		registerItem(pouch);
@@ -1956,6 +1953,8 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityNearHaradFoodTrader.class, "NearHaradFoodTrader", 128, 0xCE967D, 0x917D77);
 		LOTREntities.registerCreature(LOTREntityBlueDwarfMerchant.class, "BlueDwarfMerchant", 129, 0xF9876D, 0xEA5620);
 		LOTREntities.registerCreature(LOTREntityBandit.class, "Bandit", 130, 0xF79574, 0x513B21);
+		LOTREntities.registerCreature(LOTREntityRangerNorthBannerBearer.class, "RangerNorthBannerBearer", 131, 0x3D4425, 0x4B3322);
+		LOTREntities.registerCreature(LOTREntityElk.class, "Elk", 132, 0x000000, 0xFFFFFF);
 
 		LOTREntities.registerCreature(LOTREntitySauron.class, "Sauron", 1000);
 		LOTREntities.registerCreature(LOTREntityGollum.class, "Gollum", 1001);

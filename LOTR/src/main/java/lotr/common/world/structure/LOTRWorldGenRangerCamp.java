@@ -52,7 +52,7 @@ public class LOTRWorldGenRangerCamp extends LOTRWorldGenStructureBase
 			}
 		}
 		
-		setBlockAndNotifyAdequately(world, i, highestHeight, k, Blocks.crafting_table, 0);
+		setBlockAndNotifyAdequately(world, i, highestHeight, k, LOTRMod.rangerTable, 0);
 		
 		LOTREntityRanger ranger = new LOTREntityRangerNorthCaptain(world);
 		ranger.setLocationAndAngles(i + 0.5D, highestHeight + 1D, k + 0.5D, world.rand.nextFloat() * 360F, 0F);

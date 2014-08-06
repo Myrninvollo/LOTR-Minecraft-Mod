@@ -366,9 +366,11 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		
 		else if (channel.equals("lotr.loginWP"))
 		{
-			for (int i = 0; i < data.array().length; i++)
+			int length = data.readByte();
+			for (int i = 0; i < length; i++)
 			{
-				LOTRWaypoint.Region region = LOTRWaypoint.regionForID(data.readByte());
+				int ID = data.readByte();
+				LOTRWaypoint.Region region = LOTRWaypoint.regionForID(ID);
 				if (region != null)
 				{
 					region.unlockForPlayer(entityplayer);

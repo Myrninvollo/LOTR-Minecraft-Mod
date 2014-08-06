@@ -3,8 +3,7 @@ package lotr.common.entity.npc;
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
-import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
-import lotr.common.item.LOTRItemSpear;
+import lotr.common.entity.animal.LOTREntityElk;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.item.Item;
@@ -18,6 +17,13 @@ public class LOTREntityWoodElfWarrior extends LOTREntityWoodElfScout
 		super(world);
 		tasks.removeTask(rangedAttackAI);
 		tasks.addTask(2, meleeAttackAI);
+		spawnRidingHorse = rand.nextInt(4) == 0;
+	}
+	
+	@Override
+	public LOTRNPCMount createMountToRide()
+	{
+		return new LOTREntityElk(worldObj);
 	}
 	
 	@Override

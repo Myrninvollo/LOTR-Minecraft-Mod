@@ -3,6 +3,8 @@ package lotr.common;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,6 +48,7 @@ import lotr.common.inventory.LOTRContainerGondorianTable;
 import lotr.common.inventory.LOTRContainerHighElvenTable;
 import lotr.common.inventory.LOTRContainerMorgulTable;
 import lotr.common.inventory.LOTRContainerNearHaradTable;
+import lotr.common.inventory.LOTRContainerRangerTable;
 import lotr.common.inventory.LOTRContainerRohirricTable;
 import lotr.common.inventory.LOTRContainerUrukTable;
 import lotr.common.inventory.LOTRContainerWoodElvenTable;
@@ -214,6 +217,11 @@ public class LOTREventHandler implements IFuelHandler
 				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useBlueDwarvenTable);
 			}
 			
+			if (entityplayer.openContainer instanceof LOTRContainerRangerTable)
+			{
+				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useRangerTable);
+			}
+			
 			if (itemstack.getItem() == Items.saddle)
 			{
 				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.craftSaddle);
@@ -336,12 +344,7 @@ public class LOTREventHandler implements IFuelHandler
 			LOTRLevelData.sendCapeToAllPlayersInWorld(entityplayer, entityplayer.worldObj);
 			LOTRLevelData.sendAllCapesInWorldToPlayer(entityplayer, entityplayer.worldObj);
 			
-			Packet waypointsPacket = LOTRWaypoint.getLoginWaypointsPacket(entityplayer);
-			if (waypointsPacket != null)
-			{
-				entityplayermp.playerNetServerHandler.sendPacket(waypointsPacket);
-			}
-			
+			LOTRWaypoint.sendLoginWaypointsPacket(entityplayermp);
 			LOTRWaypoint.Custom.sendLoginCustomWaypointsPackets(entityplayermp);
 			
 			LOTRLevelData.sendTakenAlignmentRewardsToPlayer(entityplayermp);
@@ -1315,6 +1318,9 @@ public class LOTREventHandler implements IFuelHandler
 			}
 			if (entityplayer != null)
 			{
+				LOTRFaction entityFaction = LOTRMod.getNPCFaction(entity);
+				int prevAlignment = LOTRLevelData.getAlignment(entityplayer, entityFaction);
+						
 				LOTRAlignmentValues.Bonus alignmentBonus = null;
 				if (entity instanceof LOTREntityNPC)
 				{
@@ -1336,37 +1342,50 @@ public class LOTREventHandler implements IFuelHandler
 				if (alignmentBonus != null)
 				{
 					alignmentBonus.isKill = true;
-					LOTRLevelData.addAlignment(entityplayer, alignmentBonus, LOTRMod.getNPCFaction(entity), entity);
+					LOTRLevelData.addAlignment(entityplayer, alignmentBonus, entityFaction, entity);
 				}
 				
-				if (!entityplayer.capabilities.isCreativeMode && LOTRMod.getNPCFaction(entity) != LOTRFaction.UNALIGNED)
+				if (prevAlignment >= 0 && !entityplayer.capabilities.isCreativeMode && entityFaction != LOTRFaction.UNALIGNED)
 				{
 					boolean sentChatMessage = false;
 					
-					List nearbyAlliedNPCs = world.getEntitiesWithinAABB(EntityLiving.class, entity.boundingBox.expand(8D, 8D, 8D));
+					double range = 8D;
+					List nearbyAlliedNPCs = world.getEntitiesWithinAABB(EntityLiving.class, entity.boundingBox.expand(range, range, range));
 					for (int i = 0; i < nearbyAlliedNPCs.size(); i++)
 					{
 						EntityLiving npc = (EntityLiving)nearbyAlliedNPCs.get(i);
+						
+						if (!npc.isEntityAlive())
+						{
+							continue;
+						}
+						
 						if (npc instanceof LOTREntityNPC && ((LOTREntityNPC)npc).hiredNPCInfo.isActive)
 						{
 							continue;
 						}
 						
-						if (!LOTRMod.getNPCFaction(entity).isAllied(LOTRMod.getNPCFaction(npc)))
+						if (entityFaction != LOTRMod.getNPCFaction(npc))
 						{
 							continue;
 						}
 						
-						npc.setAttackTarget(entityplayer);
-						
-						if (!sentChatMessage && npc instanceof LOTREntityNPC)
+						if (npc.getAttackTarget() != entityplayer)
 						{
-							LOTREntityNPC lotrnpc = (LOTREntityNPC)npc;
-							String speech = lotrnpc.getSpeechBank(entityplayer);
-							if (speech != null)
+							npc.setAttackTarget(entityplayer);
+							
+							if (!sentChatMessage && npc instanceof LOTREntityNPC)
 							{
-								lotrnpc.sendSpeechBank(entityplayer, speech);
-								sentChatMessage = true;
+								LOTREntityNPC lotrnpc = (LOTREntityNPC)npc;
+								String speech = lotrnpc.getSpeechBank(entityplayer);
+								if (speech != null)
+								{
+									if (lotrnpc.getDistanceSqToEntity(entityplayer) < range)
+									{
+										lotrnpc.sendSpeechBank(entityplayer, speech);
+										sentChatMessage = true;
+									}
+								}
 							}
 						}
 					}
@@ -1508,16 +1527,21 @@ public class LOTREventHandler implements IFuelHandler
 		{
 			boolean success = false;
 			
-			factions:
-			for (LOTRFaction faction : LOTRFaction.values())
+			LOTRFaction[] factions = LOTRFaction.values();
+			List<LOTRFaction> factionsAsList = Arrays.asList(factions);
+			Collections.shuffle(factionsAsList);
+			factions = factionsAsList.toArray(factions);
+			
+			factionsLoop:
+			for (LOTRFaction faction : factions)
 			{
 				if (!faction.allowPlayer || faction.invasionMobs.isEmpty())
 				{
-					continue factions;
+					continue factionsLoop;
 				}
 				if (LOTRLevelData.getAlignment(entityplayer, faction) >= 0)
 				{
-					continue factions;
+					continue factionsLoop;
 				}
 				
 				LOTREntityInvasionSpawner invasion = new LOTREntityInvasionSpawner(entityplayer.worldObj);
@@ -1531,7 +1555,7 @@ public class LOTREventHandler implements IFuelHandler
 					entityplayer.worldObj.spawnEntityInWorld(invasion);
 					invasion.announceInvasion(entityplayer);
 					success = true;
-					break factions;
+					break factionsLoop;
 				}
 			}
 			

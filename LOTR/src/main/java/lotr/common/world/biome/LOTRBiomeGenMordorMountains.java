@@ -1,5 +1,6 @@
 package lotr.common.world.biome;
 
+import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
 import lotr.common.world.structure.LOTRWorldGenMordorTower;
 
@@ -21,6 +22,12 @@ public class LOTRBiomeGenMordorMountains extends LOTRBiomeGenMordor
 	
 	@Override
 	public LOTRWaypoint.Region getBiomeWaypoints()
+	{
+		return null;
+	}
+	
+	@Override
+	public LOTRAchievement getBiomeAchievement()
 	{
 		return null;
 	}

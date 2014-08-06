@@ -72,10 +72,4 @@ public class LOTREntityRangerIthilien extends LOTREntityRanger
 			return "rangerIthilien_hostile";
 		}
 	}
-	
-	@Override
-	public String getRangerCape()
-	{
-		return "cape_ithilien";
-	}
 }

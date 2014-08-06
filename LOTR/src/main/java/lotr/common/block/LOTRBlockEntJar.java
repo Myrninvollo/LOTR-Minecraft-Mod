@@ -151,7 +151,10 @@ public class LOTRBlockEntJar extends BlockContainer
 							{
 								itemstack.stackSize--;
 							}
-							ItemDye.func_150918_a(world, i, j, k, 16);
+							if (!world.isRemote)
+		                    {
+								world.playAuxSFX(2005, i, j, k, 0);
+		                    }
 							return true;
 						}
 					}

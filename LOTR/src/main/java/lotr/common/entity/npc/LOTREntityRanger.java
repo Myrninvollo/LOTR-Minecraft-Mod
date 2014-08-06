@@ -312,9 +312,4 @@ public abstract class LOTREntityRanger extends LOTREntityNPC implements IRangedA
 			super.func_145780_a(i, j, k, block);
 		}
 	}
-	
-	public String getRangerCape()
-	{
-		return null;
-	}
 }

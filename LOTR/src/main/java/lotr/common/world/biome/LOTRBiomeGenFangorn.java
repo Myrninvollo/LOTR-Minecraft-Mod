@@ -165,4 +165,10 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 		fog.zCoord *= 0.3D;
 		return fog;
 	}
+	
+	@Override
+	public boolean hasFog()
+	{
+		return true;
+	}
 }

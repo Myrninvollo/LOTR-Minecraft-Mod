@@ -715,6 +715,8 @@ item.lotr.drink.strong=Strong
 item.lotr.drink.potent=Potent
 item.lotr.drink.alcoholicity=Alcoholicity
 
+item.lotr.crossbow.loaded=%s (Loaded)
+
 item.lotr.hat.dyed=Dyed
 item.lotr.hat.feathered=Feathered
 

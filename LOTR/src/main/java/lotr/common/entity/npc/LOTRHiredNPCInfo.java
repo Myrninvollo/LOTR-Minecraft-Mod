@@ -35,9 +35,10 @@ public class LOTRHiredNPCInfo
 	private boolean prevInCombat;
 	public boolean isGuiOpen;
 	public boolean guardMode;
-	public static int GUARD_RANGE_MIN = 8;
+	public static int GUARD_RANGE_MIN = 0;
+	public static int GUARD_RANGE_DEFAULT = 8;
 	public static int GUARD_RANGE_MAX = 64;
-	private int guardRange = GUARD_RANGE_MIN;
+	private int guardRange = GUARD_RANGE_DEFAULT;
 	private Task task = Task.WARRIOR;
 	private LOTRInventoryNPC hiredInventory;
 	

@@ -447,7 +447,10 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
         setItemID(nbt.getInteger("itemID"));
 		itemDamage = nbt.getInteger("itemDamage");
 		canBePickedUp = nbt.getByte("pickup");
-		itemData = nbt.getCompoundTag("ItemTagCompound");
+		if (nbt.hasKey("ItemTagCompound"))
+		{
+			itemData = nbt.getCompoundTag("ItemTagCompound");
+		}
     }
 	
 	public abstract boolean isDamageable();
@@ -459,7 +462,7 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 		{
 			itemstack.setItemDamage(itemDamage + 1);
 		}
-		if (itemData != null)
+		if (itemData != null && !itemData.hasNoTags())
 		{
 			itemstack.setTagCompound(itemData);
 		}

@@ -1,10 +1,12 @@
 package lotr.client.render.item;
 
 import lotr.client.LOTRClientProxy;
+import lotr.common.item.LOTRItemCrossbow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,6 +18,14 @@ import org.lwjgl.opengl.GL12;
 
 public class LOTRRenderCrossbow implements IItemRenderer
 {
+	private enum RotationMode
+	{
+		FIRST_PERSON_HOLDING,
+		FIRST_PERSON_LOADED,
+		ENTITY_HOLDING,
+		ENTITY_LOADED;
+	}
+	
 	@Override
     public boolean handleRenderType(ItemStack itemstack, ItemRenderType type)
 	{
@@ -31,28 +41,40 @@ public class LOTRRenderCrossbow implements IItemRenderer
 	@Override
     public void renderItem(ItemRenderType type, ItemStack itemstack, Object... data)
 	{	
-		int rotationMode = -1;
+		RotationMode rotationMode = null;
 		
-		if (data[1] == Minecraft.getMinecraft().thePlayer && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0)
+		EntityLivingBase holder = (EntityLivingBase)data[1];
+		boolean loaded = LOTRItemCrossbow.isLoaded(itemstack);
+		boolean using = false;
+		if (holder instanceof EntityPlayer)
 		{
-			if (((EntityPlayer)data[1]).getItemInUse() != itemstack)
+			using = ((EntityPlayer)holder).getItemInUse() == itemstack;
+		}
+		else if (holder instanceof EntityLiving)
+		{
+			using = ((EntityLiving)holder).getHeldItem() == itemstack;
+		}
+		
+		if (holder == Minecraft.getMinecraft().renderViewEntity && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0)
+		{
+			if (using || loaded)
 			{
-				rotationMode = 0;
+				rotationMode = RotationMode.FIRST_PERSON_LOADED;
 			}
 			else
 			{
-				rotationMode = 1;
+				rotationMode = RotationMode.FIRST_PERSON_HOLDING;
 			}
 		}
 		else
 		{
-			if (data[1] instanceof EntityPlayer && ((EntityPlayer)data[1]).getItemInUse() != itemstack)
+			if (using || loaded)
 			{
-				rotationMode = 2;
+				rotationMode = RotationMode.ENTITY_LOADED;
 			}
 			else
 			{
-				rotationMode = 3;
+				rotationMode = RotationMode.ENTITY_HOLDING;
 			}
 			
 			GL11.glTranslatef(0.9375F, 0.0625F, 0F);
@@ -68,14 +90,14 @@ public class LOTRRenderCrossbow implements IItemRenderer
 			GL11.glTranslatef(-0.25F, -0.1875F, 0.1875F);
 		}
 		
-		if (rotationMode == 1)
+		if (rotationMode == RotationMode.FIRST_PERSON_LOADED)
 		{
 			GL11.glRotatef(-100F, 1F, 0F, 0F);
 			GL11.glRotatef(-60F, 0F, 1F, 0F);
 			GL11.glRotatef(-25F, 0F, 0F, 1F);
 			GL11.glTranslatef(0F, 0F, -0.5F);
 		}
-		else if (rotationMode == 2)
+		else if (rotationMode == RotationMode.ENTITY_HOLDING)
 		{
 			GL11.glTranslatef(0F, 0.125F, 0.3125F);
 			GL11.glRotatef(-20F, 0F, 1F, 0F);
@@ -89,7 +111,7 @@ public class LOTRRenderCrossbow implements IItemRenderer
 			GL11.glRotatef(335F, 0F, 0F, 1F);
 			GL11.glTranslatef(-0.9375F, -0.0625F, 0F);
 		}
-		else if (rotationMode == 3)
+		else if (rotationMode == RotationMode.ENTITY_LOADED)
 		{
 			GL11.glRotatef(50F, 0F, 0F, 1F);
 			GL11.glTranslatef(0F, 0F, -0.15F);

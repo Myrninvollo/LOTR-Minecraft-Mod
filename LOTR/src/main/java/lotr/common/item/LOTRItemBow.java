@@ -136,17 +136,17 @@ public class LOTRItemBow extends ItemBow
     {
 		if (usingItem != null && usingItem.getItem() == this)
 		{
-			int i = usingItem.getMaxItemUseDuration() - useRemaining;
-			double d = (double)i / (double)bowPullTime;
-			if (d >= 0.9D)
+			int ticksInUse = usingItem.getMaxItemUseDuration() - useRemaining;
+			double useAmount = (double)ticksInUse / (double)bowPullTime;
+			if (useAmount >= 0.9D)
 			{
 				return bowPullIcons[2];
 			}
-			else if (d > 0.65D)
+			else if (useAmount > 0.65D)
 			{
 				return bowPullIcons[1];
 			}
-			else if (d > 0D)
+			else if (useAmount > 0D)
 			{
 				return bowPullIcons[0];
 			}

@@ -9,7 +9,9 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -34,25 +36,18 @@ public class LOTRItemCrossbow extends ItemBow
 	}
 	
 	@Override
-    public void onPlayerStoppedUsing(ItemStack itemstack, World world, EntityPlayer entityplayer, int i)
+    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
-        int useTick = getMaxItemUseDuration(itemstack) - i;
-        boolean consumeNoBolt = entityplayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, itemstack) > 0;
-
-        if (consumeNoBolt || entityplayer.inventory.hasItem(LOTRMod.crossbowBolt))
-        {
-            float f = (float)useTick / getMaxDrawTime();
+    	if (isLoaded(itemstack))
+    	{
+    		if (!world.isRemote)
+    		{
+    			setLoaded(itemstack, false);
+    		}
+    		
+            float f = (float)getMaxDrawTime();
             f = (f * f + f * 2F) / 3F;
-
-            if ((double)f < 0.1D)
-            {
-                return;
-            }
-
-            if (f > 1F)
-            {
-                f = 1F;
-            }
+            f = Math.min(f, 1F);
 
             LOTREntityCrossbowBolt bolt = new LOTREntityCrossbowBolt(world, entityplayer, f * 2F);
 			bolt.boltDamageFactor += boltDamageBonus;
@@ -83,38 +78,109 @@ public class LOTRItemCrossbow extends ItemBow
                 bolt.setFire(100);
             }
 
-            itemstack.damageItem(1, entityplayer);
-            world.playSoundAtEntity(entityplayer, "lotr:item.crossbow", 1F, 1F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-
-            if (consumeNoBolt)
+            if (!shouldConsumeBolt(itemstack, entityplayer))
             {
                 bolt.canBePickedUp = 2;
-            }
-            else
-            {
-                entityplayer.inventory.consumeInventoryItem(LOTRMod.crossbowBolt);
             }
 
             if (!world.isRemote)
             {
                 world.spawnEntityInWorld(bolt);
             }
+            
+            world.playSoundAtEntity(entityplayer, "lotr:item.crossbow", 1F, 1F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+            itemstack.damageItem(1, entityplayer);
+            if (!world.isRemote)
+            {
+            	setLoaded(itemstack, false);
+            }
+    	}
+    	else
+    	{
+	        if (entityplayer.capabilities.isCreativeMode || entityplayer.inventory.hasItem(LOTRMod.crossbowBolt))
+	        {
+	            entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
+	        }
+    	}
+        return itemstack;
+    }
+	
+	@Override
+	public void onPlayerStoppedUsing(ItemStack itemstack, World world, EntityPlayer entityplayer, int useTick)
+    {
+		int ticksInUse = getMaxItemUseDuration(itemstack) - useTick;
+        if (ticksInUse >= getMaxDrawTime() && !isLoaded(itemstack))
+        {
+        	boolean consumeBolt = shouldConsumeBolt(itemstack, entityplayer);
+        	if (!consumeBolt || entityplayer.inventory.hasItem(LOTRMod.crossbowBolt))
+            {
+        		if (consumeBolt)
+                {
+                    entityplayer.inventory.consumeInventoryItem(LOTRMod.crossbowBolt);
+                }
+        		if (!world.isRemote)
+        		{
+        			setLoaded(itemstack, true);
+        		}
+        		System.out.println("Loaded");
+            }
+        	entityplayer.clearItemInUse();
         }
     }
 	
-	public float getMaxDrawTime()
+	public int getMaxDrawTime()
 	{
-		return 30F;
+		return 50;
 	}
-
-    @Override
-    public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
+	
+	@Override
+	public int getMaxItemUseDuration(ItemStack itemstack)
     {
-        if (entityplayer.capabilities.isCreativeMode || entityplayer.inventory.hasItem(LOTRMod.crossbowBolt))
+        return 72000;
+    }
+
+    public static boolean isLoaded(ItemStack itemstack)
+    {
+    	if (itemstack != null && itemstack.getItem() instanceof LOTRItemCrossbow)
+    	{
+    		NBTTagCompound nbt = itemstack.getTagCompound();
+    		if (nbt == null || !nbt.hasKey("LOTRCrossbowLoaded"))
+    		{
+    			return false;
+    		}
+    		return nbt.getBoolean("LOTRCrossbowLoaded");
+    	}
+    	return false;
+    }
+    
+    private void setLoaded(ItemStack itemstack, boolean loaded)
+    {
+    	if (itemstack != null && itemstack.getItem() instanceof LOTRItemCrossbow)
+    	{
+    		NBTTagCompound nbt = itemstack.getTagCompound();
+    		if (nbt == null)
+    		{
+    			nbt = new NBTTagCompound();
+    			itemstack.setTagCompound(nbt);
+    		}
+    		nbt.setBoolean("LOTRCrossbowLoaded", loaded);
+    	}
+    }
+    
+    private boolean shouldConsumeBolt(ItemStack itemstack, EntityPlayer entityplayer)
+    {
+    	return !entityplayer.capabilities.isCreativeMode && EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, itemstack) == 0;
+    }
+    
+    @Override
+    public String getItemStackDisplayName(ItemStack itemstack)
+    {
+        String name = super.getItemStackDisplayName(itemstack);
+        if (isLoaded(itemstack))
         {
-            entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
+        	name = StatCollector.translateToLocalFormatted("item.lotr.crossbow.loaded", name);
         }
-        return itemstack;
+        return name;
     }
 	
 	@Override
@@ -133,23 +199,58 @@ public class LOTRItemCrossbow extends ItemBow
 	@SideOnly(Side.CLIENT)
     public IIcon getIcon(ItemStack itemstack, int renderPass, EntityPlayer entityplayer, ItemStack usingItem, int useRemaining)
     {
-		if (usingItem != null && usingItem.getItem() == this)
+		if (isLoaded(itemstack))
 		{
-			int i = usingItem.getMaxItemUseDuration() - useRemaining;
-			if (i >= 27)
+			return crossbowPullIcons[2];
+		}
+		else
+		{
+			if (usingItem != null && usingItem.getItem() == this)
 			{
-				return crossbowPullIcons[2];
-			}
-			else if (i > 20)
-			{
-				return crossbowPullIcons[1];
-			}
-			else if (i > 0)
-			{
-				return crossbowPullIcons[0];
+				int ticksInUse = usingItem.getMaxItemUseDuration() - useRemaining;
+				double useAmount = (double)ticksInUse / (double)getMaxDrawTime();
+				if (useAmount >= 1D)
+				{
+					return crossbowPullIcons[2];
+				}
+				else if (useAmount > 0.5D)
+				{
+					return crossbowPullIcons[1];
+				}
+				else if (useAmount > 0D)
+				{
+					return crossbowPullIcons[0];
+				}
 			}
 		}
 		return itemIcon;
+    }
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(ItemStack itemstack, int pass)
+    {
+		if (isLoaded(itemstack))
+		{
+			return crossbowPullIcons[2];
+		}
+		else
+		{
+			return itemIcon;
+		}
+    }
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+    public boolean requiresMultipleRenderPasses()
+    {
+        return true;
+    }
+	
+	@Override
+	public int getRenderPasses(int metadata)
+    {
+        return 1;
     }
 	
 	@Override

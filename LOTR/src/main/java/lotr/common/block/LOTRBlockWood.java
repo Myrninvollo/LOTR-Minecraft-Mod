@@ -21,7 +21,7 @@ public class LOTRBlockWood extends LOTRBlockWoodBase
 	@Override
     public boolean removedByPlayer(World world, EntityPlayer entityplayer, int i, int j, int k, boolean willHarvest)
     {
-        if (!world.isRemote && (world.getBlockMetadata(i, j, k) & 3) == 1 && world.rand.nextInt(3) == 0 && world.getBiomeGenForCoords(i, k) instanceof LOTRBiomeGenLothlorien && LOTRLevelData.getAlignment(entityplayer, LOTRFaction.GALADHRIM) < 0 && !entityplayer.capabilities.isCreativeMode)
+        if (!world.isRemote && (world.getBlockMetadata(i, j, k) & 3) == 1 && world.rand.nextInt(3) == 0 && world.getBiomeGenForCoords(i, k) instanceof LOTRBiomeGenLothlorien && LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.GALADHRIM) < 0 && !entityplayer.capabilities.isCreativeMode)
 		{
 			int elves = 4 + world.rand.nextInt(3);
 			boolean sentMessage = false;

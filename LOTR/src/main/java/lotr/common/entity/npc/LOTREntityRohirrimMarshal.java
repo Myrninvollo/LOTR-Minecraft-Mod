@@ -61,13 +61,13 @@ public class LOTREntityRohirrimMarshal extends LOTREntityRohirrim implements LOT
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.ROHIRRIM_MARSHAL_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.ROHIRRIM_MARSHAL_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onUnitTrade(EntityPlayer entityplayer)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeRohirrimMarshal);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeRohirrimMarshal);
 	}
 	
 	@Override

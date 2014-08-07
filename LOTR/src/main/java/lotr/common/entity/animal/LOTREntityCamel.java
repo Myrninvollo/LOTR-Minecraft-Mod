@@ -159,7 +159,7 @@ public class LOTREntityCamel extends EntityAnimal implements LOTRNPCMount, Immun
         {
         	if (riddenByEntity instanceof EntityPlayer && isMountSaddled())
 			{
-				LOTRLevelData.addAchievement((EntityPlayer)riddenByEntity, LOTRAchievement.rideCamel);
+				LOTRLevelData.getData((EntityPlayer)riddenByEntity).addAchievement(LOTRAchievement.rideCamel);
 			}
 		}
 	}

@@ -128,7 +128,7 @@ public class LOTRFamilyInfo
 		}
 		
 		ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-		if (itemstack != null && itemstack.getItem() == marriageRing && LOTRLevelData.getAlignment(entityplayer, theEntity.getFaction()) >= marriageAlignmentRequired)
+		if (itemstack != null && itemstack.getItem() == marriageRing && LOTRLevelData.getData(entityplayer).getAlignment(theEntity.getFaction()) >= marriageAlignmentRequired)
 		{
 			if (theEntity.getClass() == marriageEntityClass && getNPCAge() == 0 && theEntity.getEquipmentInSlot(0) == null && theEntity.getEquipmentInSlot(4) == null && spouseUniqueID == null)
 			{

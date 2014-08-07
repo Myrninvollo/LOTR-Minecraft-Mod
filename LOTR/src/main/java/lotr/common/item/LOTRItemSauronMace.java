@@ -87,14 +87,14 @@ public class LOTRItemSauronMace extends Item
 						{
 							if (user instanceof EntityPlayer)
 							{
-								if (!MinecraftServer.getServer().isPVPEnabled() || LOTRLevelData.getAlignment((EntityPlayer)entity, LOTRFaction.MORDOR) > 0)
+								if (!MinecraftServer.getServer().isPVPEnabled() || LOTRLevelData.getData((EntityPlayer)entity).getAlignment(LOTRFaction.MORDOR) > 0)
 								{
 									continue;
 								}
 							}
 							else if (user instanceof EntityLiving)
 							{
-								if (((EntityLiving)user).getAttackTarget() != entity && LOTRLevelData.getAlignment((EntityPlayer)entity, LOTRFaction.MORDOR) > 0)
+								if (((EntityLiving)user).getAttackTarget() != entity && LOTRLevelData.getData((EntityPlayer)entity).getAlignment(LOTRFaction.MORDOR) > 0)
 								{
 									continue;
 								}

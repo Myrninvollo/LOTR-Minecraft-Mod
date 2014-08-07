@@ -53,7 +53,7 @@ public class LOTREntityShirePony extends LOTREntityHorse
 			EntityPlayer entityplayer = (EntityPlayer)riddenByEntity;
 			if (isHorseSaddled() && isChested())
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.rideShirePony);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.rideShirePony);
 			}
 		}
 	}

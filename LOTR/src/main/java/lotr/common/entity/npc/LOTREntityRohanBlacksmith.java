@@ -74,19 +74,19 @@ public class LOTREntityRohanBlacksmith extends LOTREntityRohanMan implements LOT
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.ROHAN_BLACKSMITH_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.ROHAN_BLACKSMITH_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onPlayerBuyItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeRohanBlacksmith);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeRohanBlacksmith);
 	}
 	
 	@Override
 	public void onPlayerSellItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeRohanBlacksmith);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeRohanBlacksmith);
 	}
 	
 	@Override

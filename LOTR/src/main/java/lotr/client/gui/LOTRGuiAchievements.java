@@ -273,7 +273,7 @@ public class LOTRGuiAchievements extends LOTRGui
 			LOTRAchievement achievement = (LOTRAchievement)i.next();
 			if (achievement.canPlayerEarn(mc.thePlayer))
 			{
-				if (LOTRLevelData.hasAchievement(mc.thePlayer, achievement))
+				if (LOTRLevelData.getData(mc.thePlayer).hasAchievement(achievement))
 				{
 					currentCategoryTakenAchievements.add(achievement);
 				}
@@ -286,16 +286,7 @@ public class LOTRGuiAchievements extends LOTRGui
 		currentCategoryTakenCount = currentCategoryTakenAchievements.size();
 		currentCategoryUntakenCount = currentCategoryUntakenAchievements.size();
 		
-		totalTakenCount = 0;
-		i = LOTRLevelData.getPlayerAchievements(mc.thePlayer).iterator();
-		while (i.hasNext())
-		{
-			LOTRAchievement achievement = (LOTRAchievement)i.next();
-			if (achievement.canPlayerEarn(mc.thePlayer))
-			{
-				totalTakenCount++;
-			}
-		}
+		totalTakenCount = LOTRLevelData.getData(mc.thePlayer).getEarnedAchievements().size();
 		
 		totalAvailableCount = 0;
 		i = LOTRAchievement.allAchievements.iterator();

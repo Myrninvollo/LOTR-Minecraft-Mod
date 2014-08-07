@@ -232,12 +232,12 @@ public class LOTRItemMugBrewable extends Item
 		{
 			if (this == LOTRMod.mugOrcDraught)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.drinkOrcDraught);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.drinkOrcDraught);
 			}
 			
 			if (this == LOTRMod.mugAthelasBrew)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.drinkAthelasBrew);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.drinkAthelasBrew);
 				
 				for (int i = 0; i < Potion.potionTypes.length; i++)
 				{
@@ -251,12 +251,12 @@ public class LOTRItemMugBrewable extends Item
 			
 			if (this == LOTRMod.mugRedWine)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.drinkWine);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.drinkWine);
 			}
 			
 			if (this == LOTRMod.mugDwarvenTonic)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.drinkDwarvenTonic);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.drinkDwarvenTonic);
 			}
 		}
 

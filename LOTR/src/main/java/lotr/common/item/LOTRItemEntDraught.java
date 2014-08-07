@@ -139,7 +139,7 @@ public class LOTRItemEntDraught extends Item
 	@Override
     public ItemStack onEaten(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
-		if (LOTRLevelData.getAlignment(entityplayer, LOTRFaction.FANGORN) < 0)
+		if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.FANGORN) < 0)
 		{
 			if (!world.isRemote)
 			{
@@ -166,7 +166,7 @@ public class LOTRItemEntDraught extends Item
 		
 		if (!world.isRemote && entityplayer.getCurrentEquippedItem() == itemstack)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.drinkEntDraught);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.drinkEntDraught);
 		}
 
         return !entityplayer.capabilities.isCreativeMode ? new ItemStack(Items.bowl) : itemstack;
@@ -177,7 +177,7 @@ public class LOTRItemEntDraught extends Item
     {
 		if (getDraughtInfo(itemstack).name.equals("gold"))
 		{
-			if (LOTRLevelData.getAlignment(entityplayer, LOTRFaction.FANGORN) < LOTRAlignmentValues.SPAWN_HUORN)
+			if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.FANGORN) < LOTRAlignmentValues.SPAWN_HUORN)
 			{
 				if (!world.isRemote)
 				{
@@ -210,7 +210,7 @@ public class LOTRItemEntDraught extends Item
 								huorn.hiredNPCInfo.alignmentRequiredToCommand = LOTRAlignmentValues.SPAWN_HUORN;
 								huorn.hiredNPCInfo.setHiringPlayerUUID(entityplayer.getUniqueID().toString());
 								huorn.hiredNPCInfo.setTask(LOTRHiredNPCInfo.Task.WARRIOR);
-								LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.summonHuorn);
+								LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.summonHuorn);
 							}
 
 							for (int l = 0; l < 24; l++)

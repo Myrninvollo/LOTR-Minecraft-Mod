@@ -374,7 +374,7 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 			{
 				for (int j1 = j + 4; j1 <= j + 5; j1++)
 				{
-					setBlockAndNotifyAdequately(world, i1, j1, k1, wallBlock, wallMeta);
+					setBlockAndNotifyAdequately(world, i1, j1, k1, LOTRMod.thatch, wallMeta);
 				}
 			}
 		}
@@ -383,14 +383,14 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 		{
 			for (int k1 = k - 7 - l; k1 <= k + 7 + l; k1++)
 			{
-				setBlockAndNotifyAdequately(world, i - 10 - l, j + 4 + (1 - l), k1, stairBlock, 0);
-				setBlockAndNotifyAdequately(world, i + 10 + l, j + 4 + (1 - l), k1, stairBlock, 1);
+				setBlockAndNotifyAdequately(world, i - 10 - l, j + 4 + (1 - l), k1, LOTRMod.stairsThatch, 0);
+				setBlockAndNotifyAdequately(world, i + 10 + l, j + 4 + (1 - l), k1, LOTRMod.stairsThatch, 1);
 			}
 			
 			for (int i1 = i - 9 - l; i1 <= i + 9 + l; i1++)
 			{
-				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k - 7 - l, stairBlock, 2);
-				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k + 7 + l, stairBlock, 3);
+				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k - 7 - l, LOTRMod.stairsThatch, 2);
+				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k + 7 + l, LOTRMod.stairsThatch, 3);
 			}
 		}
 		
@@ -656,7 +656,7 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 			{
 				for (int j1 = j + 4; j1 <= j + 5; j1++)
 				{
-					setBlockAndNotifyAdequately(world, i1, j1, k1, wallBlock, wallMeta);
+					setBlockAndNotifyAdequately(world, i1, j1, k1, LOTRMod.thatch, wallMeta);
 				}
 			}
 		}
@@ -665,14 +665,14 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 		{
 			for (int i1 = i + 7 + l; i1 >= i - 7 - l; i1--)
 			{
-				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k - 10 - l, stairBlock, 2);
-				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k + 10 + l, stairBlock, 3);
+				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k - 10 - l, LOTRMod.stairsThatch, 2);
+				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k + 10 + l, LOTRMod.stairsThatch, 3);
 			}
 			
 			for (int k1 = k - 9 - l; k1 <= k + 9 + l; k1++)
 			{
-				setBlockAndNotifyAdequately(world, i + 7 + l, j + 4 + (1 - l), k1, stairBlock, 1);
-				setBlockAndNotifyAdequately(world, i - 7 - l, j + 4 + (1 - l), k1, stairBlock, 0);
+				setBlockAndNotifyAdequately(world, i + 7 + l, j + 4 + (1 - l), k1, LOTRMod.stairsThatch, 1);
+				setBlockAndNotifyAdequately(world, i - 7 - l, j + 4 + (1 - l), k1, LOTRMod.stairsThatch, 0);
 			}
 		}
 		
@@ -938,7 +938,7 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 			{
 				for (int j1 = j + 4; j1 <= j + 5; j1++)
 				{
-					setBlockAndNotifyAdequately(world, i1, j1, k1, wallBlock, wallMeta);
+					setBlockAndNotifyAdequately(world, i1, j1, k1, LOTRMod.thatch, wallMeta);
 				}
 			}
 		}
@@ -947,14 +947,14 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 		{
 			for (int k1 = k + 7 + l; k1 >= k - 7 - l; k1--)
 			{
-				setBlockAndNotifyAdequately(world, i - 10 - l, j + 4 + (1 - l), k1, stairBlock, 0);
-				setBlockAndNotifyAdequately(world, i + 10 + l, j + 4 + (1 - l), k1, stairBlock, 1);
+				setBlockAndNotifyAdequately(world, i - 10 - l, j + 4 + (1 - l), k1, LOTRMod.stairsThatch, 0);
+				setBlockAndNotifyAdequately(world, i + 10 + l, j + 4 + (1 - l), k1, LOTRMod.stairsThatch, 1);
 			}
 			
 			for (int i1 = i - 9 - l; i1 <= i + 9 + l; i1++)
 			{
-				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k + 7 + l, stairBlock, 3);
-				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k - 7 - l, stairBlock, 2);
+				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k + 7 + l, LOTRMod.stairsThatch, 3);
+				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k - 7 - l, LOTRMod.stairsThatch, 2);
 			}
 		}
 		
@@ -1220,7 +1220,7 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 			{
 				for (int j1 = j + 4; j1 <= j + 5; j1++)
 				{
-					setBlockAndNotifyAdequately(world, i1, j1, k1, wallBlock, wallMeta);
+					setBlockAndNotifyAdequately(world, i1, j1, k1, LOTRMod.thatch, wallMeta);
 				}
 			}
 		}
@@ -1229,14 +1229,14 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 		{
 			for (int i1 = i - 7 - l; i1 <= i + 7 + l; i1++)
 			{
-				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k - 10 - l, stairBlock, 2);
-				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k + 10 + l, stairBlock, 3);
+				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k - 10 - l, LOTRMod.stairsThatch, 2);
+				setBlockAndNotifyAdequately(world, i1, j + 4 + (1 - l), k + 10 + l, LOTRMod.stairsThatch, 3);
 			}
 			
 			for (int k1 = k - 9 - l; k1 <= k + 9 + l; k1++)
 			{
-				setBlockAndNotifyAdequately(world, i - 7 - l, j + 4 + (1 - l), k1, stairBlock, 0);
-				setBlockAndNotifyAdequately(world, i + 7 + l, j + 4 + (1 - l), k1, stairBlock, 1);
+				setBlockAndNotifyAdequately(world, i - 7 - l, j + 4 + (1 - l), k1, LOTRMod.stairsThatch, 0);
+				setBlockAndNotifyAdequately(world, i + 7 + l, j + 4 + (1 - l), k1, LOTRMod.stairsThatch, 1);
 			}
 		}
 		

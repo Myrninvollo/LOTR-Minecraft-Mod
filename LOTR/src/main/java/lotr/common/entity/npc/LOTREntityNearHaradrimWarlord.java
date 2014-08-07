@@ -59,13 +59,13 @@ public class LOTREntityNearHaradrimWarlord extends LOTREntityNearHaradrimWarrior
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.NEAR_HARADRIM_WARLORD_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.NEAR_HARADRIM_WARLORD_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onUnitTrade(EntityPlayer entityplayer)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeNearHaradWarlord);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeNearHaradWarlord);
 	}
 	
 	@Override

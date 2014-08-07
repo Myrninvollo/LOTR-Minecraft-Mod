@@ -56,7 +56,7 @@ public class LOTREntityMordorOrcSlaver extends LOTREntityMordorOrc implements LO
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.MORDOR_ORC_SLAVER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.MORDOR_ORC_SLAVER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

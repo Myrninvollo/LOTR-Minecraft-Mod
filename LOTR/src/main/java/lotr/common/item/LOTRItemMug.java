@@ -171,7 +171,7 @@ public class LOTRItemMug extends Item
 		{
 			if (this == LOTRMod.mugMangoJuice)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.drinkMangoJuice);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.drinkMangoJuice);
 			}
 		}
 

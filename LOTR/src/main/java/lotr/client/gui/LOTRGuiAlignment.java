@@ -65,7 +65,7 @@ public class LOTRGuiAlignment extends LOTRGui
 				continue;
 			}
 			
-			int alignment = LOTRLevelData.getAlignment(mc.thePlayer, faction);
+			int alignment = LOTRLevelData.getData(mc.thePlayer).getAlignment(faction);
 			
 			GL11.glColor4f(1F, 1F, 1F, 1F);
 			mc.getTextureManager().bindTexture(LOTRClientProxy.alignmentTexture);

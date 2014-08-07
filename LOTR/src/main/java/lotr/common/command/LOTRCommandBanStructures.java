@@ -40,7 +40,7 @@ public class LOTRCommandBanStructures extends CommandBase
 				throw new WrongUsageException("commands.lotr.banStructures.alreadyBanned");
 			}
 			LOTRLevelData.structuresBanned = 1;
-			LOTRLevelData.needsSave = true;
+			LOTRLevelData.markDirty();
 			func_152373_a(sender, this, "commands.lotr.banStructures.ban", new Object[0]);
 		}
         else

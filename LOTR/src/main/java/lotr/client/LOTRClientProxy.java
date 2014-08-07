@@ -1,9 +1,13 @@
 package lotr.client;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+
 import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
 
 import lotr.client.fx.*;
+import lotr.client.gui.LOTRGuiMap;
 import lotr.client.model.*;
 import lotr.client.render.LOTRRenderBlocks;
 import lotr.client.render.LOTRRenderPlayer;
@@ -28,6 +32,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
+import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -341,6 +346,21 @@ public class LOTRClientProxy extends LOTRCommonProxy
             GL11.glColor4f(1F, 1F, 1F, 1F);
             GL11.glPopMatrix();
         }
+    }
+    
+    public static void sendClientInfoPacket()
+    {
+    	Minecraft mc = Minecraft.getMinecraft();
+    	
+    	ByteBuf data = Unpooled.buffer();
+    	
+    	data.writeInt(mc.thePlayer.getEntityId());
+    	data.writeByte((byte)mc.thePlayer.dimension);
+    	data.writeByte(LOTRTickHandlerClient.currentAlignmentFaction.ordinal());
+    	data.writeByte(LOTRGuiMap.waypointMode.ordinal());
+    	
+    	C17PacketCustomPayload packet = new C17PacketCustomPayload("lotr.clientInfo", data);
+    	mc.thePlayer.sendQueue.addToSendQueue(packet);
     }
 	
 	@Override

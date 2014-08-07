@@ -1,5 +1,6 @@
 package lotr.common.entity.animal;
 
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
 
 public class LOTREntityElk extends LOTREntityHorse
@@ -22,5 +23,10 @@ public class LOTREntityElk extends LOTREntityHorse
     }
 	
 	@Override
-	protected void onLOTRHorseSpawn() {}
+	protected void onLOTRHorseSpawn()
+	{
+		double maxHealth = getEntityAttribute(SharedMonsterAttributes.maxHealth).getAttributeValue();
+		maxHealth = (double)(maxHealth * (1F + rand.nextFloat() * 0.5F));
+		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
+	}
 }

@@ -64,7 +64,7 @@ public class LOTRInvasionSpawner
 					BiomeInvasionListEntry entry = (BiomeInvasionListEntry)obj;
 					LOTRFaction faction = entry.faction;
 					
-					if (LOTRLevelData.getAlignment(entityplayer, faction) < 0 && world.rand.nextInt(entry.chance) == 0)
+					if (LOTRLevelData.getData(entityplayer).getAlignment(faction) < 0 && world.rand.nextInt(entry.chance) == 0)
 					{
 						for (int attempts = 0; attempts < 16; attempts++)
 						{

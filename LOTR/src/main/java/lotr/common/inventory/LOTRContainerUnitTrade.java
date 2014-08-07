@@ -37,7 +37,7 @@ public class LOTRContainerUnitTrade extends Container
 		{
 			addSlotToContainer(new LOTRSlotAlignmentReward(this, alignmentRewardInv, 0, 174, 78, theUnitTrader));
 			
-			if (!world.isRemote && LOTRLevelData.getAlignment(entityplayer, faction) >= LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
+			if (!world.isRemote && LOTRLevelData.getData(entityplayer).getAlignment(faction) >= LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
 			{
 				alignmentRewardInv.setInventorySlotContents(0, reward);
 			}
@@ -72,7 +72,7 @@ public class LOTRContainerUnitTrade extends Container
 			Slot slot = (Slot)inventorySlots.get(i);
 			if (slot instanceof LOTRSlotAlignmentReward)
 			{
-				if (LOTRLevelData.getAlignment(entityplayer, faction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
+				if (LOTRLevelData.getData(entityplayer).getAlignment(faction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
 				{
 					return null;
 				}

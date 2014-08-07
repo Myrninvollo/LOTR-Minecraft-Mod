@@ -224,15 +224,15 @@ public class LOTRWorldGenDunlendingTavern extends LOTRWorldGenStructureBase
 			{
 				for (int stair = 0; stair < 3; stair++)
 				{
-					setBlockAndNotifyAdequately(world, i1, j + 4 + stair, k - zRange - 1 + stair, stairBlock, 2);
-					setBlockAndNotifyAdequately(world, i1, j + 4 + stair, k + zRange + 1 - stair, stairBlock, 3);
+					setBlockAndNotifyAdequately(world, i1, j + 4 + stair, k - zRange - 1 + stair, LOTRMod.stairsThatch, 2);
+					setBlockAndNotifyAdequately(world, i1, j + 4 + stair, k + zRange + 1 - stair, LOTRMod.stairsThatch, 3);
 				}
 			}
 			
 			for (int k1 = k - zRange + 2; k1 <= k + zRange - 2; k1++)
 			{
-				setBlockAndNotifyAdequately(world, i - xRange - 1, j + 6, k1, slabBlock, slabMeta | 8);
-				setBlockAndNotifyAdequately(world, i + xRange + 1, j + 6, k1, slabBlock, slabMeta | 8);
+				setBlockAndNotifyAdequately(world, i - xRange - 1, j + 6, k1, LOTRMod.slabSingleThatch, slabMeta | 8);
+				setBlockAndNotifyAdequately(world, i + xRange + 1, j + 6, k1, LOTRMod.slabSingleThatch, slabMeta | 8);
 			}
 			
 			zRange -= 2;
@@ -243,15 +243,15 @@ public class LOTRWorldGenDunlendingTavern extends LOTRWorldGenStructureBase
 			{
 				for (int stair = 0; stair < 3; stair++)
 				{
-					setBlockAndNotifyAdequately(world, i - xRange - 1 + stair, j + 4 + stair, k1, stairBlock, 0);
-					setBlockAndNotifyAdequately(world, i + xRange + 1 - stair, j + 4 + stair, k1, stairBlock, 1);
+					setBlockAndNotifyAdequately(world, i - xRange - 1 + stair, j + 4 + stair, k1, LOTRMod.stairsThatch, 0);
+					setBlockAndNotifyAdequately(world, i + xRange + 1 - stair, j + 4 + stair, k1, LOTRMod.stairsThatch, 1);
 				}
 			}
 			
 			for (int i1 = i - xRange + 2; i1 <= i + xRange - 2; i1++)
 			{
-				setBlockAndNotifyAdequately(world, i1, j + 6, k - zRange - 1, slabBlock, slabMeta | 8);
-				setBlockAndNotifyAdequately(world, i1, j + 6, k + zRange + 1, slabBlock, slabMeta | 8);
+				setBlockAndNotifyAdequately(world, i1, j + 6, k - zRange - 1, LOTRMod.slabSingleThatch, slabMeta | 8);
+				setBlockAndNotifyAdequately(world, i1, j + 6, k + zRange + 1, LOTRMod.slabSingleThatch, slabMeta | 8);
 			}
 			
 			xRange -= 2;
@@ -261,7 +261,7 @@ public class LOTRWorldGenDunlendingTavern extends LOTRWorldGenStructureBase
 		{
 			for (int k1 = k - zRange; k1 <= k + zRange; k1++)
 			{
-				setBlockAndNotifyAdequately(world, i1, j + 6, k1, plankBlock, plankMeta);
+				setBlockAndNotifyAdequately(world, i1, j + 6, k1, LOTRMod.thatch, plankMeta);
 			}
 		}
 		

@@ -108,7 +108,7 @@ public class LOTREntityRohanMeadhost extends LOTREntityRohanMan implements LOTRT
 	{
 		if (itemstack.getItem() == LOTRMod.mugMead)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.buyRohanMead);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.buyRohanMead);
 		}
 	}
 	

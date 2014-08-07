@@ -152,7 +152,7 @@ public class LOTREntityWoodElfScout extends LOTREntityWoodElf
 			}
 			else
 			{
-				if (LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.WOOD_ELF_TRUST)
+				if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.WOOD_ELF_TRUST)
 				{
 					return "woodElfWarrior_friendly";
 				}

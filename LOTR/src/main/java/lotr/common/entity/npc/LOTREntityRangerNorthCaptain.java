@@ -49,13 +49,13 @@ public class LOTREntityRangerNorthCaptain extends LOTREntityRangerNorth implemen
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.RANGER_NORTH_CAPTAIN_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.RANGER_NORTH_CAPTAIN_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onUnitTrade(EntityPlayer entityplayer)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeRangerNorthCaptain);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeRangerNorthCaptain);
 	}
 	
 	@Override

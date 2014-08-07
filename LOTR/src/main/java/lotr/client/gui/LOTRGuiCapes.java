@@ -103,7 +103,7 @@ public class LOTRGuiCapes extends LOTRGui
 		
 		((GuiButton)buttonList.get(2)).enabled = currentCapeID > 0;
 		((GuiButton)buttonList.get(3)).enabled = currentCape.canPlayerWearCape(mc.thePlayer);
-		((GuiButton)buttonList.get(3)).displayString = LOTRLevelData.getCape(mc.thePlayer) == currentCape ? StatCollector.translateToLocal("lotr.gui.capes.selected") : StatCollector.translateToLocal("lotr.gui.capes.select");
+		((GuiButton)buttonList.get(3)).displayString = LOTRLevelData.getData(mc.thePlayer).getCape() == currentCape ? StatCollector.translateToLocal("lotr.gui.capes.selected") : StatCollector.translateToLocal("lotr.gui.capes.select");
 		((GuiButton)buttonList.get(4)).enabled = currentCapeID < currentCapeType.list.size() - 1;
 		((GuiButton)buttonList.get(5)).displayString = currentCapeType.getDisplayName();
 		

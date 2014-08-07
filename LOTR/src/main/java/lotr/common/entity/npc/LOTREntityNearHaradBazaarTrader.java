@@ -67,13 +67,13 @@ public class LOTREntityNearHaradBazaarTrader extends LOTREntityNearHaradrim impl
 	@Override
 	public void onPlayerBuyItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeBazaarTrader);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeBazaarTrader);
 	}
 	
 	@Override
 	public void onPlayerSellItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeBazaarTrader);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeBazaarTrader);
 	}
 	
 	@Override

@@ -65,7 +65,7 @@ public class LOTREntityAIOrcAvoidGoodPlayer extends EntityAIBase
 			{
 				continue nearbyPlayersLoop;
 			}
-			int alignment = LOTRLevelData.getAlignment(entityplayer, theOrc.getFaction());
+			int alignment = LOTRLevelData.getData(entityplayer).getAlignment(theOrc.getFaction());
 			if (alignment <= LOTRAlignmentValues.ORC_FLEE)
 			{
 				for (int j = 0; j < nearbyEvilNPCs.size(); j++)

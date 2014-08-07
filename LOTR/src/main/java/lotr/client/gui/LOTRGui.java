@@ -78,8 +78,10 @@ public class LOTRGui extends LOTRGuiScreenBase
         	data.writeInt(mc.thePlayer.getEntityId());
         	data.writeByte((byte)mc.thePlayer.dimension);
         	
-        	C17PacketCustomPayload packet = new C17PacketCustomPayload("lotr.checkAch", data);
+        	C17PacketCustomPayload packet = new C17PacketCustomPayload("lotr.checkMenu", data);
         	mc.thePlayer.sendQueue.addToSendQueue(packet);
+        	
+        	sentCheckPacket = true;
 		}
 		
 		super.updateScreen();

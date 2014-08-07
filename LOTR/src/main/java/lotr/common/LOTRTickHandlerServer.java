@@ -131,13 +131,11 @@ public class LOTRTickHandlerServer
 			if (LOTRLevelData.needsLoad)
 			{
 				LOTRLevelData.load();
-				LOTRLevelData.needsLoad = false;
 			}
 			
-			if (LOTRLevelData.needsSave)
+			if (LOTRLevelData.needsSaving())
 			{
 				LOTRLevelData.save();
-				LOTRLevelData.needsSave = false;
 			}
 			
 			if (world.getWorldTime() % 600L == 0L)
@@ -287,20 +285,20 @@ public class LOTRTickHandlerServer
 			
 			runAchievementChecks(entityplayer);
 			
-			int fastTravelTimer = LOTRLevelData.getFastTravelTimer(entityplayer);
+			int fastTravelTimer = LOTRLevelData.getData(entityplayer).getFTTimer();
 			if (fastTravelTimer > 0)
 			{
 				fastTravelTimer--;
-				LOTRLevelData.setFastTravelTimer(entityplayer, fastTravelTimer);
+				LOTRLevelData.getData(entityplayer).setFTTimer(fastTravelTimer);
 			}
 			
 			if (entityplayer.dimension == LOTRMod.idDimension)
 			{
-				if (!LOTRLevelData.playersCheckedAchievements.contains(entityplayer.getUniqueID()))
+				if (!LOTRLevelData.getData(entityplayer).getCheckedMenu())
 				{
 					entityplayer.playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.promptAch", Unpooled.buffer(0)));
 				}
-				else if (!LOTRLevelData.playersCheckedAlignments.contains(entityplayer.getUniqueID()))
+				else if (!LOTRLevelData.getData(entityplayer).getCheckedAlignments())
 				{
 					entityplayer.playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.promptAl", Unpooled.buffer(0)));
 				}
@@ -341,7 +339,7 @@ public class LOTRTickHandlerServer
 					int k = MathHelper.floor_double(item.posZ);
 					ItemStack itemstack = item.getEntityItem();
 					
-					if (LOTRLevelData.getAlignment(entityplayer, LOTRFaction.GALADHRIM) > LOTRAlignmentValues.USE_PORTAL)
+					if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.GALADHRIM) > LOTRAlignmentValues.USE_PORTAL)
 					{
 						if (itemstack.getItem() == Item.getItemFromBlock(LOTRMod.elanor) || itemstack.getItem() == Item.getItemFromBlock(LOTRMod.niphredil))
 						{
@@ -373,7 +371,7 @@ public class LOTRTickHandlerServer
 						}
 					}
 					
-					if (LOTRLevelData.getAlignment(entityplayer, LOTRFaction.MORDOR) > LOTRAlignmentValues.USE_PORTAL || LOTRLevelData.getAlignment(entityplayer, LOTRFaction.ANGMAR) > LOTRAlignmentValues.USE_PORTAL)
+					if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.MORDOR) > LOTRAlignmentValues.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.ANGMAR) > LOTRAlignmentValues.USE_PORTAL)
 					{
 						if (LOTRMod.isOreNameEqual(itemstack, "bone"))
 						{
@@ -501,7 +499,7 @@ public class LOTRTickHandlerServer
 			LOTRBiome lotrbiome = (LOTRBiome)biome;
 			if (lotrbiome.getBiomeAchievement() != null)
 			{
-				LOTRLevelData.addAchievement(entityplayer, lotrbiome.getBiomeAchievement());
+				LOTRLevelData.getData(entityplayer).addAchievement(lotrbiome.getBiomeAchievement());
 			}
 			
 			if (lotrbiome.getBiomeWaypoints() != null)
@@ -512,12 +510,12 @@ public class LOTRTickHandlerServer
 		
 		if (entityplayer.dimension == LOTRMod.idDimension)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.enterMiddleEarth);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.enterMiddleEarth);
 		}
 		
 		if (entityplayer.inventory.hasItem(LOTRMod.pouch))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.getPouch);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.getPouch);
 		}
 		
 		Set tables = new HashSet();
@@ -541,97 +539,97 @@ public class LOTRTickHandlerServer
 		
 		if (tables.size() >= 5)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.collectCraftingTables);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.collectCraftingTables);
 		}
 		
 		if (crossbowBolts >= 128)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.collectCrossbowBolts);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.collectCrossbowBolts);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorMithril))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullMithril);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullMithril);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorWarg))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullWargFur);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullWargFur);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorBlueDwarven))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullBlueDwarven);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullBlueDwarven);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorHighElven))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullHighElven);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullHighElven);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorRanger))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullRanger);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullRanger);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorAngmar))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullAngmar);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullAngmar);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorWoodElvenScout))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullWoodElvenScout);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullWoodElvenScout);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorWoodElven))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullWoodElven);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullWoodElven);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorDwarven))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullDwarven);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullDwarven);
 		}
 		
 		if (biome instanceof LOTRBiomeGenMistyMountains && entityplayer.posY > 192D)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.climbMistyMountains);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.climbMistyMountains);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorElven))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullElven);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullElven);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorUruk))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullUruk);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullUruk);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorRohan))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullRohirric);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullRohirric);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorDunlending))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullDunlending);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullDunlending);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorGondor))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullGondorian);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullGondorian);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorOrc))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullOrc);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullOrc);
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorNearHarad))
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.wearFullNearHarad);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullNearHarad);
 		}
 	}
 	

@@ -105,7 +105,7 @@ public class LOTREntityRabbit extends EntityCreature implements LOTRAmbientCreat
 		if (flag && !worldObj.isRemote && damagesource.getEntity() instanceof EntityPlayer && isRabbitEating())
 		{
 			EntityPlayer entityplayer = (EntityPlayer)damagesource.getEntity();
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.attackRabbit);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.attackRabbit);
 		}
 		return flag;
 	}

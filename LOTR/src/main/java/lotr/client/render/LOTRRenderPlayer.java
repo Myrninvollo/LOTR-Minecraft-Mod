@@ -42,8 +42,8 @@ public class LOTRRenderPlayer
 		
 		if (!entityplayer.isInvisibleToPlayer(mc.thePlayer) && !entityplayer.getHideCape() && event.renderCape)
 		{
-			LOTRCapes cape = LOTRLevelData.getCape(entityplayer);
-			if (cape != null && LOTRLevelData.getEnableCape(entityplayer))
+			LOTRCapes cape = LOTRLevelData.getData(entityplayer).getCape();
+			if (cape != null && LOTRLevelData.getData(entityplayer).getEnableCape())
 			{
 				mc.getTextureManager().bindTexture(cape.capeTexture);
 				GL11.glPushMatrix();
@@ -117,7 +117,7 @@ public class LOTRRenderPlayer
 		
 		if (shouldRenderAlignment(entityplayer) && (mc.theWorld.provider.dimensionId == LOTRMod.idDimension || LOTRMod.alwaysShowAlignment))
 		{
-			int alignment = LOTRLevelData.getAlignment(entityplayer, LOTRTickHandlerClient.currentAlignmentFaction);
+			int alignment = LOTRLevelData.getData(entityplayer).getAlignment(LOTRTickHandlerClient.currentAlignmentFaction);
             double dist = entityplayer.getDistanceSqToEntity(renderManager.livingPlayer);
             float range = RendererLivingEntity.NAME_TAG_RANGE;
             if (dist < (double)(range * range))
@@ -186,6 +186,6 @@ public class LOTRRenderPlayer
 		{
 			return false;
 		}
-		return !LOTRLevelData.getHideAlignment(entityplayer);
+		return !LOTRLevelData.getData(entityplayer).getHideAlignment();
 	}
 }

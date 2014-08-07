@@ -51,7 +51,7 @@ public class LOTRCommandFastTravelTimer extends CommandBase
 				}
 			}
 
-			LOTRLevelData.setFastTravelTimer(entityplayer, timer);
+			LOTRLevelData.getData(entityplayer).setFTTimer(timer);
 			func_152373_a(sender, this, "commands.lotr.fastTravelTimer.set", new Object[] {entityplayer.getCommandSenderName(), timer, LOTRLevelData.getHMSTime(timer)});
 			return;
 		}

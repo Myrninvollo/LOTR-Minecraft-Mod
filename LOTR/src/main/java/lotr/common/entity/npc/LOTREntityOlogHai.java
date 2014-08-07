@@ -112,7 +112,7 @@ public class LOTREntityOlogHai extends LOTREntityTroll
 							}
 							if (hitEntity instanceof EntityPlayer)
 							{
-								if (getAttackTarget() != hitEntity && LOTRLevelData.getAlignment((EntityPlayer)hitEntity, getFaction()) < 0)
+								if (getAttackTarget() != hitEntity && LOTRLevelData.getData((EntityPlayer)hitEntity).getAlignment(getFaction()) < 0)
 								{
 									continue;
 								}

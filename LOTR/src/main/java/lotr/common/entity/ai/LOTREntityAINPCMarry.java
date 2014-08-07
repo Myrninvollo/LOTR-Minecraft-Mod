@@ -121,18 +121,18 @@ public class LOTREntityAINPCMarry extends EntityAIBase
 		}
 		if (theNPC.familyInfo.getRingGivingPlayer() != null)
 		{
-			LOTRLevelData.addAlignment(theNPC.familyInfo.getRingGivingPlayer(), LOTRAlignmentValues.MARRIAGE_BONUS, theNPC.getFaction(), theNPC);
+			LOTRLevelData.getData(theNPC.familyInfo.getRingGivingPlayer()).addAlignment(LOTRAlignmentValues.MARRIAGE_BONUS, theNPC.getFaction(), theNPC);
 			if (theNPC.familyInfo.marriageAchievement != null)
 			{
-				LOTRLevelData.addAchievement(theNPC.familyInfo.getRingGivingPlayer(), theNPC.familyInfo.marriageAchievement);
+				LOTRLevelData.getData(theNPC.familyInfo.getRingGivingPlayer()).addAchievement(theNPC.familyInfo.marriageAchievement);
 			}
 		}
 		if (theSpouse.familyInfo.getRingGivingPlayer() != null)
 		{
-			LOTRLevelData.addAlignment(theSpouse.familyInfo.getRingGivingPlayer(), LOTRAlignmentValues.MARRIAGE_BONUS, theSpouse.getFaction(), theSpouse);
+			LOTRLevelData.getData(theSpouse.familyInfo.getRingGivingPlayer()).addAlignment(LOTRAlignmentValues.MARRIAGE_BONUS, theSpouse.getFaction(), theSpouse);
 			if (theSpouse.familyInfo.marriageAchievement != null)
 			{
-				LOTRLevelData.addAchievement(theSpouse.familyInfo.getRingGivingPlayer(), theSpouse.familyInfo.marriageAchievement);
+				LOTRLevelData.getData(theSpouse.familyInfo.getRingGivingPlayer()).addAchievement(theSpouse.familyInfo.marriageAchievement);
 			}
 		}
 		

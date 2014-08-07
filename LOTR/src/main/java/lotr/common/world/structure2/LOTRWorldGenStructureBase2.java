@@ -543,6 +543,11 @@ public abstract class LOTRWorldGenStructureBase2 extends WorldGenerator
 		k = getZ(i1, k1);
 		j = getY(j);
 		
+		for (int l = 0; l < rotationMode; l++)
+		{
+			direction = Direction.rotateRight[direction];
+		}
+		
 		EntityItemFrame frame = new EntityItemFrame(world, i, j, k, direction);
 		frame.setDisplayedItem(itemstack);
 		world.spawnEntityInWorld(frame);

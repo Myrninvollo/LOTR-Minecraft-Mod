@@ -46,7 +46,7 @@ public class LOTRItemTrident extends LOTRItemSword
 				
 				if (!world.isRemote)
 				{
-					entityplayer.addExhaustion(0.3F);
+					entityplayer.addExhaustion(0.03F);
 					
 					if (world.rand.nextInt(5) == 0)
 					{
@@ -67,7 +67,7 @@ public class LOTRItemTrident extends LOTRItemSword
 							world.spawnEntityInWorld(fish);
 							entityplayer.addStat(StatList.fishCaughtStat, 1);
 							world.spawnEntityInWorld(new EntityXPOrb(world, fish.posX, fish.posY, fish.posZ, world.rand.nextInt(3) + 1));
-							LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useDunlendingTrident);
+							LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useDunlendingTrident);
 						}
 					}
 				}

@@ -253,7 +253,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 				
 				if (!entityplayer.worldObj.isRemote)
 				{
-					LOTRLevelData.needsSave = true;
+					LOTRLevelData.markDirty();
 					
 					ByteBuf data = Unpooled.buffer();
 					
@@ -310,7 +310,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 	@Override
 	public boolean isUnlockable(EntityPlayer entityplayer)
 	{
-		return faction == LOTRFaction.UNALIGNED || LOTRLevelData.getAlignment(entityplayer, faction) >= 0;
+		return faction == LOTRFaction.UNALIGNED || LOTRLevelData.getData(entityplayer).getAlignment(faction) >= 0;
 	}
 	
 	@Override
@@ -456,7 +456,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 	
 	public static class Custom implements LOTRAbstractWaypoint
 	{
-		public static int MAX_CUSTOM = 20;
+		public static int INITIAL_CUSTOM = 5;
 
 		public static Map playerCustomWaypoints = new HashMap();
 		
@@ -555,7 +555,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 			
 			if (!entityplayer.worldObj.isRemote)
 			{
-				LOTRLevelData.needsSave = true;
+				LOTRLevelData.markDirty();
 				sendWaypointPacket(entityplayer, waypoint);
 			}
 		}
@@ -566,7 +566,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 			{
 				if (!entityplayer.worldObj.isRemote)
 				{
-					LOTRLevelData.needsSave = true;
+					LOTRLevelData.markDirty();
 					
 					ByteBuf data = Unpooled.buffer();
 					
@@ -703,17 +703,8 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 		
 		public static int getMaxAvailableToPlayer(EntityPlayer entityplayer)
 		{
-			int achievements = 0;
-			Iterator it = LOTRLevelData.getPlayerAchievements(entityplayer).iterator();
-			while (it.hasNext())
-			{
-				LOTRAchievement achievement = (LOTRAchievement)it.next();
-				if (achievement.canPlayerEarn(entityplayer))
-				{
-					achievements++;
-				}
-			}
-			return 20 + achievements / 5;
+			int achievements = LOTRLevelData.getData(entityplayer).getEarnedAchievements().size();
+			return INITIAL_CUSTOM + achievements / 5;
 		}
 	}
 }

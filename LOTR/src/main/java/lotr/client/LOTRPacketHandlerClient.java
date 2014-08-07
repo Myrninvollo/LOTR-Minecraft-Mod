@@ -57,7 +57,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		theProxy = proxy;
 		
 		NetworkRegistry.INSTANCE.newChannel("lotr.login", this);
-		NetworkRegistry.INSTANCE.newChannel("lotr.loginAch", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.loginP", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.promptAch", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.promptAl", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.updateCape", this);
@@ -79,7 +79,6 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.ftGui", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.frost", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.burn", this);
-		NetworkRegistry.INSTANCE.newChannel("lotr.showPos", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.clearMap", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.playerPos", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.CWP", this);
@@ -104,48 +103,26 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		
 		if (channel.equals("lotr.login"))
 		{
+			if (!mc.isSingleplayer())
+			{
+				LOTRLevelData.clearAllPlayerData();
+				LOTRWaypoint.clearAllWaypoints();
+				LOTRGuiMap.playerLocations.clear();
+			}
+			
 			LOTRLevelData.middleEarthPortalX = data.readInt();
 			LOTRLevelData.middleEarthPortalY = data.readInt();
 			LOTRLevelData.middleEarthPortalZ = data.readInt();
 			LOTRLevelData.beaconState = data.readByte();
-			LOTRLevelData.setFriendlyFire(entityplayer, data.readBoolean());
-			LOTRLevelData.setEnableHiredDeathMessages(entityplayer, data.readBoolean());
-			LOTRLevelData.setFastTravelTimer(entityplayer, data.readInt());
-
-			int factionID = data.readInt();
-			LOTRFaction faction = LOTRFaction.forID(factionID);
-			if (faction != null && faction.allowPlayer)
-			{
-				LOTRTickHandlerClient.currentAlignmentFaction = faction;
-			}
-			
-			LOTRLevelData.setShowMapLocation(entityplayer, data.readBoolean());
-			
-			if (!mc.isSingleplayer())
-			{
-				LOTRLevelData.clearClientAlignments();
-				LOTRLevelData.clearClientAchievements();
-				LOTRLevelData.clearClientCapes();
-				LOTRWaypoint.clearAllWaypoints();
-				LOTRGuiMap.playerLocations.clear();
-			}
 		}
 		
-		else if (channel.equals("lotr.loginAch"))
+		else if (channel.equals("lotr.loginP"))
 		{
-			int achievements = data.array().length / 2;
-			for (int i = 0; i < achievements; i++)
-			{
-				int categoryID = data.readByte();
-				int achievementID = data.readByte();
-				
-				LOTRAchievement.Category c = LOTRAchievement.Category.values()[categoryID];
-				LOTRAchievement achievement = LOTRAchievement.achievementForCategoryAndID(c, achievementID);
-				if (achievement != null)
-				{
-					LOTRLevelData.addClientAchievement(entityplayer, achievement);
-				}
-			}
+			NBTTagCompound nbt = new PacketBuffer(data).readNBTTagCompoundFromBuffer();
+			LOTRLevelData.getData(entityplayer).load(nbt);
+			
+			LOTRTickHandlerClient.currentAlignmentFaction = LOTRLevelData.getData(entityplayer).getViewingFaction();
+			LOTRGuiMap.WaypointMode.setWaypointMode(LOTRLevelData.getData(entityplayer).getWaypointToggleMode());
 		}
 		
 		else if (channel.equals("lotr.promptAch"))
@@ -167,16 +144,19 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		
 		else if (channel.equals("lotr.alignment"))
 		{
-			UUID player = new UUID(data.readLong(), data.readLong());
-			
-			for (LOTRFaction faction : LOTRFaction.values())
+			if (!mc.isSingleplayer())
 			{
-				int alignment = data.readInt();
-				LOTRLevelData.setClientAlignment(player, alignment, faction);
+				UUID player = new UUID(data.readLong(), data.readLong());
+	
+				for (LOTRFaction faction : LOTRFaction.values())
+				{
+					int alignment = data.readInt();
+					LOTRLevelData.getData(player).setAlignment(faction, alignment);
+				}
+				
+				boolean hide = data.readBoolean();
+				LOTRLevelData.getData(player).setHideAlignment(hide);
 			}
-			
-			boolean hide = data.readBoolean();
-			LOTRLevelData.setClientHideAlignment(player, hide);
 		}
 		
 		else if (channel.equals("lotr.alignBonus"))
@@ -212,7 +192,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			LOTRAchievement achievement = LOTRAchievement.achievementForCategoryAndID(c, data.readByte());
 			if (achievement != null)
 			{
-				LOTRLevelData.addClientAchievement(entityplayer, achievement);
+				LOTRLevelData.getData(entityplayer).addAchievement(achievement);
 				LOTRTickHandlerClient.achievementDisplay.queueAchievement(achievement);
 			}
 		}
@@ -288,26 +268,29 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			
 			boolean enable = data.readBoolean();
 			
-			LOTRLevelData.setClientCape(player, cape);
-			LOTRLevelData.setClientEnableCape(player, enable);
+			LOTRLevelData.getData(player).setCape(cape);
+			LOTRLevelData.getData(player).setEnableCape(enable);
 		}
 		
 		else if (channel.equals("lotr.options"))
 		{
-			int option = data.readByte();
-			boolean flag = data.readBoolean();
-			
-			if (option == LOTROptions.FRIENDLY_FIRE)
+			if (!mc.isSingleplayer())
 			{
-				LOTRLevelData.setFriendlyFire(entityplayer, flag);
-			}
-			else if (option == LOTROptions.HIRED_DEATH_MESSAGES)
-			{
-				LOTRLevelData.setEnableHiredDeathMessages(entityplayer, flag);
-			}
-			else if (option == LOTROptions.SHOW_MAP_LOCATION)
-			{
-				LOTRLevelData.setShowMapLocation(entityplayer, flag);
+				int option = data.readByte();
+				boolean flag = data.readBoolean();
+				
+				if (option == LOTROptions.FRIENDLY_FIRE)
+				{
+					LOTRLevelData.getData(entityplayer).setFriendlyFire(flag);
+				}
+				else if (option == LOTROptions.HIRED_DEATH_MESSAGES)
+				{
+					LOTRLevelData.getData(entityplayer).setEnableHiredDeathMessages(flag);
+				}
+				else if (option == LOTROptions.SHOW_MAP_LOCATION)
+				{
+					LOTRLevelData.getData(entityplayer).setHideMapLocation(flag);
+				}
 			}
 		}
 		
@@ -380,7 +363,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		
 		else if (channel.equals("lotr.ftTimer"))
 		{
-			LOTRLevelData.setFastTravelTimer(entityplayer, data.readInt());
+			LOTRLevelData.getData(entityplayer).setFTTimer(data.readInt());
 		}
 		
 		else if (channel.equals("lotr.ftGui"))
@@ -411,11 +394,6 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		else if (channel.equals("lotr.burn"))
 		{
 			theProxy.tickHandler.onBurnDamage();
-		}
-		
-		else if (channel.equals("lotr.showPos"))
-		{
-			LOTRLevelData.setShowMapLocation(entityplayer, data.readBoolean());
 		}
 		
 		else if (channel.equals("lotr.clearMap"))

@@ -419,7 +419,7 @@ public class LOTREntityBarrel extends Entity
 			int k = MathHelper.floor_double(posZ);
 			if (worldObj.getBiomeGenForCoords(i, k) instanceof LOTRBiomeGenMirkwoodRiver)
 			{
-				LOTRLevelData.addAchievement((EntityPlayer)riddenByEntity, LOTRAchievement.rideBarrelMirkwood);
+				LOTRLevelData.getData((EntityPlayer)riddenByEntity).addAchievement(LOTRAchievement.rideBarrelMirkwood);
 			}
 		}
     }

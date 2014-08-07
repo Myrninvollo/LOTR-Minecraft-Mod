@@ -80,13 +80,13 @@ public class LOTREntityDunlendingBartender extends LOTREntityDunlending implemen
 	@Override
 	public void onPlayerBuyItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeDunlendingBartender);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeDunlendingBartender);
 	}
 	
 	@Override
 	public void onPlayerSellItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeDunlendingBartender);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeDunlendingBartender);
 	}
 	
 	@Override

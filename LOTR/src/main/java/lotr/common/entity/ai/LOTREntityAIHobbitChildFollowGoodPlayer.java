@@ -32,7 +32,7 @@ public class LOTREntityAIHobbitChildFollowGoodPlayer extends EntityAIBase
 			return false;
 		}
 		
-		List list = theHobbit.worldObj.getEntitiesWithinAABB(EntityPlayer.class, theHobbit.boundingBox.expand((double)range, 3.0D, (double)range));
+		List list = theHobbit.worldObj.getEntitiesWithinAABB(EntityPlayer.class, theHobbit.boundingBox.expand((double)range, 3D, (double)range));
 		EntityPlayer entityplayer = null;
 		double distanceSq = Double.MAX_VALUE;
 		Iterator iterator = list.iterator();
@@ -41,7 +41,7 @@ public class LOTREntityAIHobbitChildFollowGoodPlayer extends EntityAIBase
 		{
 			EntityPlayer playerCandidate = (EntityPlayer)iterator.next();
 
-			if (LOTRLevelData.getAlignment(playerCandidate, theHobbit.getFaction()) >= LOTRAlignmentValues.HOBBIT_CHILD_FOLLOW)
+			if (LOTRLevelData.getData(playerCandidate).getAlignment(theHobbit.getFaction()) >= LOTRAlignmentValues.HOBBIT_CHILD_FOLLOW)
 			{
 				double d = theHobbit.getDistanceSqToEntity(playerCandidate);
 

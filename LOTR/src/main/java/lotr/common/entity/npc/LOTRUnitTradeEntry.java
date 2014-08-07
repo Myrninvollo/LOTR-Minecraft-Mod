@@ -82,7 +82,7 @@ public class LOTRUnitTradeEntry
 	{
 		int cost = initialCost;
 		int costThreshold = initialCost / 2;
-		int alignment = LOTRLevelData.getAlignment(entityplayer, ((LOTREntityNPC)trader).getFaction());
+		int alignment = LOTRLevelData.getData(entityplayer).getAlignment(((LOTREntityNPC)trader).getFaction());
 		int d = alignment - alignmentRequired;
 		d = Math.max(0, d);
 		float f = (float)d / 3000F;
@@ -107,7 +107,7 @@ public class LOTRUnitTradeEntry
 			return false;
 		}
 				
-		int alignment = LOTRLevelData.getAlignment(entityplayer, ((LOTREntityNPC)trader).getFaction());
+		int alignment = LOTRLevelData.getData(entityplayer).getAlignment(((LOTREntityNPC)trader).getFaction());
 		if (alignmentRequired < 0)
 		{
 			return alignment <= alignmentRequired;

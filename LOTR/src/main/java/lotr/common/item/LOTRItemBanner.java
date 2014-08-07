@@ -125,7 +125,7 @@ public class LOTRItemBanner extends Item
 			{
 				if (!entityplayer.capabilities.isCreativeMode && world.getBlock(i, j - 1, k) == Blocks.gold_block)
 				{
-					if (LOTRLevelData.getAlignment(entityplayer, getFaction(itemstack)) < 1)
+					if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction(itemstack)) < 1)
 					{
 						if (!world.isRemote)
 						{

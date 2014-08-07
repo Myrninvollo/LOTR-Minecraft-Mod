@@ -46,19 +46,19 @@ public class LOTREntityBlueDwarfMerchant extends LOTREntityBlueDwarf implements 
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.BLUE_DWARF_MERCHANT_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.BLUE_DWARF_MERCHANT_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onPlayerBuyItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeBlueDwarfMerchant);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeBlueDwarfMerchant);
 	}
 	
 	@Override
 	public void onPlayerSellItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeBlueDwarfMerchant);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeBlueDwarfMerchant);
 	}
 	
 	@Override

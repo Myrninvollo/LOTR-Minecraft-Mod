@@ -107,14 +107,7 @@ public class LOTRKeyHandler
 		
 		if (usedAlignmentKeys)
 		{
-        	ByteBuf data = Unpooled.buffer();
-        	
-        	data.writeInt(mc.thePlayer.getEntityId());
-        	data.writeByte((byte)mc.thePlayer.dimension);
-        	data.writeByte((byte)LOTRTickHandlerClient.currentAlignmentFaction.ordinal());
-        	
-        	C17PacketCustomPayload packet = new C17PacketCustomPayload("lotr.viewingF", data);
-        	mc.thePlayer.sendQueue.addToSendQueue(packet);
+			LOTRClientProxy.sendClientInfoPacket();
 		}
 	}
 }

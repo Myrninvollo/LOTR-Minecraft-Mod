@@ -46,19 +46,19 @@ public class LOTREntityMordorOrcTrader extends LOTREntityMordorOrc implements LO
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.MORDOR_ORC_TRADER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.MORDOR_ORC_TRADER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onPlayerBuyItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeOrcTrader);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeOrcTrader);
 	}
 	
 	@Override
 	public void onPlayerSellItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeOrcTrader);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeOrcTrader);
 	}
 	
 	@Override

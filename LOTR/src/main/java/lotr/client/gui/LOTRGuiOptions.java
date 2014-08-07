@@ -33,11 +33,11 @@ public class LOTRGuiOptions extends LOTRGui
 		s = StatCollector.translateToLocal("lotr.gui.options.worldSettings");
 		fontRendererObj.drawString(s, guiLeft + 100 - fontRendererObj.getStringWidth(s) / 2, guiTop + 10, 0xFFFFFF);
 
-		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.FRIENDLY_FIRE)).setState(LOTRLevelData.getFriendlyFire(mc.thePlayer));
-		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.HIRED_DEATH_MESSAGES)).setState(LOTRLevelData.getEnableHiredDeathMessages(mc.thePlayer));
-		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.ENABLE_CAPE)).setState(LOTRLevelData.getEnableCape(mc.thePlayer));
-		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.SHOW_ALIGNMENT)).setState(LOTRLevelData.getHideAlignment(mc.thePlayer));
-		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.SHOW_MAP_LOCATION)).setState(LOTRLevelData.getShowMapLocation(mc.thePlayer));
+		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.FRIENDLY_FIRE)).setState(LOTRLevelData.getData(mc.thePlayer).getFriendlyFire());
+		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.HIRED_DEATH_MESSAGES)).setState(LOTRLevelData.getData(mc.thePlayer).getEnableHiredDeathMessages());
+		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.ENABLE_CAPE)).setState(LOTRLevelData.getData(mc.thePlayer).getEnableCape());
+		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.SHOW_ALIGNMENT)).setState(LOTRLevelData.getData(mc.thePlayer).getHideAlignment());
+		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.SHOW_MAP_LOCATION)).setState(!LOTRLevelData.getData(mc.thePlayer).getHideMapLocation());
 		
 		super.drawScreen(i, j, f);
 		

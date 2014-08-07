@@ -133,7 +133,7 @@ public class LOTREntityElfWarrior extends LOTREntityElf
 		if (!worldObj.isRemote && isDefendingTree && damagesource.getEntity() instanceof EntityPlayer)
 		{
 			EntityPlayer entityplayer = (EntityPlayer)damagesource.getEntity();
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.takeMallornWood);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.takeMallornWood);
 		}
 	}
 	

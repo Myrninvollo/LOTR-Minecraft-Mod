@@ -145,7 +145,7 @@ public class LOTREntityBandit extends LOTREntityNPC
 		if (!worldObj.isRemote && damagesource.getEntity() instanceof EntityPlayer && !banditInventory.isEmpty())
 		{
 			EntityPlayer entityplayer = (EntityPlayer)damagesource.getEntity();
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.killThievingBandit);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.killThievingBandit);
 		}
 		
 		if (!worldObj.isRemote)

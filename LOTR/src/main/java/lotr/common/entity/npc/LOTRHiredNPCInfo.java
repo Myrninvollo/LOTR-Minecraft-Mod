@@ -114,7 +114,7 @@ public class LOTRHiredNPCInfo
 		{
 			if (isActive && getHiringPlayer() != null)
 			{
-				int alignment = LOTRLevelData.getAlignment(getHiringPlayer(), theEntity.getFaction());
+				int alignment = LOTRLevelData.getData(getHiringPlayer()).getAlignment(theEntity.getFaction());
 				if ((alignmentRequiredToCommand < 0 && alignment > alignmentRequiredToCommand) || (alignmentRequiredToCommand >= 0 && alignment < alignmentRequiredToCommand))
 				{
 					dismissUnit();
@@ -143,7 +143,7 @@ public class LOTRHiredNPCInfo
 		if (!theEntity.worldObj.isRemote && isActive && getHiringPlayer() != null)
 		{
 			EntityPlayer hiringPlayer = getHiringPlayer();
-			if (LOTRLevelData.getEnableHiredDeathMessages(hiringPlayer))
+			if (LOTRLevelData.getData(hiringPlayer).getEnableHiredDeathMessages())
 			{
 				hiringPlayer.addChatMessage(new ChatComponentTranslation("lotr.hiredNPC.death", new Object[] {theEntity.func_110142_aN().func_151521_b()}));
 			}

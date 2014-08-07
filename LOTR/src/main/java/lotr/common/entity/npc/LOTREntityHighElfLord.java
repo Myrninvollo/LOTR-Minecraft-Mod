@@ -47,13 +47,13 @@ public class LOTREntityHighElfLord extends LOTREntityHighElfWarrior implements L
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.HIGH_ELF_LORD_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.HIGH_ELF_LORD_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onUnitTrade(EntityPlayer entityplayer)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeHighElfLord);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeHighElfLord);
 	}
 	
 	@Override

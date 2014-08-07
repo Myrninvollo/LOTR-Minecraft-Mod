@@ -28,7 +28,7 @@ public class LOTRItemGuldurilCrystal extends Item
 		}
 		
 		int guldurilBrickMeta = LOTRBlockGuldurilBrick.guldurilMetaForBlock(world.getBlock(i, j, k), world.getBlockMetadata(i, j, k));
-		boolean hasAlignment = LOTRLevelData.getAlignment(entityplayer, LOTRFaction.MORDOR) > LOTRAlignmentValues.USE_PORTAL || LOTRLevelData.getAlignment(entityplayer, LOTRFaction.ANGMAR) > LOTRAlignmentValues.USE_PORTAL;
+		boolean hasAlignment = LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.MORDOR) > LOTRAlignmentValues.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.ANGMAR) > LOTRAlignmentValues.USE_PORTAL;
 		
 		if (guldurilBrickMeta >= 0)
 		{

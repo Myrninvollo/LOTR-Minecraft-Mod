@@ -57,7 +57,7 @@ public class LOTRItemHobbitPipe extends Item
 				
 				if (i == 16)
 				{
-					LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useMagicPipe);
+					LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useMagicPipe);
 				}
 			}
 			world.playSoundAtEntity(entityplayer, "lotr:item.puff", 1F, (itemRand.nextFloat() - itemRand.nextFloat()) * 0.2F + 1.0F);

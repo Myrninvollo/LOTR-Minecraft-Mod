@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class LOTRRenderElk extends RenderLiving
 {
-	private static ResourceLocation elkTexture = new ResourceLocation("lotr:mob/elk.png");
+	private static ResourceLocation elkTexture = new ResourceLocation("lotr:mob/elk/elk.png");
 	
     public LOTRRenderElk()
     {

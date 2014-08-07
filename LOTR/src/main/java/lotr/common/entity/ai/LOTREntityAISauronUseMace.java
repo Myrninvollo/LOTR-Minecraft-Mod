@@ -38,7 +38,7 @@ public class LOTREntityAISauronUseMace extends EntityAIBase
 				if (entity instanceof EntityPlayer)
 				{
 					EntityPlayer entityplayer = (EntityPlayer)entity;
-					if (!entityplayer.capabilities.isCreativeMode && (LOTRLevelData.getAlignment(entityplayer, theSauron.getFaction()) < 0 || theSauron.getAttackTarget() == entityplayer))
+					if (!entityplayer.capabilities.isCreativeMode && (LOTRLevelData.getData(entityplayer).getAlignment(theSauron.getFaction()) < 0 || theSauron.getAttackTarget() == entityplayer))
 					{
 						targets++;
 					}

@@ -45,7 +45,7 @@ public class LOTREntityHobbitDrunkard extends LOTREntityHobbit
 		{
 			if (!worldObj.isRemote && entityplayer.isPotionActive(Potion.confusion.id))
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.speakToDrunkard);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.speakToDrunkard);
 			}
 			return true;
 		}

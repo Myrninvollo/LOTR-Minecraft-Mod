@@ -49,7 +49,7 @@ public class LOTRBlockElvenPortal extends LOTRBlockPortal
 		LOTRMod.proxy.setInElvenPortal(entityplayer);
 		if (!entityplayer.worldObj.isRemote)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useElvenPortal);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useElvenPortal);
 		}
 	}
 

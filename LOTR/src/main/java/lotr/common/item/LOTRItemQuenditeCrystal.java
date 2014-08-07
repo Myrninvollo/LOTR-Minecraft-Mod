@@ -29,7 +29,7 @@ public class LOTRItemQuenditeCrystal extends Item
 		
 		if (world.getBlock(i, j, k) == Blocks.grass)
 		{
-			if (LOTRLevelData.getAlignment(entityplayer, LOTRFaction.GALADHRIM) >= LOTRAlignmentValues.USE_PORTAL)
+			if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.GALADHRIM) >= LOTRAlignmentValues.USE_PORTAL)
 			{
 				world.setBlock(i, j, k, LOTRMod.quenditeGrass, 0, 3);
 				itemstack.stackSize--;

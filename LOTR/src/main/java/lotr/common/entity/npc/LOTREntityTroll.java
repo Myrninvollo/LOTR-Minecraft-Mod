@@ -312,7 +312,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 				if (sneeze >= 3)
 				{
 					setSneezingTime(16);
-					LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.makeTrollSneeze);
+					LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.makeTrollSneeze);
 				}
 				else
 				{
@@ -327,7 +327,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 	
 	protected boolean canTrollBeTickled(EntityPlayer entityplayer)
 	{
-		return canNPCTalk() && isFriendly(entityplayer) && LOTRLevelData.getAlignment(entityplayer, getFaction()) <= LOTRAlignmentValues.TROLL_TRUST && getAttackTarget() == null && getTrollBurnTime() == -1;
+		return canNPCTalk() && isFriendly(entityplayer) && LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) <= LOTRAlignmentValues.TROLL_TRUST && getAttackTarget() == null && getTrollBurnTime() == -1;
 	}
 	
 	@Override
@@ -358,7 +358,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 		super.onDeath(damagesource);
 		if (!worldObj.isRemote && damagesource.getEntity() instanceof EntityPlayer && getTrollBurnTime() >= 0)
 		{
-			LOTRLevelData.addAchievement((EntityPlayer)damagesource.getEntity(), LOTRAchievement.killTrollFleeingSun);
+			LOTRLevelData.getData((EntityPlayer)damagesource.getEntity()).addAchievement(LOTRAchievement.killTrollFleeingSun);
 		}
 	}
 	
@@ -462,7 +462,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 		{
 			return null;
 		}
-		else if (LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.TROLL_TRUST && isFriendly(entityplayer))
+		else if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.TROLL_TRUST && isFriendly(entityplayer))
 		{
 			if (hiredNPCInfo.getHiringPlayer() == entityplayer)
 			{

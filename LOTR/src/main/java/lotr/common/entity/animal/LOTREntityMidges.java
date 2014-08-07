@@ -242,7 +242,7 @@ public class LOTREntityMidges extends EntityLiving implements LOTRAmbientCreatur
 				if (npc.hiredNPCInfo.isActive && npc.hiredNPCInfo.getHiringPlayer() != null)
 				{
 					EntityPlayer entityplayer = npc.hiredNPCInfo.getHiringPlayer();
-					LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.shootDownMidges);
+					LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.shootDownMidges);
 				}
 			}
 		}

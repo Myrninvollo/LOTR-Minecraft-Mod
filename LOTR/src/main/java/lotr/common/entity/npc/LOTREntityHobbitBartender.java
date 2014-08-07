@@ -76,16 +76,16 @@ public class LOTREntityHobbitBartender extends LOTREntityHobbit implements LOTRT
 	@Override
 	public void onPlayerBuyItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeBartender);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeBartender);
 	}
 	
 	@Override
 	public void onPlayerSellItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeBartender);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeBartender);
 		if (itemstack.getItem() == LOTRMod.pipeweedLeaf)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.sellPipeweedLeaf);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.sellPipeweedLeaf);
 		}
 	}
 	

@@ -58,13 +58,13 @@ public class LOTREntityMordorOrcMercenaryCaptain extends LOTREntityMordorOrc imp
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.MORDOR_ORC_MERCENARY_CAPTAIN_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.MORDOR_ORC_MERCENARY_CAPTAIN_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onUnitTrade(EntityPlayer entityplayer)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeOrcCaptain);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeOrcCaptain);
 	}
 	
 	@Override

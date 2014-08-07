@@ -170,7 +170,7 @@ public class LOTREntityGandalfFireball extends EntityThrowable
 		{
 			if (entity instanceof EntityPlayer)
 			{
-				return LOTRLevelData.getAlignment((EntityPlayer)entity, LOTRFaction.HIGH_ELF) < 0;
+				return LOTRLevelData.getData((EntityPlayer)entity).getAlignment(LOTRFaction.HIGH_ELF) < 0;
 			}
 			return LOTRMod.getNPCFaction(entity).isEnemy(LOTRFaction.HIGH_ELF);
 		}

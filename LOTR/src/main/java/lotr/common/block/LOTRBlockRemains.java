@@ -91,7 +91,7 @@ public class LOTRBlockRemains extends Block
 		super.harvestBlock(world, entityplayer, i, j, k, l);
 		if (!world.isRemote)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.mineRemains);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.mineRemains);
 		}
 	}
 }

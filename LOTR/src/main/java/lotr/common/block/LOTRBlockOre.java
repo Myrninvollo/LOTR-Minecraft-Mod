@@ -130,23 +130,23 @@ public class LOTRBlockOre extends Block
 		{
 			if (this == LOTRMod.oreMithril)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.mineMithril);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.mineMithril);
 			}
 			if (this == LOTRMod.oreQuendite)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.mineQuendite);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.mineQuendite);
 			}
 			if (this == LOTRMod.oreGlowstone)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.mineGlowstone);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.mineGlowstone);
 			}
 			if (this == LOTRMod.oreNaurite)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.mineNaurite);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.mineNaurite);
 			}
 			if (this == LOTRMod.oreGulduril)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.mineGulduril);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.mineGulduril);
 			}
 		}
 	}

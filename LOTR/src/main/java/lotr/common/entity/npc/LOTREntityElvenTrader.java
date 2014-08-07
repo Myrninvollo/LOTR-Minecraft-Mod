@@ -122,19 +122,19 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.ELVEN_TRADER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.ELVEN_TRADER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onPlayerBuyItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeElvenTrader);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeElvenTrader);
 	}
 	
 	@Override
 	public void onPlayerSellItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeElvenTrader);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeElvenTrader);
 	}
 	
 	@Override

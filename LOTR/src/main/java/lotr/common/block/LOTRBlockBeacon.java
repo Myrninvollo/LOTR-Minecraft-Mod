@@ -117,7 +117,7 @@ public class LOTRBlockBeacon extends BlockContainer
 			{
 				setLit(world, i, j, k, true);
 				LOTRLevelData.setBeaconState(1);
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.lightGondorBeacon);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.lightGondorBeacon);
 			}
 			return true;
         }

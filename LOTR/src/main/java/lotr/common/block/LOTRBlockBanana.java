@@ -51,7 +51,7 @@ public class LOTRBlockBanana extends LOTRBlockHangingFruit
         boolean flag = super.removedByPlayer(world, entityplayer, i, j, k);
         if (flag && !world.isRemote)
         {
-        	LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.pickBanana);
+        	LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.pickBanana);
         }
         return flag;
     }

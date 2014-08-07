@@ -93,7 +93,7 @@ public class LOTREntityUrukHai extends LOTREntityOrc
 				ChunkCoordinates coords = (ChunkCoordinates)LOTRLevelData.urukCampLocations.get(i);
 				if (getDistanceSq(coords.posX, coords.posY, coords.posZ) < 144D)
 				{
-					LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.raidUrukCamp);
+					LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.raidUrukCamp);
 					break;
 				}
 			}

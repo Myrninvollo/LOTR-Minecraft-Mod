@@ -129,12 +129,12 @@ public class LOTRAchievement implements Comparable
 	
 	public boolean canPlayerEarn(EntityPlayer entityplayer)
 	{
-		if (enemyFaction != null && LOTRLevelData.getAlignment(entityplayer, enemyFaction) > 0)
+		if (enemyFaction != null && LOTRLevelData.getData(entityplayer).getAlignment(enemyFaction) > 0)
 		{
 			return false;
 		}
 		
-		if (allyFaction != null && LOTRLevelData.getAlignment(entityplayer, allyFaction) < 0)
+		if (allyFaction != null && LOTRLevelData.getData(entityplayer).getAlignment(allyFaction) < 0)
 		{
 			return false;
 		}

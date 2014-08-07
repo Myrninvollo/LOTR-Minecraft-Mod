@@ -2237,7 +2237,7 @@ public class LOTRMod
 			}
 			else if (targetNPC instanceof EntityLiving && ((EntityLiving)targetNPC).getAttackTarget() != attacker)
 			{
-				if (!LOTRLevelData.getFriendlyFire(attacker))
+				if (!LOTRLevelData.getData(attacker).getFriendlyFire())
 				{
 					flag = true;
 					friendlyFire = true;
@@ -2247,7 +2247,7 @@ public class LOTRMod
 		
 		if (flag)
 		{
-			if (LOTRLevelData.getAlignment(attacker, targetNPCFaction) > 0)
+			if (LOTRLevelData.getData(attacker).getAlignment(targetNPCFaction) > 0)
 			{
 				if (friendlyFire && warnFriendlyFire)
 				{
@@ -2290,11 +2290,11 @@ public class LOTRMod
 			{
 				return false;
 			}
-			else if (target instanceof EntityPlayer && LOTRLevelData.getAlignment((EntityPlayer)target, attackerFaction) >= 0 && attacker.getAttackTarget() != target)
+			else if (target instanceof EntityPlayer && LOTRLevelData.getData((EntityPlayer)target).getAlignment(attackerFaction) >= 0 && attacker.getAttackTarget() != target)
 			{
 				return false;
 			}
-			else if (target.riddenByEntity instanceof EntityPlayer && LOTRLevelData.getAlignment((EntityPlayer)target.riddenByEntity, attackerFaction) >= 0 && attacker.getAttackTarget() != target && attacker.getAttackTarget() != target.riddenByEntity)
+			else if (target.riddenByEntity instanceof EntityPlayer && LOTRLevelData.getData((EntityPlayer)target.riddenByEntity).getAlignment(attackerFaction) >= 0 && attacker.getAttackTarget() != target && attacker.getAttackTarget() != target.riddenByEntity)
 			{
 				return false;
 			}

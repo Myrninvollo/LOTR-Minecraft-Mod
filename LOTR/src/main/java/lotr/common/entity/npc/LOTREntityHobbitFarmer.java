@@ -62,7 +62,7 @@ public class LOTREntityHobbitFarmer extends LOTREntityHobbit implements LOTRTrad
 	{
 		if (itemstack.getItem() == Items.potato)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.buyPotatoHobbitFarmer);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.buyPotatoHobbitFarmer);
 		}
 	}
 	

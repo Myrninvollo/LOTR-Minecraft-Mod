@@ -61,7 +61,7 @@ public class LOTRCommandAlignment extends CommandBase
 					}
 				}
 
-				LOTRLevelData.addAlignmentFromCommand(entityplayer, faction, alignment - LOTRLevelData.getAlignment(entityplayer, faction));
+				LOTRLevelData.getData(entityplayer).addAlignmentFromCommand(faction, alignment - LOTRLevelData.getData(entityplayer).getAlignment(faction));
 				func_152373_a(sender, this, "commands.lotr.alignment.set", new Object[] {sender.getCommandSenderName(), faction.name(), alignment});
 				return;
 			}
@@ -84,7 +84,7 @@ public class LOTRCommandAlignment extends CommandBase
 					}
 				}
 				
-				int newAlignment = LOTRLevelData.getAlignment(entityplayer, faction) + alignment;
+				int newAlignment = LOTRLevelData.getData(entityplayer).getAlignment(faction) + alignment;
 				if (newAlignment < -LOTRAlignmentValues.MAX_ALIGNMENT)
 				{
 					throw new WrongUsageException("commands.lotr.alignment.tooLow", new Object[] {-LOTRAlignmentValues.MAX_ALIGNMENT});
@@ -94,7 +94,7 @@ public class LOTRCommandAlignment extends CommandBase
 					throw new WrongUsageException("commands.lotr.alignment.tooHigh", new Object[] {LOTRAlignmentValues.MAX_ALIGNMENT});
 				}
 
-				LOTRLevelData.addAlignmentFromCommand(entityplayer, faction, alignment);
+				LOTRLevelData.getData(entityplayer).addAlignmentFromCommand(faction, alignment);
 				func_152373_a(sender, this, "commands.lotr.alignment.add", new Object[] {alignment, sender.getCommandSenderName(), faction.name()});
 				return;
 			}

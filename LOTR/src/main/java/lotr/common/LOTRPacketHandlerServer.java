@@ -57,7 +57,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.mobSpawner", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.buyUnit", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.hornSelect", this);
-		NetworkRegistry.INSTANCE.newChannel("lotr.checkAch", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.checkMenu", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.checkAl", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.brewing", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.selectCape", this);
@@ -71,7 +71,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.isOpReq", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.fastTravel", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.hDismiss", this);
-		NetworkRegistry.INSTANCE.newChannel("lotr.viewingF", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.clientInfo", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.createCWP", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.deleteCWP", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.camelGui", this);
@@ -83,7 +83,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 	{
 		ByteBuf data = packet.payload();
 		String channel = packet.channel();
-		
+
 		if (channel.equals("lotr.sell"))
 		{
 			int id = data.readInt();
@@ -124,7 +124,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 						
 						if (totalCoins >= 1000)
 						{
-							LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.earnManyCoins);
+							LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.earnManyCoins);
 						}
 						
 						for (int i = 0; i < totalCoins; i++)
@@ -257,7 +257,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 								
 								if (task == Task.FARMER)
 								{
-									LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.hireFarmer);
+									LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.hireFarmer);
 								}
 							}
 						}
@@ -285,7 +285,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 			}
 		}
 		
-		else if (channel.equals("lotr.checkAch"))
+		else if (channel.equals("lotr.checkMenu"))
 		{
 			int id = data.readInt();
 			World world = DimensionManager.getWorld(data.readByte());
@@ -295,8 +295,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 				if (entity instanceof EntityPlayer)
 				{
 					EntityPlayer entityplayer = (EntityPlayer)entity;
-					LOTRLevelData.playersCheckedAchievements.add(entityplayer.getUniqueID());
-					LOTRLevelData.needsSave = true;
+					LOTRLevelData.getData(entityplayer).setCheckedMenu(true);
 				}
 			}
 		}
@@ -311,8 +310,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 				if (entity instanceof EntityPlayer)
 				{
 					EntityPlayer entityplayer = (EntityPlayer)entity;
-					LOTRLevelData.playersCheckedAlignments.add(entityplayer.getUniqueID());
-					LOTRLevelData.needsSave = true;
+					LOTRLevelData.getData(entityplayer).setCheckedAlignments(true);
 				}
 			}
 		}
@@ -331,7 +329,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 					if (container != null && container instanceof LOTRContainerBarrel)
 					{
 						((LOTRContainerBarrel)container).theBarrel.handleBrewingButtonPress();
-						LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.brewDrinkInBarrel);
+						LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.brewDrinkInBarrel);
 					}
 				}
 			}
@@ -363,7 +361,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 					LOTRCapes cape = (LOTRCapes)capeType.list.get(capeID);
 					if (cape.canPlayerWearCape(entityplayer))
 					{
-						LOTRLevelData.setCape(entityplayer, cape);
+						LOTRLevelData.getData(entityplayer).setCape(cape);
 						LOTRLevelData.sendCapeToAllPlayersInWorld(entityplayer, world);
 					}
 					else
@@ -505,30 +503,29 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 
 					if (option == LOTROptions.FRIENDLY_FIRE)
 					{
-						boolean flag = LOTRLevelData.getFriendlyFire(entityplayer);
-						LOTRLevelData.setFriendlyFire(entityplayer, !flag);
+						boolean flag = LOTRLevelData.getData(entityplayer).getFriendlyFire();
+						LOTRLevelData.getData(entityplayer).setFriendlyFire(!flag);
 					}
 					else if (option == LOTROptions.HIRED_DEATH_MESSAGES)
 					{
-						boolean flag = LOTRLevelData.getEnableHiredDeathMessages(entityplayer);
-						LOTRLevelData.setEnableHiredDeathMessages(entityplayer, !flag);
+						boolean flag = LOTRLevelData.getData(entityplayer).getEnableHiredDeathMessages();
+						LOTRLevelData.getData(entityplayer).setEnableHiredDeathMessages(!flag);
 					}
 					else if (option == LOTROptions.ENABLE_CAPE)
 					{
-						boolean flag = LOTRLevelData.getEnableCape(entityplayer);
-						LOTRLevelData.setEnableCape(entityplayer, !flag);
+						boolean flag = LOTRLevelData.getData(entityplayer).getEnableCape();
+						LOTRLevelData.getData(entityplayer).setEnableCape(!flag);
 						LOTRLevelData.sendCapeToAllPlayersInWorld(entityplayer, world);
 					}
 					else if (option == LOTROptions.SHOW_ALIGNMENT)
 					{
-						boolean flag = LOTRLevelData.getHideAlignment(entityplayer);
-						LOTRLevelData.setHideAlignment(entityplayer, !flag);
-						LOTRLevelData.sendAlignmentToAllPlayersInWorld(entityplayer, world);
+						boolean flag = LOTRLevelData.getData(entityplayer).getHideAlignment();
+						LOTRLevelData.getData(entityplayer).setHideAlignment(!flag);
 					}
 					else if (option == LOTROptions.SHOW_MAP_LOCATION)
 					{
-						boolean flag = LOTRLevelData.getShowMapLocation(entityplayer);
-						LOTRLevelData.setShowMapLocation(entityplayer, !flag);
+						boolean flag = LOTRLevelData.getData(entityplayer).getHideMapLocation();
+						LOTRLevelData.getData(entityplayer).setHideMapLocation(!flag);
 					}
 				}
 			}
@@ -684,7 +681,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 				if (entity instanceof EntityPlayerMP)
 				{
 					EntityPlayerMP entityplayer = (EntityPlayerMP)entity;
-					if (LOTRLevelData.getFastTravelTimer(entityplayer) <= 0)
+					if (LOTRLevelData.getData(entityplayer).getFTTimer() <= 0)
 					{
 						boolean isCustom = data.readBoolean();
 						int waypointID = data.readInt();
@@ -760,7 +757,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 							
 							if (!entityplayer.capabilities.isCreativeMode)
 							{
-								LOTRLevelData.setFastTravelTimer(entityplayer, LOTRLevelData.fastTravelCooldown);
+								LOTRLevelData.getData(entityplayer).setFTTimer(LOTRLevelData.fastTravelCooldown);
 							}
 							
 							ByteBuf data1 = Unpooled.buffer();
@@ -812,7 +809,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 			}
 		}
 		
-		else if (channel.equals("lotr.viewingF"))
+		else if (channel.equals("lotr.clientInfo"))
 		{
 			int id = data.readInt();
 			World world = DimensionManager.getWorld(data.readByte());
@@ -822,12 +819,15 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 				if (entity instanceof EntityPlayer)
 				{
 					EntityPlayer entityplayer = (EntityPlayer)entity;
+					
 					int factionID = data.readByte();
 					LOTRFaction faction = LOTRFaction.forID(factionID);
 					if (faction != null)
 					{
-						LOTRLevelData.setViewingFaction(entityplayer, faction);
+						LOTRLevelData.getData(entityplayer).setViewingFaction(faction);
 					}
+					
+					int waypointToggleMode = data.readByte();
 				}
 			}
 		}

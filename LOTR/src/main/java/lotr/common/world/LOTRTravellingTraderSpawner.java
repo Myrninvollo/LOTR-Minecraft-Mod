@@ -88,7 +88,7 @@ public class LOTRTravellingTraderSpawner
 								
 								spawned = true;
 								timeUntilTrader = getRandomTraderTime();
-								LOTRLevelData.needsSave = true;
+								LOTRLevelData.markDirty();
 								break traderSpawningLoop;
 							}
 						}

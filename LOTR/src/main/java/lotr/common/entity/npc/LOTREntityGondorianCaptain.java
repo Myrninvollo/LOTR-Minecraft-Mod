@@ -62,13 +62,13 @@ public class LOTREntityGondorianCaptain extends LOTREntityGondorSoldier implemen
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.GONDORIAN_CAPTAIN_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.GONDORIAN_CAPTAIN_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onUnitTrade(EntityPlayer entityplayer)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeGondorianCaptain);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeGondorianCaptain);
 	}
 	
 	@Override

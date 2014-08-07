@@ -74,19 +74,19 @@ public class LOTREntityGondorBlacksmith extends LOTREntityGondorMan implements L
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.GONDOR_BLACKSMITH_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.GONDOR_BLACKSMITH_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onPlayerBuyItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeGondorBlacksmith);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeGondorBlacksmith);
 	}
 	
 	@Override
 	public void onPlayerSellItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeGondorBlacksmith);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeGondorBlacksmith);
 	}
 	
 	@Override

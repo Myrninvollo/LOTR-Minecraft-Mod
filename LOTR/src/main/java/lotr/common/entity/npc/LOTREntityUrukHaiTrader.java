@@ -46,19 +46,19 @@ public class LOTREntityUrukHaiTrader extends LOTREntityUrukHai implements LOTRTr
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= LOTRAlignmentValues.URUK_HAI_TRADER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.URUK_HAI_TRADER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override
 	public void onPlayerBuyItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeUrukTrader);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeUrukTrader);
 	}
 	
 	@Override
 	public void onPlayerSellItem(EntityPlayer entityplayer, ItemStack itemstack)
 	{
-		LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.tradeUrukTrader);
+		LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.tradeUrukTrader);
 	}
 	
 	@Override

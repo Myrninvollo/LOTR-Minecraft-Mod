@@ -24,7 +24,7 @@ public class LOTRItemFood extends ItemFood
 		{
 			if (this == LOTRMod.maggotyBread)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.eatMaggotyBread);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.eatMaggotyBread);
 			}
 		}
 

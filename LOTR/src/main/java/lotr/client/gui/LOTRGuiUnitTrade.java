@@ -121,7 +121,7 @@ public class LOTRGuiUnitTrade extends GuiContainer
 				cost = LOTRSlotAlignmentReward.REBUY_COST;
 				fontRendererObj.drawString(String.valueOf(cost), 179, 104, 0x373737);
 			}
-			else if (!slot.getHasStack() && LOTRLevelData.getAlignment(mc.thePlayer, faction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
+			else if (!slot.getHasStack() && LOTRLevelData.getData(mc.thePlayer).getAlignment(faction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
 			{
 				if (func_146978_c(slot.xDisplayPosition, slot.yDisplayPosition, 16, 16, i, j))
 		        {
@@ -143,7 +143,7 @@ public class LOTRGuiUnitTrade extends GuiContainer
 			Slot slot = inventorySlots.getSlot(0);
 	        drawTexturedModalRect(guiLeft + slot.xDisplayPosition - 3, guiTop + slot.yDisplayPosition - 3, xSize, 16, 22, 22);
 	        
-			if (!slot.getHasStack() && LOTRLevelData.getAlignment(mc.thePlayer, faction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
+			if (!slot.getHasStack() && LOTRLevelData.getData(mc.thePlayer).getAlignment(faction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
 			{
 		        drawTexturedModalRect(guiLeft + slot.xDisplayPosition, guiTop + slot.yDisplayPosition, xSize, 0, 16, 16);
 			}

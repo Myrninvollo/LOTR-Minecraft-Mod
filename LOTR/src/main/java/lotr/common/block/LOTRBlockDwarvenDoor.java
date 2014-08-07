@@ -62,7 +62,7 @@ public class LOTRBlockDwarvenDoor extends BlockDoor
 		boolean flag = super.onBlockActivated(world, i, j, k, entityplayer, side, f, f1, f2);
 		if (flag && !world.isRemote)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useDwarvenDoor);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useDwarvenDoor);
 		}
 		return flag;
 	}

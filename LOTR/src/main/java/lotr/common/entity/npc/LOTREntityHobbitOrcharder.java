@@ -77,7 +77,7 @@ public class LOTREntityHobbitOrcharder extends LOTREntityHobbit implements LOTRT
 	{
 		if (itemstack.getItem() instanceof ItemFood)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.buyOrcharderFood);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.buyOrcharderFood);
 		}
 	}
 	

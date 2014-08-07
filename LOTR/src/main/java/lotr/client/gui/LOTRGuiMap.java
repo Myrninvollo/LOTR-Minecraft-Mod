@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import lotr.client.LOTRClientProxy;
 import lotr.client.LOTRKeyHandler;
 import lotr.common.LOTRAbstractWaypoint;
 import lotr.common.LOTRLevelData;
@@ -55,11 +56,15 @@ public class LOTRGuiMap extends LOTRGui
 	private static final int delWPButtonY = 18;
 	private static final int delWPButtonWidth = 10;
 	
+	private static final int waypointToggleX = 6;
+	private static final int waypointToggleY = 6;
+	private static final int waypointToggleWidth = 10;
+	
 	private static int zoom = 0;
+	private double zoomPower;
 	
 	public boolean isPlayerOp = false;
 	
-	private double zoomPower;
 	private int posX;
 	private int posY;
 	private int isMouseButtonDown;
@@ -68,13 +73,63 @@ public class LOTRGuiMap extends LOTRGui
 	private int mouseXCoord;
 	private int mouseZCoord;
 	private boolean isMouseWithinMap;
+	
 	private LOTRAbstractWaypoint selectedWaypoint;
-	private boolean hasOverlay;
-	private String overlayDisplayString[];
 	private boolean canCreateWaypoint;
 	private boolean creatingWaypoint;
 	private GuiTextField nameWaypointTextField;
 	private boolean deletingWaypoint;
+	
+	private boolean hasOverlay;
+	private String overlayDisplayString[];
+	
+	public static enum WaypointMode
+	{
+		ALL,
+		MAP,
+		CUSTOM,
+		NONE;
+		
+		public boolean canDisplayWaypoint(LOTRAbstractWaypoint waypoint)
+		{
+			if (this == ALL)
+			{
+				return true;
+			}
+			if (this == NONE)
+			{
+				return false;
+			}
+			return waypoint instanceof LOTRWaypoint.Custom ? this == CUSTOM : this == MAP;
+		}
+		
+		public void toggle()
+		{
+			int i = ordinal();
+			i++;
+			if (i >= values().length)
+			{
+				i = 0;
+			}
+			waypointMode = values()[i];
+			LOTRClientProxy.sendClientInfoPacket();
+		}
+		
+		public static void setWaypointMode(int i)
+		{
+			for (WaypointMode mode : values())
+			{
+				if (mode.ordinal() == i)
+				{
+					waypointMode = mode;
+					return;
+				}
+			}
+			waypointMode = WaypointMode.ALL;
+		}
+	}
+	
+	public static WaypointMode waypointMode = WaypointMode.ALL;
 	
 	public LOTRGuiMap()
 	{
@@ -190,10 +245,15 @@ public class LOTRGuiMap extends LOTRGui
 		tessellator.addVertexWithUV(guiLeft, guiTop, zLevel, minU, minV);
 		tessellator.draw();
 		
+		if (!waypointMode.canDisplayWaypoint(selectedWaypoint))
+		{
+			selectedWaypoint = null;
+		}
+		
 		if (!hasOverlay && isMiddleEarth() && selectedWaypoint != null)
 		{
 			boolean hasUnlocked = selectedWaypoint.hasPlayerUnlocked(mc.thePlayer);
-			int fastTravel = LOTRLevelData.getFastTravelTimer(mc.thePlayer);
+			int fastTravel = LOTRLevelData.getData(mc.thePlayer).getFTTimer();
 			boolean canFastTravel = fastTravel <= 0 && hasUnlocked;
 			
 			int border = 3;
@@ -269,53 +329,7 @@ public class LOTRGuiMap extends LOTRGui
 				}
 			}
 		}
-		
-		mc.getTextureManager().bindTexture(borderTexture);
 
-		List waypoints = LOTRWaypoint.getListOfAllWaypoints(mc.thePlayer);
-		for (int l = 0; l < waypoints.size(); l++)
-		{
-			LOTRAbstractWaypoint waypoint = (LOTRAbstractWaypoint)waypoints.get(l);
-			int x = MathHelper.floor_double((waypoint.getX() - posX) * zoomPower) + mapXSize / 2;
-			int y = MathHelper.floor_double((waypoint.getY() - posY) * zoomPower) + mapYSize / 2;
-			if (x - 2 >= 0 && x + 2 <= mapXSize && y - 2 >= 0 && y + 2 <= mapYSize)
-			{
-				boolean flag = waypoint.hasPlayerUnlocked(mc.thePlayer);
-				drawTexturedModalRect(guiLeft + x - 2, guiTop + y - 2, flag ? 4 : 0, 200, 4, 4);
-			}
-		}
-		
-		if (selectedWaypoint != null)
-		{
-			String name = selectedWaypoint.getDisplayName();
-			String coords = "x: " + selectedWaypoint.getXCoord() + ", z: " + selectedWaypoint.getZCoord();
-			
-			int x = MathHelper.floor_double((selectedWaypoint.getX() - posX) * zoomPower) + mapXSize / 2;
-			int y = MathHelper.floor_double((selectedWaypoint.getY() - posY) * zoomPower) + mapYSize / 2;
-			y += 5;
-			
-			x += guiLeft;
-			y += guiTop;
-			int border = 3;
-			int stringHeight = fontRendererObj.FONT_HEIGHT;
-			int rectWidth = Math.max(fontRendererObj.getStringWidth(name), fontRendererObj.getStringWidth(coords)) + border * 2;
-			x -= rectWidth / 2;
-			int rectHeight = border * 3 + stringHeight * 2;
-			
-			x = Math.max(x, guiLeft + 6);
-			x = Math.min(x, guiLeft + mapXSize - 6 - rectWidth);
-			y = Math.max(y, guiTop + 6);
-			y = Math.min(y, guiTop + mapYSize - 6 - rectHeight);
-			
-			drawRect(x, y, x + rectWidth, y + rectHeight, 0xC0000000);
-			
-			int stringX = x + rectWidth / 2;
-			int stringY = y + border;
-			drawCenteredString(name, stringX, stringY, 0xFFFFFF);
-			
-			drawCenteredString(coords, stringX, stringY + stringHeight + border, 0xFFFFFF);	
-		}
-		
 		Iterator it = playerLocations.keySet().iterator();
 		while (it.hasNext())
 		{
@@ -329,8 +343,63 @@ public class LOTRGuiMap extends LOTRGui
 			renderPlayer(mc.thePlayer.getUniqueID(), mc.thePlayer.getCommandSenderName(), mc.thePlayer.posX, mc.thePlayer.posZ, i, j);
 		}
 		
+		mc.getTextureManager().bindTexture(borderTexture);
+
+		if (waypointMode != WaypointMode.NONE)
+		{
+			List waypoints = LOTRWaypoint.getListOfAllWaypoints(mc.thePlayer);
+			for (int l = 0; l < waypoints.size(); l++)
+			{
+				LOTRAbstractWaypoint waypoint = (LOTRAbstractWaypoint)waypoints.get(l);
+				if (waypointMode.canDisplayWaypoint(waypoint))
+				{
+					int x = MathHelper.floor_double((waypoint.getX() - posX) * zoomPower) + mapXSize / 2;
+					int y = MathHelper.floor_double((waypoint.getY() - posY) * zoomPower) + mapYSize / 2;
+					if (x - 2 >= 0 && x + 2 <= mapXSize && y - 2 >= 0 && y + 2 <= mapYSize)
+					{
+						boolean unlocked = waypoint.hasPlayerUnlocked(mc.thePlayer);
+						boolean custom = waypoint instanceof LOTRWaypoint.Custom;
+						drawTexturedModalRect(guiLeft + x - 2, guiTop + y - 2, custom ? 8 : (unlocked ? 4 : 0), 200, 4, 4);
+					}
+				}
+			}
+			
+			if (selectedWaypoint != null && waypointMode.canDisplayWaypoint(selectedWaypoint))
+			{
+				String name = selectedWaypoint.getDisplayName();
+				String coords = "x: " + selectedWaypoint.getXCoord() + ", z: " + selectedWaypoint.getZCoord();
+				
+				int x = MathHelper.floor_double((selectedWaypoint.getX() - posX) * zoomPower) + mapXSize / 2;
+				int y = MathHelper.floor_double((selectedWaypoint.getY() - posY) * zoomPower) + mapYSize / 2;
+				y += 5;
+				
+				x += guiLeft;
+				y += guiTop;
+				int border = 3;
+				int stringHeight = fontRendererObj.FONT_HEIGHT;
+				int rectWidth = Math.max(fontRendererObj.getStringWidth(name), fontRendererObj.getStringWidth(coords)) + border * 2;
+				x -= rectWidth / 2;
+				int rectHeight = border * 3 + stringHeight * 2;
+				
+				x = Math.max(x, guiLeft + 6);
+				x = Math.min(x, guiLeft + mapXSize - 6 - rectWidth);
+				y = Math.max(y, guiTop + 6);
+				y = Math.min(y, guiTop + mapYSize - 6 - rectHeight);
+				
+				drawRect(x, y, x + rectWidth, y + rectHeight, 0xC0000000);
+				
+				int stringX = x + rectWidth / 2;
+				int stringY = y + border;
+				drawCenteredString(name, stringX, stringY, 0xFFFFFF);
+				
+				drawCenteredString(coords, stringX, stringY + stringHeight + border, 0xFFFFFF);	
+			}
+		}
+		
         mc.getTextureManager().bindTexture(borderTexture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, mapXSize, mapYSize);
+		
+		drawTexturedModalRect(guiLeft + waypointToggleX, guiTop + waypointToggleY, waypointToggleWidth, 204 + (waypointMode.ordinal() * waypointToggleWidth), waypointToggleWidth, waypointToggleWidth);
 		
 		if (isMiddleEarth())
 		{
@@ -338,7 +407,7 @@ public class LOTRGuiMap extends LOTRGui
 			
 			if (selectedWaypoint instanceof LOTRWaypoint.Custom)
 			{
-				drawTexturedModalRect(guiLeft + delWPButtonX, guiTop + delWPButtonY, 0, 214, delWPButtonWidth, delWPButtonWidth);
+				drawTexturedModalRect(guiLeft + delWPButtonX, guiTop + delWPButtonY, 0, 204 + addWPButtonWidth, delWPButtonWidth, delWPButtonWidth);
 			}
 		}
 		
@@ -440,7 +509,7 @@ public class LOTRGuiMap extends LOTRGui
 		}
 		else
 		{	
-			if (i == LOTRKeyHandler.keyBindingFastTravel.getKeyCode() && isMiddleEarth() && selectedWaypoint != null && selectedWaypoint.hasPlayerUnlocked(mc.thePlayer) && LOTRLevelData.getFastTravelTimer(mc.thePlayer) <= 0)
+			if (i == LOTRKeyHandler.keyBindingFastTravel.getKeyCode() && isMiddleEarth() && selectedWaypoint != null && selectedWaypoint.hasPlayerUnlocked(mc.thePlayer) && LOTRLevelData.getData(mc.thePlayer).getFTTimer() <= 0)
 			{
 	        	ByteBuf data = Unpooled.buffer();
 	        	
@@ -557,19 +626,31 @@ public class LOTRGuiMap extends LOTRGui
 			}
 		}
 		
+		if (!hasOverlay && k == 0)
+		{
+			if (i >= guiLeft + waypointToggleX && i < guiLeft + waypointToggleX + waypointToggleWidth && j >= guiTop + waypointToggleY && j < guiTop + waypointToggleY + waypointToggleWidth)
+			{
+				waypointMode.toggle();
+				return;
+			}
+		}
+		
         if (!hasOverlay && k == 0 && isMouseWithinMap)
         {
     		List waypoints = LOTRWaypoint.getListOfAllWaypoints(mc.thePlayer);
     		for (int l = 0; l < waypoints.size(); l++)
     		{
     			LOTRAbstractWaypoint waypoint = (LOTRAbstractWaypoint)waypoints.get(l);
-				int x = MathHelper.floor_double((waypoint.getX() - posX) * zoomPower) + mapXSize / 2;
-				int y = MathHelper.floor_double((waypoint.getY() - posY) * zoomPower) + mapYSize / 2;
-				if (Math.abs(x - (i - guiLeft)) <= 3 && Math.abs(y - (j - guiTop)) <= 3)
-				{
-					selectedWaypoint = waypoint;
-					return;
-				}
+    			if (waypointMode.canDisplayWaypoint(waypoint))
+    			{
+					int x = MathHelper.floor_double((waypoint.getX() - posX) * zoomPower) + mapXSize / 2;
+					int y = MathHelper.floor_double((waypoint.getY() - posY) * zoomPower) + mapYSize / 2;
+					if (Math.abs(x - (i - guiLeft)) <= 3 && Math.abs(y - (j - guiTop)) <= 3)
+					{
+						selectedWaypoint = waypoint;
+						return;
+					}
+    			}
 			}
 			selectedWaypoint = null;
         }

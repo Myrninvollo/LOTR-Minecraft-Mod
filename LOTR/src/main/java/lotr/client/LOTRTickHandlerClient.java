@@ -649,7 +649,7 @@ public class LOTRTickHandlerClient
 	
 	private void renderAlignment(Minecraft mc)
 	{
-		int alignment = LOTRLevelData.getAlignment(mc.thePlayer, currentAlignmentFaction);
+		int alignment = LOTRLevelData.getData(mc.thePlayer).getAlignment(currentAlignmentFaction);
 		ScaledResolution resolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
 		int i = resolution.getScaledWidth();
 		int j = resolution.getScaledHeight();

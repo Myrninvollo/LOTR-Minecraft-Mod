@@ -44,7 +44,7 @@ public class LOTRBlockMorgulPortal extends LOTRBlockPortal
 		LOTRMod.proxy.setInMorgulPortal(entityplayer);
 		if (!entityplayer.worldObj.isRemote)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useMorgulPortal);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useMorgulPortal);
 		}
 	}
 

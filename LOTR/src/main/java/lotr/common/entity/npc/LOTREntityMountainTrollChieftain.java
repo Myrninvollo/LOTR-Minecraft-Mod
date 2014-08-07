@@ -408,7 +408,7 @@ public class LOTREntityMountainTrollChieftain extends LOTREntityMountainTroll im
 			{
 				continue;
 			}
-			if (LOTRLevelData.getAlignment(entityplayer, LOTRFaction.ANGMAR) < 0)
+			if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.ANGMAR) < 0)
 			{
 				enemies.add(entityplayer);
 			}
@@ -508,7 +508,7 @@ public class LOTREntityMountainTrollChieftain extends LOTREntityMountainTroll im
 			EntityPlayer entityplayer = LOTRMod.playerSourceOfDamage(damagesource);
 			if (entityplayer != null)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.killMountainTrollChieftain);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.killMountainTrollChieftain);
 			}
 		}
 	}

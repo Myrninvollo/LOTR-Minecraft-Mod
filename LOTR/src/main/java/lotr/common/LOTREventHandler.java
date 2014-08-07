@@ -159,102 +159,102 @@ public class LOTREventHandler implements IFuelHandler
 			
 			if (entityplayer.openContainer instanceof LOTRContainerElvenTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useElvenTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useElvenTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerUrukTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useUrukTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useUrukTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerRohirricTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useRohirricTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useRohirricTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerGondorianTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useGondorianTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useGondorianTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerWoodElvenTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useWoodElvenTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useWoodElvenTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerDwarvenTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useDwarvenTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useDwarvenTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerMorgulTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useMorgulTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useMorgulTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerDunlendingTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useDunlendingTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useDunlendingTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerAngmarTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useAngmarTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useAngmarTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerNearHaradTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useNearHaradTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useNearHaradTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerHighElvenTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useHighElvenTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useHighElvenTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerBlueDwarvenTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useBlueDwarvenTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useBlueDwarvenTable);
 			}
 			
 			if (entityplayer.openContainer instanceof LOTRContainerRangerTable)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useRangerTable);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useRangerTable);
 			}
 			
 			if (itemstack.getItem() == Items.saddle)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.craftSaddle);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.craftSaddle);
 			}
 			
 			if (itemstack.getItem() == LOTRMod.bronze)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.craftBronze);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.craftBronze);
 			}
 			
 			if (itemstack.getItem() == LOTRMod.appleCrumbleItem)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.craftAppleCrumble);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.craftAppleCrumble);
 			}
 			
 			if (itemstack.getItem() == LOTRMod.rabbitStew)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.craftRabbitStew);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.craftRabbitStew);
 			}
 			
 			if (itemstack.getItem() == Item.getItemFromBlock(LOTRMod.brick) && itemstack.getItemDamage() == 10)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.craftMithrilDwarvenBrick);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.craftMithrilDwarvenBrick);
 			}
 			
 			if (itemstack.getItem() == LOTRMod.ancientItem)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.craftAncientItem);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.craftAncientItem);
 			}
 			
 			if (itemstack.getItem() == Item.getItemFromBlock(LOTRMod.orcBomb))
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.craftOrcBomb);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.craftOrcBomb);
 			}
 		}
 	}
@@ -269,22 +269,22 @@ public class LOTREventHandler implements IFuelHandler
 		{
 			if (itemstack.getItem() == LOTRMod.blueDwarfSteel)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.smeltBlueDwarfSteel);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.smeltBlueDwarfSteel);
 			}
 			
 			if (itemstack.getItem() == LOTRMod.dwarfSteel)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.smeltDwarfSteel);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.smeltDwarfSteel);
 			}
 			
 			if (itemstack.getItem() == LOTRMod.urukSteel)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.smeltUrukSteel);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.smeltUrukSteel);
 			}
 			
 			if (itemstack.getItem() == LOTRMod.orcSteel)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.smeltOrcSteel);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.smeltOrcSteel);
 			}
 		}
 	}
@@ -328,17 +328,11 @@ public class LOTREventHandler implements IFuelHandler
 		{
 			EntityPlayerMP entityplayermp = (EntityPlayerMP)entityplayer;
 			
-			Packet loginPacket = LOTRLevelData.getLoginPacket(entityplayer);
-			entityplayermp.playerNetServerHandler.sendPacket(loginPacket);
+			LOTRLevelData.sendLoginPacket(entityplayermp);
+			LOTRLevelData.sendPlayerData(entityplayermp);
 			
 			LOTRLevelData.sendAlignmentToAllPlayersInWorld(entityplayer, entityplayer.worldObj);
 			LOTRLevelData.sendAllAlignmentsInWorldToPlayer(entityplayer, entityplayer.worldObj);
-			
-			Packet achievementPacket = LOTRLevelData.getLoginAchievementsPacket(entityplayer);
-			if (achievementPacket != null)
-			{
-				entityplayermp.playerNetServerHandler.sendPacket(achievementPacket);
-			}
 			
 			LOTRLevelData.selectDefaultCapeForPlayer(entityplayer);
 			LOTRLevelData.sendCapeToAllPlayersInWorld(entityplayer, entityplayer.worldObj);
@@ -385,25 +379,27 @@ public class LOTREventHandler implements IFuelHandler
 					hasBed = entityplayermp.verifyRespawnCoordinates(worldserver, bedLocation, entityplayermp.isSpawnForced(entityplayermp.dimension)) != null;
 				}
 
-				Object obj = LOTRLevelData.playerDeathPoints.get(entityplayermp.getUniqueID());
-				if (!hasBed && obj instanceof ChunkCoordinates)
+				if (!hasBed)
 				{
-					ChunkCoordinates deathPoint = (ChunkCoordinates)obj;
-					float respawnThreshold = 2000F * 2000F;
-					boolean flag = deathPoint.getDistanceSquaredToChunkCoordinates(worldserver.getSpawnPoint()) > respawnThreshold;
-					if (flag)
+					ChunkCoordinates deathPoint = LOTRLevelData.getData(entityplayermp).getDeathPoint();
+					if (deathPoint != null)
 					{
-						double randomDistance = 500D + worldserver.rand.nextDouble() * 1500D;
-						float angle = worldserver.rand.nextFloat() * (float)Math.PI * 2F;
-						
-						int i = deathPoint.posX + (int)(randomDistance * MathHelper.sin(angle));
-						int k = deathPoint.posZ + (int)(randomDistance * MathHelper.cos(angle));
-
-						worldserver.theChunkProviderServer.loadChunk(i >> 4, k >> 4);
-						int j = worldserver.getHeightValue(i, k);
-
-						entityplayermp.setLocationAndAngles(i + 0.5D, j, k + 0.5D, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
-						entityplayermp.playerNetServerHandler.setPlayerLocation(i + 0.5D, j, k + 0.5D, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
+						float respawnThreshold = 2000F * 2000F;
+						boolean flag = deathPoint.getDistanceSquaredToChunkCoordinates(worldserver.getSpawnPoint()) > respawnThreshold;
+						if (flag)
+						{
+							double randomDistance = 500D + worldserver.rand.nextDouble() * 1500D;
+							float angle = worldserver.rand.nextFloat() * (float)Math.PI * 2F;
+							
+							int i = deathPoint.posX + (int)(randomDistance * MathHelper.sin(angle));
+							int k = deathPoint.posZ + (int)(randomDistance * MathHelper.cos(angle));
+	
+							worldserver.theChunkProviderServer.loadChunk(i >> 4, k >> 4);
+							int j = worldserver.getHeightValue(i, k);
+	
+							entityplayermp.setLocationAndAngles(i + 0.5D, j, k + 0.5D, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
+							entityplayermp.playerNetServerHandler.setPlayerLocation(i + 0.5D, j, k + 0.5D, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
+						}
 					}
 				}
 			}
@@ -556,7 +552,7 @@ public class LOTREventHandler implements IFuelHandler
 						}
 						else
 						{
-							int alignment = LOTRLevelData.getAlignment(entityplayer, bannerFaction);
+							int alignment = LOTRLevelData.getData(entityplayer).getAlignment(bannerFaction);
 							if (alignment <= 0)
 							{
 								protectorName = bannerFaction.factionName();
@@ -702,7 +698,7 @@ public class LOTREventHandler implements IFuelHandler
 					{
 						if (!penalty)
 						{
-							LOTRLevelData.addAlignment(entityplayer, LOTRAlignmentValues.FANGORN_TREE_PENALTY, LOTRFaction.FANGORN, i + 0.5D, j + 0.5D, k + 0.5D);
+							LOTRLevelData.getData(entityplayer).addAlignment(LOTRAlignmentValues.FANGORN_TREE_PENALTY, LOTRFaction.FANGORN, i + 0.5D, j + 0.5D, k + 0.5D);
 							penalty = true;
 						}
 					}
@@ -742,12 +738,12 @@ public class LOTREventHandler implements IFuelHandler
 			
 			if (itemstack.getItem() == Item.getItemFromBlock(LOTRMod.athelas))
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.findAthelas);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.findAthelas);
 			}
 			
 			if (itemstack.getItem() == Item.getItemFromBlock(LOTRMod.clover) && itemstack.getItemDamage() == 1)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.findFourLeafClover);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.findFourLeafClover);
 			}
 		}
 	}
@@ -826,7 +822,7 @@ public class LOTREventHandler implements IFuelHandler
 			else if (entity instanceof EntityPlayer)
 			{
 				EntityPlayer entityplayer = (EntityPlayer)entity;
-				int alignment = LOTRLevelData.getAlignment(entityplayer, LOTRFaction.HOBBIT);
+				int alignment = LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.HOBBIT);
 				if (!entityplayer.capabilities.isCreativeMode && alignment < 0)
 				{
 					f = (float)alignment * -1F;
@@ -1212,7 +1208,7 @@ public class LOTREventHandler implements IFuelHandler
 				if (!world.isRemote && entity instanceof EntityPlayer)
 				{
 					((EntityPlayer)entity).inventory.damageArmor(event.ammount + 1);
-					LOTRLevelData.addAchievement((EntityPlayer)entity, LOTRAchievement.wearFullGalvorn);
+					LOTRLevelData.getData((EntityPlayer)entity).addAchievement(LOTRAchievement.wearFullGalvorn);
 				}
 				return;
 			}
@@ -1225,7 +1221,7 @@ public class LOTREventHandler implements IFuelHandler
 					ItemStack chestplate = entity.getEquipmentInSlot(3);
 					if (chestplate != null && chestplate.getItem() == LOTRMod.bodyMithril)
 					{
-						LOTRLevelData.addAchievement((EntityPlayer)entity, LOTRAchievement.hitByOrcSpear);
+						LOTRLevelData.getData((EntityPlayer)entity).addAchievement(LOTRAchievement.hitByOrcSpear);
 					}
 				}
 			}
@@ -1249,7 +1245,7 @@ public class LOTREventHandler implements IFuelHandler
 				attacker.addPotionEffect(new PotionEffect(Potion.wither.id, 80));
 				if (entity instanceof EntityPlayer)
 				{
-					LOTRLevelData.addAchievement((EntityPlayer)entity, LOTRAchievement.wearFullMorgul);
+					LOTRLevelData.getData((EntityPlayer)entity).addAchievement(LOTRAchievement.wearFullMorgul);
 				}
 			}
 		}
@@ -1302,7 +1298,7 @@ public class LOTREventHandler implements IFuelHandler
 			int i = MathHelper.floor_double(entityplayer.posX);
 			int j = MathHelper.floor_double(entityplayer.posY);
 			int k = MathHelper.floor_double(entityplayer.posZ);
-			LOTRLevelData.playerDeathPoints.put(entityplayer.getUniqueID(), new ChunkCoordinates(i, j, k));
+			LOTRLevelData.getData(entityplayer).setDeathPoint(i, j, k);
 		}
 		
 		if (!world.isRemote)
@@ -1319,7 +1315,7 @@ public class LOTREventHandler implements IFuelHandler
 			if (entityplayer != null)
 			{
 				LOTRFaction entityFaction = LOTRMod.getNPCFaction(entity);
-				int prevAlignment = LOTRLevelData.getAlignment(entityplayer, entityFaction);
+				int prevAlignment = LOTRLevelData.getData(entityplayer).getAlignment(entityFaction);
 						
 				LOTRAlignmentValues.Bonus alignmentBonus = null;
 				if (entity instanceof LOTREntityNPC)
@@ -1342,7 +1338,7 @@ public class LOTREventHandler implements IFuelHandler
 				if (alignmentBonus != null)
 				{
 					alignmentBonus.isKill = true;
-					LOTRLevelData.addAlignment(entityplayer, alignmentBonus, entityFaction, entity);
+					LOTRLevelData.getData(entityplayer).addAlignment(alignmentBonus, entityFaction, entity);
 				}
 				
 				if (prevAlignment >= 0 && !entityplayer.capabilities.isCreativeMode && entityFaction != LOTRFaction.UNALIGNED)
@@ -1398,14 +1394,14 @@ public class LOTREventHandler implements IFuelHandler
 			EntityPlayer entityplayer = (EntityPlayer)source.getEntity();
 			if (entity != entityplayer && entityplayer.getDistanceSqToEntity(entity) >= 2500D)
 			{
-				LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.useSpearFromFar);
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useSpearFromFar);
 			}
 		}
 
 		if (!world.isRemote && entity instanceof LOTREntityButterfly && source.getEntity() instanceof EntityPlayer)
 		{
 			EntityPlayer entityplayer = (EntityPlayer)source.getEntity();
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.killButterfly);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.killButterfly);
 		}
 		
 		if (!world.isRemote && entity instanceof EntityHorse && source.getEntity() instanceof EntityPlayer)
@@ -1432,7 +1428,7 @@ public class LOTREventHandler implements IFuelHandler
 							
 							if (!penalty)
 							{
-								LOTRLevelData.addAlignment(entityplayer, LOTRAlignmentValues.ROHAN_HORSE_PENALTY, LOTRFaction.ROHAN, entity);
+								LOTRLevelData.getData(entityplayer).addAlignment(LOTRAlignmentValues.ROHAN_HORSE_PENALTY, LOTRFaction.ROHAN, entity);
 								penalty = true;
 							}
 						}
@@ -1461,7 +1457,7 @@ public class LOTREventHandler implements IFuelHandler
 			
 			if (attackingPlayer != null)
 			{
-				boolean isFoe = LOTRLevelData.getAlignment(attackingPlayer, LOTRMod.getNPCFaction(entity)) < 0;
+				boolean isFoe = LOTRLevelData.getData(attackingPlayer).getAlignment(LOTRMod.getNPCFaction(entity)) < 0;
 				
 				if (isFoe)
 				{
@@ -1469,24 +1465,24 @@ public class LOTREventHandler implements IFuelHandler
 					{
 						if (attackingHiredUnit instanceof LOTREntityMordorSpider && entity instanceof LOTREntityMirkwoodSpider)
 						{
-							LOTRLevelData.addAchievement(attackingPlayer, LOTRAchievement.killMirkwoodSpiderMordorSpider);
+							LOTRLevelData.getData(attackingPlayer).addAchievement(LOTRAchievement.killMirkwoodSpiderMordorSpider);
 						}
 						
 						if (attackingHiredUnit instanceof LOTREntityWargBombardier)
 						{
-							LOTRLevelData.addAchievement(attackingPlayer, LOTRAchievement.hireWargBombardier);
+							LOTRLevelData.getData(attackingPlayer).addAchievement(LOTRAchievement.hireWargBombardier);
 						}
 						
 						if (attackingHiredUnit instanceof LOTREntityOlogHai)
 						{
-							LOTRLevelData.addAchievement(attackingPlayer, LOTRAchievement.hireOlogHai);
+							LOTRLevelData.getData(attackingPlayer).addAchievement(LOTRAchievement.hireOlogHai);
 						}
 					}
 					else
 					{
 						if (attackingPlayer.isPotionActive(Potion.confusion.id))
 						{
-							LOTRLevelData.addAchievement(attackingPlayer, LOTRAchievement.killWhileDrunk);
+							LOTRLevelData.getData(attackingPlayer).addAchievement(LOTRAchievement.killWhileDrunk);
 						}
 						
 						if (entity instanceof LOTREntityOrc)
@@ -1494,13 +1490,13 @@ public class LOTREventHandler implements IFuelHandler
 							LOTREntityOrc orc = (LOTREntityOrc)entity;
 							if (orc.isBombardier && orc.getEquipmentInSlot(0) != null && orc.getEquipmentInSlot(0).getItem() == LOTRMod.orcTorchItem)
 							{
-								LOTRLevelData.addAchievement(attackingPlayer, LOTRAchievement.killBombardier);
+								LOTRLevelData.getData(attackingPlayer).addAchievement(LOTRAchievement.killBombardier);
 							}
 						}
 						
 						if (source.getSourceOfDamage() instanceof LOTREntityCrossbowBolt)
 						{
-							LOTRLevelData.addAchievement(attackingPlayer, LOTRAchievement.useCrossbow);
+							LOTRLevelData.getData(attackingPlayer).addAchievement(LOTRAchievement.useCrossbow);
 						}
 						
 						if (source.getSourceOfDamage() instanceof LOTREntityThrowingAxe)
@@ -1508,7 +1504,7 @@ public class LOTREventHandler implements IFuelHandler
 							LOTREntityThrowingAxe axe = (LOTREntityThrowingAxe)source.getSourceOfDamage();
 							if (axe.getItemID() == Item.getIdFromItem(LOTRMod.throwingAxeDwarven))
 							{
-								LOTRLevelData.addAchievement(attackingPlayer, LOTRAchievement.useDwarvenThrowingAxe);
+								LOTRLevelData.getData(attackingPlayer).addAchievement(LOTRAchievement.useDwarvenThrowingAxe);
 							}
 						}
 					}
@@ -1523,7 +1519,7 @@ public class LOTREventHandler implements IFuelHandler
 		EntityPlayerMP entityplayer = event.player;
 		String message = event.message;
 		
-		if (!entityplayer.capabilities.isCreativeMode && !LOTRLevelData.hasPlayerAskedForGandalf(entityplayer) && StringUtils.containsIgnoreCase(message, "I want Mevans to add Gandalf"))
+		if (!entityplayer.capabilities.isCreativeMode && !LOTRLevelData.getData(entityplayer).getAskedForGandalf() && StringUtils.containsIgnoreCase(message, "I want Mevans to add Gandalf"))
 		{
 			boolean success = false;
 			
@@ -1539,7 +1535,7 @@ public class LOTREventHandler implements IFuelHandler
 				{
 					continue factionsLoop;
 				}
-				if (LOTRLevelData.getAlignment(entityplayer, faction) >= 0)
+				if (LOTRLevelData.getData(entityplayer).getAlignment(faction) >= 0)
 				{
 					continue factionsLoop;
 				}
@@ -1561,7 +1557,7 @@ public class LOTREventHandler implements IFuelHandler
 			
 			if (success)
 			{
-				LOTRLevelData.setAskedForGandalf(entityplayer, true);
+				LOTRLevelData.getData(entityplayer).setAskedForGandalf(true);
 			}
 		}
 	}

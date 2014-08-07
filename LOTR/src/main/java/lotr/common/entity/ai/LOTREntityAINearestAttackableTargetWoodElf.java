@@ -22,7 +22,7 @@ public class LOTREntityAINearestAttackableTargetWoodElf extends LOTREntityAINear
 	@Override
     protected boolean isPlayerSuitableTarget(EntityPlayer entityplayer)
     {
-		int alignment = LOTRLevelData.getAlignment(entityplayer, LOTRFaction.WOOD_ELF);
+		int alignment = LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.WOOD_ELF);
 		if (alignment >= LOTRAlignmentValues.WOOD_ELF_TRUST)
 		{
 			return false;

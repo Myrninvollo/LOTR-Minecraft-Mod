@@ -23,7 +23,7 @@ public class LOTRItemMorgulShroom extends ItemBlock
     public ItemStack onEaten(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
         itemstack.stackSize--;
-		if (LOTRLevelData.getAlignment(entityplayer, LOTRFaction.MORDOR) > 0)
+		if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.MORDOR) > 0)
 		{
 			entityplayer.getFoodStats().addStats(4, 0.4F);
 		}
@@ -37,7 +37,7 @@ public class LOTRItemMorgulShroom extends ItemBlock
 		
 		if (!world.isRemote)
 		{
-			LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.eatMorgulShroom);
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.eatMorgulShroom);
 		}
 		
         world.playSoundAtEntity(entityplayer, "random.burp", 0.5F, world.rand.nextFloat() * 0.1F + 0.9F);

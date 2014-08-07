@@ -219,7 +219,7 @@ public class LOTREntityStoneTroll extends Entity
 						if (damagesource.getSourceOfDamage() instanceof EntityPlayer)
 						{
 							EntityPlayer entityplayer = (EntityPlayer)damagesource.getSourceOfDamage();
-							LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.getTrollStatue);
+							LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.getTrollStatue);
 						}
 						dropAsStatue();
 					}

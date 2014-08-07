@@ -910,9 +910,9 @@ public abstract class LOTREntityNPC extends EntityCreature
 			
 			if (hurtOnlyByPlates && damagesource.getSourceOfDamage() instanceof LOTREntityPlate)
 			{
-				if (LOTRLevelData.getAlignment(entityplayer, getFaction()) < 0);
+				if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) < 0);
 				{
-					LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.killUsingOnlyPlates);
+					LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.killUsingOnlyPlates);
 				}
 			}
 			
@@ -921,17 +921,17 @@ public abstract class LOTREntityNPC extends EntityCreature
 				float size = width * width * height;
 				if (size > 5F)
 				{
-					int alignment = LOTRLevelData.getAlignment(entityplayer, getFaction());
+					int alignment = LOTRLevelData.getData(entityplayer).getAlignment(getFaction());
 					if (alignment < 0)
 					{
-						LOTRLevelData.addAchievement(entityplayer, LOTRAchievement.killLargeMobWithSlingshot);
+						LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.killLargeMobWithSlingshot);
 					}
 				}
 			}
 			
 			if (getKillAchievement() != null)
 			{
-				LOTRLevelData.addAchievement(entityplayer, getKillAchievement());
+				LOTRLevelData.getData(entityplayer).addAchievement(getKillAchievement());
 			}
 		}
 		
@@ -1097,7 +1097,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 				
 				if (getTalkAchievement() != null)
 				{
-					LOTRLevelData.addAchievement(entityplayer, getTalkAchievement());
+					LOTRLevelData.getData(entityplayer).addAchievement(getTalkAchievement());
 				}
 				
 				return true;
@@ -1133,7 +1133,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 	
 	public boolean isFriendly(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getAlignment(entityplayer, getFaction()) >= 0 && getAttackTarget() != entityplayer && attackingPlayer != entityplayer;
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= 0 && getAttackTarget() != entityplayer && attackingPlayer != entityplayer;
 	}
 	
 	public String getSpeechBank(EntityPlayer entityplayer)

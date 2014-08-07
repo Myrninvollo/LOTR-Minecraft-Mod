@@ -64,7 +64,7 @@ public class LOTREntityAINearestAttackableTargetBasic extends EntityAINearestAtt
 	
 	protected boolean isPlayerSuitableTarget(EntityPlayer entityplayer)
 	{
-		int alignment = LOTRLevelData.getAlignment(entityplayer, LOTRMod.getNPCFaction(taskOwner));
+		int alignment = LOTRLevelData.getData(entityplayer).getAlignment(LOTRMod.getNPCFaction(taskOwner));
 		return alignment < 0;
 	}
 }

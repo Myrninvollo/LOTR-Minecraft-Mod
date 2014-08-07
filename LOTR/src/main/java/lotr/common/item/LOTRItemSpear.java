@@ -12,6 +12,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Multimap;
@@ -53,11 +54,17 @@ public class LOTRItemSpear extends Item
 		{
 			charge = 2F;
 		}
+		
         LOTREntitySpear spear = new LOTREntitySpear(world, entityplayer, itemstack.getItem(), itemstack.getItemDamage(), charge);
 		if (charge == 2F)
 		{
 			spear.setIsCritical(true);
 		}
+		if (itemstack.getTagCompound() != null)
+		{
+			spear.setItemData((NBTTagCompound)itemstack.getTagCompound().copy());
+		}
+		
         world.playSoundAtEntity(entityplayer, "random.bow", 1F, 1F / (itemRand.nextFloat() * 0.4F + 1.2F) + 0.25F);
 		entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
         if (!world.isRemote)

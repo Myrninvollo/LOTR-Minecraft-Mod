@@ -42,6 +42,7 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 	private int itemDamage;
 	public int canBePickedUp = 0;
 	public int knockbackStrength;
+	private NBTTagCompound itemData;
 
     public LOTREntityProjectileBase(World world)
     {
@@ -109,6 +110,11 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
             float d6 = (float)d3 * 0.2F;
             setThrowableHeading(d, d1 + (double)d6, d2, charge * 1.5F, inaccuracy);
         }
+    }
+    
+    public void setItemData(NBTTagCompound nbt)
+    {
+    	itemData = nbt;
     }
 	
 	@Override
@@ -422,6 +428,10 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 		nbt.setInteger("itemID", getItemID());
 		nbt.setInteger("itemDamage", itemDamage);
 		nbt.setByte("pickup", (byte)canBePickedUp);
+		if (itemData != null)
+		{
+			nbt.setTag("ItemTagCompound", itemData);
+		}
     }
 
 	@Override
@@ -437,9 +447,24 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
         setItemID(nbt.getInteger("itemID"));
 		itemDamage = nbt.getInteger("itemDamage");
 		canBePickedUp = nbt.getByte("pickup");
+		itemData = nbt.getCompoundTag("ItemTagCompound");
     }
 	
 	public abstract boolean isDamageable();
+	
+	private ItemStack createItem()
+	{
+		ItemStack itemstack = new ItemStack(Item.getItemById(getItemID()), 1);
+		if (isDamageable())
+		{
+			itemstack.setItemDamage(itemDamage + 1);
+		}
+		if (itemData != null)
+		{
+			itemstack.setTagCompound(itemData);
+		}
+		return itemstack;
+	}
 
 	@Override
     public void onCollideWithPlayer(EntityPlayer entityplayer)
@@ -451,7 +476,7 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 				boolean canPickUp = itemDamage < Item.getItemById(getItemID()).getMaxDamage() && canBePickedUp == 1;
 				if (inGround && shake <= 0 && canPickUp)
 				{
-					ItemStack itemstack = new ItemStack(Item.getItemById(getItemID()), 1, itemDamage + 1);
+					ItemStack itemstack = createItem();
 					if (entityplayer.inventory.addItemStackToInventory(itemstack.copy()))
 					{
 						playSound("random.pop", 0.2F, ((rand.nextFloat() - rand.nextFloat()) * 0.7F + 1F) * 2F);
@@ -471,7 +496,7 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 				boolean canPickUp = canBePickedUp == 1 || (canBePickedUp == 2 && entityplayer.capabilities.isCreativeMode);
 				if (inGround && shake <= 0 && canPickUp)
 				{
-					ItemStack itemstack = new ItemStack(Item.getItemById(getItemID()));
+					ItemStack itemstack = createItem();
 					if (entityplayer.inventory.addItemStackToInventory(itemstack.copy()));
 					{
 						playSound("random.pop", 0.2F, ((rand.nextFloat() - rand.nextFloat()) * 0.7F + 1F) * 2F);
@@ -488,7 +513,8 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 		{
 			if (!worldObj.isRemote && shake <= 0 && itemDamage < Item.getItemById(getItemID()).getMaxDamage() && canBePickedUp == 1)
 			{
-				EntityItem entityitem = new EntityItem(worldObj, posX, posY, posZ, new ItemStack(Item.getItemById(getItemID()), 1, itemDamage + 1));
+				ItemStack itemstack = createItem();
+				EntityItem entityitem = new EntityItem(worldObj, posX, posY, posZ, itemstack);
 				entityitem.delayBeforeCanPickup = 0;
 				worldObj.spawnEntityInWorld(entityitem);
 				setDead();

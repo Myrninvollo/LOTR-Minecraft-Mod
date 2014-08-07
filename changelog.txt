@@ -1,6 +1,7 @@
 Public Beta 20
 
 + Added lore for items dropped by NPCs that says who their previous owner was
++ Added filtering options for waypoints on the Middle-earth map
 + Added a Ranger crafting table, Ranger banner, and Ranger alignment cape
 + Added Ranger banner bearers
 + Added Woodland Elks
@@ -10,6 +11,7 @@ Public Beta 20
 * Fixed the Serbian translation not working
 * Fixed Dunlending Trident fishing depleting the hunger bar very quickly
 * Changed the roofs of some structures to thatch
+* Thrown spears now carry the NBT-data of the spear item
 
 Public Beta 19.2
 

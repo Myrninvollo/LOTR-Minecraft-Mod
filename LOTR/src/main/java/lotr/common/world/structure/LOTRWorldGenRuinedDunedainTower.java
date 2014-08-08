@@ -223,11 +223,11 @@ public class LOTRWorldGenRuinedDunedainTower extends LOTRWorldGenStructureBase
 	{
 		if (random.nextInt(5) == 0)
 		{
-			setBlockAndNotifyAdequately(world, i, j, k, Blocks.stonebrick, 1 + random.nextInt(2));
+			setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick2, 4 + random.nextInt(2));
 		}
 		else
 		{
-			setBlockAndNotifyAdequately(world, i, j, k, Blocks.stonebrick, 0);
+			setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick2, 3);
 		}
 	}
 	

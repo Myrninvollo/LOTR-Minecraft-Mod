@@ -19,6 +19,8 @@ public class LOTRModelElk extends ModelBase
 	private ModelRenderer tail;
 	private ModelRenderer head;
 	private ModelRenderer nose;
+	
+	private ModelRenderer saddle;
 
 	public LOTRModelElk()
 	{
@@ -31,45 +33,45 @@ public class LOTRModelElk extends ModelBase
 		textureHeight = 64;
 		
 		body = new ModelRenderer(this, 0, 0);
-		body.setRotationPoint(0F, 5F, -5F);
+		body.setRotationPoint(0F, 4F, -5F);
 		body.addBox(-6F, -4F, -7F, 12, 11, 26, f);
 		
-		leg1 = new ModelRenderer(this, 20, 37);
-		leg1.setRotationPoint(-5F, 4F, 8F);
-		leg1.addBox(-4.5F, 0F, -3F, 6, 10, 7, f);
-		leg1.setTextureOffset(46, 37).addBox(-3.5F, 8F, -1F, 4, 10, 4, f);
+		leg1 = new ModelRenderer(this, 42, 37);
+		leg1.setRotationPoint(-5F, 3F, 8F);
+		leg1.addBox(-5.5F, 0F, -3F, 7, 11, 8, f);
+		leg1.setTextureOffset(26, 37).addBox(-4F, 11F, -1F, 4, 10, 4, f);
 		
-		leg2 = new ModelRenderer(this, 20, 37);
+		leg2 = new ModelRenderer(this, 42, 37);
 		leg2.mirror = true;
-		leg2.setRotationPoint(5F, 4F, 8F);
-		leg2.addBox(-1.5F, 0F, -3F, 6, 10, 7, f);
-		leg2.setTextureOffset(46, 37).addBox(-0.5F, 8F, -1F, 4, 10, 4, f);
+		leg2.setRotationPoint(5F, 3F, 8F);
+		leg2.addBox(-1.5F, 0F, -3F, 7, 11, 8, f);
+		leg2.setTextureOffset(26, 37).addBox(0F, 11F, -1F, 4, 10, 4, f);
 		
 		leg3 = new ModelRenderer(this, 0, 37);
-		leg3.setRotationPoint(-5F, 5F, -7F);
-		leg3.addBox(-3.5F, 0F, -2.5F, 5, 9, 5, f);
-		leg3.setTextureOffset(0, 50).addBox(-2.5F, 8F, -1F, 3, 10, 3, f);
+		leg3.setRotationPoint(-5F, 4F, -6F);
+		leg3.addBox(-4.5F, 0F, -3F, 6, 10, 7, f);
+		leg3.setTextureOffset(26, 37).addBox(-3.5F, 10F, -2F, 4, 10, 4, f);
 		
 		leg4 = new ModelRenderer(this, 0, 37);
 		leg4.mirror = true;
-		leg4.setRotationPoint(5F, 5F, -7F);
-		leg4.addBox(-1.5F, 0F, -2.5F, 5, 9, 5, f);
-		leg4.setTextureOffset(0, 50).addBox(-0.5F, 8F, -1F, 3, 10, 3, f);
+		leg4.setRotationPoint(5F, 4F, -6F);
+		leg4.addBox(-1.5F, 0F, -3F, 6, 10, 7, f);
+		leg4.setTextureOffset(26, 37).addBox(-0.5F, 10F, -2F, 4, 10, 4, f);
 		
-		tail = new ModelRenderer(this, 20, 54);
-		tail.setRotationPoint(0F, 4F, 14F);
+		tail = new ModelRenderer(this, 0, 54);
+		tail.setRotationPoint(0F, 3F, 14F);
 		tail.addBox(-1F, -1.5F, -0.5F, 2, 2, 8, f);
 		
 		head = new ModelRenderer(this, 50, 0);
-		head.setRotationPoint(0F, 5F, -10F);
+		head.setRotationPoint(0F, 4F, -10F);
 		head.addBox(-2F, -10F, -4F, 4, 12, 8, f);
 		head.setTextureOffset(74, 0).addBox(-3F, -15F, -8F, 6, 5, 13, f);
 		head.setTextureOffset(44, 16);
-		head.addBox(-2.5F, -17F, 3F, 2, 2, 1, f);
+		head.addBox(-2F, -17F, 3F, 2, 2, 1, f);
 		head.mirror = true;
-		head.addBox(0.5F, -17F, 3F, 2, 2, 1, f);
+		head.addBox(1F, -17F, 3F, 2, 2, 1, f);
 		
-		nose = new ModelRenderer(this, 50, 16);
+		nose = new ModelRenderer(this, 56, 20);
 		nose.addBox(-1F, -14F, -9F, 2, 2, 1, f);
 		
 		ModelRenderer antlersRight_1 = new ModelRenderer(this, 0, 0);
@@ -117,6 +119,15 @@ public class LOTRModelElk extends ModelBase
 		head.addChild(antlersLeft_2);
 		head.addChild(antlersLeft_3);
 		head.addChild(antlersLeft_4);
+		
+		saddle = new ModelRenderer(this, 76, 28);
+		saddle.setRotationPoint(0F, 3F, 3F);
+		saddle.addBox(-6F, -4F, -7F, 12, 1, 8, f);
+		saddle.setTextureOffset(76, 37).addBox(-6.5F, -3.5F, -3F, 1, 6, 1, f);
+		saddle.setTextureOffset(80, 37).addBox(-6.5F, 2.5F, -3.5F, 1, 2, 2, f);
+		saddle.mirror = true;
+		saddle.setTextureOffset(76, 37).addBox(5.5F, -3.5F, -3F, 1, 6, 1, f);
+		saddle.setTextureOffset(80, 37).addBox(5.5F, 2.5F, -3.5F, 1, 2, 2, f);
 	}
 
 	@Override
@@ -163,9 +174,14 @@ public class LOTRModelElk extends ModelBase
 		
 		tail.rotateAngleX = (float)Math.toRadians(-60D);
 		
-		leg1.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
-		leg2.rotateAngleX = MathHelper.cos(f * 0.6662F + (float)Math.PI) * 1.4F * f1;
-		leg3.rotateAngleX = MathHelper.cos(f * 0.6662F + (float)Math.PI) * 1.4F * f1;
-		leg4.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
+		leg1.rotateAngleX = MathHelper.cos(f * 0.4F) * f1;
+		leg2.rotateAngleX = MathHelper.cos(f * 0.4F + (float)Math.PI) * f1;
+		leg3.rotateAngleX = MathHelper.cos(f * 0.4F + (float)Math.PI) * f1;
+		leg4.rotateAngleX = MathHelper.cos(f * 0.4F) * f1;
+	}
+	
+	public void renderSaddle(float f)
+	{
+		saddle.render(f);
 	}
 }

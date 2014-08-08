@@ -8,16 +8,169 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class LOTRWorldGenStoneRuin extends LOTRWorldGenStructureBase
+public abstract class LOTRWorldGenStoneRuin extends LOTRWorldGenStructureBase
 {
 	private int minWidth;
 	private int maxWidth;
 	
-	public LOTRWorldGenStoneRuin(int i, int j)
+	private LOTRWorldGenStoneRuin(int i, int j)
 	{
 		super(false);
 		minWidth = i;
 		maxWidth = j;
+	}
+	
+	public static class ANGMAR extends LOTRWorldGenStoneRuin
+	{
+		public ANGMAR(int i, int j)
+		{
+			super(i, j);
+		}
+		
+		@Override
+		protected void placeRandomBrick(World world, Random random, int i, int j, int k)
+		{
+			int l = random.nextInt(2);
+			switch (l)
+			{
+				case 0:
+					setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick2, 0);
+					break;
+				case 1:
+					setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick2, 1);
+					break;
+			}
+		}
+		
+		@Override
+		protected void placeRandomSlab(World world, Random random, int i, int j, int k)
+		{
+			if (random.nextInt(4) == 0)
+			{
+				setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.slabSingle3, 4);
+			}
+			else
+			{
+				setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.slabSingle3, 3);
+			}
+		}
+	}
+	
+	public static class STONE extends LOTRWorldGenStoneRuin
+	{
+		public STONE(int i, int j)
+		{
+			super(i, j);
+		}
+		
+		@Override
+		protected void placeRandomBrick(World world, Random random, int i, int j, int k)
+		{
+			int l = random.nextInt(3);
+			switch (l)
+			{
+				case 0:
+					setBlockAndNotifyAdequately(world, i, j, k, Blocks.stonebrick, 0);
+					break;
+				case 1:
+					setBlockAndNotifyAdequately(world, i, j, k, Blocks.stonebrick, 1);
+					break;
+				case 2:
+					setBlockAndNotifyAdequately(world, i, j, k, Blocks.stonebrick, 2);
+					break;
+			}
+		}
+		
+		@Override
+		protected void placeRandomSlab(World world, Random random, int i, int j, int k)
+		{
+			if (random.nextInt(4) == 0)
+			{
+				setBlockAndNotifyAdequately(world, i, j, k, Blocks.stone_slab, 0);
+			}
+			else
+			{
+				setBlockAndNotifyAdequately(world, i, j, k, Blocks.stone_slab, 5);
+			}
+		}
+	}
+	
+	public static class ARNOR extends LOTRWorldGenStoneRuin
+	{
+		public ARNOR(int i, int j)
+		{
+			super(i, j);
+		}
+		
+		@Override
+		protected void placeRandomBrick(World world, Random random, int i, int j, int k)
+		{
+			int l = random.nextInt(3);
+			switch (l)
+			{
+				case 0:
+					setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick2, 3);
+					break;
+				case 1:
+					setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick2, 4);
+					break;
+				case 2:
+					setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick2, 5);
+					break;
+			}
+		}
+		
+		@Override
+		protected void placeRandomSlab(World world, Random random, int i, int j, int k)
+		{
+			if (random.nextInt(4) == 0)
+			{
+				setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.slabSingle4, 2 + random.nextInt(2));
+			}
+			else
+			{
+				setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.slabSingle4, 1);
+			}
+		}
+	}
+	
+	public static class ELVEN extends LOTRWorldGenStoneRuin
+	{
+		public ELVEN(int i, int j)
+		{
+			super(i, j);
+		}
+		
+		@Override
+		protected void placeRandomBrick(World world, Random random, int i, int j, int k)
+		{
+			int l = random.nextInt(3);
+			switch (l)
+			{
+				case 0:
+					setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick, 11);
+					break;
+				case 1:
+					setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick, 12);
+					break;
+				case 2:
+					setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick, 13);
+					break;
+			}
+		}
+		
+		@Override
+		protected void placeRandomSlab(World world, Random random, int i, int j, int k)
+		{
+			if (random.nextInt(4) == 0)
+			{
+				setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.slabSingle2, 6 + random.nextInt(2));
+			}
+			else
+			{
+				setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.slabSingle2, 3 + random.nextInt(3));
+			}
+		}
 	}
 	
 	@Override
@@ -68,7 +221,7 @@ public class LOTRWorldGenStoneRuin extends LOTRWorldGenStructureBase
 		
 			if (generateColumn)
 			{
-				int baseHeight = 4 + random.nextInt(4) + random.nextInt(width * 2);
+				int baseHeight = 4 + random.nextInt(4) + random.nextInt(width * 3);
 				for (int i1 = i; i1 <= i + width; i1++)
 				{
 					for (int k1 = k; k1 <= k + width; k1++)
@@ -103,14 +256,7 @@ public class LOTRWorldGenStoneRuin extends LOTRWorldGenStructureBase
 				{
 					if (!LOTRMod.isOpaque(world, i1, j1, k1))
 					{
-						if (random.nextInt(4) == 0)
-						{
-							setBlockAndNotifyAdequately(world, i1, j1, k1, Blocks.stone_slab, 0);
-						}
-						else
-						{
-							setBlockAndNotifyAdequately(world, i1, j1, k1, Blocks.stone_slab, 5);
-						}
+						placeRandomSlab(world, random, i1, j1, k1);
 					}
 				}
 				else
@@ -138,20 +284,7 @@ public class LOTRWorldGenStoneRuin extends LOTRWorldGenStructureBase
 		return true;
 	}
 	
-	private void placeRandomBrick(World world, Random random, int i, int j, int k)
-	{
-		int l = random.nextInt(3);
-		switch (l)
-		{
-			case 0:
-				setBlockAndNotifyAdequately(world, i, j, k, Blocks.stonebrick, 0);
-				break;
-			case 1:
-				setBlockAndNotifyAdequately(world, i, j, k, Blocks.stonebrick, 1);
-				break;
-			case 2:
-				setBlockAndNotifyAdequately(world, i, j, k, Blocks.stonebrick, 2);
-				break;
-		}
-	}
+	protected abstract void placeRandomBrick(World world, Random random, int i, int j, int k);
+	
+	protected abstract void placeRandomSlab(World world, Random random, int i, int j, int k);
 }

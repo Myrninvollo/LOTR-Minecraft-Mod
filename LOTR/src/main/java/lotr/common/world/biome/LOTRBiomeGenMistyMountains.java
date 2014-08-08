@@ -48,7 +48,7 @@ public class LOTRBiomeGenMistyMountains extends LOTRBiome
 		
 		decorator.generateOrcDungeon = true;
 		
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 4), 2000);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 4), 500);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 	}

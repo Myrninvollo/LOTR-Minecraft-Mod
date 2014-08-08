@@ -17,6 +17,7 @@ import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenLarch;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import lotr.common.world.structure.LOTRWorldGenRuinedDunedainTower;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -54,6 +55,9 @@ public class LOTRBiomeGenColdfells extends LOTRBiome
 		decorator.generateTrollHoard = true;
 		
 		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 500);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 4), 100);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.ARNOR(1, 4), 100);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.ANGMAR(1, 4), 100);
 		
 		setBanditChance(LOTRBanditSpawner.UNCOMMON);
 		

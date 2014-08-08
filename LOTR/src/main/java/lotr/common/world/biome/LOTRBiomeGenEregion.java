@@ -2,22 +2,15 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRWaypoint;
-import lotr.common.entity.animal.LOTREntityBird;
-import lotr.common.entity.animal.LOTREntityButterfly;
-import lotr.common.entity.animal.LOTREntityRabbit;
-import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
-import lotr.common.entity.npc.LOTREntityElvenTrader;
-import lotr.common.entity.npc.LOTREntityGundabadWarg;
-import lotr.common.world.LOTRBanditSpawner;
-import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.*;
+import lotr.common.entity.animal.*;
+import lotr.common.entity.npc.*;
+import lotr.common.world.*;
 import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenHolly;
-import lotr.common.world.structure.LOTRWorldGenEregionRuin;
 import lotr.common.world.structure.LOTRWorldGenRuinedElvenTurret;
+import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
@@ -49,7 +42,7 @@ public class LOTRBiomeGenEregion extends LOTRBiome
 		registerForestFlowers();
 		
 		decorator.addRandomStructure(new LOTRWorldGenRuinedElvenTurret(false), 400);
-		decorator.addRandomStructure(new LOTRWorldGenEregionRuin(), 50);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.ELVEN(1, 4), 50);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);

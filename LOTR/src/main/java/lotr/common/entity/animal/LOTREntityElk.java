@@ -8,6 +8,7 @@ public class LOTREntityElk extends LOTREntityHorse
 	public LOTREntityElk(World world)
 	{
 		super(world);
+		setSize(1.6F, 1.8F);
 	}
 	
 	@Override

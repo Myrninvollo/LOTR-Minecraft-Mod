@@ -41,7 +41,7 @@ public class LOTRBiomeGenForodwaith extends LOTRBiome
 		decorator.generateWater = false;
 		
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 4000);
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 5), 4000);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 5), 4000);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 	}

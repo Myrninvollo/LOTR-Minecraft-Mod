@@ -174,8 +174,8 @@ public class LOTRBiome extends BiomeGenBase
 		river = new LOTRBiomeGenRiver(0).setMinMaxHeight(-0.5F, 0F).setColor(0x0087FF).setBiomeName("river");
 		rohan = new LOTRBiomeGenRohan(1, false).setTemperatureRainfall(1F, 0.2F).setMinMaxHeight(0.2F, 0.3F).setColor(0x9DA152).setBiomeName("rohan");
 		mistyMountains = new LOTRBiomeGenMistyMountains(2).setTemperatureRainfall(0.2F, 0.5F).setMinMaxHeight(2F, 2F).setColor(0xB8BCC1).setBiomeName("mistyMountains");
-		shire = new LOTRBiomeGenShire(3).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.1F, 0.3F).setColor(0x36A01E).setBiomeName("shire");
-		shireWoodlands = new LOTRBiomeGenShireWoodlands(4).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.2F, 0.5F).setColor(0x2B631F).setBiomeName("shireWoodlands");
+		shire = new LOTRBiomeGenShire(3).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.2F, 0.3F).setColor(0x36A01E).setBiomeName("shire");
+		shireWoodlands = new LOTRBiomeGenShireWoodlands(4).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.3F, 0.5F).setColor(0x2B631F).setBiomeName("shireWoodlands");
 		mordor = new LOTRBiomeGenMordor(5).setTemperatureRainfall(2F, 0F).setMinMaxHeight(0.3F, 0.6F).setColor(0x000000).setBiomeName("mordor");
 		mordorMountains = new LOTRBiomeGenMordorMountains(6).setTemperatureRainfall(2F, 0F).setMinMaxHeight(2F, 3F).setColor(0x444444).setBiomeName("mordorMountains");
 		gondor = new LOTRBiomeGenGondor(7).setTemperatureRainfall(0.8F, 0.8F).setMinMaxHeight(0.1F, 0.12F).setColor(0xC5CC53).setBiomeName("gondor");

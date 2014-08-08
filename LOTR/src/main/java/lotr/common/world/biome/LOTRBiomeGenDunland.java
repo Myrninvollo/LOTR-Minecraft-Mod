@@ -56,7 +56,7 @@ public class LOTRBiomeGenDunland extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenDunlendingTavern(false), 80);
 		decorator.addRandomStructure(new LOTRWorldGenDunlendingCampfire(false), 100);
 		decorator.addRandomStructure(new LOTRWorldGenDunlandHillFort(false), 600);
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 3), 1500);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 3), 500);
 		
 		setBanditChance(LOTRBanditSpawner.COMMON);
 		

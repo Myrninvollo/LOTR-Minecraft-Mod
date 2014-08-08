@@ -48,7 +48,7 @@ public class LOTRBiomeGenEnedwaith extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1000);
 		decorator.addRandomStructure(new LOTRWorldGenGondorObelisk(false), 2000);
 		decorator.addRandomStructure(new LOTRWorldGenGondorRuin(false), 2000);
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 4), 1000);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 5), 500);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);

@@ -19,10 +19,7 @@ import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.LOTRWorldGenClover;
 import lotr.common.world.feature.LOTRWorldGenHugeTrees;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
-import lotr.common.world.structure.LOTRWorldGenHobbitHole;
-import lotr.common.world.structure.LOTRWorldGenHobbitPicnicBench;
-import lotr.common.world.structure.LOTRWorldGenHobbitTavern;
-import lotr.common.world.structure.LOTRWorldGenHobbitWindmill;
+import lotr.common.world.structure.*;
 import lotr.common.world.structure2.LOTRWorldGenHobbitFarm;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -72,6 +69,8 @@ public class LOTRBiomeGenShire extends LOTRBiome
 			}
 			
 			decorator.addRandomStructure(new LOTRWorldGenHobbitPicnicBench(false), 40);
+			decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 4), 1000);
+			decorator.addRandomStructure(new LOTRWorldGenStoneRuin.ARNOR(1, 4), 1000);
 		}
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);

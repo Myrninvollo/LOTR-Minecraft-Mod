@@ -39,7 +39,8 @@ public class LOTRBiomeGenBarrowDowns extends LOTRBiome
 		
 		decorator.addRandomStructure(new LOTRWorldGenBDBarrow(false), 5);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 500);
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(2, 7), 15);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(2, 7), 30);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.ARNOR(2, 7), 30);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 	}

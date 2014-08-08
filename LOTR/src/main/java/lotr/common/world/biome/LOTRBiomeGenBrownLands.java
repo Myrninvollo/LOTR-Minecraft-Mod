@@ -37,7 +37,7 @@ public class LOTRBiomeGenBrownLands extends LOTRBiome
 		decorator.flowersPerChunk = 0;
 		decorator.grassPerChunk = 1;
 		
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 3), 2000);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 3), 2000);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 		

@@ -2427,6 +2427,50 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(brick2, 4, 3), new Object[]
+		{
+			"XX", "XX", 'X', Blocks.stone
+		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(slabSingle4, 6, 1), new Object[]
+		{
+			"XXX", 'X', new ItemStack(brick2, 1, 3)
+		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(stairsArnorBrick, 4), new Object[]
+		{
+			"X  ", "XX ", "XXX", 'X', new ItemStack(brick2, 1, 3)
+		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(wall2, 6, 4), new Object[]
+		{
+			"XXX", "XXX", 'X', new ItemStack(brick2, 1, 3)
+		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(brick2, 1, 6), new Object[]
+		{
+			"XX", "XX", 'X', new ItemStack(brick2, 1, 3)
+		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(slabSingle4, 6, 2), new Object[]
+		{
+			"XXX", 'X', new ItemStack(brick2, 1, 4)
+		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(stairsArnorBrickMossy, 4), new Object[]
+		{
+			"X  ", "XX ", "XXX", 'X', new ItemStack(brick2, 1, 4)
+		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(wall2, 6, 5), new Object[]
+		{
+			"XXX", "XXX", 'X', new ItemStack(brick2, 1, 4)
+		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(slabSingle4, 6, 3), new Object[]
+		{
+			"XXX", 'X', new ItemStack(brick2, 1, 5)
+		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(stairsArnorBrickCracked, 4), new Object[]
+		{
+			"X  ", "XX ", "XXX", 'X', new ItemStack(brick2, 1, 5)
+		}));
+		rangerRecipes.add(new ShapedOreRecipe(new ItemStack(wall2, 6, 6), new Object[]
+		{
+			"XXX", "XXX", 'X', new ItemStack(brick2, 1, 5)
+		}));
 	}
 
     public static ItemStack findMatchingRecipe(List recipeList, InventoryCrafting inv, World world)

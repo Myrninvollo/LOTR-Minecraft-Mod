@@ -49,7 +49,8 @@ public class LOTRBiomeGenValesOfAnduin extends LOTRBiome
 		
 		decorator.addRandomStructure(new LOTRWorldGenGundabadCamp(), 1500);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1500);
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 3), 1000);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 3), 400);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.ELVEN(1, 4), 1500);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);

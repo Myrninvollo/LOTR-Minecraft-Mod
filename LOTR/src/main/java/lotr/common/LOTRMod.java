@@ -258,6 +258,9 @@ public class LOTRMod
 	public static Block fangornRiverweed;
 	public static Block morgulTorch;
 	public static Block rangerTable;
+	public static Block stairsArnorBrick;
+	public static Block stairsArnorBrickMossy;
+	public static Block stairsArnorBrickCracked;
 
 	public static Item goldRing;
 	public static Item pouch;
@@ -781,6 +784,9 @@ public class LOTRMod
 		fangornRiverweed = new LOTRBlockFangornRiverweed().setStepSound(Block.soundTypeGrass).setBlockName("lotr:fangornRiverweed");
 		morgulTorch = new LOTRBlockMorgulTorch().setHardness(0F).setStepSound(Block.soundTypeWood).setLightLevel(0.875F).setBlockName("lotr:morgulTorch");
 		rangerTable = new LOTRBlockRangerTable().setHardness(2.5F).setStepSound(Block.soundTypeWood).setBlockName("lotr:rangerCraftingTable");
+		stairsArnorBrick = new LOTRBlockStairs(brick2, 3).setBlockName("lotr:stairsArnorBrick");
+		stairsArnorBrickMossy = new LOTRBlockStairs(brick2, 4).setBlockName("lotr:stairsArnorBrickMossy");
+		stairsArnorBrickCracked = new LOTRBlockStairs(brick2, 5).setBlockName("lotr:stairsArnorBrickCracked");
 		
 		goldRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMagic).setUnlocalizedName("lotr:goldRing");
 		pouch = new LOTRItemPouch().setUnlocalizedName("lotr:pouch");
@@ -1329,6 +1335,9 @@ public class LOTRMod
 		registerBlock(fangornRiverweed, LOTRItemRiverweed.class);
 		registerBlock(morgulTorch);
 		registerBlock(rangerTable);
+		registerBlock(stairsArnorBrick);
+		registerBlock(stairsArnorBrickMossy);
+		registerBlock(stairsArnorBrickCracked);
 		
 		registerItem(goldRing);
 		registerItem(pouch);

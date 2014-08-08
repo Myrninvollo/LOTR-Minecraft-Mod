@@ -48,7 +48,8 @@ public class LOTRBiomeGenEriador extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 500);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1500);
 		decorator.addRandomStructure(new LOTRWorldGenRangerCamp(), 1500);
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 3), 1000);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 3), 800);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.ARNOR(1, 3), 800);
 		decorator.addRandomStructure(new LOTRWorldGenRangerWatchtower(false), 1500);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);

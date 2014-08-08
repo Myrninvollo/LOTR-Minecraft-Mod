@@ -17,7 +17,7 @@ public class LOTRBlockBrick2 extends Block
 {
 	@SideOnly(Side.CLIENT)
 	private IIcon[] brickIcons;
-	private String[] brickNames = {"angmar", "angmarCracked", "redRock"};
+	private String[] brickNames = {"angmar", "angmarCracked", "redRock", "arnor", "arnorMossy", "arnorCracked", "arnorCarved"};
 	
 	public LOTRBlockBrick2()
 	{
@@ -58,7 +58,7 @@ public class LOTRBlockBrick2 extends Block
 	@SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List list)
     {
-		for (int j = 0; j <= 2; j++)
+		for (int j = 0; j <= brickNames.length; j++)
 		{
 			list.add(new ItemStack(item, 1, j));
 		}

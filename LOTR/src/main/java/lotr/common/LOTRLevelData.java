@@ -101,7 +101,7 @@ public class LOTRLevelData
 				outputStream.close();
 			}
 			
-			System.out.println("Save");
+			System.out.println("Saving LOTR data");
 			
 			FileOutputStream outputStream = new FileOutputStream(file);
 			NBTTagCompound levelData = new NBTTagCompound();
@@ -224,7 +224,7 @@ public class LOTRLevelData
 	{
 		try
 		{
-			System.out.println("Load");
+			System.out.println("Loading LOTR data");
 			
 			File file = new File(DimensionManager.getCurrentSaveRootDirectory(), "LOTR.dat");
 			if (!file.exists())

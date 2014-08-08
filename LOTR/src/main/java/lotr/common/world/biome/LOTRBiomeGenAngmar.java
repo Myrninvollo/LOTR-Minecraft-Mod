@@ -20,9 +20,7 @@ import lotr.common.world.feature.LOTRWorldGenBlastedLand;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenCharredTrees;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
-import lotr.common.world.structure.LOTRWorldGenAngmarRuin;
-import lotr.common.world.structure.LOTRWorldGenAngmarShrine;
-import lotr.common.world.structure.LOTRWorldGenAngmarTower;
+import lotr.common.world.structure.*;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.Vec3;
@@ -66,7 +64,7 @@ public class LOTRBiomeGenAngmar extends LOTRBiome
 		decorator.generateTrollHoard = true;
 		
 		decorator.addRandomStructure(new LOTRWorldGenAngmarTower(false), 400);
-		decorator.addRandomStructure(new LOTRWorldGenAngmarRuin(), 30);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.ANGMAR(1, 4), 40);
 		decorator.addRandomStructure(new LOTRWorldGenBlastedLand(), 40);
 		decorator.addRandomStructure(new LOTRWorldGenAngmarShrine(false), 200);
 		

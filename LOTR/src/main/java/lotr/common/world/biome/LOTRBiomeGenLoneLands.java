@@ -60,7 +60,8 @@ public class LOTRBiomeGenLoneLands extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 800);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1000);
 		decorator.addRandomStructure(new LOTRWorldGenRangerCamp(), 2000);
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 4), 500);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 4), 200);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.ARNOR(1, 4), 200);
 		decorator.addRandomStructure(new LOTRWorldGenRangerWatchtower(false), 2000);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);

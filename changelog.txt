@@ -5,17 +5,21 @@ Public Beta 20
 + Added new realistic loading functionality to crossbows
 + Added a Ranger crafting table, Ranger banner, and Ranger alignment cape
 + Added Ranger banner bearers
++ Added Arnor Brick blocks, slabs, stairs, and walls, including mossy, cracked, and carved variants
 + Added Woodland Elks
 + Added hireable Wood-elven Elk Cavalry
 + Added the option to set hired NPCs' guard range to 0 in order to keep them stationed
++ Added feet to the hobbit model
 
 * Fast travel is now unavailable if nearby NPCs are attacking you
 * Middle-earth respawning now comes into effect even if you have a bed, given that you are at least 5000 blocks away from it
 * Changed the starting number of custom waypoints to 5
 * Fixed the Serbian translation not working
 * Fixed Dunlending Trident fishing depleting the hunger bar very quickly
-* Changed the roofs of some structures to thatch
 * Thrown spears now carry the NBT-data of the spear item
+* Changed the roofs of some structures to thatch
+* Changed the bricks in the Dúnedain structures to Arnor Brick
+* Increased the spawning chance of stone ruins
 
 Public Beta 19.2
 

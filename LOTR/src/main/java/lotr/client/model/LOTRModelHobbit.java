@@ -17,7 +17,7 @@ public class LOTRModelHobbit extends LOTRModelBiped
 	
 	public LOTRModelHobbit(float f)
 	{
-		super();
+		super(f, 0F, 64, 64);
 		
 		bipedHead = new ModelRenderer(this, 0, 0);
 		bipedHead.addBox(-4F, -8F, -4F, 8, 8, 8, f);
@@ -40,10 +40,20 @@ public class LOTRModelHobbit extends LOTRModelBiped
 		bipedRightLeg.addBox(-2F, 0F, -2F, 4, 10, 4, f);
 		bipedRightLeg.setRotationPoint(-2F, 14F, 0F);
 		
+		ModelRenderer rightFoot = new ModelRenderer(this, 0, 32);
+		rightFoot.addBox(-2F, 8F, -5F, 4, 2, 3, f);
+		rightFoot.rotateAngleY = (float)Math.toRadians(10D);
+		bipedRightLeg.addChild(rightFoot);
+		
 		bipedLeftLeg = new ModelRenderer(this, 0, 18);
 		bipedLeftLeg.mirror = true;
 		bipedLeftLeg.addBox(-2F, 0F, -2F, 4, 10, 4, f);
 		bipedLeftLeg.setRotationPoint(2F, 14F, 0F);
+		
+		ModelRenderer leftFoot = new ModelRenderer(this, 0, 32);
+		leftFoot.addBox(-2F, 8F, -5F, 4, 2, 3, f);
+		leftFoot.rotateAngleY = (float)Math.toRadians(-10D);
+		bipedLeftLeg.addChild(leftFoot);
 		
 		bipedHeadwear = new ModelRenderer(this, 32, 0);
 		bipedHeadwear.addBox(-4F, -8F, -4F, 8, 10, 8, 0.5F + f);
@@ -116,5 +126,8 @@ public class LOTRModelHobbit extends LOTRModelBiped
 		bipedChest.rotateAngleX = bipedBody.rotateAngleX;
 		bipedChest.rotateAngleY = bipedBody.rotateAngleY;
 		bipedChest.rotateAngleZ = bipedBody.rotateAngleZ;
+		
+		bipedRightLeg.rotateAngleY += (float)Math.toRadians(5D);
+		bipedLeftLeg.rotateAngleY += (float)Math.toRadians(-5D);
 	}
 }

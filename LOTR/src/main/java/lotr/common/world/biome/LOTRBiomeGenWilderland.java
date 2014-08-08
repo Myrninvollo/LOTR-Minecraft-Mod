@@ -39,7 +39,7 @@ public class LOTRBiomeGenWilderland extends LOTRBiome
 		
 		decorator.addRandomStructure(new LOTRWorldGenGundabadCamp(), 2000);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1500);
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin(1, 4), 1500);
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 4), 1000);
 		
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
 		

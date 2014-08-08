@@ -2,11 +2,11 @@ package lotr.client;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import lotr.common.LOTRCommonProxy;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRMod;
-import lotr.common.entity.animal.LOTREntityCamel;
+import lotr.client.gui.LOTRGuiPouch;
+import lotr.common.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 

@@ -23,9 +23,9 @@ public enum LOTRFaction
 	DWARF(0x3E506B),
 	GALADHRIM(0xE5D180),
 	DUNLAND(0xA8948F),
+	URUK_HAI(0x738970),
 	FANGORN(0x49B752),
 	ROHAN(0xCC986C),
-	URUK_HAI(0x738970),
 	GONDOR(0x00D8FF),
 	MORDOR(0xE2291F),
 	NEAR_HARAD(0xEAAB5D),
@@ -302,6 +302,29 @@ public enum LOTRFaction
 		DUNLAND.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDunlendingArcher.class, 5));
 		DUNLAND.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDunlendingBannerBearer.class, 2));
 		
+		URUK_HAI.addEnemy(HOBBIT);
+		URUK_HAI.addEnemy(RANGER_NORTH);
+		URUK_HAI.addEnemy(BLUE_MOUNTAINS);
+		URUK_HAI.addEnemy(HIGH_ELF);
+		URUK_HAI.addEnemy(WOOD_ELF);
+		URUK_HAI.addEnemy(DWARF);
+		URUK_HAI.addEnemy(GALADHRIM);
+		URUK_HAI.addEnemy(FANGORN);
+		URUK_HAI.addEnemy(ROHAN);
+		URUK_HAI.addEnemy(GONDOR);
+		
+		URUK_HAI.addKillNegative(URUK_HAI);
+		
+		URUK_HAI.addKillPositive(ROHAN);
+		URUK_HAI.addKillPositive(FANGORN);
+		
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHai.class, 10));
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiCrossbower.class, 5));
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiBerserker.class, 3));
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiBannerBearer.class, 2));
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukWarg.class, 10));
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukWargBombardier.class, 1));
+		
 		FANGORN.addEnemy(GUNDABAD);
 		FANGORN.addEnemy(ANGMAR);
 		FANGORN.addEnemy(DOL_GULDUR);
@@ -337,29 +360,6 @@ public enum LOTRFaction
 		ROHAN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRohirrim.class, 10));
 		ROHAN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRohirrimArcher.class, 5));
 		ROHAN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRohanBannerBearer.class, 2));
-		
-		URUK_HAI.addEnemy(HOBBIT);
-		URUK_HAI.addEnemy(RANGER_NORTH);
-		URUK_HAI.addEnemy(BLUE_MOUNTAINS);
-		URUK_HAI.addEnemy(HIGH_ELF);
-		URUK_HAI.addEnemy(WOOD_ELF);
-		URUK_HAI.addEnemy(DWARF);
-		URUK_HAI.addEnemy(GALADHRIM);
-		URUK_HAI.addEnemy(FANGORN);
-		URUK_HAI.addEnemy(ROHAN);
-		URUK_HAI.addEnemy(GONDOR);
-		
-		URUK_HAI.addKillNegative(URUK_HAI);
-		
-		URUK_HAI.addKillPositive(ROHAN);
-		URUK_HAI.addKillPositive(FANGORN);
-		
-		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHai.class, 10));
-		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiCrossbower.class, 5));
-		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiBerserker.class, 3));
-		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiBannerBearer.class, 2));
-		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukWarg.class, 10));
-		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukWargBombardier.class, 1));
 		
 		GONDOR.addEnemy(GUNDABAD);
 		GONDOR.addEnemy(ANGMAR);

@@ -618,7 +618,7 @@ public class LOTRTickHandlerClient
 		{
 			return;
 		}
-		if (mc.gameSettings.keyBindPlayerList.isPressed())
+		if (mc.gameSettings.keyBindPlayerList.getIsKeyPressed())
 		{
 			return;
 		}

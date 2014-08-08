@@ -775,7 +775,7 @@ lotr.gui.options=Options
 lotr.gui.map.title=Middle-earth Map
 lotr.gui.map.waypointUnavailableEnemy=This waypoint is not available for enemy players
 lotr.gui.map.waypointUnavailableTravel=Unlock this waypoint by visiting its region
-lotr.gui.map.fastTravel=Press '%s' to fast-travel to the selected waypoint
+lotr.gui.map.fastTravel=Press '%s' to fast travel to the selected waypoint
 lotr.gui.map.fastTravelTimeRemaining=Fast travel will be available in: %s
 lotr.gui.map.tp=Press '%s' to /tp
 
@@ -911,7 +911,7 @@ lotr.gui.dismiss.cancel=Cancel
 lotr.gui.dismiss.warning1=Are you sure you want to dismiss this unit?
 lotr.gui.dismiss.warning2=You will not be able to get it back.
 
-lotr.gui.fastTravel.travel=Fast-traveling to %s
+lotr.gui.fastTravel.travel=Fast traveling to %s
 
 lotr.gui.message.dismiss=Dismiss
 lotr.gui.message.friendlyFire=It looks like you're trying to attack an allied NPC! With the Friendly Fire setting disabled, you are unable to attack allied NPCs, which stops you from accidentally harming your allies. To enable Friendly Fire, open the Middle-earth menu and navigate to Options.
@@ -1362,6 +1362,7 @@ chat.lotr.protectedLand=This land is under the protection of %s!
 chat.lotr.protectedLandBanner=You may not place a protection banner this close to land under the protection of another banner
 chat.lotr.banditSteal=A bandit stole some items from your inventory!
 chat.lotr.invasion.start=%s have launched an invasion nearby!
+chat.lotr.fastTravel.underAttack=You cannot use fast travel while under attack
 
 commands.lotr.alignment.usage=/alignment <set|add> <faction> <amount> [player]
 commands.lotr.alignment.noFaction=No faction with name %s
@@ -1370,7 +1371,7 @@ commands.lotr.alignment.tooHigh=Cannot set alignment higher than %d
 commands.lotr.alignment.set=Set %s's %s alignment to %d
 commands.lotr.alignment.add=Added %d to %s's %s alignment
 commands.lotr.fastTravelTimer.usage=/fastTravelTimer <ticks> [player]
-commands.lotr.fastTravelTimer.set=Set %s's fast-travel timer to %d ticks (%s)
+commands.lotr.fastTravelTimer.set=Set %s's fast travel timer to %d ticks (%s)
 commands.lotr.allowStructures.usage=/allowStructures [player]
 commands.lotr.allowStructures.alreadyAllowed=Structure spawning is already enabled
 commands.lotr.allowStructures.allow=Structure spawning has been enabled
@@ -1380,7 +1381,7 @@ commands.lotr.banStructures.alreadyBanned=Structure spawning is already disabled
 commands.lotr.banStructures.ban=Structure spawning has been disabled
 commands.lotr.banStructures.banPlayer=Banned %s from spawning structures
 commands.lotr.fastTravelCooldown.usage=/fastTravelCooldown <ticks>
-commands.lotr.fastTravelCooldown.set=Set the fast-travel cooldown time to %d ticks (%s)
+commands.lotr.fastTravelCooldown.set=Set the fast travel cooldown time to %d ticks (%s)
 
 death.attack.lotr.frost=%1$s succumbed to the cold
 

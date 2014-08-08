@@ -378,28 +378,27 @@ public class LOTREventHandler implements IFuelHandler
 				{
 					hasBed = entityplayermp.verifyRespawnCoordinates(worldserver, bedLocation, entityplayermp.isSpawnForced(entityplayermp.dimension)) != null;
 				}
+				
+				ChunkCoordinates spawnLocation = hasBed ? bedLocation : worldserver.getSpawnPoint();
+				float respawnThreshold = hasBed ? 5000F : 2000F;
 
-				if (!hasBed)
+				ChunkCoordinates deathPoint = LOTRLevelData.getData(entityplayermp).getDeathPoint();
+				if (deathPoint != null)
 				{
-					ChunkCoordinates deathPoint = LOTRLevelData.getData(entityplayermp).getDeathPoint();
-					if (deathPoint != null)
+					boolean flag = deathPoint.getDistanceSquaredToChunkCoordinates(spawnLocation) > respawnThreshold * respawnThreshold;
+					if (flag)
 					{
-						float respawnThreshold = 2000F * 2000F;
-						boolean flag = deathPoint.getDistanceSquaredToChunkCoordinates(worldserver.getSpawnPoint()) > respawnThreshold;
-						if (flag)
-						{
-							double randomDistance = 500D + worldserver.rand.nextDouble() * 1500D;
-							float angle = worldserver.rand.nextFloat() * (float)Math.PI * 2F;
-							
-							int i = deathPoint.posX + (int)(randomDistance * MathHelper.sin(angle));
-							int k = deathPoint.posZ + (int)(randomDistance * MathHelper.cos(angle));
-	
-							worldserver.theChunkProviderServer.loadChunk(i >> 4, k >> 4);
-							int j = worldserver.getHeightValue(i, k);
-	
-							entityplayermp.setLocationAndAngles(i + 0.5D, j, k + 0.5D, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
-							entityplayermp.playerNetServerHandler.setPlayerLocation(i + 0.5D, j, k + 0.5D, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
-						}
+						double randomDistance = 500D + worldserver.rand.nextDouble() * 1500D;
+						float angle = worldserver.rand.nextFloat() * (float)Math.PI * 2F;
+						
+						int i = deathPoint.posX + (int)(randomDistance * MathHelper.sin(angle));
+						int k = deathPoint.posZ + (int)(randomDistance * MathHelper.cos(angle));
+
+						worldserver.theChunkProviderServer.loadChunk(i >> 4, k >> 4);
+						int j = worldserver.getHeightValue(i, k);
+
+						entityplayermp.setLocationAndAngles(i + 0.5D, j, k + 0.5D, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
+						entityplayermp.playerNetServerHandler.setPlayerLocation(i + 0.5D, j, k + 0.5D, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
 					}
 				}
 			}

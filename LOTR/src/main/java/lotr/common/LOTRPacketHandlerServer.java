@@ -39,6 +39,7 @@ import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
@@ -697,75 +698,100 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 						
 						if (waypoint != null && waypoint.hasPlayerUnlocked(entityplayer))
 						{
-							List entities = world.getEntitiesWithinAABB(LOTREntityNPC.class, entityplayer.boundingBox.expand(256D, 256D, 256D));
-							List hiredUnitsToTransport = new ArrayList();
-							List hiredMountsToTransport = new ArrayList();
+							boolean canTravel = true;
 							
-							for (int l = 0; l < entities.size(); l++)
+							if (!entityplayer.capabilities.isCreativeMode)
 							{
-								LOTREntityNPC npc = (LOTREntityNPC)entities.get(l);
-								if (npc.hiredNPCInfo.isActive && npc.hiredNPCInfo.getHiringPlayer() == entityplayer && npc.hiredNPCInfo.shouldFollowPlayer())
+								double range = 16D;
+								List entities = world.getEntitiesWithinAABB(EntityLiving.class, entityplayer.boundingBox.expand(range, range, range));
+								for (int l = 0; l < entities.size(); l++)
 								{
-									if (npc.ridingEntity instanceof EntityLiving)
+									EntityLiving entityliving = (EntityLiving)entities.get(l);
+									if (entityliving.getAttackTarget() == entityplayer)
 									{
-										hiredMountsToTransport.add(npc.ridingEntity);
-									}
-									else
-									{
-										hiredUnitsToTransport.add(npc);
+										canTravel = false;
+										break;
 									}
 								}
 							}
 							
-							int i = waypoint.getXCoord();
-							int k = waypoint.getZCoord();
-							int j = world.getTopSolidOrLiquidBlock(i, k);
-							
-							Entity playerMount = entityplayer.ridingEntity;
-							if (playerMount != null)
+							if (!canTravel)
 							{
-								entityplayer.mountEntity(null);
-								playerMount.setLocationAndAngles(i + 0.5D, j, k + 0.5D, playerMount.rotationYaw, playerMount.rotationPitch);
+								entityplayer.closeScreen();
+								entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.fastTravel.underAttack"));
 							}
-							entityplayer.setPositionAndUpdate(i + 0.5D, j, k + 0.5D);
-							
-							for (int l = 0; l < hiredUnitsToTransport.size(); l++)
+							else
 							{
-								LOTREntityNPC npc = (LOTREntityNPC)hiredUnitsToTransport.get(l);
-								npc.setLocationAndAngles(i + 0.5D, j, k + 0.5D, npc.rotationYaw, npc.rotationPitch);
-								npc.fallDistance = 0F;
-								npc.getNavigator().clearPathEntity();
-								npc.setAttackTarget(null);
-							}
-							
-							for (int l = 0; l < hiredMountsToTransport.size(); l++)
-							{
-								EntityLiving mount = (EntityLiving)hiredMountsToTransport.get(l);
-								mount.setLocationAndAngles(i + 0.5D, j, k + 0.5D, mount.rotationYaw, mount.rotationPitch);
-								mount.fallDistance = 0F;
-								mount.getNavigator().clearPathEntity();
-								mount.setAttackTarget(null);
+								List entities = world.getEntitiesWithinAABB(LOTREntityNPC.class, entityplayer.boundingBox.expand(256D, 256D, 256D));
+								List hiredUnitsToTransport = new ArrayList();
+								List hiredMountsToTransport = new ArrayList();
 								
-								if (mount.riddenByEntity instanceof LOTREntityNPC)
+								for (int l = 0; l < entities.size(); l++)
 								{
-									LOTREntityNPC npc = (LOTREntityNPC)mount.riddenByEntity;
+									LOTREntityNPC npc = (LOTREntityNPC)entities.get(l);
+									if (npc.hiredNPCInfo.isActive && npc.hiredNPCInfo.getHiringPlayer() == entityplayer && npc.hiredNPCInfo.shouldFollowPlayer())
+									{
+										if (npc.ridingEntity instanceof EntityLiving)
+										{
+											hiredMountsToTransport.add(npc.ridingEntity);
+										}
+										else
+										{
+											hiredUnitsToTransport.add(npc);
+										}
+									}
+								}
+								
+								int i = waypoint.getXCoord();
+								int k = waypoint.getZCoord();
+								int j = world.getTopSolidOrLiquidBlock(i, k);
+								
+								Entity playerMount = entityplayer.ridingEntity;
+								if (playerMount != null)
+								{
+									entityplayer.mountEntity(null);
+									playerMount.setLocationAndAngles(i + 0.5D, j, k + 0.5D, playerMount.rotationYaw, playerMount.rotationPitch);
+								}
+								entityplayer.setPositionAndUpdate(i + 0.5D, j, k + 0.5D);
+								
+								for (int l = 0; l < hiredUnitsToTransport.size(); l++)
+								{
+									LOTREntityNPC npc = (LOTREntityNPC)hiredUnitsToTransport.get(l);
+									npc.setLocationAndAngles(i + 0.5D, j, k + 0.5D, npc.rotationYaw, npc.rotationPitch);
 									npc.fallDistance = 0F;
 									npc.getNavigator().clearPathEntity();
 									npc.setAttackTarget(null);
 								}
+								
+								for (int l = 0; l < hiredMountsToTransport.size(); l++)
+								{
+									EntityLiving mount = (EntityLiving)hiredMountsToTransport.get(l);
+									mount.setLocationAndAngles(i + 0.5D, j, k + 0.5D, mount.rotationYaw, mount.rotationPitch);
+									mount.fallDistance = 0F;
+									mount.getNavigator().clearPathEntity();
+									mount.setAttackTarget(null);
+									
+									if (mount.riddenByEntity instanceof LOTREntityNPC)
+									{
+										LOTREntityNPC npc = (LOTREntityNPC)mount.riddenByEntity;
+										npc.fallDistance = 0F;
+										npc.getNavigator().clearPathEntity();
+										npc.setAttackTarget(null);
+									}
+								}
+								
+								if (!entityplayer.capabilities.isCreativeMode)
+								{
+									LOTRLevelData.getData(entityplayer).setFTTimer(LOTRLevelData.fastTravelCooldown);
+								}
+								
+								ByteBuf data1 = Unpooled.buffer();
+								
+								data1.writeBoolean(isCustom);
+								data1.writeInt(waypointID);
+								
+								entityplayer.playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.ftGui", data1));
 							}
-							
-							if (!entityplayer.capabilities.isCreativeMode)
-							{
-								LOTRLevelData.getData(entityplayer).setFTTimer(LOTRLevelData.fastTravelCooldown);
-							}
-							
-							ByteBuf data1 = Unpooled.buffer();
-							
-							data1.writeBoolean(isCustom);
-							data1.writeInt(waypointID);
-							
-							entityplayer.playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.ftGui", data1));
 						}
 					}
 				}

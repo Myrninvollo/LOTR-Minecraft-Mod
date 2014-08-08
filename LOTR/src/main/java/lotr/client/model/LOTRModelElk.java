@@ -19,6 +19,14 @@ public class LOTRModelElk extends ModelBase
 	private ModelRenderer tail;
 	private ModelRenderer head;
 	private ModelRenderer nose;
+	private ModelRenderer antlersRight_1;
+	private ModelRenderer antlersRight_2;
+	private ModelRenderer antlersRight_3;
+	private ModelRenderer antlersRight_4;
+	private ModelRenderer antlersLeft_1;
+	private ModelRenderer antlersLeft_2;
+	private ModelRenderer antlersLeft_3;
+	private ModelRenderer antlersLeft_4;
 	
 	private ModelRenderer saddle;
 
@@ -66,7 +74,7 @@ public class LOTRModelElk extends ModelBase
 		head.setRotationPoint(0F, 4F, -10F);
 		head.addBox(-2F, -10F, -4F, 4, 12, 8, f);
 		head.setTextureOffset(74, 0).addBox(-3F, -15F, -8F, 6, 5, 13, f);
-		head.setTextureOffset(44, 16);
+		head.setTextureOffset(50, 20);
 		head.addBox(-2F, -17F, 3F, 2, 2, 1, f);
 		head.mirror = true;
 		head.addBox(1F, -17F, 3F, 2, 2, 1, f);
@@ -74,19 +82,19 @@ public class LOTRModelElk extends ModelBase
 		nose = new ModelRenderer(this, 56, 20);
 		nose.addBox(-1F, -14F, -9F, 2, 2, 1, f);
 		
-		ModelRenderer antlersRight_1 = new ModelRenderer(this, 0, 0);
+		antlersRight_1 = new ModelRenderer(this, 0, 0);
 		antlersRight_1.addBox(10F, -19F, 2.5F, 1, 12, 1, f);
 		antlersRight_1.rotateAngleZ = (float)Math.toRadians(-65D);
 		
-		ModelRenderer antlersRight_2 = new ModelRenderer(this, 4, 0);
+		antlersRight_2 = new ModelRenderer(this, 4, 0);
 		antlersRight_2.addBox(-3F, -23.6F, 2.5F, 1, 8, 1, f);
 		antlersRight_2.rotateAngleZ = (float)Math.toRadians(-15D);
 		
-		ModelRenderer antlersRight_3 = new ModelRenderer(this, 8, 0);
+		antlersRight_3 = new ModelRenderer(this, 8, 0);
 		antlersRight_3.addBox(-8F, -36F, 2.5F, 1, 16, 1, f);
 		antlersRight_3.rotateAngleZ = (float)Math.toRadians(-15D);
 		
-		ModelRenderer antlersRight_4 = new ModelRenderer(this, 12, 0);
+		antlersRight_4 = new ModelRenderer(this, 12, 0);
 		antlersRight_4.addBox(7.5F, -35F, 2.5F, 1, 10, 1, f);
 		antlersRight_4.rotateAngleZ = (float)Math.toRadians(-50D);
 		
@@ -95,22 +103,22 @@ public class LOTRModelElk extends ModelBase
 		head.addChild(antlersRight_3);
 		head.addChild(antlersRight_4);
 		
-		ModelRenderer antlersLeft_1 = new ModelRenderer(this, 0, 0);
+		antlersLeft_1 = new ModelRenderer(this, 0, 0);
 		antlersLeft_1.mirror = true;
 		antlersLeft_1.addBox(-11F, -19F, 2.5F, 1, 12, 1, f);
 		antlersLeft_1.rotateAngleZ = (float)Math.toRadians(65D);
 		
-		ModelRenderer antlersLeft_2 = new ModelRenderer(this, 4, 0);
+		antlersLeft_2 = new ModelRenderer(this, 4, 0);
 		antlersLeft_2.mirror = true;
 		antlersLeft_2.addBox(2F, -23.6F, 2.5F, 1, 8, 1, f);
 		antlersLeft_2.rotateAngleZ = (float)Math.toRadians(15D);
 		
-		ModelRenderer antlersLeft_3 = new ModelRenderer(this, 8, 0);
+		antlersLeft_3 = new ModelRenderer(this, 8, 0);
 		antlersLeft_3.mirror = true;
 		antlersLeft_3.addBox(7F, -36F, 2.5F, 1, 16, 1, f);
 		antlersLeft_3.rotateAngleZ = (float)Math.toRadians(15D);
 		
-		ModelRenderer antlersLeft_4 = new ModelRenderer(this, 12, 0);
+		antlersLeft_4 = new ModelRenderer(this, 12, 0);
 		antlersLeft_4.mirror = true;
 		antlersLeft_4.addBox(-8.5F, -35F, 2.5F, 1, 10, 1, f);
 		antlersLeft_4.rotateAngleZ = (float)Math.toRadians(50D);
@@ -136,8 +144,21 @@ public class LOTRModelElk extends ModelBase
 		LOTREntityElk elk = (LOTREntityElk)entity;
 		setRotationAngles(f, f1, f2, f3, f4, f5, elk);
 		
+		GL11.glPushMatrix();
+		
 		float scale = elk.getHorseSize();
 		GL11.glScalef(scale, scale, scale);
+		GL11.glTranslatef(0F, 24F * f5, 0F);
+		
+		boolean showAntlers = scale > 0.75F;
+		antlersRight_1.showModel = showAntlers;
+		antlersRight_2.showModel = showAntlers;
+		antlersRight_3.showModel = showAntlers;
+		antlersRight_4.showModel = showAntlers;
+		antlersLeft_1.showModel = showAntlers;
+		antlersLeft_2.showModel = showAntlers;
+		antlersLeft_3.showModel = showAntlers;
+		antlersLeft_4.showModel = showAntlers;
 		
 		body.render(f5);
 		leg1.render(f5);
@@ -155,6 +176,8 @@ public class LOTRModelElk extends ModelBase
 		{
 			GL11.glColor3f(1F, 1F, 1F);
 		}
+		
+		GL11.glPopMatrix();
 	}
 
 	@Override

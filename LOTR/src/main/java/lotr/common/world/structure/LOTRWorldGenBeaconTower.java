@@ -4,10 +4,9 @@ import java.util.Random;
 
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
-import lotr.common.entity.npc.LOTREntityGondorArcher;
 import lotr.common.entity.npc.LOTREntityGondorSoldier;
+import lotr.common.entity.npc.LOTREntityGondorTowerGuard;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
@@ -129,11 +128,10 @@ public class LOTRWorldGenBeaconTower extends LOTRWorldGenStructureBase
 		int soldiers = 1 + random.nextInt(2);
 		for (int l = 0; l < soldiers; l++)
 		{
-			LOTREntityGondorSoldier soldier = world.rand.nextInt(3) == 0 ? new LOTREntityGondorArcher(world) : new LOTREntityGondorSoldier(world);
+			LOTREntityGondorSoldier soldier = new LOTREntityGondorTowerGuard(world);
 			soldier.setLocationAndAngles(i - 1 + l * 2, j + 1, k, 0F, 0F);
 			soldier.spawnRidingHorse = false;
 			soldier.onSpawnWithEgg(null);
-			soldier.setCurrentItemOrArmor(4, new ItemStack(LOTRMod.helmetGondorWinged));
 			soldier.isNPCPersistent = true;
 			world.spawnEntityInWorld(soldier);
 			soldier.setHomeArea(i, j, k, 16);

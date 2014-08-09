@@ -112,6 +112,8 @@ public class LOTREntityBanner extends Entity
         {
         	attackEntityFrom(DamageSource.generic, 1F);
         }
+        
+        ignoreFrustumCheck = isProtectingTerritory();
     }
 	
 	@Override

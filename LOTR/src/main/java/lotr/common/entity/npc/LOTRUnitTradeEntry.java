@@ -1,7 +1,5 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRCapes.CapeType;
-import lotr.common.LOTRFaction;
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
 import lotr.common.entity.LOTREntities;
@@ -153,6 +151,7 @@ public class LOTRUnitTradeEntry
 			new LOTRUnitTradeEntry(LOTREntityGondorArcher.class, 25, 150),
 			new LOTRUnitTradeEntry(LOTREntityGondorSoldier.class, LOTREntityHorse.class, "GondorSoldier_Horse", 25, 200),
 			new LOTRUnitTradeEntry(LOTREntityGondorArcher.class, LOTREntityHorse.class, "GondorArcher_Horse", 35, 250),
+			new LOTRUnitTradeEntry(LOTREntityGondorTowerGuard.class, 25, 300),
 			new LOTRUnitTradeEntry(LOTREntityGondorBannerBearer.class, 40, 250)
 		};
 		
@@ -214,6 +213,7 @@ public class LOTRUnitTradeEntry
 			new LOTRUnitTradeEntry(LOTREntityWoodElf.class, 15, 200),
 			new LOTRUnitTradeEntry(LOTREntityWoodElfScout.class, 25, 250),
 			new LOTRUnitTradeEntry(LOTREntityWoodElfWarrior.class, 30, 300),
+			new LOTRUnitTradeEntry(LOTREntityWoodElfWarrior.class, LOTREntityElk.class, "WoodElfWarrior_Elk", 35, 400),
 			new LOTRUnitTradeEntry(LOTREntityWoodElfBannerBearer.class, 40, 450)
 		};
 		

@@ -81,6 +81,12 @@ public class LOTRClientProxy extends LOTRCommonProxy
 	{
 		return FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT;
 	}
+	
+	@Override
+	public World getClientWorld()
+	{
+		return Minecraft.getMinecraft().theWorld;
+	}
 
 	@Override
 	public void onLoad()
@@ -167,6 +173,7 @@ public class LOTRClientProxy extends LOTRCommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntitySaruman.class, new LOTRRenderSaruman());
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityInvasionSpawner.class, new LOTRRenderInvasionSpawner());
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityElk.class, new LOTRRenderElk());
+		RenderingRegistry.registerEntityRenderingHandler(LOTREntityGondorTowerGuard.class, new LOTRRenderGondorTowerGuard());
 
 		beaconRenderID = RenderingRegistry.getNextAvailableRenderId();
 		barrelRenderID = RenderingRegistry.getNextAvailableRenderId();

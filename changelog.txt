@@ -6,10 +6,13 @@ Public Beta 20
 + Added a Ranger crafting table, Ranger banner, and Ranger alignment cape
 + Added Ranger banner bearers
 + Added Arnor Brick blocks, slabs, stairs, and walls, including mossy, cracked, and carved variants
-+ Added Woodland Elks
++ Added Woodland Elk
 + Added hireable Wood-elven Elk Cavalry
 + Added the option to set hired NPCs' guard range to 0 in order to keep them stationed
++ Added a separate 'Gondor Tower Guard' NPC that wears the winged helmet
++ Added a system of alcohol tolerance
 + Added feet to the hobbit model
++ Added a rendered box to show the protection range of banners in debug mode
 
 * Fast travel is now unavailable if nearby NPCs are attacking you
 * Middle-earth respawning now comes into effect even if you have a bed, given that you are at least 5000 blocks away from it

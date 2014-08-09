@@ -9,7 +9,13 @@ import net.minecraft.util.ResourceLocation;
 
 public class LOTRRenderElk extends RenderLiving
 {
-	private static ResourceLocation elkTexture = new ResourceLocation("lotr:mob/elk/elk.png");
+	private static ResourceLocation[] elkTextures = new ResourceLocation[]
+	{
+		new ResourceLocation("lotr:mob/elk/elk_white.png"),
+		new ResourceLocation("lotr:mob/elk/elk_pale.png"),
+		new ResourceLocation("lotr:mob/elk/elk_dark.png")
+	};
+	
 	private static ResourceLocation saddleTexture = new ResourceLocation("lotr:mob/elk/saddle.png");
 	
     public LOTRRenderElk()
@@ -20,7 +26,9 @@ public class LOTRRenderElk extends RenderLiving
 	@Override
 	public ResourceLocation getEntityTexture(Entity entity)
 	{
-		return elkTexture;
+		LOTREntityElk elk = (LOTREntityElk)entity;
+		int i = elk.getHorseVariant() % 3;
+		return elkTextures[i];
 	}
 	
 	@Override

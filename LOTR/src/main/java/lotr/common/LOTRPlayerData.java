@@ -46,6 +46,8 @@ public class LOTRPlayerData
 	private boolean structuresBanned = false;
 	private boolean askedForGandalf = false;
 	
+	private int alcoholTolerance;
+	
 	public LOTRPlayerData(UUID uuid)
 	{
 		playerUUID = uuid;
@@ -53,7 +55,16 @@ public class LOTRPlayerData
 	
 	private EntityPlayer getPlayer()
 	{
-		World[] worlds = MinecraftServer.getServer().worldServers;
+		World[] worlds = null;
+		if (LOTRMod.proxy.isClient())
+		{
+			worlds = new World[] {LOTRMod.proxy.getClientWorld()};
+		}
+		else
+		{
+			worlds = MinecraftServer.getServer().worldServers;
+		}
+		
 		for (World world : worlds)
 		{
 			EntityPlayer entityplayer = world.func_152378_a(playerUUID);
@@ -62,6 +73,7 @@ public class LOTRPlayerData
 				return entityplayer;
 			}
 		}
+		
 		return null;
 	}
 	
@@ -122,6 +134,8 @@ public class LOTRPlayerData
 		playerData.setInteger("FTTimer", fastTravelTimer);
 		playerData.setBoolean("StructuresBanned", structuresBanned);
 		playerData.setBoolean("AskedForGandalf", askedForGandalf);
+		
+		playerData.setInteger("Alcohol", alcoholTolerance);
 	}
 	
 	public void load(NBTTagCompound playerData)
@@ -177,6 +191,8 @@ public class LOTRPlayerData
 		fastTravelTimer = playerData.getInteger("FTTimer");
 		structuresBanned = playerData.getBoolean("StructuresBanned");
 		askedForGandalf = playerData.getBoolean("AskedForGandalf");
+		
+		alcoholTolerance = playerData.getInteger("Alcohol");
 	}
 	
 	public int getAlignment(LOTRFaction faction)
@@ -838,6 +854,17 @@ public class LOTRPlayerData
 	public void setDeathPoint(int i, int j, int k)
 	{
 		deathPoint = new ChunkCoordinates(i, j, k);
+		LOTRLevelData.markDirty();
+	}
+	
+	public int getAlcoholTolerance()
+	{
+		return alcoholTolerance;
+	}
+	
+	public void setAlcoholTolerance(int i)
+	{
+		alcoholTolerance = i;
 		LOTRLevelData.markDirty();
 	}
 }

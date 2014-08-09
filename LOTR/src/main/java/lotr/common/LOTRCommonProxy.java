@@ -109,6 +109,11 @@ public class LOTRCommonProxy implements IGuiHandler
 		return false;
 	}
 	
+	public World getClientWorld()
+	{
+		return null;
+	}
+	
 	public void onPreload() {}
 	
 	public void onLoad() {}

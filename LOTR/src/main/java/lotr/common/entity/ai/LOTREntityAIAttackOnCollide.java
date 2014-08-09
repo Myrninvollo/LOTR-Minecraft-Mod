@@ -128,24 +128,26 @@ public class LOTREntityAIAttackOnCollide extends EntityAIBase
 				theOwner.getNavigator().setPath(path, moveSpeed);
 			}
         }
+        
+        attackTick = Math.max(attackTick - 1, 0);
 		
 		ItemStack heldItem = theOwner.getEquipmentInSlot(0);
-		if (heldItem != null && heldItem.getItem() instanceof LOTRItemSpear)
+		if (heldItem != null && heldItem.getItem() instanceof LOTRItemSpear && attackTick <= 0)
 		{
 			LOTRItemSpear spearItem = (LOTRItemSpear)heldItem.getItem();
 			double d = theOwner.getDistanceToEntity(entityTarget);
 			double range = (double)theOwner.getNavigator().getPathSearchRange();
-			if (d > 4D && d < range * 0.75D)
+			if (d > 5D && d < range * 0.75D)
 			{
 				LOTREntitySpear spear = new LOTREntitySpear(worldObj, theOwner, entityTarget, heldItem.getItem(), 0, 0.75F + ((float)d * 0.025F), 0.5F);
 				worldObj.playSoundAtEntity(theOwner, "random.bow", 1F, 1F / (worldObj.rand.nextFloat() * 0.4F + 1.2F) + 0.25F);
 				theOwner.setCurrentItemOrArmor(0, new ItemStack(spearItem.swordReplacement));
 				worldObj.spawnEntityInWorld(spear);
+				attackTick = 30 + theOwner.getRNG().nextInt(20);
 				return;
 			}
 		}
 
-		attackTick = Math.max(attackTick - 1, 0);
 		float f = rangeFactor;
 		if (theOwner.ridingEntity != null)
 		{

@@ -202,14 +202,27 @@ public class LOTRItemMugBrewable extends Item
 		{
 			entityplayer.getFoodStats().addStats((int)(foodHealAmount * strength), foodSaturationAmount * strength);
 		}
+
+		float alcoholPower = alcoholicity * strength;
+		int tolerance = LOTRLevelData.getData(entityplayer).getAlcoholTolerance();
 		
-		if (!world.isRemote && itemRand.nextFloat() < alcoholicity * strength)
+		if (tolerance > 0)
 		{
-			int duration = (int)(60F * (1F + itemRand.nextFloat() * 0.5F) * alcoholicity * strength);
+			float f = (float)Math.pow(0.99D, tolerance);
+			alcoholPower *= f;
+		}
+		
+		if (!world.isRemote && itemRand.nextFloat() < alcoholPower)
+		{
+			int duration = (int)(60F * (1F + itemRand.nextFloat() * 0.5F) * alcoholPower);
 			if (duration >= 1)
 			{
-				duration *= 20;
-				entityplayer.addPotionEffect(new PotionEffect(Potion.confusion.id, duration));
+				int durationTicks = duration * 20;
+				entityplayer.addPotionEffect(new PotionEffect(Potion.confusion.id, durationTicks));
+				
+				int toleranceAdd = Math.round((float)duration / 20F);
+				tolerance += toleranceAdd;
+				LOTRLevelData.getData(entityplayer).setAlcoholTolerance(tolerance);
 			}
 		}
 		

@@ -1091,6 +1091,7 @@ entity.lotr.BlueDwarfMerchant.name=Blue Mountains Merchant
 entity.lotr.Bandit.name=Bandit
 entity.lotr.RangerNorthBannerBearer.name=Ranger Banner Bearer
 entity.lotr.Elk.name=Woodland Elk
+entity.lotr.GondorTowerGuard.name=Gondor Tower Guard
 
 entity.lotr.Sauron.name=Sauron
 entity.lotr.Gollum.name=Gollum
@@ -1118,6 +1119,8 @@ lotr.unit.Rohirrim_Horse=Rohirrim Cavalry
 lotr.unit.RohirrimArcher_Horse=Rohirrim Archer Cavalry
 
 lotr.unit.HobbitShirriff_Pony=Mounted Hobbit Shirriff
+
+lotr.unit.WoodElfWarrior_Elk=Wood-elven Elk Cavalry
 
 lotr.unit.AngmarOrc_Warg=Warg Rider
 lotr.unit.AngmarOrcArcher_Warg=Warg Archer Rider

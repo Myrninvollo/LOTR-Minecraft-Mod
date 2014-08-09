@@ -41,8 +41,8 @@ public class LOTRModelElk extends ModelBase
 		textureHeight = 64;
 		
 		body = new ModelRenderer(this, 0, 0);
-		body.setRotationPoint(0F, 4F, -5F);
-		body.addBox(-6F, -4F, -7F, 12, 11, 26, f);
+		body.setRotationPoint(0F, 4F, 9F);
+		body.addBox(-6F, -4F, -21F, 12, 11, 26, f);
 		
 		leg1 = new ModelRenderer(this, 42, 37);
 		leg1.setRotationPoint(-5F, 3F, 8F);
@@ -73,14 +73,14 @@ public class LOTRModelElk extends ModelBase
 		head = new ModelRenderer(this, 50, 0);
 		head.setRotationPoint(0F, 4F, -10F);
 		head.addBox(-2F, -10F, -4F, 4, 12, 8, f);
-		head.setTextureOffset(74, 0).addBox(-3F, -15F, -8F, 6, 5, 13, f);
+		head.setTextureOffset(74, 0).addBox(-3F, -16F, -8F, 6, 6, 13, f);
 		head.setTextureOffset(50, 20);
-		head.addBox(-2F, -17F, 3F, 2, 2, 1, f);
+		head.addBox(-2F, -18F, 3F, 1, 2, 1, f);
 		head.mirror = true;
-		head.addBox(1F, -17F, 3F, 2, 2, 1, f);
+		head.addBox(1F, -18F, 3F, 1, 2, 1, f);
 		
 		nose = new ModelRenderer(this, 56, 20);
-		nose.addBox(-1F, -14F, -9F, 2, 2, 1, f);
+		nose.addBox(-1F, -14.5F, -9F, 2, 2, 1, f);
 		
 		antlersRight_1 = new ModelRenderer(this, 0, 0);
 		antlersRight_1.addBox(10F, -19F, 2.5F, 1, 12, 1, f);
@@ -129,13 +129,13 @@ public class LOTRModelElk extends ModelBase
 		head.addChild(antlersLeft_4);
 		
 		saddle = new ModelRenderer(this, 76, 28);
-		saddle.setRotationPoint(0F, 3F, 3F);
-		saddle.addBox(-6F, -4F, -7F, 12, 1, 8, f);
-		saddle.setTextureOffset(76, 37).addBox(-6.5F, -3.5F, -3F, 1, 6, 1, f);
-		saddle.setTextureOffset(80, 37).addBox(-6.5F, 2.5F, -3.5F, 1, 2, 2, f);
+		saddle.setRotationPoint(0F, 4F, 9F);
+		saddle.addBox(-6F, -5F, -13F, 12, 1, 8, f);
+		saddle.setTextureOffset(76, 37).addBox(-6.5F, -4.5F, -9F, 1, 6, 1, f);
+		saddle.setTextureOffset(80, 37).addBox(-6.5F, 1.5F, -9.5F, 1, 2, 2, f);
 		saddle.mirror = true;
-		saddle.setTextureOffset(76, 37).addBox(5.5F, -3.5F, -3F, 1, 6, 1, f);
-		saddle.setTextureOffset(80, 37).addBox(5.5F, 2.5F, -3.5F, 1, 2, 2, f);
+		saddle.setTextureOffset(76, 37).addBox(5.5F, -4.5F, -9F, 1, 6, 1, f);
+		saddle.setTextureOffset(80, 37).addBox(5.5F, 1.5F, -9.5F, 1, 2, 2, f);
 	}
 
 	@Override
@@ -147,8 +147,8 @@ public class LOTRModelElk extends ModelBase
 		GL11.glPushMatrix();
 		
 		float scale = elk.getHorseSize();
+		GL11.glTranslatef(0F, 24F * (1F - scale) * f5, 0F);
 		GL11.glScalef(scale, scale, scale);
-		GL11.glTranslatef(0F, 24F * f5, 0F);
 		
 		boolean showAntlers = scale > 0.75F;
 		antlersRight_1.showModel = showAntlers;
@@ -184,27 +184,60 @@ public class LOTRModelElk extends ModelBase
 	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
 	{
 		LOTREntityElk elk = (LOTREntityElk)entity;
+		float renderTick = f2 - entity.ticksExisted;
 		
+		float rearAmount = elk.getRearingAmount(renderTick);
+        float antiRearAmount = 1F - rearAmount;
+		
+        head.rotationPointY = 4F;
+        head.rotationPointZ = -10F;
 		head.rotateAngleX = (float)Math.toRadians(20D);
 		head.rotateAngleY = 0F;
 		
+		body.rotateAngleX = 0F;
+		
+		tail.rotationPointY = 3F;
+		tail.rotateAngleX = (float)Math.toRadians(-60D);
+		
+		head.rotationPointY = rearAmount * -6F + antiRearAmount * head.rotationPointY;
+        head.rotationPointZ = rearAmount * -1F + antiRearAmount * head.rotationPointZ;
+        
 		head.rotateAngleX += f4 / 180F / (float)Math.PI;
 		head.rotateAngleY += f3 / 180F / (float)Math.PI;
+		head.rotateAngleX = antiRearAmount * head.rotateAngleX;
+        head.rotateAngleY = antiRearAmount * head.rotateAngleY;
 		
 		nose.setRotationPoint(head.rotationPointX, head.rotationPointY, head.rotationPointZ);
 		nose.rotateAngleX = head.rotateAngleX;
 		nose.rotateAngleY = head.rotateAngleY;
-		
-		tail.rotateAngleX = (float)Math.toRadians(-60D);
-		
-		leg1.rotateAngleX = MathHelper.cos(f * 0.4F) * f1;
-		leg2.rotateAngleX = MathHelper.cos(f * 0.4F + (float)Math.PI) * f1;
-		leg3.rotateAngleX = MathHelper.cos(f * 0.4F + (float)Math.PI) * f1;
-		leg4.rotateAngleX = MathHelper.cos(f * 0.4F) * f1;
+		nose.rotateAngleZ = head.rotateAngleZ;
+
+        body.rotateAngleX = rearAmount * -((float)Math.PI / 4F) + antiRearAmount * body.rotateAngleX;
+        tail.rotationPointY = rearAmount * 9F + antiRearAmount * tail.rotationPointY;
+        
+        float legRotation = MathHelper.cos(f * 0.4F + (float)Math.PI) * f1;
+
+        float f17 = -1.0471976F;
+        float f18 = 0.2617994F * rearAmount;
+        float f19 = MathHelper.cos(f2 * 0.4F + (float)Math.PI);
+        
+        leg4.rotationPointY = -2F * rearAmount + 4F * antiRearAmount;
+        leg4.rotationPointZ = -2F * rearAmount + -6F * antiRearAmount;
+        leg3.rotationPointY = leg4.rotationPointY;
+        leg3.rotationPointZ = leg4.rotationPointZ;
+
+        leg1.rotateAngleX = f18 + legRotation * antiRearAmount;
+        leg2.rotateAngleX = f18 + -legRotation * antiRearAmount;
+        leg3.rotateAngleX = (f17 + -f19) * rearAmount + -legRotation * 0.8F *  antiRearAmount;
+        leg4.rotateAngleX = (f17 + f19) * rearAmount + legRotation * 0.8F * antiRearAmount;
 	}
 	
 	public void renderSaddle(float f)
 	{
+		saddle.setRotationPoint(body.rotationPointX, body.rotationPointY, body.rotationPointZ);
+		saddle.rotateAngleX = body.rotateAngleX;
+		saddle.rotateAngleY = body.rotateAngleY;
+		saddle.rotateAngleZ = body.rotateAngleZ;
 		saddle.render(f);
 	}
 }

@@ -2,52 +2,14 @@ package lotr.common;
 
 import io.netty.buffer.Unpooled;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import lotr.common.block.LOTRBlockCraftingTable;
 import lotr.common.block.LOTRBlockPortal;
 import lotr.common.entity.item.LOTREntityPortal;
-import lotr.common.entity.npc.LOTREntityBlueDwarf;
-import lotr.common.entity.npc.LOTREntityBlueDwarfAxeThrower;
-import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
-import lotr.common.entity.npc.LOTREntityBlueDwarfWarrior;
-import lotr.common.entity.npc.LOTREntityDunlending;
-import lotr.common.entity.npc.LOTREntityDunlendingArcher;
-import lotr.common.entity.npc.LOTREntityDunlendingWarrior;
-import lotr.common.entity.npc.LOTREntityDwarf;
-import lotr.common.entity.npc.LOTREntityDwarfAxeThrower;
-import lotr.common.entity.npc.LOTREntityDwarfWarrior;
-import lotr.common.entity.npc.LOTREntityElvenTrader;
-import lotr.common.entity.npc.LOTREntityGondorArcher;
-import lotr.common.entity.npc.LOTREntityGondorSoldier;
-import lotr.common.entity.npc.LOTREntityGundabadOrc;
-import lotr.common.entity.npc.LOTREntityGundabadOrcArcher;
-import lotr.common.entity.npc.LOTREntityMordorOrc;
-import lotr.common.entity.npc.LOTREntityNearHaradrim;
-import lotr.common.entity.npc.LOTREntityNearHaradrimArcher;
-import lotr.common.entity.npc.LOTREntityNearHaradrimWarrior;
-import lotr.common.entity.npc.LOTREntityNurnSlave;
-import lotr.common.entity.npc.LOTREntityRanger;
-import lotr.common.entity.npc.LOTREntityRangerNorth;
-import lotr.common.entity.npc.LOTREntityRohirrim;
-import lotr.common.entity.npc.LOTREntityRohirrimArcher;
-import lotr.common.entity.npc.LOTREntityUrukHai;
-import lotr.common.entity.npc.LOTREntityUrukHaiCrossbower;
-import lotr.common.entity.npc.LOTREntityWoodElf;
-import lotr.common.entity.npc.LOTREntityWoodElfScout;
-import lotr.common.entity.npc.LOTREntityWoodElfWarrior;
+import lotr.common.entity.npc.*;
 import lotr.common.item.LOTRItemStructureSpawner;
-import lotr.common.world.LOTRBanditSpawner;
-import lotr.common.world.LOTRDerivedWorldInfo;
-import lotr.common.world.LOTRInvasionSpawner;
-import lotr.common.world.LOTRSpawnerNPCs;
-import lotr.common.world.LOTRStructureSpawningInfo;
-import lotr.common.world.LOTRTeleporter;
-import lotr.common.world.LOTRTravellingTraderSpawner;
+import lotr.common.world.*;
 import lotr.common.world.biome.LOTRBiome;
 import lotr.common.world.biome.LOTRBiomeGenMistyMountains;
 import net.minecraft.block.Block;
@@ -58,12 +20,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
+import net.minecraft.item.*;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemDye;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
@@ -85,7 +43,7 @@ public class LOTRTickHandlerServer
 	
 	public static void createSpawningLists()
 	{
-		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.beaconTowerLocations).setCheckInfo(16, -12, 12, LOTREntityGondorSoldier.class, 4).setSpawnInfo(2, -2, 2, LOTREntityGondorSoldier.class, LOTREntityGondorArcher.class, 16).addSpawnBlock(LOTRMod.slabDouble, 2).addSpecialEquipment(4, new ItemStack(LOTRMod.helmetGondorWinged)));
+		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.beaconTowerLocations).setCheckInfo(16, -12, 12, LOTREntityGondorSoldier.class, 4).setSpawnInfo(2, -2, 2, LOTREntityGondorTowerGuard.class, LOTREntityGondorTowerGuard.class, 16).addSpawnBlock(LOTRMod.slabDouble, 2));
 		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.gondorFortressLocations).setCheckInfo(24, -8, 18, LOTREntityGondorSoldier.class, 12).setSpawnInfo(4, 2, 17, LOTREntityGondorSoldier.class, LOTREntityGondorArcher.class, 32).addSpawnBlock(LOTRMod.brick, 1).addSpawnBlock(LOTRMod.brick, 2).addSpawnBlock(LOTRMod.brick, 3));
 		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.dwarvenTowerLocations).setCheckInfo(12, -8, 42, LOTREntityDwarf.class, 16).setSpawnInfo(4, 1, 41, LOTREntityDwarfWarrior.class, LOTREntityDwarfAxeThrower.class, 12).setHomePosFromSpawn().addSpawnBlock(Blocks.planks, 1));
 		structureSpawning.add(new LOTRStructureSpawningInfo(LOTRLevelData.urukCampLocations).setCheckInfo(24, -12, 12, LOTREntityUrukHai.class, 12).setSpawnInfo(8, -4, 4, LOTREntityUrukHai.class, LOTREntityUrukHaiCrossbower.class, 16).addSpawnBlock(Blocks.grass));
@@ -290,6 +248,16 @@ public class LOTRTickHandlerServer
 			{
 				fastTravelTimer--;
 				LOTRLevelData.getData(entityplayer).setFTTimer(fastTravelTimer);
+			}
+			
+			if (world.getWorldTime() % (long)(10 * 60 * 20) == 0L)
+			{
+				int tolerance = LOTRLevelData.getData(entityplayer).getAlcoholTolerance();
+				if (tolerance > 0)
+				{
+					tolerance--;
+					LOTRLevelData.getData(entityplayer).setAlcoholTolerance(tolerance);
+				}
 			}
 			
 			if (entityplayer.dimension == LOTRMod.idDimension)

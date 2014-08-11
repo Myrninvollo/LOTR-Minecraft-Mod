@@ -2012,8 +2012,6 @@ public class LOTRMod
 		LOTRAchievement.createAchievements();
 		LOTRTickHandlerServer.createSpawningLists();
 		LOTRStructures.registerStructures();
-		
-		LOTRReflection.testAll();
 	}
 	
 	@Mod.EventHandler
@@ -2026,6 +2024,8 @@ public class LOTRMod
 	public void onServerStarting(FMLServerStartingEvent event)
 	{
 		World world = DimensionManager.getWorld(0);
+		
+		LOTRReflection.testAll(world);
 		
 		//world.getGameRules().addGameRule("allowPVPBetweenSameAlignment", "true");
 		world.getGameRules().addGameRule("enableOrcSkirmish", "true");

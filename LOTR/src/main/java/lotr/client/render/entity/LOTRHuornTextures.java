@@ -144,9 +144,7 @@ public class LOTRHuornTextures implements IResourceManagerReloadListener
 			g2d.drawImage(icons[5], null, width * 2, width);
 			g2d.drawImage(icons[3], null, width * 3, width);
 			g2d.dispose();
-			
-			ImageIO.write(image, "png", new java.io.File(Minecraft.getMinecraft().mcDataDir, "huorn.png"));
-			
+
 			return renderManager.renderEngine.getDynamicTextureLocation("lotr:huorn", new DynamicTexture(image));
 		}
 		catch (Exception e)

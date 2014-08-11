@@ -61,40 +61,24 @@ public class LOTREntityShirePony extends LOTREntityHorse
 	@Override
     protected String getLivingSound()
     {
-		int i = getHorseType();
-		setHorseType(0);
-        String s = super.getLivingSound();
-        setHorseType(i);
-		return s;
+		return "mob.horse.idle";
     }
 	
 	@Override
     protected String getHurtSound()
     {
-		int i = getHorseType();
-		setHorseType(0);
-        String s = super.getHurtSound();
-        setHorseType(i);
-		return s;
+		return "mob.horse.hit";
     }
 	
 	@Override
     protected String getDeathSound()
     {
-		int i = getHorseType();
-		setHorseType(0);
-        String s = super.getDeathSound();
-        setHorseType(i);
-		return s;
+		return "mob.horse.death";
     }
 	
 	@Override
     protected String getAngrySoundName()
     {
-		int i = getHorseType();
-		setHorseType(0);
-        String s = super.getAngrySoundName();
-        setHorseType(i);
-		return s;
+		return "mob.horse.angry";
     }
 }

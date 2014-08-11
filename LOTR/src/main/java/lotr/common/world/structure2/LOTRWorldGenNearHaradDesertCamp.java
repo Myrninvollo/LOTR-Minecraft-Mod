@@ -99,10 +99,10 @@ public class LOTRWorldGenNearHaradDesertCamp extends LOTRWorldGenStructureBase2
 		for (int l = 0; l < camels; l++)
 		{
 			LOTREntityCamel camel = new LOTREntityCamel(world);
-			camel.saddleCamel();
+			camel.saddleMount();
 			if (random.nextBoolean())
 			{
-				camel.setHasChest(true);
+				camel.setChested(true);
 			}
 			
 			int camelX = random.nextBoolean() ? -3 - random.nextInt(3) : 3 + random.nextInt(3);

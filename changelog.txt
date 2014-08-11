@@ -1,8 +1,10 @@
 Public Beta 20
 
++ Added many new types of horse armour, including upgraded versions of vanilla horse armour with better protection
 + Added lore for items dropped by NPCs that says who their previous owner was
 + Added filtering options for waypoints on the Middle-earth map
 + Added new realistic loading functionality to crossbows
++ Added a system of alcohol tolerance
 + Added a Ranger crafting table, Ranger banner, and Ranger alignment cape
 + Added Ranger banner bearers
 + Added Arnor Brick blocks, slabs, stairs, and walls, including mossy, cracked, and carved variants
@@ -10,10 +12,11 @@ Public Beta 20
 + Added hireable Wood-elven Elk Cavalry
 + Added the option to set hired NPCs' guard range to 0 in order to keep them stationed
 + Added a separate 'Gondor Tower Guard' NPC that wears the winged helmet
-+ Added a system of alcohol tolerance
 + Added feet to the hobbit model
 + Added a rendered box to show the protection range of banners in debug mode
 
+* Changed all mounts in the mod to be more like horses, including taming behaviour and inventories
+* LOTR horses can no longer wear vanilla horse armour
 * Fast travel is now unavailable if nearby NPCs are attacking you
 * Middle-earth respawning now comes into effect even if you have a bed, given that you are at least 5000 blocks away from it
 * Changed the starting number of custom waypoints to 5
@@ -181,7 +184,7 @@ Public Beta 18
 + Added a Pirate translation
 
 * Changed the default fast-travel cooldown time to 1 hour
-* Redrew the Harad map with the map from The Atlas of Middle-earth
+* Replaced the Harad map with a map based on The Atlas of Middle-earth
 * Renamed the Hobbit Ring to Hobbit Marriage Ring
 * Slight changes to the placement of snow in some biomes
 * Replaced some NPC capes with the appropriate alignment cape

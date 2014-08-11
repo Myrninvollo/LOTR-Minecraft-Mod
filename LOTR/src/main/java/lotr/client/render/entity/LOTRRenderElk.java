@@ -1,6 +1,8 @@
 package lotr.client.render.entity;
 
+import lotr.client.model.LOTRModelCamel;
 import lotr.client.model.LOTRModelElk;
+import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.animal.LOTREntityElk;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
@@ -21,6 +23,7 @@ public class LOTRRenderElk extends RenderLiving
     public LOTRRenderElk()
     {
         super(new LOTRModelElk(), 0.5F);
+        setRenderPassModel(new LOTRModelElk(0.5F));
     }
 	
 	@Override
@@ -32,15 +35,13 @@ public class LOTRRenderElk extends RenderLiving
 	}
 	
 	@Override
-	public void renderModel(EntityLivingBase entity, float f, float f1, float f2, float f3, float f4, float f5)
-	{
-		LOTREntityElk elk = (LOTREntityElk)entity;
-		super.renderModel(elk, f, f1, f2, f3, f4, f5);
-		
-		if (elk.isMountSaddled())
+    protected int shouldRenderPass(EntityLivingBase entity, int i, float f)
+    {
+		if (i == 0 && ((LOTREntityElk)entity).isMountSaddled())
 		{
 			bindTexture(saddleTexture);
-			((LOTRModelElk)mainModel).renderSaddle(0.0625F);
+			return 1;
 		}
-	}
+		return -1;
+    }
 }

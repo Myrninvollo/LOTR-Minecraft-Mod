@@ -18,12 +18,6 @@ public class LOTREntityElk extends LOTREntityHorse
 	}
 	
 	@Override
-    public boolean func_110259_cr()
-    {
-        return false;
-    }
-	
-	@Override
 	protected void onLOTRHorseSpawn()
 	{
 		double maxHealth = getEntityAttribute(SharedMonsterAttributes.maxHealth).getAttributeValue();

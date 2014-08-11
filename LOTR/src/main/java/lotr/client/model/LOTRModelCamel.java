@@ -117,7 +117,7 @@ public class LOTRModelCamel extends ModelBase
         	leg3.render(f5);
         	leg4.render(f5);
         	
-        	if (camel.hasChest())
+        	if (camel.isChested())
         	{
         		chest.render(f5);
         	}

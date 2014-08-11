@@ -1,9 +1,8 @@
 package lotr.common.item;
 
 import lotr.common.LOTRCreativeTabs;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.item.ItemStack;
 
 public class LOTRItemWargArmor extends Item
 {

@@ -9,9 +9,7 @@ import net.minecraft.block.BlockStem;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.ContainerChest;
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -65,10 +63,12 @@ public class LOTRReflection
         }
     }
     
-    public static void testAll()
+    public static void testAll(World world)
     {
     	// setWorldInfo will be tested automatically
     	getHorseJumpStrength();
+    	getHorseInv(new EntityHorse(world));
+    	setupHorseInv(new EntityHorse(world));
     	getStackList(new InventoryCrafting(new ContainerChest(new InventoryBasic("test", false, 1), new InventoryBasic("test", false, 1)), 1, 1));
     	getStemFruitBlock((BlockStem)Blocks.melon_stem);
     	getCropItem((BlockCrops)Blocks.potatoes);
@@ -97,6 +97,32 @@ public class LOTRReflection
 		{
 			logFailure(e);
 			return null;
+		}
+	}
+	
+	public static AnimalChest getHorseInv(EntityHorse horse)
+	{
+		try
+		{
+			return ObfuscationReflectionHelper.getPrivateValue(EntityHorse.class, horse, "horseChest", "field_110296_bG");
+		}
+		catch (Exception e)
+		{
+			logFailure(e);
+			return null;
+		}
+	}
+	
+	public static void setupHorseInv(EntityHorse horse)
+	{
+		try
+		{
+			Method method = getPrivateMethod(EntityHorse.class, horse, new Class[0], "func_110226_cD");
+			method.invoke(horse, new Object[0]);
+		}
+		catch (Exception e)
+		{
+			logFailure(e);
 		}
 	}
 	

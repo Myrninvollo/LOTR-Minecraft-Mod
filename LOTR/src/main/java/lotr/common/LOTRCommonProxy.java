@@ -1,69 +1,12 @@
 package lotr.common;
 
-import lotr.client.gui.LOTRGui;
-import lotr.client.gui.LOTRGuiAlloyForge;
-import lotr.client.gui.LOTRGuiAngmarTable;
-import lotr.client.gui.LOTRGuiArmorStand;
-import lotr.client.gui.LOTRGuiBarrel;
-import lotr.client.gui.LOTRGuiBlueDwarvenTable;
-import lotr.client.gui.LOTRGuiCamel;
-import lotr.client.gui.LOTRGuiDunlendingTable;
-import lotr.client.gui.LOTRGuiDwarvenTable;
-import lotr.client.gui.LOTRGuiElvenTable;
-import lotr.client.gui.LOTRGuiGollum;
-import lotr.client.gui.LOTRGuiGondorianTable;
-import lotr.client.gui.LOTRGuiHighElvenTable;
-import lotr.client.gui.LOTRGuiHiredFarmerInventory;
-import lotr.client.gui.LOTRGuiHiredInteract;
-import lotr.client.gui.LOTRGuiHobbitOven;
-import lotr.client.gui.LOTRGuiHornSelect;
-import lotr.client.gui.LOTRGuiMobSpawner;
-import lotr.client.gui.LOTRGuiMorgulTable;
-import lotr.client.gui.LOTRGuiNearHaradTable;
-import lotr.client.gui.LOTRGuiPouch;
-import lotr.client.gui.LOTRGuiRangerTable;
-import lotr.client.gui.LOTRGuiRohirricTable;
-import lotr.client.gui.LOTRGuiTrade;
-import lotr.client.gui.LOTRGuiTradeInteract;
-import lotr.client.gui.LOTRGuiTradeUnitTradeInteract;
-import lotr.client.gui.LOTRGuiUnitTrade;
-import lotr.client.gui.LOTRGuiUnitTradeInteract;
-import lotr.client.gui.LOTRGuiUrukTable;
-import lotr.client.gui.LOTRGuiWoodElvenTable;
+import lotr.client.gui.*;
 import lotr.common.block.LOTRBlockFlowerPot;
-import lotr.common.entity.animal.LOTREntityCamel;
-import lotr.common.entity.npc.LOTREntityGollum;
-import lotr.common.entity.npc.LOTREntityNPC;
+import lotr.common.entity.animal.LOTREntityHorse;
+import lotr.common.entity.npc.*;
 import lotr.common.entity.npc.LOTRHiredNPCInfo.Task;
-import lotr.common.entity.npc.LOTRTradeable;
-import lotr.common.entity.npc.LOTRUnitTradeable;
-import lotr.common.inventory.LOTRContainerAlloyForge;
-import lotr.common.inventory.LOTRContainerAngmarTable;
-import lotr.common.inventory.LOTRContainerArmorStand;
-import lotr.common.inventory.LOTRContainerBarrel;
-import lotr.common.inventory.LOTRContainerBlueDwarvenTable;
-import lotr.common.inventory.LOTRContainerCamel;
-import lotr.common.inventory.LOTRContainerDunlendingTable;
-import lotr.common.inventory.LOTRContainerDwarvenTable;
-import lotr.common.inventory.LOTRContainerElvenTable;
-import lotr.common.inventory.LOTRContainerGollum;
-import lotr.common.inventory.LOTRContainerGondorianTable;
-import lotr.common.inventory.LOTRContainerHighElvenTable;
-import lotr.common.inventory.LOTRContainerHiredFarmerInventory;
-import lotr.common.inventory.LOTRContainerHobbitOven;
-import lotr.common.inventory.LOTRContainerMorgulTable;
-import lotr.common.inventory.LOTRContainerNearHaradTable;
-import lotr.common.inventory.LOTRContainerPouch;
-import lotr.common.inventory.LOTRContainerRangerTable;
-import lotr.common.inventory.LOTRContainerRohirricTable;
-import lotr.common.inventory.LOTRContainerTrade;
-import lotr.common.inventory.LOTRContainerUnitTrade;
-import lotr.common.inventory.LOTRContainerUrukTable;
-import lotr.common.inventory.LOTRContainerWoodElvenTable;
-import lotr.common.tileentity.LOTRTileEntityAlloyForge;
-import lotr.common.tileentity.LOTRTileEntityArmorStand;
-import lotr.common.tileentity.LOTRTileEntityBarrel;
-import lotr.common.tileentity.LOTRTileEntityHobbitOven;
+import lotr.common.inventory.*;
+import lotr.common.tileentity.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -100,9 +43,9 @@ public class LOTRCommonProxy implements IGuiHandler
 	public static int GUI_ID_TRADE_UNIT_TRADE_INTERACT = 24;
 	public static int GUI_ID_NEAR_HARAD_TABLE = 25;
 	public static int GUI_ID_HIGH_ELVEN_TABLE = 26;
-	public static int GUI_ID_CAMEL = 27;
-	public static int GUI_ID_BLUE_DWARVEN_TABLE = 28;
-	public static int GUI_ID_RANGER_TABLE = 29;
+	public static int GUI_ID_BLUE_DWARVEN_TABLE = 27;
+	public static int GUI_ID_RANGER_TABLE = 28;
+	public static int GUI_ID_MOUNT_INV = 29;
 	
 	public boolean isClient()
 	{
@@ -242,14 +185,6 @@ public class LOTRCommonProxy implements IGuiHandler
 		{
 			return new LOTRContainerHighElvenTable(entityplayer.inventory, world, i, j, k);
 		}
-		if (ID == GUI_ID_CAMEL)
-		{
-			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTREntityCamel)
-			{
-				return new LOTRContainerCamel(entityplayer.inventory, (LOTREntityCamel)entity);
-			}
-		}
 		if (ID == GUI_ID_BLUE_DWARVEN_TABLE)
 		{
 			return new LOTRContainerBlueDwarvenTable(entityplayer.inventory, world, i, j, k);
@@ -257,6 +192,15 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_RANGER_TABLE)
 		{
 			return new LOTRContainerRangerTable(entityplayer.inventory, world, i, j, k);
+		}
+		if (ID == GUI_ID_MOUNT_INV)
+		{
+			Entity entity = world.getEntityByID(i);
+			if (entity != null && entity instanceof LOTREntityHorse)
+			{
+				LOTREntityHorse horse = (LOTREntityHorse)entity;
+				return new LOTRContainerMountInventory(entityplayer.inventory, horse);
+			}
 		}
 		return null;
 	}
@@ -434,14 +378,6 @@ public class LOTRCommonProxy implements IGuiHandler
 		{
 			return new LOTRGuiHighElvenTable(entityplayer.inventory, world, i, j, k);
 		}
-		if (ID == GUI_ID_CAMEL)
-		{
-			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTREntityCamel)
-			{
-				return new LOTRGuiCamel(entityplayer.inventory, (LOTREntityCamel)entity);
-			}
-		}
 		if (ID == GUI_ID_BLUE_DWARVEN_TABLE)
 		{
 			return new LOTRGuiBlueDwarvenTable(entityplayer.inventory, world, i, j, k);
@@ -449,6 +385,15 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_RANGER_TABLE)
 		{
 			return new LOTRGuiRangerTable(entityplayer.inventory, world, i, j, k);
+		}
+		if (ID == GUI_ID_MOUNT_INV)
+		{
+			Entity entity = world.getEntityByID(i);
+			if (entity != null && entity instanceof LOTREntityHorse)
+			{
+				LOTREntityHorse horse = (LOTREntityHorse)entity;
+				return new LOTRGuiMountInventory(entityplayer.inventory, horse);
+			}
 		}
 		return null;
 	}

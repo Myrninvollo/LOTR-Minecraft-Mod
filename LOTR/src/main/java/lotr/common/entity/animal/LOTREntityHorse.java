@@ -1,29 +1,20 @@
 package lotr.common.entity.animal;
 
-import lotr.common.LOTRMod;
-import lotr.common.LOTRReflection;
+import lotr.common.*;
 import lotr.common.entity.LOTREntities;
-import lotr.common.entity.LOTRMountFunctions;
-import lotr.common.entity.ai.LOTREntityAIHiredHorseRemainStill;
-import lotr.common.entity.ai.LOTREntityAIHorseFollowHiringPlayer;
-import lotr.common.entity.ai.LOTREntityAIHorseMoveToRiderTarget;
+import lotr.common.entity.ai.*;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.entity.npc.LOTRNPCMount;
+import lotr.common.item.LOTRItemMountArmor;
 import lotr.common.world.biome.LOTRBiomeGenRohan;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.AnimalChest;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -98,6 +89,12 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		}
 	}
 	
+	@Override
+	public boolean isBreedingItem(ItemStack itemstack)
+    {
+        return itemstack != null && itemstack.getItem() == Items.wheat;
+    }
+	
 	public boolean getBelongsToNPC()
 	{
 		return dataWatcher.getWatchableObjectByte(25) == (byte)1;
@@ -142,6 +139,34 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 	{
 		return (!isMoving || !getBelongsToNPC()) && super.isHorseSaddled();
 	}
+	
+    public void saddleMount()
+    {
+    	LOTRReflection.getHorseInv(this).setInventorySlotContents(0, new ItemStack(Items.saddle));
+    	LOTRReflection.setupHorseInv(this);
+    }
+
+    public boolean isMountArmorValid(ItemStack itemstack)
+    {
+    	if (itemstack != null && itemstack.getItem() instanceof LOTRItemMountArmor)
+        {
+        	LOTRItemMountArmor armor = (LOTRItemMountArmor)itemstack.getItem();
+        	return armor.isValid(this);
+        }
+    	return false;
+    }
+    
+    @Override
+    public int getTotalArmorValue()
+    {
+        ItemStack itemstack = LOTRReflection.getHorseInv(this).getStackInSlot(1);
+        if (itemstack != null && itemstack.getItem() instanceof LOTRItemMountArmor)
+        {
+        	LOTRItemMountArmor armor = (LOTRItemMountArmor)itemstack.getItem();
+        	return armor.getDamageReduceAmount();
+        }
+        return 0;
+    }
 	
 	@Override
 	public void onLivingUpdate()
@@ -243,6 +268,17 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		}
 		return super.interact(entityplayer);
 	}
+	
+	@Override
+	public void openGUI(EntityPlayer entityplayer)
+    {
+        if (!worldObj.isRemote && (riddenByEntity == null || riddenByEntity == entityplayer) && isTame())
+        {
+        	AnimalChest animalchest = LOTRReflection.getHorseInv(this);
+        	animalchest.func_110133_a(getCommandSenderName());
+            entityplayer.openGui(LOTRMod.instance, LOTRCommonProxy.GUI_ID_MOUNT_INV, worldObj, getEntityId(), 0, 0);
+        }
+    }
 	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbt)

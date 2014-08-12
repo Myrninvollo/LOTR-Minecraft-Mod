@@ -2347,4 +2347,9 @@ public class LOTRMod
 		}
 		return false;
 	}
+	
+	public static boolean canDropLoot(World world)
+	{
+		return world.getGameRules().getGameRuleBooleanValue("doMobLoot");
+	}
 }

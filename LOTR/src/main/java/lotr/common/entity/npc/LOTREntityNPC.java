@@ -895,18 +895,28 @@ public abstract class LOTREntityNPC extends EntityCreature
 		
 		super.onDeath(damagesource);
 		
+		if (!worldObj.isRemote && recentlyHit > 0 && canDropPouch() && LOTRMod.canDropLoot(worldObj))
+		{
+			if (rand.nextInt(50) == 0)
+			{
+				int pouchSize = LOTRItemPouch.getRandomPouchSize(rand);
+				entityDropItem(new ItemStack(LOTRMod.pouch, 1, pouchSize), 0F);
+			}
+			
+			if (rand.nextInt(10) == 0)
+			{
+				int coins = MathHelper.getRandomIntegerInRange(rand, 1, 4);
+				if (rand.nextInt(3) == 0)
+				{
+					coins *= MathHelper.getRandomIntegerInRange(rand, 2, 4);
+				}
+				dropItem(LOTRMod.silverCoin, coins);
+			}
+		}
+		
 		if (!worldObj.isRemote && damagesource.getEntity() instanceof EntityPlayer)
 		{
 			EntityPlayer entityplayer = (EntityPlayer)damagesource.getEntity();
-			
-			if (canDropPouch())
-			{
-				if (worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot") && rand.nextInt(50) == 0)
-				{
-					int pouchSize = LOTRItemPouch.getRandomPouchSize(rand);
-					entityDropItem(new ItemStack(LOTRMod.pouch, 1, pouchSize), 0F);
-				}
-			}
 			
 			if (hurtOnlyByPlates && damagesource.getSourceOfDamage() instanceof LOTREntityPlate)
 			{

@@ -3,6 +3,7 @@ Public Beta 20
 + Added many new types of horse armour, including upgraded versions of vanilla horse armour with better protection
 + Added armour on mounts that spawn naturally and hired mounts
 + Added lore for items dropped by NPCs that says who their previous owner was
++ Added a chance for NPCs to drop coins when killed
 + Added filtering options for waypoints on the Middle-earth map
 + Added new realistic loading functionality to crossbows
 + Added a system of alcohol tolerance
@@ -30,6 +31,7 @@ Public Beta 20
 * Changed the bricks in the Dúnedain structures to Arnor Brick
 * Increased the spawning chance of stone ruins
 * Fixed Rangers' capes not becoming invisible when they are in stealth mode
+* NPCs can now drop pouches when killed indirectly by a player, e.g. by hired units
 
 - Removed separate warg armour items
 - Removed crafting recipes for vanilla horse armour

@@ -14,6 +14,8 @@ item.lotr:horseArmorRohan.name=Rohirric Horse Armour
 item.lotr:wargArmorUruk.name=Uruk Warg Armour
 item.lotr:horseArmorHighElven.name=High Elven Horse Armour
 item.lotr:horseArmorGaladhrim.name=Galadhrim Horse Armour
+item.lotr:horseArmorMorgul.name=Morgul Horse Armour
+item.lotr:horseArmorMithril.name=Mithril Horse Armour
 
 container.lotr.armorStand=Armour Stand
 

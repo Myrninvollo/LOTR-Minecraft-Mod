@@ -718,6 +718,8 @@ item.lotr:horseArmorRohan.name=Rohirric Horse Armor
 item.lotr:wargArmorUruk.name=Uruk Warg Armor
 item.lotr:horseArmorHighElven.name=High Elven Horse Armor
 item.lotr:horseArmorGaladhrim.name=Galadhrim Horse Armor
+item.lotr:horseArmorMorgul.name=Morgul Horse Armor
+item.lotr:horseArmorMithril.name=Mithril Horse Armor
 
 item.lotr.orcBomb.fire=Fire
 item.lotr.orcBomb.doubleStrength=Double Strength

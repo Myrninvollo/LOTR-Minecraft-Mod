@@ -1023,6 +1023,10 @@ public class LOTRRecipes
 		{
 			"X  ", "XX ", "XXX", 'X', thatch
 		});
+		GameRegistry.addRecipe(new ItemStack(horseArmorMithril), new Object[]
+		{
+			"X  ", "XYX", "XXX", 'X', mithril, 'Y', Blocks.wool
+		});
 	}
 	
 	private static void createWoodenSlabRecipes()
@@ -1186,6 +1190,10 @@ public class LOTRRecipes
 		addRecipeTo(morgulAndAngmarRecipes, new ShapedOreRecipe(new ItemStack(morgulTorch, 4), new Object[]
 		{
 			"X", "Y", 'X', guldurilCrystal, 'Y', "stickWood"
+		}));
+		addRecipeTo(morgulAndAngmarRecipes, new ShapedOreRecipe(new ItemStack(horseArmorMorgul), new Object[]
+		{
+			"X  ", "XYX", "XXX", 'X', morgulSteel, 'Y', Blocks.wool
 		}));
 	}
 	

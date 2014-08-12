@@ -33,6 +33,9 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		tasks.addTask(0, new LOTREntityAIHorseMoveToRiderTarget(this));
 		tasks.addTask(0, new LOTREntityAIHorseFollowHiringPlayer(this));
     }
+    
+    @Override
+    public void updateAITasks() {}
 	
 	@Override
 	protected void entityInit()

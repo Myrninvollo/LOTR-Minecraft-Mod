@@ -1,18 +1,15 @@
 package lotr.common.item;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import lotr.common.LOTRCreativeTabs;
 import lotr.common.LOTRReflection;
 import lotr.common.entity.animal.LOTREntityElk;
-import lotr.common.entity.animal.LOTREntityHorse;
+import lotr.common.entity.npc.LOTREntityWarg;
+import lotr.common.entity.npc.LOTRNPCMount;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -23,7 +20,8 @@ public class LOTRItemMountArmor extends Item
 		HORSE,
 		ELK,
 		BOAR,
-		CAMEL;
+		CAMEL,
+		WARG;
 	}
 	
 	private ArmorMaterial armorMaterial;
@@ -96,11 +94,15 @@ public class LOTRItemMountArmor extends Item
 		}
 	}
 	
-	public boolean isValid(LOTREntityHorse horse)
+	public boolean isValid(LOTRNPCMount mount)
 	{
-		if (horse instanceof LOTREntityElk)
+		if (mount instanceof LOTREntityElk)
 		{
 			return mountType == Mount.ELK;
+		}
+		if (mount instanceof LOTREntityWarg)
+		{
+			return mountType == Mount.WARG;
 		}
 		return mountType == Mount.HORSE;
 	}
@@ -121,10 +123,8 @@ public class LOTRItemMountArmor extends Item
     {
         return armorMaterial.func_151685_b() == repairItem.getItem() ? true : super.getIsRepairable(itemstack, repairItem);
     }
-	
-	private static Map textures = new HashMap();
-	
-	public ResourceLocation getArmorTexture()
+
+	public String getArmorTexture()
 	{
 		String path = null;
 		
@@ -153,18 +153,11 @@ public class LOTRItemMountArmor extends Item
 			String materialName = armorMaterial.name().toLowerCase();
 			if (materialName.startsWith("lotr_"))
 			{
-				materialName = materialName.substring(0, "lotr_".length());
+				materialName = materialName.substring("lotr_".length());
 			}
 			path = "lotr:armor/mount/" + mountName + "_" + materialName + ".png";
 		}
-		
-		ResourceLocation texture = (ResourceLocation)textures.get(path);
-		if (texture == null)
-		{
-			texture = new ResourceLocation(path);
-			textures.put(path, texture);
-		}
-		
-		return texture;
+
+		return path;
 	}
 }

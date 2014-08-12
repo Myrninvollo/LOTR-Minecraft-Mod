@@ -10,6 +10,7 @@ import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
+import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.world.biome.LOTRBiomeGenRohan;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -22,6 +23,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.ai.EntityAIWatchClosest2;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -49,6 +51,14 @@ public abstract class LOTREntityRohanMan extends LOTREntityNPC
 	}
 	
 	public abstract EntityAIBase createRohanAttackAI();
+	
+	@Override
+	public LOTRNPCMount createMountToRide()
+	{
+		LOTREntityHorse horse = (LOTREntityHorse)super.createMountToRide();
+		horse.setMountArmor(new ItemStack(LOTRMod.horseArmorRohan));
+		return horse;
+	}
 	
 	@Override
 	public void entityInit()

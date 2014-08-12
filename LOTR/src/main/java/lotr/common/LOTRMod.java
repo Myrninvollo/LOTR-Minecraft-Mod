@@ -430,9 +430,6 @@ public class LOTRMod
 	public static Item cherryPieItem;
 	public static Item trollBone;
 	public static Item trollStatue;
-	public static Item wargHelmet;
-	public static Item wargChestplate;
-	public static Item wargHindplate;
 	public static Item ironCrossbow;
 	public static Item mithrilCrossbow;
 	public static Item woodElvenBedItem;
@@ -603,6 +600,9 @@ public class LOTRMod
 	public static Item horseArmorIron;
 	public static Item horseArmorGold;
 	public static Item horseArmorDiamond;
+	public static Item horseArmorGondor;
+	public static Item horseArmorRohan;
+	public static Item wargArmorUruk;
 	
 	public static int idDimension;
 	public static boolean alwaysShowAlignment;
@@ -959,9 +959,6 @@ public class LOTRMod
 		cherryPieItem = new ItemReed(cherryPie).setMaxStackSize(1).setCreativeTab(LOTRCreativeTabs.tabFood).setUnlocalizedName("lotr:cherryPie");
 		trollBone = new LOTRItemBone().setUnlocalizedName("lotr:trollBone");
 		trollStatue = new LOTRItemTrollStatue().setUnlocalizedName("lotr:trollStatue");
-		wargHelmet = new LOTRItemWargArmor(materialWargArmor, 0).setUnlocalizedName("lotr:wargHelmet");
-		wargChestplate = new LOTRItemWargArmor(materialWargArmor, 1).setUnlocalizedName("lotr:wargChestplate");
-		wargHindplate = new LOTRItemWargArmor(materialWargArmor, 2).setUnlocalizedName("lotr:wargHindplate");
 		ironCrossbow = new LOTRItemCrossbow(356, 0D, ToolMaterial.IRON, 3).setUnlocalizedName("lotr:ironCrossbow");
 		mithrilCrossbow = new LOTRItemCrossbow(1760, 0.5D, toolMithril, 6).setUnlocalizedName("lotr:mithrilCrossbow");
 		woodElvenBedItem = new LOTRItemBed(woodElvenBed).setUnlocalizedName("lotr:woodElvenBed");
@@ -1129,9 +1126,12 @@ public class LOTRMod
 		dwarvenRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMisc).setUnlocalizedName("lotr:dwarvenRing");
 		spearDwarven = new LOTRItemSpear(toolDwarven, swordDwarven).setUnlocalizedName("lotr:spearDwarven");
 		spearBlueDwarven = new LOTRItemSpear(toolBlueDwarven, swordBlueDwarven).setUnlocalizedName("lotr:spearBlueDwarven");
-		horseArmorIron = new LOTRItemMountArmor(ArmorMaterial.IRON, Mount.HORSE).setTemplateItem(Items.iron_horse_armor).setUnlocalizedName("lotr.horseArmorIron");
-		horseArmorGold = new LOTRItemMountArmor(ArmorMaterial.GOLD, Mount.HORSE).setTemplateItem(Items.golden_horse_armor).setUnlocalizedName("lotr.horseArmorGold");
-		horseArmorDiamond = new LOTRItemMountArmor(ArmorMaterial.DIAMOND, Mount.HORSE).setTemplateItem(Items.diamond_horse_armor).setUnlocalizedName("lotr.horseArmorDiamond");
+		horseArmorIron = new LOTRItemMountArmor(ArmorMaterial.IRON, Mount.HORSE).setTemplateItem(Items.iron_horse_armor).setUnlocalizedName("lotr:horseArmorIron");
+		horseArmorGold = new LOTRItemMountArmor(ArmorMaterial.GOLD, Mount.HORSE).setTemplateItem(Items.golden_horse_armor).setUnlocalizedName("lotr:horseArmorGold");
+		horseArmorDiamond = new LOTRItemMountArmor(ArmorMaterial.DIAMOND, Mount.HORSE).setTemplateItem(Items.diamond_horse_armor).setUnlocalizedName("lotr:horseArmorDiamond");
+		horseArmorGondor = new LOTRItemMountArmor(armorGondor, Mount.HORSE).setUnlocalizedName("lotr:horseArmorGondor");
+		horseArmorRohan = new LOTRItemMountArmor(armorRohan, Mount.HORSE).setUnlocalizedName("lotr:horseArmorRohan");
+		wargArmorUruk = new LOTRItemMountArmor(armorUruk, Mount.WARG).setUnlocalizedName("lotr:wargArmorUruk");
 		
 		try
 		{
@@ -1513,9 +1513,6 @@ public class LOTRMod
 		registerItem(cherryPieItem);
 		registerItem(trollBone);
 		registerItem(trollStatue);
-		registerItem(wargHelmet);
-		registerItem(wargChestplate);
-		registerItem(wargHindplate);
 		registerItem(ironCrossbow);
 		registerItem(mithrilCrossbow);
 		registerItem(woodElvenBedItem);
@@ -1686,6 +1683,9 @@ public class LOTRMod
 		registerItem(horseArmorIron);
 		registerItem(horseArmorGold);
 		registerItem(horseArmorDiamond);
+		registerItem(horseArmorGondor);
+		registerItem(horseArmorRohan);
+		registerItem(wargArmorUruk);
 		
 		idDimension = config.get("general", "Dimension ID", 100).getInt();
 		alwaysShowAlignment = config.get("general", "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean(false);

@@ -25,7 +25,8 @@ public class LOTRRenderCamel extends RenderLiving
     @Override
 	protected ResourceLocation getEntityTexture(Entity entity)
     {
-		return camelSkin;
+    	LOTREntityCamel camel = (LOTREntityCamel)entity;
+		return LOTRRenderHorse.getLayeredMountTexture(camel, camelSkin);
 	}
     
     @Override

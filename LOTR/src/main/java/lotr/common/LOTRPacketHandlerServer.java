@@ -205,7 +205,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 								entityplayer.inventory.consumeInventoryItem(LOTRMod.silverCoin);
 							}
 							
-							EntityLiving hiredEntity = (EntityLiving)LOTREntities.createEntityByClass(trade.entityClass, world);
+							EntityLiving hiredEntity = trade.createHiredNPC(world);
 							if (hiredEntity != null)
 							{
 								Task task = trade.task;
@@ -213,7 +213,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 								EntityLiving hiredMount = null;
 								if (trade.mountClass != null)
 								{
-									hiredMount = (EntityLiving)LOTREntities.createEntityByClass(trade.mountClass, world);
+									hiredMount = trade.createHiredMount(world);
 								}
 								
 								if (hiredMount != null)
@@ -222,22 +222,16 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 									if (hiredMount instanceof LOTREntityNPC)
 									{
 										LOTREntityNPC hiredMountNPC = (LOTREntityNPC)hiredMount;
-										hiredMountNPC.initCreatureForHire(null);
 										hiredMountNPC.hiredNPCInfo.isActive = true;
 										hiredMountNPC.hiredNPCInfo.alignmentRequiredToCommand = trade.alignmentRequired;
 										hiredMountNPC.hiredNPCInfo.setHiringPlayerUUID(entityplayer.getUniqueID().toString());
 										hiredMountNPC.hiredNPCInfo.setTask(task);
-									}
-									else
-									{
-										hiredMount.onSpawnWithEgg(null);
 									}
 									world.spawnEntityInWorld(hiredMount);
 								}
 								
 								LOTREntityNPC hiredNPC = (LOTREntityNPC)hiredEntity;
 								hiredNPC.setLocationAndAngles(entityplayer.posX, entityplayer.boundingBox.minY, entityplayer.posZ, world.rand.nextFloat() * 360F, 0F);
-								hiredNPC.initCreatureForHire(null);
 								hiredNPC.hiredNPCInfo.isActive = true;
 								hiredNPC.hiredNPCInfo.alignmentRequiredToCommand = trade.alignmentRequired;
 								hiredNPC.hiredNPCInfo.setHiringPlayerUUID(entityplayer.getUniqueID().toString());

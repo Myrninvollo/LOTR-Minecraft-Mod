@@ -31,7 +31,8 @@ public class LOTRRenderElk extends RenderLiving
 	{
 		LOTREntityElk elk = (LOTREntityElk)entity;
 		int i = elk.getHorseVariant() % 3;
-		return elkTextures[i];
+		ResourceLocation elkSkin = elkTextures[i];
+		return LOTRRenderHorse.getLayeredMountTexture(elk, elkSkin);
 	}
 	
 	@Override

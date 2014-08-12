@@ -1459,21 +1459,13 @@ public class LOTRRecipes
 		{
 			"XXX", "X X", "XXX", 'X', new ItemStack(brick, 1, 0)
 		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(wargHelmet), new Object[]
-		{
-			"XXX", "XYX", 'X', orcSteel, 'Y', Items.leather
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(wargChestplate), new Object[]
-		{
-			"XXX", "XXX", "Y Y", 'X', orcSteel, 'Y', Items.leather
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(wargHindplate), new Object[]
-		{
-			"XXX", "X X", "Y Y", 'X', orcSteel, 'Y', Items.leather
-		}));
 		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 2), new Object[]
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
+		}));
+		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(wargArmorUruk), new Object[]
+		{
+			"X  ", "XYX", "XXX", 'X', orcSteel, 'Y', Blocks.wool
 		}));
     }
 	
@@ -1739,18 +1731,6 @@ public class LOTRRecipes
 		{
 			"XXY", "ZYX", "YZX", 'X', urukSteel, 'Y', "stickWood", 'Z', Items.string
 		}));
-		urukRecipes.add(new ShapedOreRecipe(new ItemStack(wargHelmet), new Object[]
-		{
-			"XXX", "XYX", 'X', urukSteel, 'Y', Items.leather
-		}));
-		urukRecipes.add(new ShapedOreRecipe(new ItemStack(wargChestplate), new Object[]
-		{
-			"XXX", "XXX", "Y Y", 'X', urukSteel, 'Y', Items.leather
-		}));
-		urukRecipes.add(new ShapedOreRecipe(new ItemStack(wargHindplate), new Object[]
-		{
-			"XXX", "X X", "Y Y", 'X', urukSteel, 'Y', Items.leather
-		}));
 		urukRecipes.add(new ShapedOreRecipe(new ItemStack(chandelier, 2, 9), new Object[]
 		{
 			" X ", "YZY", 'X', "stickWood", 'Y', orcTorchItem, 'Z', urukSteel
@@ -1774,6 +1754,10 @@ public class LOTRRecipes
 		urukRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 6), new Object[]
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
+		}));
+		urukRecipes.add(new ShapedOreRecipe(new ItemStack(wargArmorUruk), new Object[]
+		{
+			"X  ", "XYX", "XXX", 'X', urukSteel, 'Y', Blocks.wool
 		}));
 	}
 	
@@ -1967,6 +1951,10 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
+		gondorianRecipes.add(new ShapedOreRecipe(new ItemStack(horseArmorGondor), new Object[]
+		{
+			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Blocks.wool
+		}));
 	}
 	
 	private static void createRohirricRecipes()
@@ -2034,6 +2022,10 @@ public class LOTRRecipes
 		rohirricRecipes.add(new ShapedOreRecipe(new ItemStack(battleaxeRohan), new Object[]
 		{
 			"XXX", "XYX", " Y ", 'X', Items.iron_ingot, 'Y', "stickWood"
+		}));
+		rohirricRecipes.add(new ShapedOreRecipe(new ItemStack(horseArmorRohan), new Object[]
+		{
+			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Blocks.wool
 		}));
 	}
 	
@@ -2191,21 +2183,13 @@ public class LOTRRecipes
 		{
 			"XXX", "X X", "XXX", 'X', new ItemStack(brick2, 1, 0)
 		}));
-		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(wargHelmet), new Object[]
-		{
-			"XXX", "XYX", 'X', orcSteel, 'Y', Items.leather
-		}));
-		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(wargChestplate), new Object[]
-		{
-			"XXX", "XXX", "Y Y", 'X', orcSteel, 'Y', Items.leather
-		}));
-		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(wargHindplate), new Object[]
-		{
-			"XXX", "X X", "Y Y", 'X', orcSteel, 'Y', Items.leather
-		}));
 		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 8), new Object[]
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
+		}));
+		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(wargArmorUruk), new Object[]
+		{
+			"X  ", "XYX", "XXX", 'X', orcSteel, 'Y', Blocks.wool
 		}));
     }
     

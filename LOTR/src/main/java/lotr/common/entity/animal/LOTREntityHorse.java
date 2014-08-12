@@ -24,6 +24,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 {
 	private boolean isMoving;
+	private ItemStack prevMountArmor;
 	
     public LOTREntityHorse(World world)
     {
@@ -132,7 +133,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		return new ItemStack(Item.getItemById(ID));
 	}
 	
-	public ResourceLocation getMountArmorTexture()
+	public String getMountArmorTexture()
 	{
 		ItemStack armor = getMountArmor();
 		if (armor != null && armor.getItem() instanceof LOTRItemMountArmor)
@@ -142,7 +143,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		return null;
 	}
 	
-	public void setMountArmor(ItemStack itemstack)
+	private void setMountArmorWatched(ItemStack itemstack)
 	{
 		if (itemstack == null)
 		{
@@ -171,6 +172,17 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
     	LOTRReflection.getHorseInv(this).setInventorySlotContents(0, new ItemStack(Items.saddle));
     	LOTRReflection.setupHorseInv(this);
     }
+    
+    public void setMountArmor(ItemStack itemstack)
+    {
+    	LOTRReflection.getHorseInv(this).setInventorySlotContents(1, itemstack);
+    	LOTRReflection.setupHorseInv(this);
+    	
+    	if (worldObj.isRemote)
+    	{
+    		setMountArmorWatched(itemstack);
+    	}
+    }
 
     public boolean isMountArmorValid(ItemStack itemstack)
     {
@@ -197,8 +209,21 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 	@Override
 	public void onLivingUpdate()
 	{
-		ItemStack armor = LOTRReflection.getHorseInv(this).getStackInSlot(1);
-		setMountArmor(armor);
+		if (!worldObj.isRemote)
+		{
+			ItemStack armor = LOTRReflection.getHorseInv(this).getStackInSlot(1);
+			
+	        if (ticksExisted > 20)
+	        {
+	            if (!ItemStack.areItemStacksEqual(prevMountArmor, armor))
+	            {
+	                playSound("mob.horse.armor", 0.5F, 1F);
+	            }
+	        }
+				
+			prevMountArmor = armor;
+			setMountArmorWatched(armor);
+		}
 		
 		super.onLivingUpdate();
 		
@@ -377,26 +402,22 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 	}
 	
 	@Override
-    public void onInventoryChanged(InventoryBasic inv)
-    {
-		ItemStack prevArmor = LOTRReflection.getHorseInv(this).getStackInSlot(1);
-		
-		super.onInventoryChanged(inv);
-
-        if (ticksExisted > 20)
-        {
-        	ItemStack newArmor = LOTRReflection.getHorseInv(this).getStackInSlot(1);
-            if (!ItemStack.areItemStacksEqual(prevArmor, newArmor))
-            {
-                playSound("mob.horse.armor", 0.5F, 1F);
-            }
-        }
-    }
-	
-	@Override
 	public boolean canDespawn()
 	{
 		return getBelongsToNPC() && riddenByEntity == null;
+	}
+	
+	@Override
+	public void onDeath(DamageSource damagesource)
+	{
+		if (getBelongsToNPC())
+		{
+			AnimalChest inv = LOTRReflection.getHorseInv(this);
+			inv.setInventorySlotContents(0, null);
+			inv.setInventorySlotContents(1, null);
+		}
+		
+		super.onDeath(damagesource);
 	}
 	
 	@Override

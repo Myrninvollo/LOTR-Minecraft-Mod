@@ -1,22 +1,14 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRFoods;
-import lotr.common.entity.ai.LOTREntityAIDrink;
-import lotr.common.entity.ai.LOTREntityAIEat;
-import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
-import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
+import lotr.common.*;
+import lotr.common.entity.ai.*;
+import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.world.biome.LOTRBiomeGenGondor;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIOpenDoor;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityAIWatchClosest2;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -44,6 +36,14 @@ public abstract class LOTREntityGondorMan extends LOTREntityNPC
 	}
 	
 	public abstract EntityAIBase createGondorAttackAI();
+	
+	@Override
+	public LOTRNPCMount createMountToRide()
+	{
+		LOTREntityHorse horse = (LOTREntityHorse)super.createMountToRide();
+		horse.setMountArmor(new ItemStack(LOTRMod.horseArmorGondor));
+		return horse;
+	}
 	
 	@Override
 	public void entityInit()

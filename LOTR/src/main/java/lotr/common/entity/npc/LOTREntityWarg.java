@@ -1,36 +1,18 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.LOTRMountFunctions;
-import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
-import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
-import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
-import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
-import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
-import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetWarg;
+import lotr.common.entity.ai.*;
 import lotr.common.entity.animal.LOTREntityRabbit;
-import lotr.common.item.LOTRItemWargArmor;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityAIWatchClosest2;
+import lotr.common.item.LOTRItemMountArmor;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMount
@@ -148,6 +130,11 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 			rider.isNPCPersistent = isNPCPersistent;
 			worldObj.spawnEntityInWorld(rider);
 			rider.mountEntity(this);
+			
+			if (rand.nextBoolean())
+			{
+				setCurrentItemOrArmor(4, new ItemStack(LOTRMod.wargArmorUruk));
+			}
 		}
 		return data;
 	}
@@ -280,10 +267,10 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 				}
 			}
 			
-			if (!flag && itemstack != null && itemstack.getItem() instanceof LOTRItemWargArmor && isMountSaddled())
+			if (!flag && itemstack != null && itemstack.getItem() instanceof LOTRItemMountArmor && isMountSaddled())
 			{
-				int slot = 4 - ((LOTRItemWargArmor)itemstack.getItem()).armorType;
-				if (getEquipmentInSlot(slot) == null)
+				int slot = 4;
+				if (getEquipmentInSlot(slot) == null && ((LOTRItemMountArmor)itemstack.getItem()).isValid(this))
 				{
 					if (hasRequiredAlignment)
 					{
@@ -354,36 +341,14 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
         for (int k = 0; k < j; k++)
         {
             ItemStack itemstack = lastActiveItems[k];
-            if (itemstack != null && itemstack.getItem() instanceof LOTRItemWargArmor)
+            if (itemstack != null && itemstack.getItem() instanceof LOTRItemMountArmor)
             {
-                int l = ((LOTRItemWargArmor)itemstack.getItem()).damageReduceAmount;
+                int l = ((LOTRItemMountArmor)itemstack.getItem()).getDamageReduceAmount();
                 i += l;
             }
         }
         return i;
     }
-	
-	@Override
-	protected void damageArmor(float f)
-	{
-        f /= 4F;
-        if (f < 1F)
-        {
-            f = 1F;
-        }
-
-        for (int j = 4; j >= 1; j--)
-        {
-            if (getEquipmentInSlot(j) != null && getEquipmentInSlot(j).getItem() instanceof LOTRItemWargArmor)
-            {
-                getEquipmentInSlot(j).damageItem((int)f, this);
-                if (getEquipmentInSlot(j).stackSize == 0)
-                {
-                    setCurrentItemOrArmor(j, null);
-                }
-            }
-        }
-	}
 	
 	@Override
 	protected void dropFewItems(boolean flag, int i)
@@ -449,12 +414,13 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 				dropItem(Items.saddle, 1);
 			}
 
-			for (int i = 0; i < getLastActiveItems().length; i++)
+			if (!getBelongsToNPC())
 			{
-				if (getEquipmentInSlot(i) != null)
+				ItemStack armor = getEquipmentInSlot(4);
+				if (armor != null)
 				{
-					entityDropItem(getEquipmentInSlot(i), 0F);
-					setCurrentItemOrArmor(i, null);
+					entityDropItem(armor, 0F);
+					setCurrentItemOrArmor(4, null);
 				}
 			}
 		}

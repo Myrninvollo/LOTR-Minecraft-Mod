@@ -1,16 +1,15 @@
 package lotr.client.render.entity;
 
-import org.lwjgl.opengl.GL11;
+import java.util.*;
 
 import lotr.common.LOTRMod;
 import lotr.common.entity.animal.LOTREntityHorse;
-import lotr.common.entity.npc.LOTREntityHobbit;
-import lotr.common.entity.npc.LOTREntityHobbitBartender;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelHorse;
 import net.minecraft.client.renderer.entity.RenderHorse;
+import net.minecraft.client.renderer.texture.ITextureObject;
+import net.minecraft.client.renderer.texture.LayeredTexture;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 public class LOTRRenderHorse extends RenderHorse
@@ -18,7 +17,6 @@ public class LOTRRenderHorse extends RenderHorse
     public LOTRRenderHorse()
     {
         super(new ModelHorse(), 0.75F);
-        setRenderPassModel(new ModelHorse());
     }
 	
 	@Override
@@ -41,29 +39,52 @@ public class LOTRRenderHorse extends RenderHorse
 	}
 	
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
-    {
+	public ResourceLocation getEntityTexture(Entity entity)
+	{
 		LOTREntityHorse horse = (LOTREntityHorse)entity;
-		
-		float armorScale = 1.1F;
-		float armorScaleInverse = 1F / armorScale;
-		
-		ResourceLocation armor = horse.getMountArmorTexture();
-		if (armor != null)
-		{
-			if (pass == 0)
-			{
-				bindTexture(armor);
-				GL11.glScalef(armorScale, armorScale, armorScale);
-				return 1;
-			}
-			if (pass == 1)
-			{
-				GL11.glScalef(armorScaleInverse, armorScaleInverse, armorScaleInverse);
-				return 0;
-			}
-	    }
-		
-		return super.shouldRenderPass(entity, pass, f);
-    }
+		ResourceLocation horseSkin = super.getEntityTexture(entity);
+		return getLayeredMountTexture(horse, horseSkin);
+	}
+	
+	private static Map layeredMountTextures = new HashMap();
+	
+	public static ResourceLocation getLayeredMountTexture(LOTREntityHorse mount, ResourceLocation mountSkin)
+	{
+		String skinPath = mountSkin.getResourcePath();
+        String armorPath = mount.getMountArmorTexture();
+
+        if (armorPath == null)
+        {
+        	return mountSkin;
+        }
+        else
+        {
+        	Minecraft mc = Minecraft.getMinecraft();
+        	
+        	String path = "lotr_" + skinPath + "_" + armorPath;
+	        ResourceLocation texture = (ResourceLocation)layeredMountTextures.get(path);
+	        if (texture == null)
+	        {
+	        	texture = new ResourceLocation(path);
+	        	
+	        	List<String> layers = new ArrayList();
+	        	ITextureObject skinTexture = mc.getTextureManager().getTexture(mountSkin);
+	        	if (skinTexture instanceof LayeredTexture)
+	        	{
+	        		LayeredTexture skinTextureLayered = (LayeredTexture)skinTexture;
+	        		layers.addAll(skinTextureLayered.layeredTextureNames);
+	        	}
+	        	else
+	        	{
+	        		layers.add(skinPath);
+	        	}
+	        	layers.add(armorPath);
+	        			
+	        	mc.getTextureManager().loadTexture(texture, new LayeredTexture(layers.toArray(new String[0])));
+	            layeredMountTextures.put(path, texture);
+	        }
+	        
+	        return texture;
+        }
+	}
 }

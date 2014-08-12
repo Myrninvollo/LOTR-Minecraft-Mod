@@ -9,14 +9,12 @@ import lotr.common.LOTRMod;
 import lotr.common.entity.item.LOTREntityOrcBomb;
 import lotr.common.entity.npc.LOTREntityWarg;
 import lotr.common.entity.npc.LOTREntityWargBombardier;
-import lotr.common.item.LOTRItemWargArmor;
+import lotr.common.item.LOTRItemMountArmor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -27,12 +25,10 @@ import org.lwjgl.opengl.GL12;
 public class LOTRRenderWarg extends RenderLiving
 {
 	private static Map wargSkins = new HashMap();
+	private static Map wargArmorSkins = new HashMap();
 	private static ResourceLocation wargSaddle = new ResourceLocation("lotr:mob/warg/saddle.png");
-	private static ResourceLocation wargArmor1 = new ResourceLocation("lotr:mob/warg/armor_1.png");
-	private static ResourceLocation wargArmor2 = new ResourceLocation("lotr:mob/warg/armor_2.png");
 	private LOTRModelWarg saddleModel = new LOTRModelWarg(0.5F);
-	private LOTRModelWarg chestplateModel = new LOTRModelWarg(0.45F);
-	private LOTRModelWarg otherArmorModel = new LOTRModelWarg(0.4F);
+	private LOTRModelWarg armorModel = new LOTRModelWarg(0.2F);
 	
     public LOTRRenderWarg()
     {
@@ -98,24 +94,24 @@ public class LOTRRenderWarg extends RenderLiving
 			}
 			return super.shouldRenderPass(entity, pass, f);
 		}
-		else
+		else if (pass == 2)
 		{
-			ItemStack itemstack = ((LOTREntityWarg)entity).getEquipmentInSlot(4 - pass);
+			ItemStack itemstack = ((LOTREntityWarg)entity).getEquipmentInSlot(4);
 			if (itemstack != null)
 			{
 				Item item = itemstack.getItem();
-				if (item instanceof LOTRItemWargArmor)
+				if (item instanceof LOTRItemMountArmor)
 				{
-					bindTexture(pass == 1 ? wargArmor2 : wargArmor1);
-					LOTRModelWarg model = pass == 1 ? chestplateModel : otherArmorModel;
-					model.head.showModel = pass == 0;
-					model.body.showModel = pass == 1 || pass == 2;
-					model.leg3.showModel = pass == 1;
-					model.leg4.showModel = pass == 1;
-					model.leg1.showModel = pass == 2;
-					model.leg2.showModel = pass == 2;
-					model.tail.showModel = pass == 2;
-					setRenderPassModel(model);
+					String s = ((LOTRItemMountArmor)item).getArmorTexture();
+					ResourceLocation r = (ResourceLocation)wargArmorSkins.get(s);
+					if (r == null)
+					{
+						r = new ResourceLocation(s);
+						wargArmorSkins.put(s, r);
+					}
+					bindTexture(r);
+					
+					setRenderPassModel(armorModel);
 
 					GL11.glColor3f(1F, 1F, 1F);
 

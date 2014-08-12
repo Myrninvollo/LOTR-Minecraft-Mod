@@ -39,7 +39,7 @@ public class LOTRGuiUnitTrade extends GuiContainer
 	private LOTRFaction faction;
 	private LOTRUnitTradeEntry[] trades;
 	private int currentTradeEntryIndex;
-	private EntityLiving currentDisplayedMob;
+	private LOTREntityNPC currentDisplayedMob;
 	private EntityLiving currentDisplayedMount;
     private float screenXSize;
     private float screenYSize;
@@ -158,28 +158,10 @@ public class LOTRGuiUnitTrade extends GuiContainer
 		Class mountClass = trades[currentTradeEntryIndex].mountClass;
 		if (currentDisplayedMob == null || currentDisplayedMob.getClass() != entityClass || (mountClass == null && currentDisplayedMount != null) || (mountClass != null && (currentDisplayedMount == null || currentDisplayedMount.getClass() != mountClass)))
 		{
-			EntityLiving entity = (EntityLiving)LOTREntities.createEntityByClass(entityClass, mc.theWorld);
-			if (entity instanceof LOTREntityNPC)
-			{
-				((LOTREntityNPC)entity).initCreatureForHire(null);
-			}
-			else
-			{
-				entity.onSpawnWithEgg(null);
-			}
-			currentDisplayedMob = entity;
-
+			currentDisplayedMob = trades[currentTradeEntryIndex].createHiredNPC(mc.theWorld);
 			if (mountClass != null)
 			{
-				EntityLiving mount = (EntityLiving)LOTREntities.createEntityByClass(mountClass, mc.theWorld);
-				if (mount instanceof LOTREntityNPC)
-				{
-					((LOTREntityNPC)mount).initCreatureForHire(null);
-				}
-				else
-				{
-					mount.onSpawnWithEgg(null);
-				}
+				EntityLiving mount = trades[currentTradeEntryIndex].createHiredMount(mc.theWorld);
 				currentDisplayedMount = mount;
 				currentDisplayedMob.mountEntity(currentDisplayedMount);
 			}

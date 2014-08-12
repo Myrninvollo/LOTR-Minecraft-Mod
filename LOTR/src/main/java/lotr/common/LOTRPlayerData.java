@@ -320,7 +320,7 @@ public class LOTRPlayerData
 		if (faction.createAlignmentReward() != null)
 		{
 			EntityPlayer entityplayer = getPlayer();
-			if (entityplayer != null)
+			if (entityplayer != null && !entityplayer.worldObj.isRemote)
 			{
 				if (alignment >= LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED && prevAlignment < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED && !LOTRLevelData.hasTakenAlignmentRewardItem(entityplayer, faction))
 				{
@@ -632,7 +632,7 @@ public class LOTRPlayerData
 		if (alcoholTolerance >= 250)
 		{
 			EntityPlayer entityplayer = getPlayer();
-			if (entityplayer != null)
+			if (entityplayer != null && !entityplayer.worldObj.isRemote)
 			{
 				addAchievement(LOTRAchievement.gainHighAlcoholTolerance);
 			}

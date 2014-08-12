@@ -722,7 +722,7 @@ public class LOTREventHandler implements IFuelHandler
 					ItemStack itemInSlot = entityplayer.inventory.getStackInSlot(i);
 					if (itemInSlot != null && itemInSlot.getItem() == LOTRMod.pouch)
 					{
-						LOTRItemPouch.tryAddItemToPouch(itemInSlot, itemstack);
+						LOTRItemPouch.tryAddItemToPouch(itemInSlot, itemstack, true);
 						if (itemstack.stackSize <= 0)
 						{
 							break pouchSearchingLoop;
@@ -836,7 +836,7 @@ public class LOTREventHandler implements IFuelHandler
 				{
 					f = 500F;
 				}
-				int chance = (int)(1000000F / f);
+				int chance = (int)(2000000F / f);
 				if (shirriffs > 5)
 				{
 					shirriffs = 5;

@@ -120,7 +120,7 @@ public class LOTRItemPouch extends Item
 		list.add(StatCollector.translateToLocalFormatted("item.lotr.pouch.slots", new Object[] {slotsFull, slots}));
 	}
 	
-	public static boolean tryAddItemToPouch(ItemStack pouch, ItemStack itemstack)
+	public static boolean tryAddItemToPouch(ItemStack pouch, ItemStack itemstack, boolean requireMatchInPouch)
 	{
 		if (itemstack != null && itemstack.stackSize > 0)
 		{
@@ -130,38 +130,52 @@ public class LOTRItemPouch extends Item
 				ItemStack itemInSlot = tempInventory.getStackInSlot(i);
 				if (itemInSlot == null)
 				{
-					continue;
+					if (requireMatchInPouch)
+					{
+						continue;
+					}
 				}
-				if (itemInSlot.getItem() != itemstack.getItem())
+				else
 				{
-					continue;
-				}
-				if (!itemInSlot.isStackable())
-				{
-					continue;
-				}
-				if (itemInSlot.getHasSubtypes() && itemInSlot.getItemDamage() != itemstack.getItemDamage())
-				{
-					continue;
-				}
-				if (!ItemStack.areItemStackTagsEqual(itemInSlot, itemstack))
-				{
-					continue;
+					if (itemInSlot.getItem() != itemstack.getItem())
+					{
+						continue;
+					}
+					if (!itemInSlot.isStackable())
+					{
+						continue;
+					}
+					if (itemInSlot.getHasSubtypes() && itemInSlot.getItemDamage() != itemstack.getItemDamage())
+					{
+						continue;
+					}
+					if (!ItemStack.areItemStackTagsEqual(itemInSlot, itemstack))
+					{
+						continue;
+					}
 				}
 				
-				int maxStackSize = itemInSlot.getMaxStackSize();
-				if (tempInventory.getInventoryStackLimit() < maxStackSize)
+				if (itemInSlot == null)
 				{
-					maxStackSize = tempInventory.getInventoryStackLimit();
+					tempInventory.setInventorySlotContents(i, itemstack);
 				}
-				int difference = maxStackSize - itemInSlot.stackSize;
-				if (difference > itemstack.stackSize)
+				else
 				{
-					difference = itemstack.stackSize;
+					int maxStackSize = itemInSlot.getMaxStackSize();
+					if (tempInventory.getInventoryStackLimit() < maxStackSize)
+					{
+						maxStackSize = tempInventory.getInventoryStackLimit();
+					}
+					int difference = maxStackSize - itemInSlot.stackSize;
+					if (difference > itemstack.stackSize)
+					{
+						difference = itemstack.stackSize;
+					}
+					itemstack.stackSize -= difference;
+					itemInSlot.stackSize += difference;
+					tempInventory.setInventorySlotContents(i, itemInSlot);
 				}
-				itemstack.stackSize -= difference;
-				itemInSlot.stackSize += difference;
-				tempInventory.setInventorySlotContents(i, itemInSlot);
+				
 				return true;
 			}
 		}

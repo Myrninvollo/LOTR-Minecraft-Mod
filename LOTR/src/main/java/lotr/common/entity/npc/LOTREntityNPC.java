@@ -87,7 +87,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 	public int npcTalkTick = 0;
 	private boolean hurtOnlyByPlates = true;
 	
-	private List<ItemStack> npcDrops = new ArrayList();
+	private List<ItemStack> enpouchedDrops = new ArrayList();
 	private boolean enpouchNPCDrops = true;
 	
 	public LOTREntityNPC(World world)
@@ -885,7 +885,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 			
 			if (enpouchNPCDrops && item != null)
 			{
-				npcDrops.add(item);
+				enpouchedDrops.add(item);
 				return null;
 			}
 		}
@@ -919,14 +919,14 @@ public abstract class LOTREntityNPC extends EntityCreature
 		
 		if (!worldObj.isRemote && recentlyHit > 0 && canDropPouch() && LOTRMod.canDropLoot(worldObj))
 		{
-			if (rand.nextInt(50) == 0)
+			if (rand.nextInt(10) == 0)
 			{
 				ItemStack pouch = new ItemStack(LOTRMod.pouch, 1, LOTRItemPouch.getRandomPouchSize(rand));
 				List<ItemStack> pouchContents = new ArrayList();
 					
-				while (!npcDrops.isEmpty())
+				while (!enpouchedDrops.isEmpty())
 				{
-					pouchContents.add(npcDrops.remove(0));
+					pouchContents.add(enpouchedDrops.remove(0));
 					
 					if (pouchContents.size() >= LOTRItemPouch.getCapacity(pouch))
 					{
@@ -936,9 +936,9 @@ public abstract class LOTREntityNPC extends EntityCreature
 				
 				for (ItemStack itemstack : pouchContents)
 				{
-					if (!LOTRItemPouch.tryAddItemToPouch(pouch, itemstack))
+					if (!LOTRItemPouch.tryAddItemToPouch(pouch, itemstack, false))
 					{
-						npcDrops.add(itemstack);
+						enpouchedDrops.add(itemstack);
 					}
 				}
 				
@@ -947,10 +947,10 @@ public abstract class LOTREntityNPC extends EntityCreature
 			}
 		}
 		
-		if (!npcDrops.isEmpty())
+		if (!enpouchedDrops.isEmpty())
 		{
 			enpouchNPCDrops = false;
-			for (ItemStack item : npcDrops)
+			for (ItemStack item : enpouchedDrops)
 			{
 				entityDropItem(item, 0F);
 			}

@@ -33,6 +33,7 @@ Public Beta 20
 * Changed the bricks in the Dúnedain structures to Arnor Brick
 * Increased the spawning chance of stone ruins
 * Fixed Rangers' capes not becoming invisible when they are in stealth mode
+* Reduced the chance of Shirriff spawning
 
 - Removed separate warg armour items
 - Removed crafting recipes for vanilla horse armour

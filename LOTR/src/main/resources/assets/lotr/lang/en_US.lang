@@ -1383,6 +1383,7 @@ chat.lotr.protectedLandBanner=You may not place a protection banner this close t
 chat.lotr.banditSteal=A bandit stole some items from your inventory!
 chat.lotr.invasion.start=%s have launched an invasion nearby!
 chat.lotr.fastTravel.underAttack=You cannot use fast travel while under attack
+chat.lotr.tameGollum=%s has tamed %s
 
 commands.lotr.alignment.usage=/alignment <set|add> <faction> <amount> [player]
 commands.lotr.alignment.noFaction=No faction with name %s

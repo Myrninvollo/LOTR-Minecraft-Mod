@@ -2,11 +2,10 @@ package lotr.client.render.entity;
 
 import lotr.client.LOTRClientProxy;
 import lotr.client.model.LOTRModelGollum;
+import lotr.common.entity.npc.LOTREntityGollum;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -15,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 
 public class LOTRRenderGollum extends RenderLiving
 {
-	private static ResourceLocation skin = new ResourceLocation("lotr:mob/gollum.png");
+	private static ResourceLocation skin = new ResourceLocation("lotr:mob/char/gollum.png");
 	
     public LOTRRenderGollum()
     {
@@ -37,11 +36,15 @@ public class LOTRRenderGollum extends RenderLiving
 	@Override
 	public void doRender(EntityLiving entity, double d, double d1, double d2, float f, float f1)
 	{
-		super.doRender(entity, d, d1, d2, f, f1);
+		LOTREntityGollum gollum = (LOTREntityGollum)entity;
+		super.doRender(gollum, d, d1, d2, f, f1);
 		if (Minecraft.isGuiEnabled())
 		{
-			func_147906_a(entity, "Gollum", d, d1 + 0.5D, d2, 64);
-			LOTRClientProxy.renderHealthBar(entity, d, d1 + 0.5D, d2, 64, renderManager);
+			func_147906_a(gollum, gollum.getCommandSenderName(), d, d1 + 0.5D, d2, 64);
+			if (gollum.getGollumOwner() == Minecraft.getMinecraft().thePlayer)
+			{
+				LOTRClientProxy.renderHealthBar(entity, d, d1 + 0.5D, d2, 64, renderManager);
+			}
 		}
 	}
 

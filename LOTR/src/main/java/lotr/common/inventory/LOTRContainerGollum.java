@@ -15,22 +15,25 @@ public class LOTRContainerGollum extends Container
     {
 		theGollum = gollum;
 
-		for (int i = 0; i < 9; i++)
-		{
-			addSlotToContainer(new Slot(gollum.inventory, i, 8 + i * 18, 18));
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+            	addSlotToContainer(new Slot(gollum.inventory, j + i * 9, 8 + j * 18, 18 + i * 18));
+            }
 		}
 
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 9; j++)
             {
-                addSlotToContainer(new Slot(inv, j + i * 9 + 9, 8 + j * 18, 50 + i * 18));
+                addSlotToContainer(new Slot(inv, j + i * 9 + 9, 8 + j * 18, 86 + i * 18));
             }
         }
 
         for (int i = 0; i < 9; i++)
         {
-            addSlotToContainer(new Slot(inv, i, 8 + i * 18, 108));
+            addSlotToContainer(new Slot(inv, i, 8 + i * 18, 144));
         }
     }
 	
@@ -51,12 +54,12 @@ public class LOTRContainerGollum extends Container
             itemstack = itemstack1.copy();
             if (i < 9)
             {
-                if (!mergeItemStack(itemstack1, 9, 45, true))
+                if (!mergeItemStack(itemstack1, 27, 63, true))
                 {
                     return null;
                 }
             }
-            else if (!mergeItemStack(itemstack1, 0, 9, false))
+            else if (!mergeItemStack(itemstack1, 0, 27, false))
             {
                 return null;
             }

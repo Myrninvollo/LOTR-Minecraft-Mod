@@ -12,19 +12,21 @@ import org.lwjgl.opengl.GL11;
 public class LOTRGuiGollum extends GuiContainer
 {
 	private static ResourceLocation guiTexture = new ResourceLocation("lotr:gui/npc/gollum.png");
+	private LOTREntityGollum theGollum;
 	
 	public LOTRGuiGollum(InventoryPlayer inv, LOTREntityGollum gollum)
 	{
 		super(new LOTRContainerGollum(inv, gollum));
-		ySize = 132;
+		theGollum = gollum;
+		ySize = 168;
 	}
 	
 	@Override
     protected void drawGuiContainerForegroundLayer(int i, int j)
     {
-		String s = "Gollum";
+		String s = theGollum.getCommandSenderName();
         fontRendererObj.drawString(s, xSize / 2 - fontRendererObj.getStringWidth(s) / 2, 6, 0x404040);
-        fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, 38, 0x404040);
+        fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, 74, 0x404040);
     }
 
     @Override

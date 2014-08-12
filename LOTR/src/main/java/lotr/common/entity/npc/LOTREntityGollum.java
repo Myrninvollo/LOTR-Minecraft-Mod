@@ -1,28 +1,20 @@
 package lotr.common.entity.npc;
 
+import java.util.UUID;
+
 import lotr.common.LOTRCommonProxy;
-import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
-import lotr.common.entity.ai.LOTREntityAIGollumAvoidEntity;
-import lotr.common.entity.ai.LOTREntityAIGollumFishing;
-import lotr.common.entity.ai.LOTREntityAIGollumFollowOwner;
-import lotr.common.entity.ai.LOTREntityAIGollumPanic;
-import lotr.common.entity.ai.LOTREntityAIGollumRemainStill;
-import lotr.common.inventory.LOTRInventoryGollum;
+import lotr.common.entity.ai.*;
 import lotr.common.inventory.LOTRInventoryNPC;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -32,7 +24,9 @@ public class LOTREntityGollum extends LOTREntityNPC
 	private int eatingTick;
 	public int prevFishTime = 400;
 	public boolean isFishing;
-	public LOTRInventoryNPC inventory = new LOTRInventoryNPC("gollum", this, 9);
+	public LOTRInventoryNPC inventory = new LOTRInventoryNPC("gollum", this, 27);
+	public int prevFishRequired = 20;
+	public int fishRequired = prevFishRequired;
 
 	public LOTREntityGollum(World world)
 	{
@@ -65,23 +59,31 @@ public class LOTREntityGollum extends LOTREntityNPC
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20D);
+		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(30D);
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
     }
 	
-	public String getGollumOwnerName()
+	public String getGollumOwnerUUID()
 	{
 		return dataWatcher.getWatchableObjectString(17);
 	}
 	
-	public void setGollumOwnerName(String s)
+	public void setGollumOwnerUUID(String s)
 	{
 		dataWatcher.updateObject(17, s);
 	}
 	
 	public EntityPlayer getGollumOwner()
 	{
-		return worldObj.getPlayerEntityByName(getGollumOwnerName());
+		try
+		{
+			UUID uuid = UUID.fromString(getGollumOwnerUUID());
+			return uuid == null ? null : worldObj.func_152378_a(uuid);
+		}
+		catch (IllegalArgumentException e)
+		{
+			return null;
+		}
 	}
 	
 	public boolean isGollumFleeing()
@@ -115,9 +117,11 @@ public class LOTREntityGollum extends LOTREntityNPC
     {
         super.writeEntityToNBT(nbt);
 		inventory.writeToNBT(nbt);
-		nbt.setString("GollumOwnerName", getGollumOwnerName());
+		nbt.setString("GollumOwnerUUID", getGollumOwnerUUID());
 		nbt.setBoolean("GollumSitting", isGollumSitting());
 		nbt.setInteger("GollumFishTime", prevFishTime);
+		nbt.setInteger("FishReq", fishRequired);
+		nbt.setInteger("FishReqPrev", prevFishRequired);
     }
 	
     @Override
@@ -125,9 +129,17 @@ public class LOTREntityGollum extends LOTREntityNPC
     {
         super.readEntityFromNBT(nbt);
 		inventory.readFromNBT(nbt);
-		setGollumOwnerName(nbt.getString("GollumOwnerName"));
+		if (nbt.hasKey("GollumOwnerUUID"))
+		{
+			setGollumOwnerUUID(nbt.getString("GollumOwnerUUID"));
+		}
 		setGollumSitting(nbt.getBoolean("GollumSitting"));
 		prevFishTime = nbt.getInteger("GollumFishTime");
+		if (nbt.hasKey("FishReq"))
+		{
+			fishRequired = nbt.getInteger("FishReq");
+			prevFishRequired = nbt.getInteger("FishReqPrev");
+		}
     }
 	
 	@Override
@@ -139,7 +151,7 @@ public class LOTREntityGollum extends LOTREntityNPC
 		{
 			if (eatingTick % 4 == 0)
 			{
-				worldObj.playSoundAtEntity(this, "random.eat", 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+				worldObj.playSoundAtEntity(this, "random.eat", 0.5F + 0.5F * (float)rand.nextInt(2), (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1F);
 			}
 			eatingTick--;
 		}
@@ -195,7 +207,7 @@ public class LOTREntityGollum extends LOTREntityNPC
 					if (!entityplayer.capabilities.isCreativeMode)
 					{
 						itemstack.stackSize--;
-						if (itemstack.stackSize == 0)
+						if (itemstack.stackSize <= 0)
 						{
 							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
 						}
@@ -223,8 +235,70 @@ public class LOTREntityGollum extends LOTREntityNPC
 					return true;
 				}
 			}
+			else
+			{
+				ItemStack itemstack = entityplayer.inventory.getCurrentItem();
+				if (itemstack != null && itemstack.getItem() == Items.fish)
+				{
+					boolean tamed = false;
+					
+					if (itemstack.stackSize >= fishRequired)
+					{
+						if (!entityplayer.capabilities.isCreativeMode)
+						{
+							itemstack.stackSize -= fishRequired;
+							if (itemstack.stackSize <= 0)
+							{
+								entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+							}
+						}
+						fishRequired = 0;
+					}
+					else
+					{
+						fishRequired -= itemstack.stackSize;
+						if (!entityplayer.capabilities.isCreativeMode)
+						{
+							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+						}
+					}
+					
+					eatingTick = 20;
+					
+					if (fishRequired <= 0)
+					{
+						setGollumOwnerUUID(entityplayer.getUniqueID().toString());
+						entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(this, "gollum_tame", entityplayer));
+						LOTRSpeech.messageAllPlayers(new ChatComponentTranslation("chat.lotr.tameGollum", new Object[] {entityplayer.getCommandSenderName(), getCommandSenderName()}));
+						
+						for (int l = 0; l < 8; l++)
+						{
+							spawnHearts();
+						}
+						
+						fishRequired = Math.round((float)fishRequired * (1.25F + rand.nextFloat() * 0.25F));
+						prevFishRequired = fishRequired;
+					}
+					else
+					{
+						entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(this, "gollum_tameProgress", entityplayer));
+					}
+					
+					return true;
+				}
+			}
 		}
-		return false;
+		return super.interact(entityplayer);
+	}
+	
+	@Override
+	public String getSpeechBank(EntityPlayer entityplayer)
+	{
+		if (!isGollumFleeing())
+		{
+			return "gollum";
+		}
+		return super.getSpeechBank(entityplayer);
 	}
 	
 	private boolean canGollumEat(ItemStack itemstack)
@@ -240,10 +314,14 @@ public class LOTREntityGollum extends LOTREntityNPC
 	@Override
 	public boolean attackEntityFrom(DamageSource damagesource, float f)
 	{
-		if (getGollumOwner() != null && damagesource.getEntity() == getGollumOwner())
+		EntityPlayer owner = getGollumOwner();
+		if (owner != null && damagesource.getEntity() == owner)
 		{
 			f = 0F;
-			getGollumOwner().addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(this, "gollum_hurt", getGollumOwner()));
+			if (!worldObj.isRemote)
+			{
+				owner.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(this, "gollum_hurt", owner));
+			}
 		}
 		if (super.attackEntityFrom(damagesource, f))
 		{
@@ -262,6 +340,7 @@ public class LOTREntityGollum extends LOTREntityNPC
 		}
 		
 		super.onDeath(damagesource);
+		
 		if (!worldObj.isRemote)
 		{
 			inventory.dropAllItems();
@@ -290,6 +369,12 @@ public class LOTREntityGollum extends LOTREntityNPC
 	public String getDeathSound()
 	{
 		return "lotr:gollum.death";
+	}
+	
+	@Override
+	public String getSplashSound()
+	{
+		return super.getSplashSound();
 	}
 	
 	@Override

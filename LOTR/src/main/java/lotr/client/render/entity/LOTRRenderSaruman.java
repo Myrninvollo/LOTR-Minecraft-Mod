@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 
 public class LOTRRenderSaruman extends LOTRRenderBiped
 {
-	private static ResourceLocation skin = new ResourceLocation("lotr:mob/saruman.png");
+	private static ResourceLocation skin = new ResourceLocation("lotr:mob/char/saruman.png");
 	private Random rand = new Random();
 	private boolean twitch;
 	

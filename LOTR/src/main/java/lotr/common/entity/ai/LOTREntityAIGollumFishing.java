@@ -56,7 +56,7 @@ public class LOTREntityAIGollumFishing extends EntityAIBase
 		{
 			return false;
 		}
-		else if (theGollum.getRNG().nextInt(80) == 0)
+		else if (theGollum.getRNG().nextInt(60) == 0)
 		{
             Vec3 vec3 = findPossibleFishingLocation();
             if (vec3 == null)
@@ -133,7 +133,7 @@ public class LOTREntityAIGollumFishing extends EntityAIBase
 				theWorld.setEntityState(theGollum, (byte)15);
 				if (theGollum.getRNG().nextInt(4) == 0)
 				{
-					theWorld.playSoundAtEntity(theGollum, "liquid.splash", 1F, 1F + (theGollum.getRNG().nextFloat() - theGollum.getRNG().nextFloat()) * 0.4F);
+					theWorld.playSoundAtEntity(theGollum, theGollum.getSplashSound(), 1F, 1F + (theGollum.getRNG().nextFloat() - theGollum.getRNG().nextFloat()) * 0.4F);
 				}
 				theGollum.getJumpHelper().setJumping();
 				if (theGollum.getRNG().nextInt(50) == 0)

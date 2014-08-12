@@ -3,29 +3,17 @@ package lotr.common;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import lotr.common.LOTRCapes.CapeType;
-import lotr.common.entity.LOTREntities;
 import lotr.common.entity.LOTRMountFunctions;
 import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.item.LOTREntityBanner;
-import lotr.common.entity.npc.LOTREntityNPC;
+import lotr.common.entity.npc.*;
 import lotr.common.entity.npc.LOTRHiredNPCInfo.Task;
-import lotr.common.entity.npc.LOTRNPCMount;
-import lotr.common.entity.npc.LOTRTradeEntry;
-import lotr.common.entity.npc.LOTRTradeable;
-import lotr.common.entity.npc.LOTRUnitTradeEntry;
-import lotr.common.entity.npc.LOTRUnitTradeable;
-import lotr.common.inventory.LOTRContainerBarrel;
-import lotr.common.inventory.LOTRContainerPouch;
-import lotr.common.inventory.LOTRContainerTrade;
-import lotr.common.inventory.LOTRContainerUnitTrade;
+import lotr.common.inventory.*;
 import lotr.common.tileentity.LOTRTileEntityMobSpawner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -44,7 +32,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
 import com.google.common.base.Charsets;
-import com.mojang.authlib.GameProfile;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.internal.FMLProxyPacket;
@@ -733,6 +720,10 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 										{
 											hiredUnitsToTransport.add(npc);
 										}
+									}
+									if (npc instanceof LOTREntityGollum && ((LOTREntityGollum)npc).getGollumOwner() == entityplayer && !((LOTREntityGollum)npc).isGollumSitting())
+									{
+										hiredUnitsToTransport.add(npc);
 									}
 								}
 								

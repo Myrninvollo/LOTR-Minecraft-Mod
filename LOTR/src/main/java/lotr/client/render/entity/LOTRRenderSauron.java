@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL11;
 
 public class LOTRRenderSauron extends RenderBiped
 {
-	private static ResourceLocation skin = new ResourceLocation("lotr:mob/sauron.png");
+	private static ResourceLocation skin = new ResourceLocation("lotr:mob/char/sauron.png");
 	
 	public LOTRRenderSauron()
 	{

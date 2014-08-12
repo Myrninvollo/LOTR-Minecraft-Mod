@@ -1989,7 +1989,7 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityGondorTowerGuard.class, "GondorTowerGuard", 133, 0x514C4C, 0xE5DADA);
 
 		LOTREntities.registerCreature(LOTREntitySauron.class, "Sauron", 1000);
-		LOTREntities.registerCreature(LOTREntityGollum.class, "Gollum", 1001);
+		LOTREntities.registerCreature(LOTREntityGollum.class, "Gollum", 1001, 0xCCBD90, 0x908565);
 		LOTREntities.registerCreature(LOTREntitySaruman.class, "Saruman", 1002, 0xE6E6E6, 0xB3B3B3);
 		
 		LOTREntities.registerEntity(LOTREntityPortal.class, "Portal", 2000, 80, 3, true);

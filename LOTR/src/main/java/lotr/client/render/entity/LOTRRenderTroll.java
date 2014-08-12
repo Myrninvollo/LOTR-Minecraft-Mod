@@ -84,17 +84,17 @@ public class LOTRRenderTroll extends RenderLiving
 	}
 
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entity, int i, float f)
+    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
     {
 		bindTrollOutfitTexture(entity);
 		
-        if (i == 0)
+        if (pass == 0)
 		{
 			shirtModel.onGround = mainModel.onGround;
 			setRenderPassModel(shirtModel);
 			return 1;
 		}
-		else if (i == 1)
+		else if (pass == 1)
 		{
 			trousersModel.onGround = trousersModel.onGround;
 			setRenderPassModel(trousersModel);
@@ -102,7 +102,7 @@ public class LOTRRenderTroll extends RenderLiving
 		}
 		else
 		{
-			return -1;
+			return super.shouldRenderPass(entity, pass, f);
 		}
     }
 	

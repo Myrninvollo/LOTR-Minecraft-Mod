@@ -39,6 +39,13 @@ public class LOTRRenderRanger extends LOTRRenderBiped
 		GL11.glAlphaFunc(GL11.GL_GREATER, 0.003921569F);
 	}
 	
+	private void undoRangerInvisibility()
+	{
+		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
+		GL11.glDepthMask(true);
+	}
+	
 	@Override
 	protected void preRenderCallback(EntityLivingBase entity, float f)
 	{
@@ -49,9 +56,9 @@ public class LOTRRenderRanger extends LOTRRenderBiped
 	}
 	
 	@Override
-	protected int shouldRenderPass(EntityLivingBase entity, int i, float f)
+	protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
 	{
-		int j = super.shouldRenderPass(entity, i, f);
+		int j = super.shouldRenderPass(entity, pass, f);
 		if (j > 0 && ((LOTREntityRanger)entity).isRangerSneaking())
 		{
 			doRangerInvisibility();
@@ -71,14 +78,23 @@ public class LOTRRenderRanger extends LOTRRenderBiped
 		
 		if (((LOTREntityRanger)entity).isRangerSneaking())
 		{
+			undoRangerInvisibility();
+		}
+	}
+	
+	@Override
+	protected void renderNPCCape(EntityLivingBase entity)
+	{
+		if (((LOTREntityRanger)entity).isRangerSneaking())
+		{
 			doRangerInvisibility();
 		}
 		
+		super.renderNPCCape(entity);
+		
 		if (((LOTREntityRanger)entity).isRangerSneaking())
 		{
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
-			GL11.glDepthMask(true);
+			undoRangerInvisibility();
 		}
 	}
 }

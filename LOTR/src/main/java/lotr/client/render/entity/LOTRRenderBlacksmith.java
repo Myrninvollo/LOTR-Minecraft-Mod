@@ -27,9 +27,9 @@ public class LOTRRenderBlacksmith extends LOTRRenderBiped
 	}
 
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entity, int i, float f)
+    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
     {
-		if (i == 1)
+		if (pass == 1)
 		{
 			setRenderPassModel(standardRenderPassModel);
 			bindTexture(apron);
@@ -37,7 +37,7 @@ public class LOTRRenderBlacksmith extends LOTRRenderBiped
 		}
         else
 		{
-			return super.shouldRenderPass(entity, i, f);
+			return super.shouldRenderPass(entity, pass, f);
 		}
     }
 }

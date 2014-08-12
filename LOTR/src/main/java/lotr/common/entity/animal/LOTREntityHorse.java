@@ -12,11 +12,14 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.AnimalChest;
+import net.minecraft.inventory.InventoryBasic;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 {
@@ -36,6 +39,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		super.entityInit();
 		dataWatcher.addObject(25, Byte.valueOf((byte)0));
 		dataWatcher.addObject(26, Byte.valueOf((byte)1));
+		dataWatcher.addObject(27, Integer.valueOf(0));
 	}
 	
 	@Override
@@ -89,12 +93,6 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		}
 	}
 	
-	@Override
-	public boolean isBreedingItem(ItemStack itemstack)
-    {
-        return itemstack != null && itemstack.getItem() == Items.wheat;
-    }
-	
 	public boolean getBelongsToNPC()
 	{
 		return dataWatcher.getWatchableObjectByte(25) == (byte)1;
@@ -126,6 +124,34 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 	public void setMountable(boolean flag)
 	{
 		dataWatcher.updateObject(26, Byte.valueOf(flag ? (byte)1 : (byte)0));
+	}
+	
+	public ItemStack getMountArmor()
+	{
+		int ID = dataWatcher.getWatchableObjectInt(27);
+		return new ItemStack(Item.getItemById(ID));
+	}
+	
+	public ResourceLocation getMountArmorTexture()
+	{
+		ItemStack armor = getMountArmor();
+		if (armor != null && armor.getItem() instanceof LOTRItemMountArmor)
+		{
+			return ((LOTRItemMountArmor)armor.getItem()).getArmorTexture();
+		}
+		return null;
+	}
+	
+	public void setMountArmor(ItemStack itemstack)
+	{
+		if (itemstack == null)
+		{
+			dataWatcher.updateObject(27, Integer.valueOf(0));
+		}
+		else
+		{
+			dataWatcher.updateObject(27, Integer.valueOf(Item.getIdFromItem(itemstack.getItem())));
+		}
 	}
 	
 	@Override
@@ -171,6 +197,9 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 	@Override
 	public void onLivingUpdate()
 	{
+		ItemStack armor = LOTRReflection.getHorseInv(this).getStackInSlot(1);
+		setMountArmor(armor);
+		
 		super.onLivingUpdate();
 		
 		if (!worldObj.isRemote && riddenByEntity instanceof EntityPlayer && isInWater())
@@ -227,6 +256,12 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
     }
 	
 	@Override
+	public boolean isBreedingItem(ItemStack itemstack)
+    {
+        return itemstack != null && LOTRMod.isOreNameEqual(itemstack, "apple");
+    }
+	
+	@Override
     public EntityAgeable createChild(EntityAgeable entityageable)
 	{
 		EntityHorse superHorse = (EntityHorse)super.createChild(entityageable);
@@ -254,7 +289,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		{
 			return false;
 		}
-		if (getBelongsToNPC())
+		else if (getBelongsToNPC())
 		{
 			if (riddenByEntity == null)
 			{
@@ -266,7 +301,31 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 			}
 			return false;
 		}
-		return super.interact(entityplayer);
+		else
+		{
+			ItemStack itemstack = entityplayer.getHeldItem();
+	        if (itemstack != null && isBreedingItem(itemstack) && getGrowingAge() == 0 && !isInLove())
+	        {
+	            if (!entityplayer.capabilities.isCreativeMode)
+	            {
+	                itemstack.stackSize--;
+	                if (itemstack.stackSize <= 0)
+	                {
+	                	entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+	                }
+	            }
+	            func_146082_f(entityplayer);
+	            return true;
+	        }
+		}
+		
+		boolean prevInLove = isInLove();
+		boolean flag = super.interact(entityplayer);
+		if (isInLove() && !prevInLove)
+		{
+			resetInLove();
+		}
+		return flag;
 	}
 	
 	@Override
@@ -284,20 +343,55 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 	public void writeEntityToNBT(NBTTagCompound nbt)
 	{
 		super.writeEntityToNBT(nbt);
+		
 		nbt.setBoolean("BelongsToNPC", getBelongsToNPC());
 		nbt.setBoolean("Mountable", getMountable());
+		
+		AnimalChest inv = LOTRReflection.getHorseInv(this);
+        if (inv.getStackInSlot(1) != null)
+        {
+            nbt.setTag("LOTRMountArmorItem", inv.getStackInSlot(1).writeToNBT(new NBTTagCompound()));
+        }
 	}
 	
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbt)
 	{
 		super.readEntityFromNBT(nbt);
+		
 		setBelongsToNPC(nbt.getBoolean("BelongsToNPC"));
 		if (nbt.hasKey("Mountable"))
 		{
 			setMountable(nbt.getBoolean("Mountable"));
 		}
+		
+		AnimalChest inv = LOTRReflection.getHorseInv(this);
+		if (nbt.hasKey("LOTRMountArmorItem"))
+        {
+            ItemStack armor = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("LOTRMountArmorItem"));
+            if (armor != null && isMountArmorValid(armor))
+            {
+            	inv.setInventorySlotContents(1, armor);
+            }
+        }
 	}
+	
+	@Override
+    public void onInventoryChanged(InventoryBasic inv)
+    {
+		ItemStack prevArmor = LOTRReflection.getHorseInv(this).getStackInSlot(1);
+		
+		super.onInventoryChanged(inv);
+
+        if (ticksExisted > 20)
+        {
+        	ItemStack newArmor = LOTRReflection.getHorseInv(this).getStackInSlot(1);
+            if (!ItemStack.areItemStacksEqual(prevArmor, newArmor))
+            {
+                playSound("mob.horse.armor", 0.5F, 1F);
+            }
+        }
+    }
 	
 	@Override
 	public boolean canDespawn()

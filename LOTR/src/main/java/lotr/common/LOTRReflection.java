@@ -67,6 +67,7 @@ public class LOTRReflection
     {
     	// setWorldInfo will be tested automatically
     	getHorseJumpStrength();
+    	getHorseArmorTextures()[1].substring(0);
     	getHorseInv(new EntityHorse(world));
     	setupHorseInv(new EntityHorse(world));
     	getStackList(new InventoryCrafting(new ContainerChest(new InventoryBasic("test", false, 1), new InventoryBasic("test", false, 1)), 1, 1));
@@ -92,6 +93,19 @@ public class LOTRReflection
 		try
 		{
 			return ObfuscationReflectionHelper.getPrivateValue(EntityHorse.class, null, "horseJumpStrength", "field_110271_bv");
+		}
+		catch (Exception e)
+		{
+			logFailure(e);
+			return null;
+		}
+	}
+	
+	public static String[] getHorseArmorTextures()
+	{
+		try
+		{
+			return ObfuscationReflectionHelper.getPrivateValue(EntityHorse.class, null, "horseArmorTextures", "field_110270_bw");
 		}
 		catch (Exception e)
 		{

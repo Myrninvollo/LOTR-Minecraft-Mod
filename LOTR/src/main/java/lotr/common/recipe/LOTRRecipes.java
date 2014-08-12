@@ -515,15 +515,15 @@ public class LOTRRecipes
 		{
 			new ItemStack(wood, 1, 2)
 		});
-		GameRegistry.addRecipe(new ItemStack(Items.iron_horse_armor), new Object[]
+		GameRegistry.addRecipe(new ItemStack(horseArmorIron), new Object[]
 		{
 			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Blocks.wool
 		});
-		GameRegistry.addRecipe(new ItemStack(Items.golden_horse_armor), new Object[]
+		GameRegistry.addRecipe(new ItemStack(horseArmorGold), new Object[]
 		{
 			"X  ", "XYX", "XXX", 'X', Items.gold_ingot, 'Y', Blocks.wool
 		});
-		GameRegistry.addRecipe(new ItemStack(Items.diamond_horse_armor), new Object[]
+		GameRegistry.addRecipe(new ItemStack(horseArmorDiamond), new Object[]
 		{
 			"X  ", "XYX", "XXX", 'X', Items.diamond, 'Y', Blocks.wool
 		});

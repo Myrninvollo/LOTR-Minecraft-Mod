@@ -1,6 +1,7 @@
 Public Beta 20
 
 + Added many new types of horse armour, including upgraded versions of vanilla horse armour with better protection
++ Added 'lore books' that can be found in structures and dropped by NPCs
 + Added lore for items dropped by NPCs that says who their previous owner was
 + Added filtering options for waypoints on the Middle-earth map
 + Added new realistic loading functionality to crossbows
@@ -15,8 +16,9 @@ Public Beta 20
 + Added feet to the hobbit model
 + Added a rendered box to show the protection range of banners in debug mode
 
-* Changed all mounts in the mod to be more like horses, including taming behaviour and inventories
+* Changed all mounts in the mod to be more like horses, including taming behaviour and jumping
 * LOTR horses can no longer wear vanilla horse armour
+* LOTR horses are now bred with apples
 * Fast travel is now unavailable if nearby NPCs are attacking you
 * Middle-earth respawning now comes into effect even if you have a bed, given that you are at least 5000 blocks away from it
 * Changed the starting number of custom waypoints to 5
@@ -26,6 +28,7 @@ Public Beta 20
 * Changed the roofs of some structures to thatch
 * Changed the bricks in the Dúnedain structures to Arnor Brick
 * Increased the spawning chance of stone ruins
+* Fixed Rangers' capes not becoming invisible when they are in stealth mode
 
 Public Beta 19.2
 

@@ -47,17 +47,17 @@ public class LOTRRenderHobbit extends LOTRRenderBiped
     }
 	
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entity, int i, float f)
+    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
     {
 		LOTREntityHobbit hobbit = (LOTREntityHobbit)entity;
-		if (i == 1 && entity instanceof LOTREntityHobbitBartender)
+		if (pass == 1 && entity instanceof LOTREntityHobbitBartender)
 		{
 			bindTexture(apron);
 			setRenderPassModel(standardRenderPassModel);
 			((ModelBiped)renderPassModel).bipedRightArm.showModel = true;
 			return 1;
 		}
-		else if (i == 1 && hobbit.getClass() == hobbit.familyInfo.marriageEntityClass && hobbit.getEquipmentInSlot(4) != null && hobbit.getEquipmentInSlot(4).getItem() == hobbit.familyInfo.marriageRing)
+		else if (pass == 1 && hobbit.getClass() == hobbit.familyInfo.marriageEntityClass && hobbit.getEquipmentInSlot(4) != null && hobbit.getEquipmentInSlot(4).getItem() == hobbit.familyInfo.marriageRing)
 		{
 			bindTexture(ringTexture);
 			setRenderPassModel(standardRenderPassModel);
@@ -66,7 +66,7 @@ public class LOTRRenderHobbit extends LOTRRenderBiped
 		}
 		else
 		{
-			return super.shouldRenderPass(entity, i, f);
+			return super.shouldRenderPass(entity, pass, f);
 		}
     }
 	

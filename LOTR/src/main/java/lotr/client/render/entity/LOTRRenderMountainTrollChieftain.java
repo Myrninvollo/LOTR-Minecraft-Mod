@@ -34,17 +34,17 @@ public class LOTRRenderMountainTrollChieftain extends LOTRRenderMountainTroll
 	}
 	
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entity, int i, float f)
+    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
     {
 		LOTREntityMountainTrollChieftain troll = (LOTREntityMountainTrollChieftain)entity;
 		bindTexture(armorTexture);
-		if (i == 2 && troll.getTrollArmorLevel() >= 2)
+		if (pass == 2 && troll.getTrollArmorLevel() >= 2)
 		{
 			helmetModel.onGround = mainModel.onGround;
 			setRenderPassModel(helmetModel);
 			return 1;
 		}
-		else if (i == 3 && troll.getTrollArmorLevel() >= 1)
+		else if (pass == 3 && troll.getTrollArmorLevel() >= 1)
 		{
 			chestplateModel.onGround = mainModel.onGround;
 			setRenderPassModel(chestplateModel);
@@ -52,7 +52,7 @@ public class LOTRRenderMountainTrollChieftain extends LOTRRenderMountainTroll
 		}
 		else
 		{
-			return super.shouldRenderPass(entity, i, f);
+			return super.shouldRenderPass(entity, pass, f);
 		}
     }
 

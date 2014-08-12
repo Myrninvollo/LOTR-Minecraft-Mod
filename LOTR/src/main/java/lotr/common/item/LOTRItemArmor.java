@@ -31,7 +31,7 @@ public class LOTRItemArmor extends ItemArmor
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
 	{
-		String prefix = getArmorMaterial().name().substring(5).toLowerCase();
+		String prefix = getArmorMaterial().name().substring(LOTRMod.getModID().length() + 1).toLowerCase();
 		if (extraName != null)
 		{
 			prefix = prefix + "_" + extraName;

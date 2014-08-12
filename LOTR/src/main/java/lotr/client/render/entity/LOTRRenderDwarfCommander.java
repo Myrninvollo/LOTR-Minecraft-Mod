@@ -22,9 +22,9 @@ public class LOTRRenderDwarfCommander extends LOTRRenderDwarf
 	}
 	
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entity, int i, float f)
+    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
     {
-		if (i == 0)
+		if (pass == 0)
 		{
 			bindTexture(getCloakTexture(entity));
 			cloakModel.bipedHead.showModel = false;
@@ -41,6 +41,6 @@ public class LOTRRenderDwarfCommander extends LOTRRenderDwarf
 			cloakModel.heldItemRight = modelBipedMain.heldItemRight;
 			return 1;
 		}
-		return super.shouldRenderPass(entity, i, f);
+		return super.shouldRenderPass(entity, pass, f);
 	}
 }

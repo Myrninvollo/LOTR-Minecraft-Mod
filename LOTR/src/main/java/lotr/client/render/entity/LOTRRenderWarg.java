@@ -86,35 +86,35 @@ public class LOTRRenderWarg extends RenderLiving
 	}
 
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entityliving, int i, float f)
+    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
     {
-		if (i == 3)
+		if (pass == 3)
 		{
-			if (((LOTREntityWarg)entityliving).isMountSaddled())
+			if (((LOTREntityWarg)entity).isMountSaddled())
 			{
 				bindTexture(wargSaddle);
 				setRenderPassModel(saddleModel);
 				return 1;
 			}
-			return -1;
+			return super.shouldRenderPass(entity, pass, f);
 		}
 		else
 		{
-			ItemStack itemstack = ((LOTREntityWarg)entityliving).getEquipmentInSlot(4 - i);
+			ItemStack itemstack = ((LOTREntityWarg)entity).getEquipmentInSlot(4 - pass);
 			if (itemstack != null)
 			{
 				Item item = itemstack.getItem();
 				if (item instanceof LOTRItemWargArmor)
 				{
-					bindTexture(i == 1 ? wargArmor2 : wargArmor1);
-					LOTRModelWarg model = i == 1 ? chestplateModel : otherArmorModel;
-					model.head.showModel = i == 0;
-					model.body.showModel = i == 1 || i == 2;
-					model.leg3.showModel = i == 1;
-					model.leg4.showModel = i == 1;
-					model.leg1.showModel = i == 2;
-					model.leg2.showModel = i == 2;
-					model.tail.showModel = i == 2;
+					bindTexture(pass == 1 ? wargArmor2 : wargArmor1);
+					LOTRModelWarg model = pass == 1 ? chestplateModel : otherArmorModel;
+					model.head.showModel = pass == 0;
+					model.body.showModel = pass == 1 || pass == 2;
+					model.leg3.showModel = pass == 1;
+					model.leg4.showModel = pass == 1;
+					model.leg1.showModel = pass == 2;
+					model.leg2.showModel = pass == 2;
+					model.tail.showModel = pass == 2;
 					setRenderPassModel(model);
 
 					GL11.glColor3f(1F, 1F, 1F);
@@ -130,7 +130,7 @@ public class LOTRRenderWarg extends RenderLiving
 				}
 			}
 		}
-		return -1;
+		return super.shouldRenderPass(entity, pass, f);
     }
 	
 	@Override

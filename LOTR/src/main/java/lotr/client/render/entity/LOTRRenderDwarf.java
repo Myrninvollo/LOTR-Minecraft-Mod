@@ -76,10 +76,10 @@ public class LOTRRenderDwarf extends LOTRRenderBiped
     }
 	
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entity, int i, float f)
+    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
     {
 		LOTREntityDwarf dwarf = (LOTREntityDwarf)entity;
-		if (i == 1 && dwarf.getClass() == dwarf.familyInfo.marriageEntityClass && dwarf.getEquipmentInSlot(4) != null && dwarf.getEquipmentInSlot(4).getItem() == dwarf.familyInfo.marriageRing)
+		if (pass == 1 && dwarf.getClass() == dwarf.familyInfo.marriageEntityClass && dwarf.getEquipmentInSlot(4) != null && dwarf.getEquipmentInSlot(4).getItem() == dwarf.familyInfo.marriageRing)
 		{
 			bindTexture(ringTexture);
 			setRenderPassModel(standardRenderPassModel);
@@ -88,7 +88,7 @@ public class LOTRRenderDwarf extends LOTRRenderBiped
 		}
 		else
 		{
-			return super.shouldRenderPass(entity, i, f);
+			return super.shouldRenderPass(entity, pass, f);
 		}
     }
 	

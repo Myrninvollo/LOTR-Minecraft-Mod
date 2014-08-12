@@ -13,6 +13,7 @@ import lotr.common.entity.item.*;
 import lotr.common.entity.npc.*;
 import lotr.common.entity.projectile.*;
 import lotr.common.item.*;
+import lotr.common.item.LOTRItemMountArmor.Mount;
 import lotr.common.recipe.*;
 import lotr.common.tileentity.*;
 import lotr.common.world.LOTRWorldProvider;
@@ -599,6 +600,9 @@ public class LOTRMod
 	public static Item dwarvenRing;
 	public static Item spearDwarven;
 	public static Item spearBlueDwarven;
+	public static Item horseArmorIron;
+	public static Item horseArmorGold;
+	public static Item horseArmorDiamond;
 	
 	public static int idDimension;
 	public static boolean alwaysShowAlignment;
@@ -1125,6 +1129,9 @@ public class LOTRMod
 		dwarvenRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMisc).setUnlocalizedName("lotr:dwarvenRing");
 		spearDwarven = new LOTRItemSpear(toolDwarven, swordDwarven).setUnlocalizedName("lotr:spearDwarven");
 		spearBlueDwarven = new LOTRItemSpear(toolBlueDwarven, swordBlueDwarven).setUnlocalizedName("lotr:spearBlueDwarven");
+		horseArmorIron = new LOTRItemMountArmor(ArmorMaterial.IRON, Mount.HORSE).setTemplateItem(Items.iron_horse_armor).setUnlocalizedName("lotr.horseArmorIron");
+		horseArmorGold = new LOTRItemMountArmor(ArmorMaterial.GOLD, Mount.HORSE).setTemplateItem(Items.golden_horse_armor).setUnlocalizedName("lotr.horseArmorGold");
+		horseArmorDiamond = new LOTRItemMountArmor(ArmorMaterial.DIAMOND, Mount.HORSE).setTemplateItem(Items.diamond_horse_armor).setUnlocalizedName("lotr.horseArmorDiamond");
 		
 		try
 		{
@@ -1676,6 +1683,9 @@ public class LOTRMod
 		registerItem(dwarvenRing);
 		registerItem(spearDwarven);
 		registerItem(spearBlueDwarven);
+		registerItem(horseArmorIron);
+		registerItem(horseArmorGold);
+		registerItem(horseArmorDiamond);
 		
 		idDimension = config.get("general", "Dimension ID", 100).getInt();
 		alwaysShowAlignment = config.get("general", "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean(false);

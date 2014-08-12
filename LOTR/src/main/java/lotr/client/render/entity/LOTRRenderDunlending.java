@@ -20,9 +20,9 @@ public class LOTRRenderDunlending extends LOTRRenderDunlendingBase
 	}
 
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entity, int i, float f)
+    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
     {
-		if (i == 1 && entity.getEquipmentInSlot(3) == null)
+		if (pass == 1 && entity.getEquipmentInSlot(3) == null)
 		{
 			setRenderPassModel(standardRenderPassModel);
 			if (entity instanceof LOTREntityDunlendingBartender)
@@ -35,6 +35,6 @@ public class LOTRRenderDunlending extends LOTRRenderDunlendingBase
 			}
 			return 1;
 		}
-		return super.shouldRenderPass(entity, i, f);
+		return super.shouldRenderPass(entity, pass, f);
     }
 }

@@ -315,6 +315,11 @@ public abstract class LOTRRenderBiped extends RenderBiped
             GL11.glPopMatrix();
         }
 		
+		renderNPCCape(entity);
+	}
+	
+	protected void renderNPCCape(EntityLivingBase entity)
+	{
 		if (capeTexture != null)
 		{
 			GL11.glPushMatrix();

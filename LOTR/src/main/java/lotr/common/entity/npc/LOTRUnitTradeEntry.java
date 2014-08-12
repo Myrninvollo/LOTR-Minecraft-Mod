@@ -224,7 +224,7 @@ public class LOTRUnitTradeEntry
 		{
 			new LOTRUnitTradeEntry(LOTREntityElf.class, 15, 200),
 			new LOTRUnitTradeEntry(LOTREntityElfWarrior.class, 30, 300),
-			new LOTRUnitTradeEntry(LOTREntityElfWarrior.class, LOTREntityHorse.class, "GaladhrimWarrior_Horse", 35, 400),
+			new LOTRUnitTradeEntry(LOTREntityElfWarrior.class, LOTREntityHorse.class, "GaladhrimWarrior_Horse", 35, 400).setMountArmor(LOTRMod.horseArmorGaladhrim),
 			new LOTRUnitTradeEntry(LOTREntityGaladhrimBannerBearer.class, 40, 450)
 		};
 		
@@ -312,7 +312,7 @@ public class LOTRUnitTradeEntry
 		{
 			new LOTRUnitTradeEntry(LOTREntityHighElf.class, 15, 250),
 			new LOTRUnitTradeEntry(LOTREntityHighElfWarrior.class, 30, 350),
-			new LOTRUnitTradeEntry(LOTREntityHighElfWarrior.class, LOTREntityHorse.class, "HighElfWarrior_Horse", 35, 450),
+			new LOTRUnitTradeEntry(LOTREntityHighElfWarrior.class, LOTREntityHorse.class, "HighElfWarrior_Horse", 35, 450).setMountArmor(LOTRMod.horseArmorHighElven),
 			new LOTRUnitTradeEntry(LOTREntityHighElfBannerBearer.class, 40, 500)
 		};
 		

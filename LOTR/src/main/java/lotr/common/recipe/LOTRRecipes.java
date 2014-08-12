@@ -1587,6 +1587,10 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', mallornStick, 'Z', new ItemStack(planks, 1, 1)
 		}));
+		elvenRecipes.add(new ShapedOreRecipe(new ItemStack(horseArmorGaladhrim), new Object[]
+		{
+			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Blocks.wool
+		}));
 	}
 	
 	private static void createDwarvenRecipes()
@@ -2322,6 +2326,10 @@ public class LOTRRecipes
 		highElvenRecipes.add(new ShapedOreRecipe(new ItemStack(highElvenBedItem), new Object[]
 		{
 			"XXX", "YYY", 'X', Blocks.wool, 'Y', "plankWood"
+		}));
+		highElvenRecipes.add(new ShapedOreRecipe(new ItemStack(horseArmorHighElven), new Object[]
+		{
+			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Blocks.wool
 		}));
 	}
     

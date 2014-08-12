@@ -4,11 +4,13 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
+import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.world.biome.LOTRBiome;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -18,6 +20,14 @@ public class LOTREntityHighElf extends LOTREntityElf
 	public LOTREntityHighElf(World world)
 	{
 		super(world);
+	}
+	
+	@Override
+	public LOTRNPCMount createMountToRide()
+	{
+		LOTREntityHorse horse = (LOTREntityHorse)super.createMountToRide();
+		horse.setMountArmor(new ItemStack(LOTRMod.horseArmorHighElven));
+		return horse;
 	}
 
 	@Override

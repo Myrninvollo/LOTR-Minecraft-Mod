@@ -12,6 +12,8 @@ item.lotr:sulfurMatch.name=Sulphur Match
 item.lotr:horseArmorGondor.name=Gondorian Horse Armour
 item.lotr:horseArmorRohan.name=Rohirric Horse Armour
 item.lotr:wargArmorUruk.name=Uruk Warg Armour
+item.lotr:horseArmorHighElven.name=High Elven Horse Armour
+item.lotr:horseArmorGaladhrim.name=Galadhrim Horse Armour
 
 container.lotr.armorStand=Armour Stand
 

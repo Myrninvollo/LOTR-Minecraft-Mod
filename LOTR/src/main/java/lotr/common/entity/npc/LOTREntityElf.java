@@ -12,6 +12,7 @@ import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
+import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import lotr.common.world.biome.LOTRBiomeGenLothlorien;
 import net.minecraft.entity.EntityLiving;
@@ -76,6 +77,14 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 	public EntityAIBase createElfMeleeAttackAI()
 	{
 		return new LOTREntityAIAttackOnCollide(this, 1.5D, false);
+	}
+	
+	@Override
+	public LOTRNPCMount createMountToRide()
+	{
+		LOTREntityHorse horse = (LOTREntityHorse)super.createMountToRide();
+		horse.setMountArmor(new ItemStack(LOTRMod.horseArmorGaladhrim));
+		return horse;
 	}
 	
 	@Override

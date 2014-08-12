@@ -2026,6 +2026,7 @@ public class LOTRMod
 		LOTRBrewingRecipes.createBrewingRecipes();
 		LOTREntJarRecipes.createDraughtRecipes();
 		LOTRAchievement.createAchievements();
+		LOTRFaction.initFactionProperties();
 		LOTRTickHandlerServer.createSpawningLists();
 		LOTRStructures.registerStructures();
 	}

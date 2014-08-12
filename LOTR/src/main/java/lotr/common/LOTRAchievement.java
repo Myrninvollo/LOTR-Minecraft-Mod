@@ -70,8 +70,8 @@ public class LOTRAchievement implements Comparable
 	private String name;
 	public boolean isBiomeAchievement;
 	public boolean isSpecial;
-	private LOTRFaction enemyFaction;
-	private LOTRFaction allyFaction;
+	public LOTRFaction enemyFaction;
+	public LOTRFaction allyFaction;
 	
 	public LOTRAchievement(Category c, int i, Block block, String s)
 	{

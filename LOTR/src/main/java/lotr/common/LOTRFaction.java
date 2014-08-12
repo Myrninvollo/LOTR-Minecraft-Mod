@@ -1,9 +1,7 @@
 package lotr.common;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.Map.Entry;
 
 import lotr.common.entity.npc.*;
 import lotr.common.world.LOTRInvasionSpawner.InvasionSpawnEntry;
@@ -44,6 +42,7 @@ public enum LOTRFaction
 	private String factionName;
 	public float[] factionColors;
 	public List<InvasionSpawnEntry> invasionMobs = new ArrayList<InvasionSpawnEntry>();
+	private Map<Integer, LOTRAchievement> alignmentAchievements = new HashMap();
 	
 	public static Set playersTakenRewardItem = new HashSet();
 	
@@ -67,8 +66,37 @@ public enum LOTRFaction
 		factionColors[1] = (float)((i >> 8) & 255) / 255F;
 		factionColors[2] = (float)(i & 255) / 255F;
 	}
+	
+	private void addAlignmentAchievement(int alignment, LOTRAchievement achievement)
+	{
+		if (achievement.allyFaction != this)
+		{
+			throw new IllegalArgumentException("Faction alignment achievements must require alliance with the faction");
+		}
+		if (alignmentAchievements.containsKey(alignment))
+		{
+			throw new IllegalArgumentException("Alignment value is already registered");
+		}
+		if (alignmentAchievements.containsValue(achievement))
+		{
+			throw new IllegalArgumentException("Achievement is already registered");
+		}
+		
+		alignmentAchievements.put(alignment, achievement);
+	}
+	
+	public void checkAlignmentAchievements(LOTRPlayerData playerData, int alignment)
+	{
+		for (Entry<Integer, LOTRAchievement> entry : alignmentAchievements.entrySet())
+		{
+			if (alignment >= entry.getKey())
+			{
+				playerData.addAchievement(entry.getValue());
+			}
+		}
+	}
 
-	static
+	public static void initFactionProperties()
 	{
 		for (LOTRFaction f : values())
 		{
@@ -77,6 +105,10 @@ public enum LOTRFaction
 				totalPlayerFactions++;
 			}
 		}
+		
+		HOBBIT.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_HOBBIT);
+		HOBBIT.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_HOBBIT);
+		HOBBIT.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_HOBBIT);
 		
 		HOBBIT.addEnemy(GUNDABAD);
 		HOBBIT.addEnemy(ANGMAR);
@@ -91,6 +123,10 @@ public enum LOTRFaction
 		HOBBIT.addKillPositive(GUNDABAD);
 		
 		HOBBIT.invasionMobs.add(new InvasionSpawnEntry(LOTREntityHobbitShirriff.class, 15));
+		
+		RANGER_NORTH.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_RANGER_NORTH);
+		RANGER_NORTH.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_RANGER_NORTH);
+		RANGER_NORTH.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_RANGER_NORTH);
 		
 		RANGER_NORTH.addEnemy(GUNDABAD);
 		RANGER_NORTH.addEnemy(ANGMAR);
@@ -111,6 +147,10 @@ public enum LOTRFaction
 		RANGER_NORTH.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRangerNorth.class, 15));
 		RANGER_NORTH.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRangerNorthBannerBearer.class, 2));
 		
+		BLUE_MOUNTAINS.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_BLUE_MOUNTAINS);
+		BLUE_MOUNTAINS.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_BLUE_MOUNTAINS);
+		BLUE_MOUNTAINS.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_BLUE_MOUNTAINS);
+		
 		BLUE_MOUNTAINS.addEnemy(GUNDABAD);
 		BLUE_MOUNTAINS.addEnemy(ANGMAR);
 		BLUE_MOUNTAINS.addEnemy(DOL_GULDUR);
@@ -126,6 +166,10 @@ public enum LOTRFaction
 		BLUE_MOUNTAINS.invasionMobs.add(new InvasionSpawnEntry(LOTREntityBlueDwarfWarrior.class, 10));
 		BLUE_MOUNTAINS.invasionMobs.add(new InvasionSpawnEntry(LOTREntityBlueDwarfAxeThrower.class, 5));
 		BLUE_MOUNTAINS.invasionMobs.add(new InvasionSpawnEntry(LOTREntityBlueDwarfBannerBearer.class, 2));
+		
+		HIGH_ELF.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_HIGH_ELF);
+		HIGH_ELF.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_HIGH_ELF);
+		HIGH_ELF.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_HIGH_ELF);
 		
 		HIGH_ELF.addEnemy(GUNDABAD);
 		HIGH_ELF.addEnemy(ANGMAR);
@@ -146,6 +190,10 @@ public enum LOTRFaction
 		
 		HIGH_ELF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityHighElfWarrior.class, 15));
 		HIGH_ELF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityHighElfBannerBearer.class, 2));
+		
+		GUNDABAD.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_GUNDABAD);
+		GUNDABAD.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_GUNDABAD);
+		GUNDABAD.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_GUNDABAD);
 		
 		GUNDABAD.addEnemy(HOBBIT);
 		GUNDABAD.addEnemy(RANGER_NORTH);
@@ -177,6 +225,10 @@ public enum LOTRFaction
 		GUNDABAD.invasionMobs.add(new InvasionSpawnEntry(LOTREntityGundabadOrcArcher.class, 5));
 		GUNDABAD.invasionMobs.add(new InvasionSpawnEntry(LOTREntityGundabadWarg.class, 5));
 		
+		ANGMAR.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_ANGMAR);
+		ANGMAR.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_ANGMAR);
+		ANGMAR.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_ANGMAR);
+		
 		ANGMAR.addEnemy(HOBBIT);
 		ANGMAR.addEnemy(RANGER_NORTH);
 		ANGMAR.addEnemy(BLUE_MOUNTAINS);
@@ -203,6 +255,10 @@ public enum LOTRFaction
 		ANGMAR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityAngmarWarg.class, 10));
 		ANGMAR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityAngmarWargBombardier.class, 1));
 		
+		WOOD_ELF.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_WOOD_ELF);
+		WOOD_ELF.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_WOOD_ELF);
+		WOOD_ELF.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_WOOD_ELF);
+		
 		WOOD_ELF.addEnemy(GUNDABAD);
 		WOOD_ELF.addEnemy(ANGMAR);
 		WOOD_ELF.addEnemy(DOL_GULDUR);
@@ -224,6 +280,10 @@ public enum LOTRFaction
 		WOOD_ELF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityWoodElfScout.class, 5));
 		WOOD_ELF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityWoodElfBannerBearer.class, 2));
 		
+		DOL_GULDUR.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_DOL_GULDUR);
+		DOL_GULDUR.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_DOL_GULDUR);
+		DOL_GULDUR.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_DOL_GULDUR);
+		
 		DOL_GULDUR.addEnemy(HOBBIT);
 		DOL_GULDUR.addEnemy(RANGER_NORTH);
 		DOL_GULDUR.addEnemy(BLUE_MOUNTAINS);
@@ -244,6 +304,10 @@ public enum LOTRFaction
 		
 		DOL_GULDUR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityMirkwoodSpider.class, 10));
 		
+		DWARF.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_DWARF);
+		DWARF.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_DWARF);
+		DWARF.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_DWARF);
+		
 		DWARF.addEnemy(GUNDABAD);
 		DWARF.addEnemy(ANGMAR);
 		DWARF.addEnemy(DOL_GULDUR);
@@ -259,6 +323,10 @@ public enum LOTRFaction
 		DWARF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDwarfWarrior.class, 10));
 		DWARF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDwarfAxeThrower.class, 5));
 		DWARF.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDwarfBannerBearer.class, 2));
+		
+		GALADHRIM.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_GALADHRIM);
+		GALADHRIM.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_GALADHRIM);
+		GALADHRIM.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_GALADHRIM);
 		
 		GALADHRIM.addEnemy(GUNDABAD);
 		GALADHRIM.addEnemy(ANGMAR);
@@ -279,6 +347,10 @@ public enum LOTRFaction
 		
 		GALADHRIM.invasionMobs.add(new InvasionSpawnEntry(LOTREntityElfWarrior.class, 15));
 		GALADHRIM.invasionMobs.add(new InvasionSpawnEntry(LOTREntityGaladhrimBannerBearer.class, 2));
+		
+		DUNLAND.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_DUNLAND);
+		DUNLAND.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_DUNLAND);
+		DUNLAND.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_DUNLAND);
 		
 		DUNLAND.addEnemy(RANGER_NORTH);
 		DUNLAND.addEnemy(HIGH_ELF);
@@ -301,6 +373,10 @@ public enum LOTRFaction
 		DUNLAND.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDunlendingWarrior.class, 5));
 		DUNLAND.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDunlendingArcher.class, 5));
 		DUNLAND.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDunlendingBannerBearer.class, 2));
+		
+		URUK_HAI.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_URUK_HAI);
+		URUK_HAI.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_URUK_HAI);
+		URUK_HAI.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_URUK_HAI);
 		
 		URUK_HAI.addEnemy(HOBBIT);
 		URUK_HAI.addEnemy(RANGER_NORTH);
@@ -325,6 +401,10 @@ public enum LOTRFaction
 		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukWarg.class, 10));
 		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukWargBombardier.class, 1));
 		
+		FANGORN.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_FANGORN);
+		FANGORN.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_FANGORN);
+		FANGORN.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_FANGORN);
+		
 		FANGORN.addEnemy(GUNDABAD);
 		FANGORN.addEnemy(ANGMAR);
 		FANGORN.addEnemy(DOL_GULDUR);
@@ -339,6 +419,10 @@ public enum LOTRFaction
 		
 		FANGORN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityEnt.class, 10));
 		FANGORN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityHuorn.class, 20));
+		
+		ROHAN.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_ROHAN);
+		ROHAN.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_ROHAN);
+		ROHAN.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_ROHAN);
 		
 		ROHAN.addEnemy(GUNDABAD);
 		ROHAN.addEnemy(ANGMAR);
@@ -360,6 +444,10 @@ public enum LOTRFaction
 		ROHAN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRohirrim.class, 10));
 		ROHAN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRohirrimArcher.class, 5));
 		ROHAN.invasionMobs.add(new InvasionSpawnEntry(LOTREntityRohanBannerBearer.class, 2));
+		
+		GONDOR.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_GONDOR);
+		GONDOR.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_GONDOR);
+		GONDOR.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_GONDOR);
 		
 		GONDOR.addEnemy(GUNDABAD);
 		GONDOR.addEnemy(ANGMAR);
@@ -383,6 +471,10 @@ public enum LOTRFaction
 		GONDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityGondorSoldier.class, 10));
 		GONDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityGondorArcher.class, 5));
 		GONDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityGondorBannerBearer.class, 2));
+		
+		MORDOR.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_MORDOR);
+		MORDOR.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_MORDOR);
+		MORDOR.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_MORDOR);
 		
 		MORDOR.addEnemy(HOBBIT);
 		MORDOR.addEnemy(RANGER_NORTH);
@@ -412,6 +504,10 @@ public enum LOTRFaction
 		MORDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityMordorWargBombardier.class, 1));
 		MORDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityOlogHai.class, 5));
 		
+		NEAR_HARAD.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_NEAR_HARAD);
+		NEAR_HARAD.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_NEAR_HARAD);
+		NEAR_HARAD.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_NEAR_HARAD);
+		
 		NEAR_HARAD.addEnemy(RANGER_NORTH);
 		NEAR_HARAD.addEnemy(HIGH_ELF);
 		NEAR_HARAD.addEnemy(WOOD_ELF);
@@ -428,6 +524,10 @@ public enum LOTRFaction
 		NEAR_HARAD.invasionMobs.add(new InvasionSpawnEntry(LOTREntityNearHaradrimArcher.class, 5));
 		NEAR_HARAD.invasionMobs.add(new InvasionSpawnEntry(LOTREntityNearHaradBannerBearer.class, 2));
 		
+		FAR_HARAD.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_FAR_HARAD);
+		FAR_HARAD.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_FAR_HARAD);
+		FAR_HARAD.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_FAR_HARAD);
+		
 		FAR_HARAD.addEnemy(RANGER_NORTH);
 		FAR_HARAD.addEnemy(HIGH_ELF);
 		FAR_HARAD.addEnemy(WOOD_ELF);
@@ -440,7 +540,11 @@ public enum LOTRFaction
 		
 		FAR_HARAD.addKillPositive(GONDOR);
 		
-		// No invasion mobs yet
+		// No Far Harad invasion mobs yet
+		
+		HALF_TROLL.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_HALF_TROLL);
+		HALF_TROLL.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_HALF_TROLL);
+		HALF_TROLL.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_HALF_TROLL);
 		
 		HALF_TROLL.addEnemy(HOBBIT);
 		HALF_TROLL.addEnemy(RANGER_NORTH);
@@ -459,7 +563,7 @@ public enum LOTRFaction
 		
 		HALF_TROLL.addKillPositive(GONDOR);
 		
-		// No invasion mobs yet
+		// No Half-troll invasion mobs yet
 	}
 	
 	public void addEnemy(LOTRFaction f)

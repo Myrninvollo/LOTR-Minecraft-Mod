@@ -375,6 +375,10 @@ public class LOTRPlayerData
 			{
 				addAchievement(LOTRAchievement.alignmentGood10_DUNLAND);
 			}
+			if (faction == LOTRFaction.URUK_HAI)
+			{
+				addAchievement(LOTRAchievement.alignmentGood10_URUK_HAI);
+			}
 			if (faction == LOTRFaction.FANGORN)
 			{
 				addAchievement(LOTRAchievement.alignmentGood10_FANGORN);
@@ -382,10 +386,6 @@ public class LOTRPlayerData
 			if (faction == LOTRFaction.ROHAN)
 			{
 				addAchievement(LOTRAchievement.alignmentGood10_ROHAN);
-			}
-			if (faction == LOTRFaction.URUK_HAI)
-			{
-				addAchievement(LOTRAchievement.alignmentGood10_URUK_HAI);
 			}
 			if (faction == LOTRFaction.GONDOR)
 			{
@@ -455,6 +455,10 @@ public class LOTRPlayerData
 			{
 				addAchievement(LOTRAchievement.alignmentGood100_DUNLAND);
 			}
+			if (faction == LOTRFaction.URUK_HAI)
+			{
+				addAchievement(LOTRAchievement.alignmentGood100_URUK_HAI);
+			}
 			if (faction == LOTRFaction.FANGORN)
 			{
 				addAchievement(LOTRAchievement.alignmentGood100_FANGORN);
@@ -462,10 +466,6 @@ public class LOTRPlayerData
 			if (faction == LOTRFaction.ROHAN)
 			{
 				addAchievement(LOTRAchievement.alignmentGood100_ROHAN);
-			}
-			if (faction == LOTRFaction.URUK_HAI)
-			{
-				addAchievement(LOTRAchievement.alignmentGood100_URUK_HAI);
 			}
 			if (faction == LOTRFaction.GONDOR)
 			{
@@ -535,6 +535,10 @@ public class LOTRPlayerData
 			{
 				addAchievement(LOTRAchievement.alignmentGood1000_DUNLAND);
 			}
+			if (faction == LOTRFaction.URUK_HAI)
+			{
+				addAchievement(LOTRAchievement.alignmentGood1000_URUK_HAI);
+			}
 			if (faction == LOTRFaction.FANGORN)
 			{
 				addAchievement(LOTRAchievement.alignmentGood1000_FANGORN);
@@ -542,10 +546,6 @@ public class LOTRPlayerData
 			if (faction == LOTRFaction.ROHAN)
 			{
 				addAchievement(LOTRAchievement.alignmentGood1000_ROHAN);
-			}
-			if (faction == LOTRFaction.URUK_HAI)
-			{
-				addAchievement(LOTRAchievement.alignmentGood1000_URUK_HAI);
 			}
 			if (faction == LOTRFaction.GONDOR)
 			{
@@ -866,5 +866,14 @@ public class LOTRPlayerData
 	{
 		alcoholTolerance = i;
 		LOTRLevelData.markDirty();
+		
+		if (alcoholTolerance >= 250)
+		{
+			EntityPlayer entityplayer = getPlayer();
+			if (entityplayer != null)
+			{
+				addAchievement(LOTRAchievement.gainHighAlcoholTolerance);
+			}
+		}
 	}
 }

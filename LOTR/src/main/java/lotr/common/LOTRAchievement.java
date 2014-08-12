@@ -203,13 +203,14 @@ public class LOTRAchievement implements Comparable
 	public static List allAchievements = new ArrayList();
 	
 	public static LOTRAchievement enterMiddleEarth;
+	// empty slots
 	public static LOTRAchievement killOrc;
 	public static LOTRAchievement mineMithril;
 	public static LOTRAchievement rideWarg;
 	public static LOTRAchievement killWarg;
 	public static LOTRAchievement useSpearFromFar;
 	public static LOTRAchievement wearFullMithril;
-	// empty slot
+	public static LOTRAchievement gainHighAlcoholTolerance;
 	public static LOTRAchievement craftSaddle;
 	public static LOTRAchievement drinkOrcDraught;
 	public static LOTRAchievement getPouch;
@@ -516,7 +517,7 @@ public class LOTRAchievement implements Comparable
 		killWarg = new LOTRAchievement(GENERAL, 17, LOTRMod.wargBone, "killWarg");
 		useSpearFromFar = new LOTRAchievement(GENERAL, 18, LOTRMod.spearIron, "useSpearFromFar");
 		wearFullMithril = new LOTRAchievement(GENERAL, 19, LOTRMod.bodyMithril, "wearFullMithril");
-		// empty
+		gainHighAlcoholTolerance = new LOTRAchievement(GENERAL, 20, LOTRMod.mugRum, "gainHighAlcoholTolerance");
 		craftSaddle = new LOTRAchievement(GENERAL, 21, Items.saddle, "craftSaddle");
 		craftBronze = new LOTRAchievement(GENERAL, 22, LOTRMod.bronze, "craftBronze");
 		drinkOrcDraught = new LOTRAchievement(GENERAL, 23, LOTRMod.mugOrcDraught, "drinkOrcDraught");

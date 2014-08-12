@@ -120,7 +120,7 @@ public class LOTRItemPouch extends Item
 		list.add(StatCollector.translateToLocalFormatted("item.lotr.pouch.slots", new Object[] {slotsFull, slots}));
 	}
 	
-	public static void tryAddItemToPouch(ItemStack pouch, ItemStack itemstack)
+	public static boolean tryAddItemToPouch(ItemStack pouch, ItemStack itemstack)
 	{
 		if (itemstack != null && itemstack.stackSize > 0)
 		{
@@ -162,7 +162,10 @@ public class LOTRItemPouch extends Item
 				itemstack.stackSize -= difference;
 				itemInSlot.stackSize += difference;
 				tempInventory.setInventorySlotContents(i, itemInSlot);
+				return true;
 			}
 		}
+		
+		return false;
 	}
 }

@@ -87,6 +87,9 @@ public abstract class LOTREntityNPC extends EntityCreature
 	public int npcTalkTick = 0;
 	private boolean hurtOnlyByPlates = true;
 	
+	private List<ItemStack> npcDrops = new ArrayList();
+	private boolean enpouchNPCDrops = true;
+	
 	public LOTREntityNPC(World world)
 	{
 		super(world);
@@ -879,6 +882,12 @@ public abstract class LOTREntityNPC extends EntityCreature
 				NBTTagCompound nbt = item.getTagCompound();
 				nbt.setString("LOTROwner", getCommandSenderName());
 			}
+			
+			if (enpouchNPCDrops && item != null)
+			{
+				npcDrops.add(item);
+				return null;
+			}
 		}
 		
 		return super.entityDropItem(item, offset);
@@ -893,16 +902,8 @@ public abstract class LOTREntityNPC extends EntityCreature
 			travellingTraderInfo.onDeath();
 		}
 		
-		super.onDeath(damagesource);
-		
 		if (!worldObj.isRemote && recentlyHit > 0 && canDropPouch() && LOTRMod.canDropLoot(worldObj))
 		{
-			if (rand.nextInt(50) == 0)
-			{
-				int pouchSize = LOTRItemPouch.getRandomPouchSize(rand);
-				entityDropItem(new ItemStack(LOTRMod.pouch, 1, pouchSize), 0F);
-			}
-			
 			if (rand.nextInt(10) == 0)
 			{
 				int coins = MathHelper.getRandomIntegerInRange(rand, 1, 4);
@@ -911,6 +912,47 @@ public abstract class LOTREntityNPC extends EntityCreature
 					coins *= MathHelper.getRandomIntegerInRange(rand, 2, 4);
 				}
 				dropItem(LOTRMod.silverCoin, coins);
+			}
+		}
+		
+		super.onDeath(damagesource);
+		
+		if (!worldObj.isRemote && recentlyHit > 0 && canDropPouch() && LOTRMod.canDropLoot(worldObj))
+		{
+			if (rand.nextInt(50) == 0)
+			{
+				ItemStack pouch = new ItemStack(LOTRMod.pouch, 1, LOTRItemPouch.getRandomPouchSize(rand));
+				List<ItemStack> pouchContents = new ArrayList();
+					
+				while (!npcDrops.isEmpty())
+				{
+					pouchContents.add(npcDrops.remove(0));
+					
+					if (pouchContents.size() >= LOTRItemPouch.getCapacity(pouch))
+					{
+						break;
+					}
+				}
+				
+				for (ItemStack itemstack : pouchContents)
+				{
+					if (!LOTRItemPouch.tryAddItemToPouch(pouch, itemstack))
+					{
+						npcDrops.add(itemstack);
+					}
+				}
+				
+				enpouchNPCDrops = false;
+				entityDropItem(pouch, 0F);
+			}
+		}
+		
+		if (!npcDrops.isEmpty())
+		{
+			enpouchNPCDrops = false;
+			for (ItemStack item : npcDrops)
+			{
+				entityDropItem(item, 0F);
 			}
 		}
 		

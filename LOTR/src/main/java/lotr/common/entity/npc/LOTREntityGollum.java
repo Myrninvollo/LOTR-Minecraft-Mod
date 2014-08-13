@@ -195,21 +195,20 @@ public class LOTREntityGollum extends LOTREntityNPC
 		
 		if (!worldObj.isRemote && StringUtils.isNullOrEmpty(getGollumOwnerUUID()))
 		{
-			if (rand.nextInt(100) == 0)
+			if (rand.nextInt(40) == 0)
 			{
 				List<EntityPlayer> nearbyPlayers = worldObj.getEntitiesWithinAABB(EntityPlayer.class, boundingBox.expand(80D, 80D, 80D));
 				for (EntityPlayer entityplayer : nearbyPlayers)
 				{
 					double d = getDistanceToEntity(entityplayer);
-					int chance = (int)(d / 5D);
-					chance = Math.min(2, chance);
+					int chance = (int)(d / 8D);
+					chance = Math.max(2, chance);
 							
 					if (rand.nextInt(chance) == 0)
 					{
 						worldObj.playSoundAtEntity(entityplayer, getLivingSound(), getSoundVolume(), getSoundPitch());
 					}
 				}
-				System.out.println("Gollum");
 			}
 		}
 	}
@@ -354,7 +353,7 @@ public class LOTREntityGollum extends LOTREntityNPC
 	@Override
 	public void onDeath(DamageSource damagesource)
 	{
-		if (getGollumOwner() != null)
+		if (!worldObj.isRemote && getGollumOwner() != null)
 		{
 			getGollumOwner().addChatMessage(func_110142_aN().func_151521_b());
 		}

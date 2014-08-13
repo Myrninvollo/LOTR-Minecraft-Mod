@@ -814,6 +814,8 @@ lotr.gui.map.customWaypoint.delete.3=Press %s to delete waypoint
 lotr.gui.alignment.title=Middle-earth Alignment
 
 lotr.gui.achievements.title=Middle-earth Achievements
+lotr.gui.achievements.hover.name=%s (%s)
+lotr.gui.achievements.hover.subtitle=Middle-earth Achievement
 
 lotr.capes.category.ALIGNMENT=Alignment Capes
 lotr.capes.category.ACHIEVABLE=Achievable Capes

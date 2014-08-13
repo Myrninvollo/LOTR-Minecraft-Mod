@@ -7,19 +7,16 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import lotr.client.fx.LOTREntityDeadMarshFace;
-import lotr.client.gui.LOTRGuiAchievementDisplay;
-import lotr.client.gui.LOTRGuiCapes;
+import lotr.client.gui.*;
 import lotr.client.render.tileentity.LOTRTileEntityMobSpawnerRenderer;
 import lotr.common.*;
 import lotr.common.block.LOTRBlockLeavesBase;
 import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.item.LOTREntityPortal;
 import lotr.common.item.*;
-import lotr.common.world.LOTRWorldProvider;
 import lotr.common.world.biome.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -34,9 +31,9 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.event.HoverEvent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
@@ -46,11 +43,15 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+
+import com.google.common.collect.Lists;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.*;
@@ -323,7 +324,7 @@ public class LOTRTickHandlerClient
 		}
 		
 		if (event.phase == Phase.END)
-		{		
+		{	
 			LOTRTileEntityMobSpawnerRenderer.onRenderTick();
 			
 			if (minecraft.thePlayer != null && minecraft.theWorld != null)
@@ -396,7 +397,7 @@ public class LOTRTickHandlerClient
 				}
 			}
 			
-			achievementDisplay.updateAchievementWindow();		
+			achievementDisplay.updateAchievementWindow();
 		}
 	}
 
@@ -517,6 +518,55 @@ public class LOTRTickHandlerClient
 					renderOverlay((float)burnTick / (float)burnTickMax * 0.6F, mc, burnOverlay);
 				}
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onPostDrawScreen(DrawScreenEvent.Post event)
+	{
+		Minecraft mc = Minecraft.getMinecraft();
+		GuiScreen gui = event.gui;
+		int x = event.mouseX;
+		int y = event.mouseY;
+		
+		if (gui instanceof GuiChat)
+		{
+			IChatComponent component = mc.ingameGUI.getChatGUI().func_146236_a(Mouse.getX(), Mouse.getY());
+	        if (component != null && component.getChatStyle().getChatHoverEvent() != null)
+	        {
+	            HoverEvent hoverevent = component.getChatStyle().getChatHoverEvent();
+	            if (hoverevent.getAction() == LOTRAchievement.SHOW_LOTR_ACHIEVEMENT)
+	            {
+	            	LOTRGuiAchievementHoverEvent proxyGui = new LOTRGuiAchievementHoverEvent();
+	            	proxyGui.setWorldAndResolution(mc, gui.width, gui.height);
+	            	
+	            	try
+	            	{
+		            	String unformattedText = hoverevent.getValue().getUnformattedText();
+		            	int splitIndex = unformattedText.indexOf("$");
+		            	
+		            	String categoryName = unformattedText.substring(0, splitIndex);
+		            	LOTRAchievement.Category category = LOTRAchievement.categoryForName(categoryName);
+		            	int achievementID = Integer.parseInt(unformattedText.substring(splitIndex + 1));
+		            	LOTRAchievement achievement = LOTRAchievement.achievementForCategoryAndID(category, achievementID);
+
+		            	IChatComponent name = new ChatComponentTranslation("lotr.gui.achievements.hover.name", new Object[] {achievement.getAchievementChatComponent(), category.getDisplayName()});
+	                    IChatComponent subtitle = new ChatComponentTranslation("lotr.gui.achievements.hover.subtitle", new Object[0]);
+	                    subtitle.getChatStyle().setItalic(true);
+	                    String desc = achievement.getDescription();
+	                    
+	                    ArrayList list = Lists.newArrayList(new String[] {name.getFormattedText(), subtitle.getFormattedText()});
+	                    list.addAll(mc.fontRenderer.listFormattedStringToWidth(desc, 150));
+	                    proxyGui.func_146283_a(list, x, y);
+	                    
+	                    System.out.println("Drawing");
+	            	}
+	            	catch (Exception e)
+	            	{
+	            		proxyGui.drawCreativeTabHoveringText(EnumChatFormatting.RED + "Invalid LOTRAchievement!", x, y);
+	            	}
+	            }
+	        }
 		}
 	}
 	

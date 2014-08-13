@@ -189,7 +189,7 @@ public class LOTREntityNearHaradrim extends LOTREntityNPC implements ImmuneToHea
 	
 	protected void dropHaradrimItems(boolean flag, int i)
 	{
-		if (rand.nextBoolean())
+		if (rand.nextInt(4) == 0)
 		{
 			dropChestContents(LOTRChestContents.NEAR_HARAD_HOUSE, 0, 2 + i);
 		}

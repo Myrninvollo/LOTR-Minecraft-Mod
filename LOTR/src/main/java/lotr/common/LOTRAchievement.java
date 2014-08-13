@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import lotr.common.entity.animal.LOTRAmbientCreature;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.event.HoverEvent;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -17,6 +21,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.EnumHelper;
 
 public class LOTRAchievement implements Comparable
 {
@@ -846,18 +851,22 @@ public class LOTRAchievement implements Comparable
 		return null;
 	}
 	
-    public IChatComponent getChatComponent()
+	private static Class[][] actionParams = {{HoverEvent.Action.class, String.class, boolean.class}};
+	public static HoverEvent.Action SHOW_LOTR_ACHIEVEMENT = (HoverEvent.Action)EnumHelper.addEnum(actionParams, HoverEvent.Action.class, "SHOW_LOTR_ACHIEVEMENT", "show_lotr_achievement", true);
+	
+	public IChatComponent getAchievementChatComponent()
     {
         IChatComponent component = new ChatComponentTranslation(getTitle()).createCopy();
         component.getChatStyle().setColor(EnumChatFormatting.YELLOW);
+        component.getChatStyle().setChatHoverEvent(new HoverEvent(SHOW_LOTR_ACHIEVEMENT, new ChatComponentText(category.name() + "$" + ID)));
         return component;
     }
 
     public IChatComponent getChatComponentForEarn()
     {
-        IChatComponent component = getChatComponent();
-        IChatComponent component1 = (new ChatComponentText("[")).appendSibling(component).appendText("]");
-        component1.setChatStyle(component.getChatStyle());
-        return component1;
+        IChatComponent base = getAchievementChatComponent();
+        IChatComponent component = (new ChatComponentText("[")).appendSibling(base).appendText("]");
+        component.setChatStyle(base.getChatStyle());
+        return component;
     }
 }

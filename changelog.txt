@@ -18,8 +18,10 @@ Public Beta 20
 + Added a separate 'Gondor Tower Guard' NPC that wears the winged helmet
 + Added feet to the hobbit model
 + Added a rendered box to show the protection range of banners in debug mode
++ Added hover text for Middle-earth achievements
 
 * Changed all mounts in the mod to be more like horses, including taming behaviour and jumping
+* Changed horse armour recipes to use leather instead of wool
 * LOTR horses can no longer wear vanilla horse armour
 * LOTR horses are now bred with apples
 * Warg armour is now a single item and is crafted like horse armour

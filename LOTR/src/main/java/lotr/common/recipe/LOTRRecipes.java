@@ -517,15 +517,15 @@ public class LOTRRecipes
 		});
 		GameRegistry.addRecipe(new ItemStack(horseArmorIron), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Items.leather
 		});
 		GameRegistry.addRecipe(new ItemStack(horseArmorGold), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', Items.gold_ingot, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', Items.gold_ingot, 'Y', Items.leather
 		});
 		GameRegistry.addRecipe(new ItemStack(horseArmorDiamond), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', Items.diamond, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', Items.diamond, 'Y', Items.leather
 		});
 		GameRegistry.addRecipe(new LOTRPouchRecipe(new ItemStack(pouch, 1, 1), new Object[]
 		{
@@ -1025,7 +1025,7 @@ public class LOTRRecipes
 		});
 		GameRegistry.addRecipe(new ItemStack(horseArmorMithril), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', mithril, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', mithril, 'Y', Items.leather
 		});
 	}
 	
@@ -1193,7 +1193,7 @@ public class LOTRRecipes
 		}));
 		addRecipeTo(morgulAndAngmarRecipes, new ShapedOreRecipe(new ItemStack(horseArmorMorgul), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', morgulSteel, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', morgulSteel, 'Y', Items.leather
 		}));
 	}
 	
@@ -1473,7 +1473,7 @@ public class LOTRRecipes
 		}));
 		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(wargArmorUruk), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', orcSteel, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', orcSteel, 'Y', Items.leather
 		}));
     }
 	
@@ -1597,7 +1597,7 @@ public class LOTRRecipes
 		}));
 		elvenRecipes.add(new ShapedOreRecipe(new ItemStack(horseArmorGaladhrim), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Items.leather
 		}));
 	}
 	
@@ -1769,7 +1769,7 @@ public class LOTRRecipes
 		}));
 		urukRecipes.add(new ShapedOreRecipe(new ItemStack(wargArmorUruk), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', urukSteel, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', urukSteel, 'Y', Items.leather
 		}));
 	}
 	
@@ -1965,7 +1965,7 @@ public class LOTRRecipes
 		}));
 		gondorianRecipes.add(new ShapedOreRecipe(new ItemStack(horseArmorGondor), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Items.leather
 		}));
 	}
 	
@@ -2037,7 +2037,7 @@ public class LOTRRecipes
 		}));
 		rohirricRecipes.add(new ShapedOreRecipe(new ItemStack(horseArmorRohan), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Items.leather
 		}));
 	}
 	
@@ -2201,7 +2201,7 @@ public class LOTRRecipes
 		}));
 		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(wargArmorUruk), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', orcSteel, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', orcSteel, 'Y', Items.leather
 		}));
     }
     
@@ -2337,7 +2337,7 @@ public class LOTRRecipes
 		}));
 		highElvenRecipes.add(new ShapedOreRecipe(new ItemStack(horseArmorHighElven), new Object[]
 		{
-			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Blocks.wool
+			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Items.leather
 		}));
 	}
     

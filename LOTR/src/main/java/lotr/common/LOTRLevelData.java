@@ -54,6 +54,7 @@ public class LOTRLevelData
 	public static int beaconState;
 	public static int structuresBanned;
 	public static int fastTravelCooldown;
+	public static boolean gollumSpawned;
 	
 	public static List beaconTowerLocations = new ArrayList();
 	public static List gondorFortressLocations = new ArrayList();
@@ -115,6 +116,7 @@ public class LOTRLevelData
 			levelData.setInteger("BeaconState", beaconState);
 			levelData.setInteger("StructuresBanned", structuresBanned);
 			levelData.setInteger("FastTravel", fastTravelCooldown);
+			levelData.setBoolean("GollumSpawned", gollumSpawned);
 			
 			NBTTagCompound travellingTraderData = new NBTTagCompound();
 			for (int i = 0; i < LOTRTickHandlerServer.travellingTraders.size(); i++)
@@ -243,7 +245,6 @@ public class LOTRLevelData
 			middleEarthPortalZ = levelData.getInteger("MiddleEarthZ");
 			beaconState = levelData.getInteger("BeaconState");
 			structuresBanned = levelData.getInteger("StructuresBanned");
-
 			if (levelData.hasKey("FastTravel"))
 			{
 				fastTravelCooldown = levelData.getInteger("FastTravel");
@@ -252,6 +253,7 @@ public class LOTRLevelData
 			{
 				fastTravelCooldown = FAST_TRAVEL_COOLDOWN_DEFAULT;
 			}
+			gollumSpawned = levelData.getBoolean("GollumSpawned");
 			
 			NBTTagCompound travellingTraderData = levelData.getCompoundTag("TravellingTraders");
 			for (int i = 0; i < LOTRTickHandlerServer.travellingTraders.size(); i++)

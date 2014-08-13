@@ -115,8 +115,16 @@ public class LOTRTickHandlerServer
 				System.out.println("Successfully replaced LOTR world info");
 			}
 			
-			if (!world.playerEntities.isEmpty())
+			if (world.getGameRules().getGameRuleBooleanValue("doMobSpawning"))
 			{
+				LOTRSpawnerNPCs.performSpawning(world);
+				
+				for (int i = 0; i < structureSpawning.size(); i++)
+				{
+					LOTRStructureSpawningInfo obj = (LOTRStructureSpawningInfo)structureSpawning.get(i);
+					obj.performSpawning(world);
+				}
+				
 				for (int i = 0; i < travellingTraders.size(); i++)
 				{
 					LOTRTravellingTraderSpawner obj = (LOTRTravellingTraderSpawner)travellingTraders.get(i);
@@ -127,8 +135,12 @@ public class LOTRTickHandlerServer
 				{
 					LOTRBanditSpawner.performSpawning(world);
 					LOTRInvasionSpawner.performSpawning(world);
+					LOTRGollumSpawner.performSpawning(world);
 				}
-				
+			}
+			
+			if (!world.playerEntities.isEmpty())
+			{
 				if (LOTRMod.isNewYearsDay())
 				{
 					if (fireworkDisplay == 0 && world.rand.nextInt(4000) == 0)
@@ -210,17 +222,6 @@ public class LOTRTickHandlerServer
 						EntityPlayer entityplayer = (EntityPlayer)world.playerEntities.get(i);
 						LOTRLevelData.sendPlayerLocationsToPlayer(entityplayer, world);
 					}
-				}
-			}
-			
-			if (world.getGameRules().getGameRuleBooleanValue("doMobSpawning"))
-			{
-				LOTRSpawnerNPCs.performSpawning(world);
-				
-				for (int i = 0; i < structureSpawning.size(); i++)
-				{
-					LOTRStructureSpawningInfo obj = (LOTRStructureSpawningInfo)structureSpawning.get(i);
-					obj.performSpawning(world);
 				}
 			}
 		}

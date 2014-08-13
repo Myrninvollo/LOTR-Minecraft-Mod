@@ -1,9 +1,9 @@
 package lotr.common.entity.npc;
 
+import java.util.List;
 import java.util.UUID;
 
-import lotr.common.LOTRCommonProxy;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.*;
 import lotr.common.inventory.LOTRInventoryNPC;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -192,6 +192,25 @@ public class LOTREntityGollum extends LOTREntityNPC
 				setCurrentItemOrArmor(0, null);
 			}
 		}
+		
+		if (!worldObj.isRemote && StringUtils.isNullOrEmpty(getGollumOwnerUUID()))
+		{
+			if (rand.nextInt(100) == 0)
+			{
+				List<EntityPlayer> nearbyPlayers = worldObj.getEntitiesWithinAABB(EntityPlayer.class, boundingBox.expand(64D, 64D, 64D));
+				for (EntityPlayer entityplayer : nearbyPlayers)
+				{
+					double d = getDistanceToEntity(entityplayer);
+					int chance = (int)(d / 5D);
+					chance = Math.min(2, chance);
+							
+					if (rand.nextInt(chance) == 0)
+					{
+						worldObj.playSoundAtEntity(entityplayer, getLivingSound(), getSoundVolume(), getSoundPitch());
+					}
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -344,6 +363,9 @@ public class LOTREntityGollum extends LOTREntityNPC
 		if (!worldObj.isRemote)
 		{
 			inventory.dropAllItems();
+			
+			LOTRLevelData.gollumSpawned = false;
+			LOTRLevelData.markDirty();
 		}
 	}
 	

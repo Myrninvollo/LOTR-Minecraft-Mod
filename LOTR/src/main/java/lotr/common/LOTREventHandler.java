@@ -1548,7 +1548,7 @@ public class LOTREventHandler implements IFuelHandler
 				if (invasion.canInvasionSpawnHere())
 				{
 					entityplayer.worldObj.spawnEntityInWorld(invasion);
-					invasion.announceInvasion(entityplayer);
+					invasion.announceInvasion();
 					success = true;
 					break factionsLoop;
 				}

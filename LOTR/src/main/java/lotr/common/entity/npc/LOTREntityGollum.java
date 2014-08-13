@@ -147,6 +147,11 @@ public class LOTREntityGollum extends LOTREntityNPC
 	{
 		super.onLivingUpdate();
 		
+		if (!worldObj.isRemote && rand.nextInt(500) == 0)
+		{
+			heal(1F);
+		}
+		
 		if (eatingTick > 0)
 		{
 			if (eatingTick % 4 == 0)

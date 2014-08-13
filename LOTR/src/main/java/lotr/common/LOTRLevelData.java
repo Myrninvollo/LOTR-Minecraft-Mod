@@ -816,7 +816,7 @@ public class LOTRLevelData
 				continue;
 			}
 			
-			if (isOp || !getData(entityplayer).getHideMapLocation())
+			if (isOp || !getData(worldPlayer).getHideMapLocation())
 			{
 				ByteBuf data = Unpooled.buffer();
 				

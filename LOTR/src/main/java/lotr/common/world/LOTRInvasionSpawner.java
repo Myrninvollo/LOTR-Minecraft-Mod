@@ -84,7 +84,7 @@ public class LOTRInvasionSpawner
 									if (invasion.canInvasionSpawnHere())
 									{
 										world.spawnEntityInWorld(invasion);
-										invasion.announceInvasion(entityplayer);
+										invasion.announceInvasion();
 										continue invasionSpawningLoop;
 									}
 								}

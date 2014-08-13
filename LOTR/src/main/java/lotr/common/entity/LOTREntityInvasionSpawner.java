@@ -69,11 +69,16 @@ public class LOTREntityInvasionSpawner extends Entity
 		worldObj.playSoundAtEntity(this, "lotr:item.horn", 4F, 0.65F + rand.nextFloat() * 0.1F);
 	}
 	
-	public void announceInvasion(EntityPlayer entityplayer)
+	public void announceInvasion()
 	{
 		playHorn();
-		entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.invasion.start", new Object[] {invasionFaction.factionName()}));
 		mobsRemaining = MathHelper.getRandomIntegerInRange(rand, 30, 70);
+		
+		List<EntityPlayer> nearbyPlayers = worldObj.getEntitiesWithinAABB(EntityPlayer.class, boundingBox.expand(MOB_RANGE, MOB_RANGE, MOB_RANGE));
+		for (EntityPlayer entityplayer : nearbyPlayers)
+		{
+			entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.invasion.start", new Object[] {invasionFaction.factionName()}));
+		}
 	}
 
 	@Override

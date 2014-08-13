@@ -22,7 +22,7 @@ public class LOTRGollumSpawner
 		
 		int x = home.getXCoord();
 		int z = home.getZCoord();
-		int homeRange = 128;
+		int homeRange = 256;
 		
 		int i = MathHelper.getRandomIntegerInRange(world.rand, x - homeRange, x + homeRange);
 		int j = MathHelper.getRandomIntegerInRange(world.rand, 16, 32);
@@ -51,6 +51,7 @@ public class LOTRGollumSpawner
 
 						LOTRLevelData.gollumSpawned = true;
 						LOTRLevelData.markDirty();
+						System.out.println("Gollum spawned");
 					}
 				}
 			}

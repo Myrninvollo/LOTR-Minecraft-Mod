@@ -197,7 +197,7 @@ public class LOTREntityGollum extends LOTREntityNPC
 		{
 			if (rand.nextInt(100) == 0)
 			{
-				List<EntityPlayer> nearbyPlayers = worldObj.getEntitiesWithinAABB(EntityPlayer.class, boundingBox.expand(64D, 64D, 64D));
+				List<EntityPlayer> nearbyPlayers = worldObj.getEntitiesWithinAABB(EntityPlayer.class, boundingBox.expand(80D, 80D, 80D));
 				for (EntityPlayer entityplayer : nearbyPlayers)
 				{
 					double d = getDistanceToEntity(entityplayer);
@@ -209,6 +209,7 @@ public class LOTREntityGollum extends LOTREntityNPC
 						worldObj.playSoundAtEntity(entityplayer, getLivingSound(), getSoundVolume(), getSoundPitch());
 					}
 				}
+				System.out.println("Gollum");
 			}
 		}
 	}

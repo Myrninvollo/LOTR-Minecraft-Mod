@@ -18,7 +18,7 @@ Public Beta 20
 + Added a separate 'Gondor Tower Guard' NPC that wears the winged helmet
 + Added feet to the hobbit model
 + Added a rendered box to show the protection range of banners in debug mode
-+ Added hover text for Middle-earth achievements
++ Added hover text for Middle-earth achievements in the chat screen
 
 * Changed all mounts in the mod to be more like horses, including taming behaviour and jumping
 * Changed horse armour recipes to use leather instead of wool
@@ -35,7 +35,9 @@ Public Beta 20
 * Changed the bricks in the Dúnedain structures to Arnor Brick
 * Increased the spawning chance of stone ruins
 * Fixed Rangers' capes not becoming invisible when they are in stealth mode
-* Reduced the chance of Shirriff spawning
+* Reduced the chance of Shirriff raids
+* Shirriffs now only raid enemies at night
+* Invasions are now announced to all nearby enemy players
 
 - Removed separate warg armour items
 - Removed crafting recipes for vanilla horse armour

@@ -46,7 +46,7 @@ public class LOTRItemTrident extends LOTRItemSword
 				
 				if (!world.isRemote)
 				{
-					entityplayer.addExhaustion(0.03F);
+					entityplayer.addExhaustion(0.06F);
 					
 					if (world.rand.nextInt(5) == 0)
 					{

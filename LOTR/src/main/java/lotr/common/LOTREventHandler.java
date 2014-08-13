@@ -807,7 +807,7 @@ public class LOTREventHandler implements IFuelHandler
 			}
 		}
 		
-		if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doMobSpawning") && entity.isEntityAlive())
+		if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doMobSpawning") && entity.isEntityAlive() && world.isDaytime())
 		{
 			float f = 0F;
 			int shirriffs = 0;
@@ -857,15 +857,16 @@ public class LOTREventHandler implements IFuelHandler
 						for (int l = 0; l < shirriffs; l++)
 						{
 							LOTREntityHobbitShirriff shirriff = new LOTREntityHobbitShirriff(world);
-							for (int l1 = 0; l1 < 16; l1++)
+							for (int l1 = 0; l1 < 32; l1++)
 							{
-								int i1 = i - 8 + world.rand.nextInt(17);
-								int k1 = k - 8 + world.rand.nextInt(17);
+								int i1 = i - world.rand.nextInt(12) + world.rand.nextInt(12);
+								int k1 = k - world.rand.nextInt(12) + world.rand.nextInt(12);
 								int j1 = world.getTopSolidOrLiquidBlock(i1, k1);
+
 								if (world.getBlock(i1, j1 - 1, k1).isSideSolid(world, i1, j1 - 1, k1, ForgeDirection.UP) && !world.getBlock(i1, j1, k1).isNormalCube() && !world.getBlock(i1, j1 + 1, k1).isNormalCube())
 								{
 									shirriff.setLocationAndAngles(i1 + 0.5D, j1, k1 + 0.5D, 0F, 0F);
-									if (shirriff.getCanSpawnHere())
+									if (shirriff.getCanSpawnHere() && entity.getDistanceToEntity(shirriff) > 6D)
 									{
 										shirriff.onSpawnWithEgg(null);
 										world.spawnEntityInWorld(shirriff);

@@ -2,8 +2,7 @@ package lotr.common.entity;
 
 import java.util.List;
 
-import lotr.common.LOTREventHandler;
-import lotr.common.LOTRFaction;
+import lotr.common.*;
 import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.world.LOTRInvasionSpawner.InvasionSpawnEntry;
@@ -77,7 +76,10 @@ public class LOTREntityInvasionSpawner extends Entity
 		List<EntityPlayer> nearbyPlayers = worldObj.getEntitiesWithinAABB(EntityPlayer.class, boundingBox.expand(MOB_RANGE, MOB_RANGE, MOB_RANGE));
 		for (EntityPlayer entityplayer : nearbyPlayers)
 		{
-			entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.invasion.start", new Object[] {invasionFaction.factionName()}));
+			if (LOTRLevelData.getData(entityplayer).getAlignment(invasionFaction) < 0)
+			{
+				entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.invasion.start", new Object[] {invasionFaction.factionName()}));
+			}
 		}
 	}
 

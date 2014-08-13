@@ -1859,6 +1859,10 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
+		woodElvenRecipes.add(new ShapedOreRecipe(new ItemStack(elkArmorWoodElven), new Object[]
+		{
+			"X  ", "XYX", "XXX", 'X', Items.iron_ingot, 'Y', Items.leather
+		}));
 	}
 	
 	private static void createGondorianRecipes()

@@ -16,6 +16,7 @@ item.lotr:horseArmorHighElven.name=High Elven Horse Armour
 item.lotr:horseArmorGaladhrim.name=Galadhrim Horse Armour
 item.lotr:horseArmorMorgul.name=Morgul Horse Armour
 item.lotr:horseArmorMithril.name=Mithril Horse Armour
+item.lotr:elkArmorWoodElven.name=Wood-elven Elk Armour
 
 container.lotr.armorStand=Armour Stand
 

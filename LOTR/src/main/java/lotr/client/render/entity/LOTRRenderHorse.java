@@ -50,7 +50,7 @@ public class LOTRRenderHorse extends RenderHorse
 	
 	public static ResourceLocation getLayeredMountTexture(LOTREntityHorse mount, ResourceLocation mountSkin)
 	{
-		String skinPath = mountSkin.getResourcePath();
+		String skinPath = mountSkin.toString();
         String armorPath = mount.getMountArmorTexture();
 
         if (armorPath == null)

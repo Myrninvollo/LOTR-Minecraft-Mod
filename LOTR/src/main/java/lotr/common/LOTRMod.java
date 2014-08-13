@@ -607,6 +607,7 @@ public class LOTRMod
 	public static Item horseArmorGaladhrim;
 	public static Item horseArmorMorgul;
 	public static Item horseArmorMithril;
+	public static Item elkArmorWoodElven;
 	
 	public static int idDimension;
 	public static boolean alwaysShowAlignment;
@@ -1140,6 +1141,7 @@ public class LOTRMod
 		horseArmorGaladhrim = new LOTRItemMountArmor(armorElven, Mount.HORSE).setUnlocalizedName("lotr:horseArmorGaladhrim");
 		horseArmorMorgul = new LOTRItemMountArmor(armorMorgul, Mount.HORSE).setUnlocalizedName("lotr:horseArmorMorgul");
 		horseArmorMithril = new LOTRItemMountArmor(armorMithril, Mount.HORSE).setUnlocalizedName("lotr:horseArmorMithril");
+		elkArmorWoodElven = new LOTRItemMountArmor(armorWoodElven, Mount.ELK).setUnlocalizedName("lotr:elkArmorWoodElven");
 		
 		try
 		{
@@ -1698,6 +1700,7 @@ public class LOTRMod
 		registerItem(horseArmorGaladhrim);
 		registerItem(horseArmorMorgul);
 		registerItem(horseArmorMithril);
+		registerItem(elkArmorWoodElven);
 		
 		idDimension = config.get("general", "Dimension ID", 100).getInt();
 		alwaysShowAlignment = config.get("general", "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean(false);

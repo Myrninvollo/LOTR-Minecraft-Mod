@@ -34,9 +34,6 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		tasks.addTask(0, new LOTREntityAIHorseFollowHiringPlayer(this));
     }
     
-    @Override
-    public void updateAITasks() {}
-	
 	@Override
 	protected void entityInit()
 	{
@@ -113,7 +110,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 			{
 				setGrowingAge(0);
 			}
-			if (getHorseType() != 0 && !(this instanceof LOTREntityShirePony))
+			if (getClass() == LOTREntityHorse.class)
 			{
 				setHorseType(0);
 			}
@@ -349,6 +346,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		
 		boolean prevInLove = isInLove();
 		boolean flag = super.interact(entityplayer);
+		System.out.println("Previously " + prevInLove + ", now " + isInLove());
 		if (isInLove() && !prevInLove)
 		{
 			resetInLove();

@@ -300,7 +300,7 @@ public class LOTREntityGollum extends LOTREntityNPC
 							spawnHearts();
 						}
 						
-						fishRequired = Math.round((float)fishRequired * (1.25F + rand.nextFloat() * 0.25F));
+						fishRequired = Math.round((float)prevFishRequired * (1.25F + rand.nextFloat() * 0.25F));
 						prevFishRequired = fishRequired;
 					}
 					else
@@ -358,9 +358,9 @@ public class LOTREntityGollum extends LOTREntityNPC
 	@Override
 	public void onDeath(DamageSource damagesource)
 	{
-		if (!worldObj.isRemote && getGollumOwner() != null)
+		if (!worldObj.isRemote && !StringUtils.isNullOrEmpty(getGollumOwnerUUID()))
 		{
-			getGollumOwner().addChatMessage(func_110142_aN().func_151521_b());
+			LOTRSpeech.messageAllPlayers(func_110142_aN().func_151521_b());
 		}
 		
 		super.onDeath(damagesource);

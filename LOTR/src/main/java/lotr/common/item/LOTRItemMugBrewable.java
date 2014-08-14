@@ -67,7 +67,7 @@ public class LOTRItemMugBrewable extends Item
 		return this;
 	}
 	
-	private float getStrength(ItemStack itemstack)
+	private static float getStrength(ItemStack itemstack)
 	{
 		int i = itemstack.getItemDamage();
 		if (i < 0 || i >= strengths.length)
@@ -89,6 +89,22 @@ public class LOTRItemMugBrewable extends Item
 		return list;
 	}
 	
+	public static String getStrengthSubtitle(ItemStack itemstack)
+	{
+		if (itemstack == null || !(itemstack.getItem() instanceof LOTRItemMugBrewable))
+		{
+			return null;
+		}
+		
+		int i = itemstack.getItemDamage();
+		if (i < 0 || i >= strengths.length)
+		{
+			i = 0;
+		}
+		float strength = getStrength(itemstack);
+		return StatCollector.translateToLocal("item.lotr.drink." + strengthNames[i]);
+	}
+	
 	@Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack itemstack, EntityPlayer entityplayer, List list, boolean flag)
@@ -100,7 +116,7 @@ public class LOTRItemMugBrewable extends Item
 		}
 		float strength = getStrength(itemstack);
 		
-        list.add(StatCollector.translateToLocal("item.lotr.drink." + strengthNames[i]));
+        list.add(getStrengthSubtitle(itemstack));
         
         if (alcoholicity > 0F)
         {

@@ -36,7 +36,7 @@ public class LOTRGuiOptions extends LOTRGui
 		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.FRIENDLY_FIRE)).setState(LOTRLevelData.getData(mc.thePlayer).getFriendlyFire());
 		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.HIRED_DEATH_MESSAGES)).setState(LOTRLevelData.getData(mc.thePlayer).getEnableHiredDeathMessages());
 		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.ENABLE_CAPE)).setState(LOTRLevelData.getData(mc.thePlayer).getEnableCape());
-		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.SHOW_ALIGNMENT)).setState(LOTRLevelData.getData(mc.thePlayer).getHideAlignment());
+		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.SHOW_ALIGNMENT)).setState(!LOTRLevelData.getData(mc.thePlayer).getHideAlignment());
 		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.SHOW_MAP_LOCATION)).setState(!LOTRLevelData.getData(mc.thePlayer).getHideMapLocation());
 		
 		super.drawScreen(i, j, f);

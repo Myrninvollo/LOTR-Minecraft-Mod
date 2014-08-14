@@ -3,6 +3,7 @@ package lotr.common.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
+import lotr.common.item.LOTRItemMugBrewable;
 import lotr.common.recipe.LOTRBrewingRecipes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -10,6 +11,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 
@@ -200,17 +204,18 @@ public class LOTRTileEntityBarrel extends TileEntity implements IInventory
 	
 	public String getInvSubtitle()
 	{
+		ItemStack brewingItem = getStackInSlot(9);
 		if (barrelMode == EMPTY)
 		{
 			return StatCollector.translateToLocal("container.lotr.barrel.empty");
 		}
-		else if (barrelMode == BREWING && getStackInSlot(9) != null)
+		else if (barrelMode == BREWING && brewingItem != null)
 		{
-			return StatCollector.translateToLocalFormatted("container.lotr.barrel.brewing", new Object[] {getStackInSlot(9).getDisplayName()});
+			return StatCollector.translateToLocalFormatted("container.lotr.barrel.brewing", new Object[] {brewingItem.getDisplayName(), LOTRItemMugBrewable.getStrengthSubtitle(brewingItem)});
 		}
-		else if (barrelMode == FULL && getStackInSlot(9) != null)
+		else if (barrelMode == FULL && brewingItem != null)
 		{
-			return getStackInSlot(9).getDisplayName();
+			return StatCollector.translateToLocalFormatted("container.lotr.barrel.full", new Object[] {brewingItem.getDisplayName(), LOTRItemMugBrewable.getStrengthSubtitle(brewingItem), brewingItem.stackSize});
 		}
 		return "";
 	}
@@ -230,7 +235,11 @@ public class LOTRTileEntityBarrel extends TileEntity implements IInventory
     public void readFromNBT(NBTTagCompound nbt)
     {
         super.readFromNBT(nbt);
-		
+        readBarrelFromNBT(nbt);
+    }
+    
+    public void readBarrelFromNBT(NBTTagCompound nbt)
+    {
         NBTTagList items = nbt.getTagList("Items", new NBTTagCompound().getId());
         inventory = new ItemStack[getSizeInventory()];
         for (int i = 0; i < items.tagCount(); i++)
@@ -257,7 +266,11 @@ public class LOTRTileEntityBarrel extends TileEntity implements IInventory
     public void writeToNBT(NBTTagCompound nbt)
     {
         super.writeToNBT(nbt);
-
+        writeBarrelToNBT(nbt);
+    } 
+        
+    public void writeBarrelToNBT(NBTTagCompound nbt)
+    {
         NBTTagList items = new NBTTagList();
         for (int i = 0; i < inventory.length; i++)
         {
@@ -379,5 +392,20 @@ public class LOTRTileEntityBarrel extends TileEntity implements IInventory
 	public boolean isItemValidForSlot(int slot, ItemStack itemstack)
 	{
 		return false;
+	}
+	
+	@Override
+    public Packet getDescriptionPacket()
+    {
+		NBTTagCompound data = new NBTTagCompound();
+		writeBarrelToNBT(data);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, data);
+    }
+	
+	@Override
+	public void onDataPacket(NetworkManager manager, S35PacketUpdateTileEntity packet)
+	{
+		NBTTagCompound data = packet.func_148857_g();
+		readBarrelFromNBT(data);
 	}
 }

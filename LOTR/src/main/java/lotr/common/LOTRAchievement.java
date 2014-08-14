@@ -853,6 +853,10 @@ public class LOTRAchievement implements Comparable
 	
 	private static Class[][] actionParams = {{HoverEvent.Action.class, String.class, boolean.class}};
 	public static HoverEvent.Action SHOW_LOTR_ACHIEVEMENT = (HoverEvent.Action)EnumHelper.addEnum(actionParams, HoverEvent.Action.class, "SHOW_LOTR_ACHIEVEMENT", "show_lotr_achievement", true);
+	static
+	{
+		LOTRReflection.getHoverEventMappings().put(SHOW_LOTR_ACHIEVEMENT.getCanonicalName(), SHOW_LOTR_ACHIEVEMENT);
+	}
 	
 	public IChatComponent getAchievementChatComponent()
     {

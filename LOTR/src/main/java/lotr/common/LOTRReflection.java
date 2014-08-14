@@ -2,12 +2,14 @@ package lotr.common;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Map;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockStem;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.event.HoverEvent;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.*;
 import net.minecraft.item.Item;
@@ -67,13 +69,14 @@ public class LOTRReflection
     {
     	// setWorldInfo will be tested automatically
     	getHorseJumpStrength();
-    	getHorseArmorTextures()[1].substring(0);
+    	getHorseArmorTextures();
     	getHorseInv(new EntityHorse(world));
     	setupHorseInv(new EntityHorse(world));
     	getStackList(new InventoryCrafting(new ContainerChest(new InventoryBasic("test", false, 1), new InventoryBasic("test", false, 1)), 1, 1));
     	getStemFruitBlock((BlockStem)Blocks.melon_stem);
     	getCropItem((BlockCrops)Blocks.potatoes);
     	isBadEffect(Potion.poison);
+    	getHoverEventMappings();
     }
     
     public static void setWorldInfo(World world, WorldInfo newWorldInfo)
@@ -190,6 +193,19 @@ public class LOTRReflection
 		{
 			logFailure(e);
 			return false;
+		}
+	}
+	
+	public static Map getHoverEventMappings()
+	{
+		try
+		{
+			return ObfuscationReflectionHelper.getPrivateValue(HoverEvent.Action.class, null, "nameMapping", "field_150690_d");
+		}
+		catch (Exception e)
+		{
+			logFailure(e);
+			return null;
 		}
 	}
 }

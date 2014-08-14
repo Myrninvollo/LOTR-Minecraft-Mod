@@ -9,6 +9,7 @@ Public Beta 20
 + Added filtering options for waypoints on the Middle-earth map
 + Added new realistic loading functionality to crossbows
 + Added a system of alcohol tolerance
++ Added persistence of brewing contents for barrel items
 + Added a Ranger crafting table, Ranger banner, and Ranger alignment cape
 + Added Ranger banner bearers
 + Added Arnor Brick blocks, slabs, stairs, and walls, including mossy, cracked, and carved variants

@@ -36,6 +36,7 @@ public class LOTREntityBarrel extends Entity
     private double velocityX;
     private double velocityY;
     private double velocityZ;
+    public NBTTagCompound barrelItemData;
 
     public LOTREntityBarrel(World world)
     {
@@ -59,18 +60,59 @@ public class LOTREntityBarrel extends Entity
         prevPosZ = d2;
     }
 
-    @Override
-    protected boolean canTriggerWalking()
-    {
-        return false;
-    }
-
 	@Override
     protected void entityInit()
     {
         dataWatcher.addObject(17, Integer.valueOf(0));
         dataWatcher.addObject(18, Integer.valueOf(1));
         dataWatcher.addObject(19, Float.valueOf(0F));
+        dataWatcher.addObject(20, new ItemStack(LOTRMod.barrel));
+    }
+
+    public void setTimeSinceHit(int i)
+    {
+        dataWatcher.updateObject(17, Integer.valueOf(i));
+    }
+
+    public int getTimeSinceHit()
+    {
+        return dataWatcher.getWatchableObjectInt(17);
+    }
+
+    public void setForwardDirection(int i)
+    {
+        dataWatcher.updateObject(18, Integer.valueOf(i));
+    }
+
+    public int getForwardDirection()
+    {
+        return dataWatcher.getWatchableObjectInt(18);
+    }
+    
+    public void setDamageTaken(float f)
+    {
+        dataWatcher.updateObject(19, Float.valueOf(f));
+    }
+
+    public float getDamageTaken()
+    {
+        return dataWatcher.getWatchableObjectFloat(19);
+    }
+    
+    private void setBarrelItem(ItemStack itemstack)
+    {
+    	dataWatcher.updateObject(20, itemstack);
+    }
+    
+    private ItemStack getBarrelItem()
+    {
+    	return dataWatcher.getWatchableObjectItemStack(20);
+    }
+    
+    @Override
+    protected boolean canTriggerWalking()
+    {
+        return false;
     }
 
     @Override
@@ -123,7 +165,7 @@ public class LOTREntityBarrel extends Entity
 
                 if (!isCreative)
                 {
-                    entityDropItem(new ItemStack(LOTRMod.barrel), 0F);
+                    entityDropItem(getBarrelDrop(), 0F);
                 }
 
                 setDead();
@@ -135,6 +177,17 @@ public class LOTREntityBarrel extends Entity
         {
             return true;
         }
+    }
+    
+    private ItemStack getBarrelDrop()
+    {
+    	ItemStack barrelDrop = new ItemStack(LOTRMod.barrel);
+    	if (barrelItemData != null)
+    	{
+    		barrelDrop.setTagCompound(new NBTTagCompound());
+    		barrelDrop.getTagCompound().setTag("LOTRBarrelData", barrelItemData);
+    	}
+    	return barrelDrop;
     }
 
 	@Override
@@ -198,6 +251,11 @@ public class LOTREntityBarrel extends Entity
     public void onUpdate()
     {
         super.onUpdate();
+        
+        if (!worldObj.isRemote)
+        {
+        	setBarrelItem(getBarrelDrop());
+        }
 
         if (getTimeSinceHit() > 0)
         {
@@ -425,10 +483,22 @@ public class LOTREntityBarrel extends Entity
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound nbt) {}
+    public void writeEntityToNBT(NBTTagCompound nbt)
+    {
+    	if (barrelItemData != null)
+    	{
+    		nbt.setTag("BarrelItemData", barrelItemData);
+    	}
+    }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound nbt) {}
+    public void readEntityFromNBT(NBTTagCompound nbt)
+    {
+    	if (nbt.hasKey("BarrelItemData"))
+    	{
+    		barrelItemData = nbt.getCompoundTag("BarrelItemData");
+    	}
+    }
 
 	@Override
     @SideOnly(Side.CLIENT)
@@ -454,40 +524,10 @@ public class LOTREntityBarrel extends Entity
             return true;
         }
     }
-
-    public void setDamageTaken(float f)
-    {
-        dataWatcher.updateObject(19, Float.valueOf(f));
-    }
-
-    public float getDamageTaken()
-    {
-        return dataWatcher.getWatchableObjectFloat(19);
-    }
-
-    public void setTimeSinceHit(int i)
-    {
-        dataWatcher.updateObject(17, Integer.valueOf(i));
-    }
-
-    public int getTimeSinceHit()
-    {
-        return dataWatcher.getWatchableObjectInt(17);
-    }
-
-    public void setForwardDirection(int i)
-    {
-        dataWatcher.updateObject(18, Integer.valueOf(i));
-    }
-
-    public int getForwardDirection()
-    {
-        return dataWatcher.getWatchableObjectInt(18);
-    }
 	
 	@Override
     public ItemStack getPickedResult(MovingObjectPosition target)
     {
-        return new ItemStack(LOTRMod.barrel);
+        return getBarrelItem();
     }
 }

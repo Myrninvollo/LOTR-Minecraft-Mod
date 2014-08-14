@@ -1,13 +1,20 @@
 package lotr.common.item;
 
+import java.util.List;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import lotr.common.entity.item.LOTREntityBarrel;
+import lotr.common.tileentity.LOTRTileEntityBarrel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 public class LOTRItemBarrel extends ItemBlock
@@ -15,6 +22,40 @@ public class LOTRItemBarrel extends ItemBlock
     public LOTRItemBarrel(Block block)
     {
         super(block);
+    }
+    
+	@Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack itemstack, EntityPlayer entityplayer, List list, boolean flag)
+    {
+		if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("LOTRBarrelData"))
+		{
+			NBTTagCompound barrelData = itemstack.getTagCompound().getCompoundTag("LOTRBarrelData");
+			LOTRTileEntityBarrel tileEntity = new LOTRTileEntityBarrel();
+			tileEntity.readBarrelFromNBT(barrelData);
+			list.add(tileEntity.getInvSubtitle());
+		}
+	}
+    
+	@Override
+    public boolean placeBlockAt(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int side, float f, float f1, float f2, int metadata)
+    {
+		if (super.placeBlockAt(itemstack, entityplayer, world, i, j, k, side, f, f1, f2, metadata))
+		{
+			TileEntity tileentity = world.getTileEntity(i, j, k);
+			if (tileentity != null && tileentity instanceof LOTRTileEntityBarrel)
+			{
+				LOTRTileEntityBarrel barrel = (LOTRTileEntityBarrel)tileentity;
+				
+				if (itemstack.hasTagCompound())
+				{
+					NBTTagCompound barrelData = itemstack.getTagCompound().getCompoundTag("LOTRBarrelData");
+					barrel.readBarrelFromNBT(barrelData);
+				}
+			}
+			return true;
+		}
+		return false;
     }
 	
 	@Override
@@ -47,6 +88,11 @@ public class LOTRItemBarrel extends ItemBlock
 
 			if (!world.isRemote)
 			{
+				if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("LOTRBarrelData"))
+				{
+					NBTTagCompound barrelData = itemstack.getTagCompound().getCompoundTag("LOTRBarrelData");
+					barrel.barrelItemData = barrelData;
+				}
 				world.spawnEntityInWorld(barrel);
 			}
 

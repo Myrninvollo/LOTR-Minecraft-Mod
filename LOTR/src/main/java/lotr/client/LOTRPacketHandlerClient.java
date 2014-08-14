@@ -1,33 +1,16 @@
 package lotr.client;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 
 import java.util.List;
 import java.util.UUID;
 
 import lotr.client.fx.LOTREntityAlignmentBonus;
 import lotr.client.fx.LOTREntityGandalfFireballExplodeFX;
-import lotr.client.gui.LOTRGuiBanner;
-import lotr.client.gui.LOTRGuiFastTravel;
-import lotr.client.gui.LOTRGuiHiredFarmer;
-import lotr.client.gui.LOTRGuiHiredWarrior;
-import lotr.client.gui.LOTRGuiMap;
-import lotr.client.gui.LOTRGuiMessage;
-import lotr.client.gui.LOTRGuiTrade;
-import lotr.common.LOTRAbstractWaypoint;
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRCapes;
-import lotr.common.LOTRCapes.CapeType;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRGuiMessageTypes;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
-import lotr.common.LOTROptions;
-import lotr.common.LOTRWaypoint;
+import lotr.client.gui.*;
+import lotr.common.*;
+import lotr.common.LOTRShields.ShieldType;
 import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.entity.npc.LOTRHiredNPCInfo.Task;
@@ -60,7 +43,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.loginP", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.promptAch", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.promptAl", this);
-		NetworkRegistry.INSTANCE.newChannel("lotr.updateCape", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.updateShld", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.portalPos", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.alignment", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.alignBonus", this);
@@ -247,29 +230,29 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			}
 		}
 		
-		else if (channel.equals("lotr.updateCape"))
+		else if (channel.equals("lotr.updateShld"))
 		{
 			UUID player = new UUID(data.readLong(), data.readLong());
 			
-			int capeID = data.readByte();
-			int capeTypeID = data.readByte();
-			if (capeTypeID < 0 || capeTypeID >= CapeType.values().length)
+			int shieldID = data.readByte();
+			int shieldTypeID = data.readByte();
+			if (shieldTypeID < 0 || shieldTypeID >= ShieldType.values().length)
 			{
-				System.out.println("Failed to update LOTR cape on client side: There is no capetype with ID " + capeTypeID);
+				System.out.println("Failed to update LOTR shield on client side: There is no shieldtype with ID " + shieldTypeID);
 				return;
 			}
-			CapeType capeType = CapeType.values()[capeTypeID];
-			if (capeID < 0 || capeID >= capeType.list.size())
+			ShieldType shieldType = ShieldType.values()[shieldTypeID];
+			if (shieldID < 0 || shieldID >= shieldType.list.size())
 			{
-				System.out.println("Failed to update LOTR cape on client side: There is no cape with ID " + capeID + " for capetype " + capeTypeID);
+				System.out.println("Failed to update LOTR shield on client side: There is no shield with ID " + shieldID + " for shieldtype " + shieldTypeID);
 				return;
 			}
-			LOTRCapes cape = (LOTRCapes)capeType.list.get(capeID);
+			LOTRShields shield = (LOTRShields)shieldType.list.get(shieldID);
 			
 			boolean enable = data.readBoolean();
 			
-			LOTRLevelData.getData(player).setCape(cape);
-			LOTRLevelData.getData(player).setEnableCape(enable);
+			LOTRLevelData.getData(player).setShield(shield);
+			LOTRLevelData.getData(player).setEnableShield(enable);
 		}
 		
 		else if (channel.equals("lotr.options"))

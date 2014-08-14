@@ -1,9 +1,8 @@
 package lotr.client.render.entity;
 
+import lotr.common.LOTRShields;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
-import lotr.common.LOTRCapes;
-import lotr.common.entity.npc.LOTREntityNearHaradrim;
 
 public class LOTRRenderNearHaradrimWarlord extends LOTRRenderNearHaradrim
 {
@@ -12,7 +11,7 @@ public class LOTRRenderNearHaradrimWarlord extends LOTRRenderNearHaradrim
 	public LOTRRenderNearHaradrimWarlord()
 	{
 		super();
-		setCapeTexture(LOTRCapes.ALIGNMENT_NEAR_HARAD.capeTexture);
+		setCapeTexture(LOTRShields.ALIGNMENT_NEAR_HARAD.capeTexture);
 	}
 	
 	@Override

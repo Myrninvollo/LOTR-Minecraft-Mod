@@ -18,7 +18,7 @@ public class LOTRGuiOptions extends LOTRGui
 		super.initGui();
 		buttonList.add(new LOTRGuiButtonOptions(LOTROptions.FRIENDLY_FIRE, guiLeft + xSize / 2 - 100, guiTop + 40, 200, 20, "lotr.gui.options.friendlyFire"));
 		buttonList.add(new LOTRGuiButtonOptions(LOTROptions.HIRED_DEATH_MESSAGES, guiLeft + xSize / 2 - 100, guiTop + 64, 200, 20, "lotr.gui.options.hiredDeathMessages"));
-		buttonList.add(new LOTRGuiButtonOptions(LOTROptions.ENABLE_CAPE, guiLeft + xSize / 2 - 100, guiTop + 88, 200, 20, "lotr.gui.options.enableCape"));
+		buttonList.add(new LOTRGuiButtonOptions(LOTROptions.ENABLE_SHIELD, guiLeft + xSize / 2 - 100, guiTop + 88, 200, 20, "lotr.gui.options.enableShield"));
 		buttonList.add(new LOTRGuiButtonOptions(LOTROptions.SHOW_ALIGNMENT, guiLeft + xSize / 2 - 100, guiTop + 112, 200, 20, "lotr.gui.options.showAlignment"));
 		buttonList.add(new LOTRGuiButtonOptions(LOTROptions.SHOW_MAP_LOCATION, guiLeft + xSize / 2 - 100, guiTop + 136, 200, 20, "lotr.gui.options.showMapLocation"));
 	}
@@ -35,7 +35,7 @@ public class LOTRGuiOptions extends LOTRGui
 
 		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.FRIENDLY_FIRE)).setState(LOTRLevelData.getData(mc.thePlayer).getFriendlyFire());
 		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.HIRED_DEATH_MESSAGES)).setState(LOTRLevelData.getData(mc.thePlayer).getEnableHiredDeathMessages());
-		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.ENABLE_CAPE)).setState(LOTRLevelData.getData(mc.thePlayer).getEnableCape());
+		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.ENABLE_SHIELD)).setState(LOTRLevelData.getData(mc.thePlayer).getEnableShield());
 		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.SHOW_ALIGNMENT)).setState(!LOTRLevelData.getData(mc.thePlayer).getHideAlignment());
 		((LOTRGuiButtonOptions)buttonList.get(LOTROptions.SHOW_MAP_LOCATION)).setState(!LOTRLevelData.getData(mc.thePlayer).getHideMapLocation());
 		

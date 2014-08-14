@@ -35,8 +35,8 @@ public class LOTRPlayerData
 	private List achievements = new ArrayList();
 	private boolean checkedMenu = false;
 	
-	private LOTRCapes cape;
-	private boolean enableCape = true;
+	private LOTRShields shield;
+	private boolean enableShield = true;
 	
 	private boolean friendlyFire = true;
 	private boolean hiredDeathMessages = true;
@@ -116,11 +116,11 @@ public class LOTRPlayerData
 		
 		playerData.setBoolean("CheckedMenu", checkedMenu);
 		
-		if (cape != null)
+		if (shield != null)
 		{
-			playerData.setString("Cape", cape.name());
-			playerData.setBoolean("EnableCape", enableCape);
+			playerData.setString("Shield", shield.name());
 		}
+		playerData.setBoolean("EnableShield", enableShield);
 		
 		playerData.setBoolean("FriendlyFire", friendlyFire);
 		playerData.setBoolean("HiredDeathMessages", hiredDeathMessages);
@@ -174,12 +174,15 @@ public class LOTRPlayerData
 		
 		checkedMenu = playerData.getBoolean("CheckedMenu");
 		
-		LOTRCapes lotrcapes = LOTRCapes.capeForName(playerData.getString("Cape"));
-		if (lotrcapes != null)
+		LOTRShields lotrshield = LOTRShields.shieldForName(playerData.getString("Shield"));
+		if (lotrshield != null)
 		{
-			cape = lotrcapes;
+			shield = lotrshield;
 		}
-		enableCape = playerData.getBoolean("EnableCape");
+		if (playerData.hasKey("EnableShield"))
+		{
+			enableShield = playerData.getBoolean("EnableShield");
+		}
 		
 		friendlyFire = playerData.getBoolean("FriendlyFire");
 		hiredDeathMessages = playerData.getBoolean("HiredDeathMessages");
@@ -448,26 +451,26 @@ public class LOTRPlayerData
 		LOTRLevelData.markDirty();
 	}
 	
-	public void setCape(LOTRCapes lotrcape)
+	public void setShield(LOTRShields lotrshield)
 	{
-		cape = lotrcape;
+		shield = lotrshield;
 		LOTRLevelData.markDirty();
 	}
 	
-	public LOTRCapes getCape()
+	public LOTRShields getShield()
 	{
-		return cape;
+		return shield;
 	}
 	
-	public void setEnableCape(boolean flag)
+	public void setEnableShield(boolean flag)
 	{
-		enableCape = flag;
+		enableShield = flag;
 		LOTRLevelData.markDirty();
 	}
 	
-	public boolean getEnableCape()
+	public boolean getEnableShield()
 	{
-		return enableCape;
+		return enableShield;
 	}
 	
 	public void setStructuresBanned(boolean flag)

@@ -1722,7 +1722,7 @@ public class LOTRMod
 		
 		LOTREntityRegistry.loadRegisteredNPCs(event);
 		
-		LOTRCapes.forceClassLoad();
+		LOTRShields.forceClassLoad();
 	}
 
 	@Mod.EventHandler

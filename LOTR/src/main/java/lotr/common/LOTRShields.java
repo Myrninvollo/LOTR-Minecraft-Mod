@@ -1,6 +1,6 @@
 package lotr.common;
 
-import static lotr.common.LOTRCapes.CapeType.*;
+import static lotr.common.LOTRShields.ShieldType.*;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
-public enum LOTRCapes
+public enum LOTRShields
 {
 	ALIGNMENT_RANGER(LOTRFaction.RANGER_NORTH),
 	ALIGNMENT_BLUE_MOUNTAINS(LOTRFaction.BLUE_MOUNTAINS),	
@@ -38,59 +38,61 @@ public enum LOTRCapes
 	STRUCTURE_CONTEST(new String[] {"82f1c77b-07b8-4334-9edf-f29d8fc74bf8", "69f45bcd-4955-42a8-a740-dc0e16dc8565", "37f2bfb6-a613-43dd-8c1b-ffa4cbbbd172", "8bc4c772-f305-4545-a44d-a4f1b9eb2b98", "a166423a-a1e3-45b1-a4b8-dea69f2bd64e", "3967d432-37ec-450d-ad37-9eec6bac9707", "7e869d33-df0f-4433-b235-a62205c5f986"}),
 	MOD(new String[] {"7bc56da6-f133-4e47-8d0f-a2776762bca6", "e9587327-156d-4fc4-91a5-f2e7cfaa9d66", "d054f0bf-a9cb-41d1-8496-709f97faa475", "8bc4c772-f305-4545-a44d-a4f1b9eb2b98", "3967d432-37ec-450d-ad37-9eec6bac9707", "12e96c35-6964-4993-8876-c04ac9f2fb8c", "6458975e-0160-4b45-b364-866b4922cc29", "d0b25c60-65ec-4d75-b0ac-07b3fa9dd6a6", "7a55441d-02d9-401c-b259-495fba1c3148", "963296be-a555-4151-aa45-b7df8598faba", "c0eb3931-701b-4bb3-ac12-c03017e09b8d", "0a283d3e-7fd7-4469-a219-4189c0e012b5", "972ecfe5-4164-44ea-944f-9d7a4fb80145", "bab181b6-7b76-49fe-baa2-b3ca4a48f486", "a166423a-a1e3-45b1-a4b8-dea69f2bd64e", "461c1adb-bbd1-4513-b02f-946b6388b496", "757223ca-bd8e-4cbf-bd69-397f244263af", "b03bd343-8fe8-42ca-a56f-ee3a5b17150f", "7646da8a-77fa-4697-ae05-ac75e0558106", "7de47d3a-3f3f-40a9-baa9-4214155eaef7", "d4ff096b-a38c-47c6-8cec-2bf336affb6d"}),
 	ELECTRICIAN(new String[] {"60241a10-eeb0-4cc5-831c-d5f7123d46f0"}),
-	SHREK(new String[] {"90dd2523-cefb-48b9-be2c-36759289724a"}),
+	OGRE(new String[] {"90dd2523-cefb-48b9-be2c-36759289724a"}),
 	LOREMASTER_2013(new String[] {"7bc56da6-f133-4e47-8d0f-a2776762bca6", "a166423a-a1e3-45b1-a4b8-dea69f2bd64e", "a041a9a7-286d-470f-8826-c9ab0b3166dd", "1f9b1c1d-d4fa-49a2-b6a7-fc58bb62d19b", "e3db1a07-846a-4843-98b2-64f4f9331b4a"});
 	
-	public CapeType capeType;
-	public int capeID;
-	public UUID[] playersForCape;
+	public ShieldType shieldType;
+	public int shieldID;
+	public UUID[] playersForShield;
 	private LOTRFaction alignmentFaction;
+	public ResourceLocation shieldTexture;
 	public ResourceLocation capeTexture;
 	
-	private LOTRCapes(LOTRFaction faction)
+	private LOTRShields(LOTRFaction faction)
 	{
 		this(ALIGNMENT, new String[0]);
 		alignmentFaction = faction;
 	}
 	
-	private LOTRCapes()
+	private LOTRShields()
 	{
 		this(ACHIEVABLE, new String[0]);
 	}
 	
-	private LOTRCapes(String[] players)
+	private LOTRShields(String[] players)
 	{
 		this(EXCLUSIVE, players);
 	}
 	
-	private LOTRCapes(CapeType type, String[] players)
+	private LOTRShields(ShieldType type, String[] players)
 	{
-		capeType = type;
-		capeID = capeType.list.size();
-		capeType.list.add(this);
+		shieldType = type;
+		shieldID = shieldType.list.size();
+		shieldType.list.add(this);
+		shieldTexture = new ResourceLocation("lotr:shield/" + name().toLowerCase() + ".png");
 		capeTexture = new ResourceLocation("lotr:cape/" + name().toLowerCase() + ".png");
 		
-		playersForCape = new UUID[players.length];
-		for (int i = 0; i < playersForCape.length; i++)
+		playersForShield = new UUID[players.length];
+		for (int i = 0; i < playersForShield.length; i++)
 		{
 			String s = players[i];
-			playersForCape[i] = UUID.fromString(s);
+			playersForShield[i] = UUID.fromString(s);
 		}
 	}
 	
-	public String getCapeName()
+	public String getShieldName()
 	{
-		return StatCollector.translateToLocal("lotr.capes." + name() + ".name");
+		return StatCollector.translateToLocal("lotr.shields." + name() + ".name");
 	}
 	
-	public String getCapeDesc()
+	public String getShieldDesc()
 	{
-		return StatCollector.translateToLocal("lotr.capes." + name() + ".desc");
+		return StatCollector.translateToLocal("lotr.shields." + name() + ".desc");
 	}
 
-	public boolean canPlayerWearCape(EntityPlayer entityplayer)
+	public boolean canPlayerWear(EntityPlayer entityplayer)
 	{
-		if (capeType == ALIGNMENT)
+		if (shieldType == ALIGNMENT)
 		{
 			return LOTRLevelData.getData(entityplayer).getAlignment(alignmentFaction) >= 1000;
 		}
@@ -114,9 +116,9 @@ public enum LOTRCapes
 		{
 			return LOTRLevelData.getData(entityplayer).hasAchievement(LOTRAchievement.killMountainTrollChieftain);
 		}
-		else if (capeType == EXCLUSIVE)
+		else if (shieldType == EXCLUSIVE)
 		{
-			for (UUID uuid : playersForCape)
+			for (UUID uuid : playersForShield)
 			{
 				if (uuid.equals(entityplayer.getUniqueID()))
 				{
@@ -129,19 +131,19 @@ public enum LOTRCapes
 	
 	public static void forceClassLoad() {}
 	
-	public static LOTRCapes capeForName(String capeName)
+	public static LOTRShields shieldForName(String shieldName)
 	{
-		for (LOTRCapes cape : LOTRCapes.values())
+		for (LOTRShields shield : LOTRShields.values())
 		{
-			if (cape.name().equals(capeName))
+			if (shield.name().equals(shieldName))
 			{
-				return cape;
+				return shield;
 			}
 		}
 		return null;
 	}
 	
-	public enum CapeType
+	public enum ShieldType
 	{
 		ALIGNMENT,
 		ACHIEVABLE,
@@ -151,7 +153,7 @@ public enum LOTRCapes
 		
 		public String getDisplayName()
 		{
-			return StatCollector.translateToLocal("lotr.capes.category." + name());
+			return StatCollector.translateToLocal("lotr.shields.category." + name());
 		}
 	}
 }

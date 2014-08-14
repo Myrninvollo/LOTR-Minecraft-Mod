@@ -73,7 +73,7 @@ public class LOTRLevelData
 	public static List nearHaradCampLocations = new ArrayList();
 	public static List rangerWatchtowerLocations = new ArrayList();
 	
-	private static Map<UUID, LOTRPlayerData> playerData = new HashMap<UUID, LOTRPlayerData>();
+	private static Map<UUID, LOTRPlayerData> playerData = new HashMap();
 	
 	public static boolean needsLoad = true;
 	private static boolean needsSave = false;
@@ -352,29 +352,6 @@ public class LOTRLevelData
 										pd.addAchievement(achievement);
 									}
 								}
-							}
-						}
-					}
-				}
-				
-				NBTTagList capeTags = levelData.getTagList("Capes", new NBTTagCompound().getId());
-				if (capeTags != null)
-				{
-					for (int i = 0; i < capeTags.tagCount(); i++)
-					{
-						NBTTagCompound nbt = (NBTTagCompound)capeTags.getCompoundTagAt(i);
-						
-						UUID player = new UUID(nbt.getLong("UUIDMost"), nbt.getLong("UUIDLeast"));
-						LOTRPlayerData pd = getData(player);
-						
-						String capeName = nbt.getString("Cape");
-						LOTRCapes cape = LOTRCapes.capeForName(capeName);
-						if (cape != null)
-						{
-							pd.setCape(cape);
-							if (nbt.hasKey("Enabled"))
-							{
-								pd.setEnableCape(nbt.getBoolean("Enabled"));
 							}
 						}
 					}
@@ -729,27 +706,27 @@ public class LOTRLevelData
 		}
 	}
 	
-	public static void selectDefaultCapeForPlayer(EntityPlayer entityplayer)
+	public static void selectDefaultShieldForPlayer(EntityPlayer entityplayer)
 	{
-		if (getData(entityplayer).getCape() == null)
+		if (getData(entityplayer).getShield() == null)
 		{
-			for (LOTRCapes cape : LOTRCapes.values())
+			for (LOTRShields shield : LOTRShields.values())
 			{
-				if (cape.canPlayerWearCape(entityplayer))
+				if (shield.canPlayerWear(entityplayer))
 				{
-					getData(entityplayer).setCape(cape);
+					getData(entityplayer).setShield(shield);
 					return;
 				}
 			}
 		}
 	}
 	
-	public static void sendCapeToAllPlayersInWorld(EntityPlayer entityplayer, World world)
+	public static void sendShieldToAllPlayersInWorld(EntityPlayer entityplayer, World world)
 	{
-		LOTRCapes cape = getData(entityplayer).getCape();
-		if (cape != null)
+		LOTRShields shield = getData(entityplayer).getShield();
+		if (shield != null)
 		{
-			boolean enableCape = getData(entityplayer).getEnableCape();
+			boolean enableShield = getData(entityplayer).getEnableShield();
 			for (int i = 0; i < world.playerEntities.size(); i++)
 			{
 				EntityPlayer worldPlayer = (EntityPlayer)world.playerEntities.get(i);
@@ -759,34 +736,34 @@ public class LOTRLevelData
 				data.writeLong(entityplayer.getUniqueID().getMostSignificantBits());
 				data.writeLong(entityplayer.getUniqueID().getLeastSignificantBits());
 				
-				data.writeByte((byte)cape.capeID);
-				data.writeByte((byte)cape.capeType.ordinal());
-				data.writeBoolean(enableCape);
+				data.writeByte((byte)shield.shieldID);
+				data.writeByte((byte)shield.shieldType.ordinal());
+				data.writeBoolean(enableShield);
 				
-				S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.updateCape", data);
+				S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.updateShld", data);
 				((EntityPlayerMP)worldPlayer).playerNetServerHandler.sendPacket(packet);
 			}
 		}
 	}
 	
-	public static void sendAllCapesInWorldToPlayer(EntityPlayer entityplayer, World world)
+	public static void sendAllShieldsInWorldToPlayer(EntityPlayer entityplayer, World world)
 	{
 		for (int i = 0; i < world.playerEntities.size(); i++)
 		{
 			EntityPlayer worldPlayer = (EntityPlayer)world.playerEntities.get(i);
-			LOTRCapes cape = getData(worldPlayer).getCape();
-			if (cape != null)
+			LOTRShields shield = getData(worldPlayer).getShield();
+			if (shield != null)
 			{
 				ByteBuf data = Unpooled.buffer();
 				
 				data.writeLong(worldPlayer.getUniqueID().getMostSignificantBits());
 				data.writeLong(worldPlayer.getUniqueID().getLeastSignificantBits());
 				
-				data.writeByte((byte)cape.capeID);
-				data.writeByte((byte)cape.capeType.ordinal());
-				data.writeBoolean(getData(worldPlayer).getEnableCape());
+				data.writeByte((byte)shield.shieldID);
+				data.writeByte((byte)shield.shieldType.ordinal());
+				data.writeBoolean(getData(worldPlayer).getEnableShield());
 				
-				S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.updateCape", data);
+				S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.updateShld", data);
 				((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
 			}
 		}

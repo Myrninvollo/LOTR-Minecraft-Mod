@@ -7,7 +7,7 @@ import io.netty.channel.*;
 
 import java.util.*;
 
-import lotr.common.LOTRCapes.CapeType;
+import lotr.common.LOTRShields.ShieldType;
 import lotr.common.entity.LOTRMountFunctions;
 import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.item.LOTREntityBanner;
@@ -48,7 +48,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.checkMenu", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.checkAl", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.brewing", this);
-		NetworkRegistry.INSTANCE.newChannel("lotr.selectCape", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.selectShld", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.tInteract", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.utInteract", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.hInteract", this);
@@ -317,7 +317,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 			}
 		}
 		
-		else if (channel.equals("lotr.selectCape"))
+		else if (channel.equals("lotr.selectShld"))
 		{
 			int id = data.readInt();
 			World world = DimensionManager.getWorld(data.readByte());
@@ -327,28 +327,28 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 				if (entity instanceof EntityPlayer)
 				{
 					EntityPlayer entityplayer = (EntityPlayer)entity;
-					int capeID = data.readByte();
-					int capeTypeID = data.readByte();
-					if (capeTypeID < 0 || capeTypeID >= CapeType.values().length)
+					int shieldID = data.readByte();
+					int shieldTypeID = data.readByte();
+					if (shieldTypeID < 0 || shieldTypeID >= ShieldType.values().length)
 					{
-						System.out.println("Failed to update LOTR cape on server side: There is no capetype with ID " + capeTypeID);
+						System.out.println("Failed to update LOTR shield on server side: There is no shieldtype with ID " + shieldTypeID);
 						return;
 					}
-					CapeType capeType = CapeType.values()[capeTypeID];
-					if (capeID < 0 || capeID >= capeType.list.size())
+					ShieldType shieldType = ShieldType.values()[shieldTypeID];
+					if (shieldID < 0 || shieldID >= shieldType.list.size())
 					{
-						System.out.println("Failed to update LOTR cape on server side: There is no cape with ID " + capeID + " for capetype " + capeTypeID);
+						System.out.println("Failed to update LOTR shield on server side: There is no shield with ID " + shieldID + " for shieldtype " + shieldTypeID);
 						return;
 					}
-					LOTRCapes cape = (LOTRCapes)capeType.list.get(capeID);
-					if (cape.canPlayerWearCape(entityplayer))
+					LOTRShields shield = (LOTRShields)shieldType.list.get(shieldID);
+					if (shield.canPlayerWear(entityplayer))
 					{
-						LOTRLevelData.getData(entityplayer).setCape(cape);
-						LOTRLevelData.sendCapeToAllPlayersInWorld(entityplayer, world);
+						LOTRLevelData.getData(entityplayer).setShield(shield);
+						LOTRLevelData.sendShieldToAllPlayersInWorld(entityplayer, world);
 					}
 					else
 					{
-						System.out.println("Failed to update LOTR cape on server side: Player " + entityplayer.getCommandSenderName() + " cannot wear cape " + cape.name());
+						System.out.println("Failed to update LOTR shield on server side: Player " + entityplayer.getCommandSenderName() + " cannot wear shield " + shield.name());
 					}
 				}
 			}
@@ -493,11 +493,11 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 						boolean flag = LOTRLevelData.getData(entityplayer).getEnableHiredDeathMessages();
 						LOTRLevelData.getData(entityplayer).setEnableHiredDeathMessages(!flag);
 					}
-					else if (option == LOTROptions.ENABLE_CAPE)
+					else if (option == LOTROptions.ENABLE_SHIELD)
 					{
-						boolean flag = LOTRLevelData.getData(entityplayer).getEnableCape();
-						LOTRLevelData.getData(entityplayer).setEnableCape(!flag);
-						LOTRLevelData.sendCapeToAllPlayersInWorld(entityplayer, world);
+						boolean flag = LOTRLevelData.getData(entityplayer).getEnableShield();
+						LOTRLevelData.getData(entityplayer).setEnableShield(!flag);
+						LOTRLevelData.sendShieldToAllPlayersInWorld(entityplayer, world);
 					}
 					else if (option == LOTROptions.SHOW_ALIGNMENT)
 					{

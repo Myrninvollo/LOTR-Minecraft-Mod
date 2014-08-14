@@ -334,9 +334,9 @@ public class LOTREventHandler implements IFuelHandler
 			LOTRLevelData.sendAlignmentToAllPlayersInWorld(entityplayer, entityplayer.worldObj);
 			LOTRLevelData.sendAllAlignmentsInWorldToPlayer(entityplayer, entityplayer.worldObj);
 			
-			LOTRLevelData.selectDefaultCapeForPlayer(entityplayer);
-			LOTRLevelData.sendCapeToAllPlayersInWorld(entityplayer, entityplayer.worldObj);
-			LOTRLevelData.sendAllCapesInWorldToPlayer(entityplayer, entityplayer.worldObj);
+			LOTRLevelData.selectDefaultShieldForPlayer(entityplayer);
+			LOTRLevelData.sendShieldToAllPlayersInWorld(entityplayer, entityplayer.worldObj);
+			LOTRLevelData.sendAllShieldsInWorldToPlayer(entityplayer, entityplayer.worldObj);
 			
 			LOTRWaypoint.sendLoginWaypointsPacket(entityplayermp);
 			LOTRWaypoint.Custom.sendLoginCustomWaypointsPackets(entityplayermp);
@@ -354,8 +354,8 @@ public class LOTREventHandler implements IFuelHandler
 		{
 			LOTRLevelData.sendAlignmentToAllPlayersInWorld(entityplayer, entityplayer.worldObj);
 			LOTRLevelData.sendAllAlignmentsInWorldToPlayer(entityplayer, entityplayer.worldObj);
-			LOTRLevelData.sendCapeToAllPlayersInWorld(entityplayer, entityplayer.worldObj);
-			LOTRLevelData.sendAllCapesInWorldToPlayer(entityplayer, entityplayer.worldObj);
+			LOTRLevelData.sendShieldToAllPlayersInWorld(entityplayer, entityplayer.worldObj);
+			LOTRLevelData.sendAllShieldsInWorldToPlayer(entityplayer, entityplayer.worldObj);
 		}
 	}
 

@@ -2,13 +2,11 @@ package lotr.client.render;
 
 import lotr.client.LOTRClientProxy;
 import lotr.client.LOTRTickHandlerClient;
-import lotr.common.LOTRCapes;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
-import lotr.common.entity.item.LOTREntityBarrel;
+import lotr.common.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,7 +23,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 public class LOTRRenderPlayer
 {
 	private Minecraft mc = Minecraft.getMinecraft();
-	private ModelBiped playerModel = new ModelBiped(0F);
 	private RenderManager renderManager = RenderManager.instance;
 	
 	public LOTRRenderPlayer()
@@ -40,71 +37,12 @@ public class LOTRRenderPlayer
 		EntityPlayer entityplayer = event.entityPlayer;
 		float tick = event.partialRenderTick;
 		
-		if (!entityplayer.isInvisibleToPlayer(mc.thePlayer) && !entityplayer.getHideCape() && event.renderCape)
+		if (!entityplayer.isInvisibleToPlayer(mc.thePlayer))
 		{
-			LOTRCapes cape = LOTRLevelData.getData(entityplayer).getCape();
-			if (cape != null && LOTRLevelData.getData(entityplayer).getEnableCape())
+			LOTRShields shield = LOTRLevelData.getData(entityplayer).getShield();
+			if (shield != null && LOTRLevelData.getData(entityplayer).getEnableShield())
 			{
-				mc.getTextureManager().bindTexture(cape.capeTexture);
-				GL11.glPushMatrix();
-				GL11.glColor4f(1F, 1F, 1F, 1F);
-				GL11.glTranslatef(0F, 0F, 0.125F);
-				double d = entityplayer.field_71091_bM + (entityplayer.field_71094_bP - entityplayer.field_71091_bM) * (double)tick - (entityplayer.prevPosX + (entityplayer.posX - entityplayer.prevPosX) * (double)tick);
-				double d1 = entityplayer.field_71096_bN + (entityplayer.field_71095_bQ - entityplayer.field_71096_bN) * (double)tick - (entityplayer.prevPosY + (entityplayer.posY - entityplayer.prevPosY) * (double)tick);
-				double d2 = entityplayer.field_71097_bO + (entityplayer.field_71085_bR - entityplayer.field_71097_bO) * (double)tick - (entityplayer.prevPosZ + (entityplayer.posZ - entityplayer.prevPosZ) * (double)tick);
-				float f6 = entityplayer.prevRenderYawOffset + (entityplayer.renderYawOffset - entityplayer.prevRenderYawOffset) * tick;
-				double d3 = (double)MathHelper.sin(f6 * (float)Math.PI / 180F);
-				double d4 = (double)(-MathHelper.cos(f6 * (float)Math.PI / 180F));
-				float f7 = (float)d1 * 10F;
-
-				if (f7 < -6F)
-				{
-					f7 = -6F;
-				}
-
-				if (f7 > 32F)
-				{
-					f7 = 32F;
-				}
-
-				float f8 = (float)(d * d3 + d2 * d4) * 100F;
-				float f9 = (float)(d * d4 - d2 * d3) * 100F;
-
-				if (f8 < 0F)
-				{
-					f8 = 0F;
-				}
-
-				float f10 = entityplayer.prevCameraYaw + (entityplayer.cameraYaw - entityplayer.prevCameraYaw) * tick;
-				f7 += MathHelper.sin((entityplayer.prevDistanceWalkedModified + (entityplayer.distanceWalkedModified - entityplayer.prevDistanceWalkedModified) * tick) * 6F) * 32F * f10;
-
-				if (entityplayer.isSneaking())
-				{
-					f7 += 25F;
-				}
-
-				GL11.glRotatef(6F + f8 / 2F + f7, 1F, 0F, 0F);
-				GL11.glRotatef(f9 / 2F, 0F, 0F, 1F);
-				GL11.glRotatef(-f9 / 2F, 0F, 1F, 0F);
-				GL11.glRotatef(180F, 0F, 1F, 0F);
-				playerModel.renderCloak(0.0625F);
-				GL11.glPopMatrix();
-				
-				if (cape == LOTRCapes.ELVEN_CONTEST)
-				{
-					if ((entityplayer.isSprinting() || (!entityplayer.onGround && (Math.abs(entityplayer.motionX) > 0D || Math.abs(entityplayer.motionY) > 0D || Math.abs(entityplayer.motionZ) > 0D))) && entityplayer.getRNG().nextInt(4) == 0)
-					{
-						double d10 = entityplayer.posX + (entityplayer.getRNG().nextDouble() - 0.5D) * (double)entityplayer.width;
-						double d11 = entityplayer.boundingBox.minY + ((double)entityplayer.height * 0.5D);
-						double d12 = entityplayer.posZ + (entityplayer.getRNG().nextDouble() - 0.5D) * (double)entityplayer.width;
-						double d13 = entityplayer.motionX * -0.6D;
-						double d14 = entityplayer.motionY * -0.6D;
-						double d15 = entityplayer.motionZ * -0.6D;
-						LOTRMod.proxy.spawnParticle("leafGold_" + (40 + entityplayer.getRNG().nextInt(20)), d10, d11, d12, d13, d14, d15);
-					}
-				}
-				
-				event.renderCape = false;
+				LOTRRenderShield.renderShield(shield, event.renderer.modelBipedMain);
 			}
 		}
 	}

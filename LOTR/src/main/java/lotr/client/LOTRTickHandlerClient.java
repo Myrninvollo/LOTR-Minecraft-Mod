@@ -287,10 +287,10 @@ public class LOTRTickHandlerClient
 				lastGuiOpen = guiscreen;
 			}
 			
-			LOTRGuiCapes.playerModelRotation += 2;
-			if (LOTRGuiCapes.playerModelRotation >= 360)
+			LOTRGuiShields.playerModelRotation += 2;
+			if (LOTRGuiShields.playerModelRotation >= 360)
 			{
-				LOTRGuiCapes.playerModelRotation = 0;
+				LOTRGuiShields.playerModelRotation = 0;
 			}
 		}
 	}

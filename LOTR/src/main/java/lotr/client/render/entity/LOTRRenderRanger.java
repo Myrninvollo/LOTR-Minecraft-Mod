@@ -1,11 +1,9 @@
 package lotr.client.render.entity;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import lotr.client.model.LOTRModelBiped;
-import lotr.common.LOTRCapes;
+import lotr.common.LOTRShields;
 import lotr.common.entity.npc.LOTREntityRanger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,7 +19,7 @@ public class LOTRRenderRanger extends LOTRRenderBiped
 	{
 		super(new LOTRModelBiped(), 0.5F);
 		rangerSkins = LOTRRandomSkins.loadSkinsList("lotr:mob/ranger/ranger");
-		setCapeTexture(LOTRCapes.ALIGNMENT_RANGER.capeTexture);
+		setCapeTexture(LOTRShields.ALIGNMENT_RANGER.capeTexture);
 	}
 	
 	@Override

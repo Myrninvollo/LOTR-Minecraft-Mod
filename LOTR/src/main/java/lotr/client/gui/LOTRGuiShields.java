@@ -1,12 +1,13 @@
 package lotr.client.gui;
 
-import java.util.List;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import lotr.common.LOTRCapes;
-import lotr.common.LOTRCapes.CapeType;
-import lotr.common.LOTRLevelData;
+
+import java.util.List;
+
+import lotr.client.render.LOTRRenderShield;
+import lotr.common.*;
+import lotr.common.LOTRShields.ShieldType;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -17,15 +18,15 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class LOTRGuiCapes extends LOTRGui
+public class LOTRGuiShields extends LOTRGui
 {
 	private static ModelBiped playerModel = new ModelBiped();
 	public static int playerModelRotation = 0;
 	
-	private CapeType currentCapeType;
-	private static int currentCapeTypeID;
-	private LOTRCapes currentCape;
-	private static int currentCapeID;
+	private ShieldType currentShieldType;
+	private static int currentShieldTypeID;
+	private LOTRShields currentShield;
+	private static int currentShieldID;
 	
 	static
 	{
@@ -36,17 +37,17 @@ public class LOTRGuiCapes extends LOTRGui
     public void initGui()
     {
 		super.initGui();
-		buttonList.add(new LOTRGuiButtonCapesArrows(2, true, guiLeft + xSize / 2 - 64, guiTop + 210));
-		buttonList.add(new GuiButton(3, guiLeft + xSize / 2 - 40, guiTop + 210, 80, 20, StatCollector.translateToLocal("lotr.gui.capes.select")));
-		buttonList.add(new LOTRGuiButtonCapesArrows(4, false, guiLeft + xSize / 2 + 44, guiTop + 210));
+		buttonList.add(new LOTRGuiButtonShieldsArrows(2, true, guiLeft + xSize / 2 - 64, guiTop + 210));
+		buttonList.add(new GuiButton(3, guiLeft + xSize / 2 - 40, guiTop + 210, 80, 20, StatCollector.translateToLocal("lotr.gui.shields.select")));
+		buttonList.add(new LOTRGuiButtonShieldsArrows(4, false, guiLeft + xSize / 2 + 44, guiTop + 210));
 		buttonList.add(new GuiButton(5, guiLeft + xSize / 2 - 80, guiTop + 240, 160, 20, ""));
-		updateCurrentCape();
+		updateCurrentShield();
 	}
 	
-	private void updateCurrentCape()
+	private void updateCurrentShield()
 	{
-		currentCapeType = CapeType.values()[currentCapeTypeID];
-		currentCape = (LOTRCapes)currentCapeType.list.get(currentCapeID);
+		currentShieldType = ShieldType.values()[currentShieldTypeID];
+		currentShield = (LOTRShields)currentShieldType.list.get(currentShieldID);
 	}
 	
 	@Override
@@ -55,7 +56,7 @@ public class LOTRGuiCapes extends LOTRGui
 		drawDefaultBackground();
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		
-		String s = StatCollector.translateToLocal("lotr.gui.capes.title");
+		String s = StatCollector.translateToLocal("lotr.gui.shields.title");
 		drawCenteredString(s, guiLeft + 100, guiTop - 30, 0xFFFFFF);
 		
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
@@ -69,13 +70,12 @@ public class LOTRGuiCapes extends LOTRGui
         GL11.glScalef(-scale, scale, scale);
 		GL11.glRotatef(-30F, 1F, 0F, 0F);
         GL11.glRotatef((float)playerModelRotation + f * 2F, 0F, 1F, 0F);
+        
 		mc.getTextureManager().bindTexture(mc.thePlayer.getLocationSkin());
 		playerModel.render(null, 0F, 0F, 0F, 0F, 0F, 0.0625F);
-		mc.getTextureManager().bindTexture(currentCape.capeTexture);
-		GL11.glTranslatef(0F, 0F, 0.125F);
-		GL11.glRotatef(180F, 0F, 1F, 0F);
-		GL11.glRotatef(-10F, 1F, 0F, 0F);
-		playerModel.renderCloak(0.0625F);
+		
+		LOTRRenderShield.renderShield(currentShield, playerModel);
+		
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_CULL_FACE);
         GL11.glPopMatrix();
@@ -88,12 +88,12 @@ public class LOTRGuiCapes extends LOTRGui
 		int x = guiLeft + (xSize / 2);
 		int y = guiTop + 145;
 		
-		s = currentCape.getCapeName();
+		s = currentShield.getShieldName();
 		drawCenteredString(s, x, y, 0xFFFFFF);
 		
 		y += fontRendererObj.FONT_HEIGHT * 2;
 		
-		List desc = fontRendererObj.listFormattedStringToWidth(currentCape.getCapeDesc(), 200);
+		List desc = fontRendererObj.listFormattedStringToWidth(currentShield.getShieldDesc(), 200);
 		for (int l = 0; l < desc.size(); l++)
 		{
 			s = (String)desc.get(l);
@@ -101,11 +101,11 @@ public class LOTRGuiCapes extends LOTRGui
 			y += fontRendererObj.FONT_HEIGHT;
 		}
 		
-		((GuiButton)buttonList.get(2)).enabled = currentCapeID > 0;
-		((GuiButton)buttonList.get(3)).enabled = currentCape.canPlayerWearCape(mc.thePlayer);
-		((GuiButton)buttonList.get(3)).displayString = LOTRLevelData.getData(mc.thePlayer).getCape() == currentCape ? StatCollector.translateToLocal("lotr.gui.capes.selected") : StatCollector.translateToLocal("lotr.gui.capes.select");
-		((GuiButton)buttonList.get(4)).enabled = currentCapeID < currentCapeType.list.size() - 1;
-		((GuiButton)buttonList.get(5)).displayString = currentCapeType.getDisplayName();
+		((GuiButton)buttonList.get(2)).enabled = currentShieldID > 0;
+		((GuiButton)buttonList.get(3)).enabled = currentShield.canPlayerWear(mc.thePlayer);
+		((GuiButton)buttonList.get(3)).displayString = LOTRLevelData.getData(mc.thePlayer).getShield() == currentShield ? StatCollector.translateToLocal("lotr.gui.shields.selected") : StatCollector.translateToLocal("lotr.gui.shields.select");
+		((GuiButton)buttonList.get(4)).enabled = currentShieldID < currentShieldType.list.size() - 1;
+		((GuiButton)buttonList.get(5)).displayString = currentShieldType.getDisplayName();
 		
 		super.drawScreen(i, j, f);
 	}
@@ -117,10 +117,10 @@ public class LOTRGuiCapes extends LOTRGui
         {
 			if (button.id == 2)
 			{
-				if (currentCapeID > 0)
+				if (currentShieldID > 0)
 				{
-					currentCapeID--;
-					updateCurrentCape();
+					currentShieldID--;
+					updateCurrentShield();
 				}
 			}
 			
@@ -130,34 +130,34 @@ public class LOTRGuiCapes extends LOTRGui
 	        	
 	        	data.writeInt(mc.thePlayer.getEntityId());
 	        	data.writeByte((byte)mc.thePlayer.dimension);
-	        	data.writeByte((byte)currentCapeID);
-	        	data.writeByte((byte)currentCapeTypeID);
+	        	data.writeByte((byte)currentShieldID);
+	        	data.writeByte((byte)currentShieldTypeID);
 	        	
-	        	C17PacketCustomPayload packet = new C17PacketCustomPayload("lotr.selectCape", data);
+	        	C17PacketCustomPayload packet = new C17PacketCustomPayload("lotr.selectShld", data);
 	        	mc.thePlayer.sendQueue.addToSendQueue(packet);
 			}
 			
 			else if (button.id == 4)
 			{
-				if (currentCapeID < currentCapeType.list.size() - 1)
+				if (currentShieldID < currentShieldType.list.size() - 1)
 				{
-					currentCapeID++;
-					updateCurrentCape();
+					currentShieldID++;
+					updateCurrentShield();
 				}
 			}
 			
 			else if (button.id == 5)
 			{
-				if (currentCapeTypeID < CapeType.values().length - 1)
+				if (currentShieldTypeID < ShieldType.values().length - 1)
 				{
-					currentCapeTypeID++;
+					currentShieldTypeID++;
 				}
 				else
 				{
-					currentCapeTypeID = 0;
+					currentShieldTypeID = 0;
 				}
-				currentCapeID = 0;
-				updateCurrentCape();
+				currentShieldID = 0;
+				updateCurrentShield();
 			}
 			
 			else

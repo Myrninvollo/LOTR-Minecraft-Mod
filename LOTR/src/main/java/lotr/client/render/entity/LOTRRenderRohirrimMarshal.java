@@ -1,12 +1,12 @@
 package lotr.client.render.entity;
 
-import lotr.common.LOTRCapes;
+import lotr.common.LOTRShields;
 
 public class LOTRRenderRohirrimMarshal extends LOTRRenderRohirrim
 {
 	public LOTRRenderRohirrimMarshal()
 	{
 		super();
-		setCapeTexture(LOTRCapes.ALIGNMENT_ROHAN.capeTexture);
+		setCapeTexture(LOTRShields.ALIGNMENT_ROHAN.capeTexture);
 	}
 }

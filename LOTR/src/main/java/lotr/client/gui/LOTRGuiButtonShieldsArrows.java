@@ -6,12 +6,12 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-public class LOTRGuiButtonCapesArrows extends GuiButton
+public class LOTRGuiButtonShieldsArrows extends GuiButton
 {
 	private static ResourceLocation texture = new ResourceLocation("lotr:gui/widgets.png");
 	private boolean leftOrRight;
 	
-    public LOTRGuiButtonCapesArrows(int i, boolean flag, int j, int k)
+    public LOTRGuiButtonShieldsArrows(int i, boolean flag, int j, int k)
     {
         super(i, j, k, 20, 20, "");
 		leftOrRight = flag;

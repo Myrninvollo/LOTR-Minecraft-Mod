@@ -13,7 +13,7 @@ Gruk Kacep - original scorpion model
 Textures:
 
 Cristobal Andres Ortiz Correa - Near and Far Haradrim skins
-Yorick Hamletson - Rohirrim skin variant, bronze achievement cape, faction alignment capes
+Yorick Hamletson - Rohirrim skin variant, faction capes
 Hooi Baal - Rohirric battleaxe
 Stefan Gruno - High Elf skins
 Sofian Benferhat - High Elf skins

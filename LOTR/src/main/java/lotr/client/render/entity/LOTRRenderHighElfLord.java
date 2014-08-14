@@ -1,12 +1,12 @@
 package lotr.client.render.entity;
 
-import lotr.common.LOTRCapes;
+import lotr.common.LOTRShields;
 
 public class LOTRRenderHighElfLord extends LOTRRenderElf
 {
 	public LOTRRenderHighElfLord()
 	{
 		super();
-		setCapeTexture(LOTRCapes.ALIGNMENT_HIGH_ELF.capeTexture);
+		setCapeTexture(LOTRShields.ALIGNMENT_HIGH_ELF.capeTexture);
 	}
 }

@@ -1,6 +1,8 @@
 Public Beta 20
 
++ Added Middle-earth Shields as a replacement for capes
 + Added many new types of horse armour, including upgraded versions of vanilla horse armour with better protection
++ Added Angmar and Mordor warg armour
 + Added armour on mounts that spawn naturally and hired mounts
 + Added lore for items dropped by NPCs that says who their previous owner was
 + Added a chance for NPCs to drop coins when killed
@@ -8,6 +10,7 @@ Public Beta 20
 + Added the chance for NPCs to drop pouches when killed indirectly by a player, e.g. by hired units, in addition to direct kills
 + Added filtering options for waypoints on the Middle-earth map
 + Added new realistic loading functionality to crossbows
++ Added enchantability to spears
 + Added a system of alcohol tolerance
 + Added persistence of brewing contents for barrel items
 + Added a Ranger crafting table, Ranger banner, and Ranger alignment cape
@@ -32,6 +35,7 @@ Public Beta 20
 * Fixed the Serbian translation not working
 * Fixed Dunlending Trident fishing depleting the hunger bar very quickly
 * Thrown spears now carry the NBT-data of the spear item
+* Throwing axes can no longer be used for melee combat
 * Changed the roofs of some structures to thatch
 * Changed the bricks in the Dúnedain structures to Arnor Brick
 * Increased the spawning chance of stone ruins
@@ -39,7 +43,9 @@ Public Beta 20
 * Reduced the chance of Shirriff raids
 * Shirriffs now only raid enemies at night
 * Invasions are now announced to all nearby enemy players
+* Actually fixed dwarven merchants not spawning
 
+- Removed Middle-earth capes
 - Removed separate warg armour items
 - Removed crafting recipes for vanilla horse armour
 

@@ -272,15 +272,8 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 		int k = MathHelper.floor_double(posZ);
 		if (j > 62 && worldObj.getBlock(i, j - 1, k) == Blocks.grass)
 		{
-			if (this instanceof LOTREntityElvenTrader)
-			{
-				return true;
-			}
-			else
-			{
-				BiomeGenBase biome = worldObj.getBiomeGenForCoords(i, k);
-				return biome instanceof LOTRBiomeGenLothlorien;
-			}
+			BiomeGenBase biome = worldObj.getBiomeGenForCoords(i, k);
+			return biome instanceof LOTRBiomeGenLothlorien;
 		}
 		return false;
 	}
@@ -290,7 +283,7 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 	{
 		float f = 0F;
 		BiomeGenBase biome = worldObj.getBiomeGenForCoords(i, k);
-		if (biome instanceof LOTRBiomeGenLothlorien && !(this instanceof LOTREntityElvenTrader))
+		if (biome instanceof LOTRBiomeGenLothlorien)
 		{
 			f += 20F;
 		}

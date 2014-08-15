@@ -42,7 +42,7 @@ public class LOTRRenderPlayer
 			LOTRShields shield = LOTRLevelData.getData(entityplayer).getShield();
 			if (shield != null && LOTRLevelData.getData(entityplayer).getEnableShield())
 			{
-				LOTRRenderShield.renderShield(shield, event.renderer.modelBipedMain);
+				LOTRRenderShield.renderShield(shield, entityplayer, event.renderer.modelBipedMain);
 			}
 		}
 	}

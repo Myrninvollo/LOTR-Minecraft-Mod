@@ -4,11 +4,9 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IProjectile;
+import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -41,7 +39,7 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
     private int ticksInAir = 0;
 	private int itemDamage;
 	public int canBePickedUp = 0;
-	public int knockbackStrength;
+	public int knockbackStrength = 0;
 	private NBTTagCompound itemData;
 
     public LOTREntityProjectileBase(World world)
@@ -206,12 +204,14 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
     public void onUpdate()
     {
         super.onUpdate();
+        
         if (prevRotationPitch == 0F && prevRotationYaw == 0F)
         {
             float f = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
             prevRotationYaw = rotationYaw = (float)((Math.atan2(motionX, motionZ) * 180D) / Math.PI);
             prevRotationPitch = rotationPitch = (float)((Math.atan2(motionY, f) * 180D) / Math.PI);
         }
+        
         Block block = worldObj.getBlock(xTile, yTile, zTile);
         if (block != Blocks.air)
         {
@@ -222,10 +222,12 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
                 inGround = true;
             }
         }
+        
         if (shake > 0)
         {
             shake--;
         }
+        
         if (inGround)
         {
             Block j = worldObj.getBlock(xTile, yTile, zTile);
@@ -235,10 +237,6 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
             {
                 ticksInGround++;
 				if (ticksInGround >= maxTicksInGround())
-				{
-					setDead();
-				}
-				if (isDamageable() && Item.getItemById(getItemID()) != null && itemDamage == Item.getItemById(getItemID()).getMaxDamage())
 				{
 					setDead();
 				}
@@ -296,51 +294,57 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 			}
 			if (movingobjectposition != null)
 			{
-				if (movingobjectposition.entityHit != null && movingobjectposition.entityHit != shootingEntity)
+				Entity hitEntity = movingobjectposition.entityHit;
+				if (hitEntity != null && hitEntity != shootingEntity)
 				{
-					float damage = getDamageVsEntity(movingobjectposition.entityHit);
-					
+                   	float damage = getDamageVsEntity(hitEntity);
                     if (getIsCritical())
                     {
                         damage += rand.nextFloat() * (damage / 2F + 1F);
                     }
+                    
+					ItemStack itemstack = getProjectileItemStack();
+                   	if (itemstack != null && hitEntity instanceof EntityLivingBase)
+                   	{
+                   		damage += EnchantmentHelper.func_152377_a(itemstack, ((EntityLivingBase)hitEntity).getCreatureAttribute());
+                   		knockbackStrength += EnchantmentHelper.getEnchantmentLevel(Enchantment.knockback.effectId, itemstack);
+                   	}
 
                     DamageSource damagesource = getDamageSource();
-					
-                    if (isBurning())
-                    {
-                        movingobjectposition.entityHit.setFire(5);
-                    }
-					
-					if (movingobjectposition.entityHit.attackEntityFrom(damagesource, damage))
+					if (hitEntity.attackEntityFrom(damagesource, damage))
 					{
-                        if (movingobjectposition.entityHit instanceof EntityLiving)
+	                    if (isBurning())
+	                    {
+	                    	hitEntity.setFire(5);
+	                    }
+	                    
+                        if (hitEntity instanceof EntityLivingBase)
                         {
-                            EntityLivingBase entityliving = (EntityLiving)movingobjectposition.entityHit;
-							
+                            EntityLivingBase hitEntityLiving = (EntityLivingBase)hitEntity;
+                            
                             if (knockbackStrength > 0)
                             {
                                 float knockback = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
                                 if (knockback > 0F)
                                 {
-                                    movingobjectposition.entityHit.addVelocity(motionX * (double)knockbackStrength * 0.6D / (double)knockback, 0.1D, motionZ * (double)knockbackStrength * 0.6D / (double)knockback);
+                                	hitEntityLiving.addVelocity(motionX * (double)knockbackStrength * 0.6D / (double)knockback, 0.1D, motionZ * (double)knockbackStrength * 0.6D / (double)knockback);
                                 }
                             }
 
-                            if (shootingEntity != null)
+                            if (shootingEntity instanceof EntityLivingBase)
                             {
-                                EnchantmentHelper.func_151384_a(entityliving, shootingEntity);
-                                EnchantmentHelper.func_151385_b((EntityLivingBase)shootingEntity, entityliving);
+                                EnchantmentHelper.func_151384_a(hitEntityLiving, shootingEntity);
+                                EnchantmentHelper.func_151385_b((EntityLivingBase)shootingEntity, hitEntityLiving);
                             }
 
-                            if (shootingEntity != null && movingobjectposition.entityHit != shootingEntity && movingobjectposition.entityHit instanceof EntityPlayer && shootingEntity instanceof EntityPlayerMP)
+                            if (shootingEntity instanceof EntityPlayerMP && hitEntityLiving instanceof EntityPlayer)
                             {
                                 ((EntityPlayerMP)shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0F));
                             }
                         }
 						
 						worldObj.playSoundAtEntity(this, getImpactSound(), 1F, 1.2F / (rand.nextFloat() * 0.2F + 0.9F));
-						onCollideWithLiving(movingobjectposition.entityHit);
+						onCollideWithTarget(hitEntity);
 					}
 					else
 					{
@@ -428,6 +432,7 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 		nbt.setInteger("itemID", getItemID());
 		nbt.setInteger("itemDamage", itemDamage);
 		nbt.setByte("pickup", (byte)canBePickedUp);
+		nbt.setByte("Knockback", (byte)knockbackStrength);
 		if (itemData != null)
 		{
 			nbt.setTag("ItemTagCompound", itemData);
@@ -447,6 +452,7 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
         setItemID(nbt.getInteger("itemID"));
 		itemDamage = nbt.getInteger("itemDamage");
 		canBePickedUp = nbt.getByte("pickup");
+		knockbackStrength = nbt.getByte("Knockback");
 		if (nbt.hasKey("ItemTagCompound"))
 		{
 			itemData = nbt.getCompoundTag("ItemTagCompound");
@@ -455,16 +461,33 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 	
 	public abstract boolean isDamageable();
 	
-	private ItemStack createItem()
+	private ItemStack getProjectileItemStack()
 	{
-		ItemStack itemstack = new ItemStack(Item.getItemById(getItemID()), 1);
-		if (isDamageable())
+		Item item = Item.getItemById(getItemID());
+		if (item == null)
 		{
-			itemstack.setItemDamage(itemDamage + 1);
+			return null;
 		}
+		
+		ItemStack itemstack = new ItemStack(item);
 		if (itemData != null && !itemData.hasNoTags())
 		{
 			itemstack.setTagCompound(itemData);
+		}
+		
+		return itemstack;
+	}
+	
+	private ItemStack createDropItem()
+	{
+		ItemStack itemstack = getProjectileItemStack();
+		if (itemstack != null && isDamageable())
+		{
+			itemstack.setItemDamage(itemDamage + 1);
+			if (itemstack.getItemDamage() >= itemstack.getMaxDamage())
+			{
+				return null;
+			}
 		}
 		return itemstack;
 	}
@@ -474,12 +497,12 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
     {
         if (!worldObj.isRemote)
 		{
-			if (isDamageable())
+        	ItemStack itemstack = createDropItem();
+        	if (itemstack != null)
 			{
-				boolean canPickUp = itemDamage < Item.getItemById(getItemID()).getMaxDamage() && canBePickedUp == 1;
+				boolean canPickUp = canBePickedUp == 1;
 				if (inGround && shake <= 0 && canPickUp)
 				{
-					ItemStack itemstack = createItem();
 					if (entityplayer.inventory.addItemStackToInventory(itemstack.copy()))
 					{
 						playSound("random.pop", 0.2F, ((rand.nextFloat() - rand.nextFloat()) * 0.7F + 1F) * 2F);
@@ -496,40 +519,31 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 			}
 			else
 			{
-				boolean canPickUp = canBePickedUp == 1 || (canBePickedUp == 2 && entityplayer.capabilities.isCreativeMode);
-				if (inGround && shake <= 0 && canPickUp)
-				{
-					ItemStack itemstack = createItem();
-					if (entityplayer.inventory.addItemStackToInventory(itemstack.copy()));
-					{
-						playSound("random.pop", 0.2F, ((rand.nextFloat() - rand.nextFloat()) * 0.7F + 1F) * 2F);
-						setDead();
-					}
-				}
+				setDead();
 			}
 		}
     }
 	
-    public void onCollideWithLiving(Entity entity)
+    public void onCollideWithTarget(Entity entity)
     {
-		if (isDamageable())
-		{
-			if (!worldObj.isRemote && shake <= 0 && itemDamage < Item.getItemById(getItemID()).getMaxDamage() && canBePickedUp == 1)
+    	if (!worldObj.isRemote)
+    	{
+	    	ItemStack itemstack = createDropItem();
+			if (itemstack != null)
 			{
-				ItemStack itemstack = createItem();
-				EntityItem entityitem = new EntityItem(worldObj, posX, posY, posZ, itemstack);
-				entityitem.delayBeforeCanPickup = 0;
-				worldObj.spawnEntityInWorld(entityitem);
+				if (shake <= 0 && canBePickedUp == 1)
+				{
+					EntityItem entityitem = new EntityItem(worldObj, posX, posY, posZ, itemstack);
+					entityitem.delayBeforeCanPickup = 0;
+					worldObj.spawnEntityInWorld(entityitem);
+					setDead();
+				}
+			}
+			else
+			{
 				setDead();
 			}
-		}
-		else
-		{
-			if (!worldObj.isRemote)
-			{
-				setDead();
-			}
-		}
+    	}
     }
 	
 	@Override

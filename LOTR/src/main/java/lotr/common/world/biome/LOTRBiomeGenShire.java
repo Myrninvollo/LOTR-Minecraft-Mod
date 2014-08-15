@@ -69,8 +69,8 @@ public class LOTRBiomeGenShire extends LOTRBiome
 			}
 			
 			decorator.addRandomStructure(new LOTRWorldGenHobbitPicnicBench(false), 40);
-			decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 4), 1000);
-			decorator.addRandomStructure(new LOTRWorldGenStoneRuin.ARNOR(1, 4), 1000);
+			decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 4), 1500);
+			decorator.addRandomStructure(new LOTRWorldGenStoneRuin.ARNOR(1, 4), 1500);
 		}
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);

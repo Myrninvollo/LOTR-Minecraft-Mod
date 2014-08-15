@@ -130,11 +130,6 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 			rider.isNPCPersistent = isNPCPersistent;
 			worldObj.spawnEntityInWorld(rider);
 			rider.mountEntity(this);
-			
-			if (rand.nextBoolean())
-			{
-				setCurrentItemOrArmor(4, new ItemStack(LOTRMod.wargArmorUruk));
-			}
 		}
 		return data;
 	}

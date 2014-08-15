@@ -1471,7 +1471,7 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(wargArmorUruk), new Object[]
+		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(wargArmorMordor), new Object[]
 		{
 			"X  ", "XYX", "XXX", 'X', orcSteel, 'Y', Items.leather
 		}));
@@ -2203,7 +2203,7 @@ public class LOTRRecipes
 		{
 			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
 		}));
-		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(wargArmorUruk), new Object[]
+		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(wargArmorAngmar), new Object[]
 		{
 			"X  ", "XYX", "XXX", 'X', orcSteel, 'Y', Items.leather
 		}));

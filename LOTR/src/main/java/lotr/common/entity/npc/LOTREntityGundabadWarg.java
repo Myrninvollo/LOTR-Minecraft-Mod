@@ -1,7 +1,7 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFaction;
+import lotr.common.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class LOTREntityGundabadWarg extends LOTREntityWarg

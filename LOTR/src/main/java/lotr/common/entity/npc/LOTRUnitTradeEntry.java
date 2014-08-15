@@ -55,6 +55,7 @@ public class LOTRUnitTradeEntry
 	public Class entityClass;
 	public Class mountClass;
 	private Item mountArmor;
+	private float mountArmorChance;
 	private String name;
 	private int initialCost;
 	public int alignmentRequired;
@@ -82,7 +83,13 @@ public class LOTRUnitTradeEntry
 	
 	public LOTRUnitTradeEntry setMountArmor(Item item)
 	{
+		return setMountArmor(item, 1F);
+	}
+	
+	public LOTRUnitTradeEntry setMountArmor(Item item, float chance)
+	{
 		mountArmor = item;
+		mountArmorChance = chance;
 		return this;
 	}
 	
@@ -153,6 +160,7 @@ public class LOTRUnitTradeEntry
 		{
 			return null;
 		}
+		
 		EntityLiving entity = (EntityLiving)LOTREntities.createEntityByClass(mountClass, world);
 		if (entity instanceof LOTREntityNPC)
 		{
@@ -162,14 +170,19 @@ public class LOTRUnitTradeEntry
 		{
 			entity.onSpawnWithEgg(null);
 		}
-		if (mountArmor != null && entity instanceof LOTREntityHorse)
+		
+		if (mountArmor != null && world.rand.nextFloat() < mountArmorChance)
 		{
-			((LOTREntityHorse)entity).setMountArmor(new ItemStack(mountArmor));
+			if (entity instanceof LOTREntityHorse)
+			{
+				((LOTREntityHorse)entity).setMountArmor(new ItemStack(mountArmor));
+			}
+			else if (entity instanceof LOTREntityWarg)
+			{
+				((LOTREntityWarg)entity).setCurrentItemOrArmor(4, new ItemStack(mountArmor));
+			}
 		}
-		else if (mountArmor != null && entity instanceof LOTREntityWarg)
-		{
-			((LOTREntityWarg)entity).setCurrentItemOrArmor(4, new ItemStack(mountArmor));
-		}
+		
 		return entity;
 	}
 	
@@ -181,8 +194,8 @@ public class LOTRUnitTradeEntry
 			new LOTRUnitTradeEntry(LOTREntityMordorOrcArcher.class, 20, 200),
 			new LOTRUnitTradeEntry(LOTREntityMordorOrcBombardier.class, 25, 250),
 			new LOTRUnitTradeEntry(LOTREntityMordorWarg.class, 10, 150),
-			new LOTRUnitTradeEntry(LOTREntityMordorOrc.class, LOTREntityMordorWarg.class, "MordorOrc_Warg", 20, 250).setMountArmor(LOTRMod.wargArmorUruk),
-			new LOTRUnitTradeEntry(LOTREntityMordorOrcArcher.class, LOTREntityMordorWarg.class, "MordorOrcArcher_Warg", 30, 300).setMountArmor(LOTRMod.wargArmorUruk),
+			new LOTRUnitTradeEntry(LOTREntityMordorOrc.class, LOTREntityMordorWarg.class, "MordorOrc_Warg", 20, 250).setMountArmor(LOTRMod.wargArmorMordor, 0.5F),
+			new LOTRUnitTradeEntry(LOTREntityMordorOrcArcher.class, LOTREntityMordorWarg.class, "MordorOrcArcher_Warg", 30, 300).setMountArmor(LOTRMod.wargArmorMordor, 0.5F),
 			new LOTRUnitTradeEntry(LOTREntityMordorWargBombardier.class, 25, 400),
 			new LOTRUnitTradeEntry(LOTREntityOlogHai.class, 60, 500),
 			new LOTRUnitTradeEntry(LOTREntityMordorBannerBearer.class, 40, 300)
@@ -214,8 +227,8 @@ public class LOTRUnitTradeEntry
 			new LOTRUnitTradeEntry(LOTREntityUrukHaiCrossbower.class, 25, 200),
 			new LOTRUnitTradeEntry(LOTREntityUrukHaiBerserker.class, 30, 250),
 			new LOTRUnitTradeEntry(LOTREntityUrukWarg.class, 10, 150),
-			new LOTRUnitTradeEntry(LOTREntityUrukHai.class, LOTREntityUrukWarg.class, "UrukHai_Warg", 25, 250).setMountArmor(LOTRMod.wargArmorUruk),
-			new LOTRUnitTradeEntry(LOTREntityUrukHaiCrossbower.class, LOTREntityUrukWarg.class, "UrukHaiCrossbower_Warg", 35, 300).setMountArmor(LOTRMod.wargArmorUruk),
+			new LOTRUnitTradeEntry(LOTREntityUrukHai.class, LOTREntityUrukWarg.class, "UrukHai_Warg", 25, 250).setMountArmor(LOTRMod.wargArmorUruk, 0.5F),
+			new LOTRUnitTradeEntry(LOTREntityUrukHaiCrossbower.class, LOTREntityUrukWarg.class, "UrukHaiCrossbower_Warg", 35, 300).setMountArmor(LOTRMod.wargArmorUruk, 0.5F),
 			new LOTRUnitTradeEntry(LOTREntityUrukWargBombardier.class, 25, 400),
 			new LOTRUnitTradeEntry(LOTREntityUrukHaiBannerBearer.class, 40, 300)
 		};
@@ -267,9 +280,9 @@ public class LOTRUnitTradeEntry
 			new LOTRUnitTradeEntry(LOTREntityAngmarOrcBombardier.class, 25, 250),
 			new LOTRUnitTradeEntry(LOTREntityAngmarOrcWarrior.class, 20, 300),
 			new LOTRUnitTradeEntry(LOTREntityAngmarWarg.class, 10, 150),
-			new LOTRUnitTradeEntry(LOTREntityAngmarOrc.class, LOTREntityAngmarWarg.class, "AngmarOrc_Warg", 20, 250).setMountArmor(LOTRMod.wargArmorUruk),
-			new LOTRUnitTradeEntry(LOTREntityAngmarOrcArcher.class, LOTREntityAngmarWarg.class, "AngmarOrcArcher_Warg", 30, 300).setMountArmor(LOTRMod.wargArmorUruk),
-			new LOTRUnitTradeEntry(LOTREntityAngmarOrcWarrior.class, LOTREntityAngmarWarg.class, "AngmarOrcWarrior_Warg", 30, 350).setMountArmor(LOTRMod.wargArmorUruk),
+			new LOTRUnitTradeEntry(LOTREntityAngmarOrc.class, LOTREntityAngmarWarg.class, "AngmarOrc_Warg", 20, 250).setMountArmor(LOTRMod.wargArmorAngmar, 0.5F),
+			new LOTRUnitTradeEntry(LOTREntityAngmarOrcArcher.class, LOTREntityAngmarWarg.class, "AngmarOrcArcher_Warg", 30, 300).setMountArmor(LOTRMod.wargArmorAngmar, 0.5F),
+			new LOTRUnitTradeEntry(LOTREntityAngmarOrcWarrior.class, LOTREntityAngmarWarg.class, "AngmarOrcWarrior_Warg", 30, 350).setMountArmor(LOTRMod.wargArmorAngmar),
 			new LOTRUnitTradeEntry(LOTREntityAngmarWargBombardier.class, 25, 400),
 			new LOTRUnitTradeEntry(LOTREntityTroll.class, 50, 400),
 			new LOTRUnitTradeEntry(LOTREntityMountainTroll.class, 60, 500),
@@ -293,8 +306,8 @@ public class LOTRUnitTradeEntry
 			new LOTRUnitTradeEntry(LOTREntityGundabadOrc.class, 10, 100),
 			new LOTRUnitTradeEntry(LOTREntityGundabadOrcArcher.class, 20, 150),
 			new LOTRUnitTradeEntry(LOTREntityGundabadWarg.class, 10, 150),
-			new LOTRUnitTradeEntry(LOTREntityGundabadOrc.class, LOTREntityGundabadWarg.class, "GundabadOrc_Warg", 20, 200).setMountArmor(LOTRMod.wargArmorUruk),
-			new LOTRUnitTradeEntry(LOTREntityGundabadOrcArcher.class, LOTREntityGundabadWarg.class, "GundabadOrcArcher_Warg", 30, 250).setMountArmor(LOTRMod.wargArmorUruk)
+			new LOTRUnitTradeEntry(LOTREntityGundabadOrc.class, LOTREntityGundabadWarg.class, "GundabadOrc_Warg", 20, 200),
+			new LOTRUnitTradeEntry(LOTREntityGundabadOrcArcher.class, LOTREntityGundabadWarg.class, "GundabadOrcArcher_Warg", 30, 250)
 		};
 		
 		RANGER_NORTH_CAPTAIN = new LOTRUnitTradeEntry[]

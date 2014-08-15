@@ -5,17 +5,11 @@ import io.netty.buffer.Unpooled;
 
 import java.util.List;
 
-import lotr.common.LOTRCreativeTabs;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
@@ -23,35 +17,17 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import com.google.common.collect.Multimap;
-
-public class LOTRItemSauronMace extends Item
+public class LOTRItemSauronMace extends LOTRItemSword
 {
-	private float weaponDamage = 8F;
-	
 	public LOTRItemSauronMace()
 	{
-		super();
+		super(LOTRMod.toolOrc);
 		setMaxStackSize(1);
 		setMaxDamage(1500);
 		setCreativeTab(LOTRCreativeTabs.tabCombat);
 		setFull3D();
+		lotrWeaponDamage = 8F;
 	}
-	
-	@Override
-	public Multimap getItemAttributeModifiers()
-    {
-        Multimap multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", (double)weaponDamage, 0));
-        return multimap;
-    }
-	
-	@Override
-    public boolean hitEntity(ItemStack itemstack, EntityLivingBase hitEntity, EntityLivingBase user)
-    {
-        itemstack.damageItem(1, user);
-        return true;
-    }
 	
 	@Override
     public ItemStack onEaten(ItemStack itemstack, World world, EntityPlayer entityplayer)

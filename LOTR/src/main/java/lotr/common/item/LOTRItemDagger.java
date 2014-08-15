@@ -1,37 +1,23 @@
 package lotr.common.item;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 
-import com.google.common.collect.Multimap;
-
 public class LOTRItemDagger extends LOTRItemSword
 {
 	private int effect;
-	private float weaponDamage;
 	
 	public LOTRItemDagger(ToolMaterial material, int j)
 	{
 		super(material);
 		setMaxDamage(MathHelper.floor_double(material.getMaxUses() * 0.8D));
 		effect = j;
-		weaponDamage = 3F + material.getDamageVsEntity();
+		lotrWeaponDamage = material.getDamageVsEntity() + 3F;
 	}
-	
-	@Override
-	public Multimap getItemAttributeModifiers()
-    {
-        Multimap multimap = super.getItemAttributeModifiers();
-		multimap.removeAll(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName());
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", (double)weaponDamage, 0));
-        return multimap;
-    }
 	
 	@Override
 	public boolean hitEntity(ItemStack itemstack, EntityLivingBase hitEntity, EntityLivingBase user)

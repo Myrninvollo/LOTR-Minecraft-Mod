@@ -1,7 +1,7 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFaction;
+import lotr.common.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class LOTREntityMordorWarg extends LOTREntityWarg
@@ -21,6 +21,10 @@ public class LOTREntityMordorWarg extends LOTREntityWarg
 	@Override
 	public LOTREntityNPC createWargRider()
 	{
+		if (rand.nextBoolean())
+		{
+			setCurrentItemOrArmor(4, new ItemStack(LOTRMod.wargArmorMordor));
+		}
 		return worldObj.rand.nextBoolean() ? new LOTREntityMordorOrcArcher(worldObj) : new LOTREntityMordorOrc(worldObj);
 	}
 	

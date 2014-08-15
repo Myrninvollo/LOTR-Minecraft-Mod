@@ -20,7 +20,7 @@ public class LOTREntityDwarfAxeThrower extends LOTREntityDwarfWarrior implements
 	@Override
 	public EntityAIBase getDwarfAttackAI()
 	{
-		return new EntityAIArrowAttack(this, 1.25D, 30, 12F);
+		return new EntityAIArrowAttack(this, 1.25D, 40, 12F);
 	}
 	
 	@Override

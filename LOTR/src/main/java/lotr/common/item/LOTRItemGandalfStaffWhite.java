@@ -3,47 +3,26 @@ package lotr.common.item;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lotr.common.LOTRCreativeTabs;
+import lotr.common.LOTRMod;
 import lotr.common.entity.projectile.LOTREntityGandalfFireball;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
-import com.google.common.collect.Multimap;
-
-public class LOTRItemGandalfStaffWhite extends Item
+public class LOTRItemGandalfStaffWhite extends LOTRItemSword
 {
-	private float weaponDamage = 7F;
-	
 	public LOTRItemGandalfStaffWhite()
 	{
-		super();
+		super(LOTRMod.toolHighElven);
 		setMaxStackSize(1);
 		setMaxDamage(1500);
 		setCreativeTab(LOTRCreativeTabs.tabMagic);
 		setFull3D();
+		lotrWeaponDamage = 8F;
 	}
-	
-	@Override
-	public Multimap getItemAttributeModifiers()
-    {
-        Multimap multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", (double)weaponDamage, 0));
-        return multimap;
-    }
-	
-	@Override
-    public boolean hitEntity(ItemStack itemstack, EntityLivingBase hitEntity, EntityLivingBase user)
-    {
-        itemstack.damageItem(1, user);
-        return true;
-    }
 	
 	@Override
     public ItemStack onEaten(ItemStack itemstack, World world, EntityPlayer entityplayer)

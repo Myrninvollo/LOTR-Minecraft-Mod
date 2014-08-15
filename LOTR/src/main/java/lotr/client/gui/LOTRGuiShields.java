@@ -74,7 +74,7 @@ public class LOTRGuiShields extends LOTRGui
 		mc.getTextureManager().bindTexture(mc.thePlayer.getLocationSkin());
 		playerModel.render(null, 0F, 0F, 0F, 0F, 0F, 0.0625F);
 		
-		LOTRRenderShield.renderShield(currentShield, playerModel);
+		LOTRRenderShield.renderShield(currentShield, mc.thePlayer, playerModel);
 		
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_CULL_FACE);

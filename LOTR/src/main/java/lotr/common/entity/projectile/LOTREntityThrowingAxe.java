@@ -3,7 +3,6 @@ package lotr.common.entity.projectile;
 import lotr.common.item.LOTRItemThrowingAxe;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
@@ -55,13 +54,6 @@ public class LOTREntityThrowingAxe extends LOTREntityProjectileBase
 	@Override
 	public float getDamageVsEntity(Entity entity)
 	{
-		if (shootingEntity instanceof EntityPlayer)
-		{
-			return ((LOTRItemThrowingAxe)Item.getItemById(getItemID())).axeMaterial.getDamageVsEntity() + 4F;
-		}
-		else
-		{
-			return ((LOTRItemThrowingAxe)Item.getItemById(getItemID())).axeMaterial.getDamageVsEntity();
-		}
+		return ((LOTRItemThrowingAxe)Item.getItemById(getItemID())).getAxeMaterial().getDamageVsEntity() + 4F;
 	}
 }

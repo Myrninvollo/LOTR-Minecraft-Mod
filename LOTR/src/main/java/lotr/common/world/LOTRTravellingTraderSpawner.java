@@ -81,8 +81,10 @@ public class LOTRTravellingTraderSpawner
 						if (j > 62 && world.getBlock(i, j - 1, k) == biome.topBlock && !world.getBlock(i, j, k).isNormalCube() && !world.getBlock(i, j + 1, k).isNormalCube())
 						{
 							entityTrader.setLocationAndAngles(i + 0.5D, j, k + 0.5D, world.rand.nextFloat() * 360F, 0F);
+							entityTrader.liftSpawnRestrictions = true;
 							if (entityTrader.getCanSpawnHere())
 							{
+								entityTrader.liftSpawnRestrictions = false;
 								world.spawnEntityInWorld(entityTrader);
 								trader.startTraderVisiting(entityplayer);
 								

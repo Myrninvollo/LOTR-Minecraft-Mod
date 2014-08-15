@@ -346,7 +346,6 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		
 		boolean prevInLove = isInLove();
 		boolean flag = super.interact(entityplayer);
-		System.out.println("Previously " + prevInLove + ", now " + isInLove());
 		if (isInLove() && !prevInLove)
 		{
 			resetInLove();

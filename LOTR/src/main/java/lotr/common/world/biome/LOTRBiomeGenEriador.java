@@ -45,7 +45,7 @@ public class LOTRBiomeGenEriador extends LOTRBiome
 		decorator.generateOrcDungeon = true;
 		
 		decorator.addRandomStructure(new LOTRWorldGenGundabadCamp(), 1500);
-		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 500);
+		decorator.addRandomStructure(new LOTRWorldGenRuinedDunedainTower(false), 1000);
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 1500);
 		decorator.addRandomStructure(new LOTRWorldGenRangerCamp(), 1500);
 		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 3), 800);

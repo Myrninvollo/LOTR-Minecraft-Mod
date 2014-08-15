@@ -90,8 +90,7 @@ public class LOTRMod
 	public static ArmorMaterial armorGemsbok = EnumHelper.addArmorMaterial("LOTR_GEMSBOK", 10, new int[]{1, 4, 3, 1}, 6);
 	public static ArmorMaterial armorHighElven = EnumHelper.addArmorMaterial("LOTR_HIGH_ELVEN", 22, new int[]{2, 6, 5, 2}, 15);
 	public static ArmorMaterial armorBlueDwarven = EnumHelper.addArmorMaterial("LOTR_BLUE_DWARVEN", 24, new int[]{2, 6, 5, 2}, 8);
-	
-	public static ArmorMaterial materialWargArmor = EnumHelper.addArmorMaterial("LOTR_WARG_ARMOR", 18, new int[]{3, 8, 5, 0}, 0);
+
 	public static ArmorMaterial materialLeatherHat = EnumHelper.addArmorMaterial("LOTR_LEATHER_HAT", 0, new int[]{0, 0, 0, 0}, 0);
 	
 	public static Block rock;
@@ -608,6 +607,8 @@ public class LOTRMod
 	public static Item horseArmorMorgul;
 	public static Item horseArmorMithril;
 	public static Item elkArmorWoodElven;
+	public static Item wargArmorMordor;
+	public static Item wargArmorAngmar;
 	
 	public static int idDimension;
 	public static boolean alwaysShowAlignment;
@@ -1142,6 +1143,8 @@ public class LOTRMod
 		horseArmorMorgul = new LOTRItemMountArmor(armorMorgul, Mount.HORSE).setUnlocalizedName("lotr:horseArmorMorgul");
 		horseArmorMithril = new LOTRItemMountArmor(armorMithril, Mount.HORSE).setUnlocalizedName("lotr:horseArmorMithril");
 		elkArmorWoodElven = new LOTRItemMountArmor(armorWoodElven, Mount.ELK).setUnlocalizedName("lotr:elkArmorWoodElven");
+		wargArmorMordor = new LOTRItemMountArmor(armorOrc, Mount.WARG).setUnlocalizedName("lotr:wargArmorMordor");
+		wargArmorAngmar = new LOTRItemMountArmor(armorAngmar, Mount.WARG).setUnlocalizedName("lotr:wargArmorAngmar");
 		
 		try
 		{
@@ -1701,6 +1704,8 @@ public class LOTRMod
 		registerItem(horseArmorMorgul);
 		registerItem(horseArmorMithril);
 		registerItem(elkArmorWoodElven);
+		registerItem(wargArmorMordor);
+		registerItem(wargArmorAngmar);
 		
 		idDimension = config.get("general", "Dimension ID", 100).getInt();
 		alwaysShowAlignment = config.get("general", "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean(false);
@@ -1767,8 +1772,6 @@ public class LOTRMod
 		armorGemsbok.customCraftingMaterial = gemsbokHide;
 		armorHighElven.customCraftingMaterial = Items.iron_ingot;
 		armorBlueDwarven.customCraftingMaterial = blueDwarfSteel;
-		
-		materialWargArmor.customCraftingMaterial = urukSteel;
 
 		LOTRRecipes.createAllRecipes();
 		

@@ -43,7 +43,6 @@ public class LOTRGollumSpawner
 				{
 					LOTREntityGollum gollum = new LOTREntityGollum(world);
 					gollum.setLocationAndAngles(i + 0.5D, j, k + 0.5D, 0F, 0F);
-					gollum.isNPCPersistent = true;
 					if (gollum.getCanSpawnHere())
 					{
 						gollum.onSpawnWithEgg(null);

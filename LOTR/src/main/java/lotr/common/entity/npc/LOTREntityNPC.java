@@ -93,7 +93,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 	public LOTREntityNPC(World world)
 	{
 		super(world);
-		if (isTrader() || this instanceof IBossDisplayData)
+		if (isTrader() || this instanceof IBossDisplayData || this instanceof LOTRCharacter)
 		{
 			isNPCPersistent = true;
 		}
@@ -663,7 +663,7 @@ public abstract class LOTREntityNPC extends EntityCreature
     {
 		return new ItemStack(LOTRMod.spawnEgg, 1, LOTREntities.getEntityID(this));
     }
-	
+
 	@Override
     public boolean attackEntityAsMob(Entity entity)
     {

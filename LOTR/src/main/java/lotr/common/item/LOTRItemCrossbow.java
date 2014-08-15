@@ -75,7 +75,7 @@ public class LOTRItemCrossbow extends ItemBow
 
             if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, itemstack) > 0)
             {
-                bolt.setFire(100);
+                bolt.setFire(1000);
             }
 
             if (!shouldConsumeBolt(itemstack, entityplayer))

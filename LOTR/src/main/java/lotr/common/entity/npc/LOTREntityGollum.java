@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class LOTREntityGollum extends LOTREntityNPC
+public class LOTREntityGollum extends LOTREntityNPC implements LOTRCharacter
 {
 	private int eatingTick;
 	public int prevFishTime = 400;
@@ -43,7 +43,6 @@ public class LOTREntityGollum extends LOTREntityNPC
         tasks.addTask(6, new EntityAIWander(this, 1D));
         tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8F, 0.1F));
         tasks.addTask(8, new EntityAILookIdle(this));
-		isNPCPersistent = true;
 	}
 	
 	@Override

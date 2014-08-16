@@ -24,7 +24,7 @@ public class LOTRTravellingTraderSpawner
 	
 	private int timeUntilTrader;
 	
-	public LOTRTravellingTraderSpawner(Class entityClass)
+	public LOTRTravellingTraderSpawner(Class<? extends LOTREntityNPC> entityClass)
 	{
 		theEntityClass = entityClass;
 		name = LOTREntities.getStringFromClass(theEntityClass);
@@ -69,29 +69,32 @@ public class LOTRTravellingTraderSpawner
 			for (int players = 0; players < world.playerEntities.size(); players++)
 			{
 				EntityPlayer entityplayer = (EntityPlayer)world.playerEntities.get(players);
-				for (int attempts = 0; attempts < 16; attempts++)
+				if (LOTRLevelData.getData(entityplayer).getAlignment(entityTrader.getFaction()) >= 0)
 				{
-					float angle = world.rand.nextFloat() * 360F;
-					int i = MathHelper.floor_double(entityplayer.posX) + MathHelper.floor_double(MathHelper.sin(angle) * (48 + world.rand.nextInt(33)));
-					int k = MathHelper.floor_double(entityplayer.posZ) + MathHelper.floor_double(MathHelper.cos(angle) * (48 + world.rand.nextInt(33)));
-					BiomeGenBase biome = world.getBiomeGenForCoords(i, k);
-					if (biome instanceof LOTRBiome && ((LOTRBiome)biome).canSpawnTravellingTrader(theEntityClass))
+					for (int attempts = 0; attempts < 16; attempts++)
 					{
-						int j = world.getHeightValue(i, k);
-						if (j > 62 && world.getBlock(i, j - 1, k) == biome.topBlock && !world.getBlock(i, j, k).isNormalCube() && !world.getBlock(i, j + 1, k).isNormalCube())
+						float angle = world.rand.nextFloat() * 360F;
+						int i = MathHelper.floor_double(entityplayer.posX) + MathHelper.floor_double(MathHelper.sin(angle) * (48 + world.rand.nextInt(33)));
+						int k = MathHelper.floor_double(entityplayer.posZ) + MathHelper.floor_double(MathHelper.cos(angle) * (48 + world.rand.nextInt(33)));
+						BiomeGenBase biome = world.getBiomeGenForCoords(i, k);
+						if (biome instanceof LOTRBiome && ((LOTRBiome)biome).canSpawnTravellingTrader(theEntityClass))
 						{
-							entityTrader.setLocationAndAngles(i + 0.5D, j, k + 0.5D, world.rand.nextFloat() * 360F, 0F);
-							entityTrader.liftSpawnRestrictions = true;
-							if (entityTrader.getCanSpawnHere())
+							int j = world.getHeightValue(i, k);
+							if (j > 62 && world.getBlock(i, j - 1, k) == biome.topBlock && !world.getBlock(i, j, k).isNormalCube() && !world.getBlock(i, j + 1, k).isNormalCube())
 							{
-								entityTrader.liftSpawnRestrictions = false;
-								world.spawnEntityInWorld(entityTrader);
-								trader.startTraderVisiting(entityplayer);
-								
-								spawned = true;
-								timeUntilTrader = getRandomTraderTime();
-								LOTRLevelData.markDirty();
-								break traderSpawningLoop;
+								entityTrader.setLocationAndAngles(i + 0.5D, j, k + 0.5D, world.rand.nextFloat() * 360F, 0F);
+								entityTrader.liftSpawnRestrictions = true;
+								if (entityTrader.getCanSpawnHere())
+								{
+									entityTrader.liftSpawnRestrictions = false;
+									world.spawnEntityInWorld(entityTrader);
+									trader.startTraderVisiting(entityplayer);
+									
+									spawned = true;
+									timeUntilTrader = getRandomTraderTime();
+									LOTRLevelData.markDirty();
+									break traderSpawningLoop;
+								}
 							}
 						}
 					}

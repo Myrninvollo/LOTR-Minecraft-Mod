@@ -964,15 +964,16 @@ public class LOTREventHandler implements IFuelHandler
 					
 					for (int l = 0; l < 4; l++)
 					{
-						ItemStack armour = entity.getEquipmentInSlot(l + 1);
-						if (armour != null && armour.getItem() instanceof ItemArmor)
+						ItemStack armor = entity.getEquipmentInSlot(l + 1);
+						if (armor != null && armor.getItem() instanceof ItemArmor)
 						{
-							ArmorMaterial material = ((ItemArmor)armour.getItem()).getArmorMaterial();
-							if (material.customCraftingMaterial == Items.leather)
+							ArmorMaterial material = ((ItemArmor)armor.getItem()).getArmorMaterial();
+							Item materialItem = material.func_151685_b();
+							if (materialItem == Items.leather)
 							{
 								frostProtection += 50;
 							}
-							else if (material.customCraftingMaterial == LOTRMod.wargFur)
+							else if (materialItem == LOTRMod.wargFur)
 							{
 								frostProtection += 100;
 							}

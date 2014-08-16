@@ -1681,7 +1681,7 @@ public class LOTRRecipes
 	{
 		urukRecipes.add(new ShapedOreRecipe(new ItemStack(urukTable), new Object[]
 		{
-			"XX", "YY", 'X', "plankWood", 'Y', urukSteel
+			"XX", "YY", 'X', "plankWood", 'Y', new ItemStack(LOTRMod.brick2, 1, 7)
 		}));
 		urukRecipes.add(new ShapedOreRecipe(new ItemStack(orcTorchItem, 2), new Object[]
 		{
@@ -1749,7 +1749,7 @@ public class LOTRRecipes
 		}));
 		urukRecipes.add(new ShapedOreRecipe(new ItemStack(orcForge), new Object[]
 		{
-			"XXX", "X X", "XXX", 'X', Blocks.cobblestone
+			"XXX", "X X", "XXX", 'X', new ItemStack(LOTRMod.brick2, 1, 7)
 		}));
 		urukRecipes.add(new ShapedOreRecipe(new ItemStack(orcBomb, 4), new Object[]
 		{
@@ -1770,6 +1770,22 @@ public class LOTRRecipes
 		urukRecipes.add(new ShapedOreRecipe(new ItemStack(wargArmorUruk), new Object[]
 		{
 			"X  ", "XYX", "XXX", 'X', urukSteel, 'Y', Items.leather
+		}));
+		urukRecipes.add(new ShapedOreRecipe(new ItemStack(LOTRMod.brick2, 4, 7), new Object[]
+		{
+			"XX", "XX", 'X', Blocks.stone
+		}));
+		urukRecipes.add(new ShapedOreRecipe(new ItemStack(slabSingle4, 6, 4), new Object[]
+		{
+			"XXX", 'X', new ItemStack(brick2, 1, 7)
+		}));
+		urukRecipes.add(new ShapedOreRecipe(new ItemStack(stairsUrukBrick, 4), new Object[]
+		{
+			"X  ", "XX ", "XXX", 'X', new ItemStack(brick2, 1, 7)
+		}));
+		urukRecipes.add(new ShapedOreRecipe(new ItemStack(wall2, 6, 7), new Object[]
+		{
+			"XXX", "XXX", 'X', new ItemStack(brick2, 1, 7)
 		}));
 	}
 	

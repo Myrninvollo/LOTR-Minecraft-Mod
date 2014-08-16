@@ -261,6 +261,7 @@ public class LOTRMod
 	public static Block stairsArnorBrick;
 	public static Block stairsArnorBrickMossy;
 	public static Block stairsArnorBrickCracked;
+	public static Block stairsUrukBrick;
 
 	public static Item goldRing;
 	public static Item pouch;
@@ -609,6 +610,9 @@ public class LOTRMod
 	public static Item elkArmorWoodElven;
 	public static Item wargArmorMordor;
 	public static Item wargArmorAngmar;
+	public static Item mugCarrotWine;
+	public static Item mugBananaBeer;
+	public static Item mugMelonLiqueur;
 	
 	public static int idDimension;
 	public static boolean alwaysShowAlignment;
@@ -797,6 +801,7 @@ public class LOTRMod
 		stairsArnorBrick = new LOTRBlockStairs(brick2, 3).setBlockName("lotr:stairsArnorBrick");
 		stairsArnorBrickMossy = new LOTRBlockStairs(brick2, 4).setBlockName("lotr:stairsArnorBrickMossy");
 		stairsArnorBrickCracked = new LOTRBlockStairs(brick2, 5).setBlockName("lotr:stairsArnorBrickCracked");
+		stairsUrukBrick = new LOTRBlockStairs(brick2, 7).setBlockName("lotr:stairsUrukBrick");
 		
 		goldRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMagic).setUnlocalizedName("lotr:goldRing");
 		pouch = new LOTRItemPouch().setUnlocalizedName("lotr:pouch");
@@ -1145,6 +1150,9 @@ public class LOTRMod
 		elkArmorWoodElven = new LOTRItemMountArmor(armorWoodElven, Mount.ELK).setUnlocalizedName("lotr:elkArmorWoodElven");
 		wargArmorMordor = new LOTRItemMountArmor(armorOrc, Mount.WARG).setUnlocalizedName("lotr:wargArmorMordor");
 		wargArmorAngmar = new LOTRItemMountArmor(armorAngmar, Mount.WARG).setUnlocalizedName("lotr:wargArmorAngmar");
+		mugCarrotWine = new LOTRItemMugBrewable(0.8F).setDrinkStats(3, 0.4F).setUnlocalizedName("lotr:mugCarrotWine");
+		mugBananaBeer = new LOTRItemMugBrewable(0.5F).setDrinkStats(4, 0.6F).setUnlocalizedName("lotr:mugBananaBeer");
+		mugMelonLiqueur = new LOTRItemMugBrewable(1F).setDrinkStats(3, 0.3F).setUnlocalizedName("lotr:mugMelonLiqueur");
 		
 		try
 		{
@@ -1358,6 +1366,7 @@ public class LOTRMod
 		registerBlock(stairsArnorBrick);
 		registerBlock(stairsArnorBrickMossy);
 		registerBlock(stairsArnorBrickCracked);
+		registerBlock(stairsUrukBrick);
 		
 		registerItem(goldRing);
 		registerItem(pouch);
@@ -1706,6 +1715,9 @@ public class LOTRMod
 		registerItem(elkArmorWoodElven);
 		registerItem(wargArmorMordor);
 		registerItem(wargArmorAngmar);
+		registerItem(mugCarrotWine);
+		registerItem(mugBananaBeer);
+		registerItem(mugMelonLiqueur);
 		
 		idDimension = config.get("general", "Dimension ID", 100).getInt();
 		alwaysShowAlignment = config.get("general", "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean(false);

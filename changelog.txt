@@ -13,9 +13,11 @@ Public Beta 20
 + Added enchantability to spears
 + Added a system of alcohol tolerance
 + Added persistence of brewing contents for barrel items
++ Added carrot wine, banana beer and melon liqueur
 + Added a Ranger crafting table, Ranger banner, and Ranger alignment cape
 + Added Ranger banner bearers
 + Added Arnor Brick blocks, slabs, stairs, and walls, including mossy, cracked, and carved variants
++ Added Uruk Brick blocks, slabs, stairs, and walls
 + Added Woodland Elk
 + Added hireable Wood-elven Elk Cavalry
 + Added the option to set hired NPCs' guard range to 0 in order to keep them stationed
@@ -29,6 +31,11 @@ Public Beta 20
 * LOTR horses can no longer wear vanilla horse armour
 * LOTR horses are now bred with apples
 * Warg armour is now a single item and is crafted like horse armour
+* Changed the roofs of some structures to thatch
+* Changed the bricks in the Dúnedain structures to Arnor bricks
+* Increased the spawning chance of stone ruins
+* Changed stone blocks in Uruk structures to Uruk bricks
+* Changed the recipe of the Uruk crafting table and forge to use Uruk bricks
 * Fast travel is now unavailable if nearby NPCs are attacking you
 * Middle-earth respawning now comes into effect even if you have a bed, given that you are at least 5000 blocks away from it
 * Changed the starting number of custom waypoints to 5
@@ -36,14 +43,13 @@ Public Beta 20
 * Fixed Dunlending Trident fishing depleting the hunger bar very quickly
 * Thrown spears now carry the NBT-data of the spear item
 * Throwing axes can no longer be used for melee combat
-* Changed the roofs of some structures to thatch
-* Changed the bricks in the Dúnedain structures to Arnor Brick
-* Increased the spawning chance of stone ruins
 * Fixed Rangers' capes not becoming invisible when they are in stealth mode
 * Reduced the chance of Shirriff raids
 * Shirriffs now only raid enemies at night
 * Invasions are now announced to all nearby enemy players
 * Actually fixed dwarven merchants not spawning
+* Travelling traders will no longer attempt to spawn near enemy players
+* Fixed the alignment command message specifying the wrong player name
 
 - Removed Middle-earth capes
 - Removed separate warg armour items

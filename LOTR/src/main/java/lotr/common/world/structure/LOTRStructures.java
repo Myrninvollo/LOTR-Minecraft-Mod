@@ -92,8 +92,8 @@ public class LOTRStructures
 		
 		registerStructure(350, LOTRWorldGenUrukTent.class, "UrukTent", 0x231D1A, 0x020202);
 		registerStructure(351, LOTRWorldGenRuinedRohanWatchtower.class, "RuinedRohanWatchtower", 0x110D09, 0x322D25);
-		registerStructure(352, LOTRWorldGenUrukForgeTent.class, "UrukForgeTent", 0x231D1A, 0x020202);
-		registerStructure(353, LOTRWorldGenUrukWargPit.class, "UrukWargPit", 0x888888, 0x5C5C5C);
+		registerStructure(352, LOTRWorldGenUrukForgeTent.class, "UrukForgeTent", 0x383124, 0x1F1B13);
+		registerStructure(353, LOTRWorldGenUrukWargPit.class, "UrukWargPit", 0x383124, 0x1F1B13);
 		
 		registerStructure(380, LOTRWorldGenDunlendingHouse.class, "DunlendingHouse", 0x665139, 0x3A2F22);
 		registerStructure(381, LOTRWorldGenDunlendingTavern.class, "DunlendingTavern", 0x665139, 0x3A2F22);
@@ -112,7 +112,7 @@ public class LOTRStructures
 		
 		registerStructure(500, LOTRWorldGenMordorTower.class, "MordorTower", 0x282828, 0x050505);
 		registerStructure(501, LOTRWorldGenMordorTent.class, "MordorTent", 0x5B3A23, 0x161616);
-		registerStructure(502, LOTRWorldGenMordorForgeTent.class, "MordorForgeTent", 0x5B3A23, 0x161616);
+		registerStructure(502, LOTRWorldGenMordorForgeTent.class, "MordorForgeTent", 0x282828, 0x050505);
 		registerStructure(503, LOTRWorldGenMordorWargPit.class, "MordorWargPit", 0x282828, 0x050505);
 		
 		registerStructure(550, LOTRWorldGenNurnWheatFarm.class, "NurnWheatFarm", 0x443424, 0x050505);

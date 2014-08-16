@@ -409,7 +409,7 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 				dropItem(Items.saddle, 1);
 			}
 
-			if (!getBelongsToNPC())
+			if (isMountSaddled())
 			{
 				ItemStack armor = getEquipmentInSlot(4);
 				if (armor != null)

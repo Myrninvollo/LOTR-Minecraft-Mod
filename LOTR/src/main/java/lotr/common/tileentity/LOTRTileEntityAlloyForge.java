@@ -1,8 +1,6 @@
 package lotr.common.tileentity;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import lotr.common.LOTRMod;
 import lotr.common.inventory.LOTRSlotStackSize;
@@ -13,8 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -22,7 +19,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -399,16 +395,17 @@ public abstract class LOTRTileEntityAlloyForge extends TileEntity implements IIn
 	public ItemStack getSmeltingResult(ItemStack itemstack)
 	{
 		boolean isStoneMaterial = false;
-		
 		if (itemstack.getItem() == Item.getItemFromBlock(Blocks.sand) || itemstack.getItem() == Items.clay_ball)
 		{
 			isStoneMaterial = true;
 		}
-		
-		Block block = Block.getBlockFromItem(itemstack.getItem());
-		if (block != null && block.getMaterial() == Material.rock)
+		else
 		{
-			isStoneMaterial = true;
+			Block block = Block.getBlockFromItem(itemstack.getItem());
+			if (block != null && block.getMaterial() == Material.rock)
+			{
+				isStoneMaterial = true;
+			}
 		}
 		
 		if (isStoneMaterial)

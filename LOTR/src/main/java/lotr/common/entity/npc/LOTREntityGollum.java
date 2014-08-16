@@ -299,7 +299,7 @@ public class LOTREntityGollum extends LOTREntityNPC implements LOTRCharacter
 							spawnHearts();
 						}
 						
-						fishRequired = Math.round((float)prevFishRequired * (1.25F + rand.nextFloat() * 0.25F));
+						fishRequired = Math.round((float)prevFishRequired * (1.5F + rand.nextFloat() * 0.25F));
 						prevFishRequired = fishRequired;
 					}
 					else

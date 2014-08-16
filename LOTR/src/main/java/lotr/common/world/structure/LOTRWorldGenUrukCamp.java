@@ -4,9 +4,7 @@ import java.util.Random;
 
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
-import lotr.common.entity.npc.LOTREntityUrukHai;
-import lotr.common.entity.npc.LOTREntityUrukHaiMercenaryCaptain;
-import lotr.common.entity.npc.LOTREntityUrukHaiTrader;
+import lotr.common.entity.npc.*;
 import lotr.common.world.biome.LOTRBiome;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ChunkCoordinates;
@@ -51,7 +49,7 @@ public class LOTRWorldGenUrukCamp extends LOTRWorldGenStructureBase
 				{
 					setBlockAndNotifyAdequately(world, i1, j1, k1, Blocks.dirt, 1);
 				}
-				setBlockAndNotifyAdequately(world, i1, highestHeight, k1, Blocks.stone_slab, 3);
+				setBlockAndNotifyAdequately(world, i1, highestHeight, k1, LOTRMod.slabSingle4, 4);
 			}
 		}
 		

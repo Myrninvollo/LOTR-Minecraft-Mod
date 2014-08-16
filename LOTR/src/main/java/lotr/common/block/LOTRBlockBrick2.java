@@ -17,7 +17,7 @@ public class LOTRBlockBrick2 extends Block
 {
 	@SideOnly(Side.CLIENT)
 	private IIcon[] brickIcons;
-	private String[] brickNames = {"angmar", "angmarCracked", "redRock", "arnor", "arnorMossy", "arnorCracked", "arnorCarved"};
+	private String[] brickNames = {"angmar", "angmarCracked", "redRock", "arnor", "arnorMossy", "arnorCracked", "arnorCarved", "uruk"};
 	
 	public LOTRBlockBrick2()
 	{

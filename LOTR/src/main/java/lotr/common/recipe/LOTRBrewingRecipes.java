@@ -86,6 +86,21 @@ public class LOTRBrewingRecipes
 		{
 			LOTRMod.date, LOTRMod.date, LOTRMod.date, LOTRMod.date, LOTRMod.date, LOTRMod.date
 		});
+		
+		addBrewingRecipe(new ItemStack(LOTRMod.mugCarrotWine, BARREL_CAPACITY), new Object[]
+		{
+			Items.carrot, Items.carrot, Items.carrot, Items.carrot, Items.carrot, Items.carrot
+		});
+		
+		addBrewingRecipe(new ItemStack(LOTRMod.mugBananaBeer, BARREL_CAPACITY), new Object[]
+		{
+			LOTRMod.banana, LOTRMod.banana, LOTRMod.banana, LOTRMod.banana, LOTRMod.banana, LOTRMod.banana
+		});
+		
+		addBrewingRecipe(new ItemStack(LOTRMod.mugMelonLiqueur, BARREL_CAPACITY), new Object[]
+		{
+			Items.melon, Items.melon, Items.melon, Items.melon, Items.melon, Items.melon
+		});
 	}
 	
 	private static void addBrewingRecipe(ItemStack result, Object... ingredients)

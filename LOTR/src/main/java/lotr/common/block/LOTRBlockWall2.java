@@ -55,6 +55,10 @@ public class LOTRBlockWall2 extends BlockWall
 		{
 			return LOTRMod.brick2.getIcon(i, 5);
 		}
+		if (j == 7)
+		{
+			return LOTRMod.brick2.getIcon(i, 7);
+		}
 		return LOTRMod.brick2.getIcon(i, 0);
 	}
 	
@@ -62,7 +66,7 @@ public class LOTRBlockWall2 extends BlockWall
 	@SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List list)
     {
-		for (int j = 0; j <= 6; j++)
+		for (int j = 0; j <= 7; j++)
 		{
 			list.add(new ItemStack(item, 1, j));
 		}

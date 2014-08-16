@@ -579,7 +579,13 @@ public class LOTRTradeEntry
 			new LOTRTradeEntry(new ItemStack(LOTRMod.mugOrcDraught, 1, 3), 20),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.mugRedWine, 1, 1), 8),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.mugRedWine, 1, 2), 12),
-			new LOTRTradeEntry(new ItemStack(LOTRMod.mugRedWine, 1, 3), 16)
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugRedWine, 1, 3), 16),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugBananaBeer, 1, 1), 5),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugBananaBeer, 1, 2), 10),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugBananaBeer, 1, 3), 15),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugMelonLiqueur, 1, 1), 8),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugMelonLiqueur, 1, 2), 12),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugMelonLiqueur, 1, 3), 16)
 		};
 		
 		NEAR_HARAD_DRINKS_TRADER_SELL = new LOTRTradeEntry[]
@@ -596,7 +602,9 @@ public class LOTRTradeEntry
 			new LOTRTradeEntry(new ItemStack(LOTRMod.cherry), 1),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.date), 2),
 			new LOTRTradeEntry(new ItemStack(Items.potato, 2), 1),
-			new LOTRTradeEntry(new ItemStack(Items.reeds, 2), 1)
+			new LOTRTradeEntry(new ItemStack(Items.reeds, 2), 1),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.banana), 1),
+			new LOTRTradeEntry(new ItemStack(Items.melon, 3), 1)
 		};
 		
 		NEAR_HARAD_MINERALS_TRADER_BUY = new LOTRTradeEntry[]

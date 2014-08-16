@@ -1,16 +1,16 @@
 package lotr.common.world.structure;
 
-import net.minecraft.init.Blocks;
+import lotr.common.LOTRMod;
 
 public class LOTRWorldGenUrukForgeTent extends LOTRWorldGenUrukTent
 {
 	public LOTRWorldGenUrukForgeTent(boolean flag)
 	{
 		super(flag);
-		tentBlock = Blocks.cobblestone;
-		tentMeta = 0;
-		supportsBlock = Blocks.cobblestone_wall;
-		supportsMeta = 0;
+		tentBlock = LOTRMod.brick2;
+		tentMeta = 7;
+		supportsBlock = LOTRMod.wall2;
+		supportsMeta = 7;
 		hasOrcForge = true;
 	}
 }

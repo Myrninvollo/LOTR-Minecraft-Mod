@@ -1,5 +1,6 @@
 package lotr.common.world.structure;
 
+import lotr.common.LOTRMod;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.entity.npc.LOTREntityUrukHai;
 import lotr.common.entity.npc.LOTREntityUrukWarg;
@@ -12,8 +13,8 @@ public class LOTRWorldGenUrukWargPit extends LOTRWorldGenWargPitBase
 	public LOTRWorldGenUrukWargPit(boolean flag)
 	{
 		super(flag);
-		wallBlock = Blocks.stonebrick;
-		wallMeta = 0;
+		wallBlock = LOTRMod.brick2;
+		wallMeta = 7;
 		groundBlock = Blocks.cobblestone;
 		groundMeta = 0;
 	}

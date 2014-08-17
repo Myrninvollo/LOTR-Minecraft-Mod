@@ -2005,6 +2005,7 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityRangerNorthBannerBearer.class, "RangerNorthBannerBearer", 131, 0x3D4425, 0x4B3322);
 		LOTREntities.registerCreature(LOTREntityElk.class, "Elk", 132, 0xEBE5D9, 0xB5A990);
 		LOTREntities.registerCreature(LOTREntityGondorTowerGuard.class, "GondorTowerGuard", 133, 0x514C4C, 0xE5DADA);
+		LOTREntities.registerCreature(LOTREntityNearHaradMerchant.class, "NearHaradMerchant", 134, 0xCE967D, 0x917D77);
 
 		LOTREntities.registerCreature(LOTREntitySauron.class, "Sauron", 1000);
 		LOTREntities.registerCreature(LOTREntityGollum.class, "Gollum", 1001, 0xCCBD90, 0x908565);

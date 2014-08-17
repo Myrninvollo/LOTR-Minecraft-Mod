@@ -57,7 +57,7 @@ public class LOTREntityRangerIthilien extends LOTREntityRanger
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.RANGER_ITHILIEN_BONUS;
+		return LOTRAlignmentValues.Bonuses.RANGER_ITHILIEN;
 	}
 	
 	@Override

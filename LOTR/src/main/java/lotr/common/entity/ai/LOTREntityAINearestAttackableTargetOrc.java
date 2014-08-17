@@ -27,7 +27,7 @@ public class LOTREntityAINearestAttackableTargetOrc extends LOTREntityAINearestA
 		if (faction == LOTRFaction.MORDOR)
 		{
 			int alignment = LOTRLevelData.getData(entityplayer).getAlignment(faction);
-			if (alignment >= LOTRAlignmentValues.MORDOR_TRUST)
+			if (alignment >= LOTRAlignmentValues.Levels.MORDOR_TRUST)
 			{
 				return false;
 			}

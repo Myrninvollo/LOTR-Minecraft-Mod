@@ -20,13 +20,13 @@ public class LOTREntityRegistry
 	{
 		public LOTRFaction alignmentFaction;
 		public boolean shouldTargetEnemies;
-		public LOTRAlignmentValues.Bonus alignmentBonus;
+		public LOTRAlignmentValues.AlignmentBonus alignmentBonus;
 		
 		public RegistryInfo(String entityName, LOTRFaction side, boolean flag, int bonus)
 		{
 			alignmentFaction = side;
 			shouldTargetEnemies = flag;
-			alignmentBonus = new LOTRAlignmentValues.Bonus(bonus, "entity." + entityName + ".name");
+			alignmentBonus = new LOTRAlignmentValues.AlignmentBonus(bonus, "entity." + entityName + ".name");
 			alignmentBonus.needsTranslation = true;
 		}
 	}

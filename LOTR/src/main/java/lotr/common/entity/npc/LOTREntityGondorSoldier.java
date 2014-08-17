@@ -87,7 +87,7 @@ public class LOTREntityGondorSoldier extends LOTREntityGondorMan
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.GONDOR_SOLDIER_BONUS;
+		return LOTRAlignmentValues.Bonuses.GONDOR_SOLDIER;
 	}
 	
 	@Override

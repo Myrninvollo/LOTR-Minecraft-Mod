@@ -81,7 +81,7 @@ public class LOTREntityDwarf extends LOTREntityNPC
         
         familyInfo.marriageEntityClass = LOTREntityDwarf.class;
         familyInfo.marriageRing = LOTRMod.dwarvenRing;
-        familyInfo.marriageAlignmentRequired = LOTRAlignmentValues.DWARF_MARRY;
+        familyInfo.marriageAlignmentRequired = LOTRAlignmentValues.Levels.DWARF_MARRY;
         familyInfo.marriageAchievement = LOTRAchievement.marryDwarf;
         familyInfo.potentialMaxChildren = 3;
         familyInfo.timeToMature = 72000;
@@ -222,7 +222,7 @@ public class LOTREntityDwarf extends LOTREntityNPC
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.DWARF_BONUS;
+		return LOTRAlignmentValues.Bonuses.DWARF;
 	}
 	
 	@Override

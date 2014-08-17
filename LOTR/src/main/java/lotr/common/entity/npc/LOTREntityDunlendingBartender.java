@@ -68,7 +68,7 @@ public class LOTREntityDunlendingBartender extends LOTREntityDunlending implemen
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.DUNLENDING_BARTENDER_BONUS;
+		return LOTRAlignmentValues.Bonuses.DUNLENDING_BARTENDER;
 	}
 	
 	@Override

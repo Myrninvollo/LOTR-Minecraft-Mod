@@ -327,7 +327,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 	
 	protected boolean canTrollBeTickled(EntityPlayer entityplayer)
 	{
-		return canNPCTalk() && isFriendly(entityplayer) && LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) <= LOTRAlignmentValues.TROLL_TRUST && getAttackTarget() == null && getTrollBurnTime() == -1;
+		return canNPCTalk() && isFriendly(entityplayer) && LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) <= LOTRAlignmentValues.Levels.TROLL_TRUST && getAttackTarget() == null && getTrollBurnTime() == -1;
 	}
 	
 	@Override
@@ -371,7 +371,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.TROLL_BONUS;
+		return LOTRAlignmentValues.Bonuses.TROLL;
 	}
 	
 	@Override
@@ -462,7 +462,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 		{
 			return null;
 		}
-		else if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.TROLL_TRUST && isFriendly(entityplayer))
+		else if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.TROLL_TRUST && isFriendly(entityplayer))
 		{
 			if (hiredNPCInfo.getHiringPlayer() == entityplayer)
 			{

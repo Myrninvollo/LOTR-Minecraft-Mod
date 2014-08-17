@@ -41,13 +41,13 @@ public class LOTREntityDwarfMiner extends LOTREntityDwarf implements LOTRTradeab
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.DWARF_MINER_BONUS;
+		return LOTRAlignmentValues.Bonuses.DWARF_MINER;
 	}
 	
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.DWARF_MINER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.DWARF_MINER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

@@ -60,7 +60,7 @@ public class LOTREntityMordorOrcSpiderKeeper extends LOTREntityMordorOrc impleme
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.MORDOR_ORC_SPIDER_KEEPER_BONUS;
+		return LOTRAlignmentValues.Bonuses.MORDOR_ORC_SPIDER_KEEPER;
 	}
 	
 	@Override
@@ -72,7 +72,7 @@ public class LOTREntityMordorOrcSpiderKeeper extends LOTREntityMordorOrc impleme
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.MORDOR_ORC_SPIDER_KEEPER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.MORDOR_ORC_SPIDER_KEEPER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

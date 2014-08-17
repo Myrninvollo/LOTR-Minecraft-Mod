@@ -20,6 +20,6 @@ public class LOTREntityUrukWargBombardier extends LOTREntityWargBombardier
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.URUK_WARG_BONUS;
+		return LOTRAlignmentValues.Bonuses.URUK_WARG;
 	}
 }

@@ -60,7 +60,7 @@ public class LOTREntityRohanBlacksmith extends LOTREntityRohanMan implements LOT
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.ROHAN_BLACKSMITH_BONUS;
+		return LOTRAlignmentValues.Bonuses.ROHAN_BLACKSMITH;
 	}
 	
 	@Override
@@ -74,7 +74,7 @@ public class LOTREntityRohanBlacksmith extends LOTREntityRohanMan implements LOT
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.ROHAN_BLACKSMITH_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.ROHAN_BLACKSMITH_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

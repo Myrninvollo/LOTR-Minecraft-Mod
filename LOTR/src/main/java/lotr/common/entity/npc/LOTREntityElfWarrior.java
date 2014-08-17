@@ -114,7 +114,7 @@ public class LOTREntityElfWarrior extends LOTREntityElf
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.GALADHRIM_WARRIOR_BONUS;
+		return LOTRAlignmentValues.Bonuses.GALADHRIM_WARRIOR;
 	}
 	
 	@Override

@@ -5,6 +5,7 @@ import java.util.Random;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
+import lotr.common.entity.npc.LOTREntityNearHaradMerchant;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import net.minecraft.init.Blocks;
@@ -32,6 +33,8 @@ public class LOTRBiomeGenRhun extends LOTRBiome
 		decorator.doubleGrassPerChunk = 7;
 		
         registerPlainsFlowers();
+        
+        registerTravellingTrader(LOTREntityNearHaradMerchant.class);
 		
 		setBanditChance(LOTRBanditSpawner.RARE);
 	}

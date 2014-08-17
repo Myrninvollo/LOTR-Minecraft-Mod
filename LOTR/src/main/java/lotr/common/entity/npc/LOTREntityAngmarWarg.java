@@ -34,6 +34,6 @@ public class LOTREntityAngmarWarg extends LOTREntityWarg
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.ANGMAR_WARG_BONUS;
+		return LOTRAlignmentValues.Bonuses.ANGMAR_WARG;
 	}
 }

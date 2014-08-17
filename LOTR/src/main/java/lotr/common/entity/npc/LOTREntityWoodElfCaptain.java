@@ -35,7 +35,7 @@ public class LOTREntityWoodElfCaptain extends LOTREntityWoodElfWarrior implement
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.WOOD_ELF_CAPTAIN_BONUS;
+		return LOTRAlignmentValues.Bonuses.WOOD_ELF_CAPTAIN;
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class LOTREntityWoodElfCaptain extends LOTREntityWoodElfWarrior implement
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.WOOD_ELF_CAPTAIN_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.WOOD_ELF_CAPTAIN_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

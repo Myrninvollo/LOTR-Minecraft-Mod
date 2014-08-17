@@ -75,7 +75,7 @@ public class LOTREntityAngmarOrc extends LOTREntityOrc
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.ANGMAR_ORC_BONUS;
+		return LOTRAlignmentValues.Bonuses.ANGMAR_ORC;
 	}
 	
 	@Override

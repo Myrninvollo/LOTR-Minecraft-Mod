@@ -62,7 +62,7 @@ public abstract class LOTRBlockPortal extends BlockContainer
 		{
 			for (LOTRFaction faction : portalFactions)
 			{
-				if (LOTRLevelData.getData((EntityPlayer)entity).getAlignment(faction) >= LOTRAlignmentValues.USE_PORTAL)
+				if (LOTRLevelData.getData((EntityPlayer)entity).getAlignment(faction) >= LOTRAlignmentValues.Levels.USE_PORTAL)
 				{
 					if (entity.ridingEntity == null && entity.riddenByEntity == null)
 					{

@@ -97,7 +97,7 @@ public class LOTREntityRohirrim extends LOTREntityRohanMan
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.ROHIRRIM_BONUS;
+		return LOTRAlignmentValues.Bonuses.ROHIRRIM;
 	}
 	
 	@Override

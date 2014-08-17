@@ -40,13 +40,13 @@ public class LOTREntityMordorOrcTrader extends LOTREntityMordorOrc implements LO
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.MORDOR_ORC_TRADER_BONUS;
+		return LOTRAlignmentValues.Bonuses.MORDOR_ORC_TRADER;
 	}
 	
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.MORDOR_ORC_TRADER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.MORDOR_ORC_TRADER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

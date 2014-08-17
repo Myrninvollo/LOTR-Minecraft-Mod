@@ -6,8 +6,7 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityHorse;
-import lotr.common.entity.npc.LOTREntityBlueDwarfMerchant;
-import lotr.common.entity.npc.LOTREntityElvenTrader;
+import lotr.common.entity.npc.*;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.LOTRInvasionSpawner;
 import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
@@ -38,6 +37,7 @@ public class LOTRBiomeGenBreeland extends LOTRBiome
         
         registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
+		registerTravellingTrader(LOTREntityNearHaradMerchant.class);
 		
 		setBanditChance(LOTRBanditSpawner.RARE);
 		

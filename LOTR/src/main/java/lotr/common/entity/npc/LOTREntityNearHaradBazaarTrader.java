@@ -55,13 +55,13 @@ public class LOTREntityNearHaradBazaarTrader extends LOTREntityNearHaradrim impl
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.NEAR_HARADRIM_TRADER_BONUS;
+		return LOTRAlignmentValues.Bonuses.NEAR_HARADRIM_TRADER;
 	}
 	
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.NEAR_HARAD_BAZAAR_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

@@ -48,7 +48,7 @@ public class LOTREntityHobbitFarmer extends LOTREntityHobbit implements LOTRTrad
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.HOBBIT_FARMER_BONUS;
+		return LOTRAlignmentValues.Bonuses.HOBBIT_FARMER;
 	}
 	
 	@Override

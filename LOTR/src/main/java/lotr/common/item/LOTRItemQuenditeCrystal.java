@@ -29,7 +29,7 @@ public class LOTRItemQuenditeCrystal extends Item
 		
 		if (world.getBlock(i, j, k) == Blocks.grass)
 		{
-			if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.GALADHRIM) >= LOTRAlignmentValues.USE_PORTAL)
+			if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.GALADHRIM) >= LOTRAlignmentValues.Levels.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.HIGH_ELF) >= LOTRAlignmentValues.Levels.USE_PORTAL)
 			{
 				world.setBlock(i, j, k, LOTRMod.quenditeGrass, 0, 3);
 				itemstack.stackSize--;
@@ -49,7 +49,7 @@ public class LOTRItemQuenditeCrystal extends Item
 				}
 				if (!world.isRemote)
 				{
-					LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.USE_PORTAL, LOTRFaction.GALADHRIM);
+					LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.Levels.USE_PORTAL, LOTRFaction.GALADHRIM, LOTRFaction.HIGH_ELF);
 				}
 			}
 			return true;

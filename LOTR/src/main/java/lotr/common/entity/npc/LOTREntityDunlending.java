@@ -199,7 +199,7 @@ public class LOTREntityDunlending extends LOTREntityNPC
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.DUNLENDING_BONUS;
+		return LOTRAlignmentValues.Bonuses.DUNLENDING;
 	}
 
 	@Override

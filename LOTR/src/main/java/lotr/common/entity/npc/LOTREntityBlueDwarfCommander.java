@@ -43,7 +43,7 @@ public class LOTREntityBlueDwarfCommander extends LOTREntityBlueDwarf implements
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.BLUE_DWARF_COMMANDER_BONUS;
+		return LOTRAlignmentValues.Bonuses.BLUE_DWARF_COMMANDER;
 	}
 	
 	@Override
@@ -55,7 +55,7 @@ public class LOTREntityBlueDwarfCommander extends LOTREntityBlueDwarf implements
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.BLUE_DWARF_COMMANDER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.BLUE_DWARF_COMMANDER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

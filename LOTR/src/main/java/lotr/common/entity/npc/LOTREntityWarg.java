@@ -199,7 +199,7 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 		
         if (!worldObj.isRemote)
         {
-			if (riddenByEntity instanceof EntityPlayer && LOTRLevelData.getData((EntityPlayer)riddenByEntity).getAlignment(getFaction()) < LOTRAlignmentValues.WARG_RIDE)
+			if (riddenByEntity instanceof EntityPlayer && LOTRLevelData.getData((EntityPlayer)riddenByEntity).getAlignment(getFaction()) < LOTRAlignmentValues.Levels.WARG_RIDE)
 			{
 				riddenByEntity.mountEntity(null);
 			}
@@ -237,7 +237,7 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 		if (getAttackTarget() != entityplayer)
 		{
 			boolean flag = false;
-			boolean hasRequiredAlignment = LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.WARG_RIDE;
+			boolean hasRequiredAlignment = LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.WARG_RIDE;
 			
 			ItemStack itemstack = entityplayer.inventory.getCurrentItem();
 			if (!flag && itemstack != null && itemstack.getItem() instanceof ItemFood && ((ItemFood)itemstack.getItem()).isWolfsFavoriteMeat() && isMountSaddled() && getHealth() < getMaxHealth())
@@ -320,7 +320,7 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 			
 			if (flag)
 			{
-				LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.WARG_RIDE, getFaction());
+				LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.Levels.WARG_RIDE, getFaction());
 				return true;
 			}
 		}

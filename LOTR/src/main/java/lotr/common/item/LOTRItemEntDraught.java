@@ -177,11 +177,11 @@ public class LOTRItemEntDraught extends Item
     {
 		if (getDraughtInfo(itemstack).name.equals("gold"))
 		{
-			if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.FANGORN) < LOTRAlignmentValues.SPAWN_HUORN)
+			if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.FANGORN) < LOTRAlignmentValues.Levels.SPAWN_HUORN)
 			{
 				if (!world.isRemote)
 				{
-					LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.SPAWN_HUORN, LOTRFaction.FANGORN);
+					LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.Levels.SPAWN_HUORN, LOTRFaction.FANGORN);
 				}
 				return false;
 			}
@@ -207,7 +207,7 @@ public class LOTRItemEntDraught extends Item
 								world.spawnEntityInWorld(huorn);
 								huorn.initCreatureForHire(null);
 								huorn.hiredNPCInfo.isActive = true;
-								huorn.hiredNPCInfo.alignmentRequiredToCommand = LOTRAlignmentValues.SPAWN_HUORN;
+								huorn.hiredNPCInfo.alignmentRequiredToCommand = LOTRAlignmentValues.Levels.SPAWN_HUORN;
 								huorn.hiredNPCInfo.setHiringPlayerUUID(entityplayer.getUniqueID().toString());
 								huorn.hiredNPCInfo.setTask(LOTRHiredNPCInfo.Task.WARRIOR);
 								LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.summonHuorn);

@@ -37,7 +37,7 @@ public class LOTREntityRangerNorthCaptain extends LOTREntityRangerNorth implemen
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.RANGER_NORTH_CAPTAIN_BONUS;
+		return LOTRAlignmentValues.Bonuses.RANGER_NORTH_CAPTAIN;
 	}
 	
 	@Override
@@ -49,7 +49,7 @@ public class LOTREntityRangerNorthCaptain extends LOTREntityRangerNorth implemen
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.RANGER_NORTH_CAPTAIN_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.RANGER_NORTH_CAPTAIN_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

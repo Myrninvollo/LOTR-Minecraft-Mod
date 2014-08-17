@@ -2,6 +2,7 @@ package lotr.common.world.biome;
 
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
+import lotr.common.entity.npc.LOTREntityNearHaradMerchant;
 import lotr.common.world.LOTRBanditSpawner;
 
 public class LOTRBiomeGenUmbar extends LOTRBiome
@@ -17,6 +18,8 @@ public class LOTRBiomeGenUmbar extends LOTRBiome
 		decorator.grassPerChunk = 3;
 		decorator.doubleGrassPerChunk = 1;
 		decorator.flowersPerChunk = 1;
+		
+		registerTravellingTrader(LOTREntityNearHaradMerchant.class);
 		
 		setBanditChance(LOTRBanditSpawner.RARE);
 	}

@@ -77,8 +77,6 @@ public class LOTRBiomeGenShire extends LOTRBiome
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
-		
-		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

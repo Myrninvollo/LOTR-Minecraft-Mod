@@ -26,6 +26,6 @@ public class LOTREntityGundabadWarg extends LOTREntityWarg
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.GUNDABAD_WARG_BONUS;
+		return LOTRAlignmentValues.Bonuses.GUNDABAD_WARG;
 	}
 }

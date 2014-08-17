@@ -43,7 +43,7 @@ public class LOTREntityDwarfCommander extends LOTREntityDwarf implements LOTRUni
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.DWARF_COMMANDER_BONUS;
+		return LOTRAlignmentValues.Bonuses.DWARF_COMMANDER;
 	}
 	
 	@Override
@@ -55,7 +55,7 @@ public class LOTREntityDwarfCommander extends LOTREntityDwarf implements LOTRUni
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.DWARF_COMMANDER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.DWARF_COMMANDER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

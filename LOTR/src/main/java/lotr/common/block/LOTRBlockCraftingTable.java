@@ -26,7 +26,7 @@ public class LOTRBlockCraftingTable extends Block
 	@Override
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int side, float f, float f1, float f2)
     {
-		if (LOTRLevelData.getData(entityplayer).getAlignment(tableFaction) >= LOTRAlignmentValues.USE_TABLE)
+		if (LOTRLevelData.getData(entityplayer).getAlignment(tableFaction) >= LOTRAlignmentValues.Levels.USE_TABLE)
 		{
 			if (!world.isRemote)
 			{
@@ -44,7 +44,7 @@ public class LOTRBlockCraftingTable extends Block
 			}
 			if (!world.isRemote)
 			{
-				LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.USE_TABLE, tableFaction);
+				LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.Levels.USE_TABLE, tableFaction);
 			}
 		}
 		return true;

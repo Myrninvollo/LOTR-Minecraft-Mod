@@ -35,7 +35,7 @@ public class LOTREntityHighElfLord extends LOTREntityHighElfWarrior implements L
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.HIGH_ELF_LORD_BONUS;
+		return LOTRAlignmentValues.Bonuses.HIGH_ELF_LORD;
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class LOTREntityHighElfLord extends LOTREntityHighElfWarrior implements L
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.HIGH_ELF_LORD_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.HIGH_ELF_LORD_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

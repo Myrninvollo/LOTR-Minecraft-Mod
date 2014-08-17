@@ -53,13 +53,16 @@ public class LOTRTravellingTraderInfo
 		for (int l = 0; l < escorts; l++)
 		{
 			LOTREntityNPC escort = theTrader.createTravellingEscort();
-			escort.setLocationAndAngles(theEntity.posX, theEntity.posY, theEntity.posZ, theEntity.rotationYaw, theEntity.rotationPitch);
-			escort.isNPCPersistent = true;
-			escort.liftSpawnRestrictions = true;
-			escort.spawnRidingHorse = false;
-			theEntity.worldObj.spawnEntityInWorld(escort);
-			escort.setHomeArea(i, j, k, 16);
-			escortUUIDs.add(escort.getUniqueID());
+			if (escort != null)
+			{
+				escort.setLocationAndAngles(theEntity.posX, theEntity.posY, theEntity.posZ, theEntity.rotationYaw, theEntity.rotationPitch);
+				escort.isNPCPersistent = true;
+				escort.liftSpawnRestrictions = true;
+				escort.spawnRidingHorse = false;
+				theEntity.worldObj.spawnEntityInWorld(escort);
+				escort.setHomeArea(i, j, k, 16);
+				escortUUIDs.add(escort.getUniqueID());
+			}
 		}
 	}
 	

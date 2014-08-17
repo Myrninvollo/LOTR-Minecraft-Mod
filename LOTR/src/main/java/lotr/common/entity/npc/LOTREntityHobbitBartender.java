@@ -64,7 +64,7 @@ public class LOTREntityHobbitBartender extends LOTREntityHobbit implements LOTRT
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.HOBBIT_BARTENDER_BONUS;
+		return LOTRAlignmentValues.Bonuses.HOBBIT_BARTENDER;
 	}
 	
 	@Override

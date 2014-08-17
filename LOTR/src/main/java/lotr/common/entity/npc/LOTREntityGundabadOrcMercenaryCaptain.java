@@ -42,7 +42,7 @@ public class LOTREntityGundabadOrcMercenaryCaptain extends LOTREntityGundabadOrc
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.GUNDABAD_ORC_MERCENARY_CAPTAIN_BONUS;
+		return LOTRAlignmentValues.Bonuses.GUNDABAD_ORC_MERCENARY_CAPTAIN;
 	}
 	
 	@Override
@@ -54,7 +54,7 @@ public class LOTREntityGundabadOrcMercenaryCaptain extends LOTREntityGundabadOrc
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.GUNDABAD_ORC_MERCENARY_CAPTAIN_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.GUNDABAD_ORC_MERCENARY_CAPTAIN_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

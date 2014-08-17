@@ -37,6 +37,6 @@ public class LOTREntityMordorWarg extends LOTREntityWarg
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.MORDOR_WARG_BONUS;
+		return LOTRAlignmentValues.Bonuses.MORDOR_WARG;
 	}
 }

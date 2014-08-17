@@ -1,8 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFaction;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetHuorn;
 import net.minecraft.world.World;
 
@@ -29,6 +27,6 @@ public class LOTREntityHuorn extends LOTREntityHuornBase
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.HUORN_BONUS;
+		return LOTRAlignmentValues.Bonuses.HUORN;
 	}
 }

@@ -84,7 +84,7 @@ public class LOTREntityMordorOrc extends LOTREntityOrc
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.MORDOR_ORC_BONUS;
+		return LOTRAlignmentValues.Bonuses.MORDOR_ORC;
 	}
 	
 	@Override

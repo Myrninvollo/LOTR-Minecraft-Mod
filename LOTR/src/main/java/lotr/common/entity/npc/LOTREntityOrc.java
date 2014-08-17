@@ -346,7 +346,7 @@ public abstract class LOTREntityOrc extends LOTREntityNPC
 			{
 				return "orc_hired";
 			}
-			else if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) <= LOTRAlignmentValues.ORC_FRIENDLY)
+			else if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) <= LOTRAlignmentValues.Levels.ORC_FRIENDLY)
 			{
 				return "orc_friendly";
 			}

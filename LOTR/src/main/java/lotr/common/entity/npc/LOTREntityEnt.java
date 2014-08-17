@@ -138,7 +138,7 @@ public class LOTREntityEnt extends LOTREntityTree
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.ENT_BONUS;
+		return LOTRAlignmentValues.Bonuses.ENT;
 	}
 	
 	@Override

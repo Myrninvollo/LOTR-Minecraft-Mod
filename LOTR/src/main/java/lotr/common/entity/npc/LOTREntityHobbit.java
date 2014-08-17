@@ -69,7 +69,7 @@ public class LOTREntityHobbit extends LOTREntityNPC
         
         familyInfo.marriageEntityClass = LOTREntityHobbit.class;
         familyInfo.marriageRing = LOTRMod.hobbitRing;
-        familyInfo.marriageAlignmentRequired = LOTRAlignmentValues.HOBBIT_MARRY;
+        familyInfo.marriageAlignmentRequired = LOTRAlignmentValues.Levels.HOBBIT_MARRY;
         familyInfo.marriageAchievement = LOTRAchievement.marryHobbit;
         familyInfo.potentialMaxChildren = 4;
         familyInfo.timeToMature = 48000;
@@ -185,7 +185,7 @@ public class LOTREntityHobbit extends LOTREntityNPC
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.HOBBIT_BONUS;
+		return LOTRAlignmentValues.Bonuses.HOBBIT;
 	}
 	
 	@Override

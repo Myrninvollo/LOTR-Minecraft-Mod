@@ -68,6 +68,9 @@ public class LOTRTradeEntry
 	public static LOTRTradeEntry[] BLUE_DWARF_MERCHANT_BUY;
 	public static LOTRTradeEntry[] BLUE_DWARF_MERCHANT_SELL;
 	
+	public static LOTRTradeEntry[] NEAR_HARAD_MERCHANT_BUY;
+	public static LOTRTradeEntry[] NEAR_HARAD_MERCHANT_SELL;
+	
 	public ItemStack item;
 	public int cost;
 	
@@ -199,7 +202,7 @@ public class LOTRTradeEntry
 			new LOTRTradeEntry(new ItemStack(LOTRMod.mugOrcDraught, 1, 3), 14),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.wargFur), 4),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.orcBow), 16),
-			new LOTRTradeEntry(new ItemStack(Items.arrow, 4), 2),
+			new LOTRTradeEntry(new ItemStack(Items.arrow, 4), 3),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.pickaxeOrc), 14),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.axeOrc), 14),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.hammerOrc), 16),
@@ -236,7 +239,7 @@ public class LOTRTradeEntry
 			new LOTRTradeEntry(new ItemStack(LOTRMod.blacksmithHammer), 18),
 			new LOTRTradeEntry(new ItemStack(Blocks.iron_bars, 8), 20),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.hammerGondor), 18),
-			new LOTRTradeEntry(new ItemStack(LOTRMod.crossbowBolt, 4), 2),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.crossbowBolt, 4), 3),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.ironCrossbow), 15)
 		};
 		
@@ -270,7 +273,7 @@ public class LOTRTradeEntry
 			new LOTRTradeEntry(new ItemStack(LOTRMod.lembas), 16),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.mugMiruvor, 1, 2), 7),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.mugMiruvor, 1, 3), 14),
-			new LOTRTradeEntry(new ItemStack(Items.arrow, 4), 2)
+			new LOTRTradeEntry(new ItemStack(Items.arrow, 4), 3)
 		};
 		
 		ELVEN_TRADER_SELL = new LOTRTradeEntry[]
@@ -302,7 +305,7 @@ public class LOTRTradeEntry
 			new LOTRTradeEntry(new ItemStack(LOTRMod.mugOrcDraught, 1, 3), 14),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.wargFur), 4),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.urukCrossbow), 18),
-			new LOTRTradeEntry(new ItemStack(LOTRMod.crossbowBolt, 4), 2),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.crossbowBolt, 4), 3),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.pickaxeUruk), 16),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.axeUruk), 16),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.hammerUruk), 18),
@@ -374,7 +377,7 @@ public class LOTRTradeEntry
 			new LOTRTradeEntry(new ItemStack(LOTRMod.blacksmithHammer), 18),
 			new LOTRTradeEntry(new ItemStack(Blocks.iron_bars, 8), 20),
 			new LOTRTradeEntry(new ItemStack(Items.saddle), 15),
-			new LOTRTradeEntry(new ItemStack(LOTRMod.crossbowBolt, 4), 2),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.crossbowBolt, 4), 3),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.ironCrossbow), 15)
 		};
 		
@@ -706,6 +709,7 @@ public class LOTRTradeEntry
 		{
 			new LOTRTradeEntry(new ItemStack(LOTRMod.dwarvenRing), 16),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.swordBlueDwarven), 16),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.spearBlueDwarven), 18),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.battleaxeBlueDwarven), 18),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.hammerBlueDwarven), 18),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.daggerBlueDwarven), 13),
@@ -743,6 +747,41 @@ public class LOTRTradeEntry
 			new LOTRTradeEntry(new ItemStack(Items.cooked_fished), 3),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.rabbitCooked), 3),
 			new LOTRTradeEntry(new ItemStack(Items.bread), 2)
+		};
+		
+		NEAR_HARAD_MERCHANT_BUY = new LOTRTradeEntry[]
+		{
+			new LOTRTradeEntry(new ItemStack(LOTRMod.scimitarNearHarad), 16),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.spearNearHarad), 18),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.daggerNearHarad), 13),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.daggerNearHaradPoisoned), 16),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.helmetNearHarad), 25),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.bodyNearHarad), 36),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.legsNearHarad), 30),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.bootsNearHarad), 22),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.nearHaradBow), 20),
+			new LOTRTradeEntry(new ItemStack(Items.arrow, 4), 3),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugAraq, 1, 1), 8),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugAraq, 1, 2), 10),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugAraq, 1, 3), 12),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.date, 2), 6),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.planks, 4, 14), 8),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.sapling3, 1, 2), 50),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.doubleFlower, 1, 3), 10)
+		};
+		
+		NEAR_HARAD_MERCHANT_SELL = new LOTRTradeEntry[]
+		{
+			new LOTRTradeEntry(new ItemStack(Items.iron_ingot), 3),
+			new LOTRTradeEntry(new ItemStack(Items.coal, 2, OreDictionary.WILDCARD_VALUE), 1),
+			new LOTRTradeEntry(new ItemStack(Items.gold_ingot), 15),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.copper), 3),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.tin), 3),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.bronze), 3),
+			new LOTRTradeEntry(new ItemStack(Items.bread), 2),
+			new LOTRTradeEntry(new ItemStack(Items.wheat, 3), 2),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mug), 1),
+			new LOTRTradeEntry(new ItemStack(Items.water_bucket), 4)
 		};
 	}
 }

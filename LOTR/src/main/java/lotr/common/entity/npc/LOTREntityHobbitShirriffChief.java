@@ -42,7 +42,7 @@ public class LOTREntityHobbitShirriffChief extends LOTREntityHobbitShirriff impl
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.HOBBIT_SHIRRIFF_CHIEF_BONUS;
+		return LOTRAlignmentValues.Bonuses.HOBBIT_SHIRRIFF_CHIEF;
 	}
 	
 	@Override
@@ -54,7 +54,7 @@ public class LOTREntityHobbitShirriffChief extends LOTREntityHobbitShirriff impl
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.HOBBIT_SHIRRIFF_CHIEF_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.HOBBIT_SHIRRIFF_CHIEF_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

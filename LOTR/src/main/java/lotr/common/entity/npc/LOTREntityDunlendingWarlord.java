@@ -38,7 +38,7 @@ public class LOTREntityDunlendingWarlord extends LOTREntityDunlendingWarrior imp
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.DUNLENDING_WARLORD_BONUS;
+		return LOTRAlignmentValues.Bonuses.DUNLENDING_WARLORD;
 	}
 	
 	@Override
@@ -50,7 +50,7 @@ public class LOTREntityDunlendingWarlord extends LOTREntityDunlendingWarrior imp
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.DUNLENDING_WARLORD_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.DUNLENDING_WARLORD_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

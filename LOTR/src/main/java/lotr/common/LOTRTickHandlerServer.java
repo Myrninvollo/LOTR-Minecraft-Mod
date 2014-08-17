@@ -62,6 +62,7 @@ public class LOTRTickHandlerServer
 
 		travellingTraders.add(new LOTRTravellingTraderSpawner(LOTREntityElvenTrader.class));
 		travellingTraders.add(new LOTRTravellingTraderSpawner(LOTREntityBlueDwarfMerchant.class));
+		travellingTraders.add(new LOTRTravellingTraderSpawner(LOTREntityNearHaradMerchant.class));
 	}
 	
 	public static HashMap playersInPortals = new HashMap();
@@ -308,7 +309,7 @@ public class LOTRTickHandlerServer
 					int k = MathHelper.floor_double(item.posZ);
 					ItemStack itemstack = item.getEntityItem();
 					
-					if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.GALADHRIM) > LOTRAlignmentValues.USE_PORTAL)
+					if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.GALADHRIM) >= LOTRAlignmentValues.Levels.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.HIGH_ELF) >= LOTRAlignmentValues.Levels.USE_PORTAL)
 					{
 						if (itemstack.getItem() == Item.getItemFromBlock(LOTRMod.elanor) || itemstack.getItem() == Item.getItemFromBlock(LOTRMod.niphredil))
 						{
@@ -340,7 +341,7 @@ public class LOTRTickHandlerServer
 						}
 					}
 					
-					if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.MORDOR) > LOTRAlignmentValues.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.ANGMAR) > LOTRAlignmentValues.USE_PORTAL)
+					if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.MORDOR) >= LOTRAlignmentValues.Levels.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.ANGMAR) >= LOTRAlignmentValues.Levels.USE_PORTAL)
 					{
 						if (LOTRMod.isOreNameEqual(itemstack, "bone"))
 						{

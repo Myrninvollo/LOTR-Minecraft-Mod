@@ -56,7 +56,7 @@ public class LOTREntityDunlendingWarrior extends LOTREntityDunlending
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.DUNLENDING_WARRIOR_BONUS;
+		return LOTRAlignmentValues.Bonuses.DUNLENDING_WARRIOR;
 	}
 	
 	@Override

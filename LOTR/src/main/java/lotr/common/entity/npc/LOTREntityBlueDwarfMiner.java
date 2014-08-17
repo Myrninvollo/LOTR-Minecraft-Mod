@@ -41,13 +41,13 @@ public class LOTREntityBlueDwarfMiner extends LOTREntityBlueDwarf implements LOT
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.BLUE_DWARF_MINER_BONUS;
+		return LOTRAlignmentValues.Bonuses.BLUE_DWARF_MINER;
 	}
 	
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.BLUE_DWARF_MINER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.BLUE_DWARF_MINER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

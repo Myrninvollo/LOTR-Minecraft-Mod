@@ -16,4 +16,10 @@ public class LOTREntityDesertScorpion extends LOTREntityScorpion implements LOTR
 	{
 		return rand.nextInt(2);
 	}
+	
+	@Override
+	public boolean getCanSpawnHere()
+	{
+		return super.getCanSpawnHere() && (posY < 60D || rand.nextInt(20) == 0);
+	}
 }

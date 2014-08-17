@@ -550,7 +550,7 @@ public class LOTREntityMountainTrollChieftain extends LOTREntityMountainTroll im
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.MOUNTAIN_TROLL_CHIEFTAIN_BONUS;
+		return LOTRAlignmentValues.Bonuses.MOUNTAIN_TROLL_CHIEFTAIN;
 	}
 	
 	@Override

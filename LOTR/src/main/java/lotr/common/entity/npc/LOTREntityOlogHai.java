@@ -148,7 +148,7 @@ public class LOTREntityOlogHai extends LOTREntityTroll
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.OLOG_HAI_BONUS;
+		return LOTRAlignmentValues.Bonuses.OLOG_HAI;
 	}
 	
 	public void dropTrollItems(boolean flag, int i)

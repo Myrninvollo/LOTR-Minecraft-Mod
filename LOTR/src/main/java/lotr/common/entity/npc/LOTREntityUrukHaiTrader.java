@@ -40,13 +40,13 @@ public class LOTREntityUrukHaiTrader extends LOTREntityUrukHai implements LOTRTr
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.URUK_HAI_TRADER_BONUS;
+		return LOTRAlignmentValues.Bonuses.URUK_HAI_TRADER;
 	}
 	
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.URUK_HAI_TRADER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.URUK_HAI_TRADER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

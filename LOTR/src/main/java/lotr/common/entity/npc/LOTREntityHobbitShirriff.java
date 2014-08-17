@@ -142,7 +142,7 @@ public class LOTREntityHobbitShirriff extends LOTREntityHobbit implements IRange
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.HOBBIT_SHIRRIFF_BONUS;
+		return LOTRAlignmentValues.Bonuses.HOBBIT_SHIRRIFF;
 	}
 	
 	@Override

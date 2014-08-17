@@ -179,7 +179,7 @@ public class LOTREntityMountainTroll extends LOTREntityTroll implements IRangedA
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.MOUNTAIN_TROLL_BONUS;
+		return LOTRAlignmentValues.Bonuses.MOUNTAIN_TROLL;
 	}
 	
 	@Override

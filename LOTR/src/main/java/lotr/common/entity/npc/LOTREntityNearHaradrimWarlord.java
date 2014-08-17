@@ -47,7 +47,7 @@ public class LOTREntityNearHaradrimWarlord extends LOTREntityNearHaradrimWarrior
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.NEAR_HARADRIM_WARLORD_BONUS;
+		return LOTRAlignmentValues.Bonuses.NEAR_HARADRIM_WARLORD;
 	}
 	
 	@Override
@@ -59,7 +59,7 @@ public class LOTREntityNearHaradrimWarlord extends LOTREntityNearHaradrimWarrior
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.NEAR_HARADRIM_WARLORD_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.NEAR_HARADRIM_WARLORD_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

@@ -56,7 +56,7 @@ public class LOTREntityRohanMeadhost extends LOTREntityRohanMan implements LOTRT
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.ROHAN_MEADHOST_BONUS;
+		return LOTRAlignmentValues.Bonuses.ROHAN_MEADHOST;
 	}
 	
 	@Override

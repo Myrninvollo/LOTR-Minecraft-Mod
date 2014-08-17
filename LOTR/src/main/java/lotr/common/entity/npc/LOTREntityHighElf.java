@@ -57,7 +57,7 @@ public class LOTREntityHighElf extends LOTREntityElf
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.HIGH_ELF_BONUS;
+		return LOTRAlignmentValues.Bonuses.HIGH_ELF;
 	}
 	
 	@Override

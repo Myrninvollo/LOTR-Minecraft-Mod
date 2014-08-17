@@ -19,7 +19,7 @@ public class LOTRBlockElvenPortal extends LOTRBlockPortal
 {
     public LOTRBlockElvenPortal()
     {
-        super(new LOTRFaction[] {LOTRFaction.GALADHRIM}, LOTRTeleporterElvenPortal.class);
+        super(new LOTRFaction[] {LOTRFaction.GALADHRIM, LOTRFaction.HIGH_ELF}, LOTRTeleporterElvenPortal.class);
     }
 
     @Override

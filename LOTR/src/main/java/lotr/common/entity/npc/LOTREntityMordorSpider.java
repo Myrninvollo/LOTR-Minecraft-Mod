@@ -81,7 +81,7 @@ public class LOTREntityMordorSpider extends LOTREntitySpiderBase
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.MORDOR_SPIDER_BONUS;
+		return LOTRAlignmentValues.Bonuses.MORDOR_SPIDER;
 	}
 	
 	@Override

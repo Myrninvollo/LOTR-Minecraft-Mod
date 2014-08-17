@@ -60,7 +60,7 @@ public class LOTREntityGondorBlacksmith extends LOTREntityGondorMan implements L
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.GONDOR_BLACKSMITH_BONUS;
+		return LOTRAlignmentValues.Bonuses.GONDOR_BLACKSMITH;
 	}
 	
 	@Override
@@ -74,7 +74,7 @@ public class LOTREntityGondorBlacksmith extends LOTREntityGondorMan implements L
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.GONDOR_BLACKSMITH_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.GONDOR_BLACKSMITH_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

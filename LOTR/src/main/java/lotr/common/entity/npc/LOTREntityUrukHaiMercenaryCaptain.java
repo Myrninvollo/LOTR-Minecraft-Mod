@@ -44,7 +44,7 @@ public class LOTREntityUrukHaiMercenaryCaptain extends LOTREntityUrukHai impleme
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.URUK_HAI_MERCENARY_CAPTAIN_BONUS;
+		return LOTRAlignmentValues.Bonuses.URUK_HAI_MERCENARY_CAPTAIN;
 	}
 	
 	@Override
@@ -56,7 +56,7 @@ public class LOTREntityUrukHaiMercenaryCaptain extends LOTREntityUrukHai impleme
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.URUK_HAI_MERCENARY_CAPTAIN_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.URUK_HAI_MERCENARY_CAPTAIN_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

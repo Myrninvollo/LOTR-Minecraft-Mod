@@ -204,7 +204,7 @@ public class LOTREntityNearHaradrim extends LOTREntityNPC implements ImmuneToHea
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.NEAR_HARADRIM_BONUS;
+		return LOTRAlignmentValues.Bonuses.NEAR_HARADRIM;
 	}
 	
 	@Override

@@ -38,7 +38,7 @@ public class LOTREntityAngmarOrcMercenaryCaptain extends LOTREntityAngmarOrcWarr
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.ANGMAR_ORC_MERCENARY_CAPTAIN_BONUS;
+		return LOTRAlignmentValues.Bonuses.ANGMAR_ORC_MERCENARY_CAPTAIN;
 	}
 	
 	@Override
@@ -50,7 +50,7 @@ public class LOTREntityAngmarOrcMercenaryCaptain extends LOTREntityAngmarOrcWarr
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.ANGMAR_ORC_MERCENARY_CAPTAIN_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.ANGMAR_ORC_MERCENARY_CAPTAIN_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

@@ -43,7 +43,7 @@ public class LOTREntityRangerNorth extends LOTREntityRanger
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.RANGER_NORTH_BONUS;
+		return LOTRAlignmentValues.Bonuses.RANGER_NORTH;
 	}
 	
 	@Override

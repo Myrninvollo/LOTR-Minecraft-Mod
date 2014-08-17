@@ -232,12 +232,12 @@ public class LOTRPlayerData
 		}
 	}
 	
-	public void addAlignment(LOTRAlignmentValues.Bonus alignmentSource, LOTRFaction faction, Entity entity)
+	public void addAlignment(LOTRAlignmentValues.AlignmentBonus alignmentSource, LOTRFaction faction, Entity entity)
 	{
 		addAlignment(alignmentSource, faction, entity.posX, entity.boundingBox.minY + (double)entity.height / 1.5D, entity.posZ);
 	}
 	
-	public void addAlignment(LOTRAlignmentValues.Bonus alignmentSource, LOTRFaction faction, double posX, double posY, double posZ)
+	public void addAlignment(LOTRAlignmentValues.AlignmentBonus alignmentSource, LOTRFaction faction, double posX, double posY, double posZ)
 	{
 		if (!faction.allowPlayer)
 		{
@@ -268,7 +268,7 @@ public class LOTRPlayerData
 				int alignment = getAlignment(nextFaction);
 				int factionBonus = -Math.abs(bonus);
 				
-				factionBonus = LOTRAlignmentValues.Bonus.scalePenalty(factionBonus, alignment);
+				factionBonus = LOTRAlignmentValues.AlignmentBonus.scalePenalty(factionBonus, alignment);
 				
 				alignment += factionBonus;
 				setAlignment(nextFaction, alignment);
@@ -286,7 +286,7 @@ public class LOTRPlayerData
 		}
 	}
 	
-	private void sendAlignmentBonusPacket(LOTRAlignmentValues.Bonus alignmentSource, int bonus, LOTRFaction faction, double posX, double posY, double posZ)
+	private void sendAlignmentBonusPacket(LOTRAlignmentValues.AlignmentBonus alignmentSource, int bonus, LOTRFaction faction, double posX, double posY, double posZ)
 	{
 		EntityPlayer entityplayer = getPlayer();
 		if (entityplayer != null)

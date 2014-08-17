@@ -1,16 +1,8 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILeapAtTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
@@ -50,7 +42,7 @@ public class LOTREntityMirkwoodSpider extends LOTREntitySpiderBase
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.MIRKWOOD_SPIDER_BONUS;
+		return LOTRAlignmentValues.Bonuses.MIRKWOOD_SPIDER;
 	}
 	
 	@Override

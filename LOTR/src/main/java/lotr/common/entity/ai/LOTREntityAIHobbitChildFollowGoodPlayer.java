@@ -41,7 +41,7 @@ public class LOTREntityAIHobbitChildFollowGoodPlayer extends EntityAIBase
 		{
 			EntityPlayer playerCandidate = (EntityPlayer)iterator.next();
 
-			if (LOTRLevelData.getData(playerCandidate).getAlignment(theHobbit.getFaction()) >= LOTRAlignmentValues.HOBBIT_CHILD_FOLLOW)
+			if (LOTRLevelData.getData(playerCandidate).getAlignment(theHobbit.getFaction()) >= LOTRAlignmentValues.Levels.HOBBIT_CHILD_FOLLOW)
 			{
 				double d = theHobbit.getDistanceSqToEntity(playerCandidate);
 

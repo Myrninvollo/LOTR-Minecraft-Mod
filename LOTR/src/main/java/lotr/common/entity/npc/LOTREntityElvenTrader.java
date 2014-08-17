@@ -77,7 +77,7 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.GALADHRIM_TRADER_BONUS;
+		return LOTRAlignmentValues.Bonuses.GALADHRIM_TRADER;
 	}
 	
 	@Override
@@ -122,7 +122,7 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.ELVEN_TRADER_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.ELVEN_TRADER_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

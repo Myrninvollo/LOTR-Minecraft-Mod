@@ -23,7 +23,7 @@ public class LOTREntityAINearestAttackableTargetTroll extends LOTREntityAINeares
     protected boolean isPlayerSuitableTarget(EntityPlayer entityplayer)
     {
 		int alignment = LOTRLevelData.getData(entityplayer).getAlignment(LOTRMod.getNPCFaction(taskOwner));
-		if (alignment >= LOTRAlignmentValues.TROLL_TRUST)
+		if (alignment >= LOTRAlignmentValues.Levels.TROLL_TRUST)
 		{
 			return false;
 		}

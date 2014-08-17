@@ -205,7 +205,7 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.GALADHRIM_BONUS;
+		return LOTRAlignmentValues.Bonuses.GALADHRIM;
 	}
 	
 	@Override

@@ -50,7 +50,7 @@ public class LOTREntityGondorianCaptain extends LOTREntityGondorSoldier implemen
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.GONDOR_CAPTAIN_BONUS;
+		return LOTRAlignmentValues.Bonuses.GONDOR_CAPTAIN;
 	}
 	
 	@Override
@@ -62,7 +62,7 @@ public class LOTREntityGondorianCaptain extends LOTREntityGondorSoldier implemen
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.GONDORIAN_CAPTAIN_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.GONDORIAN_CAPTAIN_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

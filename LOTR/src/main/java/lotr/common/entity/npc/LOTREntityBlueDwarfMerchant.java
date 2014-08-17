@@ -1,10 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRLevelData;
-import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
-import lotr.common.world.biome.LOTRBiome;
+import lotr.common.*;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -40,13 +36,13 @@ public class LOTREntityBlueDwarfMerchant extends LOTREntityBlueDwarf implements 
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.BLUE_DWARF_MERCHANT_BONUS;
+		return LOTRAlignmentValues.Bonuses.BLUE_DWARF_MERCHANT;
 	}
 	
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.BLUE_DWARF_MERCHANT_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.BLUE_DWARF_MERCHANT_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

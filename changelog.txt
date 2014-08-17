@@ -22,6 +22,7 @@ Public Beta 20
 + Added hireable Wood-elven Elk Cavalry
 + Added the option to set hired NPCs' guard range to 0 in order to keep them stationed
 + Added a separate 'Gondor Tower Guard' NPC that wears the winged helmet
++ Added travelling merchants of Near Harad
 + Added feet to the hobbit model
 + Added a rendered box to show the protection range of banners in debug mode
 + Added hover text for Middle-earth achievements in the chat screen
@@ -49,6 +50,7 @@ Public Beta 20
 * Invasions are now announced to all nearby enemy players
 * Actually fixed dwarven merchants not spawning
 * Travelling traders will no longer attempt to spawn near enemy players
+* Desert scorpions in Harad spawn above ground less often
 * Fixed the alignment command message specifying the wrong player name
 
 - Removed Middle-earth capes

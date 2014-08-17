@@ -80,6 +80,6 @@ public class LOTREntityWoodElfWarrior extends LOTREntityWoodElfScout
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.WOOD_ELF_WARRIOR_BONUS;
+		return LOTRAlignmentValues.Bonuses.WOOD_ELF_WARRIOR;
 	}
 }

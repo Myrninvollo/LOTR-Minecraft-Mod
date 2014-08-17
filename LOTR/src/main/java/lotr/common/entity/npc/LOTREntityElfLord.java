@@ -35,7 +35,7 @@ public class LOTREntityElfLord extends LOTREntityElfWarrior implements LOTRUnitT
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.GALADHRIM_LORD_BONUS;
+		return LOTRAlignmentValues.Bonuses.GALADHRIM_LORD;
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class LOTREntityElfLord extends LOTREntityElfWarrior implements LOTRUnitT
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.ELF_LORD_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.ELF_LORD_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

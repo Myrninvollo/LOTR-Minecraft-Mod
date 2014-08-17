@@ -109,7 +109,7 @@ public class LOTREntityUrukHai extends LOTREntityOrc
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.URUK_HAI_BONUS;
+		return LOTRAlignmentValues.Bonuses.URUK_HAI;
 	}
 	
 	@Override

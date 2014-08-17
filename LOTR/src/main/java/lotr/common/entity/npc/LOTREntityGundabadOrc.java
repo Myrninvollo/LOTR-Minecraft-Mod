@@ -229,6 +229,6 @@ public class LOTREntityGundabadOrc extends LOTREntityOrc
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.GUNDABAD_ORC_BONUS;
+		return LOTRAlignmentValues.Bonuses.GUNDABAD_ORC;
 	}
 }

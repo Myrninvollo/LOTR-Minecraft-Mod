@@ -55,6 +55,6 @@ public class LOTREntityBlueDwarfWarrior extends LOTREntityBlueDwarf
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.BLUE_DWARF_WARRIOR_BONUS;
+		return LOTRAlignmentValues.Bonuses.BLUE_DWARF_WARRIOR;
 	}
 }

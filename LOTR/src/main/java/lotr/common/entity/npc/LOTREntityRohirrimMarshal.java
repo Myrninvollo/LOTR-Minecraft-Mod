@@ -49,7 +49,7 @@ public class LOTREntityRohirrimMarshal extends LOTREntityRohirrim implements LOT
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.ROHIRRIM_MARSHAL_BONUS;
+		return LOTRAlignmentValues.Bonuses.ROHIRRIM_MARSHAL;
 	}
 	
 	@Override
@@ -61,7 +61,7 @@ public class LOTREntityRohirrimMarshal extends LOTREntityRohirrim implements LOT
 	@Override
 	public boolean canTradeWith(EntityPlayer entityplayer)
 	{
-		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.ROHIRRIM_MARSHAL_TRADE && isFriendly(entityplayer);
+		return LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.ROHIRRIM_MARSHAL_TRADE && isFriendly(entityplayer);
 	}
 	
 	@Override

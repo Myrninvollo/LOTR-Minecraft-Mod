@@ -64,7 +64,7 @@ public class LOTREntityNearHaradrimWarrior extends LOTREntityNearHaradrim
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.NEAR_HARADRIM_WARRIOR_BONUS;
+		return LOTRAlignmentValues.Bonuses.NEAR_HARADRIM_WARRIOR;
 	}
 	
 	@Override

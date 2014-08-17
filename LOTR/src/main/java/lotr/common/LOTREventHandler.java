@@ -1318,11 +1318,11 @@ public class LOTREventHandler implements IFuelHandler
 				LOTRFaction entityFaction = LOTRMod.getNPCFaction(entity);
 				int prevAlignment = LOTRLevelData.getData(entityplayer).getAlignment(entityFaction);
 						
-				LOTRAlignmentValues.Bonus alignmentBonus = null;
+				LOTRAlignmentValues.AlignmentBonus alignmentBonus = null;
 				if (entity instanceof LOTREntityNPC)
 				{
 					LOTREntityNPC npc = (LOTREntityNPC)entity;
-					alignmentBonus = new LOTRAlignmentValues.Bonus(npc.getAlignmentBonus(), npc.getEntityClassName());
+					alignmentBonus = new LOTRAlignmentValues.AlignmentBonus(npc.getAlignmentBonus(), npc.getEntityClassName());
 					alignmentBonus.needsTranslation = true;
 				}
 				else

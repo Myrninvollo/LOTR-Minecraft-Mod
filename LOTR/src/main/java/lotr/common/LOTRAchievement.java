@@ -56,7 +56,7 @@ public class LOTRAchievement implements Comparable
 		OROCARNI;
 		
 		private String displayName;
-		public ArrayList list = new ArrayList();
+		public List<LOTRAchievement> list = new ArrayList();
 		
 		private Category()
 		{
@@ -94,6 +94,15 @@ public class LOTRAchievement implements Comparable
 		ID = i;
 		icon = itemstack;
 		name = s;
+		
+		for (LOTRAchievement achievement : category.list)
+		{
+			if (achievement.ID == ID)
+			{
+				throw new IllegalArgumentException("Duplicate ID " + ID + " for LOTR achievement category " + category.name());
+			}
+		}
+		
 		category.list.add(this);
 		allAchievements.add(this);
 	}
@@ -493,6 +502,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement tradeNearHaradWarlord;
 	public static LOTRAchievement rideCamel;
 	public static LOTRAchievement tradeBazaarTrader;
+	public static LOTRAchievement tradeNearHaradMerchant;
 	
 	public static LOTRAchievement enterUmbar;
 	
@@ -800,6 +810,7 @@ public class LOTRAchievement implements Comparable
 		tradeNearHaradWarlord = new LOTRAchievement(NEAR_HARAD, 8, LOTRMod.silverCoin, "tradeNearHaradWarlord").setRequiresAlly(LOTRFaction.NEAR_HARAD);
 		rideCamel = new LOTRAchievement(NEAR_HARAD, 9, Items.saddle, "rideCamel");
 		tradeBazaarTrader = new LOTRAchievement(NEAR_HARAD, 10, LOTRMod.silverCoin, "tradeBazaarTrader").setRequiresAlly(LOTRFaction.NEAR_HARAD);
+		tradeNearHaradMerchant = new LOTRAchievement(NEAR_HARAD, 11, LOTRMod.silverCoin, "tradeNearHaradMerchant").setRequiresAlly(LOTRFaction.NEAR_HARAD);
 
 		enterUmbar = new LOTRAchievement(UMBAR, 0, Blocks.grass, "enterUmbar").setBiomeAchievement();
 

@@ -52,7 +52,7 @@ public class LOTREntityAINPCAvoidEvilPlayer extends EntityAIBase
 				continue;
 			}
 			int alignment = LOTRLevelData.getData(entityplayer).getAlignment(theNPC.getFaction());
-			if ((theNPC.familyInfo.getNPCAge() < 0 && alignment < 0) || (theNPC instanceof LOTREntityHobbit && alignment <= LOTRAlignmentValues.HOBBIT_FLEE))
+			if ((theNPC.familyInfo.getNPCAge() < 0 && alignment < 0) || (theNPC instanceof LOTREntityHobbit && alignment <= LOTRAlignmentValues.Levels.HOBBIT_FLEE))
 			{
 				validPlayers.add(entityplayer);
 			}

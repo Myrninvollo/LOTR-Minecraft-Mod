@@ -123,7 +123,7 @@ public class LOTREntityWoodElfScout extends LOTREntityWoodElf
 	@Override
 	public int getAlignmentBonus()
 	{
-		return LOTRAlignmentValues.WOOD_ELF_WARRIOR_BONUS;
+		return LOTRAlignmentValues.Bonuses.WOOD_ELF_WARRIOR;
 	}
 	
 	@Override
@@ -152,7 +152,7 @@ public class LOTREntityWoodElfScout extends LOTREntityWoodElf
 			}
 			else
 			{
-				if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.WOOD_ELF_TRUST)
+				if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.WOOD_ELF_TRUST)
 				{
 					return "woodElfWarrior_friendly";
 				}

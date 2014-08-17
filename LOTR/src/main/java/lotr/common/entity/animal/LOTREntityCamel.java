@@ -3,6 +3,8 @@ package lotr.common.entity.animal;
 import lotr.common.*;
 import lotr.common.world.biome.LOTRBiomeGenNearHarad.ImmuneToHeat;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class LOTREntityCamel extends LOTREntityHorse implements ImmuneToHeat
@@ -28,6 +30,12 @@ public class LOTREntityCamel extends LOTREntityHorse implements ImmuneToHeat
 	}
 	
 	@Override
+	public boolean isBreedingItem(ItemStack itemstack)
+    {
+        return itemstack != null && itemstack.getItem() == Items.wheat;
+    }
+	
+	@Override
 	public void onLivingUpdate()
 	{
 		super.onLivingUpdate();
@@ -40,28 +48,4 @@ public class LOTREntityCamel extends LOTREntityHorse implements ImmuneToHeat
 			}
 		}
 	}
-	
-	@Override
-    protected String getLivingSound()
-    {
-		return "";
-    }
-	
-	@Override
-    protected String getHurtSound()
-    {
-		return "";
-    }
-	
-	@Override
-    protected String getDeathSound()
-    {
-		return "";
-    }
-	
-	@Override
-    protected String getAngrySoundName()
-    {
-		return "";
-    }
 }

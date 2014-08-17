@@ -15,7 +15,7 @@ public class LOTRRenderGiraffe extends RenderLiving
     public LOTRRenderGiraffe()
     {
         super(new LOTRModelGiraffe(0F), 0.5F);
-        setRenderPassModel(new LOTRModelGiraffe(1F));
+        setRenderPassModel(new LOTRModelGiraffe(0.5F));
     }
 	
 	@Override

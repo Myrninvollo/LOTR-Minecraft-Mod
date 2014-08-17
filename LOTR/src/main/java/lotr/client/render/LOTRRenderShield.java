@@ -6,6 +6,7 @@ import lotr.common.item.LOTRItemArmor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
@@ -18,18 +19,18 @@ public class LOTRRenderShield
 	private static int SHIELD_HEIGHT = 32;
 	private static float MODELSCALE = 0.0625F;
 
-	public static void renderShield(LOTRShields shield, EntityPlayer entityplayer, ModelBiped model)
+	public static void renderShield(LOTRShields shield, EntityLivingBase entity, ModelBiped model)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
 		ResourceLocation shieldTexture = shield.shieldTexture;
 		
-		ItemStack held = entityplayer.getCurrentEquippedItem();
-		ItemStack inUse = entityplayer.getItemInUse();
-		boolean holdingSword = held != null && held.getItem() instanceof ItemSword && (inUse == null || inUse.getItemUseAction() != EnumAction.bow);
+		ItemStack held = entity == null ? null : entity.getHeldItem();
+		ItemStack inUse = entity instanceof EntityPlayer ? ((EntityPlayer)entity).getItemInUse() : held;
+		boolean holdingSword = entity == null ? true : (held != null && held.getItem() instanceof ItemSword && (inUse == null || inUse.getItemUseAction() != EnumAction.bow));
 		boolean blocking = holdingSword && inUse != null && inUse.getItemUseAction() == EnumAction.block;
 		
-		ItemStack chestplate = entityplayer.getEquipmentInSlot(3);
-		boolean wearingChestplate = chestplate != null && chestplate.getItem().isValidArmor(chestplate, ((LOTRItemArmor)LOTRMod.bodyMithril).armorType, entityplayer);
+		ItemStack chestplate = entity == null ? null : entity.getEquipmentInSlot(3);
+		boolean wearingChestplate = chestplate != null && chestplate.getItem().isValidArmor(chestplate, ((LOTRItemArmor)LOTRMod.bodyMithril).armorType, entity);
 		
 		GL11.glPushMatrix();
 		GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -37,6 +38,10 @@ public class LOTRRenderShield
 		if (holdingSword)
 		{
 			model.bipedLeftArm.postRender(MODELSCALE);
+		}
+		else
+		{
+			model.bipedBody.postRender(MODELSCALE);
 		}
 		
 		GL11.glScalef(-1.5F, -1.5F, 1.5F);
@@ -46,7 +51,7 @@ public class LOTRRenderShield
 			if (blocking)
 			{
 				GL11.glRotatef(10F, 0F, 1F, 0F);
-				GL11.glTranslatef(-0.4F, -0.9F, -0.2F);
+				GL11.glTranslatef(-0.4F, -0.9F, -0.15F);
 			}
 			else
 			{
@@ -54,21 +59,27 @@ public class LOTRRenderShield
 				GL11.glTranslatef(-0.5F, -0.75F, 0F);
 				if (wearingChestplate)
 				{
-					GL11.glTranslatef(0F, 0F, -0.23F);
+					GL11.glTranslatef(0F, 0F, -0.22F);
 				}
 				else
 				{
-					GL11.glTranslatef(0F, 0F, -0.15F);
+					GL11.glTranslatef(0F, 0F, -0.16F);
 				}
 				GL11.glRotatef(-15F, 0F, 0F, 1F);
 			}
 		}
 		else
 		{
-			//GL11.glTranslatef
-			GL11.glTranslatef(0F, 0F, 0.125F);
+			GL11.glTranslatef(0.5F, -0.8F, 0F);
+			if (wearingChestplate)
+			{
+				GL11.glTranslatef(0F, 0F, 0.18F);
+			}
+			else
+			{
+				GL11.glTranslatef(0F, 0F, 0.1F);
+			}
 			GL11.glRotatef(180F, 0F, 1F, 0F);
-			GL11.glRotatef(20F, 1F, 0F, 0F);
 		}
 		
 		mc.getTextureManager().bindTexture(shieldTexture);

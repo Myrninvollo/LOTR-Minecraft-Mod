@@ -2,7 +2,7 @@ package lotr.common.item;
 
 import lotr.common.LOTRCreativeTabs;
 import lotr.common.LOTRReflection;
-import lotr.common.entity.animal.LOTREntityElk;
+import lotr.common.entity.animal.*;
 import lotr.common.entity.npc.LOTREntityWarg;
 import lotr.common.entity.npc.LOTRNPCMount;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -21,7 +21,9 @@ public class LOTRItemMountArmor extends Item
 		ELK,
 		BOAR,
 		CAMEL,
-		WARG;
+		WARG,
+		GIRAFFE,
+		RHINO;
 	}
 	
 	private ArmorMaterial armorMaterial;
@@ -100,9 +102,25 @@ public class LOTRItemMountArmor extends Item
 		{
 			return mountType == Mount.ELK;
 		}
+		if (mount instanceof LOTREntityWildBoar)
+		{
+			return mountType == Mount.BOAR;
+		}
+		if (mount instanceof LOTREntityCamel)
+		{
+			return mountType == Mount.CAMEL;
+		}
 		if (mount instanceof LOTREntityWarg)
 		{
 			return mountType == Mount.WARG;
+		}
+		if (mount instanceof LOTREntityGiraffe)
+		{
+			return mountType == Mount.GIRAFFE;
+		}
+		if (mount instanceof LOTREntityRhino)
+		{
+			return mountType == Mount.RHINO;
 		}
 		return mountType == Mount.HORSE;
 	}

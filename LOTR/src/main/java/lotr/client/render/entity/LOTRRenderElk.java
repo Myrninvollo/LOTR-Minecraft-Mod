@@ -1,8 +1,6 @@
 package lotr.client.render.entity;
 
-import lotr.client.model.LOTRModelCamel;
 import lotr.client.model.LOTRModelElk;
-import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.animal.LOTREntityElk;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;

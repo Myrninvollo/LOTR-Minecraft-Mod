@@ -1,6 +1,9 @@
 package lotr.common.entity.animal;
 
+import lotr.common.LOTRMod;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class LOTREntityElk extends LOTREntityHorse
@@ -24,4 +27,10 @@ public class LOTREntityElk extends LOTREntityHorse
 		maxHealth = (double)(maxHealth * (1F + rand.nextFloat() * 0.5F));
 		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
 	}
+	
+	@Override
+	public boolean isBreedingItem(ItemStack itemstack)
+    {
+        return itemstack != null && itemstack.getItem() == Items.wheat;
+    }
 }

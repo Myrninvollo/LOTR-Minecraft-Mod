@@ -37,11 +37,13 @@ public class LOTREntityShirePony extends LOTREntityHorse
 	@Override
 	protected void onLOTRHorseSpawn()
 	{
-        double jumpStrength = getEntityAttribute(LOTRReflection.getHorseJumpStrength()).getBaseValue();
-        getEntityAttribute(LOTRReflection.getHorseJumpStrength()).setBaseValue(jumpStrength * 0.5D);
+		double jumpStrength = getEntityAttribute(LOTRReflection.getHorseJumpStrength()).getAttributeValue();
+		jumpStrength *= 0.5D;
+		getEntityAttribute(LOTRReflection.getHorseJumpStrength()).setBaseValue(jumpStrength);
         
 		double moveSpeed = getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue();
-        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(moveSpeed * 0.8D);
+		moveSpeed *= 0.8D;
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(moveSpeed);
 	}
 	
 	@Override
@@ -60,7 +62,7 @@ public class LOTREntityShirePony extends LOTREntityHorse
 	
 	@Override
     protected String getLivingSound()
-    {
+	{
 		return "mob.horse.idle";
     }
 	

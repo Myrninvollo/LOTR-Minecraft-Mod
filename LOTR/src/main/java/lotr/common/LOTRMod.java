@@ -1959,7 +1959,7 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityUrukWargBombardier.class, "UrukWargBombardier", 85, 0x463329, 0x291D16);
 		LOTREntities.registerCreature(LOTREntityLion.class, "Lion", 86, 0xCBA24A, 0xA56230);
 		LOTREntities.registerCreature(LOTREntityLioness.class, "Lioness", 87, 0xCBA85C, 0xAB7C42);
-		LOTREntities.registerCreature(LOTREntityGiraffe.class, "Giraffe", 88, 0xF2B438, 0x604006);
+		LOTREntities.registerCreature(LOTREntityGiraffe.class, "Giraffe", 88, 0xCFA667, 0x6A4B20);
 		LOTREntities.registerCreature(LOTREntityZebra.class, "Zebra", 89, 0xE4E4E4, 0x423934);
 		LOTREntities.registerCreature(LOTREntityRhino.class, "Rhino", 90, 0x5D5C51, 0xB9B79D);
 		LOTREntities.registerCreature(LOTREntityCrocodile.class, "Crocodile", 91, 0x2C3313, 0x0F0F06);
@@ -2069,8 +2069,8 @@ public class LOTRMod
 		LOTRReflection.testAll(world);
 		
 		//world.getGameRules().addGameRule("allowPVPBetweenSameAlignment", "true");
-		world.getGameRules().addGameRule("enableOrcSkirmish", "true");
-		world.getGameRules().addGameRule("enableMiddleEarthRespawning", "true");
+		//world.getGameRules().addGameRule("enableOrcSkirmish", "true");
+		//world.getGameRules().addGameRule("enableMiddleEarthRespawning", "true");
 		
 		event.registerServerCommand(new LOTRCommandAlignment());
 		event.registerServerCommand(new LOTRCommandFastTravelTimer());

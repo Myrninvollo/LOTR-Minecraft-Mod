@@ -1,5 +1,7 @@
 package lotr.common.entity.animal;
 
+import java.util.List;
+
 import lotr.common.*;
 import lotr.common.entity.LOTREntities;
 import lotr.common.entity.ai.*;
@@ -8,6 +10,8 @@ import lotr.common.entity.npc.LOTRNPCMount;
 import lotr.common.item.LOTRItemMountArmor;
 import lotr.common.world.biome.LOTRBiomeGenRohan;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -25,6 +29,9 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 {
 	private boolean isMoving;
 	private ItemStack prevMountArmor;
+	private EntityAIBase attackAI;
+	private EntityAIBase panicAI;
+	private boolean prevIsChild = true;
 	
     public LOTREntityHorse(World world)
     {
@@ -32,7 +39,28 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		tasks.addTask(0, new LOTREntityAIHiredHorseRemainStill(this));
 		tasks.addTask(0, new LOTREntityAIHorseMoveToRiderTarget(this));
 		tasks.addTask(0, new LOTREntityAIHorseFollowHiringPlayer(this));
+		
+		EntityAITaskEntry panic = removeTask(EntityAIPanic.class);
+		tasks.addTask(panic.priority, panic.action);
+		panicAI = panic.action;
+		
+		attackAI = createMountAttackAI();
+		
+		if (isMountHostile())
+		{
+			targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		}
     }
+    
+    protected EntityAIBase createMountAttackAI()
+    {
+    	return null;
+    }
+    
+	protected boolean isMountHostile()
+	{
+		return false;
+	}
     
 	@Override
 	protected void entityInit()
@@ -41,6 +69,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		dataWatcher.addObject(25, Byte.valueOf((byte)0));
 		dataWatcher.addObject(26, Byte.valueOf((byte)1));
 		dataWatcher.addObject(27, Integer.valueOf(0));
+		dataWatcher.addObject(28, Byte.valueOf((byte)0));
 	}
 	
 	@Override
@@ -48,6 +77,10 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
     {
         super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20D);
+		if (isMountHostile())
+		{
+			getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
+		}
     }
 
 	@Override
@@ -57,6 +90,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		{
 			data = super.onSpawnWithEgg(data);
 			onLOTRHorseSpawn();
+			setHealth(getMaxHealth());
 			return data;
 		}
 		else
@@ -93,7 +127,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 			getEntityAttribute(LOTRReflection.getHorseJumpStrength()).setBaseValue(jumpStrength);
 		}
 	}
-	
+
 	public boolean getBelongsToNPC()
 	{
 		return dataWatcher.getWatchableObjectByte(25) == (byte)1;
@@ -153,6 +187,16 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		{
 			dataWatcher.updateObject(27, Integer.valueOf(Item.getIdFromItem(itemstack.getItem())));
 		}
+	}
+	
+	public boolean isMountEnraged()
+	{
+		return dataWatcher.getWatchableObjectByte(28) == (byte)1;
+	}
+	
+	public void setMountEnraged(boolean flag)
+	{
+		dataWatcher.updateObject(28, Byte.valueOf(flag ? (byte)1 : (byte)0));
 	}
 	
 	@Override
@@ -224,7 +268,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 			prevMountArmor = armor;
 			setMountArmorWatched(armor);
 		}
-		
+
 		super.onLivingUpdate();
 		
 		if (!worldObj.isRemote && riddenByEntity instanceof EntityPlayer && isInWater())
@@ -235,6 +279,61 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 				isAirBorne = true;
 	        }
 		}
+		
+		if (!worldObj.isRemote && isMountHostile())
+		{
+			boolean isChild = isChild();
+			if (isChild != prevIsChild)
+			{
+				if (isChild)
+				{
+					EntityAITaskEntry taskEntry = removeTask(attackAI.getClass());
+					tasks.addTask(taskEntry.priority, panicAI);
+				}
+				else
+				{
+					EntityAITaskEntry taskEntry = removeTask(panicAI.getClass());
+					tasks.addTask(taskEntry.priority, attackAI);
+				}
+			}
+			
+			if (getAttackTarget() != null)
+			{
+				EntityLivingBase target = getAttackTarget();
+				if (!target.isEntityAlive() || (target instanceof EntityPlayer && ((EntityPlayer)target).capabilities.isCreativeMode))
+				{
+					setAttackTarget(null);
+				}
+			}
+			
+			if (riddenByEntity instanceof EntityLiving)
+			{
+				EntityLivingBase target = ((EntityLiving)riddenByEntity).getAttackTarget();
+				setAttackTarget(target);
+			}
+			else if (riddenByEntity instanceof EntityPlayer)
+			{
+				setAttackTarget(null);
+			}
+			
+			setMountEnraged(getAttackTarget() != null);
+		}
+		
+		prevIsChild = isChild();
+	}
+	
+	private EntityAITaskEntry removeTask(Class c)
+	{
+		for (int i = 0; i < tasks.taskEntries.size(); i++)
+		{
+			EntityAITaskEntry taskEntry = (EntityAITaskEntry)tasks.taskEntries.get(i);
+			if (c.isAssignableFrom(taskEntry.action.getClass()))
+			{
+				tasks.removeTask(taskEntry.action);
+				return taskEntry;
+			}
+		}
+		return null;
 	}
 	
 	@Override
@@ -314,7 +413,11 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		{
 			return false;
 		}
-		else if (getBelongsToNPC())
+		if (isMountEnraged())
+		{
+			return false;
+		}
+		if (getBelongsToNPC())
 		{
 			if (riddenByEntity == null)
 			{
@@ -329,7 +432,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		else
 		{
 			ItemStack itemstack = entityplayer.getHeldItem();
-	        if (itemstack != null && isBreedingItem(itemstack) && getGrowingAge() == 0 && !isInLove())
+	        if (itemstack != null && isBreedingItem(itemstack) && getGrowingAge() == 0 && !isInLove() && isTame())
 	        {
 	            if (!entityplayer.capabilities.isCreativeMode)
 	            {
@@ -352,6 +455,42 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		}
 		return flag;
 	}
+	
+	@Override
+    public boolean attackEntityAsMob(Entity entity)
+    {
+        float f = (float)getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+        boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), f);
+        return flag;
+    }
+	
+	
+	@Override
+    public boolean attackEntityFrom(DamageSource damagesource, float f)
+    {
+		boolean flag = super.attackEntityFrom(damagesource, f);
+		if (flag && isChild() && isMountHostile())
+		{
+			Entity attacker = damagesource.getEntity();
+			if (attacker instanceof EntityLivingBase)
+			{
+				List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.expand(12D, 12D, 12D));
+	            for (int j = 0; j < list.size(); j++)
+	            {
+					Entity entity = (Entity)list.get(j);
+					if (entity.getClass() == getClass())
+					{
+						LOTREntityHorse mount = (LOTREntityHorse)entity;
+						if (!mount.isChild() && !mount.isTame())
+						{
+							mount.setAttackTarget((EntityLivingBase)attacker);
+						}
+					}
+				}
+			}
+		}
+        return flag;
+    }
 	
 	@Override
 	public void openGUI(EntityPlayer entityplayer)

@@ -462,11 +462,6 @@ public abstract class LOTREntityNPC extends EntityCreature
 			{
 				entityAge += 2;
 			}
-
-			if (!worldObj.isRemote && worldObj.difficultySetting == EnumDifficulty.PEACEFUL)
-			{
-				setDead();
-			}
 		}
 		
 		updateArmSwingProgress();

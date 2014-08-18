@@ -108,8 +108,8 @@ public class LOTRWorldGenRuinedGondorTower extends LOTRWorldGenStructureBase
 		
 		if (random.nextInt(3) != 0)
 		{
-			setBlockAndNotifyAdequately(world, i + 2, j + 6, k - 2, Blocks.bed, 10);
-			setBlockAndNotifyAdequately(world, i + 2, j + 6, k - 1, Blocks.bed, 2);
+			setBlockAndNotifyAdequately(world, i + 2, j + 6, k - 2, LOTRMod.strawBed, 10);
+			setBlockAndNotifyAdequately(world, i + 2, j + 6, k - 1, LOTRMod.strawBed, 2);
 		}
 		
 		if (random.nextBoolean())

@@ -26,7 +26,7 @@ public class LOTRRenderShield
 		
 		ItemStack held = entity == null ? null : entity.getHeldItem();
 		ItemStack inUse = entity instanceof EntityPlayer ? ((EntityPlayer)entity).getItemInUse() : held;
-		boolean holdingSword = entity == null ? true : (held != null && held.getItem() instanceof ItemSword && (inUse == null || inUse.getItemUseAction() != EnumAction.bow));
+		boolean holdingSword = entity == null ? true : (held != null && (held.getItem() instanceof ItemSword || held.getItem() instanceof ItemTool) && (inUse == null || inUse.getItemUseAction() != EnumAction.bow));
 		boolean blocking = holdingSword && inUse != null && inUse.getItemUseAction() == EnumAction.block;
 		
 		ItemStack chestplate = entity == null ? null : entity.getEquipmentInSlot(3);

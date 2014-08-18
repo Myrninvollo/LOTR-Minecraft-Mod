@@ -2,12 +2,15 @@ package lotr.common.block;
 
 import java.util.Random;
 
+import lotr.common.entity.animal.LOTREntityDesertScorpion;
+import lotr.common.entity.npc.LOTREntityHaradPyramidWraith;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.tileentity.LOTRTileEntitySpawnerChest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -101,6 +104,25 @@ public class LOTRBlockSpawnerChest extends BlockChest
 			}
 			world.spawnEntityInWorld(entityliving);
 			world.playSoundAtEntity(entityliving, "lotr:wraith.spawn", 1F, 0.7F + (world.rand.nextFloat() * 0.6F));
+			
+			if (entityliving instanceof LOTREntityHaradPyramidWraith)
+			{
+				for (int l = 0; l < 4; l++)
+				{
+					LOTREntityDesertScorpion desertScorpion = new LOTREntityDesertScorpion(world);
+					desertScorpion.pyramidSpawned = true;
+					double d = entityliving.posX - world.rand.nextDouble() * 3D + world.rand.nextDouble() * 3D;
+					double d1 = entityliving.posY;
+					double d2 = entityliving.posZ - world.rand.nextDouble() * 3D + world.rand.nextDouble() * 3D;
+					desertScorpion.setLocationAndAngles(d, d1, d2, world.rand.nextFloat() * 360F, 0F);
+					if (desertScorpion.getCanSpawnHere())
+					{
+						world.spawnEntityInWorld(desertScorpion);
+					}
+				}
+				
+				world.addWeatherEffect(new EntityLightningBolt(world, entityliving.posX, entityliving.posY, entityliving.posZ));
+			}
 		}
 	}
 	

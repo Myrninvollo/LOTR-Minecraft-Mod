@@ -81,6 +81,8 @@ public class LOTRChestContents
 	
 	public static LOTRChestContents NEAR_HARAD_TOWER;
 	
+	public static LOTRChestContents NEAR_HARAD_PYRAMID;
+	
 	public int minItems;
 	public int maxItems;
 	public WeightedRandomChestContent[] items;
@@ -869,5 +871,26 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(Items.compass), 1, 1, 25),
 			new WeightedRandomChestContent(new ItemStack(Items.saddle), 1, 1, 25)
 		}).enablePouches();
+		
+		NEAR_HARAD_PYRAMID = new LOTRChestContents(8, 10, new WeightedRandomChestContent[]
+		{
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.helmetNearHarad), 1, 1, 5),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.bodyNearHarad), 1, 1, 5),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.legsNearHarad), 1, 1, 5),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.bootsNearHarad), 1, 1, 5),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.scimitarNearHarad), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.nearHaradBow), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(Items.gold_ingot), 1, 8, 50),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.silver), 1, 8, 50),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.bronze), 1, 8, 50),
+			new WeightedRandomChestContent(new ItemStack(Items.iron_ingot), 1, 8, 50),
+			new WeightedRandomChestContent(new ItemStack(Items.diamond), 1, 4, 25),
+			new WeightedRandomChestContent(new ItemStack(Items.dye, 1, 4), 1, 8, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mithrilNugget), 1, 8, 10),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.goldRing), 1, 2, 10),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.silverRing), 1, 2, 10),
+			new WeightedRandomChestContent(new ItemStack(Items.bone), 1, 3, 10),
+			new WeightedRandomChestContent(new ItemStack(Items.rotten_flesh), 1, 3, 10)
+		});
 	}
 }

@@ -581,17 +581,17 @@ public enum LOTRFaction
 		killNegatives.add(f);
 	}
 	
-	public boolean isEnemy(LOTRFaction f)
+	public boolean isEnemy(LOTRFaction other)
 	{
-		if (this == HOSTILE || f == HOSTILE)
-		{
-			return true;
-		}
-		if (this == UNALIGNED || f == UNALIGNED)
+		if (this == UNALIGNED || other == UNALIGNED)
 		{
 			return false;
 		}
-		return enemies.contains(f);
+		if (this == HOSTILE || other == HOSTILE)
+		{
+			return true;
+		}
+		return enemies.contains(other);
 	}
 	
 	public String factionName()

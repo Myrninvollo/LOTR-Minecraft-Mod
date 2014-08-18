@@ -17,11 +17,6 @@ public class LOTREntityNearHaradrimWarrior extends LOTREntityNearHaradrim
 	public LOTREntityNearHaradrimWarrior(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(4);
 		spawnRidingHorse = rand.nextInt(6) == 0;
 	}
 	
@@ -37,12 +32,16 @@ public class LOTREntityNearHaradrimWarrior extends LOTREntityNearHaradrim
     {
 		data = super.onSpawnWithEgg(data);
 		
-		int i = rand.nextInt(5);
+		int i = rand.nextInt(6);
 		if (i == 0)
 		{
 			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerNearHarad));
 		}
 		else if (i == 1)
+		{
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerNearHaradPoisoned));
+		}
+		else if (i == 2)
 		{
 			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.spearNearHarad));
 		}

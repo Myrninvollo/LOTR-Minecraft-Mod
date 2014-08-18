@@ -48,7 +48,7 @@ public class LOTRBiomeGenNearHaradFertile extends LOTRBiome
 		registerPlainsFlowers();
 		
 		decorator.addRandomStructure(new LOTRWorldGenHaradObelisk(false), 3000);
-		decorator.addRandomStructure(new LOTRWorldGenNearHaradVillage(false), 20);
+		decorator.addRandomStructure(new LOTRWorldGenNearHaradVillage(false), 40);
 		decorator.addRandomStructure(new LOTRWorldGenNearHaradFortress(false), 200);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);

@@ -16,14 +16,14 @@ import net.minecraft.world.World;
 public class LOTRRecipeFeatherDye implements IRecipe
 {
     @Override
-    public boolean matches(InventoryCrafting inventory, World world)
+    public boolean matches(InventoryCrafting inv, World world)
     {
         ItemStack feather = null;
         ArrayList dyes = new ArrayList();
 
-        for (int i = 0; i < inventory.getSizeInventory(); i++)
+        for (int i = 0; i < inv.getSizeInventory(); i++)
         {
-            ItemStack itemstack = inventory.getStackInSlot(i);
+            ItemStack itemstack = inv.getStackInSlot(i);
             if (itemstack != null)
             {
                 if (itemstack.getItem() == Items.feather || itemstack.getItem() == LOTRMod.featherDyed)
@@ -32,8 +32,10 @@ public class LOTRRecipeFeatherDye implements IRecipe
 					{
 						return false;
 					}
-
-                    feather = itemstack;
+					else
+					{
+						feather = itemstack;
+					}
                 }
                 else
                 {
@@ -41,8 +43,10 @@ public class LOTRRecipeFeatherDye implements IRecipe
                     {
                         return false;
                     }
-
-                    dyes.add(itemstack);
+                    else
+                    {
+                    	dyes.add(itemstack);
+                    }
                 }
             }
         }
@@ -51,16 +55,16 @@ public class LOTRRecipeFeatherDye implements IRecipe
     }
 
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inventory)
+    public ItemStack getCraftingResult(InventoryCrafting inv)
     {
         ItemStack feather = null;
         int[] rgb = new int[3];
         int totalColor = 0;
         int coloredItems = 0;
 
-        for (int i = 0; i < inventory.getSizeInventory(); i++)
+        for (int i = 0; i < inv.getSizeInventory(); i++)
         {
-            ItemStack itemstack = inventory.getStackInSlot(i);
+            ItemStack itemstack = inv.getStackInSlot(i);
             if (itemstack != null)
             {
                 if (itemstack.getItem() == Items.feather || itemstack.getItem() == LOTRMod.featherDyed)

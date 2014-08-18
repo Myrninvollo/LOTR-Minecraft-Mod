@@ -24,6 +24,7 @@ public abstract class LOTREntitySkeletalWraith extends LOTREntityNPC
 	{
 		super(world);
 		setSize(0.6F, 1.8F);
+        isImmuneToFire = true;
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAIRestrictSun(this));
         tasks.addTask(2, new EntityAIFleeSun(this, 1D));

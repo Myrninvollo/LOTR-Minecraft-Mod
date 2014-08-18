@@ -1,6 +1,7 @@
 package lotr.common.item;
 
 import lotr.common.LOTRCreativeTabs;
+import lotr.common.block.LOTRBlockBed;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -11,14 +12,15 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class LOTRItemBed extends Item
 {
-	private Block theBedBlock;
+	private LOTRBlockBed theBedBlock;
 	
     public LOTRItemBed(Block block)
     {
         super();
 		setMaxStackSize(1);
         setCreativeTab(LOTRCreativeTabs.tabDeco);
-		theBedBlock = block;
+		theBedBlock = (LOTRBlockBed)block;
+		theBedBlock.bedItem = this;
     }
 
     @Override

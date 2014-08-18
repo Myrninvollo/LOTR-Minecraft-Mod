@@ -99,7 +99,7 @@ public class LOTRWorldGenElfLordHouse extends LOTRWorldGenStructureBase
 			
 			LOTRWorldGenMallornLarge treeGen = new LOTRWorldGenMallornLarge(true);
 			int j1 = treeGen.generateWithOptionalForceAndReturnHeight(world, random, i, j, k, true);
-			j += MathHelper.floor_double(j1 * (0.4F + random.nextFloat() * 0.3F));
+			j += MathHelper.floor_double(j1 * MathHelper.randomFloatClamp(random, LOTRWorldGenMallornLarge.HOUSE_HEIGHT_MIN, LOTRWorldGenMallornLarge.HOUSE_HEIGHT_MAX));
 		}
 		
 		buildStaircase(world, i, j, k);

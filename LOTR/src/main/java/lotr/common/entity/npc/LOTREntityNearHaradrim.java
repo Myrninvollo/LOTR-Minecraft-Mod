@@ -5,11 +5,7 @@ import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRFoods;
 import lotr.common.LOTRMod;
-import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
-import lotr.common.entity.ai.LOTREntityAIDrink;
-import lotr.common.entity.ai.LOTREntityAIEat;
-import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
-import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
+import lotr.common.entity.ai.*;
 import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.animal.LOTREntityShirePony;
 import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
@@ -59,8 +55,10 @@ public class LOTREntityNearHaradrim extends LOTREntityNPC implements ImmuneToHea
         tasks.addTask(7, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
         tasks.addTask(8, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
         tasks.addTask(9, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(2);
+		targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
+        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
+        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
+        addTargetTasks(4);
 	}
 	
 	public EntityAIBase createHaradrimAttackAI()

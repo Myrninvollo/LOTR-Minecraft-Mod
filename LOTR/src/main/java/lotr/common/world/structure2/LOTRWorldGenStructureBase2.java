@@ -4,36 +4,15 @@ import java.util.Random;
 
 import lotr.common.LOTRFoods;
 import lotr.common.LOTRMod;
-import lotr.common.block.LOTRBlockArmorStand;
-import lotr.common.block.LOTRBlockBarrel;
-import lotr.common.block.LOTRBlockDwarvenForge;
-import lotr.common.block.LOTRBlockFlowerPot;
-import lotr.common.block.LOTRBlockHobbitOven;
-import lotr.common.block.LOTRBlockMug;
-import lotr.common.block.LOTRBlockOrcForge;
+import lotr.common.block.*;
 import lotr.common.entity.LOTREntities;
 import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.item.LOTREntityBannerWall;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.recipe.LOTRBrewingRecipes;
-import lotr.common.tileentity.LOTRTileEntityArmorStand;
-import lotr.common.tileentity.LOTRTileEntityBarrel;
-import lotr.common.tileentity.LOTRTileEntityMobSpawner;
-import lotr.common.tileentity.LOTRTileEntityPlate;
-import lotr.common.tileentity.LOTRTileEntitySpawnerChest;
+import lotr.common.tileentity.*;
 import lotr.common.world.structure.LOTRChestContents;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBed;
-import net.minecraft.block.BlockChest;
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.BlockFenceGate;
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.block.BlockLadder;
-import net.minecraft.block.BlockRotatedPillar;
-import net.minecraft.block.BlockSkull;
-import net.minecraft.block.BlockStairs;
-import net.minecraft.block.BlockTorch;
-import net.minecraft.block.BlockTrapDoor;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.item.EntityItemFrame;
@@ -174,7 +153,7 @@ public abstract class LOTRWorldGenStructureBase2 extends WorldGenerator
 			return j | i;
 		}
 			
-		if (block instanceof LOTRBlockMug)
+		if (block instanceof LOTRBlockMug || block instanceof BlockTripWireHook)
 		{
 			int i = meta;
 					

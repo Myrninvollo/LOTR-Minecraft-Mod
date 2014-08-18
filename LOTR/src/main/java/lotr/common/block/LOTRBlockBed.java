@@ -32,6 +32,8 @@ public class LOTRBlockBed extends BlockBed
         super();
 		bedBottomBlock = block;
 		bedBottomMetadata = k;
+		setHardness(0.2F);
+		setStepSound(Block.soundTypeWood);
     }
 
 	@Override
@@ -78,9 +80,4 @@ public class LOTRBlockBed extends BlockBed
     {
         return true;
     }
-	
-	public static void registerBedItem(Block bed, Item bedItem)
-	{
-		((LOTRBlockBed)bed).bedItem = bedItem;
-	}
 }

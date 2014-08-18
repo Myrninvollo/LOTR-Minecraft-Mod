@@ -1,6 +1,7 @@
 package lotr.common.entity.npc;
 
 import lotr.common.*;
+import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,6 +41,19 @@ public class LOTREntityNearHaradMerchant extends LOTREntityNearHaradrim implemen
 		data = super.onSpawnWithEgg(data);
 		setCurrentItemOrArmor(0, new ItemStack(LOTRMod.pouch, 1, 3));
 		return data;
+	}
+	
+	@Override
+	public void onAttackModeChange(AttackMode mode)
+	{
+		if (mode == AttackMode.IDLE)
+		{
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.pouch, 1, 3));
+		}
+		else
+		{
+			super.onAttackModeChange(mode);
+		}
 	}
 
 	@Override

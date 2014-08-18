@@ -12,14 +12,14 @@ import net.minecraft.world.World;
 public class LOTRRecipeLeatherHatFeather implements IRecipe
 {
     @Override
-    public boolean matches(InventoryCrafting inventory, World world)
+    public boolean matches(InventoryCrafting inv, World world)
     {
         ItemStack hat = null;
         ItemStack feather = null;
 
-        for (int i = 0; i < inventory.getSizeInventory(); i++)
+        for (int i = 0; i < inv.getSizeInventory(); i++)
         {
-            ItemStack itemstack = inventory.getStackInSlot(i);
+            ItemStack itemstack = inv.getStackInSlot(i);
             if (itemstack != null)
             {
                 if (itemstack.getItem() == LOTRMod.leatherHat && !LOTRItemLeatherHat.hasFeather(itemstack))
@@ -28,8 +28,10 @@ public class LOTRRecipeLeatherHatFeather implements IRecipe
 					{
 						return false;
 					}
-
-                    hat = itemstack;
+					else
+					{
+						hat = itemstack;
+					}
                 }
                 else if (itemstack.getItem() == Items.feather || itemstack.getItem() == LOTRMod.featherDyed)
                 {
@@ -37,8 +39,10 @@ public class LOTRRecipeLeatherHatFeather implements IRecipe
                     {
                         return false;
                     }
-
-                    feather = itemstack;
+                    else
+                    {
+                    	feather = itemstack;
+                    }
                 }
 				else
 				{
@@ -51,14 +55,14 @@ public class LOTRRecipeLeatherHatFeather implements IRecipe
     }
 
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inventory)
+    public ItemStack getCraftingResult(InventoryCrafting inv)
     {
         ItemStack hat = null;
 		ItemStack feather = null;
 
-        for (int i = 0; i < inventory.getSizeInventory(); i++)
+        for (int i = 0; i < inv.getSizeInventory(); i++)
         {
-            ItemStack itemstack = inventory.getStackInSlot(i);
+            ItemStack itemstack = inv.getStackInSlot(i);
             if (itemstack != null)
             {
                 if (itemstack.getItem() == LOTRMod.leatherHat && !LOTRItemLeatherHat.hasFeather(itemstack))
@@ -67,8 +71,10 @@ public class LOTRRecipeLeatherHatFeather implements IRecipe
 					{
 						return null;
 					}
-
-                    hat = itemstack.copy();
+					else
+					{
+						hat = itemstack.copy();
+					}
                 }
                 else if (itemstack.getItem() == Items.feather || itemstack.getItem() == LOTRMod.featherDyed)
                 {
@@ -76,8 +82,10 @@ public class LOTRRecipeLeatherHatFeather implements IRecipe
                     {
                         return null;
                     }
-
-                    feather = itemstack.copy();
+                    else
+                    {
+                    	feather = itemstack.copy();
+                    }
                 }
 				else
 				{

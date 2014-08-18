@@ -730,6 +730,7 @@ item.lotr:wargArmorAngmar.name=Angmar Warg Armor
 item.lotr:mugCarrotWine.name=Carrot Wine
 item.lotr:mugBananaBeer.name=Banana Beer
 item.lotr:mugMelonLiqueur.name=Melon Liqueur
+item.lotr:strawBed.name=Straw Bed
 
 item.lotr.orcBomb.fire=Fire
 item.lotr.orcBomb.doubleStrength=Double Strength
@@ -1100,16 +1101,17 @@ entity.lotr.BlueDwarfAxeThrower.name=Blue Mountains Axe-thrower
 entity.lotr.BlueDwarfBannerBearer.name=Blue Mountains Banner Bearer
 entity.lotr.BlueDwarfCommander.name=Blue Mountains Commander
 entity.lotr.BlueDwarfMiner.name=Blue Mountains Miner
-entity.lotr.NearHaradDrinksTrader.name=Near Harad Drink Dealer
-entity.lotr.NearHaradMineralsTrader.name=Near Harad Mineral Dealer
-entity.lotr.NearHaradPlantsTrader.name=Near Harad Plant Dealer
-entity.lotr.NearHaradFoodTrader.name=Near Harad Food Dealer
+entity.lotr.NearHaradDrinksTrader.name=Near Harad Drink Trader
+entity.lotr.NearHaradMineralsTrader.name=Near Harad Mineral Trader
+entity.lotr.NearHaradPlantsTrader.name=Near Harad Plant Trader
+entity.lotr.NearHaradFoodTrader.name=Near Harad Food Trader
 entity.lotr.BlueDwarfMerchant.name=Blue Mountains Merchant
 entity.lotr.Bandit.name=Bandit
 entity.lotr.RangerNorthBannerBearer.name=Ranger Banner Bearer
 entity.lotr.Elk.name=Woodland Elk
 entity.lotr.GondorTowerGuard.name=Gondor Tower Guard
 entity.lotr.NearHaradMerchant.name=Merchant of Near Harad
+entity.lotr.HaradPyramidWraith.name=Harad Pyramid Wraith
 
 entity.lotr.Sauron.name=Sauron
 entity.lotr.Gollum.name=Gollum
@@ -1381,6 +1383,7 @@ lotr.structure.NearHaradTower.name=Near Harad Tower
 lotr.structure.NearHaradFortress.name=Near Harad Fortress
 lotr.structure.NearHaradTent.name=Near Harad Tent
 lotr.structure.NearHaradBazaar.name=Near Harad Bazaar
+lotr.structure.HaradPyramid.name=Harad Pyramid
 
 chat.lotr.update=%s Update available! (%s)
 chat.lotr.achievement=%s has just earned the Middle-earth achievement %s

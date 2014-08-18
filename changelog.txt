@@ -23,6 +23,8 @@ Public Beta 20
 + Added the option to set hired NPCs' guard range to 0 in order to keep them stationed
 + Added a separate 'Gondor Tower Guard' NPC that wears the winged helmet
 + Added travelling merchants of Near Harad
++ Added Near Harad pyramids
++ Added straw beds
 + Added feet to the hobbit model
 + Added a rendered box to show the protection range of banners in debug mode
 + Added hover text for Middle-earth achievements in the chat screen
@@ -33,6 +35,7 @@ Public Beta 20
 * LOTR horses are now bred with apples
 * Warg armour is now a single item and is crafted like horse armour
 * Changed the roofs of some structures to thatch
+* Changed the beds in some structures to straw beds
 * Changed the bricks in the Dúnedain structures to Arnor bricks
 * Increased the spawning chance of stone ruins
 * Changed stone blocks in Uruk structures to Uruk bricks
@@ -52,6 +55,7 @@ Public Beta 20
 * Travelling traders will no longer attempt to spawn near enemy players
 * Desert scorpions in Harad spawn above ground less often
 * Fixed the alignment command message specifying the wrong player name
+* Fixed the special hobbit pipe crafting recipes
 
 - Removed Middle-earth capes
 - Removed separate warg armour items

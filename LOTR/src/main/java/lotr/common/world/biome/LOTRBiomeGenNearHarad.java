@@ -10,8 +10,7 @@ import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.structure.LOTRWorldGenHaradObelisk;
-import lotr.common.world.structure2.LOTRWorldGenNearHaradDesertCamp;
-import lotr.common.world.structure2.LOTRWorldGenNearHaradFortress;
+import lotr.common.world.structure2.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
@@ -51,6 +50,7 @@ public class LOTRBiomeGenNearHarad extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenHaradObelisk(false), 3000);
 		decorator.addRandomStructure(new LOTRWorldGenNearHaradFortress(false), 3000);
 		decorator.addRandomStructure(new LOTRWorldGenNearHaradDesertCamp(false), 3000);
+		decorator.addRandomStructure(new LOTRWorldGenHaradPyramid(false), 3000);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 	}

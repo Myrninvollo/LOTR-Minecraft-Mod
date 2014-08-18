@@ -11,9 +11,40 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
+import net.minecraftforge.common.config.Configuration;
 
 public class LOTRWorldGenMallornLarge extends WorldGenAbstractTree
 {
+	private static int HEIGHT_MIN = 30;
+	private static int HEIGHT_MAX = 55;
+	
+	private static int BOUGH_ANGLE_INTERVAL_MIN = 10;
+	private static int BOUGH_ANGLE_INTERVAL_MAX = 30;
+	
+	private static int BOUGH_LENGTH_MIN = 12;
+	private static int BOUGH_LENGTH_MAX = 22;
+	
+	private static float BOUGH_THICKNESS_FACTOR = 0.06F;
+	
+	private static float BOUGH_BASE_HEIGHT_MIN = 0.9F;
+	private static float BOUGH_BASE_HEIGHT_MAX = 1F;
+	
+	private static int BOUGH_HEIGHT_MIN = 3;
+	private static int BOUGH_HEIGHT_MAX = 6;
+	
+	private static int BRANCH_LENGTH_MIN = 7;
+	private static int BRANCH_LENGTH_MAX = 12;
+	
+	private static int BRANCH_HEIGHT_MIN = 0;
+	private static int BRANCH_HEIGHT_MAX = 5;
+	
+	private static float LEAF_EDGE_LAYER_CHANCE = 0.33F;
+	
+	public static float HOUSE_HEIGHT_MIN = 0.4F;
+	public static float HOUSE_HEIGHT_MAX = 0.7F;
+	
+	private static float HOUSE_ELFLORD_CHANCE = 0.1F;
+	
 	private boolean notify;
 	
     public LOTRWorldGenMallornLarge(boolean flag)
@@ -30,7 +61,7 @@ public class LOTRWorldGenMallornLarge extends WorldGenAbstractTree
 	
 	public int generateWithOptionalForceAndReturnHeight(World world, Random random, int i, int j, int k, boolean forceGeneration)
 	{
-        int height = random.nextInt(20) + 35;
+        int height = MathHelper.getRandomIntegerInRange(random, HEIGHT_MIN, HEIGHT_MAX);
         boolean flag = true;
 
         if ((j >= 1 && j + height + 5 <= 256) || forceGeneration)
@@ -121,14 +152,14 @@ public class LOTRWorldGenMallornLarge extends WorldGenAbstractTree
 				int angle = 0;
 				while (angle < 360)
 				{
-					angle += 10 + random.nextInt(20);
+					angle += MathHelper.getRandomIntegerInRange(random, BOUGH_ANGLE_INTERVAL_MIN, BOUGH_ANGLE_INTERVAL_MAX);
 					float angleR = (float)angle / 180F * (float)Math.PI;
 					float sin = MathHelper.sin(angleR);
 					float cos = MathHelper.cos(angleR);
-					int boughLength = 12 + random.nextInt(10);
-					int boughThickness = Math.round((float)boughLength / 25F * 1.5F);
-					int boughBaseHeight = j + MathHelper.floor_double(height * (0.9F + random.nextFloat() * 0.1F));
-					int boughHeight = 3 + random.nextInt(4);
+					int boughLength = MathHelper.getRandomIntegerInRange(random, BOUGH_LENGTH_MIN, BOUGH_LENGTH_MAX);
+					int boughThickness = Math.round((float)boughLength * BOUGH_THICKNESS_FACTOR);
+					int boughBaseHeight = j + MathHelper.floor_double(height * MathHelper.randomFloatClamp(random, BOUGH_BASE_HEIGHT_MIN, BOUGH_BASE_HEIGHT_MAX));
+					int boughHeight = MathHelper.getRandomIntegerInRange(random, BOUGH_HEIGHT_MIN, BOUGH_HEIGHT_MAX);
 					
 					for (int l = 0; l < boughLength; l++)
 					{
@@ -156,8 +187,8 @@ public class LOTRWorldGenMallornLarge extends WorldGenAbstractTree
 						float branch_angleR = (float)branch_angle / 180F * (float)Math.PI;
 						float branch_sin = MathHelper.sin(branch_angleR);
 						float branch_cos = MathHelper.cos(branch_angleR);
-						int branchLength = 7 + random.nextInt(6);
-						int branchHeight = random.nextInt(6);
+						int branchLength = MathHelper.getRandomIntegerInRange(random, BRANCH_LENGTH_MIN, BRANCH_LENGTH_MAX);
+						int branchHeight = MathHelper.getRandomIntegerInRange(random, BRANCH_HEIGHT_MIN, BRANCH_HEIGHT_MAX);
 						int leafRange = 3;
 						
 						for (int l1 = 0; l1 < branchLength; l1++)
@@ -187,7 +218,7 @@ public class LOTRWorldGenMallornLarge extends WorldGenAbstractTree
 											int j4 = j3 - j2;
 											int k4 = k3 - k2;
 											int dist = i4 * i4 + j4 * j4 + k4 * k4;
-											if (dist < (leafRange - 1) * (leafRange - 1) || (dist < leafRange * leafRange && random.nextInt(3) != 0))
+											if (dist < (leafRange - 1) * (leafRange - 1) || (dist < leafRange * leafRange && random.nextFloat() < LEAF_EDGE_LAYER_CHANCE))
 											{
 												Block block2 = world.getBlock(i3, j3, k3);
 												if (block2.getMaterial() == Material.air || block2.isLeaves(world, i3, j3, k3))
@@ -205,11 +236,18 @@ public class LOTRWorldGenMallornLarge extends WorldGenAbstractTree
 				
 				if (!notify && !forceGeneration)
 				{
-					int houseHeight = MathHelper.floor_double(height * (0.4F + random.nextFloat() * 0.3F));
-					boolean isElfLordTree = random.nextInt(10) == 0;
-					if (!isElfLordTree || !new LOTRWorldGenElfLordHouse(false).generate(world, random, i, j + houseHeight, k))
+					int houseHeight = MathHelper.floor_double(height * MathHelper.randomFloatClamp(random, HOUSE_HEIGHT_MIN, HOUSE_HEIGHT_MAX));
+					boolean isElfLordTree = random.nextFloat() < HOUSE_ELFLORD_CHANCE;
+					boolean spawnedElfLord = false;
+					if (isElfLordTree)
 					{
-						new LOTRWorldGenElfHouse(false).generate(world, random, i, j + houseHeight, k);
+						LOTRWorldGenElfLordHouse house = new LOTRWorldGenElfLordHouse(true);
+						spawnedElfLord = house.generate(world, random, i, j + houseHeight, k);
+					}
+					if (!isElfLordTree || !spawnedElfLord)
+					{
+						LOTRWorldGenElfHouse house = new LOTRWorldGenElfHouse(true);
+						house.generate(world, random, i, j + houseHeight, k);
 					}
 				}
 				

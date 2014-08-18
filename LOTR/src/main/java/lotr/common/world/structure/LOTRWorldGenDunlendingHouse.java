@@ -339,8 +339,8 @@ public class LOTRWorldGenDunlendingHouse extends LOTRWorldGenStructureBase
 		setBlockAndNotifyAdequately(world, i + 3, j + 1, k + 2, plankBlock, plankMeta);
 		placeFlowerPot(world, i + 3, j + 2, k + 2, getRandomPlant(random));
 		
-		setBlockAndNotifyAdequately(world, i, j + 1, k + 4, Blocks.bed, 0);
-		setBlockAndNotifyAdequately(world, i, j + 1, k + 5, Blocks.bed, 8);
+		setBlockAndNotifyAdequately(world, i, j + 1, k + 4, LOTRMod.strawBed, 0);
+		setBlockAndNotifyAdequately(world, i, j + 1, k + 5, LOTRMod.strawBed, 8);
 		setBlockAndNotifyAdequately(world, i - 1, j + 1, k + 5, plankBlock, plankMeta);
 		setBlockAndNotifyAdequately(world, i + 1, j + 1, k + 5, plankBlock, plankMeta);
 		
@@ -395,8 +395,8 @@ public class LOTRWorldGenDunlendingHouse extends LOTRWorldGenStructureBase
 		setBlockAndNotifyAdequately(world, i - 2, j + 1, k + 3, plankBlock, plankMeta);
 		placeFlowerPot(world, i - 2, j + 2, k + 3, getRandomPlant(random));
 		
-		setBlockAndNotifyAdequately(world, i - 4, j + 1, k, Blocks.bed, 1);
-		setBlockAndNotifyAdequately(world, i - 5, j + 1, k, Blocks.bed, 9);
+		setBlockAndNotifyAdequately(world, i - 4, j + 1, k, LOTRMod.strawBed, 1);
+		setBlockAndNotifyAdequately(world, i - 5, j + 1, k, LOTRMod.strawBed, 9);
 		setBlockAndNotifyAdequately(world, i - 5, j + 1, k - 1, plankBlock, plankMeta);
 		setBlockAndNotifyAdequately(world, i - 5, j + 1, k + 1, plankBlock, plankMeta);
 		
@@ -451,8 +451,8 @@ public class LOTRWorldGenDunlendingHouse extends LOTRWorldGenStructureBase
 		setBlockAndNotifyAdequately(world, i + 3, j + 1, k - 2, plankBlock, plankMeta);
 		placeFlowerPot(world, i + 3, j + 2, k - 2, getRandomPlant(random));
 		
-		setBlockAndNotifyAdequately(world, i, j + 1, k - 4, Blocks.bed, 2);
-		setBlockAndNotifyAdequately(world, i, j + 1, k - 5, Blocks.bed, 10);
+		setBlockAndNotifyAdequately(world, i, j + 1, k - 4, LOTRMod.strawBed, 2);
+		setBlockAndNotifyAdequately(world, i, j + 1, k - 5, LOTRMod.strawBed, 10);
 		setBlockAndNotifyAdequately(world, i - 1, j + 1, k - 5, plankBlock, plankMeta);
 		setBlockAndNotifyAdequately(world, i + 1, j + 1, k - 5, plankBlock, plankMeta);
 		
@@ -507,8 +507,8 @@ public class LOTRWorldGenDunlendingHouse extends LOTRWorldGenStructureBase
 		setBlockAndNotifyAdequately(world, i + 2, j + 1, k + 3, plankBlock, plankMeta);
 		placeFlowerPot(world, i + 2, j + 2, k + 3, getRandomPlant(random));
 		
-		setBlockAndNotifyAdequately(world, i + 4, j + 1, k, Blocks.bed, 3);
-		setBlockAndNotifyAdequately(world, i + 5, j + 1, k, Blocks.bed, 11);
+		setBlockAndNotifyAdequately(world, i + 4, j + 1, k, LOTRMod.strawBed, 3);
+		setBlockAndNotifyAdequately(world, i + 5, j + 1, k, LOTRMod.strawBed, 11);
 		setBlockAndNotifyAdequately(world, i + 5, j + 1, k - 1, plankBlock, plankMeta);
 		setBlockAndNotifyAdequately(world, i + 5, j + 1, k + 1, plankBlock, plankMeta);
 		

@@ -164,8 +164,8 @@ public class LOTRWorldGenNearHaradTent extends LOTRWorldGenStructureBase2
 		setBlockAndMetadata(world, 0, 1, -2, Blocks.carpet, 14);
 		setBlockAndMetadata(world, 1, 1, -3, Blocks.wool, 15);
 		
-		setBlockAndMetadata(world, -2, 1, 0, Blocks.bed, 0);
-		setBlockAndMetadata(world, -2, 1, 1, Blocks.bed, 8);
+		setBlockAndMetadata(world, -2, 1, 0, LOTRMod.strawBed, 0);
+		setBlockAndMetadata(world, -2, 1, 1, LOTRMod.strawBed, 8);
 		
 		placeBarrel(world, random, -1, 1, 2, 2, LOTRMod.mugAraq);
 		setBlockAndMetadata(world, 0, 1, 2, LOTRMod.nearHaradTable, 0);

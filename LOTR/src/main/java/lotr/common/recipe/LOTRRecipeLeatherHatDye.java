@@ -15,14 +15,14 @@ import net.minecraft.world.World;
 public class LOTRRecipeLeatherHatDye implements IRecipe
 {
     @Override
-    public boolean matches(InventoryCrafting inventory, World world)
+    public boolean matches(InventoryCrafting inv, World world)
     {
         ItemStack hat = null;
         ArrayList dyes = new ArrayList();
 
-        for (int i = 0; i < inventory.getSizeInventory(); i++)
+        for (int i = 0; i < inv.getSizeInventory(); i++)
         {
-            ItemStack itemstack = inventory.getStackInSlot(i);
+            ItemStack itemstack = inv.getStackInSlot(i);
             if (itemstack != null)
             {
                 if (itemstack.getItem() == LOTRMod.leatherHat)
@@ -31,8 +31,10 @@ public class LOTRRecipeLeatherHatDye implements IRecipe
 					{
 						return false;
 					}
-
-                    hat = itemstack;
+					else
+					{
+						hat = itemstack;
+					}
                 }
                 else
                 {
@@ -40,8 +42,10 @@ public class LOTRRecipeLeatherHatDye implements IRecipe
                     {
                         return false;
                     }
-
-                    dyes.add(itemstack);
+                    else
+                    {
+                    	dyes.add(itemstack);
+                    }
                 }
             }
         }
@@ -50,16 +54,16 @@ public class LOTRRecipeLeatherHatDye implements IRecipe
     }
 
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inventory)
+    public ItemStack getCraftingResult(InventoryCrafting inv)
     {
         ItemStack hat = null;
         int[] rgb = new int[3];
         int totalColor = 0;
         int coloredItems = 0;
 
-        for (int i = 0; i < inventory.getSizeInventory(); i++)
+        for (int i = 0; i < inv.getSizeInventory(); i++)
         {
-            ItemStack itemstack = inventory.getStackInSlot(i);
+            ItemStack itemstack = inv.getStackInSlot(i);
             if (itemstack != null)
             {
                 if (itemstack.getItem() == LOTRMod.leatherHat)

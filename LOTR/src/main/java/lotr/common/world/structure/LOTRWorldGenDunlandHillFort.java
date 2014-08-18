@@ -311,11 +311,11 @@ public class LOTRWorldGenDunlandHillFort extends LOTRWorldGenStructureBase
 			
 			for (int i1 = i - 6; i1 <= i - 2; i1 += 4)
 			{
-				setBlockAndNotifyAdequately(world, i1, j + 1, k + 4, Blocks.bed, 2);
-				setBlockAndNotifyAdequately(world, i1, j + 1, k + 3, Blocks.bed, 10);
+				setBlockAndNotifyAdequately(world, i1, j + 1, k + 4, LOTRMod.strawBed, 2);
+				setBlockAndNotifyAdequately(world, i1, j + 1, k + 3, LOTRMod.strawBed, 10);
 				
-				setBlockAndNotifyAdequately(world, i1, j + 1, k + 5, Blocks.bed, 0);
-				setBlockAndNotifyAdequately(world, i1, j + 1, k + 6, Blocks.bed, 8);
+				setBlockAndNotifyAdequately(world, i1, j + 1, k + 5, LOTRMod.strawBed, 0);
+				setBlockAndNotifyAdequately(world, i1, j + 1, k + 6, LOTRMod.strawBed, 8);
 			}
 			
 			setBlockAndNotifyAdequately(world, i - 4, j + 1, k + 6, plankBlock, plankMeta);
@@ -457,11 +457,11 @@ public class LOTRWorldGenDunlandHillFort extends LOTRWorldGenStructureBase
 			
 			for (int k1 = k - 6; k1 <= k - 2; k1 += 4)
 			{
-				setBlockAndNotifyAdequately(world, i - 4, j + 1, k1, Blocks.bed, 3);
-				setBlockAndNotifyAdequately(world, i - 3, j + 1, k1, Blocks.bed, 11);
+				setBlockAndNotifyAdequately(world, i - 4, j + 1, k1, LOTRMod.strawBed, 3);
+				setBlockAndNotifyAdequately(world, i - 3, j + 1, k1, LOTRMod.strawBed, 11);
 				
-				setBlockAndNotifyAdequately(world, i - 5, j + 1, k1, Blocks.bed, 1);
-				setBlockAndNotifyAdequately(world, i - 6, j + 1, k1, Blocks.bed, 9);
+				setBlockAndNotifyAdequately(world, i - 5, j + 1, k1, LOTRMod.strawBed, 1);
+				setBlockAndNotifyAdequately(world, i - 6, j + 1, k1, LOTRMod.strawBed, 9);
 			}
 			
 			setBlockAndNotifyAdequately(world, i - 6, j + 1, k - 4, plankBlock, plankMeta);
@@ -603,11 +603,11 @@ public class LOTRWorldGenDunlandHillFort extends LOTRWorldGenStructureBase
 			
 			for (int i1 = i - 6; i1 <= i - 2; i1 += 4)
 			{
-				setBlockAndNotifyAdequately(world, i1, j + 1, k - 4, Blocks.bed, 0);
-				setBlockAndNotifyAdequately(world, i1, j + 1, k - 3, Blocks.bed, 8);
+				setBlockAndNotifyAdequately(world, i1, j + 1, k - 4, LOTRMod.strawBed, 0);
+				setBlockAndNotifyAdequately(world, i1, j + 1, k - 3, LOTRMod.strawBed, 8);
 				
-				setBlockAndNotifyAdequately(world, i1, j + 1, k - 5, Blocks.bed, 2);
-				setBlockAndNotifyAdequately(world, i1, j + 1, k - 6, Blocks.bed, 10);
+				setBlockAndNotifyAdequately(world, i1, j + 1, k - 5, LOTRMod.strawBed, 2);
+				setBlockAndNotifyAdequately(world, i1, j + 1, k - 6, LOTRMod.strawBed, 10);
 			}
 			
 			setBlockAndNotifyAdequately(world, i - 4, j + 1, k - 6, plankBlock, plankMeta);
@@ -749,11 +749,11 @@ public class LOTRWorldGenDunlandHillFort extends LOTRWorldGenStructureBase
 			
 			for (int k1 = k - 6; k1 <= k - 2; k1 += 4)
 			{
-				setBlockAndNotifyAdequately(world, i + 4, j + 1, k1, Blocks.bed, 1);
-				setBlockAndNotifyAdequately(world, i + 3, j + 1, k1, Blocks.bed, 9);
+				setBlockAndNotifyAdequately(world, i + 4, j + 1, k1, LOTRMod.strawBed, 1);
+				setBlockAndNotifyAdequately(world, i + 3, j + 1, k1, LOTRMod.strawBed, 9);
 				
-				setBlockAndNotifyAdequately(world, i + 5, j + 1, k1, Blocks.bed, 3);
-				setBlockAndNotifyAdequately(world, i + 6, j + 1, k1, Blocks.bed, 11);
+				setBlockAndNotifyAdequately(world, i + 5, j + 1, k1, LOTRMod.strawBed, 3);
+				setBlockAndNotifyAdequately(world, i + 6, j + 1, k1, LOTRMod.strawBed, 11);
 			}
 			
 			setBlockAndNotifyAdequately(world, i + 6, j + 1, k - 4, plankBlock, plankMeta);

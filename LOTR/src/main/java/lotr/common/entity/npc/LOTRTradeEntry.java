@@ -764,10 +764,22 @@ public class LOTRTradeEntry
 			new LOTRTradeEntry(new ItemStack(LOTRMod.mugAraq, 1, 1), 8),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.mugAraq, 1, 2), 10),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.mugAraq, 1, 3), 12),
-			new LOTRTradeEntry(new ItemStack(LOTRMod.date, 2), 6),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.date, 4), 8),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.planks, 4, 14), 8),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.sapling3, 1, 2), 50),
-			new LOTRTradeEntry(new ItemStack(LOTRMod.doubleFlower, 1, 3), 10)
+			new LOTRTradeEntry(new ItemStack(LOTRMod.doubleFlower, 1, 3), 12),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.doubleFlower, 1, 2), 8),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.banana), 5),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugBananaBeer, 1, 1), 10),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugBananaBeer, 1, 2), 15),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugBananaBeer, 1, 3), 20),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mango), 5),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.mugMangoJuice), 10),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.lionFur), 4),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.lionCooked), 8),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.rhinoCooked), 8),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.rhinoHorn), 6),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.gemsbokHide), 4)
 		};
 		
 		NEAR_HARAD_MERCHANT_SELL = new LOTRTradeEntry[]

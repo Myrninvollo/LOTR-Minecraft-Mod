@@ -4,6 +4,7 @@ import lotr.common.LOTRMod;
 import lotr.common.entity.LOTREntities;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import net.minecraft.block.Block;
+import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -15,6 +16,7 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -30,6 +32,15 @@ public abstract class LOTREntityScorpion extends EntityMob
 	private float scorpionWidth = -1F;
 	private float scorpionHeight;
 	
+	private static IEntitySelector noWraiths = new IEntitySelector()
+    {
+		@Override
+        public boolean isEntityApplicable(Entity entity)
+        {
+            return !(entity instanceof LOTREntityHaradPyramidWraith);
+        }
+    };
+	
 	public LOTREntityScorpion(World world)
 	{
 		super(world);
@@ -42,7 +53,7 @@ public abstract class LOTREntityScorpion extends EntityMob
         tasks.addTask(4, new EntityAILookIdle(this));
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
-        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, LOTREntityNPC.class, 0, true));
+        targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, LOTREntityNPC.class, 0, true, false, noWraiths));
 	}
 	
 	protected int getRandomScorpionScale()

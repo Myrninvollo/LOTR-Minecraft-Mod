@@ -62,9 +62,4 @@ public class LOTRBlockPlaceableFood extends BlockCake
     {
 		return foodItem;
     }
-
-	public static void registerFoodItem(Block block, Item foodItem)
-	{
-		((LOTRBlockPlaceableFood)block).foodItem = foodItem;
-	}
 }

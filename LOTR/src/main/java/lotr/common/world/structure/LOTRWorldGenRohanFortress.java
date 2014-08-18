@@ -496,12 +496,12 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 		
 		for (int i1 = i + 6; i1 <= i + 10; i1 += 2)
 		{
-			setBlockAndNotifyAdequately(world, i1, j + 1, k + 7, Blocks.bed, 2);
-			setBlockAndNotifyAdequately(world, i1, j + 1, k + 6, Blocks.bed, 10);
+			setBlockAndNotifyAdequately(world, i1, j + 1, k + 7, LOTRMod.strawBed, 2);
+			setBlockAndNotifyAdequately(world, i1, j + 1, k + 6, LOTRMod.strawBed, 10);
 			setBlockAndNotifyAdequately(world, i1, j + 2, k + 6, Blocks.torch, 3);
 			
-			setBlockAndNotifyAdequately(world, i1, j + 1, k + 9, Blocks.bed, 0);
-			setBlockAndNotifyAdequately(world, i1, j + 1, k + 10, Blocks.bed, 8);
+			setBlockAndNotifyAdequately(world, i1, j + 1, k + 9, LOTRMod.strawBed, 0);
+			setBlockAndNotifyAdequately(world, i1, j + 1, k + 10, LOTRMod.strawBed, 8);
 			setBlockAndNotifyAdequately(world, i1, j + 2, k + 10, Blocks.torch, 4);
 		}
 		
@@ -758,12 +758,12 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 		
 		for (int k1 = k + 6; k1 <= k + 10; k1 += 2)
 		{
-			setBlockAndNotifyAdequately(world, i - 7, j + 1, k1, Blocks.bed, 3);
-			setBlockAndNotifyAdequately(world, i - 6, j + 1, k1, Blocks.bed, 11);
+			setBlockAndNotifyAdequately(world, i - 7, j + 1, k1, LOTRMod.strawBed, 3);
+			setBlockAndNotifyAdequately(world, i - 6, j + 1, k1, LOTRMod.strawBed, 11);
 			setBlockAndNotifyAdequately(world, i - 6, j + 2, k1, Blocks.torch, 2);
 			
-			setBlockAndNotifyAdequately(world, i - 9, j + 1, k1, Blocks.bed, 1);
-			setBlockAndNotifyAdequately(world, i - 10, j + 1, k1, Blocks.bed, 9);
+			setBlockAndNotifyAdequately(world, i - 9, j + 1, k1, LOTRMod.strawBed, 1);
+			setBlockAndNotifyAdequately(world, i - 10, j + 1, k1, LOTRMod.strawBed, 9);
 			setBlockAndNotifyAdequately(world, i - 10, j + 2, k1, Blocks.torch, 1);
 		}
 		
@@ -1020,12 +1020,12 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 		
 		for (int i1 = i + 6; i1 <= i + 10; i1 += 2)
 		{
-			setBlockAndNotifyAdequately(world, i1, j + 1, k - 7, Blocks.bed, 0);
-			setBlockAndNotifyAdequately(world, i1, j + 1, k - 6, Blocks.bed, 8);
+			setBlockAndNotifyAdequately(world, i1, j + 1, k - 7, LOTRMod.strawBed, 0);
+			setBlockAndNotifyAdequately(world, i1, j + 1, k - 6, LOTRMod.strawBed, 8);
 			setBlockAndNotifyAdequately(world, i1, j + 2, k - 6, Blocks.torch, 4);
 			
-			setBlockAndNotifyAdequately(world, i1, j + 1, k - 9, Blocks.bed, 2);
-			setBlockAndNotifyAdequately(world, i1, j + 1, k - 10, Blocks.bed, 10);
+			setBlockAndNotifyAdequately(world, i1, j + 1, k - 9, LOTRMod.strawBed, 2);
+			setBlockAndNotifyAdequately(world, i1, j + 1, k - 10, LOTRMod.strawBed, 10);
 			setBlockAndNotifyAdequately(world, i1, j + 2, k - 10, Blocks.torch, 3);
 		}
 		
@@ -1282,12 +1282,12 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 		
 		for (int k1 = k + 6; k1 <= k + 10; k1 += 2)
 		{
-			setBlockAndNotifyAdequately(world, i + 7, j + 1, k1, Blocks.bed, 1);
-			setBlockAndNotifyAdequately(world, i + 6, j + 1, k1, Blocks.bed, 9);
+			setBlockAndNotifyAdequately(world, i + 7, j + 1, k1, LOTRMod.strawBed, 1);
+			setBlockAndNotifyAdequately(world, i + 6, j + 1, k1, LOTRMod.strawBed, 9);
 			setBlockAndNotifyAdequately(world, i + 6, j + 2, k1, Blocks.torch, 1);
 			
-			setBlockAndNotifyAdequately(world, i + 9, j + 1, k1, Blocks.bed, 3);
-			setBlockAndNotifyAdequately(world, i + 10, j + 1, k1, Blocks.bed, 11);
+			setBlockAndNotifyAdequately(world, i + 9, j + 1, k1, LOTRMod.strawBed, 3);
+			setBlockAndNotifyAdequately(world, i + 10, j + 1, k1, LOTRMod.strawBed, 11);
 			setBlockAndNotifyAdequately(world, i + 10, j + 2, k1, Blocks.torch, 2);
 		}
 		

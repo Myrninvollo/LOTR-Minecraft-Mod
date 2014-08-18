@@ -371,38 +371,7 @@ public class LOTRRecipes
 		{
 			" X ", "YZY", 'X', "stickWood", 'Y', Blocks.torch, 'Z', mithril
 		}));
-		for (int i = 0; i <= 15; i++)
-		{
-			ItemStack dye = new ItemStack(Items.dye, 1, BlockColored.func_150031_c(i));
-			String dyeName = OreDictionary.getOreName(OreDictionary.getOreID(dye));
-			GameRegistry.addRecipe(new LOTRRecipeHobbitPipe(i, new Object[]
-			{
-				new ItemStack(hobbitPipe, 1, OreDictionary.WILDCARD_VALUE), dyeName
-			}));
-			
-			/*ItemStack dye = new ItemStack(Items.dye, 1, BlockColored.func_150031_c(i));
-			String dyeName = "";
-			int[] ids = OreDictionary.getOreIDs(dye);
-			for (int l : ids)
-			{
-				String name = OreDictionary.getOreName(l);
-				if (name.startsWith("dye") && name.length() > "dye".length())
-				{
-					dyeName = name;
-					break;
-				}
-			}
-			System.out.println(dye.getDisplayName() + " : " + dyeName);
-			
-			GameRegistry.addRecipe(new LOTRRecipeHobbitPipe(i, new Object[]
-			{
-				new ItemStack(hobbitPipe, 1, OreDictionary.WILDCARD_VALUE), dyeName
-			}));*/
-		}
-		GameRegistry.addRecipe(new LOTRRecipeHobbitPipe(16, new Object[]
-		{
-			new ItemStack(hobbitPipe, 1, OreDictionary.WILDCARD_VALUE), Items.diamond
-		}));
+		GameRegistry.addRecipe(new LOTRRecipeHobbitPipe());
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.dye, 4, 15), new Object[]
 		{
 			wargBone
@@ -1027,6 +996,10 @@ public class LOTRRecipes
 		{
 			"X  ", "XYX", "XXX", 'X', mithril, 'Y', Items.leather
 		});
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(strawBedItem), new Object[]
+		{
+			"XXX", "YYY", 'X', Items.wheat, 'Y', "plankWood"
+		}));
 	}
 	
 	private static void createWoodenSlabRecipes()

@@ -128,6 +128,7 @@ public class LOTRStructures
 		registerStructure(605, LOTRWorldGenNearHaradFortress.class, "NearHaradFortress", 0xE5D9B7, 0xA06248);
 		registerStructure(606, LOTRWorldGenNearHaradTent.class, "NearHaradTent", 0xCE4942, 0x1B1919);
 		registerStructure(607, LOTRWorldGenNearHaradBazaar.class, "NearHaradBazaar", 0xCE4942, 0x1B1919);
+		registerStructure(608, LOTRWorldGenHaradPyramid.class, "HaradPyramid", 0xA59E77, 0xEDE4AF);
 		
 		LOTRStructureDwarvenMinePieces.register();
 	}

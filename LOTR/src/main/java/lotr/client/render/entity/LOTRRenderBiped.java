@@ -7,13 +7,12 @@ import java.util.UUID;
 
 import lotr.client.LOTRClientProxy;
 import lotr.client.model.LOTRModelBiped;
+import lotr.client.render.LOTRRenderShield;
 import lotr.common.LOTRMod;
+import lotr.common.LOTRShields;
 import lotr.common.entity.npc.LOTRBannerBearer;
 import lotr.common.entity.npc.LOTREntityNPC;
-import lotr.common.item.LOTRItemBanner;
-import lotr.common.item.LOTRItemMug;
-import lotr.common.item.LOTRItemMugBrewable;
-import lotr.common.item.LOTRItemSpear;
+import lotr.common.item.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -23,14 +22,8 @@ import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.nbt.NBTUtil;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.client.IItemRenderer;
@@ -44,6 +37,7 @@ public abstract class LOTRRenderBiped extends RenderBiped
 {
 	private ResourceLocation capeTexture;
 	private ModelBiped capeModel = new LOTRModelBiped();
+	private LOTRShields shield;
 	
 	public LOTRRenderBiped(ModelBiped model, float f)
 	{
@@ -60,6 +54,11 @@ public abstract class LOTRRenderBiped extends RenderBiped
 	protected void setCapeTexture(ResourceLocation r)
 	{
 		capeTexture = r;
+	}
+	
+	protected void setShield(LOTRShields s)
+	{
+		shield = s;
 	}
 	
 	@Override
@@ -316,6 +315,7 @@ public abstract class LOTRRenderBiped extends RenderBiped
         }
 		
 		renderNPCCape(entity);
+		renderNPCShield(entity);
 	}
 	
 	protected void renderNPCCape(EntityLivingBase entity)
@@ -329,6 +329,14 @@ public abstract class LOTRRenderBiped extends RenderBiped
 			bindTexture(capeTexture);
 			capeModel.renderCloak(0.0625F);
 			GL11.glPopMatrix();
+		}
+	}
+	
+	protected void renderNPCShield(EntityLivingBase entity)
+	{
+		if (shield != null)
+		{
+			LOTRRenderShield.renderShield(shield, entity, modelBipedMain);
 		}
 	}
 	

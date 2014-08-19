@@ -25,7 +25,7 @@ public class LOTRRenderShield
 		ResourceLocation shieldTexture = shield.shieldTexture;
 		
 		ItemStack held = entity == null ? null : entity.getHeldItem();
-		ItemStack inUse = entity instanceof EntityPlayer ? ((EntityPlayer)entity).getItemInUse() : held;
+		ItemStack inUse = entity instanceof EntityPlayer ? ((EntityPlayer)entity).getItemInUse() : null;
 		boolean holdingSword = entity == null ? true : (held != null && (held.getItem() instanceof ItemSword || held.getItem() instanceof ItemTool) && (inUse == null || inUse.getItemUseAction() != EnumAction.bow));
 		boolean blocking = holdingSword && inUse != null && inUse.getItemUseAction() == EnumAction.block;
 		

@@ -166,6 +166,7 @@ public class LOTRBiome extends BiomeGenBase
 	public static BiomeGenBase rhunForest;
 	public static BiomeGenBase redMountains;
 	public static BiomeGenBase redMountainsFoothills;
+	public static BiomeGenBase dolGuldur;
 	
 	public static LOTRBiome[] lotrBiomeList = new LOTRBiome[256];
 	
@@ -186,7 +187,7 @@ public class LOTRBiome extends BiomeGenBase
 		deadMarshes = new LOTRBiomeGenDeadMarshes(12).setTemperatureRainfall(0.2F, 1F).setMinMaxHeight(0F, 0.1F).setColor(0x60523B).setBiomeName("deadMarshes");
 		trollshaws = new LOTRBiomeGenTrollshaws(13).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.15F, 1F).setColor(0x9E8D69).setBiomeName("trollshaws");
 		mirkwood = new LOTRBiomeGenMirkwood(14, false).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.2F, 0.3F).setColor(0x183811).setBiomeName("mirkwood");
-		mirkwoodCorrupted = new LOTRBiomeGenMirkwood(15, true).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.2F, 0.4F).setColor(0x142112).setBiomeName("mirkwoodCorrupted");
+		mirkwoodCorrupted = new LOTRBiomeGenMirkwood(15, true).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.2F, 0.4F).setColor(0x142112).setBiomeName("mirkwoodCorrupted");
 		rohanUrukHighlands = new LOTRBiomeGenRohan(16, true).setTemperatureRainfall(0.7F, 0.4F).setMinMaxHeight(0.8F, 0.3F).setColor(0x90904D).setBiomeName("rohanUrukHighlands");
 		emynMuil = new LOTRBiomeGenEmynMuil(17).setTemperatureRainfall(0.5F, 0.9F).setMinMaxHeight(0.2F, 0.8F).setColor(0x967E72).setBiomeName("emynMuil");
 		ithilien = new LOTRBiomeGenIthilien(18).setTemperatureRainfall(0.7F, 0.9F).setMinMaxHeight(0.15F, 0.5F).setColor(0xA9B542).setBiomeName("ithilien");
@@ -290,6 +291,7 @@ public class LOTRBiome extends BiomeGenBase
 		rhunForest = new LOTRBiomeGenRhunForest(116).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.3F, 0.5F).setColor(0x929646).setBiomeName("rhunForest");
 		redMountains = new LOTRBiomeGenRedMountains(117).setTemperatureRainfall(0.3F, 0.4F).setMinMaxHeight(1.5F, 2F).setColor(0xA37B6E).setBiomeName("redMountains");
 		redMountainsFoothills = new LOTRBiomeGenRedMountains(118).setTemperatureRainfall(0.7F, 0.4F).setMinMaxHeight(0.5F, 0.9F).setColor(0xA69C7B).setBiomeName("redMountainsFoothills");
+		//dolGuldur = new LOTRBiomeGenDolGuldur(119).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.2F, 0.3F).setColor(0x0B0F0A).setBiomeName("dolGuldur");
 	}
 	
 	private static Random rand = new Random();

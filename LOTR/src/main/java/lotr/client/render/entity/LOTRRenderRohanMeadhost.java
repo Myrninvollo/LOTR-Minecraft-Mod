@@ -6,7 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 
-public class LOTRRenderRohanMeadhost extends LOTRRenderRohirrim
+public class LOTRRenderRohanMeadhost extends LOTRRenderBiped
 {
 	private static ResourceLocation skin = new ResourceLocation("lotr:mob/rohan/blacksmith.png");
 	private static ResourceLocation apron = new ResourceLocation("lotr:mob/rohan/mead_apron.png");
@@ -15,7 +15,7 @@ public class LOTRRenderRohanMeadhost extends LOTRRenderRohirrim
 	
 	public LOTRRenderRohanMeadhost()
 	{
-		super();
+		super(new LOTRModelBiped(), 0.5F);
 		setRenderPassModel(standardRenderPassModel);
 	}
 	

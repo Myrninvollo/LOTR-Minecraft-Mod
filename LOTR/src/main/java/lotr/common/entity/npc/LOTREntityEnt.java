@@ -54,10 +54,10 @@ public class LOTREntityEnt extends LOTREntityTree
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(80D);
+		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(100D);
 		getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(24D);
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2D);
-        getEntityAttribute(npcAttackDamage).setBaseValue(6D);
+        getEntityAttribute(npcAttackDamage).setBaseValue(7D);
     }
 	
 	public String getEntName()

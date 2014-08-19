@@ -56,9 +56,13 @@ public class LOTRBiomeGenMirkwood extends LOTRBiome
 			decorator.mushroomsPerChunk = 4;
 			decorator.generateCobwebs = false;
 			
-			decorator.addRandomStructure(new LOTRWorldGenRuinedWoodElfTower(false), 500);
+			biomeColors.setGrass(0x2B5B25);
+			biomeColors.setFoliage(0x263325);
+			biomeColors.setFog(0x32647D);
+			biomeColors.setFoggy(true);
+			biomeColors.setWater(0x282344);
 			
-			waterColorMultiplier = 0x282344;
+			decorator.addRandomStructure(new LOTRWorldGenRuinedWoodElfTower(false), 500);
 			
 			setBanditChance(LOTRBanditSpawner.NEVER);
 			
@@ -189,46 +193,5 @@ public class LOTRBiomeGenMirkwood extends LOTRBiome
 	public float getChanceToSpawnLavaLakes()
 	{
 		return corrupted ? super.getChanceToSpawnLavaLakes() : 0F;
-	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-		if (corrupted)
-		{
-			return 0x2B5B25;
-		}
-		return super.getBiomeGrassColor(i, j, k);
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeFoliageColor(int i, int j, int k)
-    {
-		if (corrupted)
-		{
-			return 0x263325;
-		}
-		return super.getBiomeFoliageColor(i, j, k);
-    }
-	
-	@Override
-	public Vec3 getFogColor(Vec3 fog)
-	{
-		if (corrupted)
-		{
-			fog.xCoord *= 0.2D;
-			fog.yCoord *= 0.4D;
-			fog.zCoord *= 0.5D;
-			return fog;
-		}
-		return super.getFogColor(fog);
-	}
-	
-	@Override
-	public boolean hasFog()
-	{
-		return corrupted;
 	}
 }

@@ -38,6 +38,8 @@ public class LOTRBiomeGenPertorogwaith extends LOTRBiome
 		decorator.doubleGrassPerChunk = 4;
 		decorator.flowersPerChunk = 0;
 		
+		biomeColors.setSky(0x827C72);
+		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 
@@ -134,11 +136,4 @@ public class LOTRBiomeGenPertorogwaith extends LOTRBiome
 	{
 		return 0.5F;
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x827C72;
-    }
 }

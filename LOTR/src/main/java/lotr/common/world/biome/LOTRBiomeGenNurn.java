@@ -22,6 +22,8 @@ public class LOTRBiomeGenNurn extends LOTRBiomeGenMordor
 		
 		topBlock = Blocks.grass;
 		fillerBlock = Blocks.dirt;
+		
+		enableRain = true;
 
 		decorator.flowersPerChunk = 0;
 		decorator.grassPerChunk = 4;
@@ -30,6 +32,10 @@ public class LOTRBiomeGenNurn extends LOTRBiomeGenMordor
 		decorator.clearRandomStructures();
 		decorator.addRandomStructure(new LOTRWorldGenNurnWheatFarm(false), 40);
 		decorator.addRandomStructure(new LOTRWorldGenOrcSlaverTower(false), 200);
+		
+		biomeColors.setSky(0x564637);
+		biomeColors.resetClouds();
+		biomeColors.resetFog();
 	}
 	
 	@Override
@@ -80,14 +86,7 @@ public class LOTRBiomeGenNurn extends LOTRBiomeGenMordor
 	{
 		return 0.2F;
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x564637;
-    }
-	
+
 	@Override
 	public int spawnCountMultiplier()
 	{

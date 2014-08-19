@@ -52,8 +52,6 @@ public class LOTRBiomeGenMordor extends LOTRBiome
 		
 		if (isGorgoroth())
 		{
-			setDisableRain();
-			
 			spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorWarg.class, 10, 1, 3));
 			spawnableEvilList.add(new SpawnListEntry(LOTREntityOlogHai.class, 10, 1, 3));
 		}
@@ -66,7 +64,12 @@ public class LOTRBiomeGenMordor extends LOTRBiome
 		decorator.addRandomStructure(new LOTRWorldGenMordorWargPit(false), 300);
 		decorator.addRandomStructure(new LOTRWorldGenMordorTower(false), 400);
 
-		waterColorMultiplier = 0x3F2007;
+		biomeColors.setGrass(0x5B412B);
+		biomeColors.setFoliage(0x634F2D);
+		biomeColors.setSky(0x602F1F);
+		biomeColors.setClouds(0x4B2319);
+		biomeColors.setFog(0x322619);
+		biomeColors.setWater(0x3F2007);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
@@ -187,52 +190,5 @@ public class LOTRBiomeGenMordor extends LOTRBiome
 	public float getChanceToSpawnLavaLakes()
 	{
 		return 1F;
-	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-        return 0x5B412B;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeFoliageColor(int i, int j, int k)
-    {
-        return 0x634F2D;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x602F1F;
-    }
-	
-	@Override
-	public Vec3 getCloudColor(Vec3 clouds)
-	{
-		if (isGorgoroth())
-		{
-			clouds.xCoord *= 0.3D;
-			clouds.yCoord *= 0.15D;
-			clouds.zCoord *= 0.1D;
-			return clouds;
-		}
-		return super.getCloudColor(clouds);
-	}
-	
-	@Override
-	public Vec3 getFogColor(Vec3 fog)
-	{
-		if (isGorgoroth())
-		{
-			fog.xCoord *= 0.2D;
-			fog.yCoord *= 0.15D;
-			fog.zCoord *= 0.1D;
-			return fog;
-		}
-		return super.getFogColor(fog);
 	}
 }

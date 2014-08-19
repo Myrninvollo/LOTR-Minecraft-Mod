@@ -37,6 +37,9 @@ public class LOTRBiomeGenBrownLands extends LOTRBiome
 		decorator.flowersPerChunk = 0;
 		decorator.grassPerChunk = 1;
 		
+		biomeColors.setGrass(0xAD875F);
+		biomeColors.setSky(0x877962);
+		
 		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 3), 2000);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
@@ -90,18 +93,4 @@ public class LOTRBiomeGenBrownLands extends LOTRBiome
 	{
 		return 0F;
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-        return 0xAD875F;
-    }
-
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x877962;
-    }
 }

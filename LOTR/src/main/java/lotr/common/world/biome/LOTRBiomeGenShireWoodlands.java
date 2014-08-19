@@ -21,16 +21,12 @@ public class LOTRBiomeGenShireWoodlands extends LOTRBiomeGenShire
 		decorator.enableFern = true;
 		
 		addFlower(LOTRMod.shireHeather, 0, 20);
+		
+		biomeColors.resetGrass();
 	}
 	
 	@Override
 	public boolean hasDomesticAnimals()
-	{
-		return false;
-	}
-	
-	@Override
-	public boolean hasGreenGrass()
 	{
 		return false;
 	}

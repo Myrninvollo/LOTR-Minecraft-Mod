@@ -43,6 +43,10 @@ public class LOTRBiomeGenDagorlad extends LOTRBiome
 		decorator.flowersPerChunk = 0;
 		decorator.grassPerChunk = 0;
 		
+		biomeColors.setSky(0x54493D);
+		biomeColors.setClouds(0x333333);
+		biomeColors.setFog(0x666666);
+		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 		
 		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.MORDOR, LOTRInvasionSpawner.COMMON));
@@ -99,31 +103,6 @@ public class LOTRBiomeGenDagorlad extends LOTRBiome
 	public float getChanceToSpawnLakes()
 	{
 		return 0F;
-	}
-
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x54493D;
-    }
-	
-	@Override
-	public Vec3 getCloudColor(Vec3 clouds)
-	{
-		clouds.xCoord *= 0.2D;
-		clouds.yCoord *= 0.2D;
-		clouds.zCoord *= 0.2D;
-		return clouds;
-	}
-	
-	@Override
-	public Vec3 getFogColor(Vec3 fog)
-	{
-		fog.xCoord *= 0.4D;
-		fog.yCoord *= 0.4D;
-		fog.zCoord *= 0.4D;
-		return fog;
 	}
 	
 	@Override

@@ -291,12 +291,13 @@ public class LOTRBiome extends BiomeGenBase
 		rhunForest = new LOTRBiomeGenRhunForest(116).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.3F, 0.5F).setColor(0x929646).setBiomeName("rhunForest");
 		redMountains = new LOTRBiomeGenRedMountains(117).setTemperatureRainfall(0.3F, 0.4F).setMinMaxHeight(1.5F, 2F).setColor(0xA37B6E).setBiomeName("redMountains");
 		redMountainsFoothills = new LOTRBiomeGenRedMountains(118).setTemperatureRainfall(0.7F, 0.4F).setMinMaxHeight(0.5F, 0.9F).setColor(0xA69C7B).setBiomeName("redMountainsFoothills");
-		//dolGuldur = new LOTRBiomeGenDolGuldur(119).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.2F, 0.3F).setColor(0x0B0F0A).setBiomeName("dolGuldur");
+		dolGuldur = new LOTRBiomeGenDolGuldur(119).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.2F, 0.3F).setColor(0x0B0F0A).setBiomeName("dolGuldur");
 	}
 	
 	private static Random rand = new Random();
 	
 	protected LOTRBiomeDecorator decorator;
+	public boolean hasPodzol = false;
 	
 	public List spawnableGoodList = new ArrayList();
 	public List spawnableEvilList = new ArrayList();
@@ -307,7 +308,87 @@ public class LOTRBiome extends BiomeGenBase
 	private int banditChance;
 	public List invasionSpawns = new ArrayList();
 	
-	public boolean hasPodzol = false;
+	public BiomeColors biomeColors = new BiomeColors(this);
+	public static class BiomeColors
+	{
+		private LOTRBiome theBiome;
+		private Color grass;
+		private Color foliage;
+		private Color sky;
+		private Color clouds;
+		private Color fog;
+		private boolean foggy;
+		
+		public BiomeColors(LOTRBiome biome)
+		{
+			theBiome = biome;
+		}
+
+		public void setGrass(int rgb)
+		{
+			grass = new Color(rgb);
+		}
+		
+		public void resetGrass()
+		{
+			grass = null;
+		}
+		
+		public void setFoliage(int rgb)
+		{
+			foliage = new Color(rgb);
+		}
+		
+		public void resetFoliage()
+		{
+			foliage = null;
+		}
+		
+		public void setSky(int rgb)
+		{
+			sky = new Color(rgb);
+		}
+		
+		public void resetSky()
+		{
+			sky = null;
+		}
+		
+		public void setClouds(int rgb)
+		{
+			clouds = new Color(rgb);
+		}
+		
+		public void resetClouds()
+		{
+			clouds = null;
+		}
+		
+		public void setFog(int rgb)
+		{
+			fog = new Color(rgb);
+		}
+		
+		public void resetFog()
+		{
+			fog = null;
+		}
+		
+		public void setFoggy(boolean flag)
+		{
+			foggy = flag;
+		}
+		
+		public void setWater(int rgb)
+		{
+			theBiome.waterColorMultiplier = rgb;
+		}
+		
+		public void resetWater()
+		{
+			theBiome.waterColorMultiplier = 0xFFFFFF;
+		}
+	}
 	
 	public LOTRBiome(int i)
 	{
@@ -630,19 +711,75 @@ public class LOTRBiome extends BiomeGenBase
 		return 0;
 	}
 	
-	public Vec3 getCloudColor(Vec3 clouds)
+	@Override
+    @SideOnly(Side.CLIENT)
+    public final int getBiomeGrassColor(int i, int j, int k)
+    {
+		if (biomeColors.grass != null)
+		{
+			return biomeColors.grass.getRGB();
+		}
+		else
+		{
+			return super.getBiomeGrassColor(i, j, k);
+		}
+    }
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public final int getBiomeFoliageColor(int i, int j, int k)
+    {
+		if (biomeColors.foliage != null)
+		{
+			return biomeColors.foliage.getRGB();
+		}
+		else
+		{
+			return super.getBiomeFoliageColor(i, j, k);
+		}
+    }
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public final int getSkyColorByTemp(float f)
+    {
+		if (biomeColors.sky != null)
+		{
+			return biomeColors.sky.getRGB();
+		}
+		else
+		{
+			return super.getSkyColorByTemp(f);
+		}
+    }
+	
+	public final Vec3 getCloudColor(Vec3 clouds)
 	{
+		if (biomeColors.clouds != null)
+		{
+			float[] colors = biomeColors.clouds.getColorComponents(null);
+			clouds.xCoord *= colors[0];
+			clouds.yCoord *= colors[1];
+			clouds.zCoord *= colors[2];
+		}
 		return clouds;
 	}
 	
-	public Vec3 getFogColor(Vec3 fog)
+	public final Vec3 getFogColor(Vec3 fog)
 	{
+		if (biomeColors.fog != null)
+		{
+			float[] colors = biomeColors.fog.getColorComponents(null);
+			fog.xCoord *= colors[0];
+			fog.yCoord *= colors[1];
+			fog.zCoord *= colors[2];
+		}
 		return fog;
 	}
 	
-	public boolean hasFog()
+	public final boolean hasFog()
 	{
-		return false;
+		return biomeColors.foggy;
 	}
 	
 	public int spawnCountMultiplier()

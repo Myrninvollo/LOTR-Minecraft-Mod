@@ -58,6 +58,8 @@ public class LOTRBiomeGenShire extends LOTRBiome
 		registerForestFlowers();
 		addFlower(LOTRMod.bluebell, 0, 5);
 		
+		biomeColors.setGrass(0x16B716);
+		
 		if (hasShireStructures())
 		{
 			if (getClass() == LOTRBiomeGenShire.class)
@@ -87,11 +89,6 @@ public class LOTRBiomeGenShire extends LOTRBiome
 	
 	@Override
 	public boolean hasDomesticAnimals()
-	{
-		return true;
-	}
-	
-	public boolean hasGreenGrass()
 	{
 		return true;
 	}
@@ -173,17 +170,6 @@ public class LOTRBiomeGenShire extends LOTRBiome
 	{
 		return 0F;
 	}
-
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-        if (hasGreenGrass())
-		{
-			return 0x16B716;
-		}
-		return super.getBiomeGrassColor(i, j, k);
-    }
 	
 	@Override
 	public int spawnCountMultiplier()

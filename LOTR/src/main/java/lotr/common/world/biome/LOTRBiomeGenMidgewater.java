@@ -46,7 +46,9 @@ public class LOTRBiomeGenMidgewater extends LOTRBiome
 		
 		registerSwampFlowers();
 		
-		waterColorMultiplier = 0xE0FFAE;
+		biomeColors.setGrass(0x82824C);
+		biomeColors.setFoliage(0x826A3B);
+		biomeColors.setWater(0xE0FFAE);
 		
 		setBanditChance(LOTRBanditSpawner.UNCOMMON);
 		
@@ -102,18 +104,4 @@ public class LOTRBiomeGenMidgewater extends LOTRBiome
 	{
 		return 0.25F;
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-        return 0x82824C;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeFoliageColor(int i, int j, int k)
-    {
-        return 0x826A3B;
-    }
 }

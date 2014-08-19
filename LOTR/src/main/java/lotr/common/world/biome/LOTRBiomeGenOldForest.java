@@ -36,6 +36,11 @@ public class LOTRBiomeGenOldForest extends LOTRBiome
 		
 		registerForestFlowers();
 		
+		biomeColors.setGrass(0x47823E);
+		biomeColors.setFoliage(0x30682A);
+		biomeColors.setFog(0x193219);
+		biomeColors.setFoggy(true);
+		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
@@ -80,34 +85,5 @@ public class LOTRBiomeGenOldForest extends LOTRBiome
 	public float getChanceToSpawnAnimals()
 	{
 		return 0F;
-	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-		return 0x47823E;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeFoliageColor(int i, int j, int k)
-    {
-		return 0x30682A;
-    }
-	
-	@Override
-	public Vec3 getFogColor(Vec3 fog)
-	{
-		fog.xCoord *= 0.1D;
-		fog.yCoord *= 0.2D;
-		fog.zCoord *= 0.1D;
-		return fog;
-	}
-	
-	@Override
-	public boolean hasFog()
-	{
-		return true;
 	}
 }

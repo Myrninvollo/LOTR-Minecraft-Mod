@@ -51,7 +51,11 @@ public class LOTRBiomeGenDeadMarshes extends LOTRBiome
 		flowers.clear();
 		addFlower(LOTRMod.deadPlant, 0, 10);
 		
-		waterColorMultiplier = 0x382618;
+		biomeColors.setGrass(0x7F644F);
+		biomeColors.setSky(0x565332);
+		biomeColors.setClouds(0xA09B66);
+		biomeColors.setFog(0x404024);
+		biomeColors.setWater(0x382618);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 		
@@ -126,37 +130,5 @@ public class LOTRBiomeGenDeadMarshes extends LOTRBiome
 	public float getTreeIncreaseChance()
 	{
 		return 0.25F;
-	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-        return 0x7F644F;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x565332;
-    }
-	
-	@Override
-	public Vec3 getCloudColor(Vec3 clouds)
-	{
-		clouds.xCoord *= 0.65D;
-		clouds.yCoord *= 0.6D;
-		clouds.zCoord *= 0.4D;
-		return clouds;
-	}
-	
-	@Override
-	public Vec3 getFogColor(Vec3 fog)
-	{
-		fog.xCoord *= 0.25D;
-		fog.yCoord *= 0.25D;
-		fog.zCoord *= 0.15D;
-		return fog;
 	}
 }

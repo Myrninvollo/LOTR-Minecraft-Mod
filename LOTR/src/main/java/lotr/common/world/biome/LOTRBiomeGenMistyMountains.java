@@ -46,6 +46,8 @@ public class LOTRBiomeGenMistyMountains extends LOTRBiome
 		
 		registerMountainsFlowers();
 		
+		biomeColors.setSky(0xBACBD1);
+		
 		decorator.generateOrcDungeon = true;
 		
 		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 4), 500);
@@ -135,11 +137,4 @@ public class LOTRBiomeGenMistyMountains extends LOTRBiome
 	{
 		return 0F;
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0xBACBD1;
-    }
 }

@@ -40,6 +40,8 @@ public class LOTRBiomeGenForodwaith extends LOTRBiome
 		decorator.grassPerChunk = 0;
 		decorator.generateWater = false;
 		
+		biomeColors.setSky(0x99A4A8);
+		
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 4000);
 		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 5), 4000);
 		
@@ -98,11 +100,4 @@ public class LOTRBiomeGenForodwaith extends LOTRBiome
 	{
 		return 0.02F;
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x99A4A8;
-    }
 }

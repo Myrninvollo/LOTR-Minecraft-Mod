@@ -60,6 +60,11 @@ public class LOTRBiomeGenAngmar extends LOTRBiome
 		decorator.grassPerChunk = 2;
 		decorator.doubleGrassPerChunk = 1;
 		
+		biomeColors.setGrass(0x787C57);
+		biomeColors.setSky(0x513F33);
+		biomeColors.setClouds(0x191919);
+		biomeColors.setFog(0x191919);
+		
 		decorator.generateOrcDungeon = true;
 		decorator.generateTrollHoard = true;
 		
@@ -165,37 +170,5 @@ public class LOTRBiomeGenAngmar extends LOTRBiome
 	public float getChanceToSpawnLavaLakes()
 	{
 		return 0.25F;
-	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-        return 0x787C57;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x513F33;
-    }
-	
-	@Override
-	public Vec3 getCloudColor(Vec3 clouds)
-	{
-		clouds.xCoord *= 0.1D;
-		clouds.yCoord *= 0.1D;
-		clouds.zCoord *= 0.1D;
-		return clouds;
-	}
-	
-	@Override
-	public Vec3 getFogColor(Vec3 fog)
-	{
-		fog.xCoord *= 0.1D;
-		fog.yCoord *= 0.1D;
-		fog.zCoord *= 0.1D;
-		return fog;
 	}
 }

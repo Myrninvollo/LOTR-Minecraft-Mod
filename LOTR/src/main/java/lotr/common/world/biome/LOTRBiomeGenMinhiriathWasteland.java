@@ -17,6 +17,8 @@ public class LOTRBiomeGenMinhiriathWasteland extends LOTRBiomeGenMinhiriath
 		decorator.grassPerChunk = 1;
 		decorator.doubleGrassPerChunk = 0;
 		decorator.flowersPerChunk = 0;
+		
+		biomeColors.setGrass(0xAEB269);
 	}
 	
 	@Override
@@ -53,11 +55,4 @@ public class LOTRBiomeGenMinhiriathWasteland extends LOTRBiomeGenMinhiriath
 	{
 		return 0.25F;
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-        return 0xAEB269;
-    }
 }

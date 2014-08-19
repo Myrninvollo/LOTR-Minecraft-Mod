@@ -49,7 +49,12 @@ public class LOTRBiomeGenNindalf extends LOTRBiome
 		
 		registerSwampFlowers();
 		
-		waterColorMultiplier = 0x706A30;
+		biomeColors.setGrass(0x6C704B);
+		biomeColors.setFoliage(0x6B7045);
+		biomeColors.setSky(0x898758);
+		biomeColors.setClouds(0x7D7D64);
+		biomeColors.setFog(0x646458);
+		biomeColors.setWater(0x706A30);
 		
 		setBanditChance(LOTRBanditSpawner.UNCOMMON);
 		
@@ -116,44 +121,5 @@ public class LOTRBiomeGenNindalf extends LOTRBiome
 	public float getChanceToSpawnAnimals()
 	{
 		return 0.1F;
-	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-        return 0x6C704B;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeFoliageColor(int i, int j, int k)
-    {
-        return 0x6B7045;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x898758;
-    }
-	
-	@Override
-	public Vec3 getCloudColor(Vec3 clouds)
-	{
-		clouds.xCoord *= 0.5D;
-		clouds.yCoord *= 0.5D;
-		clouds.zCoord *= 0.4D;
-		return clouds;
-	}
-	
-	@Override
-	public Vec3 getFogColor(Vec3 fog)
-	{
-		fog.xCoord *= 0.4D;
-		fog.yCoord *= 0.4D;
-		fog.zCoord *= 0.35D;
-		return fog;
 	}
 }

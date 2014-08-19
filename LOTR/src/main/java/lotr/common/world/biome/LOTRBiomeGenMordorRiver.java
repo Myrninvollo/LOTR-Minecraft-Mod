@@ -22,6 +22,6 @@ public class LOTRBiomeGenMordorRiver extends LOTRBiomeGenMordor
 	@Override
 	public boolean isGorgoroth()
 	{
-		return false;
+		return true;
 	}
 }

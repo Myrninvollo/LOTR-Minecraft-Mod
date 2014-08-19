@@ -33,6 +33,9 @@ public class LOTRBiomeGenEmynMuil extends LOTRBiome
 	{
 		super(i);
 		
+		topBlock = Blocks.stone;
+		fillerBlock = Blocks.stone;
+		
 		spawnableCreatureList.clear();
 		
 		spawnableEvilList.clear();
@@ -46,8 +49,8 @@ public class LOTRBiomeGenEmynMuil extends LOTRBiome
 		
 		registerMountainsFlowers();
 		
-		topBlock = Blocks.stone;
-		fillerBlock = Blocks.stone;
+		biomeColors.setGrass(0x919161);
+		biomeColors.setSky(0xACADA8);
 		
 		decorator.generateOrcDungeon = true;
 		
@@ -138,11 +141,4 @@ public class LOTRBiomeGenEmynMuil extends LOTRBiome
 			grassPatchGen.generate(world, random, i1, world.getHeightValue(i1, k1), k1);
 		}
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-        return 0x919161;
-    }
 }

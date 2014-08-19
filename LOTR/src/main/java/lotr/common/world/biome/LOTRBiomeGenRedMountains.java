@@ -34,6 +34,8 @@ public class LOTRBiomeGenRedMountains extends LOTRBiome
 		
 		registerMountainsFlowers();
 		
+		biomeColors.setSky(0xCEA092);
+		
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
 		
 		setBanditChance(LOTRBanditSpawner.RARE);
@@ -87,11 +89,4 @@ public class LOTRBiomeGenRedMountains extends LOTRBiome
 	{
 		return 0.2F;
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0xCEA092;
-    }
 }

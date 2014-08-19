@@ -2,24 +2,15 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRMod;
-import lotr.common.LOTRWaypoint;
+import lotr.common.*;
 import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.animal.LOTREntityButterfly;
 import lotr.common.entity.npc.LOTREntityElf;
 import lotr.common.entity.npc.LOTREntityElfWarrior;
 import lotr.common.world.LOTRBanditSpawner;
-import lotr.common.world.feature.LOTRWorldGenMallornLarge;
-import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
-import net.minecraft.util.Vec3;
+import lotr.common.world.feature.*;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenTrees;
-import net.minecraft.world.gen.feature.WorldGenerator;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.world.gen.feature.*;
 
 public class LOTRBiomeGenLothlorien extends LOTRBiome
 {
@@ -43,7 +34,7 @@ public class LOTRBiomeGenLothlorien extends LOTRBiome
 		spawnableLOTRAmbientList.add(new SpawnListEntry(LOTREntityButterfly.class, 10, 4, 4));
 		spawnableLOTRAmbientList.add(new SpawnListEntry(LOTREntityBird.class, 5, 4, 4));
 		
-		decorator.treesPerChunk = 10;
+		decorator.treesPerChunk = 9;
 		decorator.flowersPerChunk = 6;
 		decorator.grassPerChunk = 4;
 		decorator.doubleGrassPerChunk = 2;
@@ -53,6 +44,9 @@ public class LOTRBiomeGenLothlorien extends LOTRBiome
 		flowers.clear();
 		addFlower(LOTRMod.elanor, 0, 20);
 		addFlower(LOTRMod.niphredil, 0, 10);
+		
+		biomeColors.setGrass(0xAFE51B);
+		biomeColors.setFog(0xFFE664);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
@@ -128,28 +122,10 @@ public class LOTRBiomeGenLothlorien extends LOTRBiome
 		{
 			return new WorldGenTrees(false);
 		}
+		if (random.nextInt(6) == 0)
+		{
+			return new LOTRWorldGenLarch(false);
+		}
 		return random.nextInt(35) == 0 ? new LOTRWorldGenMallornLarge(false) : LOTRWorldGenSimpleTrees.newMallorn(false);
     }
-	
-	@Override
-	public float getChanceToSpawnLavaLakes()
-	{
-		return 0F;
-	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-		return 0xAFE51B;
-    }
-	
-	@Override
-	public Vec3 getFogColor(Vec3 fog)
-	{
-		fog.xCoord *= 1D;
-		fog.yCoord *= 0.9D;
-		fog.zCoord *= 0.4D;
-		return fog;
-	}
 }

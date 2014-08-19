@@ -56,6 +56,8 @@ public class LOTRBiomeGenBlueMountains extends LOTRBiome
 		registerMountainsFlowers();
 		addFlower(LOTRMod.dwarfHerb, 0, 1);
 		
+		biomeColors.setSky(0x7289F9);
+		
 		decorator.addRandomStructure(new LOTRWorldGenBlueMountainsStronghold(false), 500);
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
@@ -123,11 +125,4 @@ public class LOTRBiomeGenBlueMountains extends LOTRBiome
 	{
 		return 0.2F;
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x7289F9;
-    }
 }

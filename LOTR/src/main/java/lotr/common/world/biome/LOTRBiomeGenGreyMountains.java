@@ -32,6 +32,8 @@ public class LOTRBiomeGenGreyMountains extends LOTRBiome
 		
 		registerMountainsFlowers();
 		
+		biomeColors.setSky(0x9BCDDB);
+		
 		decorator.generateOrcDungeon = true;
 		
 		setBanditChance(LOTRBanditSpawner.RARE);

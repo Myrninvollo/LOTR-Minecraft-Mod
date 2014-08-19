@@ -34,6 +34,12 @@ public class LOTRBiomeGenBarrowDowns extends LOTRBiome
 		decorator.generateAthelas = true;
 		
         registerPlainsFlowers();
+        
+        biomeColors.setGrass(0x718E59);
+        biomeColors.setFoliage(0x868766);
+        biomeColors.setSky(0x8CA088);
+        biomeColors.setClouds(0xB4B4B4);
+        biomeColors.setFog(0x9B9B9B);
 		
 		decorator.generateOrcDungeon = true;
 		
@@ -94,44 +100,5 @@ public class LOTRBiomeGenBarrowDowns extends LOTRBiome
 	public float getChanceToSpawnLakes()
 	{
 		return 0.2F;
-	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-        return 0x718E59;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeFoliageColor(int i, int j, int k)
-    {
-        return 0x868766;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x8CA088;
-    }
-	
-	@Override
-	public Vec3 getCloudColor(Vec3 clouds)
-	{
-		clouds.xCoord *= 0.7D;
-		clouds.yCoord *= 0.7D;
-		clouds.zCoord *= 0.7D;
-		return clouds;
-	}
-	
-	@Override
-	public Vec3 getFogColor(Vec3 fog)
-	{
-		fog.xCoord *= 0.6D;
-		fog.yCoord *= 0.6D;
-		fog.zCoord *= 0.6D;
-		return fog;
 	}
 }

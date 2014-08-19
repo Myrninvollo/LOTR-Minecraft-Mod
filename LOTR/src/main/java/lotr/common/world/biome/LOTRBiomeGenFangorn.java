@@ -58,6 +58,10 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 		addFlower(LOTRMod.fangornPlant, 4, 1);
 		addFlower(LOTRMod.fangornPlant, 5, 1);
 		
+		biomeColors.setSky(0x76A072);
+		biomeColors.setFog(0x327D4B);
+		biomeColors.setFoggy(true);
+		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
@@ -148,27 +152,5 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 	public float getChanceToSpawnAnimals()
 	{
 		return 0.25F;
-	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getSkyColorByTemp(float f)
-    {
-		return 0x76A072;
-    }
-	
-	@Override
-	public Vec3 getFogColor(Vec3 fog)
-	{
-		fog.xCoord *= 0.2D;
-		fog.yCoord *= 0.5D;
-		fog.zCoord *= 0.3D;
-		return fog;
-	}
-	
-	@Override
-	public boolean hasFog()
-	{
-		return true;
 	}
 }

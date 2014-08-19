@@ -50,6 +50,8 @@ public class LOTRBiomeGenLoneLands extends LOTRBiome
 		decorator.generateAthelas = true;
 		
         registerPlainsFlowers();
+        
+        biomeColors.setGrass(0xB7A759);
 		
 		decorator.generateOrcDungeon = true;
 		
@@ -128,11 +130,4 @@ public class LOTRBiomeGenLoneLands extends LOTRBiome
 	{
 		return 0.1F;
 	}
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public int getBiomeGrassColor(int i, int j, int k)
-    {
-        return 0xBAA748;
-    }
 }

@@ -15,6 +15,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -50,6 +51,14 @@ public class LOTRBlockGuldurilBrick extends Block
 		{
 			return 3;
 		}
+		if (block == LOTRMod.brick2 && i == 8)
+		{
+			return 4;
+		}
+		if (block == LOTRMod.brick2 && i == 9)
+		{
+			return 5;
+		}
 		
 		return -1;
 	}
@@ -72,9 +81,23 @@ public class LOTRBlockGuldurilBrick extends Block
 		{
 			return new ItemStack(LOTRMod.brick2, 1, 1);
 		}
+		if (i == 4)
+		{
+			return new ItemStack(LOTRMod.brick2, 1, 8);
+		}
+		if (i == 5)
+		{
+			return new ItemStack(LOTRMod.brick2, 1, 9);
+		}
 		
 		return null;
 	}
+	
+	@Override
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int i, int j, int k)
+    {
+		return blockForGuldurilMeta(world.getBlockMetadata(i, j, k));
+    }
 	
 	@Override
     @SideOnly(Side.CLIENT)
@@ -132,7 +155,7 @@ public class LOTRBlockGuldurilBrick extends Block
 	@SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List list)
     {
-		for (int j = 0; j <= 3; j++)
+		for (int j = 0; j <= 5; j++)
 		{
 			list.add(new ItemStack(item, 1, j));
 		}

@@ -16,7 +16,7 @@ public class LOTRBlockAngmarTable extends LOTRBlockCraftingTable
 	
 	public LOTRBlockAngmarTable()
 	{
-		super(Material.iron, LOTRFaction.ANGMAR, LOTRCommonProxy.GUI_ID_ANGMAR_TABLE);
+		super(Material.rock, LOTRFaction.ANGMAR, LOTRCommonProxy.GUI_ID_ANGMAR_TABLE);
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ public class LOTRBlockAngmarTable extends LOTRBlockCraftingTable
 		}
 		if (i == 0)
 		{
-			return LOTRMod.blockOreStorage.getIcon(0, 5);
+			return LOTRMod.brick2.getIcon(0, 0);
 		}
 		return tableIcons[0];
 	}

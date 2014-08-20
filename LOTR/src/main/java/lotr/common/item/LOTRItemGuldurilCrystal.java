@@ -28,7 +28,7 @@ public class LOTRItemGuldurilCrystal extends Item
 		}
 		
 		int guldurilBrickMeta = LOTRBlockGuldurilBrick.guldurilMetaForBlock(world.getBlock(i, j, k), world.getBlockMetadata(i, j, k));
-		boolean hasAlignment = LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.MORDOR) >= LOTRAlignmentValues.Levels.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.ANGMAR) >= LOTRAlignmentValues.Levels.USE_PORTAL;
+		boolean hasAlignment = LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.MORDOR) >= LOTRAlignmentValues.Levels.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.ANGMAR) >= LOTRAlignmentValues.Levels.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.DOL_GULDUR) >= LOTRAlignmentValues.Levels.USE_PORTAL;
 		
 		if (guldurilBrickMeta >= 0)
 		{
@@ -55,7 +55,7 @@ public class LOTRItemGuldurilCrystal extends Item
 				}
 				if (!world.isRemote)
 				{
-					LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.Levels.USE_PORTAL, LOTRFaction.MORDOR, LOTRFaction.ANGMAR);
+					LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.Levels.USE_PORTAL, LOTRFaction.MORDOR, LOTRFaction.ANGMAR, LOTRFaction.DOL_GULDUR);
 				}
 			}
 			

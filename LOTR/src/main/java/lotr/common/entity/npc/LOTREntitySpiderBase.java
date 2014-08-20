@@ -146,7 +146,7 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
 		}
 		else if (riddenByEntity instanceof LOTREntityNPC)
 		{
-			return (double)height * 0.55D;
+			return (double)height * 0.5D;
 		}
 		return super.getMountedYOffset();
     }

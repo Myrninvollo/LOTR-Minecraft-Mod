@@ -54,6 +54,7 @@ public class LOTRAlignmentValues
 		public static int WOOD_ELF_CAPTAIN = 5;
 		
 		public static int MIRKWOOD_SPIDER = 1;
+		public static int DOL_GULDUR_ORC = 1;
 		
 		public static int DWARF = 1;
 		public static int DWARF_WARRIOR = 2;
@@ -212,5 +213,12 @@ public class LOTRAlignmentValues
         IChatComponent componentAlignmentRequired = new ChatComponentText("+" + alignmentRequired);
         componentAlignmentRequired.getChatStyle().setColor(EnumChatFormatting.YELLOW);
 		entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.insufficientAlignment2", new Object[] {componentAlignmentRequired, faction1.factionName(), faction2.factionName()}));
+	}
+	
+	public static void notifyAlignmentNotHighEnough(EntityPlayer entityplayer, int alignmentRequired, LOTRFaction faction1, LOTRFaction faction2, LOTRFaction faction3)
+	{
+        IChatComponent componentAlignmentRequired = new ChatComponentText("+" + alignmentRequired);
+        componentAlignmentRequired.getChatStyle().setColor(EnumChatFormatting.YELLOW);
+		entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.insufficientAlignment3", new Object[] {componentAlignmentRequired, faction1.factionName(), faction2.factionName(), faction3.factionName()}));
 	}
 }

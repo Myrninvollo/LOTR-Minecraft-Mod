@@ -341,7 +341,7 @@ public class LOTRTickHandlerServer
 						}
 					}
 					
-					if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.MORDOR) >= LOTRAlignmentValues.Levels.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.ANGMAR) >= LOTRAlignmentValues.Levels.USE_PORTAL)
+					if (LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.MORDOR) >= LOTRAlignmentValues.Levels.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.ANGMAR) >= LOTRAlignmentValues.Levels.USE_PORTAL || LOTRLevelData.getData(entityplayer).getAlignment(LOTRFaction.DOL_GULDUR) >= LOTRAlignmentValues.Levels.USE_PORTAL)
 					{
 						if (LOTRMod.isOreNameEqual(itemstack, "bone"))
 						{

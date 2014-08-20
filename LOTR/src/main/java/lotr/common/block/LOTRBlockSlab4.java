@@ -11,7 +11,7 @@ public class LOTRBlockSlab4 extends LOTRBlockSlabBase
 {
     public LOTRBlockSlab4(boolean flag)
     {
-        super(flag, Material.rock, 4);
+        super(flag, Material.rock, 5);
     }
 	
 	@Override
@@ -34,6 +34,14 @@ public class LOTRBlockSlab4 extends LOTRBlockSlabBase
 		if (j == 4)
 		{
 			return LOTRMod.brick2.getIcon(i, 7);
+		}
+		if (j == 5)
+		{
+			return LOTRMod.brick2.getIcon(i, 8);
+		}
+		if (j == 6)
+		{
+			return LOTRMod.brick2.getIcon(i, 9);
 		}
 		return LOTRMod.brick.getIcon(i, 15);
     }

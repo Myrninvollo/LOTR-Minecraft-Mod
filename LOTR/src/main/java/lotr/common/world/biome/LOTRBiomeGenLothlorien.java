@@ -122,9 +122,13 @@ public class LOTRBiomeGenLothlorien extends LOTRBiome
 		{
 			return new WorldGenTrees(false);
 		}
-		if (random.nextInt(6) == 0)
+		if (random.nextInt(5) == 0)
 		{
 			return new LOTRWorldGenLarch(false);
+		}
+		if (random.nextInt(8) == 0)
+		{
+			return LOTRWorldGenSimpleTrees.newBeech(false);
 		}
 		return random.nextInt(35) == 0 ? new LOTRWorldGenMallornLarge(false) : LOTRWorldGenSimpleTrees.newMallorn(false);
     }

@@ -173,6 +173,42 @@ public abstract class LOTRWorldGenStoneRuin extends LOTRWorldGenStructureBase
 		}
 	}
 	
+	public static class DOL_GULDUR extends LOTRWorldGenStoneRuin
+	{
+		public DOL_GULDUR(int i, int j)
+		{
+			super(i, j);
+		}
+		
+		@Override
+		protected void placeRandomBrick(World world, Random random, int i, int j, int k)
+		{
+			int l = random.nextInt(2);
+			switch (l)
+			{
+				case 0:
+					setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick2, 8);
+					break;
+				case 1:
+					setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.brick2, 9);
+					break;
+			}
+		}
+		
+		@Override
+		protected void placeRandomSlab(World world, Random random, int i, int j, int k)
+		{
+			if (random.nextInt(4) == 0)
+			{
+				setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.slabSingle4, 6);
+			}
+			else
+			{
+				setBlockAndNotifyAdequately(world, i, j, k, LOTRMod.slabSingle4, 5);
+			}
+		}
+	}
+	
 	@Override
 	public boolean generate(World world, Random random, int i, int j, int k)
 	{

@@ -30,6 +30,11 @@ public class LOTRWorldGenDeadTrees extends WorldGenAbstractTree
 		return new LOTRWorldGenDeadTrees(Blocks.log, 1);
 	}
 	
+	public static LOTRWorldGenDeadTrees newMirkOak()
+	{
+		return new LOTRWorldGenDeadTrees(LOTRMod.wood, 2);
+	}
+	
 	public static LOTRWorldGenDeadTrees newBirch()
 	{
 		return new LOTRWorldGenDeadTrees(Blocks.log, 2);

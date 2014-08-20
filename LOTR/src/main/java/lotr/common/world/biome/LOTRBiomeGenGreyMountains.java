@@ -32,7 +32,7 @@ public class LOTRBiomeGenGreyMountains extends LOTRBiome
 		
 		registerMountainsFlowers();
 		
-		biomeColors.setSky(0x9BCDDB);
+		biomeColors.setSky(0xA5C0CE);
 		
 		decorator.generateOrcDungeon = true;
 		

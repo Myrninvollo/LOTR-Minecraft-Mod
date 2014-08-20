@@ -14,12 +14,17 @@ Public Beta 20
 + Added a system of alcohol tolerance
 + Added persistence of brewing contents for barrel items
 + Added carrot wine, banana beer and melon liqueur
-+ Added a Ranger crafting table, Ranger banner, and Ranger alignment cape
++ Added the Dol Guldur biome
++ Added Dol Guldur orcs
++ Added a Dol Guldur crafting table and banner
++ Added Dol Guldur Brick blocks, slabs, stairs, and walls, and cracked variants
++ Added Gulduril Brick versions of Dol Guldur Brick
++ Added Woodland Elk
++ Added hireable Wood-elven Elk Cavalry
++ Added a Ranger crafting table and banner
 + Added Ranger banner bearers
 + Added Arnor Brick blocks, slabs, stairs, and walls, including mossy, cracked, and carved variants
 + Added Uruk Brick blocks, slabs, stairs, and walls
-+ Added Woodland Elk
-+ Added hireable Wood-elven Elk Cavalry
 + Added the option to set hired NPCs' guard range to 0 in order to keep them stationed
 + Added a separate 'Gondor Tower Guard' NPC that wears the winged helmet
 + Added travelling merchants of Near Harad
@@ -39,7 +44,8 @@ Public Beta 20
 * Changed the bricks in the Dúnedain structures to Arnor bricks
 * Increased the spawning chance of stone ruins
 * Changed stone blocks in Uruk structures to Uruk bricks
-* Changed the recipe of the Uruk crafting table and forge to use Uruk bricks
+* Changed the recipes of the Uruk crafting table and forge to use Uruk bricks
+* Changed the Angmar crafting table recipe to use bricks
 * Fast travel is now unavailable if nearby NPCs are attacking you
 * Middle-earth respawning now comes into effect even if you have a bed, given that you are at least 5000 blocks away from it
 * Changed the starting number of custom waypoints to 5

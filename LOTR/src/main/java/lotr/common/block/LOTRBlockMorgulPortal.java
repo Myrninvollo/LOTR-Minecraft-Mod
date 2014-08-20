@@ -19,7 +19,7 @@ public class LOTRBlockMorgulPortal extends LOTRBlockPortal
 {
     public LOTRBlockMorgulPortal()
     {
-        super(new LOTRFaction[] {LOTRFaction.MORDOR, LOTRFaction.ANGMAR}, LOTRTeleporterMorgulPortal.class);
+        super(new LOTRFaction[] {LOTRFaction.MORDOR, LOTRFaction.ANGMAR, LOTRFaction.DOL_GULDUR}, LOTRTeleporterMorgulPortal.class);
     }
 
     @Override

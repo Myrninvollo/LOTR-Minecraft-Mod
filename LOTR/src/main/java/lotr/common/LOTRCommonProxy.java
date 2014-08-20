@@ -46,6 +46,7 @@ public class LOTRCommonProxy implements IGuiHandler
 	public static int GUI_ID_BLUE_DWARVEN_TABLE = 27;
 	public static int GUI_ID_RANGER_TABLE = 28;
 	public static int GUI_ID_MOUNT_INV = 29;
+	public static int GUI_ID_DOL_GULDUR_TABLE = 30;
 	
 	public boolean isClient()
 	{
@@ -201,6 +202,10 @@ public class LOTRCommonProxy implements IGuiHandler
 				LOTREntityHorse horse = (LOTREntityHorse)entity;
 				return new LOTRContainerMountInventory(entityplayer.inventory, horse);
 			}
+		}
+		if (ID == GUI_ID_DOL_GULDUR_TABLE)
+		{
+			return new LOTRContainerDolGuldurTable(entityplayer.inventory, world, i, j, k);
 		}
 		return null;
 	}
@@ -394,6 +399,10 @@ public class LOTRCommonProxy implements IGuiHandler
 				LOTREntityHorse horse = (LOTREntityHorse)entity;
 				return new LOTRGuiMountInventory(entityplayer.inventory, horse);
 			}
+		}
+		if (ID == GUI_ID_DOL_GULDUR_TABLE)
+		{
+			return new LOTRGuiDolGuldurTable(entityplayer.inventory, world, i, j, k);
 		}
 		return null;
 	}

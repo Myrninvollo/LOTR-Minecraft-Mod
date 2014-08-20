@@ -50,7 +50,7 @@ public class LOTRBiomeGenEmynMuil extends LOTRBiome
 		registerMountainsFlowers();
 		
 		biomeColors.setGrass(0x919161);
-		biomeColors.setSky(0xACADA8);
+		biomeColors.setSky(0x989994);
 		
 		decorator.generateOrcDungeon = true;
 		

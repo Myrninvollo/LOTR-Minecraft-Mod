@@ -1,22 +1,20 @@
 package lotr.common.block;
 
-import lotr.common.LOTRCommonProxy;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class LOTRBlockUrukTable extends LOTRBlockCraftingTable
+public class LOTRBlockDolGuldurTable extends LOTRBlockCraftingTable
 {
 	@SideOnly(Side.CLIENT)
 	private IIcon[] tableIcons;
 	
-	public LOTRBlockUrukTable()
+	public LOTRBlockDolGuldurTable()
 	{
-		super(Material.rock, LOTRFaction.URUK_HAI, LOTRCommonProxy.GUI_ID_URUK_TABLE);
+		super(Material.rock, LOTRFaction.DOL_GULDUR, LOTRCommonProxy.GUI_ID_DOL_GULDUR_TABLE);
 	}
 	
 	@Override
@@ -29,7 +27,7 @@ public class LOTRBlockUrukTable extends LOTRBlockCraftingTable
 		}
 		if (i == 0)
 		{
-			return LOTRMod.brick2.getIcon(0, 7);
+			return LOTRMod.brick2.getIcon(0, 8);
 		}
 		return tableIcons[0];
 	}

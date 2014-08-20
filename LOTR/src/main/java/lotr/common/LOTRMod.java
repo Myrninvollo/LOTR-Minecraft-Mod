@@ -263,6 +263,9 @@ public class LOTRMod
 	public static Block stairsArnorBrickCracked;
 	public static Block stairsUrukBrick;
 	public static Block strawBed;
+	public static Block stairsDolGuldurBrick;
+	public static Block stairsDolGuldurBrickCracked;
+	public static Block dolGuldurTable;
 
 	public static Item goldRing;
 	public static Item pouch;
@@ -707,7 +710,7 @@ public class LOTRMod
 		dwarvenForge = new LOTRBlockDwarvenForge().setHardness(3.5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:dwarvenForge");
 		hearth = new LOTRBlockHearth().setHardness(1F).setResistance(8F).setStepSound(Block.soundTypeStone).setBlockName("lotr:hearth");
 		morgulShroom = new LOTRBlockMorgulShroom().setStepSound(Block.soundTypeGrass).setBlockName("lotr:morgulShroom");
-		urukTable = new LOTRBlockUrukTable().setHardness(2.5F).setStepSound(Block.soundTypeMetal).setBlockName("lotr:urukCraftingTable");
+		urukTable = new LOTRBlockUrukTable().setHardness(2.5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:urukCraftingTable");
 		cherryPie = new LOTRBlockPlaceableFood().setHardness(0.5F).setStepSound(Block.soundTypeCloth).setBlockName("lotr:cherryPie");
 		clover = new LOTRBlockClover().setStepSound(Block.soundTypeGrass).setBlockName("lotr:clover");
 		slabSingle2 = new LOTRBlockSlab2(false).setHardness(2F).setResistance(10F).setStepSound(Block.soundTypeStone).setBlockName("lotr:slabSingle2");
@@ -763,7 +766,7 @@ public class LOTRMod
 		oreSulfur = new LOTRBlockOre().setHardness(3F).setResistance(5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:oreSulfur");
 		oreSaltpeter = new LOTRBlockOre().setHardness(3F).setResistance(5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:oreSaltpeter");
 		quagmire = new LOTRBlockQuagmire().setHardness(1F).setStepSound(Block.soundTypeGravel).setBlockName("lotr:quagmire");
-		angmarTable = new LOTRBlockAngmarTable().setHardness(2.5F).setStepSound(Block.soundTypeMetal).setBlockName("lotr:angmarCraftingTable");
+		angmarTable = new LOTRBlockAngmarTable().setHardness(2.5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:angmarCraftingTable");
 		brick2 = new LOTRBlockBrick2().setHardness(1.5F).setResistance(10F).setStepSound(Block.soundTypeStone).setBlockName("lotr:brick2");
 		wall2 = new LOTRBlockWall2().setBlockName("lotr:wallStone2");
 		stairsAngmarBrick = new LOTRBlockStairs(brick2, 0).setBlockName("lotr:stairsAngmarBrick");
@@ -805,6 +808,9 @@ public class LOTRMod
 		stairsArnorBrickCracked = new LOTRBlockStairs(brick2, 5).setBlockName("lotr:stairsArnorBrickCracked");
 		stairsUrukBrick = new LOTRBlockStairs(brick2, 7).setBlockName("lotr:stairsUrukBrick");
 		strawBed = new LOTRBlockBed(Blocks.planks, 0).setBlockName("lotr:strawBed");
+		stairsDolGuldurBrick = new LOTRBlockStairs(brick2, 8).setBlockName("lotr:stairsDolGuldurBrick");
+		stairsDolGuldurBrickCracked = new LOTRBlockStairs(brick2, 9).setBlockName("lotr:stairsDolGuldurBrickCracked");
+		dolGuldurTable = new LOTRBlockDolGuldurTable().setHardness(2.5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:dolGuldurCraftingTable");
 		
 		goldRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMagic).setUnlocalizedName("lotr:goldRing");
 		pouch = new LOTRItemPouch().setUnlocalizedName("lotr:pouch");
@@ -1361,6 +1367,9 @@ public class LOTRMod
 		registerBlock(stairsArnorBrickCracked);
 		registerBlock(stairsUrukBrick);
 		registerBlock(strawBed);
+		registerBlock(stairsDolGuldurBrick);
+		registerBlock(stairsDolGuldurBrickCracked);
+		registerBlock(dolGuldurTable);
 		
 		registerItem(goldRing);
 		registerItem(pouch);
@@ -2002,6 +2011,9 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityGondorTowerGuard.class, "GondorTowerGuard", 133, 0x514C4C, 0xE5DADA);
 		LOTREntities.registerCreature(LOTREntityNearHaradMerchant.class, "NearHaradMerchant", 134, 0xCE967D, 0x917D77);
 		LOTREntities.registerCreature(LOTREntityHaradPyramidWraith.class, "HaradPyramidWraith", 135, 0xA59E77, 0xEDE4AF);
+		LOTREntities.registerCreature(LOTREntityDolGuldurOrc.class, "DolGuldurOrc", 136, 0x332B22, 0x6B7567);
+		LOTREntities.registerCreature(LOTREntityDolGuldurOrcArcher.class, "DolGuldurOrcArcher", 137, 0x332B22, 0x6B7567);
+		LOTREntities.registerCreature(LOTREntityDolGuldurBannerBearer.class, "DolGuldurBannerBearer", 138, 0x332B22, 0x6B7567);
 
 		LOTREntities.registerCreature(LOTREntitySauron.class, "Sauron", 1000);
 		LOTREntities.registerCreature(LOTREntityGollum.class, "Gollum", 1001, 0xCCBD90, 0x908565);

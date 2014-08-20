@@ -134,12 +134,15 @@ public class LOTRBiomeGenMirkwood extends LOTRBiome
 		
 		if (corrupted)
 		{
-			for (int l = 0; l < decorator.treesPerChunk / 2; l++)
+			if (decorator.treesPerChunk > 2)
 			{
-				int i1 = i + random.nextInt(16) + 8;
-				int k1 = k + random.nextInt(16) + 8;
-				int j1 = world.getTopSolidOrLiquidBlock(i1, k1);
-				new LOTRWorldGenMirkOak(false, 8, 4, 0, 3).generate(world, random, i1, j1, k1);
+				for (int l = 0; l < decorator.treesPerChunk / 2; l++)
+				{
+					int i1 = i + random.nextInt(16) + 8;
+					int k1 = k + random.nextInt(16) + 8;
+					int j1 = world.getTopSolidOrLiquidBlock(i1, k1);
+					new LOTRWorldGenMirkOak(false, 8, 4, 0, 3).generate(world, random, i1, j1, k1);
+				}
 			}
 			
 			for (int l = 0; l < 6; l++)

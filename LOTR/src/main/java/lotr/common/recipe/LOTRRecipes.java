@@ -46,9 +46,11 @@ public class LOTRRecipes
 	public static List highElvenRecipes = new ArrayList();
 	public static List blueMountainsRecipes = new ArrayList();
 	public static List rangerRecipes = new ArrayList();
+	public static List dolGuldurRecipes = new ArrayList();
 	
-	private static List[] commonOrcRecipes = new List[] {morgulRecipes, urukRecipes, angmarRecipes};
-	private static List[] morgulAndAngmarRecipes = new List[] {morgulRecipes, angmarRecipes};
+	private static List[] commonOrcRecipes = new List[] {morgulRecipes, urukRecipes, angmarRecipes, dolGuldurRecipes};
+	private static List[] commonMorgulRecipes = new List[] {morgulRecipes, angmarRecipes, dolGuldurRecipes};
+	private static List[] commonSauronRecipes = new List[] {morgulRecipes, dolGuldurRecipes};
 	private static List[] commonElfRecipes = new List[] {elvenRecipes, woodElvenRecipes, highElvenRecipes};
 	private static List[] commonDwarfRecipes = new List[] {dwarvenRecipes, blueMountainsRecipes};
 	private static List[] commonDunedainRecipes = new List[] {gondorianRecipes, rangerRecipes};
@@ -71,7 +73,8 @@ public class LOTRRecipes
 		createSmeltingRecipes();
 		
 		createCommonOrcRecipes();
-		createMorgulAndAngmarRecipes();
+		createCommonMorgulRecipes();
+		createCommonSauronRecipes();
 		createCommonElfRecipes();
 		createCommonDwarfRecipes();
 		createCommonDunedainRecipes();
@@ -89,6 +92,7 @@ public class LOTRRecipes
 		createHighElvenRecipes();
 		createBlueMountainsRecipes();
 		createRangerRecipes();
+		createDolGuldurRecipes();
 	}
 
 	private static void registerOres()
@@ -1138,35 +1142,115 @@ public class LOTRRecipes
 		}
 	}
 		
-	private static void createMorgulAndAngmarRecipes()
+	private static void createCommonMorgulRecipes()
 	{
-		addRecipeTo(morgulAndAngmarRecipes, new ShapedOreRecipe(new ItemStack(morgulBlade), new Object[]
+		addRecipeTo(commonMorgulRecipes, new ShapedOreRecipe(new ItemStack(morgulBlade), new Object[]
 		{
 			"X", "X", "Y", 'X', morgulSteel, 'Y', "stickWood"
 		}));
-		addRecipeTo(morgulAndAngmarRecipes, new ShapedOreRecipe(new ItemStack(helmetMorgul), new Object[]
+		addRecipeTo(commonMorgulRecipes, new ShapedOreRecipe(new ItemStack(helmetMorgul), new Object[]
 		{
 			"XXX", "X X", 'X', morgulSteel
 		}));
-		addRecipeTo(morgulAndAngmarRecipes, new ShapedOreRecipe(new ItemStack(bodyMorgul), new Object[]
+		addRecipeTo(commonMorgulRecipes, new ShapedOreRecipe(new ItemStack(bodyMorgul), new Object[]
 		{
 			"X X", "XXX", "XXX", 'X', morgulSteel
 		}));
-		addRecipeTo(morgulAndAngmarRecipes, new ShapedOreRecipe(new ItemStack(legsMorgul), new Object[]
+		addRecipeTo(commonMorgulRecipes, new ShapedOreRecipe(new ItemStack(legsMorgul), new Object[]
 		{
 			"XXX", "X X", "X X", 'X', morgulSteel
 		}));
-		addRecipeTo(morgulAndAngmarRecipes, new ShapedOreRecipe(new ItemStack(bootsMorgul), new Object[]
+		addRecipeTo(commonMorgulRecipes, new ShapedOreRecipe(new ItemStack(bootsMorgul), new Object[]
 		{
 			"X X", "X X", 'X', morgulSteel
 		}));
-		addRecipeTo(morgulAndAngmarRecipes, new ShapedOreRecipe(new ItemStack(morgulTorch, 4), new Object[]
+		addRecipeTo(commonMorgulRecipes, new ShapedOreRecipe(new ItemStack(morgulTorch, 4), new Object[]
 		{
 			"X", "Y", 'X', guldurilCrystal, 'Y', "stickWood"
 		}));
-		addRecipeTo(morgulAndAngmarRecipes, new ShapedOreRecipe(new ItemStack(horseArmorMorgul), new Object[]
+		addRecipeTo(commonMorgulRecipes, new ShapedOreRecipe(new ItemStack(horseArmorMorgul), new Object[]
 		{
 			"X  ", "XYX", "XXX", 'X', morgulSteel, 'Y', Items.leather
+		}));
+		addRecipeTo(commonMorgulRecipes, new ShapedOreRecipe(new ItemStack(orcSteelBars, 16), new Object[]
+		{
+			"XXX", "XXX", 'X', orcSteel
+		}));
+		addRecipeTo(commonMorgulRecipes, new ShapedOreRecipe(new ItemStack(LOTRMod.orcBow), new Object[]
+		{
+			" XY", "X Y", " XY", 'X', orcSteel, 'Y', Items.string
+		}));
+		addRecipeTo(commonMorgulRecipes, new ShapedOreRecipe(new ItemStack(orcBomb, 4), new Object[]
+		{
+			"XYX", "YXY", "XYX", 'X', Items.gunpowder, 'Y', orcSteel
+		}));
+		addRecipeTo(commonMorgulRecipes, new ShapelessOreRecipe(new ItemStack(orcBomb, 1, 1), new Object[]
+		{
+			new ItemStack(orcBomb, 1, 0), Items.gunpowder, orcSteel
+		}));
+		addRecipeTo(commonMorgulRecipes, new ShapelessOreRecipe(new ItemStack(orcBomb, 1, 2), new Object[]
+		{
+			new ItemStack(orcBomb, 1, 1), Items.gunpowder, orcSteel
+		}));
+	}
+	
+	private static void createCommonSauronRecipes()
+	{
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(scimitarOrc), new Object[]
+		{
+			"X", "X", "Y", 'X', orcSteel, 'Y', "stickWood"
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(battleaxeOrc), new Object[]
+		{
+			"XXX", "XYX", " Y ", 'X', orcSteel, 'Y', "stickWood"
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(daggerOrc), new Object[]
+		{
+			"X", "Y", 'X', orcSteel, 'Y', "stickWood"
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(helmetOrc), new Object[]
+		{
+			"XXX", "X X", 'X', orcSteel
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(bodyOrc), new Object[]
+		{
+			"X X", "XXX", "XXX", 'X', orcSteel
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(legsOrc), new Object[]
+		{
+			"XXX", "X X", "X X", 'X', orcSteel
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(bootsOrc), new Object[]
+		{
+			"X X", "X X", 'X', orcSteel
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(spearOrc), new Object[]
+		{
+			"  X", " Y ", "Y  ", 'X', orcSteel, 'Y', "stickWood"
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(shovelOrc), new Object[]
+		{
+			"X", "Y", "Y", 'X', orcSteel, 'Y', "stickWood"
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(pickaxeOrc), new Object[]
+		{
+			"XXX", " Y ", " Y ", 'X', orcSteel, 'Y', "stickWood"
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(axeOrc), new Object[]
+		{
+			"XX", "XY", " Y", 'X', orcSteel, 'Y', "stickWood"
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(hoeOrc), new Object[]
+		{
+			"XX", " Y", " Y", 'X', orcSteel, 'Y', "stickWood"
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(hammerOrc), new Object[]
+		{
+			"XYX", "XYX", " Y ", 'X', orcSteel, 'Y', "stickWood"
+		}));
+		addRecipeTo(commonSauronRecipes, new ShapedOreRecipe(new ItemStack(chandelier, 2, 7), new Object[]
+		{
+			" X ", "YZY", 'X', "stickWood", 'Y', orcTorchItem, 'Z', orcSteel
 		}));
 	}
 	
@@ -1324,34 +1408,6 @@ public class LOTRRecipes
 		{
 			"XX", "YY", 'X', "plankWood", 'Y', new ItemStack(rock, 1, 0)
 		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(scimitarOrc), new Object[]
-		{
-			"X", "X", "Y", 'X', orcSteel, 'Y', "stickWood"
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(battleaxeOrc), new Object[]
-		{
-			"XXX", "XYX", " Y ", 'X', orcSteel, 'Y', "stickWood"
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(daggerOrc), new Object[]
-		{
-			"X", "Y", 'X', orcSteel, 'Y', "stickWood"
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(helmetOrc), new Object[]
-		{
-			"XXX", "X X", 'X', orcSteel
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(bodyOrc), new Object[]
-		{
-			"X X", "XXX", "XXX", 'X', orcSteel
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(legsOrc), new Object[]
-		{
-			"XXX", "X X", "X X", 'X', orcSteel
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(bootsOrc), new Object[]
-		{
-			"X X", "X X", 'X', orcSteel
-		}));
 		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(slabSingle, 6, 0), new Object[]
 		{
 			"XXX", 'X', new ItemStack(rock, 1, 0)
@@ -1372,57 +1428,9 @@ public class LOTRRecipes
 		{
 			"XXX", "XXX", 'X', new ItemStack(brick, 1, 0)
 		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(orcBomb, 4), new Object[]
-		{
-			"XYX", "YXY", "XYX", 'X', Items.gunpowder, 'Y', orcSteel
-		}));
-		morgulRecipes.add(new ShapelessOreRecipe(new ItemStack(orcBomb, 1, 1), new Object[]
-		{
-			new ItemStack(orcBomb, 1, 0), Items.gunpowder, orcSteel
-		}));
-		morgulRecipes.add(new ShapelessOreRecipe(new ItemStack(orcBomb, 1, 2), new Object[]
-		{
-			new ItemStack(orcBomb, 1, 1), Items.gunpowder, orcSteel
-		}));
 		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(orcTorchItem, 2), new Object[]
 		{
 			"X", "Y", "Y", 'X', nauriteGem, 'Y', "stickWood"
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(spearOrc), new Object[]
-		{
-			"  X", " Y ", "Y  ", 'X', orcSteel, 'Y', "stickWood"
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(orcSteelBars, 16), new Object[]
-		{
-			"XXX", "XXX", 'X', orcSteel
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(LOTRMod.orcBow), new Object[]
-		{
-			" XY", "X Y", " XY", 'X', orcSteel, 'Y', Items.string
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(shovelOrc), new Object[]
-		{
-			"X", "Y", "Y", 'X', orcSteel, 'Y', "stickWood"
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(pickaxeOrc), new Object[]
-		{
-			"XXX", " Y ", " Y ", 'X', orcSteel, 'Y', "stickWood"
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(axeOrc), new Object[]
-		{
-			"XX", "XY", " Y", 'X', orcSteel, 'Y', "stickWood"
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(hoeOrc), new Object[]
-		{
-			"XX", " Y", " Y", 'X', orcSteel, 'Y', "stickWood"
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(hammerOrc), new Object[]
-		{
-			"XYX", "XYX", " Y ", 'X', orcSteel, 'Y', "stickWood"
-		}));
-		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(chandelier, 2, 7), new Object[]
-		{
-			" X ", "YZY", 'X', "stickWood", 'Y', orcTorchItem, 'Z', orcSteel
 		}));
 		morgulRecipes.add(new ShapedOreRecipe(new ItemStack(slabSingle2, 6, 2), new Object[]
 		{
@@ -2078,7 +2086,7 @@ public class LOTRRecipes
 		}));
 		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(angmarTable), new Object[]
 		{
-			"XX", "YY", 'X', "plankWood", 'Y', orcSteel
+			"XX", "YY", 'X', "plankWood", 'Y', new ItemStack(LOTRMod.brick2, 1, 0)
 		}));
 		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(swordAngmar), new Object[]
 		{
@@ -2120,18 +2128,6 @@ public class LOTRRecipes
 		{
 			"XXX", "XXX", 'X', new ItemStack(brick2, 1, 0)
 		}));
-		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(orcBomb, 4), new Object[]
-		{
-			"XYX", "YXY", "XYX", 'X', Items.gunpowder, 'Y', orcSteel
-		}));
-		angmarRecipes.add(new ShapelessOreRecipe(new ItemStack(orcBomb, 1, 1), new Object[]
-		{
-			new ItemStack(orcBomb, 1, 0), Items.gunpowder, orcSteel
-		}));
-		angmarRecipes.add(new ShapelessOreRecipe(new ItemStack(orcBomb, 1, 2), new Object[]
-		{
-			new ItemStack(orcBomb, 1, 1), Items.gunpowder, orcSteel
-		}));
 		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(orcTorchItem, 2), new Object[]
 		{
 			"X", "Y", "Y", 'X', Items.coal, 'Y', "stickWood"
@@ -2139,14 +2135,6 @@ public class LOTRRecipes
 		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(spearAngmar), new Object[]
 		{
 			"  X", " Y ", "Y  ", 'X', orcSteel, 'Y', "stickWood"
-		}));
-		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(orcSteelBars, 16), new Object[]
-		{
-			"XXX", "XXX", 'X', orcSteel
-		}));
-		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(LOTRMod.orcBow), new Object[]
-		{
-			" XY", "X Y", " XY", 'X', orcSteel, 'Y', Items.string
 		}));
 		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(shovelAngmar), new Object[]
 		{
@@ -2167,10 +2155,6 @@ public class LOTRRecipes
 		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(hammerAngmar), new Object[]
 		{
 			"XYX", "XYX", " Y ", 'X', orcSteel, 'Y', "stickWood"
-		}));
-		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(chandelier, 2, 7), new Object[]
-		{
-			" X ", "YZY", 'X', "stickWood", 'Y', orcTorchItem, 'Z', orcSteel
 		}));
 		angmarRecipes.add(new ShapedOreRecipe(new ItemStack(slabSingle3, 6, 4), new Object[]
 		{
@@ -2465,7 +2449,55 @@ public class LOTRRecipes
 			"XXX", "XXX", 'X', new ItemStack(brick2, 1, 5)
 		}));
 	}
-
+	
+    private static void createDolGuldurRecipes()
+    {
+		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(brick2, 4, 8), new Object[]
+		{
+			"XX", "XX", 'X', Blocks.stone
+		}));
+		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(dolGuldurTable), new Object[]
+		{
+			"XX", "YY", 'X', "plankWood", 'Y', new ItemStack(brick2, 1, 8)
+		}));
+		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(slabSingle4, 6, 5), new Object[]
+		{
+			"XXX", 'X', new ItemStack(brick2, 1, 8)
+		}));
+		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(stairsDolGuldurBrick, 4), new Object[]
+		{
+			"X  ", "XX ", "XXX", 'X', new ItemStack(brick2, 1, 8)
+		}));
+		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(wall2, 6, 8), new Object[]
+		{
+			"XXX", "XXX", 'X', new ItemStack(brick2, 1, 8)
+		}));
+		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(orcTorchItem, 2), new Object[]
+		{
+			"X", "Y", "Y", 'X', Items.coal, 'Y', "stickWood"
+		}));
+		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(slabSingle4, 6, 6), new Object[]
+		{
+			"XXX", 'X', new ItemStack(brick2, 1, 9)
+		}));
+		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(stairsDolGuldurBrickCracked, 4), new Object[]
+		{
+			"X  ", "XX ", "XXX", 'X', new ItemStack(brick2, 1, 9)
+		}));
+		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(wall2, 6, 9), new Object[]
+		{
+			"XXX", "XXX", 'X', new ItemStack(brick2, 1, 9)
+		}));
+		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(orcForge), new Object[]
+		{
+			"XXX", "X X", "XXX", 'X', new ItemStack(brick2, 1, 8)
+		}));
+		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 13), new Object[]
+		{
+			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
+		}));
+    }
+    
     public static ItemStack findMatchingRecipe(List recipeList, InventoryCrafting inv, World world)
     {
 		for (int i = 0; i < recipeList.size(); i++)

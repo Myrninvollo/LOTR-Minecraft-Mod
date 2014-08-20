@@ -371,6 +371,9 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement alignmentGood10_DOL_GULDUR;
 	public static LOTRAchievement alignmentGood100_DOL_GULDUR;
 	public static LOTRAchievement alignmentGood1000_DOL_GULDUR;
+	public static LOTRAchievement enterDolGuldur;
+	public static LOTRAchievement killDolGuldurOrc;
+	public static LOTRAchievement useDolGuldurTable;
 	
 	public static LOTRAchievement killDwarf;
 	public static LOTRAchievement wearFullDwarven;
@@ -679,6 +682,9 @@ public class LOTRAchievement implements Comparable
 		alignmentGood10_DOL_GULDUR = new LOTRAchievement(MIRKWOOD, 14, LOTRMod.goldRing, "alignmentGood10_DOL_GULDUR").setRequiresAlly(LOTRFaction.DOL_GULDUR).setSpecial();
 		alignmentGood100_DOL_GULDUR = new LOTRAchievement(MIRKWOOD, 15, LOTRMod.goldRing, "alignmentGood100_DOL_GULDUR").setRequiresAlly(LOTRFaction.DOL_GULDUR).setSpecial();
 		alignmentGood1000_DOL_GULDUR = new LOTRAchievement(MIRKWOOD, 16, LOTRMod.goldRing, "alignmentGood1000_DOL_GULDUR").setRequiresAlly(LOTRFaction.DOL_GULDUR).setSpecial();
+		enterDolGuldur = new LOTRAchievement(MIRKWOOD, 17, new ItemStack(LOTRMod.brick2, 1, 8), "enterDolGuldur").setBiomeAchievement();
+		killDolGuldurOrc = new LOTRAchievement(MIRKWOOD, 18, LOTRMod.orcBone, "killDolGuldurOrc").setRequiresEnemy(LOTRFaction.DOL_GULDUR);
+		useDolGuldurTable = new LOTRAchievement(MIRKWOOD, 19, LOTRMod.dolGuldurTable, "useDolGuldurTable").setRequiresAlly(LOTRFaction.DOL_GULDUR);
 
 		killDwarf = new LOTRAchievement(IRON_HILLS, 0, LOTRMod.dwarfBone, "killDwarf").setRequiresEnemy(LOTRFaction.DWARF);
 		wearFullDwarven = new LOTRAchievement(IRON_HILLS, 1, LOTRMod.bodyDwarven, "wearFullDwarven");

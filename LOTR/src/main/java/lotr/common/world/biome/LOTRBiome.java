@@ -291,7 +291,7 @@ public class LOTRBiome extends BiomeGenBase
 		rhunForest = new LOTRBiomeGenRhunForest(116).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.3F, 0.5F).setColor(0x929646).setBiomeName("rhunForest");
 		redMountains = new LOTRBiomeGenRedMountains(117).setTemperatureRainfall(0.3F, 0.4F).setMinMaxHeight(1.5F, 2F).setColor(0xA37B6E).setBiomeName("redMountains");
 		redMountainsFoothills = new LOTRBiomeGenRedMountains(118).setTemperatureRainfall(0.7F, 0.4F).setMinMaxHeight(0.5F, 0.9F).setColor(0xA69C7B).setBiomeName("redMountainsFoothills");
-		dolGuldur = new LOTRBiomeGenDolGuldur(119).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.2F, 0.3F).setColor(0x0B0F0A).setBiomeName("dolGuldur");
+		dolGuldur = new LOTRBiomeGenDolGuldur(119).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.2F, 0.5F).setColor(0x0B0F0A).setBiomeName("dolGuldur");
 	}
 	
 	private static Random rand = new Random();

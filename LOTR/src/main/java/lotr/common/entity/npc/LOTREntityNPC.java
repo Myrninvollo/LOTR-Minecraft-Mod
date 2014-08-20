@@ -83,6 +83,9 @@ public abstract class LOTREntityNPC extends EntityCreature
 	private Random festiveRand = new Random();
 	private boolean initFestiveItems = false;
 	
+	public LOTRShields npcShield;
+	public ResourceLocation npcCape;
+	
 	private EntityLivingBase prevAttackTarget;
 	public int npcTalkTick = 0;
 	private boolean hurtOnlyByPlates = true;
@@ -1362,5 +1365,18 @@ public abstract class LOTREntityNPC extends EntityCreature
 	public boolean hasDefaultHeldItem()
 	{
 		return hasDefaultHeldItem;
+	}
+	
+	public ItemStack getHeldItemLeft()
+	{
+		if (this instanceof LOTRBannerBearer)
+		{
+			return new ItemStack(LOTRMod.banner, 1, LOTRItemBanner.getSubtypeForFaction(getFaction()));
+		}
+		if (isTrader())
+		{
+			return new ItemStack(LOTRMod.silverCoin);
+		}
+		return null;
 	}
 }

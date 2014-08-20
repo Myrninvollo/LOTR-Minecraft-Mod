@@ -1,7 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.entity.animal.LOTREntityElk;
 import net.minecraft.entity.IEntityLivingData;
@@ -18,6 +17,7 @@ public class LOTREntityWoodElfWarrior extends LOTREntityWoodElfScout
 		tasks.removeTask(rangedAttackAI);
 		tasks.addTask(2, meleeAttackAI);
 		spawnRidingHorse = rand.nextInt(4) == 0;
+		npcShield = LOTRShields.ALIGNMENT_WOOD_ELF;
 	}
 	
 	@Override

@@ -1,7 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -14,6 +13,7 @@ public class LOTREntityDunlendingWarrior extends LOTREntityDunlending
 	public LOTREntityDunlendingWarrior(World world)
 	{
 		super(world);
+		npcShield = LOTRShields.ALIGNMENT_DUNLAND;
 	}
 	
 	@Override

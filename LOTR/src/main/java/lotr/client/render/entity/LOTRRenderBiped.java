@@ -35,9 +35,7 @@ import com.mojang.authlib.GameProfile;
 
 public abstract class LOTRRenderBiped extends RenderBiped
 {
-	private ResourceLocation capeTexture;
 	private ModelBiped capeModel = new LOTRModelBiped();
-	private LOTRShields shield;
 	
 	public LOTRRenderBiped(ModelBiped model, float f)
 	{
@@ -50,16 +48,6 @@ public abstract class LOTRRenderBiped extends RenderBiped
         field_82423_g = new LOTRModelBiped(1F);
         field_82425_h = new LOTRModelBiped(0.5F);
     }
-	
-	protected void setCapeTexture(ResourceLocation r)
-	{
-		capeTexture = r;
-	}
-	
-	protected void setShield(LOTRShields s)
-	{
-		shield = s;
-	}
 	
 	@Override
 	public void doRender(EntityLiving entity, double d, double d1, double d2, float f, float f1)
@@ -82,7 +70,7 @@ public abstract class LOTRRenderBiped extends RenderBiped
 		super.func_82420_a(entity, itemstack);
 		
 		setupHeldItems(entity, itemstack, true);
-		setupHeldItems(entity, getHeldItemLeft(entity), false);
+		setupHeldItems(entity, ((LOTREntityNPC)entity).getHeldItemLeft(), false);
     }
 	
 	private void setupHeldItems(EntityLiving entity, ItemStack itemstack, boolean rightArm)
@@ -249,7 +237,7 @@ public abstract class LOTRRenderBiped extends RenderBiped
             GL11.glPopMatrix();
         }
 		
-		ItemStack heldItemLeft = getHeldItemLeft(entity);
+		ItemStack heldItemLeft = ((LOTREntityNPC)entity).getHeldItemLeft();
 		if (heldItemLeft != null)
 		{
             GL11.glPushMatrix();
@@ -314,12 +302,13 @@ public abstract class LOTRRenderBiped extends RenderBiped
             GL11.glPopMatrix();
         }
 		
-		renderNPCCape(entity);
-		renderNPCShield(entity);
+		renderNPCCape((LOTREntityNPC)entity);
+		renderNPCShield((LOTREntityNPC)entity);
 	}
 	
-	protected void renderNPCCape(EntityLivingBase entity)
+	protected void renderNPCCape(LOTREntityNPC entity)
 	{
+		ResourceLocation capeTexture = entity.npcCape;
 		if (capeTexture != null)
 		{
 			GL11.glPushMatrix();
@@ -332,8 +321,9 @@ public abstract class LOTRRenderBiped extends RenderBiped
 		}
 	}
 	
-	protected void renderNPCShield(EntityLivingBase entity)
+	protected void renderNPCShield(LOTREntityNPC entity)
 	{
+		LOTRShields shield = entity.npcShield;
 		if (shield != null)
 		{
 			LOTRRenderShield.renderShield(shield, entity, modelBipedMain);
@@ -343,19 +333,5 @@ public abstract class LOTRRenderBiped extends RenderBiped
 	public float getHeldItemYTranslation()
 	{
 		return 0.1875F;
-	}
-	
-	public ItemStack getHeldItemLeft(EntityLivingBase entity)
-	{
-		if (entity instanceof LOTRBannerBearer)
-		{
-			LOTRBannerBearer bannerBearer = (LOTRBannerBearer)entity;
-			return new ItemStack(LOTRMod.banner, 1, LOTRItemBanner.getSubtypeForFaction(bannerBearer.getFaction()));
-		}
-		if (entity instanceof LOTREntityNPC && ((LOTREntityNPC)entity).isTrader())
-		{
-			return new ItemStack(LOTRMod.silverCoin);
-		}
-		return null;
 	}
 }

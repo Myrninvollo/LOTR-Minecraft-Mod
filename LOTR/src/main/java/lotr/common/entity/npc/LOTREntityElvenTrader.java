@@ -14,14 +14,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeable, LOTRTravellingTrader
 {
+	public static ResourceLocation traderCape = new ResourceLocation("lotr:mob/elf/galadhrimTrader_cape.png");
+	
 	public LOTREntityElvenTrader(World world)
 	{
 		super(world);
@@ -34,6 +35,8 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 			traderNPCInfo.setBuyTrades(LOTRTradeEntry.getRandomTrades(LOTRTradeEntry.ELVEN_TRADER_BUY, rand, true));
 			traderNPCInfo.setSellTrades(LOTRTradeEntry.getRandomTrades(LOTRTradeEntry.ELVEN_TRADER_SELL, rand, false));
 		}
+		
+		npcCape = traderCape;
 	}
 	
 	@Override

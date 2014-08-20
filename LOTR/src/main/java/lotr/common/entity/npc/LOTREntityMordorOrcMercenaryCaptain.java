@@ -1,9 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -20,7 +17,6 @@ public class LOTREntityMordorOrcMercenaryCaptain extends LOTREntityMordorOrc imp
 		targetTasks.taskEntries.clear();
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		isWeakOrc = false;
-		hasSkullStaff = true;
 	}
 	
 	@Override
@@ -28,14 +24,13 @@ public class LOTREntityMordorOrcMercenaryCaptain extends LOTREntityMordorOrc imp
     {
         super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25D);
-        getEntityAttribute(npcAttackDamage).setBaseValue(5D);
     }
 	
 	@Override
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
 	{
 		data = super.onSpawnWithEgg(data);
-		setCurrentItemOrArmor(0, null);
+		setCurrentItemOrArmor(0, new ItemStack(LOTRMod.orcSkullStaff));
 		setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsOrc));
 		setCurrentItemOrArmor(2, new ItemStack(LOTRMod.legsOrc));
 		setCurrentItemOrArmor(3, new ItemStack(LOTRMod.bodyOrc));

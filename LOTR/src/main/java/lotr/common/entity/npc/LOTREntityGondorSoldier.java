@@ -1,8 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
 import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
@@ -38,6 +36,7 @@ public class LOTREntityGondorSoldier extends LOTREntityGondorMan
         addTargetTasks(4);
 		spawnRidingHorse = rand.nextInt(6) == 0;
 		spawnCountValue = 3;
+		npcShield = LOTRShields.ALIGNMENT_GONDOR;
 	}
 	
 	@Override

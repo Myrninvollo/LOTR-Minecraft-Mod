@@ -4,6 +4,7 @@ import java.util.List;
 
 import lotr.client.model.LOTRModelBiped;
 import lotr.common.LOTRShields;
+import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.entity.npc.LOTREntityRanger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,7 +20,6 @@ public class LOTRRenderRanger extends LOTRRenderBiped
 	{
 		super(new LOTRModelBiped(), 0.5F);
 		rangerSkins = LOTRRandomSkins.loadSkinsList("lotr:mob/ranger/ranger");
-		setCapeTexture(LOTRShields.ALIGNMENT_RANGER.capeTexture);
 	}
 	
 	@Override
@@ -81,7 +81,7 @@ public class LOTRRenderRanger extends LOTRRenderBiped
 	}
 	
 	@Override
-	protected void renderNPCCape(EntityLivingBase entity)
+	protected void renderNPCCape(LOTREntityNPC entity)
 	{
 		if (((LOTREntityRanger)entity).isRangerSneaking())
 		{

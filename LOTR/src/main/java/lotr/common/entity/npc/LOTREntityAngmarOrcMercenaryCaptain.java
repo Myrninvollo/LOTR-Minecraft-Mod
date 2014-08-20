@@ -1,8 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRLevelData;
+import lotr.common.*;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,21 +14,13 @@ public class LOTREntityAngmarOrcMercenaryCaptain extends LOTREntityAngmarOrcWarr
 		super(world);
 		targetTasks.taskEntries.clear();
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		hasSkullStaff = true;
 	}
 
-	@Override
-    protected void applyEntityAttributes()
-    {
-        super.applyEntityAttributes();
-		getEntityAttribute(npcAttackDamage).setBaseValue(5D);
-    }
-	
 	@Override
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
 	{
 		data = super.onSpawnWithEgg(data);
-		setCurrentItemOrArmor(0, null);
+		setCurrentItemOrArmor(0, new ItemStack(LOTRMod.orcSkullStaff));
 		setCurrentItemOrArmor(4, null);
 		return data;
 	}

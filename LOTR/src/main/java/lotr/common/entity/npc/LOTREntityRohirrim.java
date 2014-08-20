@@ -1,9 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFoods;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.entity.ai.LOTREntityAIDrink;
 import lotr.common.entity.ai.LOTREntityAIEat;
@@ -42,6 +39,7 @@ public class LOTREntityRohirrim extends LOTREntityRohanMan
         addTargetTasks(4);
 		spawnRidingHorse = true;
 		spawnCountValue = 3;
+		npcShield = LOTRShields.ALIGNMENT_ROHAN;
 	}
 	
 	@Override

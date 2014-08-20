@@ -92,27 +92,4 @@ public class LOTRRenderElf extends LOTRRenderBiped
 			GL11.glScalef(0.25F, 0.25F, 0.25F);
 		}
 	}
-	
-	@Override
-	protected void renderNPCCape(EntityLivingBase entity)
-	{
-		if (entity instanceof LOTREntityHighElfWarrior)
-		{
-			setShield(LOTRShields.ALIGNMENT_HIGH_ELF);
-		}
-		else if (entity instanceof LOTREntityElfWarrior)
-		{
-			setShield(LOTRShields.ALIGNMENT_GALADHRIM);
-		}
-		else if (entity instanceof LOTREntityWoodElfWarrior)
-		{
-			setShield(LOTRShields.ALIGNMENT_WOOD_ELF);
-		}
-		else
-		{
-			setShield(null);
-		}
-		
-		super.renderNPCCape(entity);
-	}
 }

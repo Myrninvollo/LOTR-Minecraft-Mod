@@ -2,6 +2,7 @@ package lotr.client.render;
 
 import lotr.common.LOTRMod;
 import lotr.common.LOTRShields;
+import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.item.LOTRItemArmor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -23,19 +24,31 @@ public class LOTRRenderShield
 	{
 		Minecraft mc = Minecraft.getMinecraft();
 		ResourceLocation shieldTexture = shield.shieldTexture;
-		
+
 		ItemStack held = entity == null ? null : entity.getHeldItem();
+		ItemStack heldLeft = entity instanceof LOTREntityNPC ? ((LOTREntityNPC)entity).getHeldItemLeft() : null;
 		ItemStack inUse = entity instanceof EntityPlayer ? ((EntityPlayer)entity).getItemInUse() : null;
 		boolean holdingSword = entity == null ? true : (held != null && (held.getItem() instanceof ItemSword || held.getItem() instanceof ItemTool) && (inUse == null || inUse.getItemUseAction() != EnumAction.bow));
 		boolean blocking = holdingSword && inUse != null && inUse.getItemUseAction() == EnumAction.block;
 		
+		if (heldLeft != null && entity instanceof LOTREntityNPC)
+		{
+			LOTREntityNPC npc = (LOTREntityNPC)entity;
+			if (npc.npcCape != null)
+			{
+				return;
+			}
+		}
+		
 		ItemStack chestplate = entity == null ? null : entity.getEquipmentInSlot(3);
 		boolean wearingChestplate = chestplate != null && chestplate.getItem().isValidArmor(chestplate, ((LOTRItemArmor)LOTRMod.bodyMithril).armorType, entity);
+		
+		boolean renderOnBack = !holdingSword || (holdingSword && heldLeft != null);
 		
 		GL11.glPushMatrix();
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		
-		if (holdingSword)
+		if (renderOnBack)
 		{
 			model.bipedLeftArm.postRender(MODELSCALE);
 		}

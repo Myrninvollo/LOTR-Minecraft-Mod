@@ -1,10 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -21,6 +17,7 @@ public class LOTREntityUrukHai extends LOTREntityOrc
 		super(world);
 		setSize(0.6F, 1.8F);
 		isWeakOrc = false;
+		npcShield = LOTRShields.ALIGNMENT_URUK_HAI;
 	}
 	
 	@Override

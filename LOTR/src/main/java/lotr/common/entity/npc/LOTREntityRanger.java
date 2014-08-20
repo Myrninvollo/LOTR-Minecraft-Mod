@@ -1,7 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRFoods;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.entity.ai.LOTREntityAIDrink;
 import lotr.common.entity.ai.LOTREntityAIEat;
@@ -61,6 +60,7 @@ public abstract class LOTREntityRanger extends LOTREntityNPC implements IRangedA
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         addTargetTasks(2);
 		spawnCountValue = 5;
+		npcCape = LOTRShields.ALIGNMENT_RANGER.capeTexture;
 	}
 	
 	public EntityAIBase createRangerRangedAttackAI()

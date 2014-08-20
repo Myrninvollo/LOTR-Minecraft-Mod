@@ -18,7 +18,6 @@ public class LOTREntityUrukHaiMercenaryCaptain extends LOTREntityUrukHai impleme
 		super(world);
 		targetTasks.taskEntries.clear();
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		hasSkullStaff = true;
 	}
 	
 	@Override
@@ -26,14 +25,13 @@ public class LOTREntityUrukHaiMercenaryCaptain extends LOTREntityUrukHai impleme
     {
         super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(25D);
-		getEntityAttribute(npcAttackDamage).setBaseValue(5D);
     }
 	
 	@Override
 	public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
 	{
 		data = super.onSpawnWithEgg(data);
-		setCurrentItemOrArmor(0, null);
+		setCurrentItemOrArmor(0, new ItemStack(LOTRMod.orcSkullStaff));
 		setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsUruk));
 		setCurrentItemOrArmor(2, new ItemStack(LOTRMod.legsUruk));
 		setCurrentItemOrArmor(3, new ItemStack(LOTRMod.bodyUruk));

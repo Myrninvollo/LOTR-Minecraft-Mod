@@ -1,9 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import lotr.common.item.LOTRItemSpear;
@@ -29,6 +26,7 @@ public class LOTREntityElfWarrior extends LOTREntityElf
 		super(world);
 		tasks.addTask(2, meleeAttackAI);
 		spawnRidingHorse = rand.nextInt(4) == 0;
+		npcShield = LOTRShields.ALIGNMENT_GALADHRIM;
 	}
 	
 	@Override

@@ -1,7 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.item.ItemStack;
@@ -12,6 +11,7 @@ public class LOTREntityDwarfWarrior extends LOTREntityDwarf
 	public LOTREntityDwarfWarrior(World world)
 	{
 		super(world);
+		npcShield = LOTRShields.ALIGNMENT_DWARF;
 	}
 	
 	@Override

@@ -5,14 +5,18 @@ import lotr.common.item.LOTRItemSpear;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class LOTREntityGondorTowerGuard extends LOTREntityGondorSoldier
 {
+	private static ResourceLocation towerGuardCape = new ResourceLocation("lotr:mob/gondor/towerGuard_cape.png");
+	
 	public LOTREntityGondorTowerGuard(World world)
 	{
 		super(world);
 		spawnRidingHorse = false;
+		npcCape = towerGuardCape;
 	}
 	
 	@Override

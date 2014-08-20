@@ -1,7 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
 import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
@@ -18,6 +17,7 @@ public class LOTREntityNearHaradrimWarrior extends LOTREntityNearHaradrim
 	{
 		super(world);
 		spawnRidingHorse = rand.nextInt(6) == 0;
+		npcShield = LOTRShields.ALIGNMENT_NEAR_HARAD;
 	}
 	
 	@Override

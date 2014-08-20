@@ -618,6 +618,7 @@ public class LOTRMod
 	public static Item mugBananaBeer;
 	public static Item mugMelonLiqueur;
 	public static Item strawBedItem;
+	public static Item orcSkullStaff;
 	
 	public static int idDimension;
 	public static boolean alwaysShowAlignment;
@@ -1163,6 +1164,7 @@ public class LOTRMod
 		mugBananaBeer = new LOTRItemMugBrewable(0.5F).setDrinkStats(4, 0.6F).setUnlocalizedName("lotr:mugBananaBeer");
 		mugMelonLiqueur = new LOTRItemMugBrewable(1F).setDrinkStats(3, 0.3F).setUnlocalizedName("lotr:mugMelonLiqueur");
 		strawBedItem = new LOTRItemBed(strawBed).setUnlocalizedName("lotr:strawBed");
+		orcSkullStaff = new LOTRItemOrcSkullStaff().setUnlocalizedName("lotr:orcSkullStaff");
 		
 		try
 		{
@@ -1722,6 +1724,7 @@ public class LOTRMod
 		registerItem(mugBananaBeer);
 		registerItem(mugMelonLiqueur);
 		registerItem(strawBedItem);
+		registerItem(orcSkullStaff);
 		
 		idDimension = config.get("general", "Dimension ID", 100).getInt();
 		alwaysShowAlignment = config.get("general", "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean();

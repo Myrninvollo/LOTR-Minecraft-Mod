@@ -8,7 +8,6 @@ import net.minecraft.util.ResourceLocation;
 
 public class LOTRRenderElvenTrader extends LOTRRenderElf
 {
-	private static ResourceLocation capeTexture = new ResourceLocation("lotr:mob/elf/galadhrimTrader_cape.png");
 	private static ResourceLocation outfitTexture = new ResourceLocation("lotr:mob/elf/galadhrimTrader_cloak.png");
 	
 	private ModelBiped capeModel = new LOTRModelBiped();
@@ -18,7 +17,6 @@ public class LOTRRenderElvenTrader extends LOTRRenderElf
 	{
 		super();
 		setRenderPassModel(outfitModel);
-		setCapeTexture(capeTexture);
 	}
 	
 	@Override

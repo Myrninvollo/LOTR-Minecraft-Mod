@@ -50,7 +50,6 @@ public abstract class LOTREntityOrc extends LOTREntityNPC
 {
 	public boolean isWeakOrc = true;
 	public boolean isBombardier = false;
-	public boolean hasSkullStaff = false;
 	private int orcSkirmishTick;
 	
 	public LOTREntityOrc(World world)
@@ -361,8 +360,16 @@ public abstract class LOTREntityOrc extends LOTREntityNPC
 		}
 	}
 	
-	public boolean renderOrcSkullStaff()
+	@Override
+	public ItemStack getHeldItemLeft()
 	{
-		return hasSkullStaff && getEquipmentInSlot(0) == null;
+        if (isBombardier && getHeldItem() != null && getHeldItem().getItem() == LOTRMod.orcTorchItem)
+        {
+			return new ItemStack(LOTRMod.orcBomb, 1, getBombStrength());
+		}
+        else
+        {
+        	return super.getHeldItemLeft();
+        }
 	}
 }

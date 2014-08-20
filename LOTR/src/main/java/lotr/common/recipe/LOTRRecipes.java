@@ -1140,6 +1140,10 @@ public class LOTRRecipes
 				new ItemStack(orcBomb, 1, i), Items.lava_bucket
 			}));
 		}
+		addRecipeTo(commonOrcRecipes, new ShapedOreRecipe(new ItemStack(orcSkullStaff), new Object[]
+		{
+			"X", "Y", "Y", 'X', Items.skull, 'Y', "stickWood"
+		}));
 	}
 		
 	private static void createCommonMorgulRecipes()

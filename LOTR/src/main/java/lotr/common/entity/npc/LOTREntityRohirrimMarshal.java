@@ -16,7 +16,7 @@ public class LOTREntityRohirrimMarshal extends LOTREntityRohirrim implements LOT
 		super(world);
 		targetTasks.taskEntries.clear();
 		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		npcCape = LOTRShields.ALIGNMENT_ROHAN.capeTexture;
+		npcCape = LOTRCapes.ROHAN;
 	}
 	
 	@Override

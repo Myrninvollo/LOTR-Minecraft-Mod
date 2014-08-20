@@ -60,7 +60,7 @@ public abstract class LOTREntityRanger extends LOTREntityNPC implements IRangedA
         targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         addTargetTasks(2);
 		spawnCountValue = 5;
-		npcCape = LOTRShields.ALIGNMENT_RANGER.capeTexture;
+		npcCape = LOTRCapes.RANGER;
 	}
 	
 	public EntityAIBase createRangerRangedAttackAI()

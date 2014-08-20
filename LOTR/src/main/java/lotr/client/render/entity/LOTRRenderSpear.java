@@ -61,7 +61,14 @@ public class LOTRRenderSpear extends Render
 		{
 			ItemStack itemstack = new ItemStack(Item.getItemById(spear.getItemID()), 1, 0);
 			IItemRenderer customRenderer = MinecraftForgeClient.getItemRenderer(itemstack, IItemRenderer.ItemRenderType.EQUIPPED);
-			customRenderer.renderItem(IItemRenderer.ItemRenderType.EQUIPPED, itemstack, new Object[2]);
+			if (customRenderer != null)
+			{
+				customRenderer.renderItem(IItemRenderer.ItemRenderType.EQUIPPED, itemstack, new Object[2]);
+			}
+			else
+			{
+				System.out.println("Error rendering spear: no custom renderer for " + itemstack.toString());
+			}
 		}
 
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);

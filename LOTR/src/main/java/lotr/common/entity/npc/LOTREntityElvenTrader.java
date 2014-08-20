@@ -1,9 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.world.biome.LOTRBiome;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -21,8 +18,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeable, LOTRTravellingTrader
 {
-	public static ResourceLocation traderCape = new ResourceLocation("lotr:mob/elf/galadhrimTrader_cape.png");
-	
 	public LOTREntityElvenTrader(World world)
 	{
 		super(world);
@@ -36,7 +31,7 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 			traderNPCInfo.setSellTrades(LOTRTradeEntry.getRandomTrades(LOTRTradeEntry.ELVEN_TRADER_SELL, rand, false));
 		}
 		
-		npcCape = traderCape;
+		npcCape = LOTRCapes.ELVEN_TRADER;
 	}
 	
 	@Override

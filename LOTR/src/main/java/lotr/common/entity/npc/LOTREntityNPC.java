@@ -638,20 +638,23 @@ public abstract class LOTREntityNPC extends EntityCreature
 		ridingHorse = nbt.getBoolean("RidingHorse");
 		isPassive = nbt.getBoolean("NPCPassive");
 		hasDefaultHeldItem = nbt.getBoolean("HasDefaultHeldItem");
-		if (hasDefaultHeldItem)
+		/*if (hasDefaultHeldItem)
 		{
-			NBTTagCompound itemData = nbt.getCompoundTag("DefaultHeldItem");
-			if (itemData.hasNoTags())
+			if (nbt.hasKey("DefaultHeldItem"))
 			{
-				setCurrentItemOrArmor(0, null);
-			}
-			else
-			{
-				defaultHeldItem = ItemStack.loadItemStackFromNBT(itemData);
-				setCurrentItemOrArmor(0, defaultHeldItem);
+				NBTTagCompound itemData = nbt.getCompoundTag("DefaultHeldItem");
+				if (itemData.hasNoTags())
+				{
+					setCurrentItemOrArmor(0, null);
+				}
+				else
+				{
+					defaultHeldItem = ItemStack.loadItemStackFromNBT(itemData);
+					setCurrentItemOrArmor(0, defaultHeldItem);
+				}
 			}
 			clearDefaultHeldItem();
-		}
+		}*/
 		
 		onAttackModeChange(AttackMode.IDLE);
 	}

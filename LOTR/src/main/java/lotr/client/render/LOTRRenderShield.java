@@ -59,7 +59,7 @@ public class LOTRRenderShield
 		
 		GL11.glScalef(-1.5F, -1.5F, 1.5F);
 		
-		if (holdingSword)
+		if (renderOnBack)
 		{
 			if (blocking)
 			{

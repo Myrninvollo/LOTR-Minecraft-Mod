@@ -61,6 +61,7 @@ public class LOTRRenderThrowingAxe extends Render
 		IIcon icon = axeItem.getIconIndex();
 		if (icon == null)
 		{
+			System.out.println("Error rendering throwing axe: no icon for " + axeItem.toString());
 			GL11.glPopMatrix();
 			return;
 		}

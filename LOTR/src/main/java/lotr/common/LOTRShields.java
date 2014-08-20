@@ -47,7 +47,6 @@ public enum LOTRShields
 	public UUID[] playersForShield;
 	private LOTRFaction alignmentFaction;
 	public ResourceLocation shieldTexture;
-	public ResourceLocation capeTexture;
 	
 	private LOTRShields(LOTRFaction faction)
 	{
@@ -71,7 +70,6 @@ public enum LOTRShields
 		shieldID = shieldType.list.size();
 		shieldType.list.add(this);
 		shieldTexture = new ResourceLocation("lotr:shield/" + name().toLowerCase() + ".png");
-		capeTexture = new ResourceLocation("lotr:cape/" + name().toLowerCase() + ".png");
 		
 		playersForShield = new UUID[players.length];
 		for (int i = 0; i < playersForShield.length; i++)

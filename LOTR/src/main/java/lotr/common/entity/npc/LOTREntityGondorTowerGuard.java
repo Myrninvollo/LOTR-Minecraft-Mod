@@ -1,5 +1,6 @@
 package lotr.common.entity.npc;
 
+import lotr.common.LOTRCapes;
 import lotr.common.LOTRMod;
 import lotr.common.item.LOTRItemSpear;
 import net.minecraft.entity.IEntityLivingData;
@@ -10,13 +11,11 @@ import net.minecraft.world.World;
 
 public class LOTREntityGondorTowerGuard extends LOTREntityGondorSoldier
 {
-	private static ResourceLocation towerGuardCape = new ResourceLocation("lotr:mob/gondor/towerGuard_cape.png");
-	
 	public LOTREntityGondorTowerGuard(World world)
 	{
 		super(world);
 		spawnRidingHorse = false;
-		npcCape = towerGuardCape;
+		npcCape = LOTRCapes.TOWER_GUARD;
 	}
 	
 	@Override

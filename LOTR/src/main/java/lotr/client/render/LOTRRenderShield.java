@@ -50,16 +50,29 @@ public class LOTRRenderShield
 		
 		if (renderOnBack)
 		{
-			model.bipedLeftArm.postRender(MODELSCALE);
+			model.bipedBody.postRender(MODELSCALE);
 		}
 		else
 		{
-			model.bipedBody.postRender(MODELSCALE);
+			model.bipedLeftArm.postRender(MODELSCALE);
 		}
 		
 		GL11.glScalef(-1.5F, -1.5F, 1.5F);
 		
 		if (renderOnBack)
+		{
+			GL11.glTranslatef(0.5F, -0.8F, 0F);
+			if (wearingChestplate)
+			{
+				GL11.glTranslatef(0F, 0F, 0.18F);
+			}
+			else
+			{
+				GL11.glTranslatef(0F, 0F, 0.1F);
+			}
+			GL11.glRotatef(180F, 0F, 1F, 0F);
+		}
+		else
 		{
 			if (blocking)
 			{
@@ -80,19 +93,6 @@ public class LOTRRenderShield
 				}
 				GL11.glRotatef(-15F, 0F, 0F, 1F);
 			}
-		}
-		else
-		{
-			GL11.glTranslatef(0.5F, -0.8F, 0F);
-			if (wearingChestplate)
-			{
-				GL11.glTranslatef(0F, 0F, 0.18F);
-			}
-			else
-			{
-				GL11.glTranslatef(0F, 0F, 0.1F);
-			}
-			GL11.glRotatef(180F, 0F, 1F, 0F);
 		}
 		
 		mc.getTextureManager().bindTexture(shieldTexture);

@@ -2017,6 +2017,8 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityDolGuldurOrc.class, "DolGuldurOrc", 136, 0x332B22, 0x6B7567);
 		LOTREntities.registerCreature(LOTREntityDolGuldurOrcArcher.class, "DolGuldurOrcArcher", 137, 0x332B22, 0x6B7567);
 		LOTREntities.registerCreature(LOTREntityDolGuldurBannerBearer.class, "DolGuldurBannerBearer", 138, 0x332B22, 0x6B7567);
+		LOTREntities.registerCreature(LOTREntityDolGuldurOrcChieftain.class, "DolGuldurChieftain", 139, 0x332B22, 0x6B7567);
+		LOTREntities.registerCreature(LOTREntityMirkTroll.class, "MirkTroll", 140, 0x43454E, 0x1F2125);
 
 		LOTREntities.registerCreature(LOTREntitySauron.class, "Sauron", 1000);
 		LOTREntities.registerCreature(LOTREntityGollum.class, "Gollum", 1001, 0xCCBD90, 0x908565);

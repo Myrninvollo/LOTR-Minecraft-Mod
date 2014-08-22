@@ -38,6 +38,7 @@ public class LOTREntityStoneTroll extends Entity
 	protected void entityInit()
 	{
 		dataWatcher.addObject(16, Byte.valueOf((byte)0));
+		dataWatcher.addObject(17, Byte.valueOf((byte)0));
 	}
 	
 	public int getTrollOutfit()
@@ -49,6 +50,16 @@ public class LOTREntityStoneTroll extends Entity
 	{
 		dataWatcher.updateObject(16, Byte.valueOf((byte)i));
 	}
+	
+	public boolean hasTwoHeads()
+	{
+		return dataWatcher.getWatchableObjectByte(17) == (byte)1;
+	}
+	
+	public void setHasTwoHeads(boolean flag)
+	{
+		dataWatcher.updateObject(17, Byte.valueOf(flag ? (byte)1 : (byte)0));
+	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbt)
@@ -56,6 +67,7 @@ public class LOTREntityStoneTroll extends Entity
 		nbt.setFloat("TrollHealth", trollHealth);
 		nbt.setByte("TrollOutfit", (byte)getTrollOutfit());
 		nbt.setBoolean("PlacedByPlayer", placedByPlayer);
+		nbt.setBoolean("TwoHeads", hasTwoHeads());
 	}
 	
 	@Override
@@ -64,6 +76,7 @@ public class LOTREntityStoneTroll extends Entity
 		trollHealth = nbt.getFloat("TrollHealth");
 		setTrollOutfit(nbt.getByte("TrollOutfit"));
 		placedByPlayer = nbt.getBoolean("PlacedByPlayer");
+		setHasTwoHeads(nbt.getBoolean("TwoHeads"));
 	}
 	
 	@Override
@@ -238,9 +251,18 @@ public class LOTREntityStoneTroll extends Entity
 		return false;
 	}
 	
+	private ItemStack getStatueItem()
+	{
+		ItemStack itemstack = new ItemStack(LOTRMod.trollStatue);
+		itemstack.setItemDamage(getTrollOutfit());
+		itemstack.setTagCompound(new NBTTagCompound());
+		itemstack.getTagCompound().setBoolean("TwoHeads", hasTwoHeads());
+		return itemstack;
+	}
+	
 	private void dropAsStatue()
 	{
-		entityDropItem(new ItemStack(LOTRMod.trollStatue, 1, getTrollOutfit()), 0F);
+		entityDropItem(getStatueItem(), 0F);
 	}
 	
 	@Override
@@ -270,6 +292,6 @@ public class LOTREntityStoneTroll extends Entity
 	@Override
     public ItemStack getPickedResult(MovingObjectPosition target)
     {
-        return new ItemStack(LOTRMod.trollStatue, 1, getTrollOutfit());
+        return getStatueItem();
     }
 }

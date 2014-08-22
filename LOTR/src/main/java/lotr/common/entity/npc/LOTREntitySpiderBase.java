@@ -1,11 +1,13 @@
 package lotr.common.entity.npc;
 
 import lotr.common.LOTRMod;
+import lotr.common.entity.ai.*;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -26,7 +28,19 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
 		super(world);
 		setSize(1.4F, 0.9F);
 		getNavigator().setAvoidsWater(true);
-		spawnsInDarkness = true;
+        tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(1, new LOTREntityAIHiredRemainStill(this));
+		tasks.addTask(2, new EntityAILeapAtTarget(this, 0.4F));
+		tasks.addTask(3, new LOTREntityAIAttackOnCollide(this, 1.2D, false, 0.8F));
+		tasks.addTask(4, new LOTREntityAIFollowHiringPlayer(this));
+        tasks.addTask(5, new EntityAIWander(this, 1D));
+        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8F, 0.02F));
+        tasks.addTask(7, new EntityAILookIdle(this));
+        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
+        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
+        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
+        addTargetTasks(4);
+        spawnsInDarkness = true;
 	}
 	
 	protected abstract int getRandomSpiderScale();

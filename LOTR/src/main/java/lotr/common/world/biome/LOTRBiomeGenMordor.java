@@ -52,8 +52,8 @@ public class LOTRBiomeGenMordor extends LOTRBiome
 		
 		if (isGorgoroth())
 		{
-			spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorWarg.class, 10, 1, 3));
-			spawnableEvilList.add(new SpawnListEntry(LOTREntityOlogHai.class, 10, 1, 3));
+			spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorWarg.class, 15, 1, 3));
+			spawnableEvilList.add(new SpawnListEntry(LOTREntityOlogHai.class, 15, 1, 3));
 		}
 		
 		decorator.flowersPerChunk = 0;

@@ -16,6 +16,7 @@ Public Beta 20
 + Added carrot wine, banana beer and melon liqueur
 + Added the Dol Guldur biome
 + Added Dol Guldur orcs
++ Added Mirk-trolls
 + Added a Dol Guldur crafting table and banner
 + Added Dol Guldur Brick blocks, slabs, stairs, and walls, and cracked variants
 + Added Gulduril Brick versions of Dol Guldur Brick
@@ -30,10 +31,12 @@ Public Beta 20
 + Added a separate 'Gondor Tower Guard' NPC that wears the winged helmet
 + Added travelling merchants of Near Harad
 + Added Near Harad pyramids
++ Added two-headed trolls
 + Added straw beds
 + Added feet to the hobbit model
 + Added a rendered box to show the protection range of banners in debug mode
 + Added hover text for Middle-earth achievements in the chat screen
++ Added forests on the eastern side of the Ered Luin, and a missing arm of the mountains
 
 * Changed all mounts in the mod to be more like horses, including taming behaviour and jumping
 * Changed horse armour recipes to use leather instead of wool
@@ -61,12 +64,16 @@ Public Beta 20
 * Actually fixed dwarven merchants not spawning
 * Travelling traders will no longer attempt to spawn near enemy players
 * Desert scorpions in Harad spawn above ground less often
+* Peaceful mode now has no effect on the spawning of evil NPCs
 * Fixed the alignment command message specifying the wrong player name
 * Fixed the special hobbit pipe crafting recipes
+* Changed Gondor brick textures
+* Improved Olog-hai and banner textures
 
 - Removed Middle-earth capes
 - Removed separate warg armour items
 - Removed crafting recipes for vanilla horse armour
+- Removed invasions from the Shire
 
 Public Beta 19.2
 

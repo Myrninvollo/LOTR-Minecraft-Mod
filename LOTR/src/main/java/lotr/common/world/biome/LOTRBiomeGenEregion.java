@@ -46,6 +46,7 @@ public class LOTRBiomeGenEregion extends LOTRBiome
 		
 		registerTravellingTrader(LOTREntityElvenTrader.class);
 		registerTravellingTrader(LOTREntityBlueDwarfMerchant.class);
+		registerTravellingTrader(LOTREntityNearHaradMerchant.class);
 		
 		setBanditChance(LOTRBanditSpawner.RARE);
 		

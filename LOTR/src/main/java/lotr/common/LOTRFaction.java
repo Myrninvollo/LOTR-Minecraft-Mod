@@ -306,6 +306,7 @@ public enum LOTRFaction
 		DOL_GULDUR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDolGuldurOrc.class, 10));
 		DOL_GULDUR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDolGuldurOrcArcher.class, 5));
 		DOL_GULDUR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDolGuldurBannerBearer.class, 2));
+		MORDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityMirkTroll.class, 3));
 		
 		DWARF.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_DWARF);
 		DWARF.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_DWARF);

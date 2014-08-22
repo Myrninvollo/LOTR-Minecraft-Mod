@@ -707,6 +707,7 @@ public class LOTRTradeEntry
 		
 		BLUE_DWARF_MERCHANT_BUY = new LOTRTradeEntry[]
 		{
+			new LOTRTradeEntry(new ItemStack(LOTRMod.dwarvenForge), 40),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.dwarvenRing), 16),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.swordBlueDwarven), 16),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.spearBlueDwarven), 18),

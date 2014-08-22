@@ -52,6 +52,8 @@ public class LOTRUnitTradeEntry
 	
 	public static LOTRUnitTradeEntry[] BLUE_DWARF_COMMANDER;
 	
+	public static LOTRUnitTradeEntry[] DOL_GULDUR_CAPTAIN;
+	
 	public Class entityClass;
 	public Class mountClass;
 	private Item mountArmor;
@@ -346,6 +348,17 @@ public class LOTRUnitTradeEntry
 			new LOTRUnitTradeEntry(LOTREntityBlueDwarfWarrior.class, LOTREntityWildBoar.class, "BlueDwarfWarrior_Boar", 25, 350),
 			new LOTRUnitTradeEntry(LOTREntityBlueDwarfAxeThrower.class, LOTREntityWildBoar.class, "BlueDwarfAxeThrower_Boar", 35, 400),
 			new LOTRUnitTradeEntry(LOTREntityBlueDwarfBannerBearer.class, 40, 400)
+		};
+		
+		DOL_GULDUR_CAPTAIN = new LOTRUnitTradeEntry[]
+		{
+			new LOTRUnitTradeEntry(LOTREntityDolGuldurOrc.class, 10, 150),
+			new LOTRUnitTradeEntry(LOTREntityDolGuldurOrcArcher.class, 20, 200),
+			new LOTRUnitTradeEntry(LOTREntityMirkwoodSpider.class, 10, 150),
+			new LOTRUnitTradeEntry(LOTREntityDolGuldurOrc.class, LOTREntityMirkwoodSpider.class, "DolGuldurOrc_Spider", 20, 250),
+			new LOTRUnitTradeEntry(LOTREntityDolGuldurOrcArcher.class, LOTREntityMirkwoodSpider.class, "DolGuldurOrcArcher_Spider", 30, 300),
+			new LOTRUnitTradeEntry(LOTREntityMirkTroll.class, 50, 400),
+			new LOTRUnitTradeEntry(LOTREntityDolGuldurBannerBearer.class, 40, 300)
 		};
 	}
 }

@@ -61,6 +61,12 @@ public class LOTREntityMountainTrollChieftain extends LOTREntityMountainTroll im
 		dataWatcher.addObject(24, Integer.valueOf(2));
 	}
 	
+	@Override
+	public boolean hasTwoHeads()
+	{
+		return true;
+	}
+	
 	public int getTrollSpawnTick()
 	{
 		return dataWatcher.getWatchableObjectInt(22);

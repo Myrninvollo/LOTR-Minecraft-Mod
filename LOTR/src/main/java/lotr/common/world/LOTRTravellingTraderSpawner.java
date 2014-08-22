@@ -32,7 +32,7 @@ public class LOTRTravellingTraderSpawner
 	
 	private static int getRandomTraderTime()
 	{
-		return 50000 + rand.nextInt(250000);
+		return 50000 + rand.nextInt(400000);
 	}
 	
 	public void writeToNBT(NBTTagCompound nbt)

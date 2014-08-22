@@ -135,6 +135,10 @@ public class LOTRItemPouch extends Item
 						continue;
 					}
 				}
+				else if (itemInSlot.stackSize >= itemInSlot.getMaxStackSize())
+				{
+					continue;
+				}
 				else
 				{
 					if (itemInSlot.getItem() != itemstack.getItem())

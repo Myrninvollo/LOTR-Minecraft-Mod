@@ -24,9 +24,10 @@ public class LOTRBiomeGenDolGuldur extends LOTRBiomeGenMirkwood
 		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.DOL_GULDUR(1, 4), 5);
 		
 		spawnableEvilList.clear();
-		spawnableEvilList.add(new SpawnListEntry(LOTREntityMirkwoodSpider.class, 20, 4, 4));
-		spawnableEvilList.add(new SpawnListEntry(LOTREntityDolGuldurOrc.class, 20, 4, 4));
-		spawnableEvilList.add(new SpawnListEntry(LOTREntityDolGuldurOrcArcher.class, 10, 4, 4));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityMirkwoodSpider.class, 20, 4, 6));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityDolGuldurOrc.class, 20, 4, 6));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityDolGuldurOrcArcher.class, 10, 4, 6));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityMirkTroll.class, 5, 1, 3));
 		
 		hasPodzol = false;
 		decorator.treesPerChunk = 1;

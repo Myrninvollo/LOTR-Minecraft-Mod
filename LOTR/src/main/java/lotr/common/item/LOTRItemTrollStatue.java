@@ -10,6 +10,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
@@ -74,6 +77,10 @@ public class LOTRItemTrollStatue extends Item
 				if (world.checkNoEntityCollision(trollStatue.boundingBox) && world.getCollidingBoundingBoxes(trollStatue, trollStatue.boundingBox).size() == 0 && !world.isAnyLiquid(trollStatue.boundingBox))
 				{
 					trollStatue.setTrollOutfit(itemstack.getItemDamage());
+					if (itemstack.hasTagCompound())
+					{
+						trollStatue.setHasTwoHeads(itemstack.getTagCompound().getBoolean("TwoHeads"));
+					}
 					trollStatue.placedByPlayer = true;
 					world.spawnEntityInWorld(trollStatue);
 					world.playSoundAtEntity(trollStatue, Blocks.stone.stepSound.func_150496_b(), (Blocks.stone.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.stone.stepSound.getPitch() * 0.8F);
@@ -93,12 +100,32 @@ public class LOTRItemTrollStatue extends Item
     }
 	
 	@Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack itemstack, EntityPlayer entityplayer, List list, boolean flag)
+    {
+		if (itemstack.hasTagCompound())
+		{
+			boolean twoHeads = itemstack.getTagCompound().getBoolean("TwoHeads");
+			if (twoHeads)
+			{
+				list.add(StatCollector.translateToLocal("item.lotr.trollStatue.twoHeads"));
+			}
+		}
+	}
+	
+	@Override
 	@SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs tab, List list)
     {
         for (int j = 0; j <= 2; j++)
         {
-            list.add(new ItemStack(item, 1, j));
+        	ItemStack statue = new ItemStack(item, 1, j);
+        	list.add(statue);
+        	
+        	statue = statue.copy();
+        	statue.setTagCompound(new NBTTagCompound());
+        	statue.getTagCompound().setBoolean("TwoHeads", true);
+        	list.add(statue);
         }
     }
 }

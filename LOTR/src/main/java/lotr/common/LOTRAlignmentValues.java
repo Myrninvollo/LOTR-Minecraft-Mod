@@ -55,6 +55,8 @@ public class LOTRAlignmentValues
 		
 		public static int MIRKWOOD_SPIDER = 1;
 		public static int DOL_GULDUR_ORC = 1;
+		public static int DOL_GULDUR_CAPTAIN = 5;
+		public static int MIRK_TROLL = 3;
 		
 		public static int DWARF = 1;
 		public static int DWARF_WARRIOR = 2;
@@ -162,6 +164,8 @@ public class LOTRAlignmentValues
 		public static int URUK_HAI_MERCENARY_CAPTAIN_TRADE = 150;
 		
 		public static int WARG_RIDE = 50;
+		
+		public static int DOL_GULDUR_CAPTAIN_TRADE = 150;
 		
 		public static int NEAR_HARADRIM_WARLORD_TRADE = 100;
 		public static int NEAR_HARAD_MERCHANT_TRADE = 0;

@@ -1,40 +1,19 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
-import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
-import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
-import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
-import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
-import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
-import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetTroll;
-import lotr.common.entity.ai.LOTREntityAITrollFleeSun;
+import lotr.common.*;
+import lotr.common.entity.ai.*;
 import lotr.common.entity.item.LOTREntityStoneTroll;
 import lotr.common.world.biome.LOTRBiome;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIRestrictSun;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityAIWatchClosest2;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import cpw.mods.fml.relauncher.Side;
@@ -82,6 +61,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 		dataWatcher.addObject(17, LOTRNames.getRandomTrollName(rand));
 		dataWatcher.addObject(18, Integer.valueOf(-1));
 		dataWatcher.addObject(19, Byte.valueOf((byte)0));
+		dataWatcher.addObject(20, Byte.valueOf((byte)0));
 	}
 	
 	@Override
@@ -93,6 +73,31 @@ public class LOTREntityTroll extends LOTREntityNPC
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2D);
         getEntityAttribute(npcAttackDamage).setBaseValue(5D);
     }
+	
+	@Override
+	public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
+	{
+		data = super.onSpawnWithEgg(data);
+		
+		if (rand.nextInt(10) == 0)
+		{
+			setHasTwoHeads(true);
+			
+			double maxHealth = getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue();
+			maxHealth *= 1.5D;
+			getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
+			
+			double attack = getEntityAttribute(npcAttackDamage).getBaseValue();
+			attack += 3D;
+			getEntityAttribute(npcAttackDamage).setBaseValue(attack);
+			
+			double speed = getEntityAttribute(SharedMonsterAttributes.movementSpeed).getBaseValue();
+			speed *= 1.4D;
+			getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(speed);
+		}
+		
+		return data;
+	}
 	
 	@Override
 	public LOTRFaction getFaction()
@@ -161,6 +166,16 @@ public class LOTREntityTroll extends LOTREntityNPC
 		dataWatcher.updateObject(19, Byte.valueOf((byte)i));
 	}
 	
+	public boolean hasTwoHeads()
+	{
+		return dataWatcher.getWatchableObjectByte(20) == (byte)1;
+	}
+	
+	public void setHasTwoHeads(boolean flag)
+	{
+		dataWatcher.updateObject(20, Byte.valueOf(flag ? (byte)1 : (byte)0));
+	}
+	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbt)
 	{
@@ -171,6 +186,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 		nbt.setInteger("Sneeze", sneeze);
 		nbt.setInteger("SneezeTime", getSneezingTime());
 		nbt.setBoolean("ImmuneToSun", isImmuneToSun);
+		nbt.setBoolean("TwoHeads", hasTwoHeads());
 	}
 	
 	@Override
@@ -186,6 +202,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 		sneeze = nbt.getInteger("Sneeze");
 		setSneezingTime(nbt.getInteger("SneezeTime"));
 		isImmuneToSun = nbt.getBoolean("ImmuneToSun");
+		setHasTwoHeads(nbt.getBoolean("TwoHeads"));
 	}
 	
 	@Override
@@ -267,6 +284,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 		LOTREntityStoneTroll stoneTroll = new LOTREntityStoneTroll(worldObj);
 		stoneTroll.setLocationAndAngles(posX, posY, posZ, rotationYaw, 0F);
 		stoneTroll.setTrollOutfit(getTrollOutfit());
+		stoneTroll.setHasTwoHeads(hasTwoHeads());
 		worldObj.spawnEntityInWorld(stoneTroll);
 	}
 	

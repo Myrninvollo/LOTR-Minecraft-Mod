@@ -31,8 +31,6 @@ public class LOTRRenderBannerItem implements IItemRenderer
 	{
 		Entity entity = (Entity)data[1];
 
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		
 		boolean isFirstPerson = entity == Minecraft.getMinecraft().thePlayer && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0;
 		boolean renderStand = false;
 
@@ -58,7 +56,5 @@ public class LOTRRenderBannerItem implements IItemRenderer
 		model.renderLowerPost(0.0625F);
 		textureManager.bindTexture(LOTRRenderBanner.getBannerTexture(itemstack.getItemDamage()));
 		model.renderBanner(0.0625F);
-		
-		GL11.glEnable(GL11.GL_CULL_FACE);
 	}
 }

@@ -1,7 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.item.ItemStack;
@@ -14,6 +13,7 @@ public class LOTREntityAngmarOrcWarrior extends LOTREntityAngmarOrc
 		super(world);
 		setSize(0.6F, 1.8F);
 		isWeakOrc = false;
+		npcShield = LOTRShields.ALIGNMENT_ANGMAR;
 	}
 	
 	@Override

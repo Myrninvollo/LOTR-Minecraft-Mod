@@ -758,6 +758,8 @@ item.lotr.drink.alcoholicity=Alcoholicity
 
 item.lotr.crossbow.loaded=%s (Loaded)
 
+item.lotr.trollStatue.twoHeads=Two-headed
+
 item.lotr.hat.dyed=Dyed
 item.lotr.hat.feathered=Feathered
 
@@ -863,7 +865,7 @@ lotr.shields.ALIGNMENT_DWARF.name=Shield of Seven Stars
 lotr.shields.ALIGNMENT_DWARF.desc=Awarded for reaching +1000 alignment with Durin's Folk
 lotr.shields.ALIGNMENT_GALADHRIM.name=Shield of the Golden Wood
 lotr.shields.ALIGNMENT_GALADHRIM.desc=Awarded for reaching +1000 alignment with the Galadhrim
-lotr.shields.ALIGNMENT_DUNLAND.name=Shield of the Wild Men
+lotr.shields.ALIGNMENT_DUNLAND.name=Shield of the Wolf
 lotr.shields.ALIGNMENT_DUNLAND.desc=Awarded for reaching +1000 alignment with the Dunlendings
 lotr.shields.ALIGNMENT_URUK_HAI.name=Shield of the White Hand
 lotr.shields.ALIGNMENT_URUK_HAI.desc=Awarded for reaching +1000 alignment with the Uruk-hai
@@ -877,15 +879,17 @@ lotr.shields.ALIGNMENT_NEAR_HARAD.name=Shield of the Serpent
 lotr.shields.ALIGNMENT_NEAR_HARAD.desc=Awarded for reaching +1000 alignment with the Near Haradrim
 
 lotr.shields.ACHIEVEMENT_BRONZE.name=Bronze Adventurer's Shield
-lotr.shields.ACHIEVEMENT_BRONZE.desc=Available upon earning 25 achievements in Middle-earth
+lotr.shields.ACHIEVEMENT_BRONZE.desc=Awarded for earning 25 achievements in Middle-earth
 lotr.shields.ACHIEVEMENT_SILVER.name=Silver Adventurer's Shield
-lotr.shields.ACHIEVEMENT_SILVER.desc=Available upon earning 50 achievements in Middle-earth
+lotr.shields.ACHIEVEMENT_SILVER.desc=Awarded for earning 50 achievements in Middle-earth
 lotr.shields.ACHIEVEMENT_GOLD.name=Golden Adventurer's Shield
-lotr.shields.ACHIEVEMENT_GOLD.desc=Available upon earning 100 achievements in Middle-earth
+lotr.shields.ACHIEVEMENT_GOLD.desc=Awarded for earning 100 achievements in Middle-earth
 lotr.shields.ACHIEVEMENT_MITHRIL.name=Mithril Adventurer's Shield
-lotr.shields.ACHIEVEMENT_MITHRIL.desc=Available upon earning 200 achievements in Middle-earth
+lotr.shields.ACHIEVEMENT_MITHRIL.desc=Awarded for earning 200 achievements in Middle-earth
 lotr.shields.DEFEAT_MTC.name=Trollslayer's Shield
-lotr.shields.DEFEAT_MTC.desc=Earned by defeating the Mountain Troll Chieftain
+lotr.shields.DEFEAT_MTC.desc=Awarded for defeating the Mountain Troll Chieftain
+lotr.shields.ALCOHOLIC.name=Alcoholic's Shield
+lotr.shields.ALCOHOLIC.desc=Awarded for enjoying a copious amount of alcholic beverages
 
 lotr.shields.ELVEN_CONTEST.name=Elven Contest Shield
 lotr.shields.ELVEN_CONTEST.desc=Awarded as a prize in Building Contest #1 (Elven)
@@ -898,7 +902,7 @@ lotr.shields.GONDOR_CONTEST.desc=Awarded as a prize in Building Contest #4 (Gond
 lotr.shields.STRUCTURE_CONTEST.name=Architect's Shield
 lotr.shields.STRUCTURE_CONTEST.desc=Awarded for having your build implemented into the mod in Structure Contest #1
 lotr.shields.MOD.name=Modder's Shield
-lotr.shields.MOD.desc=Worn by the creator of the mod and the administration team
+lotr.shields.MOD.desc=Worn by the creator of the mod and the moderation team
 lotr.shields.ELECTRICIAN.name=Electrician's Shield
 lotr.shields.ELECTRICIAN.desc=Worn by Mr. Gibbs
 lotr.shields.OGRE.name=Ogre Shield
@@ -1131,6 +1135,8 @@ entity.lotr.HaradPyramidWraith.name=Harad Pyramid Wraith
 entity.lotr.DolGuldurOrc.name=Dol Guldur Orc
 entity.lotr.DolGuldurOrcArcher.name=Dol Guldur Orc Archer
 entity.lotr.DolGuldurBannerBearer.name=Dol Guldur Banner Bearer
+entity.lotr.DolGuldurChieftain.name=Dol Guldur Orc Chieftain
+entity.lotr.MirkTroll.name=Mirk-troll
 
 entity.lotr.Sauron.name=Sauron
 entity.lotr.Gollum.name=Gollum
@@ -1178,6 +1184,9 @@ lotr.unit.NearHaradrimArcher_Camel=Near Harad Archer Camelry
 
 lotr.unit.BlueDwarfWarrior_Boar=Boar Rider
 lotr.unit.BlueDwarfAxeThrower_Boar=Boar Axe-thrower Rider
+
+lotr.unit.DolGuldurOrc_Spider=Spider Rider
+lotr.unit.DolGuldurOrcArcher_Spider=Spider Archer Rider
 
 lotr.faction.HOBBIT.name=Hobbits
 lotr.faction.RANGER_NORTH.name=Rangers of the North
@@ -1779,6 +1788,10 @@ lotr.achievement.killDolGuldurOrc.title=Dol Guldur Orc Slayer
 lotr.achievement.killDolGuldurOrc.desc=Kill an orc of Dol Guldur
 lotr.achievement.useDolGuldurTable.title=Necromancer
 lotr.achievement.useDolGuldurTable.desc=Craft an item on the Dol Guldur Crafting Table
+lotr.achievement.tradeDolGuldurCaptain.title=Foul Creatures
+lotr.achievement.tradeDolGuldurCaptain.desc=Hire a unit from a Dol Guldur Orc Chieftain
+lotr.achievement.killMirkTroll.title=Mirk-troll Slayer
+lotr.achievement.killMirkTroll.desc=Kill a Mirk-troll
 
 lotr.achievement.killDwarf.title=Dwarf Slayer
 lotr.achievement.killDwarf.desc=Kill a dwarf

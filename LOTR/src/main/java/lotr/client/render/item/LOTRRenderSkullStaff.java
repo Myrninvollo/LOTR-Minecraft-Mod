@@ -47,15 +47,12 @@ public class LOTRRenderSkullStaff implements IItemRenderer
 	@Override
     public void renderItem(ItemRenderType type, ItemStack itemstack, Object... data)
 	{
-		GL11.glDisable(GL11.GL_CULL_FACE);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(staffTexture);
 		if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)
 		{
-			//GL11.glRotatef(-30F, 1F, 0F, 0F);
 			GL11.glRotatef(-70F, 0F, 0F, 1F);
-			GL11.glRotatef(40F, 0F, 1F, 0F);
+			GL11.glTranslatef(-0.5F, 0F, -0.5F);
 		}
 		staffModel.render(null, 0F, 0F, 0F, 0F, 0F, 0.0625F);
-		GL11.glEnable(GL11.GL_CULL_FACE);
 	}
 }

@@ -1,9 +1,7 @@
 package lotr.common.world.structure;
 
 import lotr.common.LOTRMod;
-import lotr.common.entity.npc.LOTREntityMordorOrc;
-import lotr.common.entity.npc.LOTREntityMordorWarg;
-import lotr.common.entity.npc.LOTREntityNPC;
+import lotr.common.entity.npc.*;
 import lotr.common.world.biome.LOTRBiomeGenMordor;
 import net.minecraft.world.World;
 

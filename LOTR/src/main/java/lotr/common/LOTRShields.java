@@ -31,6 +31,7 @@ public enum LOTRShields
 	ACHIEVEMENT_GOLD(),
 	ACHIEVEMENT_MITHRIL(),
 	DEFEAT_MTC(),
+	ALCOHOLIC(),
 		
 	ELVEN_CONTEST(new String[] {"7a19ce50-d5c8-4e16-b8f9-932d27ec3251"}),
 	EVIL_CONTEST(new String[] {"0c1eb454-df57-4b5c-91bf-16d8f15cae74", "2418e4fa-2483-4bd9-bf58-1e09c586959e"}),
@@ -114,6 +115,10 @@ public enum LOTRShields
 		else if (this == DEFEAT_MTC)
 		{
 			return LOTRLevelData.getData(entityplayer).hasAchievement(LOTRAchievement.killMountainTrollChieftain);
+		}
+		else if (this == ALCOHOLIC)
+		{
+			return LOTRLevelData.getData(entityplayer).hasAchievement(LOTRAchievement.gainHighAlcoholTolerance);
 		}
 		else if (shieldType == EXCLUSIVE)
 		{

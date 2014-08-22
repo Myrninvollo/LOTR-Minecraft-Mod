@@ -1,5 +1,6 @@
 package lotr.client.model;
 
+import lotr.common.entity.item.LOTREntityStoneTroll;
 import lotr.common.entity.npc.LOTREntityMountainTroll;
 import lotr.common.entity.npc.LOTREntityTroll;
 import net.minecraft.client.model.ModelBase;
@@ -7,6 +8,8 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
+
+import org.lwjgl.opengl.GL11;
 
 public class LOTRModelTroll extends ModelBase
 {
@@ -21,6 +24,7 @@ public class LOTRModelTroll extends ModelBase
 	public ModelRenderer woodenClub;
 	public ModelRenderer woodenClubSpikes;
 	public ModelRenderer warhammer;
+	public ModelRenderer battleaxe;
 	
 	private boolean isOutiftModel = false;
 	
@@ -78,11 +82,11 @@ public class LOTRModelTroll extends ModelBase
 		leftLeg.setRotationPoint(6F, 0F, 0F);
 		leftLeg.setTextureOffset(0, 102).addBox(-4.5F, 12F, -5F, 10, 12, 10);
 		
-		woodenClub = new ModelRenderer(this, 0, 0).setTextureSize(64, 64);
+		woodenClub = new ModelRenderer(this, 0, 0);
 		woodenClub.addBox(-9F, 5F, 21F, 6, 24, 6, f);
 		woodenClub.setRotationPoint(-12F, -23F, 0F);
 		
-		woodenClubSpikes = new ModelRenderer(this, 24, 0).setTextureSize(64, 64);
+		woodenClubSpikes = new ModelRenderer(this, 24, 0);
 		woodenClubSpikes.addBox(-12F, 25F, 23.5F, 12, 1, 1, f);
 		woodenClubSpikes.addBox(-12F, 20F, 23.5F, 12, 1, 1, f);
 		woodenClubSpikes.addBox(-12F, 15F, 23.5F, 12, 1, 1, f);
@@ -92,10 +96,18 @@ public class LOTRModelTroll extends ModelBase
 		woodenClubSpikes.addBox(-6.5F, 15F, 18F, 1, 1, 12, f);
 		woodenClubSpikes.setRotationPoint(-12F, -23F, 0F);
 		
-		warhammer = new ModelRenderer(this, 52, 29).setTextureSize(64, 64);
-		warhammer.addBox(-7.5F, 5F, 22.5F, 3, 20, 3, f);
+		warhammer = new ModelRenderer(this, 52, 29);
 		warhammer.setRotationPoint(-12F, -23F, 0F);
+		warhammer.addBox(-7.5F, 5F, 22.5F, 3, 20, 3, f);
 		warhammer.setTextureOffset(0, 32).addBox(-12F, 25F, 14F, 12, 12, 20, f);
+		
+		battleaxe = new ModelRenderer(this, 64, 0);
+		battleaxe.setRotationPoint(-12F, -23F, 0F);
+		battleaxe.addBox(-7F, 5F, 22.5F, 2, 40, 2, f);
+		battleaxe.setTextureOffset(72, 0);
+		battleaxe.addBox(-6.5F, 40F, 20F, 1, 1, 16, f);
+		battleaxe.addBox(-6.5F, 34F, 20F, 1, 1, 16, f);
+		battleaxe.addBox(-6.5F, 28F, 20F, 1, 1, 16, f);
 	}
 	
 	public LOTRModelTroll(float f, int i)
@@ -144,14 +156,61 @@ public class LOTRModelTroll extends ModelBase
 	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 	{
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-		if (!isOutiftModel && entity instanceof LOTREntityTroll && ((LOTREntityTroll)entity).shouldRenderHeadHurt())
+		boolean isHurt = false;
+		boolean hasTwoHeads = false;
+		
+		if (entity instanceof LOTREntityTroll)
 		{
-			headHurt.render(f5);
+			LOTREntityTroll troll = (LOTREntityTroll)entity;
+			isHurt = !isOutiftModel && troll.shouldRenderHeadHurt();
+			hasTwoHeads = troll.hasTwoHeads();
+		}
+		else if (entity instanceof LOTREntityStoneTroll)
+		{
+			LOTREntityStoneTroll troll = (LOTREntityStoneTroll)entity;
+			isHurt = false;
+			hasTwoHeads = troll.hasTwoHeads();
+		}
+		
+		if (hasTwoHeads)
+		{
+			GL11.glPushMatrix();
+			GL11.glRotatef(-15F, 0F, 0F, 1F);
+			GL11.glRotatef(10F, 0F, 1F, 0F);
+			if (isHurt)
+			{
+				headHurt.render(f5);
+			}
+			else
+			{
+				head.render(f5);
+			}
+			GL11.glPopMatrix();
+			GL11.glPushMatrix();
+			GL11.glRotatef(15F, 0F, 0F, 1F);
+			GL11.glRotatef(-10F, 0F, 1F, 0F);
+			if (isHurt)
+			{
+				headHurt.render(f5);
+			}
+			else
+			{
+				head.render(f5);
+			}
+			GL11.glPopMatrix();
 		}
 		else
 		{
-			head.render(f5);
+			if (isHurt)
+			{
+				headHurt.render(f5);
+			}
+			else
+			{
+				head.render(f5);
+			}
 		}
+		
 		body.render(f5);
 		rightArm.render(f5);
 		leftArm.render(f5);
@@ -295,5 +354,16 @@ public class LOTRModelTroll extends ModelBase
 		warhammer.rotateAngleY = rightArm.rotateAngleY;
 		warhammer.rotateAngleZ = rightArm.rotateAngleZ;
 		warhammer.render(f);
+	}
+	
+	public void renderBattleaxe(float f)
+	{
+		battleaxe.rotationPointX = rightArm.rotationPointX;
+		battleaxe.rotationPointY = rightArm.rotationPointY;
+		battleaxe.rotationPointZ = rightArm.rotationPointZ;
+		battleaxe.rotateAngleX = rightArm.rotateAngleX - ((float)Math.PI * 0.5F);
+		battleaxe.rotateAngleY = rightArm.rotateAngleY;
+		battleaxe.rotateAngleZ = rightArm.rotateAngleZ;
+		battleaxe.render(f);
 	}
 }

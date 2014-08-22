@@ -11,14 +11,6 @@ public class LOTREntityMirkwoodSpider extends LOTREntitySpiderBase
 	public LOTREntityMirkwoodSpider(World world)
 	{
 		super(world);
-        tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAILeapAtTarget(this, 0.4F));
-		tasks.addTask(2, new LOTREntityAIAttackOnCollide(this, 1.2D, false, 0.8F));
-        tasks.addTask(3, new EntityAIWander(this, 1D));
-        tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 8F, 0.02F));
-        tasks.addTask(5, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(2);
 	}
 	
 	@Override

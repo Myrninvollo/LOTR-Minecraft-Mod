@@ -33,6 +33,7 @@ Public Beta 20
 + Added Near Harad pyramids
 + Added two-headed trolls
 + Added straw beds
++ Added fallen leaves
 + Added feet to the hobbit model
 + Added a rendered box to show the protection range of banners in debug mode
 + Added hover text for Middle-earth achievements in the chat screen

@@ -266,6 +266,8 @@ public class LOTRMod
 	public static Block stairsDolGuldurBrick;
 	public static Block stairsDolGuldurBrickCracked;
 	public static Block dolGuldurTable;
+	public static Block fallenLeaves;
+	public static Block fallenLeavesLOTR;
 
 	public static Item goldRing;
 	public static Item pouch;
@@ -812,6 +814,8 @@ public class LOTRMod
 		stairsDolGuldurBrick = new LOTRBlockStairs(brick2, 8).setBlockName("lotr:stairsDolGuldurBrick");
 		stairsDolGuldurBrickCracked = new LOTRBlockStairs(brick2, 9).setBlockName("lotr:stairsDolGuldurBrickCracked");
 		dolGuldurTable = new LOTRBlockDolGuldurTable().setHardness(2.5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:dolGuldurCraftingTable");
+		fallenLeaves = new LOTRBlockFallenLeaves(Blocks.leaves, Blocks.leaves2).setBlockName("lotr:fallenLeaves");
+		fallenLeavesLOTR = new LOTRBlockFallenLeaves(leaves, fruitLeaves, leaves2, leaves3).setBlockName("lotr:fallenLeavesLOTR");
 		
 		goldRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMagic).setUnlocalizedName("lotr:goldRing");
 		pouch = new LOTRItemPouch().setUnlocalizedName("lotr:pouch");
@@ -1372,6 +1376,8 @@ public class LOTRMod
 		registerBlock(stairsDolGuldurBrick);
 		registerBlock(stairsDolGuldurBrickCracked);
 		registerBlock(dolGuldurTable);
+		registerBlock(fallenLeaves, LOTRItemFallenLeaves.class);
+		registerBlock(fallenLeavesLOTR, LOTRItemFallenLeaves.class);
 		
 		registerItem(goldRing);
 		registerItem(pouch);

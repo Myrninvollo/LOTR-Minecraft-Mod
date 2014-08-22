@@ -749,6 +749,8 @@ item.lotr.orcBomb.fire=Fire
 item.lotr.orcBomb.doubleStrength=Double Strength
 item.lotr.orcBomb.tripleStrength=Triple Strength
 
+item.lotr.fallenLeaves=Fallen %s
+
 item.lotr.drink.weak=Weak
 item.lotr.drink.light=Light
 item.lotr.drink.moderate=Moderate

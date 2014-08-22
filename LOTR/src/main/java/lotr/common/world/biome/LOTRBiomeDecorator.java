@@ -1,31 +1,13 @@
 package lotr.common.world.biome;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import lotr.common.LOTRMod;
-import lotr.common.world.feature.LOTRWorldGenBiomeFlowers;
-import lotr.common.world.feature.LOTRWorldGenCaveCobwebs;
-import lotr.common.world.feature.LOTRWorldGenLogs;
-import lotr.common.world.feature.LOTRWorldGenMordorLava;
-import lotr.common.world.feature.LOTRWorldGenStalactites;
-import lotr.common.world.feature.LOTRWorldGenTrollHoard;
+import lotr.common.world.feature.*;
 import lotr.common.world.structure.LOTRWorldGenOrcDungeon;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenCactus;
-import net.minecraft.world.gen.feature.WorldGenClay;
-import net.minecraft.world.gen.feature.WorldGenDeadBush;
-import net.minecraft.world.gen.feature.WorldGenFlowers;
-import net.minecraft.world.gen.feature.WorldGenLiquids;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenPumpkin;
-import net.minecraft.world.gen.feature.WorldGenReed;
-import net.minecraft.world.gen.feature.WorldGenSand;
-import net.minecraft.world.gen.feature.WorldGenVines;
-import net.minecraft.world.gen.feature.WorldGenWaterlily;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.*;
 
 public class LOTRBiomeDecorator
 {
@@ -194,6 +176,18 @@ public class LOTRBiomeDecorator
             int k = chunkZ + rand.nextInt(16) + 8;
             WorldGenerator treeGen = biome.func_150567_a(rand);
             treeGen.generate(worldObj, rand, i, worldObj.getHeightValue(i, k), k);
+        }
+        
+        int fallenLeaves = trees / 3;
+        if (fallenLeaves <= 0 && trees > 0)
+        {
+        	fallenLeaves = 1;
+        }
+        for (int l = 0; l < fallenLeaves; l++)
+        {
+            int i = chunkX + rand.nextInt(16) + 8;
+            int k = chunkZ + rand.nextInt(16) + 8;
+            new LOTRWorldGenFallenLeaves().generate(worldObj, rand, i, worldObj.getTopSolidOrLiquidBlock(i, k), k);
         }
         
         for (int l = 0; l < logsPerChunk; l++)

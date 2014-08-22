@@ -64,11 +64,11 @@ public class LOTRRenderShield
 			GL11.glTranslatef(0.5F, -0.8F, 0F);
 			if (wearingChestplate)
 			{
-				GL11.glTranslatef(0F, 0F, 0.18F);
+				GL11.glTranslatef(0F, 0F, 0.24F);
 			}
 			else
 			{
-				GL11.glTranslatef(0F, 0F, 0.1F);
+				GL11.glTranslatef(0F, 0F, 0.16F);
 			}
 			GL11.glRotatef(180F, 0F, 1F, 0F);
 		}
@@ -85,7 +85,7 @@ public class LOTRRenderShield
 				GL11.glTranslatef(-0.5F, -0.75F, 0F);
 				if (wearingChestplate)
 				{
-					GL11.glTranslatef(0F, 0F, -0.22F);
+					GL11.glTranslatef(0F, 0F, -0.24F);
 				}
 				else
 				{

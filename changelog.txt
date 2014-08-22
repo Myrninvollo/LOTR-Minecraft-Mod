@@ -18,6 +18,7 @@ Public Beta 20
 + Added Dol Guldur orcs
 + Added Mirk-trolls
 + Added a Dol Guldur crafting table and banner
++ Added Dol Guldur equipment
 + Added Dol Guldur Brick blocks, slabs, stairs, and walls, and cracked variants
 + Added Gulduril Brick versions of Dol Guldur Brick
 + Added Woodland Elk

@@ -37,36 +37,36 @@ public class LOTREntityDolGuldurOrc extends LOTREntityOrc
 		
 		if (i == 0)
 		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.battleaxeOrc));
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.battleaxeDolGuldur));
 		}
 		else if (i == 1)
 		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerOrc));
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerDolGuldur));
 		}
 		else if (i == 2)
 		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerOrcPoisoned));
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerDolGuldurPoisoned));
 		}
 		else if (i == 3)
 		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.spearOrc));
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.spearDolGuldur));
 		}
 		else if (i == 4)
 		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.scimitarOrc));
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.swordDolGuldur));
 		}
 		else if (i == 5)
 		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.hammerOrc));
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.hammerDolGuldur));
 		}
 		
-		setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsOrc));
-		setCurrentItemOrArmor(2, new ItemStack(LOTRMod.legsOrc));
-		setCurrentItemOrArmor(3, new ItemStack(LOTRMod.bodyOrc));
+		setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsDolGuldur));
+		setCurrentItemOrArmor(2, new ItemStack(LOTRMod.legsDolGuldur));
+		setCurrentItemOrArmor(3, new ItemStack(LOTRMod.bodyDolGuldur));
 		
 		if (rand.nextInt(5) != 0)
 		{
-			setCurrentItemOrArmor(4, new ItemStack(LOTRMod.helmetOrc));
+			setCurrentItemOrArmor(4, new ItemStack(LOTRMod.helmetDolGuldur));
 		}
 
 		if (!worldObj.isRemote && spawnRidingHorse && !(this instanceof LOTRBannerBearer))

@@ -57,9 +57,9 @@ public class LOTRMod
 	public static ToolMaterial toolBronze = EnumHelper.addToolMaterial("LOTR_BRONZE", 2, 220, 5F, 1.5F, 10);
 	public static ToolMaterial toolMithril = EnumHelper.addToolMaterial("LOTR_MITHRIL", 4, 2478, 9F, 5F, 12);
 	public static ToolMaterial toolOrc = EnumHelper.addToolMaterial("LOTR_ORC", 2, 280, 6F, 2.5F, 7);
-	public static ToolMaterial toolGondor = EnumHelper.addToolMaterial("LOTR_GONDOR", 2, 280, 6F, 2.5F, 10);
+	public static ToolMaterial toolGondor = EnumHelper.addToolMaterial("LOTR_GONDOR", 2, 300, 6F, 2.5F, 10);
 	public static ToolMaterial toolMallorn = EnumHelper.addToolMaterial("LOTR_MALLORN", 1, 120, 4F, 1F, 15);
-	public static ToolMaterial toolElven = EnumHelper.addToolMaterial("LOTR_ELVEN", 2, 320, 7F, 3F, 14);
+	public static ToolMaterial toolElven = EnumHelper.addToolMaterial("LOTR_ELVEN", 2, 350, 7F, 3F, 14);
 	public static ToolMaterial toolDwarven = EnumHelper.addToolMaterial("LOTR_DWARVEN", 3, 500, 5F, 3F, 8);
 	public static ToolMaterial toolUruk = EnumHelper.addToolMaterial("LOTR_URUK", 2, 390, 6F, 3F, 6);
 	public static ToolMaterial toolRohan = EnumHelper.addToolMaterial("LOTR_ROHAN", 2, 260, 6F, 2.5F, 12);
@@ -69,12 +69,13 @@ public class LOTRMod
 	public static ToolMaterial toolNearHarad = EnumHelper.addToolMaterial("LOTR_NEAR_HARAD", 2, 280, 6F, 2.5F, 16);
 	public static ToolMaterial toolHighElven = EnumHelper.addToolMaterial("LOTR_HIGH_ELVEN", 2, 400, 7F, 3F, 15);
 	public static ToolMaterial toolBlueDwarven = EnumHelper.addToolMaterial("LOTR_BLUE_DWARVEN", 3, 500, 5F, 3F, 8);
+	public static ToolMaterial toolDolGuldur = EnumHelper.addToolMaterial("LOTR_DOL_GULDUR", 2, 260, 6F, 2.5F, 12);
 	
 	public static ArmorMaterial armorBronze = EnumHelper.addArmorMaterial("LOTR_BRONZE", 12, new int[]{2, 5, 4, 2}, 10);
 	public static ArmorMaterial armorMithril = EnumHelper.addArmorMaterial("LOTR_MITHRIL", 120, new int[]{3, 8, 6, 3}, 12);
 	public static ArmorMaterial armorOrc = EnumHelper.addArmorMaterial("LOTR_ORC", 17, new int[]{2, 6, 5, 2}, 7);
-	public static ArmorMaterial armorGondor = EnumHelper.addArmorMaterial("LOTR_GONDOR", 18, new int[]{2, 6, 5, 2}, 10);
-	public static ArmorMaterial armorElven = EnumHelper.addArmorMaterial("LOTR_ELVEN", 20, new int[]{2, 6, 5, 2}, 14);
+	public static ArmorMaterial armorGondor = EnumHelper.addArmorMaterial("LOTR_GONDOR", 19, new int[]{2, 6, 5, 2}, 10);
+	public static ArmorMaterial armorElven = EnumHelper.addArmorMaterial("LOTR_ELVEN", 22, new int[]{2, 6, 5, 2}, 14);
 	public static ArmorMaterial armorWarg = EnumHelper.addArmorMaterial("LOTR_WARG", 10, new int[]{1, 4, 3, 1}, 8);
 	public static ArmorMaterial armorDwarven = EnumHelper.addArmorMaterial("LOTR_DWARVEN", 24, new int[]{2, 6, 5, 2}, 8);
 	public static ArmorMaterial armorGalvorn = EnumHelper.addArmorMaterial("LOTR_GALVORN", 19, new int[]{2, 6, 5, 2}, 15);
@@ -90,6 +91,7 @@ public class LOTRMod
 	public static ArmorMaterial armorGemsbok = EnumHelper.addArmorMaterial("LOTR_GEMSBOK", 10, new int[]{1, 4, 3, 1}, 6);
 	public static ArmorMaterial armorHighElven = EnumHelper.addArmorMaterial("LOTR_HIGH_ELVEN", 22, new int[]{2, 6, 5, 2}, 15);
 	public static ArmorMaterial armorBlueDwarven = EnumHelper.addArmorMaterial("LOTR_BLUE_DWARVEN", 24, new int[]{2, 6, 5, 2}, 8);
+	public static ArmorMaterial armorDolGuldur = EnumHelper.addArmorMaterial("LOTR_DOL_GULDUR", 16, new int[]{2, 6, 5, 2}, 12);
 
 	public static ArmorMaterial materialLeatherHat = EnumHelper.addArmorMaterial("LOTR_LEATHER_HAT", 0, new int[]{0, 0, 0, 0}, 0);
 	
@@ -621,6 +623,20 @@ public class LOTRMod
 	public static Item mugMelonLiqueur;
 	public static Item strawBedItem;
 	public static Item orcSkullStaff;
+	public static Item swordDolGuldur;
+	public static Item daggerDolGuldur;
+	public static Item daggerDolGuldurPoisoned;
+	public static Item spearDolGuldur;
+	public static Item shovelDolGuldur;
+	public static Item axeDolGuldur;
+	public static Item pickaxeDolGuldur;
+	public static Item hoeDolGuldur;
+	public static Item battleaxeDolGuldur;
+	public static Item hammerDolGuldur;
+	public static Item helmetDolGuldur;
+	public static Item bodyDolGuldur;
+	public static Item legsDolGuldur;
+	public static Item bootsDolGuldur;
 	
 	public static int idDimension;
 	public static boolean alwaysShowAlignment;
@@ -1169,6 +1185,20 @@ public class LOTRMod
 		mugMelonLiqueur = new LOTRItemMugBrewable(1F).setDrinkStats(3, 0.3F).setUnlocalizedName("lotr:mugMelonLiqueur");
 		strawBedItem = new LOTRItemBed(strawBed).setUnlocalizedName("lotr:strawBed");
 		orcSkullStaff = new LOTRItemOrcSkullStaff().setUnlocalizedName("lotr:orcSkullStaff");
+		swordDolGuldur = new LOTRItemSword(toolDolGuldur).setUnlocalizedName("lotr:swordDolGuldur");
+		daggerDolGuldur = new LOTRItemDagger(toolDolGuldur, 0).setUnlocalizedName("lotr:daggerDolGuldur");
+		daggerDolGuldurPoisoned = new LOTRItemDagger(toolDolGuldur, 1).setUnlocalizedName("lotr:daggerDolGuldurPoisoned");
+		spearDolGuldur = new LOTRItemSpear(toolDolGuldur, swordDolGuldur).setUnlocalizedName("lotr:spearDolGuldur");
+		shovelDolGuldur = new LOTRItemShovel(toolDolGuldur).setUnlocalizedName("lotr:shovelDolGuldur");
+		axeDolGuldur = new LOTRItemAxe(toolDolGuldur).setUnlocalizedName("lotr:axeDolGuldur");
+		pickaxeDolGuldur = new LOTRItemPickaxe(toolDolGuldur).setUnlocalizedName("lotr:pickaxeDolGuldur");
+		hoeDolGuldur = new LOTRItemHoe(toolDolGuldur).setUnlocalizedName("lotr:hoeDolGuldur");
+		battleaxeDolGuldur = new LOTRItemBattleaxe(toolDolGuldur).setUnlocalizedName("lotr:battleaxeDolGuldur");
+		hammerDolGuldur = new LOTRItemHammer(toolDolGuldur).setUnlocalizedName("lotr:hammerDolGuldur");
+		helmetDolGuldur = new LOTRItemArmor(armorDolGuldur, 0).setUnlocalizedName("lotr:helmetDolGuldur");
+		bodyDolGuldur = new LOTRItemArmor(armorDolGuldur, 1).setUnlocalizedName("lotr:bodyDolGuldur");
+		legsDolGuldur = new LOTRItemArmor(armorDolGuldur, 2).setUnlocalizedName("lotr:legsDolGuldur");
+		bootsDolGuldur = new LOTRItemArmor(armorDolGuldur, 3).setUnlocalizedName("lotr:bootsDolGuldur");
 		
 		try
 		{
@@ -1731,6 +1761,20 @@ public class LOTRMod
 		registerItem(mugMelonLiqueur);
 		registerItem(strawBedItem);
 		registerItem(orcSkullStaff);
+		registerItem(swordDolGuldur);
+		registerItem(daggerDolGuldur);
+		registerItem(daggerDolGuldurPoisoned);
+		registerItem(spearDolGuldur);
+		registerItem(shovelDolGuldur);
+		registerItem(axeDolGuldur);
+		registerItem(pickaxeDolGuldur);
+		registerItem(hoeDolGuldur);
+		registerItem(battleaxeDolGuldur);
+		registerItem(hammerDolGuldur);
+		registerItem(helmetDolGuldur);
+		registerItem(bodyDolGuldur);
+		registerItem(legsDolGuldur);
+		registerItem(bootsDolGuldur);
 		
 		idDimension = config.get("general", "Dimension ID", 100).getInt();
 		alwaysShowAlignment = config.get("general", "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean();

@@ -376,6 +376,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement useDolGuldurTable;
 	public static LOTRAchievement tradeDolGuldurCaptain;
 	public static LOTRAchievement killMirkTroll;
+	public static LOTRAchievement wearFullDolGuldur;
 	
 	public static LOTRAchievement killDwarf;
 	public static LOTRAchievement wearFullDwarven;
@@ -689,6 +690,7 @@ public class LOTRAchievement implements Comparable
 		useDolGuldurTable = new LOTRAchievement(MIRKWOOD, 19, LOTRMod.dolGuldurTable, "useDolGuldurTable").setRequiresAlly(LOTRFaction.DOL_GULDUR);
 		tradeDolGuldurCaptain = new LOTRAchievement(MIRKWOOD, 20, LOTRMod.silverCoin, "tradeDolGuldurCaptain").setRequiresAlly(LOTRFaction.DOL_GULDUR);
 		killMirkTroll = new LOTRAchievement(MIRKWOOD, 21, LOTRMod.trollBone, "killMirkTroll").setRequiresEnemy(LOTRFaction.DOL_GULDUR);
+		wearFullDolGuldur = new LOTRAchievement(MIRKWOOD, 22, LOTRMod.bodyDolGuldur, "wearFullDolGuldur");
 
 		killDwarf = new LOTRAchievement(IRON_HILLS, 0, LOTRMod.dwarfBone, "killDwarf").setRequiresEnemy(LOTRFaction.DWARF);
 		wearFullDwarven = new LOTRAchievement(IRON_HILLS, 1, LOTRMod.bodyDwarven, "wearFullDwarven");

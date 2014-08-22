@@ -557,6 +557,11 @@ public class LOTRTickHandlerServer
 			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullWoodElven);
 		}
 		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorDolGuldur))
+		{
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullDolGuldur);
+		}
+		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorDwarven))
 		{
 			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.wearFullDwarven);

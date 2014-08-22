@@ -36,7 +36,7 @@ public class LOTREntityMordorOrc extends LOTREntityOrc
     {
 		data = super.onSpawnWithEgg(data);
 		
-		int i = rand.nextInt(6);
+		int i = rand.nextInt(8);
 		
 		if (i == 0)
 		{
@@ -61,6 +61,14 @@ public class LOTREntityMordorOrc extends LOTREntityOrc
 		else if (i == 5)
 		{
 			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.hammerOrc));
+		}
+		else if (i == 6)
+		{
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.pickaxeOrc));
+		}
+		else if (i == 7)
+		{
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.axeOrc));
 		}
 		
 		setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsOrc));

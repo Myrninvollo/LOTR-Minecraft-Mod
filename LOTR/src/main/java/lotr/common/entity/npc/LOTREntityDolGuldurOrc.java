@@ -33,7 +33,7 @@ public class LOTREntityDolGuldurOrc extends LOTREntityOrc
     {
 		data = super.onSpawnWithEgg(data);
 		
-		int i = rand.nextInt(6);
+		int i = rand.nextInt(8);
 		
 		if (i == 0)
 		{
@@ -58,6 +58,14 @@ public class LOTREntityDolGuldurOrc extends LOTREntityOrc
 		else if (i == 5)
 		{
 			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.hammerDolGuldur));
+		}
+		else if (i == 6)
+		{
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.pickaxeDolGuldur));
+		}
+		else if (i == 7)
+		{
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.axeDolGuldur));
 		}
 		
 		setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsDolGuldur));

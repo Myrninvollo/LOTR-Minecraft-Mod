@@ -48,6 +48,7 @@ Public Beta 20
 * Changed the roofs of some structures to thatch
 * Changed the beds in some structures to straw beds
 * Changed the bricks in the Dúnedain structures to Arnor bricks
+* Horses in Rohan Fortresses are now tamed and saddled
 * Increased the spawning chance of stone ruins
 * Changed stone blocks in Uruk structures to Uruk bricks
 * Changed the recipes of the Uruk crafting table and forge to use Uruk bricks

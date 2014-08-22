@@ -103,11 +103,9 @@ public class LOTRModelTroll extends ModelBase
 		
 		battleaxe = new ModelRenderer(this, 64, 0);
 		battleaxe.setRotationPoint(-12F, -23F, 0F);
-		battleaxe.addBox(-7F, 5F, 22.5F, 2, 40, 2, f);
+		battleaxe.addBox(-7F, -40F, 22.5F, 2, 80, 2, f);
 		battleaxe.setTextureOffset(72, 0);
-		battleaxe.addBox(-6.5F, 40F, 20F, 1, 1, 16, f);
-		battleaxe.addBox(-6.5F, 34F, 20F, 1, 1, 16, f);
-		battleaxe.addBox(-6.5F, 28F, 20F, 1, 1, 16, f);
+		battleaxe.addBox(-6F, 20F, 24F, 0, 24, 16, f);
 	}
 	
 	public LOTRModelTroll(float f, int i)

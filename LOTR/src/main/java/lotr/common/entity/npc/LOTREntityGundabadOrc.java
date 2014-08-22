@@ -1,8 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -12,6 +10,77 @@ import net.minecraft.world.World;
 
 public class LOTREntityGundabadOrc extends LOTREntityOrc
 {
+	private static ItemStack[] weapons = new ItemStack[]
+	{
+		new ItemStack(Items.stone_sword),
+		new ItemStack(Items.stone_axe),
+		new ItemStack(Items.stone_pickaxe),
+		new ItemStack(Items.iron_sword),
+		new ItemStack(Items.iron_axe),
+		new ItemStack(Items.iron_pickaxe),
+		new ItemStack(LOTRMod.daggerIron),
+		new ItemStack(LOTRMod.daggerIronPoisoned),
+		new ItemStack(LOTRMod.spearIron),
+		new ItemStack(LOTRMod.swordBronze),
+		new ItemStack(LOTRMod.axeBronze),
+		new ItemStack(LOTRMod.pickaxeBronze),
+		new ItemStack(LOTRMod.daggerBronze),
+		new ItemStack(LOTRMod.daggerBronzePoisoned),
+		new ItemStack(LOTRMod.spearBronze),
+		new ItemStack(LOTRMod.swordAngmar),
+		new ItemStack(LOTRMod.axeAngmar),
+		new ItemStack(LOTRMod.pickaxeAngmar),
+		new ItemStack(LOTRMod.daggerAngmar),
+		new ItemStack(LOTRMod.daggerAngmarPoisoned),
+		new ItemStack(LOTRMod.spearAngmar),
+		new ItemStack(LOTRMod.battleaxeAngmar),
+		new ItemStack(LOTRMod.hammerAngmar),
+		new ItemStack(LOTRMod.scimitarOrc),
+		new ItemStack(LOTRMod.axeOrc),
+		new ItemStack(LOTRMod.pickaxeOrc),
+		new ItemStack(LOTRMod.daggerOrc),
+		new ItemStack(LOTRMod.daggerOrcPoisoned),
+		new ItemStack(LOTRMod.spearOrc),
+		new ItemStack(LOTRMod.battleaxeOrc),
+		new ItemStack(LOTRMod.hammerOrc)
+	};
+	
+	private static ItemStack[] helmets = new ItemStack[]
+	{
+		new ItemStack(Items.leather_helmet),
+		new ItemStack(LOTRMod.helmetBronze),
+		new ItemStack(LOTRMod.helmetWarg),
+		new ItemStack(LOTRMod.helmetAngmar),
+		new ItemStack(LOTRMod.helmetOrc)
+	};
+	
+	private static ItemStack[] bodies = new ItemStack[]
+	{
+		new ItemStack(Items.leather_chestplate),
+		new ItemStack(LOTRMod.bodyBronze),
+		new ItemStack(LOTRMod.bodyWarg),
+		new ItemStack(LOTRMod.bodyAngmar),
+		new ItemStack(LOTRMod.bodyOrc)
+	};
+	
+	private static ItemStack[] legs = new ItemStack[]
+	{
+		new ItemStack(Items.leather_leggings),
+		new ItemStack(LOTRMod.legsBronze),
+		new ItemStack(LOTRMod.legsWarg),
+		new ItemStack(LOTRMod.legsAngmar),
+		new ItemStack(LOTRMod.legsOrc)
+	};
+	
+	private static ItemStack[] boots = new ItemStack[]
+	{
+		new ItemStack(Items.leather_boots),
+		new ItemStack(LOTRMod.bootsBronze),
+		new ItemStack(LOTRMod.bootsWarg),
+		new ItemStack(LOTRMod.bootsAngmar),
+		new ItemStack(LOTRMod.bootsOrc)
+	};
+	
 	public LOTREntityGundabadOrc(World world)
 	{
 		super(world);
@@ -27,194 +96,23 @@ public class LOTREntityGundabadOrc extends LOTREntityOrc
     public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
     {
 		data = super.onSpawnWithEgg(data);
-		int i = rand.nextInt(24);
-
-		if (i == 0)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(Items.iron_sword));
-		}
-		else if (i == 1)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(Items.iron_axe));
-		}
-		else if (i == 2)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerIron));
-		}
-		else if (i == 3)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerIronPoisoned));
-		}
-		else if (i == 4)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.spearIron));
-		}
-		else if (i == 5)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.swordBronze));
-		}
-		else if (i == 6)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.axeBronze));
-		}
-		else if (i == 7)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerBronze));
-		}
-		else if (i == 8)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerBronzePoisoned));
-		}
-		else if (i == 9)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.spearBronze));
-		}
-		else if (i == 10)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
-		}
-		else if (i == 11)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(Items.stone_axe));
-		}
-		else if (i == 12)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.battleaxeOrc));
-		}
-		else if (i == 13)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerOrc));
-		}
-		else if (i == 14)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerOrcPoisoned));
-		}
-		else if (i == 15)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.spearOrc));
-		}
-		else if (i == 16)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.scimitarOrc));
-		}
-		else if (i == 17)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.hammerOrc));
-		}
-		else if (i == 18)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.battleaxeAngmar));
-		}
-		else if (i == 19)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerAngmar));
-		}
-		else if (i == 20)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.daggerAngmarPoisoned));
-		}
-		else if (i == 21)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.spearAngmar));
-		}
-		else if (i == 22)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.swordAngmar));
-		}
-		else if (i == 23)
-		{
-			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.hammerAngmar));
-		}
 		
-		i = rand.nextInt(5);
-		if (i == 0)
-		{
-			setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsOrc));
-		}
-		else if (i == 1)
-		{
-			setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsBronze));
-		}
-		else if (i == 2)
-		{
-			setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsAngmar));
-		}
-		else if (i == 3)
-		{
-			setCurrentItemOrArmor(1, new ItemStack(Items.leather_boots));
-		}
-		else if (i == 4)
-		{
-			setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsWarg));
-		}
+		int i = rand.nextInt(weapons.length);
+		setCurrentItemOrArmor(0, weapons[i].copy());
 		
-		i = rand.nextInt(5);
-		if (i == 0)
-		{
-			setCurrentItemOrArmor(2, new ItemStack(LOTRMod.legsOrc));
-		}
-		else if (i == 1)
-		{
-			setCurrentItemOrArmor(2, new ItemStack(LOTRMod.legsBronze));
-		}
-		else if (i == 2)
-		{
-			setCurrentItemOrArmor(2, new ItemStack(LOTRMod.legsAngmar));
-		}
-		else if (i == 3)
-		{
-			setCurrentItemOrArmor(2, new ItemStack(Items.leather_leggings));
-		}
-		else if (i == 4)
-		{
-			setCurrentItemOrArmor(2, new ItemStack(LOTRMod.legsWarg));
-		}
+		i = rand.nextInt(boots.length);
+		setCurrentItemOrArmor(1, boots[i].copy());
 		
-		i = rand.nextInt(5);
-		if (i == 0)
-		{
-			setCurrentItemOrArmor(3, new ItemStack(LOTRMod.bodyOrc));
-		}
-		else if (i == 1)
-		{
-			setCurrentItemOrArmor(3, new ItemStack(LOTRMod.bodyBronze));
-		}
-		else if (i == 2)
-		{
-			setCurrentItemOrArmor(3, new ItemStack(LOTRMod.bodyAngmar));
-		}
-		else if (i == 3)
-		{
-			setCurrentItemOrArmor(3, new ItemStack(Items.leather_chestplate));
-		}
-		else if (i == 4)
-		{
-			setCurrentItemOrArmor(3, new ItemStack(LOTRMod.bodyWarg));
-		}
+		i = rand.nextInt(legs.length);
+		setCurrentItemOrArmor(2, legs[i].copy());
+		
+		i = rand.nextInt(bodies.length);
+		setCurrentItemOrArmor(3, bodies[i].copy());
 		
 		if (rand.nextInt(3) != 0)
 		{
-			i = rand.nextInt(5);
-			if (i == 0)
-			{
-				setCurrentItemOrArmor(4, new ItemStack(LOTRMod.helmetOrc));
-			}
-			else if (i == 1)
-			{
-				setCurrentItemOrArmor(4, new ItemStack(LOTRMod.helmetBronze));
-			}
-			else if (i == 2)
-			{
-				setCurrentItemOrArmor(4, new ItemStack(LOTRMod.helmetAngmar));
-			}
-			else if (i == 3)
-			{
-				setCurrentItemOrArmor(4, new ItemStack(Items.leather_helmet));
-			}
-			else if (i == 4)
-			{
-				setCurrentItemOrArmor(4, new ItemStack(LOTRMod.helmetWarg));
-			}
+			i = rand.nextInt(helmets.length);
+			setCurrentItemOrArmor(4, helmets[i].copy());
 		}
 		
 		return data;

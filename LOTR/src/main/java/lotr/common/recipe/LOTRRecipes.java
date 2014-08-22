@@ -820,6 +820,10 @@ public class LOTRRecipes
 		{
 			daggerBlueDwarven, bottlePoison
 		});
+		GameRegistry.addShapelessRecipe(new ItemStack(daggerDolGuldurPoisoned), new Object[]
+		{
+			daggerDolGuldur, bottlePoison
+		});
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(sulfurMatch, 4), new Object[]
 		{
 			"X", "Y", 'X', "sulfur", 'Y', "stickWood"

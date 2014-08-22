@@ -27,7 +27,7 @@ public class LOTREntityAngmarOrc extends LOTREntityOrc
     public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
     {
 		data = super.onSpawnWithEgg(data);
-		int i = rand.nextInt(8);
+		int i = rand.nextInt(10);
 		
 		if (i == 0 || i == 1 || i == 2)
 		{
@@ -52,6 +52,14 @@ public class LOTREntityAngmarOrc extends LOTREntityOrc
 		else if (i == 7)
 		{
 			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.hammerAngmar));
+		}
+		else if (i == 8)
+		{
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.pickaxeAngmar));
+		}
+		else if (i == 9)
+		{
+			setCurrentItemOrArmor(0, new ItemStack(LOTRMod.axeAngmar));
 		}
 		
 		setCurrentItemOrArmor(1, new ItemStack(LOTRMod.bootsAngmar));

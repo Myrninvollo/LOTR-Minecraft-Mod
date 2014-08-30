@@ -395,8 +395,7 @@ public class LOTRWorldGenHobbitFarm extends LOTRWorldGenStructureBase2
 		setBlockAndMetadata(world, -3, 6, 2, LOTRMod.hobbitOven, 4);
 		setBlockAndMetadata(world, -3, 6, 3, Blocks.crafting_table, 0);
 		
-		setBlockAndMetadata(world, 2, 6, 1, Blocks.chest, 5);
-		fillChest(world, random, 2, 6, 1, LOTRChestContents.HOBBIT_HOLE_LARDER);
+		placeChest(world, random, 2, 6, 1, 5, LOTRChestContents.HOBBIT_HOLE_LARDER);
 		setBlockAndMetadata(world, 2, 6, 2, Blocks.bed, 0);
 		setBlockAndMetadata(world, 2, 6, 3, Blocks.bed, 8);
 		

@@ -60,7 +60,7 @@ public class LOTRBiomeGenMirkwood extends LOTRBiome
 			biomeColors.setFoliage(0x263325);
 			biomeColors.setFog(0x32647D);
 			biomeColors.setFoggy(true);
-			biomeColors.setWater(0x282344);
+			biomeColors.setWater(0x473668);
 			
 			decorator.addRandomStructure(new LOTRWorldGenRuinedWoodElfTower(false), 500);
 			
@@ -196,5 +196,11 @@ public class LOTRBiomeGenMirkwood extends LOTRBiome
 	public float getChanceToSpawnLavaLakes()
 	{
 		return corrupted ? super.getChanceToSpawnLavaLakes() : 0F;
+	}
+	
+	@Override
+	public int spawnCountMultiplier()
+	{
+		return corrupted ? 1 : 3;
 	}
 }

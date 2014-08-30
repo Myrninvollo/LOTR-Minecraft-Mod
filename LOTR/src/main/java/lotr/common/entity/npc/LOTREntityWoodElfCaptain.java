@@ -13,8 +13,7 @@ public class LOTREntityWoodElfCaptain extends LOTREntityWoodElfWarrior implement
 	public LOTREntityWoodElfCaptain(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		npcCape = LOTRCapes.WOOD_ELF;
 	}
 	

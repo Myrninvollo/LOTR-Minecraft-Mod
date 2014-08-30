@@ -2,28 +2,21 @@ package lotr.common.entity.npc;
 
 import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
-import lotr.common.world.biome.LOTRBiome;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.*;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeable, LOTRTravellingTrader
+public class LOTREntityElvenTrader extends LOTREntityGaladhrimElf implements LOTRTradeable, LOTRTravellingTrader
 {
 	public LOTREntityElvenTrader(World world)
 	{
 		super(world);
 		tasks.addTask(2, new LOTREntityAIAttackOnCollide(this, 1.6D, false));
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		
 		if (!worldObj.isRemote)
 		{
@@ -37,7 +30,7 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 	@Override
 	public LOTREntityNPC createTravellingEscort()
 	{
-		return new LOTREntityElf(worldObj);
+		return new LOTREntityGaladhrimElf(worldObj);
 	}
 	
 	@Override
@@ -142,7 +135,7 @@ public class LOTREntityElvenTrader extends LOTREntityElf implements LOTRTradeabl
 	}
 	
 	@Override
-	public boolean shouldRenderHair()
+	public boolean shouldRenderNPCHair()
 	{
 		return false;
 	}

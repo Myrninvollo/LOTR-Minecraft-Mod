@@ -33,12 +33,8 @@ public class LOTREntityRohirrim extends LOTREntityRohanMan
 	public LOTREntityRohirrim(World world)
 	{
 		super(world);
-        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(4);
+        addTargetTasks(true);
 		spawnRidingHorse = true;
-		spawnCountValue = 3;
 		npcShield = LOTRShields.ALIGNMENT_ROHAN;
 	}
 	

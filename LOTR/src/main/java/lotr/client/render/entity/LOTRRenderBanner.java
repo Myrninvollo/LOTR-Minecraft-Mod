@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lotr.client.model.LOTRModelBanner;
+import lotr.common.LOTRFaction;
 import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.item.LOTRItemBanner;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.culling.Frustrum;
-import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -51,7 +50,8 @@ public class LOTRRenderBanner extends Render
 	
 	private ResourceLocation getStandTexture(Entity entity)
     {
-		return getStandTexture(((LOTREntityBanner)entity).getBannerType());
+		LOTRFaction faction = ((LOTREntityBanner)entity).getBannerFaction();
+		return getStandTexture(LOTRItemBanner.getSubtypeForFaction(faction));
 	}
 	
 	public static ResourceLocation getBannerTexture(int bannerType)
@@ -73,7 +73,8 @@ public class LOTRRenderBanner extends Render
 	
 	private ResourceLocation getBannerTexture(Entity entity)
     {
-		return getBannerTexture(((LOTREntityBanner)entity).getBannerType());
+		LOTRFaction faction = ((LOTREntityBanner)entity).getBannerFaction();
+		return getBannerTexture(LOTRItemBanner.getSubtypeForFaction(faction));
 	}
 
 	@Override

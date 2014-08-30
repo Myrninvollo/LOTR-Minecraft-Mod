@@ -8,6 +8,7 @@ import lotr.common.LOTRMod;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
 import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetWoodElf;
+import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
 import lotr.common.world.biome.LOTRBiome;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -26,12 +27,7 @@ public class LOTREntityWoodElf extends LOTREntityElf
 	{
 		super(world);
 		tasks.addTask(2, rangedAttackAI);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-		addTargetTasks(4, LOTREntityAINearestAttackableTargetWoodElf.class);
-		spawnCountValue = 2;
+		addTargetTasks(true, LOTREntityAINearestAttackableTargetWoodElf.class);
 	}
 	
 	@Override
@@ -69,7 +65,7 @@ public class LOTREntityWoodElf extends LOTREntityElf
 	{
 		return LOTRAchievement.killWoodElf;
 	}
-	
+
 	@Override
 	public int getAlignmentBonus()
 	{
@@ -84,10 +80,7 @@ public class LOTREntityWoodElf extends LOTREntityElf
 		if (flag)
 		{
 			int dropChance = 20 - i * 4;
-			if (dropChance < 1)
-			{
-				dropChance = 1;
-			}
+			dropChance = Math.max(dropChance, 1);
 			if (rand.nextInt(dropChance) == 0)
 			{
 				entityDropItem(new ItemStack(LOTRMod.mugRedWine, 1, 1 + rand.nextInt(3)), 0F);

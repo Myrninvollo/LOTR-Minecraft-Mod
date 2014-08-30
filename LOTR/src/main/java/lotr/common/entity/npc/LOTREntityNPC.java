@@ -3,6 +3,7 @@ package lotr.common.entity.npc;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.*;
 
@@ -17,6 +18,7 @@ import lotr.common.entity.projectile.LOTREntityPlate;
 import lotr.common.inventory.LOTRContainerTrade;
 import lotr.common.inventory.LOTRContainerUnitTrade;
 import lotr.common.item.*;
+import lotr.common.quest.LOTRMiniQuest;
 import lotr.common.world.biome.LOTRBiome;
 import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.command.IEntitySelector;
@@ -28,11 +30,13 @@ import net.minecraft.entity.ai.attributes.*;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
@@ -40,6 +44,8 @@ import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import com.google.common.collect.Multimap;
+
+import cpw.mods.fml.common.FMLLog;
 
 public abstract class LOTREntityNPC extends EntityCreature
 {
@@ -55,7 +61,6 @@ public abstract class LOTREntityNPC extends EntityCreature
 	
 	public boolean isNPCPersistent = false;
 	public boolean liftSpawnRestrictions = false;
-	public int spawnCountValue = 1;
 	
 	public String npcLocationName;
 	private boolean hasSpecificLocationName;
@@ -67,6 +72,9 @@ public abstract class LOTREntityNPC extends EntityCreature
 	public LOTRTraderNPCInfo traderNPCInfo;
 	public LOTRFamilyInfo familyInfo;
 	public LOTRTravellingTraderInfo travellingTraderInfo;
+	
+	public boolean isOfferingMiniQuest = false;
+	public boolean hasMiniQuest = false;
 	
 	protected enum AttackMode
 	{
@@ -87,8 +95,8 @@ public abstract class LOTREntityNPC extends EntityCreature
 	public ResourceLocation npcCape;
 	
 	private EntityLivingBase prevAttackTarget;
-	public int npcTalkTick = 0;
 	private boolean hurtOnlyByPlates = true;
+	public int npcTalkTick = 0;
 	
 	private List<ItemStack> enpouchedDrops = new ArrayList();
 	private boolean enpouchNPCDrops = true;
@@ -140,29 +148,41 @@ public abstract class LOTREntityNPC extends EntityCreature
 		entityUniqueID = uuid;
 	}
 	
-	public void addTargetTasks(int i)
+	public int addTargetTasks(boolean seekTargets)
 	{
-		addTargetTasks(i, LOTREntityAINearestAttackableTargetBasic.class);
+		return addTargetTasks(seekTargets, LOTREntityAINearestAttackableTargetBasic.class);
 	}
 	
-	public void addTargetTasks(int i, Class c)
+	public int addTargetTasks(boolean seekTargets, Class c)
 	{
-		addTargetTasks(this, i, c);
+		targetTasks.taskEntries.clear();
+        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
+        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
+        targetTasks.addTask(3, new LOTREntityAINPCHurtByTarget(this, false));
+        if (seekTargets)
+        {
+        	return addTargetTasks(this, 4, c);
+        }
+        else
+        {
+        	return 3;
+        }
 	}
 	
-	public static void addTargetTasks(EntityCreature entity, int i, Class c)
+	public static int addTargetTasks(EntityCreature entity, int index, Class c)
 	{
 		try
 		{
 			Constructor constructor = c.getConstructor(new Class[]{EntityCreature.class, Class.class, int.class, boolean.class, IEntitySelector.class});
-			entity.targetTasks.addTask(i, (EntityAIBase)constructor.newInstance(new Object[]{entity, EntityPlayer.class, 0, true, null}));
-			entity.targetTasks.addTask(i, (EntityAIBase)constructor.newInstance(new Object[]{entity, EntityLiving.class, 0, true, new LOTRNPCTargetSelector(entity)}));
+			entity.targetTasks.addTask(index, (EntityAIBase)constructor.newInstance(new Object[]{entity, EntityPlayer.class, 0, true, null}));
+			entity.targetTasks.addTask(index, (EntityAIBase)constructor.newInstance(new Object[]{entity, EntityLiving.class, 0, true, new LOTRNPCTargetSelector(entity)}));
 		}
 		catch (Exception e)
 		{
 			System.out.println("Error adding LOTR target tasks to entity " + entity.toString());
 			e.printStackTrace();
 		}
+		return index;
 	}
 	
 	protected void removeTasksOfType(Class c)
@@ -290,7 +310,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 	
 	public boolean canNPCTalk()
 	{
-		return isEntityAlive() && npcTalkTick == getNPCTalkInterval();
+		return isEntityAlive() && npcTalkTick >= getNPCTalkInterval();
 	}
 	
 	private void markNPCSpoken()
@@ -336,7 +356,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 	@Override
 	public boolean canDespawn()
 	{
-		return !isNPCPersistent && !hiredNPCInfo.isActive;
+		return !isNPCPersistent && !hiredNPCInfo.isActive && !hasMiniQuest;
 	}
 	
 	@Override
@@ -415,7 +435,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 		
 		if (!worldObj.isRemote && isEntityAlive() && getAttackTarget() == null)
 		{
-			boolean flag = false;
+			boolean guiOpen = false;
 			
 			if (this instanceof LOTRTradeable)
 			{
@@ -425,11 +445,12 @@ public abstract class LOTREntityNPC extends EntityCreature
 					Container container = entityplayer.openContainer;
 					if (container != null && container instanceof LOTRContainerTrade && ((LOTRContainerTrade)container).theTrader == this)
 					{
-						flag = true;
+						guiOpen = true;
 						break;
 					}
 				}
 			}
+			
 			if (this instanceof LOTRUnitTradeable)
 			{
 				for (int i = 0; i < worldObj.playerEntities.size(); i++)
@@ -438,17 +459,23 @@ public abstract class LOTREntityNPC extends EntityCreature
 					Container container = entityplayer.openContainer;
 					if (container != null && container instanceof LOTRContainerUnitTrade && ((LOTRContainerUnitTrade)container).theUnitTrader == this)
 					{
-						flag = true;
+						guiOpen = true;
 						break;
 					}
 				}
 			}
+			
 			if (hiredNPCInfo.isActive && hiredNPCInfo.isGuiOpen)
 			{
-				flag = true;
+				guiOpen = true;
 			}
 			
-			if (flag)
+			if (isOfferingMiniQuest)
+			{
+				guiOpen = true;
+			}
+			
+			if (guiOpen)
 			{
 				getNavigator().clearPathEntity();
 				if (ridingEntity instanceof LOTRNPCMount)
@@ -476,35 +503,25 @@ public abstract class LOTREntityNPC extends EntityCreature
 		
 		if (!worldObj.isRemote && hasHome())
 		{
-			if (hiredNPCInfo.isActive && hiredNPCInfo.isGuardMode())
+			if (!isWithinHomeDistanceCurrentPosition() && getAttackTarget() == null)
 			{
-				if (!isWithinHomeDistanceCurrentPosition() && getAttackTarget() == null)
+				int homeX = getHomePosition().posX;
+				int homeY = getHomePosition().posY;
+				int homeZ = getHomePosition().posZ;
+				int homeRange = (int)func_110174_bM();
+				detachHome();
+				
+				Vec3 path = null;
+				for (int l = 0; l < 16 && path == null; l++)
 				{
-					int homeX = getHomePosition().posX;
-					int homeY = getHomePosition().posY;
-					int homeZ = getHomePosition().posZ;
-					int homeRange = hiredNPCInfo.getGuardRange();
-					detachHome();
-					Vec3 vec3 = null;
-					for (int i = 0; i < 16 && vec3 == null; i++)
-					{
-						vec3 = RandomPositionGenerator.findRandomTargetBlockTowards(this, 16, 7, Vec3.createVectorHelper(homeX, homeY, homeZ));
-					}
-					if (vec3 != null)
-					{
-						getNavigator().tryMoveToXYZ(vec3.xCoord, vec3.yCoord, vec3.zCoord, 1D);
-					}
-					setHomeArea(homeX, homeY, homeZ, homeRange);
+					path = RandomPositionGenerator.findRandomTargetBlockTowards(this, 16, 7, Vec3.createVectorHelper(homeX, homeY, homeZ));
 				}
-			}
-			else
-			{
-				double distanceSq = getHomePosition().getDistanceSquared(MathHelper.floor_double(posX), MathHelper.floor_double(boundingBox.minY), MathHelper.floor_double(posZ));
-				double maxDistance = (double)func_110174_bM() + 8D;
-				if (distanceSq > maxDistance * maxDistance)
+				if (path != null)
 				{
-					detachHome();
+					getNavigator().tryMoveToXYZ(path.xCoord, path.yCoord, path.zCoord, 1.25D);
 				}
+				
+				setHomeArea(homeX, homeY, homeZ, homeRange);
 			}
 		}
 	
@@ -614,6 +631,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 			}
 			nbt.setTag("DefaultHeldItem", itemData);
 		}
+		nbt.setBoolean("NPCHasMiniQuest", hasMiniQuest);
 	}
 	
 	@Override
@@ -654,6 +672,8 @@ public abstract class LOTREntityNPC extends EntityCreature
 		}
 		
 		onAttackModeChange(AttackMode.IDLE);
+		
+		hasMiniQuest = nbt.getBoolean("NPCHasMiniQuest");
 	}
 	
 	@Override
@@ -1006,6 +1026,21 @@ public abstract class LOTREntityNPC extends EntityCreature
 				entity.onSpawn();
 			}
 		}
+		
+		if (!worldObj.isRemote)
+		{
+			for (LOTRPlayerData playerData : LOTRLevelData.getPlayerDataEntries())
+			{
+				for (LOTRMiniQuest quest : playerData.getMiniQuests())
+				{
+					if (quest.isActive() && quest.entityUUID.equals(getUniqueID()))
+					{
+						quest.entityDead = true;
+						playerData.updateMiniQuest(quest);
+					}
+				}
+			}
+		}
 	}
 	
 	protected LOTRAchievement getKillAchievement()
@@ -1132,7 +1167,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 		{
 			multiplier = ((LOTRBiome)biome).spawnCountMultiplier();
 		}
-		return spawnCountValue * multiplier;
+		return multiplier;
     }
 	
 	@Override
@@ -1140,6 +1175,61 @@ public abstract class LOTREntityNPC extends EntityCreature
 	{
 		if (!worldObj.isRemote && canNPCTalk())
 		{
+			if (!isTrader() && !isChild() && !hiredNPCInfo.isActive && isFriendly(entityplayer) && getAttackTarget() == null)
+			{
+				LOTRPlayerData playerData = LOTRLevelData.getData(entityplayer);
+				
+				List<LOTRMiniQuest> questsInProgress = playerData.getMiniQuestsForEntity(this, true);
+				
+				System.out.println("Quests for entity " + questsInProgress.size());
+				if (!questsInProgress.isEmpty())
+				{
+					LOTRMiniQuest currentQuest = questsInProgress.get(0);
+					currentQuest.onInteract(entityplayer, this);
+					
+					if (currentQuest.isCompleted())
+					{
+						sendSpeechBank(entityplayer, currentQuest.speechBankComplete, currentQuest);
+						hasMiniQuest = false;
+					}
+					else
+					{
+						sendSpeechBank(entityplayer, currentQuest.speechBankProgress, currentQuest);
+					}
+					
+					return true;
+				}
+				else
+				{
+					List<LOTRMiniQuest> questsForFaction = playerData.getMiniQuestsForFaction(getFaction(), true);
+					System.out.println("Quests for faction " + questsForFaction.size());
+					if (rand.nextInt(5) == 0 && questsForFaction.size() < LOTRMiniQuest.MAX_MINIQUESTS_PER_FACTION)
+					{
+						LOTRMiniQuest quest = createMiniQuest(entityplayer);
+						if (quest != null)
+						{
+							quest.entityUUID = getUniqueID();
+							quest.entityName = getCommandSenderName();
+							quest.entityFaction = getFaction();
+							
+							if (quest.isValidQuest())
+							{
+								if (sendMiniQuestOffer(entityplayer, quest))
+								{
+									isOfferingMiniQuest = true;
+								}
+								
+								return true;
+							}
+							else
+							{
+								FMLLog.severe("Created an invalid LOTR miniquest " + quest.speechBankStart);
+							}
+						}
+					}
+				}
+			}
+			
 			String speechBank = getSpeechBank(entityplayer);
 			if (speechBank != null)
 			{
@@ -1158,22 +1248,58 @@ public abstract class LOTREntityNPC extends EntityCreature
 	
 	public void sendSpeechBank(EntityPlayer entityplayer, String speechBank)
 	{
+		sendSpeechBank(entityplayer, speechBank, null);
+	}
+		
+	public void sendSpeechBank(EntityPlayer entityplayer, String speechBank, LOTRMiniQuest miniquest)
+	{
+		String location = null;
+		String objective = null;
+		
 		if (npcLocationName != null)
 		{
-			String displayLocationName = npcLocationName;
 			if (!hasSpecificLocationName)
 			{
-				displayLocationName = StatCollector.translateToLocalFormatted(displayLocationName, new Object[] {getNPCName()});
+				location = StatCollector.translateToLocalFormatted(npcLocationName, new Object[] {getNPCName()});
 			}
-			
-			entityplayer.addChatMessage(LOTRSpeech.getNamedLocationSpeechForPlayer(this, displayLocationName, speechBank, entityplayer));
-		}
-		else
-		{
-			entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(this, speechBank, entityplayer));
+			else
+			{
+				location = npcLocationName;
+			}
 		}
 		
+		if (miniquest != null)
+		{
+			objective = miniquest.getObjectiveInSpeech();
+		}
+			
+		entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(this, speechBank, entityplayer, location, objective));
+		
 		markNPCSpoken();
+	}
+	
+	private boolean sendMiniQuestOffer(EntityPlayer entityplayer, LOTRMiniQuest quest)
+	{
+		try
+		{
+			ByteBuf data = Unpooled.buffer();
+			
+			data.writeInt(getEntityId());
+			
+			NBTTagCompound nbt = new NBTTagCompound();
+			quest.writeToNBT(nbt);
+			new PacketBuffer(data).writeNBTTagCompoundToBuffer(nbt);
+	
+			S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.mqOffer", data);
+			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
+			return true;
+		}
+		catch (IOException e)
+		{
+			System.out.println("Could not offer miniquest to player");
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	protected LOTRAchievement getTalkAchievement()
@@ -1191,11 +1317,21 @@ public abstract class LOTREntityNPC extends EntityCreature
 		return null;
 	}
 	
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return null;
+	}
+	
 	public void onArtificalSpawn() {}
 	
 	public boolean isDrunkard()
 	{
 		return false;
+	}
+	
+	public boolean shouldRenderNPCHair()
+	{
+		return true;
 	}
 	
 	public void setSpecificLocationName(String name)
@@ -1306,10 +1442,36 @@ public abstract class LOTREntityNPC extends EntityCreature
 		}
 		else
 		{
-			double d = rand.nextGaussian() * 0.02D;
-			double d1 = rand.nextGaussian() * 0.02D;
-			double d2 = rand.nextGaussian() * 0.02D;
-			worldObj.spawnParticle("heart", posX + (double)(rand.nextFloat() * width * 2F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2F) - (double)width, d, d1, d2);
+			for (int i = 0; i < 8; i++)
+			{
+				double d = rand.nextGaussian() * 0.02D;
+				double d1 = rand.nextGaussian() * 0.02D;
+				double d2 = rand.nextGaussian() * 0.02D;
+				worldObj.spawnParticle("heart", posX + (double)(rand.nextFloat() * width * 2F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2F) - (double)width, d, d1, d2);
+			}
+		}
+	}
+	
+	public void spawnSmokes()
+	{
+		if (!worldObj.isRemote)
+		{
+			ByteBuf data = Unpooled.buffer();
+			
+			data.writeInt(getEntityId());
+			
+			S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.smokes", data);
+			MinecraftServer.getServer().getConfigurationManager().sendToAllNear(posX, posY, posZ, 32D, dimension, packet);
+		}
+		else
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				double d = rand.nextGaussian() * 0.02D;
+				double d1 = rand.nextGaussian() * 0.02D;
+				double d2 = rand.nextGaussian() * 0.02D;
+				worldObj.spawnParticle("smoke", posX + (double)(rand.nextFloat() * width * 2F) - (double)width, posY + 0.5D + (double)(rand.nextFloat() * height), posZ + (double)(rand.nextFloat() * width * 2F) - (double)width, d, d1, d2);
+			}
 		}
 	}
 	

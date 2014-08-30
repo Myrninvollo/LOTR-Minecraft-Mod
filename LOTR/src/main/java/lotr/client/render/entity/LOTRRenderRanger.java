@@ -23,7 +23,7 @@ public class LOTRRenderRanger extends LOTRRenderBiped
 	}
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
 		return LOTRRandomSkins.getRandomSkin(rangerSkins, (LOTREntityRanger)entity);
     }
@@ -54,7 +54,7 @@ public class LOTRRenderRanger extends LOTRRenderBiped
 	}
 	
 	@Override
-	protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
+	public int shouldRenderPass(EntityLivingBase entity, int pass, float f)
 	{
 		int j = super.shouldRenderPass(entity, pass, f);
 		if (j > 0 && ((LOTREntityRanger)entity).isRangerSneaking())

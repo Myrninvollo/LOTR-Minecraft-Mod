@@ -23,7 +23,7 @@ public class LOTREntityMordorWarg extends LOTREntityWarg
 	{
 		if (rand.nextBoolean())
 		{
-			setCurrentItemOrArmor(4, new ItemStack(LOTRMod.wargArmorMordor));
+			setWargArmor(new ItemStack(LOTRMod.wargArmorMordor));
 		}
 		return worldObj.rand.nextBoolean() ? new LOTREntityMordorOrcArcher(worldObj) : new LOTREntityMordorOrc(worldObj);
 	}

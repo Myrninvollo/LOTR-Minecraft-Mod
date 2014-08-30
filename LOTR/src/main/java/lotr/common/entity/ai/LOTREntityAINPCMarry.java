@@ -89,7 +89,7 @@ public class LOTREntityAINPCMarry extends EntityAIBase
         theNPC.getLookHelper().setLookPositionWithEntity(theSpouse, 10F, (float)theNPC.getVerticalFaceSpeed());
         theNPC.getNavigator().tryMoveToEntityLiving(theSpouse, moveSpeed);
         marryDelay++;
-		if (marryDelay % 5 == 0)
+		if (marryDelay % 20 == 0)
 		{
 			theNPC.spawnHearts();
 		}
@@ -109,16 +109,15 @@ public class LOTREntityAINPCMarry extends EntityAIBase
 		theSpouse.setCurrentItemOrArmor(4, new ItemStack(theNPC.familyInfo.marriageRing));
 		theNPC.changeNPCNameForMarriage(theSpouse);
 		theSpouse.changeNPCNameForMarriage(theNPC);
+		
 		int maxChildren = theNPC.familyInfo.getRandomMaxChildren();
 		theNPC.familyInfo.maxChildren = maxChildren;
 		theSpouse.familyInfo.maxChildren = maxChildren;
 		theNPC.familyInfo.setMaxBreedingDelay();
 		theSpouse.familyInfo.setMaxBreedingDelay();
-		for (int i = 0; i < 7; i++)
-		{
-			theNPC.spawnHearts();
-			theSpouse.spawnHearts();
-		}
+		theNPC.spawnHearts();
+		theSpouse.spawnHearts();
+		
 		if (theNPC.familyInfo.getRingGivingPlayer() != null)
 		{
 			LOTRLevelData.getData(theNPC.familyInfo.getRingGivingPlayer()).addAlignment(LOTRAlignmentValues.MARRIAGE_BONUS, theNPC.getFaction(), theNPC);
@@ -127,6 +126,7 @@ public class LOTREntityAINPCMarry extends EntityAIBase
 				LOTRLevelData.getData(theNPC.familyInfo.getRingGivingPlayer()).addAchievement(theNPC.familyInfo.marriageAchievement);
 			}
 		}
+		
 		if (theSpouse.familyInfo.getRingGivingPlayer() != null)
 		{
 			LOTRLevelData.getData(theSpouse.familyInfo.getRingGivingPlayer()).addAlignment(LOTRAlignmentValues.MARRIAGE_BONUS, theSpouse.getFaction(), theSpouse);

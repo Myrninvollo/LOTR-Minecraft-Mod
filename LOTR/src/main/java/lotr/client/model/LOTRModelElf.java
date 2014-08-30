@@ -63,10 +63,7 @@ public class LOTRModelElf extends LOTRModelBiped
             GL11.glScalef(1.5F / f6, 1.5F / f6, 1.5F / f6);
             GL11.glTranslatef(0.0F, 16.0F * f5, 0.0F);
             bipedHead.render(f5);
-			if (((LOTREntityElf)entity).shouldRenderHair())
-			{
-				bipedHeadwear.render(f5);
-			}
+			bipedHeadwear.render(f5);
             GL11.glPopMatrix();
             GL11.glPushMatrix();
             GL11.glScalef(1.0F / f6, 1.0F / f6, 1.0F / f6);
@@ -81,10 +78,7 @@ public class LOTRModelElf extends LOTRModelBiped
 		else
 		{
 			bipedHead.render(f5);
-			if (((LOTREntityElf)entity).shouldRenderHair())
-			{
-				bipedHeadwear.render(f5);
-			}
+			bipedHeadwear.render(f5);
 			bipedBody.render(f5);
 			bipedRightArm.render(f5);
 			bipedLeftArm.render(f5);

@@ -2,6 +2,7 @@ package lotr.common.world.structure2;
 
 import java.util.Random;
 
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.entity.npc.LOTREntityNearHaradrim;
 import lotr.common.entity.npc.LOTREntityNearHaradrimWarrior;
@@ -137,7 +138,7 @@ public class LOTRWorldGenNearHaradTent extends LOTRWorldGenStructureBase2
 			setBlockAndMetadata(world, 0, j1, 0, LOTRMod.fence, 14);
 		}
 		setBlockAndMetadata(world, 0, 6, 0, LOTRMod.planks, 14);
-		placeBanner(world, 0, 7, 0, 0, 9);
+		placeBanner(world, 0, 7, 0, LOTRFaction.NEAR_HARAD, 0);
 		
 		for (int j1 = 2; j1 <= 3; j1++)
 		{
@@ -169,27 +170,25 @@ public class LOTRWorldGenNearHaradTent extends LOTRWorldGenStructureBase2
 		
 		placeBarrel(world, random, -1, 1, 2, 2, LOTRMod.mugAraq);
 		setBlockAndMetadata(world, 0, 1, 2, LOTRMod.nearHaradTable, 0);
-		setBlockAndMetadata(world, 1, 1, 2, Blocks.chest, 2);
-		fillChest(world, random, 1, 1, 2, LOTRChestContents.NEAR_HARAD_HOUSE);
+		placeChest(world, random, 1, 1, 2, 2, LOTRChestContents.NEAR_HARAD_HOUSE);
 		
-		setBlockAndMetadata(world, 2, 1, 1, Blocks.chest, 5);
-		fillChest(world, random, 2, 1, 1, LOTRChestContents.NEAR_HARAD_TOWER);
+		placeChest(world, random, 2, 1, 1, 5, LOTRChestContents.NEAR_HARAD_TOWER);
 		setBlockAndMetadata(world, 2, 1, 0, Blocks.crafting_table, 0);
 		
 		setBlockAndMetadata(world, 0, 3, -2, Blocks.torch, 3);
 		setBlockAndMetadata(world, 0, 3, 2, Blocks.torch, 4);
 		
-		placeWallBanner(world, -1, 3, 3, 2, 9);
-		placeWallBanner(world, 1, 3, 3, 2, 9);
+		placeWallBanner(world, -1, 3, 3, LOTRFaction.NEAR_HARAD, 2);
+		placeWallBanner(world, 1, 3, 3, LOTRFaction.NEAR_HARAD, 2);
 		
-		placeWallBanner(world, 3, 3, 1, 3, 9);
-		placeWallBanner(world, 3, 3, -1, 3, 9);
+		placeWallBanner(world, 3, 3, 1, LOTRFaction.NEAR_HARAD, 3);
+		placeWallBanner(world, 3, 3, -1, LOTRFaction.NEAR_HARAD, 3);
 		
-		placeWallBanner(world, -1, 3, -3, 0, 9);
-		placeWallBanner(world, 1, 3, -3, 0, 9);
+		placeWallBanner(world, -1, 3, -3, LOTRFaction.NEAR_HARAD, 0);
+		placeWallBanner(world, 1, 3, -3, LOTRFaction.NEAR_HARAD, 0);
 		
-		placeWallBanner(world, -3, 3, 1, 1, 9);
-		placeWallBanner(world, -3, 3, -1, 1, 9);
+		placeWallBanner(world, -3, 3, 1, LOTRFaction.NEAR_HARAD, 1);
+		placeWallBanner(world, -3, 3, -1, LOTRFaction.NEAR_HARAD, 1);
 		
 		LOTREntityNearHaradrim haradrim = new LOTREntityNearHaradrimWarrior(world);
 		haradrim.spawnRidingHorse = false;

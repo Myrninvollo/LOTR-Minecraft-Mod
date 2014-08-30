@@ -13,7 +13,7 @@ public class LOTRRenderNearHaradrimWarlord extends LOTRRenderNearHaradrim
 	}
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
 		return skin;
     }

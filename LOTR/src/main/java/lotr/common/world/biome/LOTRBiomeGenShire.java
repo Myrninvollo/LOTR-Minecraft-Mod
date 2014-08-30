@@ -174,6 +174,6 @@ public class LOTRBiomeGenShire extends LOTRBiome
 	@Override
 	public int spawnCountMultiplier()
 	{
-		return 2;
+		return 3;
 	}
 }

@@ -96,7 +96,7 @@ public class LOTRBlockGuldurilBrick extends Block
 	@Override
     public ItemStack getPickBlock(MovingObjectPosition target, World world, int i, int j, int k)
     {
-		return blockForGuldurilMeta(world.getBlockMetadata(i, j, k));
+		return new ItemStack(this, 1, world.getBlockMetadata(i, j, k));
     }
 	
 	@Override

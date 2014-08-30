@@ -1,12 +1,8 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.animal.LOTREntityHorse;
-import lotr.common.world.biome.LOTRBiome;
-import net.minecraft.entity.SharedMonsterAttributes;
+import lotr.common.world.biome.LOTRBiomeGenLindon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -61,13 +57,29 @@ public class LOTREntityHighElf extends LOTREntityElf
 	}
 	
 	@Override
+	protected void dropFewItems(boolean flag, int i)
+	{
+		super.dropFewItems(flag, i);
+		
+		if (flag)
+		{
+			int dropChance = 20 - i * 4;
+			dropChance = Math.max(dropChance, 1);
+			if (rand.nextInt(dropChance) == 0)
+			{
+				entityDropItem(new ItemStack(LOTRMod.mugMiruvor, 1, 1 + rand.nextInt(3)), 0F);
+			}
+		}
+	}
+	
+	@Override
 	public boolean canElfSpawnHere()
 	{
 		int i = MathHelper.floor_double(posX);
 		int j = MathHelper.floor_double(boundingBox.minY);
 		int k = MathHelper.floor_double(posZ);
 		BiomeGenBase biome = worldObj.getBiomeGenForCoords(i, k);
-		return biome == LOTRBiome.lindon && j > 62 && worldObj.getBlock(i, j - 1, k) == Blocks.grass;
+		return biome instanceof LOTRBiomeGenLindon && j > 62 && worldObj.getBlock(i, j - 1, k) == Blocks.grass;
 	}
 	
 	@Override
@@ -75,7 +87,7 @@ public class LOTREntityHighElf extends LOTREntityElf
 	{
 		float f = 0F;
 		BiomeGenBase biome = worldObj.getBiomeGenForCoords(i, k);
-		if (biome == LOTRBiome.lindon)
+		if (biome instanceof LOTRBiomeGenLindon)
 		{
 			f += 20F;
 		}

@@ -18,7 +18,7 @@ public class LOTRRenderGondorSoldier extends LOTRRenderBiped
 	}
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
 		return LOTRRandomSkins.getRandomSkin(gondorSkins, (LOTREntityGondorMan)entity);
     }

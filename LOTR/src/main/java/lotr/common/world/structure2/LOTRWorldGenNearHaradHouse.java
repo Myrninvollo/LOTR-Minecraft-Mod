@@ -173,8 +173,7 @@ public class LOTRWorldGenNearHaradHouse extends LOTRWorldGenStructureBase2
 		setBlockAndMetadata(world, -2, 1, -1, Blocks.crafting_table, 0);
 		setBlockAndMetadata(world, -2, 1, 1, LOTRMod.nearHaradTable, 0);
 		setBlockAndMetadata(world, 2, 1, -1, Blocks.furnace, 5);
-		setBlockAndMetadata(world, 2, 1, 1, Blocks.chest, 5);
-		fillChest(world, random, 2, 1, 1, LOTRChestContents.NEAR_HARAD_HOUSE);
+		placeChest(world, random, 2, 1, 1, 5, LOTRChestContents.NEAR_HARAD_HOUSE);
 		
 		placeMug(world, random, -2, 2, 0, 3, LOTRMod.mugAraq);
 		placePlateWithCertainty(world, 2, 2, 0, random, LOTRFoods.NEAR_HARAD);

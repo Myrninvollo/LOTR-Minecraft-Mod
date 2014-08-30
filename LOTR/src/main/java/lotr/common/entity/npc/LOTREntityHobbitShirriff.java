@@ -49,10 +49,7 @@ public class LOTREntityHobbitShirriff extends LOTREntityHobbit implements IRange
         tasks.addTask(6, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.1F));
         tasks.addTask(7, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
         tasks.addTask(8, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(4);
+        addTargetTasks(true);
 		spawnRidingHorse = rand.nextInt(3) == 0;
 	}
 	

@@ -210,6 +210,6 @@ public class LOTRBiomeGenRohan extends LOTRBiome
 	@Override
 	public int spawnCountMultiplier()
 	{
-		return corrupted ? 2 : super.spawnCountMultiplier();
+		return corrupted ? 3 : 4;
 	}
 }

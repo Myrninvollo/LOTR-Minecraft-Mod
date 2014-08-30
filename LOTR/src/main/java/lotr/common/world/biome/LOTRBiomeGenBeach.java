@@ -3,7 +3,7 @@ package lotr.common.world.biome;
 import lotr.common.world.LOTRBanditSpawner;
 import net.minecraft.block.Block;
 
-public class LOTRBiomeGenBeach extends LOTRBiome
+public class LOTRBiomeGenBeach extends LOTRBiomeGenOcean
 {
 	public LOTRBiomeGenBeach(int i)
 	{
@@ -14,10 +14,6 @@ public class LOTRBiomeGenBeach extends LOTRBiome
 		
 		spawnableCreatureList.clear();
 		spawnableWaterCreatureList.clear();
-		
-		spawnableEvilList.clear();
-		
-		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 	
 	public LOTRBiomeGenBeach setBeachBlock(Block block)
@@ -25,12 +21,6 @@ public class LOTRBiomeGenBeach extends LOTRBiome
 		topBlock = block;
 		fillerBlock = block;
 		return this;
-	}
-	
-	@Override
-	public boolean getEnableRiver()
-	{
-		return false;
 	}
 	
 	@Override

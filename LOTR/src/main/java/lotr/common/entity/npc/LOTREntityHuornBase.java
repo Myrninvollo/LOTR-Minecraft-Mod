@@ -32,9 +32,6 @@ public abstract class LOTREntityHuornBase extends LOTREntityTree
 		tasks.addTask(1, new LOTREntityAIHiredRemainStill(this));
 		tasks.addTask(2, new LOTREntityAIAttackOnCollide(this, 1.5D, false));
 		tasks.addTask(3, new LOTREntityAIFollowHiringPlayer(this));
-		targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
 	}
 	
 	@Override

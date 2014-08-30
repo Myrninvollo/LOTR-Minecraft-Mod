@@ -33,7 +33,7 @@ public class LOTRRenderHobbit extends LOTRRenderBiped
 	}
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
         LOTREntityHobbit hobbit = (LOTREntityHobbit)entity;
 		if (hobbit.familyInfo.isNPCMale())
@@ -47,7 +47,7 @@ public class LOTRRenderHobbit extends LOTRRenderBiped
     }
 	
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
+	public int shouldRenderPass(EntityLivingBase entity, int pass, float f)
     {
 		LOTREntityHobbit hobbit = (LOTREntityHobbit)entity;
 		if (pass == 1 && entity instanceof LOTREntityHobbitBartender)

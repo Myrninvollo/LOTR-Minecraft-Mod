@@ -255,6 +255,8 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement travel40;
 	public static LOTRAchievement travel50;
 	public static LOTRAchievement killThievingBandit;
+	public static LOTRAchievement hundreds;
+	public static LOTRAchievement turnDownForWhat;
 	
 	public static LOTRAchievement killHobbit;
 	public static LOTRAchievement sellPipeweedLeaf;
@@ -327,6 +329,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement alignmentGood1000_GUNDABAD;
 	public static LOTRAchievement enterBarrowDowns;
 	public static LOTRAchievement useRangerTable;
+	public static LOTRAchievement useGundabadTable;
 	
 	public static LOTRAchievement tradeAngmarCaptain;
 	public static LOTRAchievement killAngmarOrc;
@@ -530,7 +533,7 @@ public class LOTRAchievement implements Comparable
 	
 	public static void createAchievements()
 	{
-		enterMiddleEarth = new LOTRAchievement(GENERAL, 1, Items.book, "enterMiddleEarth").setSpecial();
+		enterMiddleEarth = new LOTRAchievement(GENERAL, 1, LOTRMod.redBook, "enterMiddleEarth").setSpecial();
 		// empty
 		killOrc = new LOTRAchievement(GENERAL, 14, LOTRMod.orcBone, "killOrc");
 		mineMithril = new LOTRAchievement(GENERAL, 15, LOTRMod.oreMithril, "mineMithril");
@@ -569,6 +572,8 @@ public class LOTRAchievement implements Comparable
 		travel40 = new LOTRAchievement(GENERAL, 48, Items.map, "travel40").setSpecial();
 		travel50 = new LOTRAchievement(GENERAL, 49, Items.map, "travel50").setSpecial();
 		killThievingBandit = new LOTRAchievement(GENERAL, 50, LOTRMod.leatherHat, "killThievingBandit");
+		hundreds = new LOTRAchievement(GENERAL, 51, Items.iron_sword, "hundreds");
+		turnDownForWhat = new LOTRAchievement(GENERAL, 52, LOTRMod.mugVodka, "turnDownForWhat");
 
 		killHobbit = new LOTRAchievement(SHIRE, 0, LOTRMod.hobbitBone, "killHobbit").setRequiresEnemy(LOTRFaction.HOBBIT);
 		sellPipeweedLeaf = new LOTRAchievement(SHIRE, 1, LOTRMod.pipeweedLeaf, "sellPipeweedLeaf").setRequiresAlly(LOTRFaction.HOBBIT);
@@ -641,6 +646,7 @@ public class LOTRAchievement implements Comparable
 		alignmentGood1000_GUNDABAD = new LOTRAchievement(ERIADOR, 24, LOTRMod.goldRing, "alignmentGood1000_GUNDABAD").setRequiresAlly(LOTRFaction.GUNDABAD).setSpecial();
 		enterBarrowDowns = new LOTRAchievement(ERIADOR, 25, Items.bone, "enterBarrowDowns").setBiomeAchievement();
 		useRangerTable = new LOTRAchievement(ERIADOR, 26, LOTRMod.rangerTable, "useRangerTable").setRequiresAlly(LOTRFaction.RANGER_NORTH);
+		useGundabadTable = new LOTRAchievement(ERIADOR, 27, LOTRMod.gundabadTable, "useGundabadTable").setRequiresAlly(LOTRFaction.GUNDABAD);
 
 		tradeAngmarCaptain = new LOTRAchievement(ANGMAR, 0, LOTRMod.silverCoin, "tradeAngmarCaptain").setRequiresAlly(LOTRFaction.ANGMAR);
 		killAngmarOrc = new LOTRAchievement(ANGMAR, 1, LOTRMod.orcBone, "killAngmarOrc").setRequiresEnemy(LOTRFaction.ANGMAR);

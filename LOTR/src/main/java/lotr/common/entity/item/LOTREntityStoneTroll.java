@@ -273,14 +273,14 @@ public class LOTREntityStoneTroll extends Entity
 		{
 			for (int l = 0; l < 16; l++)
 			{
-				worldObj.spawnParticle("tilecrack_" + Blocks.stone + "_0", posX + (rand.nextDouble() - 0.5D) * (double)width, posY + rand.nextDouble() * (double)height, posZ + (rand.nextDouble() - 0.5D) * (double)width, 0D, 0D, 0D);
+				worldObj.spawnParticle("blockcrack_" + Block.getIdFromBlock(Blocks.stone) + "_0", posX + (rand.nextDouble() - 0.5D) * (double)width, posY + rand.nextDouble() * (double)height, posZ + (rand.nextDouble() - 0.5D) * (double)width, 0D, 0D, 0D);
 			}
 		}
 		else if (b == 17)
 		{
 			for (int l = 0; l < 64; l++)
 			{
-				worldObj.spawnParticle("tilecrack_" + Blocks.stone + "_0", posX + (rand.nextDouble() - 0.5D) * (double)width, posY + rand.nextDouble() * (double)height, posZ + (rand.nextDouble() - 0.5D) * (double)width, 0D, 0D, 0D);
+				worldObj.spawnParticle("blockcrack_" + Block.getIdFromBlock(Blocks.stone) + "_0", posX + (rand.nextDouble() - 0.5D) * (double)width, posY + rand.nextDouble() * (double)height, posZ + (rand.nextDouble() - 0.5D) * (double)width, 0D, 0D, 0D);
 			}
 		}
 		else

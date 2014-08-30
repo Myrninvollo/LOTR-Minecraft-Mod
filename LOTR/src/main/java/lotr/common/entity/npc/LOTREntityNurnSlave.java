@@ -1,23 +1,10 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRFoods;
-import lotr.common.LOTRMod;
-import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
-import lotr.common.entity.ai.LOTREntityAIEat;
-import lotr.common.entity.ai.LOTREntityAIFarm;
-import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
+import lotr.common.*;
+import lotr.common.entity.ai.*;
 import lotr.common.world.biome.LOTRBiomeGenNurn;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIOpenDoor;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityAIWatchClosest2;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -45,7 +32,7 @@ public class LOTREntityNurnSlave extends LOTREntityNPC
         tasks.addTask(7, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
         tasks.addTask(8, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
         tasks.addTask(9, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        targetTasks.addTask(1, new LOTREntityAINPCHurtByTarget(this, false));
 	}
 	
 	@Override

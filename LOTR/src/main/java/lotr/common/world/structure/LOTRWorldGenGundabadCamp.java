@@ -53,7 +53,7 @@ public class LOTRWorldGenGundabadCamp extends LOTRWorldGenStructureBase
 			}
 		}
 		
-		setBlockAndNotifyAdequately(world, i, highestHeight, k, Blocks.crafting_table, 0);
+		setBlockAndNotifyAdequately(world, i, highestHeight, k, LOTRMod.gundabadTable, 0);
 		
 		LOTREntityOrc orc = new LOTREntityGundabadOrcMercenaryCaptain(world);
 		orc.setLocationAndAngles(i + 0.5D, highestHeight + 1D, k + 0.5D, world.rand.nextFloat() * 360F, 0F);

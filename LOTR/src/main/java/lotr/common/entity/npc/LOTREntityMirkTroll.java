@@ -27,10 +27,7 @@ public class LOTREntityMirkTroll extends LOTREntityTroll
         tasks.addTask(5, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 8F, 0.02F));
         tasks.addTask(6, new EntityAIWatchClosest(this, EntityLiving.class, 12F, 0.01F));
         tasks.addTask(7, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-		addTargetTasks(4, LOTREntityAINearestAttackableTargetOrc.class);
+		addTargetTasks(true, LOTREntityAINearestAttackableTargetOrc.class);
 	}
 	
 	@Override

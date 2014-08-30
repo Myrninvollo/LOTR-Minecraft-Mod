@@ -2,9 +2,7 @@ package lotr.common.world.structure2;
 
 import java.util.Random;
 
-import lotr.common.LOTRFoods;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.npc.LOTREntityNearHaradrim;
 import lotr.common.entity.npc.LOTREntityNearHaradrimArcher;
 import lotr.common.entity.npc.LOTREntityNearHaradrimWarlord;
@@ -142,7 +140,7 @@ public class LOTRWorldGenNearHaradFortress extends LOTRWorldGenStructureBase2
 		
 		for (int i2 = 4; i2 <= 10; i2 += 3)
 		{
-			placeWallBanner(world, i2, 5, 0, 2, 9);
+			placeWallBanner(world, i2, 5, 0, LOTRFaction.NEAR_HARAD, 2);
 			
 			setBlockAndMetadata(world, i2, 4, 1, Blocks.torch, 3);
 		}
@@ -252,8 +250,7 @@ public class LOTRWorldGenNearHaradFortress extends LOTRWorldGenStructureBase2
 		setBlockAndMetadata(world, 5, 1, 6, Blocks.furnace, 2);
 		for (int i1 = 6; i1 <= 7; i1++)
 		{
-			setBlockAndMetadata(world, i1, 1, 6, Blocks.chest, 2);
-			fillChest(world, random, i1, 1, 6, LOTRChestContents.NEAR_HARAD_HOUSE);
+			placeChest(world, random, i1, 1, 6, 2, LOTRChestContents.NEAR_HARAD_HOUSE);
 		}
 		setBlockAndMetadata(world, 8, 1, 6, Blocks.crafting_table, 0);
 		setBlockAndMetadata(world, 9, 1, 6, LOTRMod.nearHaradTable, 0);
@@ -267,8 +264,7 @@ public class LOTRWorldGenNearHaradFortress extends LOTRWorldGenStructureBase2
 		
 		for (int k1 = 5; k1 <= 6; k1++)
 		{
-			setBlockAndMetadata(world, 18, 1, k1, Blocks.chest, 5);
-			fillChest(world, random, 18, 1, k1, LOTRChestContents.NEAR_HARAD_TOWER);
+			placeChest(world, random, 18, 1, k1, 5, LOTRChestContents.NEAR_HARAD_TOWER);
 			setBlockAndMetadata(world, 18, 3, k1, LOTRMod.brick, 15);
 		}
 		

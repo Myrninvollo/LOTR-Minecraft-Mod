@@ -1,10 +1,6 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRFoods;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIDrink;
 import lotr.common.entity.ai.LOTREntityAIEat;
 import lotr.common.entity.ai.LOTREntityAIHobbitChildFollowGoodPlayer;
@@ -14,6 +10,7 @@ import lotr.common.entity.ai.LOTREntityAINPCFollowParent;
 import lotr.common.entity.ai.LOTREntityAINPCFollowSpouse;
 import lotr.common.entity.ai.LOTREntityAINPCMarry;
 import lotr.common.entity.ai.LOTREntityAINPCMate;
+import lotr.common.quest.*;
 import lotr.common.world.biome.LOTRBiomeGenShire;
 import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.entity.EntityLiving;
@@ -263,6 +260,12 @@ public class LOTREntityHobbit extends LOTREntityNPC
 		{
 			return isChild() ? "hobbitChild_unfriendly" : "hobbit_unfriendly";
 		}
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.HOBBIT.createQuest(entityplayer);
 	}
 	
 	@Override

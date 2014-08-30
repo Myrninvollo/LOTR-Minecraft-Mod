@@ -1,12 +1,10 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRMod;
+import lotr.common.*;
+import lotr.common.entity.LOTRMountFunctions;
 import lotr.common.entity.ai.*;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -14,10 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
-public abstract class LOTREntitySpiderBase extends LOTREntityNPC
+public abstract class LOTREntitySpiderBase extends LOTREntityNPCRideable
 {
 	public static int VENOM_NONE = 0;
 	public static int VENOM_SLOWNESS = 1;
@@ -32,14 +31,12 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
 		tasks.addTask(1, new LOTREntityAIHiredRemainStill(this));
 		tasks.addTask(2, new EntityAILeapAtTarget(this, 0.4F));
 		tasks.addTask(3, new LOTREntityAIAttackOnCollide(this, 1.2D, false, 0.8F));
-		tasks.addTask(4, new LOTREntityAIFollowHiringPlayer(this));
-        tasks.addTask(5, new EntityAIWander(this, 1D));
-        tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8F, 0.02F));
-        tasks.addTask(7, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(4);
+		tasks.addTask(4, new LOTREntityAIUntamedPanic(this, 1.2D));
+		tasks.addTask(5, new LOTREntityAIFollowHiringPlayer(this));
+        tasks.addTask(6, new EntityAIWander(this, 1D));
+        tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8F, 0.02F));
+        tasks.addTask(8, new EntityAILookIdle(this));
+        addTargetTasks(true);
         spawnsInDarkness = true;
 	}
 	
@@ -62,7 +59,7 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
     {
         super.applyEntityAttributes();
 		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(12D + (double)getSpiderScale() * 6D);
-        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.35D - (double)getSpiderScale() * 0.05D);
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.35D - (double)getSpiderScale() * 0.03D);
         getEntityAttribute(npcAttackDamage).setBaseValue(2D + (double)getSpiderScale());
     }
 	
@@ -113,6 +110,27 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
 	}
 	
 	@Override
+    public boolean isMountSaddled()
+    {
+        return isNPCTamed() && riddenByEntity instanceof EntityPlayer;
+    }
+	
+	@Override
+	public boolean getBelongsToNPC()
+	{
+		return false;
+	}
+	
+	@Override
+	public void setBelongsToNPC(boolean flag) {}
+	
+	@Override
+	public String getMountArmorTexture()
+	{
+		return null;
+	}
+	
+	@Override
     public boolean isAIEnabled()
     {
         return true;
@@ -145,10 +163,25 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
 	public void onLivingUpdate()
 	{
 		super.onLivingUpdate();
+		
 		if (!worldObj.isRemote)
 		{
 			setBesideClimbableBlock(isCollidedHorizontally);
 		}
+		
+        if (!worldObj.isRemote)
+        {
+			if (riddenByEntity instanceof EntityPlayer && LOTRLevelData.getData((EntityPlayer)riddenByEntity).getAlignment(getFaction()) < LOTRAlignmentValues.Levels.SPIDER_RIDE)
+			{
+				riddenByEntity.mountEntity(null);
+			}
+		}
+	}
+	
+	@Override
+	public boolean canDespawn()
+	{
+		return super.canDespawn() && !isNPCTamed();
 	}
 	
 	@Override
@@ -156,11 +189,11 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
     {
 		if (riddenByEntity instanceof EntityPlayer)
 		{
-			return (double)height * 0.95D;
+			return (double)height * 0.85D;
 		}
 		else if (riddenByEntity instanceof LOTREntityNPC)
 		{
-			return (double)height * 0.5D;
+			return (double)height * 0.4D;
 		}
 		return super.getMountedYOffset();
     }
@@ -184,6 +217,65 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
         }
         else
         {
+    		if (worldObj.isRemote || hiredNPCInfo.isActive)
+    		{
+    			return false;
+    		}
+    		
+    		if (LOTRMountFunctions.interact(this, entityplayer))
+    		{
+    			return true;
+    		}
+    		
+    		if (getAttackTarget() != entityplayer)
+    		{
+    			boolean hasRequiredAlignment = LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.SPIDER_RIDE;
+    			boolean notifyNotEnoughAlignment = false;
+    			
+    			if (!notifyNotEnoughAlignment && itemstack != null && LOTRMod.isOreNameEqual(itemstack, "bone") && isNPCTamed() && getHealth() < getMaxHealth())
+    			{
+    				if (hasRequiredAlignment)
+    				{
+    					if (!entityplayer.capabilities.isCreativeMode)
+    					{
+    						itemstack.stackSize--;
+    						if (itemstack.stackSize == 0)
+    						{
+    							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
+    						}
+    					}
+    					heal(4F);
+    					playSound(getLivingSound(), getSoundVolume(), getSoundPitch() * 2F);
+    					return true;
+    				}
+    				else
+    				{
+    					notifyNotEnoughAlignment = true;
+    				}
+    			}
+
+    			if (!notifyNotEnoughAlignment && riddenByEntity == null)
+    			{
+    				if (hasRequiredAlignment)
+    				{
+    					entityplayer.mountEntity(this);
+    					setAttackTarget(null);
+    					getNavigator().clearPathEntity();
+    					return true;
+    				}
+    				else
+    				{
+    					notifyNotEnoughAlignment = true;
+    				}
+    			}
+    			
+    			if (notifyNotEnoughAlignment)
+    			{
+    				LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.Levels.SPIDER_RIDE, getFaction());
+    				return true;
+    			}
+    		}
+    		
             return super.interact(entityplayer);
         }
 	}
@@ -230,6 +322,16 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
             return false;
         }
     }
+	
+	@Override
+	public boolean attackEntityFrom(DamageSource damagesource, float f)
+	{
+		if (damagesource == DamageSource.fall)
+		{
+			return false;
+		}
+		return super.attackEntityFrom(damagesource, f);
+	}
 	
 	@Override
     protected String getLivingSound()
@@ -311,4 +413,10 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPC
 		}
 		return super.isPotionApplicable(effect);
     }
+	
+	@Override
+	public boolean allowLeashing()
+	{
+		return isNPCTamed();
+	}
 }

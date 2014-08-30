@@ -99,11 +99,6 @@ public class LOTRWorldGenNearHaradDesertCamp extends LOTRWorldGenStructureBase2
 		for (int l = 0; l < camels; l++)
 		{
 			LOTREntityCamel camel = new LOTREntityCamel(world);
-			camel.saddleMount();
-			if (random.nextBoolean())
-			{
-				camel.setChested(true);
-			}
 			
 			int camelX = random.nextBoolean() ? -3 - random.nextInt(3) : 3 + random.nextInt(3);
 			int camelZ = -3 + random.nextInt(7);
@@ -117,6 +112,12 @@ public class LOTRWorldGenNearHaradDesertCamp extends LOTRWorldGenStructureBase2
 			setBlockAndMetadata(world, camelX, camelY, camelZ, LOTRMod.fence, 14);
 			setBlockAndMetadata(world, camelX, camelY + 1, camelZ, LOTRMod.fence, 14);
 			spawnNPCAndSetHome(camel, world, camelX, camelY, camelZ, -1);
+			
+			camel.saddleMountForWorldGen();
+			if (random.nextBoolean())
+			{
+				camel.setChestedForWorldGen();
+			}
 		
 			EntityLeashKnot leash = EntityLeashKnot.func_110129_a(world, getX(camelX, camelZ), getY(camelY), getZ(camelX, camelZ));
 			camel.setLeashedToEntity(leash, true);

@@ -90,6 +90,6 @@ public class LOTRBiomeGenNurn extends LOTRBiomeGenMordor
 	@Override
 	public int spawnCountMultiplier()
 	{
-		return 2;
+		return 3;
 	}
 }

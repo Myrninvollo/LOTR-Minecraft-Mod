@@ -153,9 +153,8 @@ public class LOTRWorldGenGondorTurret extends LOTRWorldGenStructureBase2
 		setBlockAndMetadata(world, 0, 5, 0, Blocks.trapdoor, 0);
 		
 		setBlockAndMetadata(world, 0, 5, 1, LOTRMod.slabSingle, 2);
-		
-		setBlockAndMetadata(world, 1, 5, 1, Blocks.chest, 2);
-		fillChest(world, random, 1, 5, 1, LOTRChestContents.GONDOR_FORTRESS_SUPPLIES);
+
+		placeChest(world, random, 1, 5, 1, 2, LOTRChestContents.GONDOR_FORTRESS_SUPPLIES);
 		
 		for (int i1 = -2; i1 <= 2; i1++)
 		{

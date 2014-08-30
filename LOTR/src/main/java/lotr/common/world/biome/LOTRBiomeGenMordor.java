@@ -68,8 +68,8 @@ public class LOTRBiomeGenMordor extends LOTRBiome
 		biomeColors.setFoliage(0x634F2D);
 		biomeColors.setSky(0x602F1F);
 		biomeColors.setClouds(0x4B2319);
-		biomeColors.setFog(0x322619);
-		biomeColors.setWater(0x3F2007);
+		biomeColors.setFog(0x1E160E);
+		biomeColors.setWater(0x26211D);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 	}

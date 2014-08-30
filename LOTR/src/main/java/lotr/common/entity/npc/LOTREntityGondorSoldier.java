@@ -30,12 +30,8 @@ public class LOTREntityGondorSoldier extends LOTREntityGondorMan
 	public LOTREntityGondorSoldier(World world)
 	{
 		super(world);
-        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(4);
+        addTargetTasks(true);
 		spawnRidingHorse = rand.nextInt(6) == 0;
-		spawnCountValue = 3;
 		npcShield = LOTRShields.ALIGNMENT_GONDOR;
 	}
 	

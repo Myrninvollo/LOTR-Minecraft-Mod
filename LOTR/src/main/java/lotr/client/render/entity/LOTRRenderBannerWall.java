@@ -2,6 +2,7 @@ package lotr.client.render.entity;
 
 import lotr.client.model.LOTRModelBannerWall;
 import lotr.common.entity.item.LOTREntityBannerWall;
+import lotr.common.item.LOTRItemBanner;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -16,7 +17,7 @@ public class LOTRRenderBannerWall extends Render
     protected ResourceLocation getEntityTexture(Entity entity)
 	{
 		LOTREntityBannerWall banner = (LOTREntityBannerWall)entity;
-		int bannerType = banner.getBannerType();
+		int bannerType = LOTRItemBanner.getSubtypeForFaction(banner.getBannerFaction());
 		return LOTRRenderBanner.getStandTexture(bannerType);
 	}
 
@@ -24,7 +25,7 @@ public class LOTRRenderBannerWall extends Render
     public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
     {
 		LOTREntityBannerWall banner = (LOTREntityBannerWall)entity;
-		int bannerType = banner.getBannerType();
+		int bannerType = LOTRItemBanner.getSubtypeForFaction(banner.getBannerFaction());
         GL11.glPushMatrix();
         GL11.glDisable(GL11.GL_CULL_FACE);
         GL11.glTranslatef((float)d, (float)d1, (float)d2);

@@ -5,16 +5,9 @@ import io.netty.buffer.Unpooled;
 
 import java.util.UUID;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.google.common.base.Charsets;
-import com.mojang.authlib.GameProfile;
-
-import lotr.common.LOTREventHandler;
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.item.LOTRItemBanner;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -25,11 +18,13 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.common.base.Charsets;
+import com.mojang.authlib.GameProfile;
 
 public class LOTREntityBanner extends Entity
 {
@@ -51,24 +46,24 @@ public class LOTREntityBanner extends Entity
 		dataWatcher.addObject(18, Byte.valueOf((byte)0));
 	}
 	
-	public int getBannerType()
+	private int getBannerType()
 	{
 		return dataWatcher.getWatchableObjectByte(18);
 	}
 	
-	public void setBannerType(int i)
+	private void setBannerType(int i)
 	{
 		dataWatcher.updateObject(18, Byte.valueOf((byte)i));
 	}
 	
+	public void setBannerFaction(LOTRFaction faction)
+	{
+		setBannerType(LOTRItemBanner.getSubtypeForFaction(faction));
+	}
+	
 	public LOTRFaction getBannerFaction()
 	{
-		int i = getBannerType();
-		if (i < 0 || i >= LOTRItemBanner.factions.length)
-		{
-			i = 0;
-		}
-		return LOTRItemBanner.factions[i];
+		return LOTRItemBanner.getFaction(getBannerType());
 	}
 	
 	public boolean isProtectingTerritory()

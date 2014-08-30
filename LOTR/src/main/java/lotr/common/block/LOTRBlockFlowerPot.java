@@ -16,6 +16,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -52,11 +53,9 @@ public class LOTRBlockFlowerPot extends BlockFlowerPot implements ITileEntityPro
     }
 	
 	@Override
-    @SideOnly(Side.CLIENT)
-    public Item getItem(World world, int i, int j, int k)
+    public ItemStack getPickBlock(MovingObjectPosition target, World world, int i, int j, int k)
     {
-        ItemStack itemstack = getPlant(world, i, j, k);
-        return itemstack == null ? Items.flower_pot : itemstack.getItem();
+		return getPlant(world, i, j, k);
     }
 	
 	@Override

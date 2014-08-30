@@ -29,6 +29,8 @@ public class LOTRRenderBannerItem implements IItemRenderer
 	@Override
     public void renderItem(ItemRenderType type, ItemStack itemstack, Object... data)
 	{
+		GL11.glDisable(GL11.GL_CULL_FACE);
+		
 		Entity entity = (Entity)data[1];
 
 		boolean isFirstPerson = entity == Minecraft.getMinecraft().thePlayer && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0;

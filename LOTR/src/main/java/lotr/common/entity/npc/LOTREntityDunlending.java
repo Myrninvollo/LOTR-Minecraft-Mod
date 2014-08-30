@@ -56,11 +56,9 @@ public class LOTREntityDunlending extends LOTREntityNPC
         tasks.addTask(7, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
         tasks.addTask(8, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
         tasks.addTask(9, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-		targetTasks.addTask(4, new LOTREntityAINearestAttackableTargetBasic(this, LOTREntityRohirrim.class, 0, true));
-        addTargetTasks(4);
+
+        int target = addTargetTasks(true);
+        targetTasks.addTask(target - 1, new LOTREntityAINearestAttackableTargetBasic(this, LOTREntityRohirrim.class, 0, true));
 	}
 	
 	public EntityAIBase getDunlendingAttackAI()
@@ -122,6 +120,11 @@ public class LOTREntityDunlending extends LOTREntityNPC
 		else if (i == 7)
 		{
 			setCurrentItemOrArmor(0, new ItemStack(Items.stone_hoe));
+		}
+		
+		if (rand.nextInt(4) == 0)
+		{
+			setCurrentItemOrArmor(4, new ItemStack(LOTRMod.helmetWarg));
 		}
 		
 		return data;

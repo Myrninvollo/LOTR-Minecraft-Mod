@@ -283,8 +283,7 @@ public class LOTRWorldGenHaradPyramid extends LOTRWorldGenStructureBase2
 				}
 			}
 			
-			placeSpawnerChest(world, i, j + 1, k, 0, LOTREntityHaradPyramidWraith.class);
-			fillChest(world, random, i, j + 1, k, LOTRChestContents.NEAR_HARAD_PYRAMID);
+			placeSpawnerChest(world, random, i, j + 1, k, 0, LOTREntityHaradPyramidWraith.class, LOTRChestContents.NEAR_HARAD_PYRAMID);
 			
 			setBlockAndMetadata(world, i, j + 2, k, Blocks.stained_hardened_clay, 14);
 		

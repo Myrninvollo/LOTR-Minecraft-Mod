@@ -139,8 +139,7 @@ public class LOTRUnitTradeEntry
 	{
 		if (mountClass == null)
 		{
-			ModContainer container = FMLCommonHandler.instance().findContainerFor(LOTRMod.instance);
-			String s = String.format("%s.%s", container.getModId(), LOTREntities.getStringFromClass(entityClass));
+			String s = String.format("%s.%s", LOTRMod.getModID(), LOTREntities.getStringFromClass(entityClass));
 			return StatCollector.translateToLocal("entity." + s + ".name");
 		}
 		else
@@ -237,9 +236,9 @@ public class LOTRUnitTradeEntry
 
 		ELF_LORD = new LOTRUnitTradeEntry[]
 		{
-			new LOTRUnitTradeEntry(LOTREntityElf.class, 15, 200),
-			new LOTRUnitTradeEntry(LOTREntityElfWarrior.class, 30, 300),
-			new LOTRUnitTradeEntry(LOTREntityElfWarrior.class, LOTREntityHorse.class, "GaladhrimWarrior_Horse", 35, 400).setMountArmor(LOTRMod.horseArmorGaladhrim),
+			new LOTRUnitTradeEntry(LOTREntityGaladhrimElf.class, 15, 200),
+			new LOTRUnitTradeEntry(LOTREntityGaladhrimWarrior.class, 30, 300),
+			new LOTRUnitTradeEntry(LOTREntityGaladhrimWarrior.class, LOTREntityHorse.class, "GaladhrimWarrior_Horse", 35, 400).setMountArmor(LOTRMod.horseArmorGaladhrim),
 			new LOTRUnitTradeEntry(LOTREntityGaladhrimBannerBearer.class, 40, 450)
 		};
 		
@@ -309,7 +308,8 @@ public class LOTRUnitTradeEntry
 			new LOTRUnitTradeEntry(LOTREntityGundabadOrcArcher.class, 20, 150),
 			new LOTRUnitTradeEntry(LOTREntityGundabadWarg.class, 10, 150),
 			new LOTRUnitTradeEntry(LOTREntityGundabadOrc.class, LOTREntityGundabadWarg.class, "GundabadOrc_Warg", 20, 200),
-			new LOTRUnitTradeEntry(LOTREntityGundabadOrcArcher.class, LOTREntityGundabadWarg.class, "GundabadOrcArcher_Warg", 30, 250)
+			new LOTRUnitTradeEntry(LOTREntityGundabadOrcArcher.class, LOTREntityGundabadWarg.class, "GundabadOrcArcher_Warg", 30, 250),
+			new LOTRUnitTradeEntry(LOTREntityGundabadBannerBearer.class, 40, 250)
 		};
 		
 		RANGER_NORTH_CAPTAIN = new LOTRUnitTradeEntry[]

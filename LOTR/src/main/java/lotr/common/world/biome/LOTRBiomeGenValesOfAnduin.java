@@ -48,7 +48,8 @@ public class LOTRBiomeGenValesOfAnduin extends LOTRBiome
 		
 		setBanditChance(LOTRBanditSpawner.UNCOMMON);
 		
-		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.RARE));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.UNCOMMON));
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.DOL_GULDUR, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override

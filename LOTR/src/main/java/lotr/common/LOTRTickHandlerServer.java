@@ -454,7 +454,7 @@ public class LOTRTickHandlerServer
 			}
 		}
 	}
-	
+
 	private void runAchievementChecks(EntityPlayer entityplayer)
 	{
 		World world = entityplayer.worldObj;
@@ -515,6 +515,24 @@ public class LOTRTickHandlerServer
 		if (crossbowBolts >= 128)
 		{
 			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.collectCrossbowBolts);
+		}
+		
+		if (world.getWorldTime() % 5L == 0L && !LOTRLevelData.getData(entityplayer).hasAchievement(LOTRAchievement.hundreds))
+		{
+			int hiredUnits = 0;
+			List<LOTREntityNPC> nearbyNPCs = world.getEntitiesWithinAABB(LOTREntityNPC.class, entityplayer.boundingBox.expand(64D, 64D, 64D));
+			for (LOTREntityNPC npc : nearbyNPCs)
+			{
+				if (npc.hiredNPCInfo.isActive && npc.hiredNPCInfo.getHiringPlayer() == entityplayer)
+				{
+					hiredUnits++;
+				}
+			}
+			
+			if (hiredUnits >= 100)
+			{
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.hundreds);
+			}
 		}
 		
 		if (isPlayerWearingFull(entityplayer, LOTRMod.armorMithril))

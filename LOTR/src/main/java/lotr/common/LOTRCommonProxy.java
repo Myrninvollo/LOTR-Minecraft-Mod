@@ -9,6 +9,7 @@ import lotr.common.inventory.*;
 import lotr.common.tileentity.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.AnimalChest;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -47,6 +48,7 @@ public class LOTRCommonProxy implements IGuiHandler
 	public static int GUI_ID_RANGER_TABLE = 28;
 	public static int GUI_ID_MOUNT_INV = 29;
 	public static int GUI_ID_DOL_GULDUR_TABLE = 30;
+	public static int GUI_ID_GUNDABAD_TABLE = 31;
 	
 	public boolean isClient()
 	{
@@ -70,7 +72,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_HOBBIT_OVEN)
 		{
 			TileEntity oven = world.getTileEntity(i, j, k);
-			if (oven != null && oven instanceof LOTRTileEntityHobbitOven)
+			if (oven instanceof LOTRTileEntityHobbitOven)
 			{
 				return new LOTRContainerHobbitOven(entityplayer.inventory, (LOTRTileEntityHobbitOven)oven);
 			}
@@ -86,7 +88,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_TRADE)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTRTradeable)
+			if (entity instanceof LOTRTradeable)
 			{
 				return new LOTRContainerTrade(entityplayer.inventory, (LOTRTradeable)entity, world);
 			}
@@ -98,7 +100,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_ALLOY_FORGE)
 		{
 			TileEntity forge = world.getTileEntity(i, j, k);
-			if (forge != null && forge instanceof LOTRTileEntityAlloyForge)
+			if (forge instanceof LOTRTileEntityAlloyForge)
 			{
 				return new LOTRContainerAlloyForge(entityplayer.inventory, (LOTRTileEntityAlloyForge)forge);
 			}
@@ -106,7 +108,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_UNIT_TRADE)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTRUnitTradeable)
+			if (entity instanceof LOTRUnitTradeable)
 			{
 				return new LOTRContainerUnitTrade(entityplayer, (LOTRUnitTradeable)entity, world);
 			}
@@ -118,7 +120,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_GOLLUM)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTREntityGollum)
+			if (entity instanceof LOTREntityGollum)
 			{
 				return new LOTRContainerGollum(entityplayer.inventory, (LOTREntityGollum)entity);
 			}
@@ -145,7 +147,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_BARREL)
 		{
 			TileEntity barrel = world.getTileEntity(i, j, k);
-			if (barrel != null && barrel instanceof LOTRTileEntityBarrel)
+			if (barrel instanceof LOTRTileEntityBarrel)
 			{
 				return new LOTRContainerBarrel(entityplayer.inventory, (LOTRTileEntityBarrel)barrel);
 			}
@@ -153,7 +155,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_ARMOR_STAND)
 		{
 			TileEntity stand = world.getTileEntity(i, j, k);
-			if (stand != null && stand instanceof LOTRTileEntityArmorStand)
+			if (stand instanceof LOTRTileEntityArmorStand)
 			{
 				return new LOTRContainerArmorStand(entityplayer.inventory, (LOTRTileEntityArmorStand)stand);
 			}
@@ -165,7 +167,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_HIRED_FARMER_INVENTORY)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTREntityNPC)
+			if (entity instanceof LOTREntityNPC)
 			{
 				LOTREntityNPC npc = (LOTREntityNPC)entity;
 				if (npc.hiredNPCInfo.isActive && npc.hiredNPCInfo.getHiringPlayer() == entityplayer && npc.hiredNPCInfo.getTask() == Task.FARMER)
@@ -197,15 +199,27 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_MOUNT_INV)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTREntityHorse)
+			if (entity instanceof LOTREntityHorse)
 			{
 				LOTREntityHorse horse = (LOTREntityHorse)entity;
-				return new LOTRContainerMountInventory(entityplayer.inventory, horse);
+				return new LOTRContainerMountInventory(entityplayer.inventory, LOTRReflection.getHorseInv(horse), horse);
+			}
+			else if (entity instanceof LOTREntityNPCRideable)
+			{
+				LOTREntityNPCRideable npc = (LOTREntityNPCRideable)entity;
+				if (npc.getMountInventory() != null)
+				{
+					return new LOTRContainerNPCMountInventory(entityplayer.inventory, npc.getMountInventory(), npc);
+				}
 			}
 		}
 		if (ID == GUI_ID_DOL_GULDUR_TABLE)
 		{
 			return new LOTRContainerDolGuldurTable(entityplayer.inventory, world, i, j, k);
+		}
+		if (ID == GUI_ID_GUNDABAD_TABLE)
+		{
+			return new LOTRContainerGundabadTable(entityplayer.inventory, world, i, j, k);
 		}
 		return null;
 	}
@@ -216,7 +230,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_HOBBIT_OVEN)
 		{
 			TileEntity oven = world.getTileEntity(i, j, k);
-			if (oven != null && oven instanceof LOTRTileEntityHobbitOven)
+			if (oven instanceof LOTRTileEntityHobbitOven)
 			{
 				return new LOTRGuiHobbitOven(entityplayer.inventory, (LOTRTileEntityHobbitOven)oven);
 			}
@@ -232,7 +246,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_TRADE)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTRTradeable)
+			if (entity instanceof LOTRTradeable)
 			{
 				return new LOTRGuiTrade(entityplayer.inventory, (LOTRTradeable)entity, world);
 			}
@@ -244,7 +258,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_ALLOY_FORGE)
 		{
 			TileEntity forge = world.getTileEntity(i, j, k);
-			if (forge != null && forge instanceof LOTRTileEntityAlloyForge)
+			if (forge instanceof LOTRTileEntityAlloyForge)
 			{
 				return new LOTRGuiAlloyForge(entityplayer.inventory, (LOTRTileEntityAlloyForge)forge);
 			}
@@ -256,7 +270,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_UNIT_TRADE)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTRUnitTradeable)
+			if (entity instanceof LOTRUnitTradeable)
 			{
 				return new LOTRGuiUnitTrade(entityplayer, (LOTRUnitTradeable)entity, world);
 			}
@@ -272,7 +286,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_GOLLUM)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTREntityGollum)
+			if (entity instanceof LOTREntityGollum)
 			{
 				return new LOTRGuiGollum(entityplayer.inventory, (LOTREntityGollum)entity);
 			}
@@ -310,7 +324,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_BARREL)
 		{
 			TileEntity barrel = world.getTileEntity(i, j, k);
-			if (barrel != null && barrel instanceof LOTRTileEntityBarrel)
+			if (barrel instanceof LOTRTileEntityBarrel)
 			{
 				return new LOTRGuiBarrel(entityplayer.inventory, (LOTRTileEntityBarrel)barrel);
 			}
@@ -318,7 +332,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_ARMOR_STAND)
 		{
 			TileEntity stand = world.getTileEntity(i, j, k);
-			if (stand != null && stand instanceof LOTRTileEntityArmorStand)
+			if (stand instanceof LOTRTileEntityArmorStand)
 			{
 				return new LOTRGuiArmorStand(entityplayer.inventory, (LOTRTileEntityArmorStand)stand);
 			}
@@ -330,7 +344,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_TRADE_INTERACT)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTRTradeable)
+			if (entity instanceof LOTRTradeable)
 			{
 				return new LOTRGuiTradeInteract((LOTREntityNPC)entity);
 			}
@@ -338,7 +352,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_UNIT_TRADE_INTERACT)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTRUnitTradeable)
+			if (entity instanceof LOTRUnitTradeable)
 			{
 				return new LOTRGuiUnitTradeInteract((LOTREntityNPC)entity);
 			}
@@ -346,7 +360,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_HIRED_INTERACT)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTREntityNPC)
+			if (entity instanceof LOTREntityNPC)
 			{
 				return new LOTRGuiHiredInteract((LOTREntityNPC)entity);
 			}
@@ -354,7 +368,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_HIRED_FARMER_INVENTORY)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTREntityNPC)
+			if (entity instanceof LOTREntityNPC)
 			{
 				LOTREntityNPC npc = (LOTREntityNPC)entity;
 				if (npc.hiredNPCInfo.isActive && npc.hiredNPCInfo.getHiringPlayer() == entityplayer && npc.hiredNPCInfo.getTask() == Task.FARMER)
@@ -370,7 +384,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_TRADE_UNIT_TRADE_INTERACT)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTRTradeable)
+			if (entity instanceof LOTRTradeable)
 			{
 				return new LOTRGuiTradeUnitTradeInteract((LOTREntityNPC)entity);
 			}
@@ -394,15 +408,28 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_MOUNT_INV)
 		{
 			Entity entity = world.getEntityByID(i);
-			if (entity != null && entity instanceof LOTREntityHorse)
+			int invSize = j;
+			if (entity instanceof LOTREntityHorse)
 			{
 				LOTREntityHorse horse = (LOTREntityHorse)entity;
-				return new LOTRGuiMountInventory(entityplayer.inventory, horse);
+				return new LOTRGuiMountInventory(entityplayer.inventory, new AnimalChest(horse.getCommandSenderName(), invSize), horse);
+			}
+			else if (entity instanceof LOTREntityNPCRideable)
+			{
+				LOTREntityNPCRideable npc = (LOTREntityNPCRideable)entity;
+				if (npc.getMountInventory() != null)
+				{
+					return new LOTRGuiNPCMountInventory(entityplayer.inventory, new AnimalChest(npc.getCommandSenderName(), invSize), npc);
+				}
 			}
 		}
 		if (ID == GUI_ID_DOL_GULDUR_TABLE)
 		{
 			return new LOTRGuiDolGuldurTable(entityplayer.inventory, world, i, j, k);
+		}
+		if (ID == GUI_ID_GUNDABAD_TABLE)
+		{
+			return new LOTRGuiGundabadTable(entityplayer.inventory, world, i, j, k);
 		}
 		return null;
 	}

@@ -29,8 +29,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class LOTRItemBanner extends Item
 {
-	public static String[] bannerTypes = {"gondor", "rohan", "mordor", "lothlorien", "mirkwood", "dunland", "urukHai", "durin", "angmar", "nearHarad", "highElf", "blueMountains", "ranger", "dolGuldur"};
-	public static LOTRFaction[] factions = {GONDOR, ROHAN, MORDOR, GALADHRIM, WOOD_ELF, DUNLAND, URUK_HAI, DWARF, ANGMAR, NEAR_HARAD, HIGH_ELF, BLUE_MOUNTAINS, RANGER_NORTH, DOL_GULDUR};
+	public static String[] bannerTypes = {"gondor", "rohan", "mordor", "lothlorien", "mirkwood", "dunland", "urukHai", "durin", "angmar", "nearHarad", "highElf", "blueMountains", "ranger", "dolGuldur", "gundabad"};
+	public static LOTRFaction[] factions = {GONDOR, ROHAN, MORDOR, GALADHRIM, WOOD_ELF, DUNLAND, URUK_HAI, DWARF, ANGMAR, NEAR_HARAD, HIGH_ELF, BLUE_MOUNTAINS, RANGER_NORTH, DOL_GULDUR, GUNDABAD};
 	@SideOnly(Side.CLIENT)
 	private IIcon[] bannerIcons;
 	
@@ -49,13 +49,18 @@ public class LOTRItemBanner extends Item
 		if (itemstack.getItem() instanceof LOTRItemBanner)
 		{
 			int i = itemstack.getItemDamage();
-			if (i < 0 || i >= factions.length)
-			{
-				i = 0;
-			}
-			return factions[i];
+			return getFaction(i);
 		}
 		return LOTRFaction.UNALIGNED;
+	}
+	
+	public static LOTRFaction getFaction(int i)
+	{
+		if (i < 0 || i >= factions.length)
+		{
+			i = 0;
+		}
+		return factions[i];
 	}
 	
 	public static int getSubtypeForFaction(LOTRFaction faction)
@@ -149,7 +154,7 @@ public class LOTRItemBanner extends Item
 					banner.setLocationAndAngles((double)i + 0.5F, (double)j, (double)k + 0.5F, 90F * (MathHelper.floor_double((double)(entityplayer.rotationYaw * 4F / 360F) + 0.5D) & 3), 0F);
 					if (world.checkNoEntityCollision(banner.boundingBox) && world.getCollidingBoundingBoxes(banner, banner.boundingBox).size() == 0 && !world.isAnyLiquid(banner.boundingBox))
 					{
-						banner.setBannerType(itemstack.getItemDamage());
+						banner.setBannerFaction(getFaction(itemstack));
 						banner.allowedPlayers[0] = entityplayer.getUniqueID();
 						world.spawnEntityInWorld(banner);
 						world.playSoundAtEntity(banner, Blocks.planks.stepSound.func_150496_b(), (Blocks.planks.stepSound.getVolume() + 1F) / 2F, Blocks.planks.stepSound.getPitch() * 0.8F);
@@ -171,7 +176,7 @@ public class LOTRItemBanner extends Item
 			LOTREntityBannerWall banner = new LOTREntityBannerWall(world, i, j, k, l);
             if (world.checkNoEntityCollision(banner.boundingBox) && !world.isAnyLiquid(banner.boundingBox) && banner.onValidSurface())
             {
-				banner.setBannerType(itemstack.getItemDamage());
+            	banner.setBannerFaction(getFaction(itemstack));
                 if (!world.isRemote)
                 {
                     world.spawnEntityInWorld(banner);

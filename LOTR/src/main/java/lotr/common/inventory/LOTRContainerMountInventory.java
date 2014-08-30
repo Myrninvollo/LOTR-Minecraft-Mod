@@ -12,17 +12,17 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class LOTRContainerMountInventory extends ContainerHorseInventory
 {
-	public LOTRContainerMountInventory(IInventory playerInv, final LOTREntityHorse horse)
+	public LOTRContainerMountInventory(IInventory playerInv, final IInventory horseInv, final LOTREntityHorse horse)
     {
-		super(playerInv, LOTRReflection.getHorseInv(horse), horse);
+		super(playerInv, horseInv, horse);
 		
-		List slots = new ArrayList(inventorySlots);
+		List<Slot> slots = new ArrayList(inventorySlots);
 		inventorySlots.clear();
+		inventoryItemStacks.clear();
+
+		addSlotToContainer(slots.get(0));
 		
-		Slot armorSlot = (Slot)slots.get(1);
-		
-		inventorySlots.add(slots.get(0));
-		
+		Slot armorSlot = slots.get(1);
 		addSlotToContainer(new Slot(armorSlot.inventory, armorSlot.slotNumber, armorSlot.xDisplayPosition, armorSlot.yDisplayPosition)
         {
             @Override
@@ -39,10 +39,9 @@ public class LOTRContainerMountInventory extends ContainerHorseInventory
             }
         });
 		
-		for (int l = 0; l <= 1; l++)
+		for (int i = 2; i < slots.size(); i++)
 		{
-			slots.remove(0);
+			addSlotToContainer(slots.get(i));
 		}
-		inventorySlots.addAll(slots);
     }
 }

@@ -33,7 +33,7 @@ public class LOTRRenderOrc extends LOTRRenderBiped
     }
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
 		LOTREntityOrc orc = (LOTREntityOrc)entity;
         if (entity instanceof LOTREntityUrukHai)

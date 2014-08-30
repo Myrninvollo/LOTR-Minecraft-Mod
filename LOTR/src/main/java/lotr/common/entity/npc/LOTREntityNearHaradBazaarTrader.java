@@ -21,8 +21,7 @@ public class LOTREntityNearHaradBazaarTrader extends LOTREntityNearHaradrim impl
 		super(world);
 		heldItem = item;
 		
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 
 		if (!worldObj.isRemote)
 		{

@@ -30,7 +30,7 @@ import cpw.mods.fml.common.eventhandler.Event;
 
 public class LOTRSpawnerNPCs
 {
-	private static int MAX_SPAWN_COUNT = 100;
+	private static int MAX_SPAWN_COUNT = 130;
 	
     private static HashMap eligibleChunksForSpawning = new HashMap();
 	

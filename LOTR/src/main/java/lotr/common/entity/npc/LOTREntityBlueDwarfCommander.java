@@ -18,8 +18,7 @@ public class LOTREntityBlueDwarfCommander extends LOTREntityBlueDwarf implements
 	public LOTREntityBlueDwarfCommander(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 	}
 	
 	@Override

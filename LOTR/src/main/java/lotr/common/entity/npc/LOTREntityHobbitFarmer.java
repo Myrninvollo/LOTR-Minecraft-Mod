@@ -23,7 +23,7 @@ public class LOTREntityHobbitFarmer extends LOTREntityHobbit implements LOTRTrad
 		super(world);
 		removeTasksOfType(EntityAIPanic.class);
 		tasks.addTask(2, new LOTREntityAIAttackOnCollide(this, 1.2D, false));
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 
 		if (!worldObj.isRemote)
 		{

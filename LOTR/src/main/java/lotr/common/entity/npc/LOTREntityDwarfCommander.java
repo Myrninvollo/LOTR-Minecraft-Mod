@@ -18,8 +18,7 @@ public class LOTREntityDwarfCommander extends LOTREntityDwarf implements LOTRUni
 	public LOTREntityDwarfCommander(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 	}
 	
 	@Override

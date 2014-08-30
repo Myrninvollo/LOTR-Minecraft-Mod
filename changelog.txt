@@ -1,7 +1,9 @@
 Public Beta 20
 
++ Added mini-quests
++ Added the Red Book
 + Added Middle-earth Shields as a replacement for capes
-+ Added many new types of horse armour, including upgraded versions of vanilla horse armour with better protection
++ Added several new types of horse armour, including upgraded versions of vanilla horse armour with better protection
 + Added Angmar and Mordor warg armour
 + Added armour on mounts that spawn naturally and hired mounts
 + Added lore for items dropped by NPCs that says who their previous owner was
@@ -9,6 +11,7 @@ Public Beta 20
 + Added automatic enpouchment of various loot when an NPC drops a pouch
 + Added the chance for NPCs to drop pouches when killed indirectly by a player, e.g. by hired units, in addition to direct kills
 + Added filtering options for waypoints on the Middle-earth map
++ Added more realistic water colours throughout Middle-earth
 + Added new realistic loading functionality to crossbows
 + Added enchantability to spears
 + Added a system of alcohol tolerance
@@ -21,26 +24,33 @@ Public Beta 20
 + Added Dol Guldur equipment
 + Added Dol Guldur Brick blocks, slabs, stairs, and walls, and cracked variants
 + Added Gulduril Brick versions of Dol Guldur Brick
++ Added Dol Guldur Towers and Altars
++ Added the ability to tame and ride Mirkwood Spiders and Mordor Spiders
 + Added Woodland Elk
 + Added hireable Wood-elven Elk Cavalry
 + Added a Ranger crafting table and banner
 + Added Ranger banner bearers
 + Added Arnor Brick blocks, slabs, stairs, and walls, including mossy, cracked, and carved variants
 + Added Uruk Brick blocks, slabs, stairs, and walls
-+ Added an item and crafting recipe for the orc skull staff
-+ Added the option to set hired NPCs' guard range to 0 in order to keep them stationed
++ Added a Gundabad crafting table and banner
++ Added Gundabad banner bearers
++ Added an item and crafting recipes for the orc skull staff
++ Added the option to set hired NPCs' guard range as low as 1 in order to keep them stationed
 + Added a separate 'Gondor Tower Guard' NPC that wears the winged helmet
 + Added travelling merchants of Near Harad
 + Added Near Harad pyramids
 + Added two-headed trolls
-+ Added straw beds
-+ Added fallen leaves
 + Added feet to the hobbit model
++ Added Dalish Pastries
++ Added fallen leaves
++ Added straw beds
++ Added thatch flooring
 + Added a rendered box to show the protection range of banners in debug mode
 + Added hover text for Middle-earth achievements in the chat screen
 + Added forests on the eastern side of the Ered Luin, and a missing arm of the mountains
++ Added a much-loved character into the world
 
-* Changed all mounts in the mod to be more like horses, including taming behaviour and jumping
+* Changed all mounts in the mod to be more like horses, including taming behaviour, jumping, and inventories
 * Changed horse armour recipes to use leather instead of wool
 * LOTR horses can no longer wear vanilla horse armour
 * LOTR horses are now bred with apples
@@ -58,25 +68,37 @@ Public Beta 20
 * Changed the starting number of custom waypoints to 5
 * Fixed the Serbian translation not working
 * Fixed Dunlending Trident fishing depleting the hunger bar very quickly
+* Fixed Fangorn plants placed in flower pots all appearing as Tears of Yavanna
+* Made mithril ore rarer
 * Thrown spears now carry the NBT-data of the spear item
 * Throwing axes can no longer be used for melee combat
+* Fixed NPCs in guard mode not retaliating when attacked by an enemy outside their guard range
 * Fixed Rangers' capes not becoming invisible when they are in stealth mode
+* Fixed Wood-elf warriors being able to teleport like Wood-elf scouts
 * Reduced the chance of Shirriff raids
 * Shirriffs now only raid enemies at night
 * Invasions are now announced to all nearby enemy players
 * Actually fixed dwarven merchants not spawning
 * Travelling traders will no longer attempt to spawn near enemy players
+* Reduced the amount of goods displayed in Near Harad bazaars
 * Desert scorpions in Harad spawn above ground less often
 * Peaceful mode now has no effect on the spawning of evil NPCs
+* Gundabad orcs can now spawn with axes and pickaxes
+* Gundabad archers can now spawn with wooden bows and iron crossbows
+* Killing Gundabad orcs no longer increases Hobbit alignment
+* Fixed being able to break glass with plates when the glass is protected by a banner
+* Fixed being able to use buckets inside banner protection
 * Fixed the alignment command message specifying the wrong player name
 * Fixed the special hobbit pipe crafting recipes
 * Changed Gondor brick textures
 * Improved Olog-hai and banner textures
+* Fixed the random skin lists not being reloaded when the texture pack is changed in-game
 
 - Removed Middle-earth capes
 - Removed separate warg armour items
 - Removed crafting recipes for vanilla horse armour
 - Removed invasions from the Shire
+- Removed Elanor and Niphredil flowers from Lindon
 
 Public Beta 19.2
 

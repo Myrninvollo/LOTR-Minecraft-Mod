@@ -16,6 +16,7 @@ import java.util.zip.ZipFile;
 import lotr.common.LOTRMod;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.input.BOMInputStream;
 
 import com.google.common.base.Charsets;
 
@@ -94,7 +95,7 @@ public class LOTRLang
 				newLang.createNewFile();
 				PrintStream writer = new PrintStream(new FileOutputStream(newLang), true, Charsets.UTF_8.name());
 
-				BufferedReader en_US_reader = new BufferedReader(new InputStreamReader(zip.getInputStream(en_US), Charsets.UTF_8.name()));
+				BufferedReader en_US_reader = new BufferedReader(new InputStreamReader(new BOMInputStream(zip.getInputStream(en_US)), Charsets.UTF_8.name()));
 				String en_US_line = "";
 				while ((en_US_line = en_US_reader.readLine()) != null)
 				{
@@ -108,7 +109,7 @@ public class LOTRLang
 						String en_US_key = en_US_line.substring(0, i1);
 						boolean foundKey = false;
 						
-						BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(oldLang), Charsets.UTF_8.name()));
+						BufferedReader reader = new BufferedReader(new InputStreamReader(new BOMInputStream(new FileInputStream(oldLang)), Charsets.UTF_8.name()));
 						String line = "";
 						while ((line = reader.readLine()) != null)
 						{
@@ -146,7 +147,7 @@ public class LOTRLang
 	
 	private static void copyZipEntryToFile(ZipFile zip, ZipEntry entry, File copy) throws IOException
 	{
-		BufferedReader reader = new BufferedReader(new InputStreamReader(zip.getInputStream(entry), Charsets.UTF_8.name()));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(new BOMInputStream(zip.getInputStream(entry)), Charsets.UTF_8.name()));
 		PrintStream writer = new PrintStream(new FileOutputStream(copy), true, Charsets.UTF_8.name());
 		String line = "";
 		while ((line = reader.readLine()) != null)

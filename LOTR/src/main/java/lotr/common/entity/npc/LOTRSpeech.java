@@ -5,15 +5,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.input.BOMInputStream;
+
+import scala.actors.threadpool.Arrays;
+import sun.management.FileSystem;
 
 import com.google.common.base.Charsets;
 
@@ -29,7 +29,7 @@ import cpw.mods.fml.common.ModContainer;
 
 public class LOTRSpeech
 {
-	private static Map allSpeechBanks = new HashMap();
+	private static Map<String, String[]> allSpeechBanks = new HashMap();
 	private static Random rand = new Random();
 	
 	public static void loadAllSpeechBanks()
@@ -56,7 +56,7 @@ public class LOTRSpeech
 						try
 						{
 							s = s.substring(0, i);
-							BufferedReader reader = new BufferedReader(new InputStreamReader(zip.getInputStream(entry), Charsets.UTF_8.name()));
+							BufferedReader reader = new BufferedReader(new InputStreamReader(new BOMInputStream(zip.getInputStream(entry)), Charsets.UTF_8.name()));
 							speechBankNamesAndReaders.put(s, reader);
 						}
 						catch (Exception e)
@@ -70,9 +70,12 @@ public class LOTRSpeech
 			else
 			{
 				File speechBankDir = new File(LOTRMod.class.getResource("/assets/lotr/speech").toURI());
-				for (File file: speechBankDir.listFiles())
+				Collection<File> subfiles = FileUtils.listFiles(speechBankDir, null, true);
+				for (File subfile : subfiles)
 				{
-					String s = file.getName();
+					String s = subfile.getPath();
+					s = s.substring(speechBankDir.getPath().length() + 1);
+					
 					int i = s.indexOf(".txt");
 					if (i < 0)
 					{
@@ -82,7 +85,7 @@ public class LOTRSpeech
 					try
 					{
 						s = s.substring(0, i);
-						BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charsets.UTF_8.name()));
+						BufferedReader reader = new BufferedReader(new InputStreamReader(new BOMInputStream(new FileInputStream(subfile)), Charsets.UTF_8.name()));
 						speechBankNamesAndReaders.put(s, reader);
 					}
 					catch (Exception e)
@@ -91,6 +94,7 @@ public class LOTRSpeech
 						e.printStackTrace();
 					}
 				}
+
 			}
 		}
 		catch (Exception e)
@@ -149,13 +153,15 @@ public class LOTRSpeech
 		}
 	}
 	
-	public static String[] getSpeechBank(String speechBankName)
+	private static String[] getSpeechBank(String bankName)
 	{
-		if (allSpeechBanks.get(speechBankName) != null && allSpeechBanks.get(speechBankName) instanceof String[])
+		bankName = bankName.replace("/", File.separator);
+		String[] bank = allSpeechBanks.get(bankName);
+		if (bank != null)
 		{
-			return (String[])allSpeechBanks.get(speechBankName);
+			return bank;
 		}
-		return new String[] {"Speech bank " + speechBankName + " could not be found"};
+		return new String[] {"Speech bank " + bankName + " could not be found"};
 	}
 	
 	public static String getRandomSpeech(String speechBankName)
@@ -166,22 +172,43 @@ public class LOTRSpeech
 	
 	public static IChatComponent getNamedSpeech(EntityLivingBase entity, String speechBankName)
 	{
-		String s = EnumChatFormatting.YELLOW + "<" + entity.getCommandSenderName() + ">" + EnumChatFormatting.WHITE + " " + getRandomSpeech(speechBankName);
-		return new ChatComponentText(s);
+		return getNamedSpeechForPlayer(entity, speechBankName, null);
 	}
-
+	
 	public static IChatComponent getNamedSpeechForPlayer(EntityLivingBase entity, String speechBankName, EntityPlayer entityplayer)
 	{
-		String s = EnumChatFormatting.YELLOW + "<" + entity.getCommandSenderName() + ">" + EnumChatFormatting.WHITE + " " + getRandomSpeech(speechBankName);
-		s = s.replace("#", entityplayer.getCommandSenderName());
+		return getNamedSpeechForPlayer(entity, speechBankName, entityplayer, null, null);
+	}
+
+	public static IChatComponent getNamedSpeechForPlayer(EntityLivingBase entity, String speechBankName, EntityPlayer entityplayer, String location, String objective)
+	{
+		String name = entity.getCommandSenderName();
+		String message = getSpeechUnnamed(speechBankName, entityplayer, location, objective);
+		
+		String s = EnumChatFormatting.YELLOW + "<" + name + ">" + EnumChatFormatting.WHITE + " " + message;
 		return new ChatComponentText(s);
 	}
 	
-	public static IChatComponent getNamedLocationSpeechForPlayer(EntityLivingBase entity, String locationName, String speechBankName, EntityPlayer entityplayer)
+	public static String getSpeechUnnamed(String speechBankName, EntityPlayer entityplayer, String location, String objective)
 	{
-		String s = EnumChatFormatting.YELLOW + "<" + entity.getCommandSenderName() + ">" + EnumChatFormatting.WHITE + " " + getRandomSpeech(speechBankName);
-		s = s.replace("#", entityplayer.getCommandSenderName()).replace("@", locationName);
-		return new ChatComponentText(s);
+		String s = getRandomSpeech(speechBankName);
+		
+		if (entityplayer != null)
+		{
+			s = s.replace("#", entityplayer.getCommandSenderName());
+		}
+		
+		if (location != null)
+		{
+			s = s.replace("@", location);
+		}
+		
+		if (objective != null)
+		{
+			s = s.replace("$", objective);
+		}
+		
+		return s;
 	}
 	
 	public static void messageAllPlayers(IChatComponent message)

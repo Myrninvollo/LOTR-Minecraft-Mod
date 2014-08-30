@@ -1,9 +1,12 @@
 package lotr.common.block;
 
+import java.util.Random;
+
 import lotr.common.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -40,4 +43,20 @@ public class LOTRBlockDolGuldurTable extends LOTRBlockCraftingTable
         tableIcons[0] = iconregister.registerIcon(getTextureName() + "_side");
 		tableIcons[1] = iconregister.registerIcon(getTextureName() + "_top");
     }
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(World world, int i, int j, int k, Random random)
+	{
+		if (random.nextInt(20) == 0)
+		{
+			for (int l = 0; l < 16; l++)
+			{
+				double d = i + 0.25D + (double)(random.nextFloat() * 0.5F);
+				double d1 = j + 1D;
+				double d2 = k + 0.25D + (double)(random.nextFloat() * 0.5F);
+				LOTRMod.proxy.spawnParticle("morgulPortal", d, d1, d2, 0D, 0D, 0D);
+			}
+		}
+	}
 }

@@ -2,8 +2,11 @@ package lotr.client.render.entity;
 
 import java.util.*;
 
+import org.apache.commons.lang3.StringUtils;
+
 import lotr.common.LOTRMod;
 import lotr.common.entity.animal.LOTREntityHorse;
+import lotr.common.entity.npc.LOTRNPCMount;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelHorse;
 import net.minecraft.client.renderer.entity.RenderHorse;
@@ -48,12 +51,12 @@ public class LOTRRenderHorse extends RenderHorse
 	
 	private static Map layeredMountTextures = new HashMap();
 	
-	public static ResourceLocation getLayeredMountTexture(LOTREntityHorse mount, ResourceLocation mountSkin)
+	public static ResourceLocation getLayeredMountTexture(LOTRNPCMount mount, ResourceLocation mountSkin)
 	{
 		String skinPath = mountSkin.toString();
         String armorPath = mount.getMountArmorTexture();
 
-        if (armorPath == null)
+        if (armorPath == null || StringUtils.isBlank(armorPath))
         {
         	return mountSkin;
         }

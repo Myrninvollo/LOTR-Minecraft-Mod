@@ -45,7 +45,7 @@ public class LOTRRenderDwarf extends LOTRRenderBiped
     }
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
         LOTREntityDwarf dwarf = (LOTREntityDwarf)entity;
         
@@ -74,7 +74,7 @@ public class LOTRRenderDwarf extends LOTRRenderBiped
     }
 	
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
+	public int shouldRenderPass(EntityLivingBase entity, int pass, float f)
     {
 		LOTREntityDwarf dwarf = (LOTREntityDwarf)entity;
 		if (pass == 1 && dwarf.getClass() == dwarf.familyInfo.marriageEntityClass && dwarf.getEquipmentInSlot(4) != null && dwarf.getEquipmentInSlot(4).getItem() == dwarf.familyInfo.marriageRing)

@@ -41,7 +41,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
+public abstract class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 {
 	protected EntityAIBase rangedAttackAI = createElfRangedAttackAI();
 	protected EntityAIBase meleeAttackAI = createElfMeleeAttackAI();
@@ -63,10 +63,7 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
         tasks.addTask(7, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
         tasks.addTask(8, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
         tasks.addTask(9, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(4);
+        addTargetTasks(true);
 	}
 	
 	public EntityAIBase createElfRangedAttackAI()
@@ -78,15 +75,7 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 	{
 		return new LOTREntityAIAttackOnCollide(this, 1.5D, false);
 	}
-	
-	@Override
-	public LOTRNPCMount createMountToRide()
-	{
-		LOTREntityHorse horse = (LOTREntityHorse)super.createMountToRide();
-		horse.setMountArmor(new ItemStack(LOTRMod.horseArmorGaladhrim));
-		return horse;
-	}
-	
+
 	@Override
 	protected void entityInit()
 	{
@@ -102,12 +91,6 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(30D);
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2D);
     }
-	
-	@Override
-	public LOTRFaction getFaction()
-	{
-		return LOTRFaction.GALADHRIM;
-	}
 	
 	public String getElfName()
 	{
@@ -153,6 +136,10 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 		return getElfName();
 	}
 	
+	public abstract Item getElfSwordId();
+	
+	public abstract Item getElfBowId();
+	
 	@Override
 	public void onAttackModeChange(AttackMode mode)
 	{
@@ -178,16 +165,6 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 		}
 	}
 	
-	public Item getElfSwordId()
-	{
-		return LOTRMod.swordMallorn;
-	}
-	
-	public Item getElfBowId()
-	{
-		return LOTRMod.mallornBow;
-	}
-	
 	@Override
     public void attackEntityWithRangedAttack(EntityLivingBase target, float f)
     {
@@ -195,18 +172,6 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
         playSound("random.bow", 1F, 1F / (rand.nextFloat() * 0.4F + 0.8F));
         worldObj.spawnEntityInWorld(arrow);
     }
-	
-	@Override
-	protected LOTRAchievement getKillAchievement()
-	{
-		return LOTRAchievement.killElf;
-	}
-	
-	@Override
-	public int getAlignmentBonus()
-	{
-		return LOTRAlignmentValues.Bonuses.GALADHRIM;
-	}
 	
 	@Override
 	protected void dropFewItems(boolean flag, int i)
@@ -230,27 +195,11 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 		
 		if (flag)
 		{
-			int dropChance = 60 - i * 12;
-			if (dropChance < 1)
-			{
-				dropChance = 1;
-			}
+			int dropChance = 40 - i * 8;
+			dropChance = Math.max(dropChance, 1);
 			if (rand.nextInt(dropChance) == 0)
 			{
 				dropItem(LOTRMod.lembas, 1);
-			}
-			
-			if (!(this instanceof LOTREntityWoodElf))
-			{
-				dropChance = 20 - i * 4;
-				if (dropChance < 1)
-				{
-					dropChance = 1;
-				}
-				if (rand.nextInt(dropChance) == 0)
-				{
-					entityDropItem(new ItemStack(LOTRMod.mugMiruvor, 1, 1 + rand.nextInt(3)), 0F);
-				}
 			}
 		}
 	}
@@ -265,30 +214,7 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 		return false;
 	}
 	
-	public boolean canElfSpawnHere()
-	{
-		int i = MathHelper.floor_double(posX);
-		int j = MathHelper.floor_double(boundingBox.minY);
-		int k = MathHelper.floor_double(posZ);
-		if (j > 62 && worldObj.getBlock(i, j - 1, k) == Blocks.grass)
-		{
-			BiomeGenBase biome = worldObj.getBiomeGenForCoords(i, k);
-			return biome instanceof LOTRBiomeGenLothlorien;
-		}
-		return false;
-	}
-	
-	@Override
-	public float getBlockPathWeight(int i, int j, int k)
-	{
-		float f = 0F;
-		BiomeGenBase biome = worldObj.getBiomeGenForCoords(i, k);
-		if (biome instanceof LOTRBiomeGenLothlorien)
-		{
-			f += 20F;
-		}
-		return f;
-	}
+	public abstract boolean canElfSpawnHere();
 	
 	@Override
 	public void addPotionEffect(PotionEffect effect)
@@ -303,11 +229,12 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 		}
 	}
 	
-	public boolean shouldRenderHair()
+	@Override
+	public boolean shouldRenderNPCHair()
 	{
-		return true;
+		return getEquipmentInSlot(4) == null;
 	}
-	
+
 	@Override
 	public String getLivingSound()
 	{
@@ -325,22 +252,5 @@ public class LOTREntityElf extends LOTREntityNPC implements IRangedAttackMob
 	public String getAttackSound()
 	{
 		return familyInfo.isNPCMale() ? "lotr:elf.male.attack" : super.getAttackSound();
-	}
-	
-	@Override
-	public String getSpeechBank(EntityPlayer entityplayer)
-	{
-		if (isFriendly(entityplayer))
-		{
-			if (hiredNPCInfo.getHiringPlayer() == entityplayer)
-			{
-				return "elf_hired";
-			}
-			return "elf_friendly";
-		}
-		else
-		{
-			return "elf_hostile";
-		}
 	}
 }

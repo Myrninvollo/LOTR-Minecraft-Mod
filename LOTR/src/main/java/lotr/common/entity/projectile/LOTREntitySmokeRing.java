@@ -8,6 +8,8 @@ import net.minecraft.world.World;
 
 public class LOTREntitySmokeRing extends EntityThrowable
 {
+	public static int MAX_AGE = 300;
+	
 	public LOTREntitySmokeRing(World world)
 	{
 		super(world);
@@ -79,7 +81,7 @@ public class LOTREntitySmokeRing extends EntityThrowable
 		if (!worldObj.isRemote)
 		{
 			setSmokeAge(getSmokeAge() + 1);
-			if (getSmokeAge() >= 200)
+			if (getSmokeAge() >= MAX_AGE)
 			{
 				setDead();
 			}

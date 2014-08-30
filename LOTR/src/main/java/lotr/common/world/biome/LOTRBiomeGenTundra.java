@@ -79,6 +79,6 @@ public class LOTRBiomeGenTundra extends LOTRBiome
 	@Override
 	public int spawnCountMultiplier()
 	{
-		return 2;
+		return 4;
 	}
 }

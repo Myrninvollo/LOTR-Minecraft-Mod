@@ -194,15 +194,15 @@ public class LOTRWorldGenNearHaradBazaar extends LOTRWorldGenStructureBase2
 		placeBarrel(world, random, 3, 1, 1, 5, getRandomDrink(random));
 		placeBarrel(world, random, 3, 1, 3, 5, getRandomDrink(random));
 		
-		placeMug(world, random, 3, 2, 0, random.nextInt(4), getRandomDrink(random));
-		placeMug(world, random, 2, 2, 0, random.nextInt(4), getRandomDrink(random));
-		placeMug(world, random, 1, 2, 0, random.nextInt(4), getRandomDrink(random));
-		placeMug(world, random, 0, 2, 1, random.nextInt(4), getRandomDrink(random));
-		placeMug(world, random, 0, 2, 2, random.nextInt(4), getRandomDrink(random));
-		placeMug(world, random, 0, 2, 3, random.nextInt(4), getRandomDrink(random));
-		placeMug(world, random, 1, 2, 4, random.nextInt(4), getRandomDrink(random));
-		placeMug(world, random, 2, 2, 4, random.nextInt(4), getRandomDrink(random));
-		placeMug(world, random, 3, 2, 4, random.nextInt(4), getRandomDrink(random));
+		placeMug_Harad(world, random, 3, 2, 0, random.nextInt(4), getRandomDrink(random));
+		placeMug_Harad(world, random, 2, 2, 0, random.nextInt(4), getRandomDrink(random));
+		placeMug_Harad(world, random, 1, 2, 0, random.nextInt(4), getRandomDrink(random));
+		placeMug_Harad(world, random, 0, 2, 1, random.nextInt(4), getRandomDrink(random));
+		placeMug_Harad(world, random, 0, 2, 2, random.nextInt(4), getRandomDrink(random));
+		placeMug_Harad(world, random, 0, 2, 3, random.nextInt(4), getRandomDrink(random));
+		placeMug_Harad(world, random, 1, 2, 4, random.nextInt(4), getRandomDrink(random));
+		placeMug_Harad(world, random, 2, 2, 4, random.nextInt(4), getRandomDrink(random));
+		placeMug_Harad(world, random, 3, 2, 4, random.nextInt(4), getRandomDrink(random));
 		
 		LOTREntityNPC drinksTrader = new LOTREntityNearHaradDrinksTrader(world);
 		spawnNPCAndSetHome(drinksTrader, world, 2, 1, 2, 4);
@@ -215,33 +215,57 @@ public class LOTRWorldGenNearHaradBazaar extends LOTRWorldGenStructureBase2
 		LOTREntityNPC mineralsTrader = new LOTREntityNearHaradMineralsTrader(world);
 		spawnNPCAndSetHome(mineralsTrader, world, 10, 1, 2, 4);
 		
-		placeFlowerPot(world, 3, 2, 8, getRandomPlant(random));
-		placeFlowerPot(world, 2, 2, 8, getRandomPlant(random));
-		placeFlowerPot(world, 1, 2, 8, getRandomPlant(random));
-		placeFlowerPot(world, 0, 2, 9, getRandomPlant(random));
-		placeFlowerPot(world, 0, 2, 10, getRandomPlant(random));
-		placeFlowerPot(world, 0, 2, 11, getRandomPlant(random));
-		placeFlowerPot(world, 1, 2, 12, getRandomPlant(random));
-		placeFlowerPot(world, 2, 2, 12, getRandomPlant(random));
-		placeFlowerPot(world, 3, 2, 12, getRandomPlant(random));
+		placeFlowerPot_Harad(world, random, 3, 2, 8, getRandomPlant(random));
+		placeFlowerPot_Harad(world, random, 2, 2, 8, getRandomPlant(random));
+		placeFlowerPot_Harad(world, random, 1, 2, 8, getRandomPlant(random));
+		placeFlowerPot_Harad(world, random, 0, 2, 9, getRandomPlant(random));
+		placeFlowerPot_Harad(world, random, 0, 2, 10, getRandomPlant(random));
+		placeFlowerPot_Harad(world, random, 0, 2, 11, getRandomPlant(random));
+		placeFlowerPot_Harad(world, random, 1, 2, 12, getRandomPlant(random));
+		placeFlowerPot_Harad(world, random, 2, 2, 12, getRandomPlant(random));
+		placeFlowerPot_Harad(world, random, 3, 2, 12, getRandomPlant(random));
 		
 		LOTREntityNPC plantsTrader = new LOTREntityNearHaradPlantsTrader(world);
 		spawnNPCAndSetHome(plantsTrader, world, 2, 1, 10, 4);
 		
-		placePlateWithCertainty(world, 11, 2, 8, random, LOTRFoods.NEAR_HARAD);
-		placePlateWithCertainty(world, 10, 2, 8, random, LOTRFoods.NEAR_HARAD);
-		placePlateWithCertainty(world, 9, 2, 8, random, LOTRFoods.NEAR_HARAD);
-		placePlateWithCertainty(world, 12, 2, 9, random, LOTRFoods.NEAR_HARAD);
-		placePlateWithCertainty(world, 12, 2, 10, random, LOTRFoods.NEAR_HARAD);
-		placePlateWithCertainty(world, 12, 2, 11, random, LOTRFoods.NEAR_HARAD);
-		placePlateWithCertainty(world, 9, 2, 12, random, LOTRFoods.NEAR_HARAD);
-		placePlateWithCertainty(world, 10, 2, 12, random, LOTRFoods.NEAR_HARAD);
-		placePlateWithCertainty(world, 11, 2, 12, random, LOTRFoods.NEAR_HARAD);
+		placePlateWithCertainty_Harad(world, 11, 2, 8, random, LOTRFoods.NEAR_HARAD);
+		placePlateWithCertainty_Harad(world, 10, 2, 8, random, LOTRFoods.NEAR_HARAD);
+		placePlateWithCertainty_Harad(world, 9, 2, 8, random, LOTRFoods.NEAR_HARAD);
+		placePlateWithCertainty_Harad(world, 12, 2, 9, random, LOTRFoods.NEAR_HARAD);
+		placePlateWithCertainty_Harad(world, 12, 2, 10, random, LOTRFoods.NEAR_HARAD);
+		placePlateWithCertainty_Harad(world, 12, 2, 11, random, LOTRFoods.NEAR_HARAD);
+		placePlateWithCertainty_Harad(world, 9, 2, 12, random, LOTRFoods.NEAR_HARAD);
+		placePlateWithCertainty_Harad(world, 10, 2, 12, random, LOTRFoods.NEAR_HARAD);
+		placePlateWithCertainty_Harad(world, 11, 2, 12, random, LOTRFoods.NEAR_HARAD);
 		
 		LOTREntityNPC foodTrader = new LOTREntityNearHaradFoodTrader(world);
 		spawnNPCAndSetHome(foodTrader, world, 10, 1, 10, 4);
 		
 		return true;
+	}
+	
+	private void placeMug_Harad(World world, Random random, int i, int j, int k, int direction, Item drink)
+	{
+		if (random.nextInt(4) == 0)
+		{
+			placeMug(world, random, i, j, k, direction, drink);
+		}
+	}
+	
+	protected void placeFlowerPot_Harad(World world, Random random, int i, int j, int k, ItemStack itemstack)
+	{
+		if (random.nextInt(4) == 0)
+		{
+			placeFlowerPot(world, i, j, k, itemstack);
+		}
+	}
+	
+	private void placePlateWithCertainty_Harad(World world, int i, int j, int k, Random random, LOTRFoods foodList)
+	{
+		if (random.nextInt(4) == 0)
+		{
+			placePlateWithCertainty(world, i, j, k, random, foodList);
+		}
 	}
 	
 	private Item getRandomDrink(Random random)

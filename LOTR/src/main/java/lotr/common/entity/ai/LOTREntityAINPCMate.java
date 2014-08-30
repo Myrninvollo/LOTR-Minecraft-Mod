@@ -56,7 +56,7 @@ public class LOTREntityAINPCMate extends EntityAIBase
         theNPC.getLookHelper().setLookPositionWithEntity(theSpouse, 10F, (float)theNPC.getVerticalFaceSpeed());
         theNPC.getNavigator().tryMoveToEntityLiving(theSpouse, moveSpeed);
         spawnBabyDelay++;
-		if (spawnBabyDelay % 10 == 0)
+		if (spawnBabyDelay % 20 == 0)
 		{
 			theNPC.spawnHearts();
 		}
@@ -82,6 +82,7 @@ public class LOTREntityAINPCMate extends EntityAIBase
         
         LOTREntityNPC maleParent = theNPC.familyInfo.isNPCMale() ? theNPC : theSpouse;
         LOTREntityNPC femaleParent = theNPC.familyInfo.isNPCMale() ? theSpouse : theNPC;
+        
 		baby.createNPCChildName(maleParent, femaleParent);
 		baby.onSpawnWithEgg(null);
 		theNPC.familyInfo.setMaxBreedingDelay();
@@ -92,10 +93,7 @@ public class LOTREntityAINPCMate extends EntityAIBase
 		theWorld.spawnEntityInWorld(baby);
 		theNPC.familyInfo.children++;
 		theSpouse.familyInfo.children++;
-		for (int i = 0; i < 7; i++)
-		{
-			theNPC.spawnHearts();
-			theSpouse.spawnHearts();
-		}
+		theNPC.spawnHearts();
+		theSpouse.spawnHearts();
     }
 }

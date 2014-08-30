@@ -26,7 +26,7 @@ public class LOTREntityGondorBlacksmith extends LOTREntityGondorMan implements L
 	public LOTREntityGondorBlacksmith(World world)
 	{
 		super(world);
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		
 		if (!worldObj.isRemote)
 		{

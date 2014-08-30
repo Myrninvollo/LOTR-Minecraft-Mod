@@ -64,6 +64,8 @@ public class LOTRTeleporter extends Teleporter
 					ItemStack item = new ItemStack(LOTRMod.pouch, 1, LOTRItemPouch.getRandomPouchSize(world.rand));
 					chest.setInventorySlotContents(world.rand.nextInt(chest.getSizeInventory()), item);
 				}
+				
+				chest.setInventorySlotContents(world.rand.nextInt(chest.getSizeInventory()), new ItemStack(LOTRMod.redBook));
 			}
 		}
     }

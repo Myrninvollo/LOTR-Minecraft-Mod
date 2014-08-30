@@ -20,6 +20,6 @@ public class LOTRBiomeGenAngmarMountains extends LOTRBiomeGenAngmar
 	@Override
 	public int spawnCountMultiplier()
 	{
-		return 2;
+		return super.spawnCountMultiplier() * 2;
 	}
 }

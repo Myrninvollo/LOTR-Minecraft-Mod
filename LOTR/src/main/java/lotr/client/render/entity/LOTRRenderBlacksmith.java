@@ -21,13 +21,13 @@ public class LOTRRenderBlacksmith extends LOTRRenderBiped
     }
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
 		return skin;
 	}
 
 	@Override
-    protected int shouldRenderPass(EntityLivingBase entity, int pass, float f)
+	public int shouldRenderPass(EntityLivingBase entity, int pass, float f)
     {
 		if (pass == 1)
 		{

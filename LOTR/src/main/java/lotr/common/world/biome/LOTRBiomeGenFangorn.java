@@ -153,4 +153,10 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 	{
 		return 0.25F;
 	}
+	
+	@Override
+	public int spawnCountMultiplier()
+	{
+		return 3;
+	}
 }

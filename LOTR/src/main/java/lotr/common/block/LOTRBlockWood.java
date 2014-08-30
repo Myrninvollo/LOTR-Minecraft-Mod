@@ -2,8 +2,7 @@ package lotr.common.block;
 
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRLevelData;
-import lotr.common.entity.npc.LOTREntityElfWarrior;
-import lotr.common.entity.npc.LOTRSpeech;
+import lotr.common.entity.npc.LOTREntityGaladhrimWarrior;
 import lotr.common.world.biome.LOTRBiomeGenLothlorien;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MathHelper;
@@ -27,7 +26,7 @@ public class LOTRBlockWood extends LOTRBlockWoodBase
 			boolean sentMessage = false;
 			for (int l = 0; l < elves; l++)
 			{
-				LOTREntityElfWarrior elfWarrior = new LOTREntityElfWarrior(world);
+				LOTREntityGaladhrimWarrior elfWarrior = new LOTREntityGaladhrimWarrior(world);
 				int i1 = MathHelper.floor_double(entityplayer.posX) - 6 + world.rand.nextInt(12);
 				int k1 = MathHelper.floor_double(entityplayer.posZ) - 6 + world.rand.nextInt(12);
 				int j1 = world.getTopSolidOrLiquidBlock(i1, k1);

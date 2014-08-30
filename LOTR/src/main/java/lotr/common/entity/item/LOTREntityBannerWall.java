@@ -2,7 +2,9 @@ package lotr.common.entity.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
+import lotr.common.item.LOTRItemBanner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.player.EntityPlayer;
@@ -53,14 +55,24 @@ public class LOTREntityBannerWall extends EntityHanging
 		dataWatcher.addObject(18, Byte.valueOf((byte)0));
 	}
 	
-	public int getBannerType()
+	private int getBannerType()
 	{
 		return dataWatcher.getWatchableObjectByte(18);
 	}
 	
-	public void setBannerType(int i)
+	private void setBannerType(int i)
 	{
 		dataWatcher.updateObject(18, Byte.valueOf((byte)i));
+	}
+	
+	public void setBannerFaction(LOTRFaction faction)
+	{
+		setBannerType(LOTRItemBanner.getSubtypeForFaction(faction));
+	}
+	
+	public LOTRFaction getBannerFaction()
+	{
+		return LOTRItemBanner.getFaction(getBannerType());
 	}
 	
 	@Override

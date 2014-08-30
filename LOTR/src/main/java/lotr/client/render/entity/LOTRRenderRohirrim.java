@@ -18,7 +18,7 @@ public class LOTRRenderRohirrim extends LOTRRenderBiped
 	}
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
 		return LOTRRandomSkins.getRandomSkin(rohirrimSkins, (LOTREntityRohanMan)entity);
     }

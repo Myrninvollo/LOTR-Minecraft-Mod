@@ -9,15 +9,16 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
+import net.minecraft.inventory.*;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMount
+public abstract class LOTREntityWarg extends LOTREntityNPCRideable implements IInvBasic
 {
 	private int eatingTick;
+	private AnimalChest wargInventory;
 	
 	public LOTREntityWarg(World world)
 	{
@@ -27,19 +28,20 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 		tasks.addTask(0, new EntityAISwimming(this));
 		tasks.addTask(1, new LOTREntityAIHiredRemainStill(this));
 		tasks.addTask(2, getWargAttackAI());
-		tasks.addTask(3, new LOTREntityAIFollowHiringPlayer(this));
-        tasks.addTask(4, new EntityAIWander(this, 1D));
-        tasks.addTask(5, new EntityAIWatchClosest2(this, EntityPlayer.class, 12F, 0.05F));
-        tasks.addTask(5, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 8F, 0.05F));
-        tasks.addTask(6, new EntityAIWatchClosest(this, EntityLiving.class, 12F, 0.02F));
-        tasks.addTask(7, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-		addTargetTasks(4, LOTREntityAINearestAttackableTargetWarg.class);
-		targetTasks.addTask(5, new LOTREntityAINearestAttackableTargetWarg(this, LOTREntityRabbit.class, 500, false));
+		tasks.addTask(3, new LOTREntityAIUntamedPanic(this, 1.2D));
+		tasks.addTask(4, new LOTREntityAIFollowHiringPlayer(this));
+        tasks.addTask(5, new EntityAIWander(this, 1D));
+        tasks.addTask(6, new EntityAIWatchClosest2(this, EntityPlayer.class, 12F, 0.05F));
+        tasks.addTask(6, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 8F, 0.05F));
+        tasks.addTask(7, new EntityAIWatchClosest(this, EntityLiving.class, 12F, 0.02F));
+        tasks.addTask(8, new EntityAILookIdle(this));
+
+		int target = addTargetTasks(true);
+		targetTasks.addTask(target + 1, new LOTREntityAINearestAttackableTargetBasic(this, LOTREntityRabbit.class, 500, false));
+		
 		isImmuneToFrost = true;
 		spawnsInDarkness = true;
+		setupWargInventory();
 	}
 	
 	public EntityAIBase getWargAttackAI()
@@ -53,6 +55,7 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 		super.entityInit();
 		dataWatcher.addObject(17, Byte.valueOf((byte)0));
 		dataWatcher.addObject(18, Byte.valueOf((byte)0));
+		dataWatcher.addObject(19, Integer.valueOf(0));
 		
 		if (rand.nextInt(500) == 0)
 		{
@@ -85,10 +88,10 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 	@Override
     public boolean isMountSaddled()
     {
-        return (dataWatcher.getWatchableObjectByte(17) & 1) != 0;
+		return dataWatcher.getWatchableObjectByte(17) == (byte)1;
     }
 
-    public void setSaddled(boolean flag)
+    public void setWargSaddled(boolean flag)
     {
     	dataWatcher.updateObject(17, Byte.valueOf(flag ? (byte)1 : (byte)0));
     }
@@ -101,6 +104,41 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 	public void setWargType(int i)
 	{
 		dataWatcher.updateObject(18, Byte.valueOf((byte)i));
+	}
+	
+	public ItemStack getWargArmorWatched()
+	{
+		int ID = dataWatcher.getWatchableObjectInt(19);
+		return new ItemStack(Item.getItemById(ID));
+	}
+	
+	@Override
+	public String getMountArmorTexture()
+	{
+		ItemStack armor = getWargArmorWatched();
+		if (armor != null && armor.getItem() instanceof LOTRItemMountArmor)
+		{
+			return ((LOTRItemMountArmor)armor.getItem()).getArmorTexture();
+		}
+		return null;
+	}
+	
+	private void setWargArmorWatched(ItemStack itemstack)
+	{
+		if (itemstack == null)
+		{
+			dataWatcher.updateObject(19, Integer.valueOf(0));
+		}
+		else
+		{
+			dataWatcher.updateObject(19, Integer.valueOf(Item.getIdFromItem(itemstack.getItem())));
+		}
+	}
+	
+	@Override
+	public IInventory getMountInventory()
+	{
+		return wargInventory;
 	}
 	
 	@Override
@@ -162,32 +200,134 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 	@Override
 	public void setBelongsToNPC(boolean flag) {}
 	
-	@Override
-    public void moveEntityWithHeading(float strafe, float forward)
-    {
-		LOTRMountFunctions.move(this, strafe, forward);
-    }
+	private void setupWargInventory()
+	{
+        AnimalChest prevInv = wargInventory;
+        wargInventory = new AnimalChest("WargInv", 2);
+        wargInventory.func_110133_a(getCommandSenderName());
+
+        if (prevInv != null)
+        {
+        	prevInv.func_110132_b(this);
+            int invSize = Math.min(prevInv.getSizeInventory(), wargInventory.getSizeInventory());
+            for (int slot = 0; slot < invSize; slot++)
+            {
+                ItemStack itemstack = prevInv.getStackInSlot(slot);
+                if (itemstack != null)
+                {
+                	wargInventory.setInventorySlotContents(slot, itemstack.copy());
+                }
+            }
+
+            prevInv = null;
+        }
+
+        wargInventory.func_110134_a(this);
+        checkWargInventory();
+	}
 	
-	@Override
-    public void super_moveEntityWithHeading(float strafe, float forward)
+    private void checkWargInventory()
     {
-		super.moveEntityWithHeading(strafe, forward);
+        if (!worldObj.isRemote)
+        {
+            setWargSaddled(wargInventory.getStackInSlot(0) != null);
+            setWargArmorWatched(getWargArmor());
+        }
+    }
+    
+    @Override
+    public void onInventoryChanged(InventoryBasic inv)
+    {
+        boolean prevSaddled = isMountSaddled();
+        ItemStack prevArmor = getWargArmorWatched();
+        
+        checkWargInventory();
+        
+        ItemStack wargArmor = getWargArmorWatched();
+
+        if (ticksExisted > 20)
+        {
+            if (!prevSaddled && isMountSaddled())
+            {
+                playSound("mob.horse.leather", 0.5F, 1F);
+            }
+            
+            if (!ItemStack.areItemStacksEqual(prevArmor, wargArmor))
+            {
+                playSound("mob.horse.armor", 0.5F, 1F);
+            }
+        }
+    }
+    
+    public void setWargArmor(ItemStack itemstack)
+    {
+    	wargInventory.setInventorySlotContents(1, itemstack);
+    	setupWargInventory();
+    }
+    
+    public ItemStack getWargArmor()
+    {
+    	return wargInventory.getStackInSlot(1);
+    }
+    
+    @Override
+    public int getTotalArmorValue()
+    {
+        ItemStack itemstack = getWargArmor();
+        if (itemstack != null && itemstack.getItem() instanceof LOTRItemMountArmor)
+        {
+        	LOTRItemMountArmor armor = (LOTRItemMountArmor)itemstack.getItem();
+        	return armor.getDamageReduceAmount();
+        }
+        return 0;
     }
 	
 	@Override
     public void writeEntityToNBT(NBTTagCompound nbt)
     {
         super.writeEntityToNBT(nbt);
-        nbt.setBoolean("Saddled", isMountSaddled());
         nbt.setByte("WargType", (byte)getWargType());
+        
+        if (wargInventory.getStackInSlot(0) != null)
+        {
+        	nbt.setTag("WargSaddleItem", wargInventory.getStackInSlot(0).writeToNBT(new NBTTagCompound()));
+        }
+        
+        if (getWargArmor() != null)
+        {
+        	nbt.setTag("WargArmorItem", getWargArmor().writeToNBT(new NBTTagCompound()));
+        }
     }
 
     @Override
     public void readEntityFromNBT(NBTTagCompound nbt)
     {
         super.readEntityFromNBT(nbt);
-        setSaddled(nbt.getBoolean("Saddled"));
 		setWargType(nbt.getByte("WargType"));
+		
+        if (nbt.hasKey("WargSaddleItem"))
+        {
+            ItemStack saddle = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("WargSaddleItem"));
+            if (saddle != null && saddle.getItem() == Items.saddle)
+            {
+            	wargInventory.setInventorySlotContents(0, saddle);
+            }
+        }
+        else if (nbt.getBoolean("Saddled"))
+        {
+        	wargInventory.setInventorySlotContents(0, new ItemStack(Items.saddle));
+        }
+		
+        if (nbt.hasKey("WargArmorItem"))
+        {
+            ItemStack wargArmor = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("WargArmorItem"));
+            if (wargArmor != null && isMountArmorValid(wargArmor))
+            {
+            	wargInventory.setInventorySlotContents(1, wargArmor);
+            }
+        }
+
+        checkWargInventory();
     }
 	
 	@Override
@@ -195,13 +335,19 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 	{
 		super.onLivingUpdate();
 		
-		LOTRMountFunctions.update(this);
-		
         if (!worldObj.isRemote)
         {
-			if (riddenByEntity instanceof EntityPlayer && LOTRLevelData.getData((EntityPlayer)riddenByEntity).getAlignment(getFaction()) < LOTRAlignmentValues.Levels.WARG_RIDE)
+			if (riddenByEntity instanceof EntityPlayer)
 			{
-				riddenByEntity.mountEntity(null);
+				EntityPlayer entityplayer = (EntityPlayer)riddenByEntity;
+				if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) < LOTRAlignmentValues.Levels.WARG_RIDE)
+				{
+					entityplayer.mountEntity(null);
+				}
+				else if (isNPCTamed() && isMountSaddled())
+				{
+					LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.rideWarg);
+				}
 			}
 		}
 		
@@ -218,7 +364,7 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 	@Override
 	public boolean canDespawn()
 	{
-		return !isMountSaddled();
+		return super.canDespawn() && !isNPCTamed();
 	}
 	
 	@Override
@@ -236,11 +382,25 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 		
 		if (getAttackTarget() != entityplayer)
 		{
-			boolean flag = false;
 			boolean hasRequiredAlignment = LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.WARG_RIDE;
+			boolean notifyNotEnoughAlignment = false;
 			
 			ItemStack itemstack = entityplayer.inventory.getCurrentItem();
-			if (!flag && itemstack != null && itemstack.getItem() instanceof ItemFood && ((ItemFood)itemstack.getItem()).isWolfsFavoriteMeat() && isMountSaddled() && getHealth() < getMaxHealth())
+			
+			if (!notifyNotEnoughAlignment && isNPCTamed() && entityplayer.isSneaking())
+	        {
+				if (hasRequiredAlignment)
+				{
+		            openGUI(entityplayer);
+		            return true;
+				}
+				else
+				{
+					notifyNotEnoughAlignment = true;
+				}
+	        }
+			
+			if (!notifyNotEnoughAlignment && isNPCTamed() && itemstack != null && itemstack.getItem() instanceof ItemFood && ((ItemFood)itemstack.getItem()).isWolfsFavoriteMeat() && getHealth() < getMaxHealth())
 			{
 				if (hasRequiredAlignment)
 				{
@@ -258,91 +418,46 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 				}
 				else
 				{
-					flag = true;
+					notifyNotEnoughAlignment = true;
 				}
 			}
 			
-			if (!flag && itemstack != null && itemstack.getItem() instanceof LOTRItemMountArmor && isMountSaddled())
-			{
-				int slot = 4;
-				if (getEquipmentInSlot(slot) == null && ((LOTRItemMountArmor)itemstack.getItem()).isValid(this))
-				{
-					if (hasRequiredAlignment)
-					{
-						setCurrentItemOrArmor(slot, itemstack.copy());
-						if (!entityplayer.capabilities.isCreativeMode)
-						{
-							entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-						}
-						playSound("mob.horse.armor", 0.5F, 1F);
-						return true;
-					}
-					else
-					{
-						flag = true;
-					}
-				}
-			}
-			
-			if (!flag && !isMountSaddled() && canWargBeRidden() && riddenByEntity == null && itemstack != null && itemstack.getItem() == Items.saddle)
+			if (!notifyNotEnoughAlignment && isNPCTamed() && !isMountSaddled() && canWargBeRidden() && riddenByEntity == null && itemstack != null && itemstack.getItem() == Items.saddle)
 			{
 				if (hasRequiredAlignment)
 				{
-					if (!entityplayer.capabilities.isCreativeMode)
-					{
-						entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, null);
-					}
-					setSaddled(true);
-					playSound("mob.horse.leather", 0.5F, 1F);
+					openGUI(entityplayer);
+					return true;
+				}
+				else
+				{
+					notifyNotEnoughAlignment = true;
+				}
+			}
+			
+			if (!notifyNotEnoughAlignment && !isChild() && canWargBeRidden() && riddenByEntity == null)
+			{
+				if (hasRequiredAlignment)
+				{
+					entityplayer.mountEntity(this);
 					setAttackTarget(null);
 					getNavigator().clearPathEntity();
 					return true;
 				}
 				else
 				{
-					flag = true;
+					notifyNotEnoughAlignment = true;
 				}
 			}
 			
-			if (!flag && isMountSaddled() && riddenByEntity == null)
-			{
-				if (hasRequiredAlignment)
-				{
-					entityplayer.mountEntity(this);
-					LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.rideWarg);
-					return true;
-				}
-				else
-				{
-					flag = true;
-				}
-			}
-			
-			if (flag)
+			if (notifyNotEnoughAlignment)
 			{
 				LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.Levels.WARG_RIDE, getFaction());
 				return true;
 			}
 		}
-        return false;
-    }
-	
-	@Override
-    public int getTotalArmorValue()
-    {
-        int i = 0;
-        ItemStack[] lastActiveItems = getLastActiveItems();
-        int j = lastActiveItems.length;
-        for (int k = 0; k < j; k++)
-        {
-            ItemStack itemstack = lastActiveItems[k];
-            if (itemstack != null && itemstack.getItem() instanceof LOTRItemMountArmor)
-            {
-                int l = ((LOTRItemMountArmor)itemstack.getItem()).getDamageReduceAmount();
-                i += l;
-            }
-        }
-        return i;
+		
+        return super.interact(entityplayer);
     }
 	
 	@Override
@@ -403,19 +518,22 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
         
         if (!worldObj.isRemote)
         {
-			if (isMountSaddled())
+    		if (getBelongsToNPC())
+    		{
+    			wargInventory.setInventorySlotContents(0, null);
+    			wargInventory.setInventorySlotContents(1, null);
+    		}
+    		
+			if (isNPCTamed())
 			{
-				setSaddled(false);
+				setWargSaddled(false);
 				dropItem(Items.saddle, 1);
-			}
-
-			if (isMountSaddled())
-			{
-				ItemStack armor = getEquipmentInSlot(4);
-				if (armor != null)
+				
+				ItemStack wargArmor = getWargArmor();
+				if (wargArmor != null)
 				{
-					entityDropItem(armor, 0F);
-					setCurrentItemOrArmor(4, null);
+					entityDropItem(wargArmor, 0F);
+					setWargArmor(null);
 				}
 			}
 		}
@@ -430,6 +548,6 @@ public abstract class LOTREntityWarg extends LOTREntityNPC implements LOTRNPCMou
 	@Override
 	public boolean allowLeashing()
 	{
-		return isMountSaddled();
+		return isNPCTamed();
 	}
 }

@@ -20,6 +20,8 @@ public class LOTRBiomeGenLothlorienEdge extends LOTRBiomeGenLothlorien
 		decorator.flowersPerChunk = 2;
 		decorator.grassPerChunk = 5;
 		decorator.doubleGrassPerChunk = 1;
+		
+		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.DOL_GULDUR, LOTRInvasionSpawner.RARE));
 	}
 	
 	@Override
@@ -38,6 +40,6 @@ public class LOTRBiomeGenLothlorienEdge extends LOTRBiomeGenLothlorien
 	@Override
 	public int spawnCountMultiplier()
 	{
-		return 4;
+		return super.spawnCountMultiplier() * 2;
 	}
 }

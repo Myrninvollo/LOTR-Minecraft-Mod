@@ -2,6 +2,7 @@ package lotr.common.world.structure2;
 
 import java.util.Random;
 
+import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
 import lotr.common.block.LOTRBlockOre;
 import lotr.common.entity.LOTREntities;
@@ -224,10 +225,10 @@ public class LOTRWorldGenNearHaradVillage extends LOTRWorldGenStructureBase2
 		
 		setBlockAndMetadata(world, 0, 5, 0, LOTRMod.slabSingle4, 8);
 		
-		placeWallBanner(world, 0, 5, -2, 2, 9);
-		placeWallBanner(world, 2, 5, 0, 1, 9);
-		placeWallBanner(world, 0, 5, 2, 0, 9);
-		placeWallBanner(world, -2, 5, 0, 3, 9);
+		placeWallBanner(world, 0, 5, -2, LOTRFaction.NEAR_HARAD, 2);
+		placeWallBanner(world, 2, 5, 0, LOTRFaction.NEAR_HARAD, 1);
+		placeWallBanner(world, 0, 5, 2, LOTRFaction.NEAR_HARAD, 0);
+		placeWallBanner(world, -2, 5, 0, LOTRFaction.NEAR_HARAD, 3);
 		
 		setBlockAndMetadata(world, -2, 2, -3, Blocks.torch, 4);
 		setBlockAndMetadata(world, 2, 2, -3, Blocks.torch, 4);

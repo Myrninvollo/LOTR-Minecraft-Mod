@@ -16,7 +16,7 @@ public class LOTREntityAngmarWarg extends LOTREntityWarg
 	{
 		if (rand.nextBoolean())
 		{
-			setCurrentItemOrArmor(4, new ItemStack(LOTRMod.wargArmorAngmar));
+			setWargArmor(new ItemStack(LOTRMod.wargArmorAngmar));
 		}
 		if (worldObj.rand.nextInt(3) == 0)
 		{

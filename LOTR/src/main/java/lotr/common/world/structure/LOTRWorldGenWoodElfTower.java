@@ -2,16 +2,8 @@ package lotr.common.world.structure;
 
 import java.util.Random;
 
-import lotr.common.LOTRFoods;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
-import lotr.common.entity.npc.LOTREntityDwarf;
-import lotr.common.entity.npc.LOTREntityGundabadOrc;
-import lotr.common.entity.npc.LOTREntityNPC;
-import lotr.common.entity.npc.LOTREntityWoodElf;
-import lotr.common.entity.npc.LOTREntityWoodElfCaptain;
-import lotr.common.entity.npc.LOTREntityWoodElfScout;
-import lotr.common.entity.npc.LOTREntityWoodElfWarrior;
+import lotr.common.*;
+import lotr.common.entity.npc.*;
 import lotr.common.world.biome.LOTRBiome;
 import lotr.common.world.feature.LOTRWorldGenMirkOak;
 import net.minecraft.block.Block;

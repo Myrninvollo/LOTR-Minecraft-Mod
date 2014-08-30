@@ -55,7 +55,7 @@ public class LOTRBiomeGenDeadMarshes extends LOTRBiome
 		biomeColors.setSky(0x565332);
 		biomeColors.setClouds(0xA09B66);
 		biomeColors.setFog(0x404024);
-		biomeColors.setWater(0x382618);
+		biomeColors.setWater(0x14160F);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 		
@@ -98,7 +98,7 @@ public class LOTRBiomeGenDeadMarshes extends LOTRBiome
 			new LOTRWorldGenMarshLights().generate(world, random, i1, j1, k1);
         }
 		
-		if (i == 600 * LOTRGenLayerWorld.scale && k == 400 * LOTRGenLayerWorld.scale)
+		if (i == 623 * LOTRGenLayerWorld.scale && k == 417 * LOTRGenLayerWorld.scale)
 		{
 			int i1 = i + 8;
 			int k1 = k + 8;

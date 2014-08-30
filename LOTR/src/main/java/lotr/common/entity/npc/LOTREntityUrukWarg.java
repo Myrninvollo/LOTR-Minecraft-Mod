@@ -16,7 +16,7 @@ public class LOTREntityUrukWarg extends LOTREntityWarg
 	{
 		if (rand.nextBoolean())
 		{
-			setCurrentItemOrArmor(4, new ItemStack(LOTRMod.wargArmorUruk));
+			setWargArmor(new ItemStack(LOTRMod.wargArmorUruk));
 		}
 		return worldObj.rand.nextBoolean() ? new LOTREntityUrukHaiCrossbower(worldObj) : new LOTREntityUrukHai(worldObj);
 	}

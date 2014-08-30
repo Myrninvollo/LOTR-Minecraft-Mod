@@ -293,11 +293,7 @@ public class LOTREntityGollum extends LOTREntityNPC implements LOTRCharacter
 						setGollumOwnerUUID(entityplayer.getUniqueID().toString());
 						entityplayer.addChatMessage(LOTRSpeech.getNamedSpeechForPlayer(this, "gollum_tame", entityplayer));
 						LOTRSpeech.messageAllPlayers(new ChatComponentTranslation("chat.lotr.tameGollum", new Object[] {entityplayer.getCommandSenderName(), getCommandSenderName()}));
-						
-						for (int l = 0; l < 8; l++)
-						{
-							spawnHearts();
-						}
+						spawnHearts();
 						
 						fishRequired = Math.round((float)prevFishRequired * (1.5F + rand.nextFloat() * 0.25F));
 						prevFishRequired = fishRequired;

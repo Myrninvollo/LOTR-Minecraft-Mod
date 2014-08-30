@@ -57,9 +57,7 @@ public abstract class LOTREntityRanger extends LOTREntityNPC implements IRangedA
         tasks.addTask(7, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
         tasks.addTask(8, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
         tasks.addTask(9, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(2);
-		spawnCountValue = 5;
+        addTargetTasks(true);
 		npcCape = LOTRCapes.RANGER;
 	}
 	

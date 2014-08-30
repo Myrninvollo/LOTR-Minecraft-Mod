@@ -1,5 +1,6 @@
 package lotr.common;
 
+import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -14,6 +15,7 @@ import lotr.common.entity.npc.*;
 import lotr.common.entity.projectile.*;
 import lotr.common.item.*;
 import lotr.common.item.LOTRItemMountArmor.Mount;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import lotr.common.recipe.*;
 import lotr.common.tileentity.*;
 import lotr.common.world.LOTRWorldProvider;
@@ -35,6 +37,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.*;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.EnumHelper;
@@ -270,6 +273,9 @@ public class LOTRMod
 	public static Block dolGuldurTable;
 	public static Block fallenLeaves;
 	public static Block fallenLeavesLOTR;
+	public static Block gundabadTable;
+	public static Block thatchFloor;
+	public static Block dalishPastry;
 
 	public static Item goldRing;
 	public static Item pouch;
@@ -637,6 +643,8 @@ public class LOTRMod
 	public static Item bodyDolGuldur;
 	public static Item legsDolGuldur;
 	public static Item bootsDolGuldur;
+	public static Item dalishPastryItem;
+	public static Item redBook;
 	
 	public static int idDimension;
 	public static boolean alwaysShowAlignment;
@@ -832,6 +840,9 @@ public class LOTRMod
 		dolGuldurTable = new LOTRBlockDolGuldurTable().setHardness(2.5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:dolGuldurCraftingTable");
 		fallenLeaves = new LOTRBlockFallenLeaves(Blocks.leaves, Blocks.leaves2).setBlockName("lotr:fallenLeaves");
 		fallenLeavesLOTR = new LOTRBlockFallenLeaves(leaves, fruitLeaves, leaves2, leaves3).setBlockName("lotr:fallenLeavesLOTR");
+		gundabadTable = new LOTRBlockGundabadTable().setHardness(2.5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:gundabadCraftingTable");
+		thatchFloor = new LOTRBlockThatchFloor().setBlockName("lotr:thatchFloor");
+		dalishPastry = new LOTRBlockPlaceableFood(0.3125F, 0.375F).setHardness(0.5F).setStepSound(Block.soundTypeCloth).setBlockName("lotr:dalishPastry");
 		
 		goldRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMagic).setUnlocalizedName("lotr:goldRing");
 		pouch = new LOTRItemPouch().setUnlocalizedName("lotr:pouch");
@@ -1199,6 +1210,8 @@ public class LOTRMod
 		bodyDolGuldur = new LOTRItemArmor(armorDolGuldur, 1).setUnlocalizedName("lotr:bodyDolGuldur");
 		legsDolGuldur = new LOTRItemArmor(armorDolGuldur, 2).setUnlocalizedName("lotr:legsDolGuldur");
 		bootsDolGuldur = new LOTRItemArmor(armorDolGuldur, 3).setUnlocalizedName("lotr:bootsDolGuldur");
+		dalishPastryItem = new LOTRItemPlaceableFood(dalishPastry).setUnlocalizedName("lotr:dalishPastry");
+		redBook = new LOTRItemRedBook().setUnlocalizedName("lotr:redBook");
 		
 		try
 		{
@@ -1408,6 +1421,9 @@ public class LOTRMod
 		registerBlock(dolGuldurTable);
 		registerBlock(fallenLeaves, LOTRItemFallenLeaves.class);
 		registerBlock(fallenLeavesLOTR, LOTRItemFallenLeaves.class);
+		registerBlock(gundabadTable);
+		registerBlock(thatchFloor);
+		registerBlock(dalishPastry);
 		
 		registerItem(goldRing);
 		registerItem(pouch);
@@ -1775,6 +1791,8 @@ public class LOTRMod
 		registerItem(bodyDolGuldur);
 		registerItem(legsDolGuldur);
 		registerItem(bootsDolGuldur);
+		registerItem(dalishPastryItem);
+		registerItem(redBook);
 		
 		idDimension = config.get("general", "Dimension ID", 100).getInt();
 		alwaysShowAlignment = config.get("general", "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean();
@@ -1936,10 +1954,10 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityMordorWarg.class, "MordorWarg", 5, 0x463329, 0x291D16);
 		LOTREntities.registerCreature(LOTREntityGondorSoldier.class, "GondorSoldier", 6, 0x514C4C, 0xE5DADA);
 		//empty slot
-		LOTREntities.registerCreature(LOTREntityElf.class, "GaladhrimElf", 8, 0x8E7961, 0xF2EDAB);
+		LOTREntities.registerCreature(LOTREntityGaladhrimElf.class, "GaladhrimElf", 8, 0x8E7961, 0xF2EDAB);
 		LOTREntities.registerCreature(LOTREntityHobbitBartender.class, "HobbitBartender", 9, 0xFF9F7F, 0x7A3A23);
 		LOTREntities.registerCreature(LOTREntityHobbitDrunkard.class, "HobbitDrunkard", 10, 0xFF9F7F, 0x7A3A23);
-		LOTREntities.registerCreature(LOTREntityElfWarrior.class, "GaladhrimWarrior", 11, 0xC1BEBA, 0xEAB956);
+		LOTREntities.registerCreature(LOTREntityGaladhrimWarrior.class, "GaladhrimWarrior", 11, 0xC1BEBA, 0xEAB956);
 		LOTREntities.registerCreature(LOTREntityMordorOrcBombardier.class, "MordorOrcBombardier", 12, 0x332B22, 0x6B7567);
 		LOTREntities.registerCreature(LOTREntityMordorOrcTrader.class, "MordorOrcTrader", 13, 0x5B3D2C, 0xCCCCCC);
 		LOTREntities.registerCreature(LOTREntityMordorOrcArcher.class, "MordorOrcArcher", 14, 0x332B22, 0x6B7567);
@@ -1963,7 +1981,7 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityUrukHaiMercenaryCaptain.class, "UrukHaiMercenaryCaptain", 32, 0x24261A, 0x58593F);
 		LOTREntities.registerCreature(LOTREntityTroll.class, "Troll", 33, 0xA58752, 0x49311E);
 		LOTREntities.registerCreature(LOTREntityOlogHai.class, "OlogHai", 34, 0x3F483C, 0x222322);
-		LOTREntities.registerCreature(LOTREntityElfLord.class, "GaladhrimLord", 35, 0xC1BEBA, 0xEAB956);
+		LOTREntities.registerCreature(LOTREntityGaladhrimLord.class, "GaladhrimLord", 35, 0xC1BEBA, 0xEAB956);
 		//empty slot
 		LOTREntities.registerCreature(LOTREntityMirkwoodSpider.class, "MirkwoodSpider", 37, 0x282521, 0x141110);
 		LOTREntities.registerCreature(LOTREntityWoodElf.class, "WoodElf", 38, 0x235121, 0xFFCE9E);
@@ -2064,11 +2082,12 @@ public class LOTRMod
 		LOTREntities.registerCreature(LOTREntityGondorTowerGuard.class, "GondorTowerGuard", 133, 0x514C4C, 0xE5DADA);
 		LOTREntities.registerCreature(LOTREntityNearHaradMerchant.class, "NearHaradMerchant", 134, 0xCE967D, 0x917D77);
 		LOTREntities.registerCreature(LOTREntityHaradPyramidWraith.class, "HaradPyramidWraith", 135, 0xA59E77, 0xEDE4AF);
-		LOTREntities.registerCreature(LOTREntityDolGuldurOrc.class, "DolGuldurOrc", 136, 0x332B22, 0x6B7567);
-		LOTREntities.registerCreature(LOTREntityDolGuldurOrcArcher.class, "DolGuldurOrcArcher", 137, 0x332B22, 0x6B7567);
-		LOTREntities.registerCreature(LOTREntityDolGuldurBannerBearer.class, "DolGuldurBannerBearer", 138, 0x332B22, 0x6B7567);
-		LOTREntities.registerCreature(LOTREntityDolGuldurOrcChieftain.class, "DolGuldurChieftain", 139, 0x332B22, 0x6B7567);
+		LOTREntities.registerCreature(LOTREntityDolGuldurOrc.class, "DolGuldurOrc", 136, 0x43454E, 0x1F2125);
+		LOTREntities.registerCreature(LOTREntityDolGuldurOrcArcher.class, "DolGuldurOrcArcher", 137, 0x43454E, 0x1F2125);
+		LOTREntities.registerCreature(LOTREntityDolGuldurBannerBearer.class, "DolGuldurBannerBearer", 138, 0x43454E, 0x1F2125);
+		LOTREntities.registerCreature(LOTREntityDolGuldurOrcChieftain.class, "DolGuldurChieftain", 139, 0x43454E, 0x1F2125);
 		LOTREntities.registerCreature(LOTREntityMirkTroll.class, "MirkTroll", 140, 0x43454E, 0x1F2125);
+		LOTREntities.registerCreature(LOTREntityGundabadBannerBearer.class, "GundabadBannerBearer", 141, 0x33271A, 0x827053);
 
 		LOTREntities.registerCreature(LOTREntitySauron.class, "Sauron", 1000);
 		LOTREntities.registerCreature(LOTREntityGollum.class, "Gollum", 1001, 0xCCBD90, 0x908565);
@@ -2117,12 +2136,35 @@ public class LOTRMod
 		LOTRFaction.initFactionProperties();
 		LOTRTickHandlerServer.createSpawningLists();
 		LOTRStructures.registerStructures();
+		LOTRMiniQuestFactory.createMiniQuests();
 	}
 	
 	@Mod.EventHandler
 	public void postload(FMLPostInitializationEvent event)
 	{
 		proxy.onPostload();
+		
+		Color baseWater = new Color(0x324AF4);
+		int baseR = baseWater.getRed();
+		int baseG = baseWater.getGreen();
+		int baseB = baseWater.getBlue();
+		
+		for (BiomeGenBase biome : BiomeGenBase.getBiomeGenArray())
+		{
+			if (biome == null)
+			{
+				continue;
+			}
+			
+			Color water = new Color(biome.waterColorMultiplier);
+			float[] rgb = water.getColorComponents(null);
+
+			int r = (int)(baseR * rgb[0]);
+			int g = (int)(baseG * rgb[1]);
+			int b = (int)(baseB * rgb[2]);
+			
+			biome.waterColorMultiplier = new Color(r, g, b).getRGB();
+		}
 	}
 	
 	@Mod.EventHandler

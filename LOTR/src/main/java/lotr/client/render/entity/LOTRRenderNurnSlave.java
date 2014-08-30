@@ -14,7 +14,7 @@ public class LOTRRenderNurnSlave extends LOTRRenderBiped
 	}
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
         return skin;
     }

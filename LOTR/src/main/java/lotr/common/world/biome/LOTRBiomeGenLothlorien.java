@@ -5,8 +5,8 @@ import java.util.Random;
 import lotr.common.*;
 import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.animal.LOTREntityButterfly;
-import lotr.common.entity.npc.LOTREntityElf;
-import lotr.common.entity.npc.LOTREntityElfWarrior;
+import lotr.common.entity.npc.LOTREntityGaladhrimElf;
+import lotr.common.entity.npc.LOTREntityGaladhrimWarrior;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.*;
 import net.minecraft.world.World;
@@ -24,8 +24,8 @@ public class LOTRBiomeGenLothlorien extends LOTRBiome
 		spawnableWaterCreatureList.clear();
 		spawnableCaveCreatureList.clear();
 		
-		spawnableGoodList.add(new SpawnListEntry(LOTREntityElf.class, 10, 4, 4));
-		spawnableGoodList.add(new SpawnListEntry(LOTREntityElfWarrior.class, 1, 4, 8));
+		spawnableGoodList.add(new SpawnListEntry(LOTREntityGaladhrimElf.class, 10, 4, 4));
+		spawnableGoodList.add(new SpawnListEntry(LOTREntityGaladhrimWarrior.class, 1, 4, 8));
 		
 		spawnableEvilList.clear();
 		
@@ -132,4 +132,10 @@ public class LOTRBiomeGenLothlorien extends LOTRBiome
 		}
 		return random.nextInt(35) == 0 ? new LOTRWorldGenMallornLarge(false) : LOTRWorldGenSimpleTrees.newMallorn(false);
     }
+	
+	@Override
+	public int spawnCountMultiplier()
+	{
+		return 2;
+	}
 }

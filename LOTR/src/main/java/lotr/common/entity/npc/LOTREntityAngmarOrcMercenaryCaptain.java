@@ -12,8 +12,7 @@ public class LOTREntityAngmarOrcMercenaryCaptain extends LOTREntityAngmarOrcWarr
 	public LOTREntityAngmarOrcMercenaryCaptain(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 	}
 
 	@Override

@@ -15,8 +15,7 @@ public class LOTREntityDunlendingDrunkard extends LOTREntityDunlending
 	public LOTREntityDunlendingDrunkard(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 	}
 	
 	@Override

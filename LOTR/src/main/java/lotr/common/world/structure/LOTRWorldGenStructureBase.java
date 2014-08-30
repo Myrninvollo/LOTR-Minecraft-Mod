@@ -9,6 +9,7 @@ import lotr.common.block.LOTRBlockMug;
 import lotr.common.entity.LOTREntities;
 import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.item.LOTREntityBannerWall;
+import lotr.common.item.LOTRItemBanner;
 import lotr.common.recipe.LOTRBrewingRecipes;
 import lotr.common.tileentity.LOTRTileEntityArmorStand;
 import lotr.common.tileentity.LOTRTileEntityBarrel;
@@ -159,14 +160,14 @@ public abstract class LOTRWorldGenStructureBase extends WorldGenerator
 	{
 		LOTREntityBanner banner = new LOTREntityBanner(world);
 		banner.setLocationAndAngles(i + 0.5D, j, k + 0.5D, (float)direction * 90F, 0F);
-		banner.setBannerType(type);
+		banner.setBannerFaction(LOTRItemBanner.getFaction(type));
 		world.spawnEntityInWorld(banner);
 	}
 	
 	protected void placeWallBanner(World world, int i, int j, int k, int direction, int type)
 	{
 		LOTREntityBannerWall banner = new LOTREntityBannerWall(world, i, j, k, direction);
-		banner.setBannerType(type);
+		banner.setBannerFaction(LOTRItemBanner.getFaction(type));
 		world.spawnEntityInWorld(banner);
 	}
 	

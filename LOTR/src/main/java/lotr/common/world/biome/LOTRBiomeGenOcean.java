@@ -30,6 +30,8 @@ public class LOTRBiomeGenOcean extends LOTRBiome
 		decorator.grassPerChunk = 4;
 		decorator.doubleGrassPerChunk = 1;
 		
+		biomeColors.setWater(0x1565C1);
+		
 		decorator.addRandomStructure(new LOTRWorldGenNumenorRuin(false), 500);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);

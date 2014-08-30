@@ -15,8 +15,7 @@ public class LOTREntityGondorianCaptain extends LOTREntityGondorSoldier implemen
 	public LOTREntityGondorianCaptain(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		npcCape = LOTRCapes.GONDOR;
 	}
 	

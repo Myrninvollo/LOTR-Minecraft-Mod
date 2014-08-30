@@ -4,7 +4,7 @@ import java.util.Random;
 
 import lotr.common.LOTRMod;
 import lotr.common.entity.npc.LOTREntityElf;
-import lotr.common.entity.npc.LOTREntityElfLord;
+import lotr.common.entity.npc.LOTREntityGaladhrimLord;
 import lotr.common.world.feature.LOTRWorldGenMallornLarge;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -366,7 +366,7 @@ public class LOTRWorldGenElfLordHouse extends LOTRWorldGenStructureBase
 			setBlockAndNotifyAdequately(world, i1, j, k - 2, LOTRMod.stairsMallorn, 3);
 		}
 
-		LOTREntityElf elfLord = new LOTREntityElfLord(world);
+		LOTREntityElf elfLord = new LOTREntityGaladhrimLord(world);
 		elfLord.setLocationAndAngles(i + 0.5D, j + 1, k + 3.5D, 0F, 0F);
 		elfLord.spawnRidingHorse = false;
 		elfLord.onSpawnWithEgg(null);

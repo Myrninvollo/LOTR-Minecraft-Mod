@@ -22,7 +22,7 @@ public class LOTRRenderSaruman extends LOTRRenderBiped
 	}
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
 		return skin;
     }

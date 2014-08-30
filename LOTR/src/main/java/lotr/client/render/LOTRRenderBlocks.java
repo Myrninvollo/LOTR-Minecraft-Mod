@@ -1,23 +1,13 @@
 package lotr.client.render;
 
-import lotr.client.render.tileentity.LOTRRenderBeacon;
-import lotr.client.render.tileentity.LOTRRenderTrollTotem;
-import lotr.client.render.tileentity.LOTRTileEntityMobSpawnerRenderer;
+import lotr.client.render.tileentity.*;
 import lotr.common.LOTRMod;
-import lotr.common.block.LOTRBlockBeacon;
-import lotr.common.block.LOTRBlockClover;
-import lotr.common.block.LOTRBlockDwarvenDoor;
-import lotr.common.block.LOTRBlockFlowerPot;
-import lotr.common.block.LOTRBlockSaplingBase;
-import lotr.common.tileentity.LOTRTileEntityBeacon;
-import lotr.common.tileentity.LOTRTileEntityMobSpawner;
-import lotr.common.tileentity.LOTRTileEntityTrollTotem;
+import lotr.common.block.*;
+import lotr.common.tileentity.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -439,17 +429,17 @@ public class LOTRRenderBlocks implements ISimpleBlockRenderingHandler
 
 		tessellator.addTranslation(0F, 0.25F, 0F);
 
-		if (plantBlock instanceof LOTRBlockSaplingBase || plantBlock == LOTRMod.pipeweedPlant || plantBlock == LOTRMod.athelas || plantBlock == LOTRMod.mordorThorn)
-		{
-			renderblocks.drawCrossedSquares(plantBlock.getIcon(2, plant.getItemDamage()), (double)i, (double)j, (double)k, 0.75F);
-		}
-		else if (plantBlock == LOTRMod.shireHeather)
+		if (plantBlock == LOTRMod.shireHeather)
 		{
 			renderblocks.drawCrossedSquares(plantBlock.getIcon(2, plant.getItemDamage()), (double)i, (double)j, (double)k, 0.6F);
 		}
 		else if (plantBlock == LOTRMod.clover)
 		{
 			renderClover(world, i, j, k, plantBlock, renderblocks, plant.getItemDamage() == 1 ? 4 : 3, false);
+		}
+		else if (plantBlock instanceof LOTRBlockFlower)
+		{
+			renderblocks.drawCrossedSquares(plantBlock.getIcon(2, plant.getItemDamage()), (double)i, (double)j, (double)k, 0.75F);
 		}
 		else
 		{

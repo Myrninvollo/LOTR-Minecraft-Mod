@@ -6,15 +6,7 @@ import io.netty.buffer.Unpooled;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -585,11 +577,7 @@ public class LOTRLevelData
 	    	ByteBuf data = Unpooled.buffer();
 	    	
 	    	LOTRPlayerData pd = getData(entityplayer);
-	    	NBTTagCompound nbt = new NBTTagCompound();
-	    	pd.save(nbt);
-			new PacketBuffer(data).writeNBTTagCompoundToBuffer(nbt);
-	    	    	
-	    	entityplayer.playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.loginP", data));
+	    	pd.sendPlayerData(entityplayer);
 		}
 		catch (Exception e)
 		{
@@ -617,6 +605,11 @@ public class LOTRLevelData
 	public static void clearAllPlayerData()
 	{
 		playerData.clear();
+	}
+	
+	public static Collection<LOTRPlayerData> getPlayerDataEntries()
+	{
+		return playerData.values();
 	}
 
 	public static void setPlayerBannedForStructures(String username, boolean flag)

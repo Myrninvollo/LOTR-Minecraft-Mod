@@ -14,8 +14,7 @@ public class LOTREntityRohirrimMarshal extends LOTREntityRohirrim implements LOT
 	public LOTREntityRohirrimMarshal(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		npcCape = LOTRCapes.ROHAN;
 	}
 	

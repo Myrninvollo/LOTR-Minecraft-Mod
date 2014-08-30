@@ -14,6 +14,11 @@ public class LOTRAlignmentValues
 	public static AlignmentBonus FANGORN_TREE_PENALTY = new AlignmentBonus(-1, "lotr.alignment.cutFangornTree");
 	public static AlignmentBonus ROHAN_HORSE_PENALTY = new AlignmentBonus(-1, "lotr.alignment.killRohanHorse");
 	
+	public static AlignmentBonus createMiniquestBonus(int alignment)
+	{
+		return new AlignmentBonus(alignment, "lotr.alignment.miniQuest");
+	}
+	
 	public static class Bonuses
 	{
 		public static int HOBBIT = 1;
@@ -164,6 +169,7 @@ public class LOTRAlignmentValues
 		public static int URUK_HAI_MERCENARY_CAPTAIN_TRADE = 150;
 		
 		public static int WARG_RIDE = 50;
+		public static int SPIDER_RIDE = 50;
 		
 		public static int DOL_GULDUR_CAPTAIN_TRADE = 150;
 		

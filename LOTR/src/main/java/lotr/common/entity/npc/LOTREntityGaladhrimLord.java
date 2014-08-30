@@ -2,19 +2,16 @@ package lotr.common.entity.npc;
 
 import lotr.common.*;
 import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class LOTREntityElfLord extends LOTREntityElfWarrior implements LOTRUnitTradeable
+public class LOTREntityGaladhrimLord extends LOTREntityGaladhrimWarrior implements LOTRUnitTradeable
 {
-	public LOTREntityElfLord(World world)
+	public LOTREntityGaladhrimLord(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		npcCape = LOTRCapes.GALADHRIM;
 	}
 	
@@ -67,16 +64,16 @@ public class LOTREntityElfLord extends LOTREntityElfWarrior implements LOTRUnitT
 		{
 			if (canTradeWith(entityplayer))
 			{
-				return "elfLord_friendly";
+				return "galadhrimLord_friendly";
 			}
 			else
 			{
-				return "elfLord_neutral";
+				return "galadhrimLord_neutral";
 			}
 		}
 		else
 		{
-			return "elfWarrior_hostile";
+			return "galadhrimWarrior_hostile";
 		}
 	}
 }

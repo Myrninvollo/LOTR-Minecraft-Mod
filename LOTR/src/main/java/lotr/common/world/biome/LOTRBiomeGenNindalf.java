@@ -54,7 +54,7 @@ public class LOTRBiomeGenNindalf extends LOTRBiome
 		biomeColors.setSky(0x898758);
 		biomeColors.setClouds(0x7D7D64);
 		biomeColors.setFog(0x646458);
-		biomeColors.setWater(0x706A30);
+		biomeColors.setWater(0x303526);
 		
 		setBanditChance(LOTRBanditSpawner.UNCOMMON);
 		

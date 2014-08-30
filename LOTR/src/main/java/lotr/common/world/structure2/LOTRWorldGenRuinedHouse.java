@@ -164,13 +164,11 @@ public class LOTRWorldGenRuinedHouse extends LOTRWorldGenStructureBase2
 		
 		if (random.nextBoolean())
 		{
-			setBlockAndMetadata(world, width - 1, 1, width - 2, Blocks.chest, 0);
-			fillChest(world, random, width - 1, 1, width - 2, LOTRChestContents.RUINED_HOUSE);
+			placeChest(world, random, width - 1, 1, width - 2, 0, LOTRChestContents.RUINED_HOUSE);
 		}
 		else
 		{
-			setBlockAndMetadata(world, -width + 1, 1, width - 2, Blocks.chest, 0);
-			fillChest(world, random, -width + 1, 1, width - 2, LOTRChestContents.RUINED_HOUSE);
+			placeChest(world, random, -width + 1, 1, width - 2, 0, LOTRChestContents.RUINED_HOUSE);
 		}
 		
 		return true;

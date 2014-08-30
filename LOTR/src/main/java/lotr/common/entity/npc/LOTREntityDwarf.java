@@ -74,10 +74,8 @@ public class LOTREntityDwarf extends LOTREntityNPC
         tasks.addTask(12, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.1F));
         tasks.addTask(13, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
         tasks.addTask(14, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(4);
+
+        addTargetTasks(true);
         
         familyInfo.marriageEntityClass = LOTREntityDwarf.class;
         familyInfo.marriageRing = LOTRMod.dwarvenRing;

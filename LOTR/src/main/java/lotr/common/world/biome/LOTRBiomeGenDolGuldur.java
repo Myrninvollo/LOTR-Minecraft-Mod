@@ -8,6 +8,8 @@ import lotr.common.entity.npc.*;
 import lotr.common.world.feature.LOTRWorldGenDeadTrees;
 import lotr.common.world.feature.LOTRWorldGenMirkOak;
 import lotr.common.world.structure.LOTRWorldGenStoneRuin;
+import lotr.common.world.structure2.LOTRWorldGenDolGuldurAltar;
+import lotr.common.world.structure2.LOTRWorldGenDolGuldurTower;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.*;
 
@@ -19,9 +21,6 @@ public class LOTRBiomeGenDolGuldur extends LOTRBiomeGenMirkwood
 	public LOTRBiomeGenDolGuldur(int i)
 	{
 		super(i, true);
-		
-		decorator.clearRandomStructures();
-		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.DOL_GULDUR(1, 4), 5);
 		
 		spawnableEvilList.clear();
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityMirkwoodSpider.class, 20, 4, 6));
@@ -39,7 +38,12 @@ public class LOTRBiomeGenDolGuldur extends LOTRBiomeGenMirkwood
 		biomeColors.setGrass(0x2E4431);
 		biomeColors.setSky(0x424751);
 		biomeColors.setClouds(0x282C35);
-		biomeColors.setFoggy(false);
+		biomeColors.setFoggy(true);
+		
+		decorator.clearRandomStructures();
+		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.DOL_GULDUR(1, 4), 5);
+		decorator.addRandomStructure(new LOTRWorldGenDolGuldurAltar(false), 200);
+		decorator.addRandomStructure(new LOTRWorldGenDolGuldurTower(false), 100);
 	}
 	
 	@Override

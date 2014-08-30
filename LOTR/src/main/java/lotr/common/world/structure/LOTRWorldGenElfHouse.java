@@ -4,6 +4,7 @@ import java.util.Random;
 
 import lotr.common.LOTRMod;
 import lotr.common.entity.npc.LOTREntityElf;
+import lotr.common.entity.npc.LOTREntityGaladhrimElf;
 import lotr.common.world.feature.LOTRWorldGenMallornLarge;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -615,7 +616,7 @@ public class LOTRWorldGenElfHouse extends LOTRWorldGenStructureBase
 				break;
 		}
 
-		LOTREntityElf elf = new LOTREntityElf(world);
+		LOTREntityElf elf = new LOTREntityGaladhrimElf(world);
 		elf.setLocationAndAngles(i + 0.5D, j + 1, k + 3.5D, 0F, 0F);
 		elf.spawnRidingHorse = false;
 		elf.onSpawnWithEgg(null);

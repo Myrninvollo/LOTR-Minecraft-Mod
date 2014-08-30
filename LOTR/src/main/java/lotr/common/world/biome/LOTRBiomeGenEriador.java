@@ -119,6 +119,6 @@ public class LOTRBiomeGenEriador extends LOTRBiome
 	@Override
 	public int spawnCountMultiplier()
 	{
-		return 5;
+		return 3;
 	}
 }

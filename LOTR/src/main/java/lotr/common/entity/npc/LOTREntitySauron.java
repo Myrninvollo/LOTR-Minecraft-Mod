@@ -31,8 +31,7 @@ public class LOTREntitySauron extends LOTREntityNPC
         tasks.addTask(3, new EntityAIWander(this, 1D));
         tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 10F, 0.02F));
         tasks.addTask(5, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(2);
+        addTargetTasks(true);
 	}
 
 	@Override

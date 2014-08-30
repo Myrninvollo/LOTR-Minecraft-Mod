@@ -1,11 +1,7 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import lotr.common.*;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -69,10 +65,10 @@ public class LOTREntityWoodElfScout extends LOTREntityWoodElf
 				{
 					for (int l = 0; l < 32; l++)
 					{
-						int i = MathHelper.floor_double(posX) - 8 + rand.nextInt(17);
-						int j = MathHelper.floor_double(posY) - 3 + rand.nextInt(7);
-						int k = MathHelper.floor_double(posZ) - 8 + rand.nextInt(17);
-						if (getDistanceSq(i, j, k) > 25D && worldObj.getBlock(i, j - 1, k).isNormalCube() && !worldObj.getBlock(i, j, k).isNormalCube() && !worldObj.getBlock(i, j + 1, k).isNormalCube())
+						int i = MathHelper.floor_double(posX) - rand.nextInt(16) + rand.nextInt(16);
+						int j = MathHelper.floor_double(posY) - rand.nextInt(3) + rand.nextInt(3);
+						int k = MathHelper.floor_double(posZ) - rand.nextInt(16) + rand.nextInt(16);
+						if (getDistance(i, j, k) > 6D && worldObj.getBlock(i, j - 1, k).isNormalCube() && !worldObj.getBlock(i, j, k).isNormalCube() && !worldObj.getBlock(i, j + 1, k).isNormalCube())
 						{
 							double d = (double)i + 0.5D;
 							double d1 = (double)j;
@@ -134,12 +130,6 @@ public class LOTREntityWoodElfScout extends LOTREntityWoodElf
         playSound("random.bow", 1F, 1F / (rand.nextFloat() * 0.4F + 0.8F));
         worldObj.spawnEntityInWorld(arrow);
     }
-	
-	@Override
-	public boolean shouldRenderHair()
-	{
-		return getEquipmentInSlot(4) == null;
-	}
 	
 	@Override
 	public String getSpeechBank(EntityPlayer entityplayer)

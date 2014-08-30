@@ -184,7 +184,7 @@ public class LOTRBiome extends BiomeGenBase
 		lothlorien = new LOTRBiomeGenLothlorien(9).setTemperatureRainfall(0.9F, 1F).setMinMaxHeight(0.2F, 0.3F).setColor(0xF2D337).setBiomeName("lothlorien");
 		lothlorienClearing = new LOTRBiomeGenLothlorienClearing(10).setTemperatureRainfall(0.9F, 1F).setMinMaxHeight(0.2F, 0.1F).setColor(0xD0E03E).setBiomeName("lothlorienClearing");
 		ironHills = new LOTRBiomeGenIronHills(11).setTemperatureRainfall(0.27F, 0.4F).setMinMaxHeight(0.3F, 1.4F).setColor(0xC48C62).setBiomeName("ironHills");
-		deadMarshes = new LOTRBiomeGenDeadMarshes(12).setTemperatureRainfall(0.2F, 1F).setMinMaxHeight(0F, 0.1F).setColor(0x60523B).setBiomeName("deadMarshes");
+		deadMarshes = new LOTRBiomeGenDeadMarshes(12).setTemperatureRainfall(0.4F, 1F).setMinMaxHeight(0F, 0.1F).setColor(0x60523B).setBiomeName("deadMarshes");
 		trollshaws = new LOTRBiomeGenTrollshaws(13).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.15F, 1F).setColor(0x9E8D69).setBiomeName("trollshaws");
 		mirkwood = new LOTRBiomeGenMirkwood(14, false).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.2F, 0.3F).setColor(0x183811).setBiomeName("mirkwood");
 		mirkwoodCorrupted = new LOTRBiomeGenMirkwood(15, true).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.2F, 0.4F).setColor(0x142112).setBiomeName("mirkwoodCorrupted");
@@ -192,7 +192,7 @@ public class LOTRBiome extends BiomeGenBase
 		emynMuil = new LOTRBiomeGenEmynMuil(17).setTemperatureRainfall(0.5F, 0.9F).setMinMaxHeight(0.2F, 0.8F).setColor(0x967E72).setBiomeName("emynMuil");
 		ithilien = new LOTRBiomeGenIthilien(18).setTemperatureRainfall(0.7F, 0.9F).setMinMaxHeight(0.15F, 0.5F).setColor(0xA9B542).setBiomeName("ithilien");
 		mordorRiver = new LOTRBiomeGenMordorRiver(19).setTemperatureRainfall(2F, 0F).setMinMaxHeight(-0.5F, 0F).setColor(0x000070).setBiomeName("mordorRiver");
-		deadMarshesRiver = new LOTRBiomeGenDeadMarshes(20).setTemperatureRainfall(0.2F, 1F).setMinMaxHeight(-0.5F, 0F).setColor(0x4E5C60).setBiomeName("deadMarshesRiver");
+		deadMarshesRiver = new LOTRBiomeGenDeadMarshes(20).setTemperatureRainfall(0.4F, 1F).setMinMaxHeight(-0.5F, 0F).setColor(0x4E5C60).setBiomeName("deadMarshesRiver");
 		loneLands = new LOTRBiomeGenLoneLands(21).setTemperatureRainfall(0.6F, 0.5F).setMinMaxHeight(0.15F, 0.4F).setColor(0xBAA748).setBiomeName("loneLands");
 		loneLandsHills = new LOTRBiomeGenLoneLandsHills(22).setTemperatureRainfall(0.6F, 0.5F).setMinMaxHeight(0.6F, 0.8F).setColor(0xC6B45B).setBiomeName("loneLandsHills");
 		dunland = new LOTRBiomeGenDunland(23).setTemperatureRainfall(0.5F, 0.7F).setMinMaxHeight(0.3F, 0.5F).setColor(0x327238).setBiomeName("dunland");
@@ -307,7 +307,7 @@ public class LOTRBiome extends BiomeGenBase
 	private List spawnableTraders = new ArrayList();
 	private int banditChance;
 	public List invasionSpawns = new ArrayList();
-	
+
 	public BiomeColors biomeColors = new BiomeColors(this);
 	public static class BiomeColors
 	{
@@ -318,6 +318,7 @@ public class LOTRBiome extends BiomeGenBase
 		private Color clouds;
 		private Color fog;
 		private boolean foggy;
+		private static int DEFAULT_WATER = 0x6DA9DB;
 		
 		public BiomeColors(LOTRBiome biome)
 		{
@@ -386,7 +387,7 @@ public class LOTRBiome extends BiomeGenBase
 		
 		public void resetWater()
 		{
-			theBiome.waterColorMultiplier = 0xFFFFFF;
+			theBiome.waterColorMultiplier = DEFAULT_WATER;
 		}
 	}
 	
@@ -394,6 +395,8 @@ public class LOTRBiome extends BiomeGenBase
 	{
 		super(i, false);
 		lotrBiomeList[i] = this;
+		
+		waterColorMultiplier = BiomeColors.DEFAULT_WATER;
 		
 		decorator = new LOTRBiomeDecorator(this);
 		spawnableCreatureList.clear();

@@ -44,14 +44,14 @@ public class LOTRWorldGenFallenLeaves extends WorldGenerator
 		}
 		else
 		{
-			
 			for (int l = 0; l < 40; l++)
 			{
 				int i1 = i - random.nextInt(5) + random.nextInt(5);
 				int j1 = j - random.nextInt(3) + random.nextInt(3);
 				int k1 = k - random.nextInt(5) + random.nextInt(5);
-				Block block = world.getBlock(i1, j1 - 1, k1);
-				if ((block == Blocks.grass || block == Blocks.dirt) && world.getBlock(i1, j1, k1).isReplaceable(world, i1, j1, k1))
+				Block below = world.getBlock(i1, j1 - 1, k1);
+				Block block = world.getBlock(i1, j1, k1);
+				if ((below == Blocks.grass || below == Blocks.dirt) && !block.getMaterial().isLiquid() && block.isReplaceable(world, i1, j1, k1))
 				{
 					world.setBlock(i1, j1, k1, fallenLeaf, fallenMeta, 2);
 				}

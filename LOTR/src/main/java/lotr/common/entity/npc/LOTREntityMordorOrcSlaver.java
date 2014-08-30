@@ -17,8 +17,7 @@ public class LOTREntityMordorOrcSlaver extends LOTREntityMordorOrc implements LO
 	{
 		super(world);
 		setSize(0.6F, 1.8F);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		isWeakOrc = false;
 	}
 	

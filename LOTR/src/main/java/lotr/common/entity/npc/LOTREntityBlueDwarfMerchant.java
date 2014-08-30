@@ -11,8 +11,7 @@ public class LOTREntityBlueDwarfMerchant extends LOTREntityBlueDwarf implements 
 	public LOTREntityBlueDwarfMerchant(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		
 		if (!worldObj.isRemote)
 		{
@@ -24,7 +23,7 @@ public class LOTREntityBlueDwarfMerchant extends LOTREntityBlueDwarf implements 
 	@Override
 	public LOTREntityNPC createTravellingEscort()
 	{
-		return new LOTREntityBlueDwarfWarrior(worldObj);
+		return new LOTREntityBlueDwarf(worldObj);
 	}
 	
 	@Override

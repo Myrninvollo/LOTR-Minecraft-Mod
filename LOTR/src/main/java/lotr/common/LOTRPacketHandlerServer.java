@@ -9,11 +9,11 @@ import java.util.*;
 
 import lotr.common.LOTRShields.ShieldType;
 import lotr.common.entity.LOTRMountFunctions;
-import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.npc.*;
 import lotr.common.entity.npc.LOTRHiredNPCInfo.Task;
 import lotr.common.inventory.*;
+import lotr.common.quest.LOTRMiniQuest;
 import lotr.common.tileentity.LOTRTileEntityMobSpawner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -22,7 +22,9 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PreYggdrasilConverter;
@@ -62,8 +64,9 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.clientInfo", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.createCWP", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.deleteCWP", this);
-		NetworkRegistry.INSTANCE.newChannel("lotr.camelGui", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.mountInv", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.editBanner", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.mqAccept", this);
 	}
 	
 	@Override
@@ -890,7 +893,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 			}
 		}
 		
-		else if (channel.equals("lotr.camelGui"))
+		else if (channel.equals("lotr.mountInv"))
 		{
 			int id = data.readInt();
 			World world = DimensionManager.getWorld(data.readByte());
@@ -900,9 +903,9 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 				if (entity instanceof EntityPlayer)
 				{
 					EntityPlayer entityplayer = (EntityPlayer)entity;
-					if (entityplayer.ridingEntity instanceof LOTREntityCamel)
+					if (entityplayer.ridingEntity instanceof LOTREntityNPCRideable)
 					{
-						((LOTREntityCamel)entityplayer.ridingEntity).openGUI(entityplayer);
+						((LOTREntityNPCRideable)entityplayer.ridingEntity).openGUI(entityplayer);
 					}
 				}
 			}
@@ -929,6 +932,41 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 						if (uuid != null)
 						{
 							banner.allowedPlayers[index] = uuid;
+						}
+					}
+				}
+			}
+		}
+		
+		else if (channel.equals("lotr.mqAccept"))
+		{
+			int id = data.readInt();
+			World world = DimensionManager.getWorld(data.readByte());
+			if (world != null)
+			{
+				Entity entity = world.getEntityByID(id);
+				if (entity instanceof EntityPlayer)
+				{
+					EntityPlayer entityplayer = (EntityPlayer)entity;
+					LOTRPlayerData playerData = LOTRLevelData.getData(entityplayer);
+					boolean accept = data.readBoolean();
+					
+					int npcID = data.readInt();
+					Entity npcEntity = world.getEntityByID(npcID);
+					if (npcEntity instanceof LOTREntityNPC)
+					{
+						LOTREntityNPC npc = (LOTREntityNPC)npcEntity;
+						npc.isOfferingMiniQuest = false;
+						
+						if (accept)
+						{
+							NBTTagCompound nbt = new PacketBuffer(data).readNBTTagCompoundFromBuffer();
+							LOTRMiniQuest quest = LOTRMiniQuest.loadQuestFromNBT(nbt, playerData);
+							if (quest != null)
+							{
+								playerData.addMiniQuest(quest);
+								npc.hasMiniQuest = true;
+							}
 						}
 					}
 				}

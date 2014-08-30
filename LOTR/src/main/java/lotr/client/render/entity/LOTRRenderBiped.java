@@ -10,17 +10,16 @@ import lotr.client.model.LOTRModelBiped;
 import lotr.client.render.LOTRRenderShield;
 import lotr.common.LOTRMod;
 import lotr.common.LOTRShields;
-import lotr.common.entity.npc.LOTRBannerBearer;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.item.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
@@ -36,6 +35,7 @@ import com.mojang.authlib.GameProfile;
 public abstract class LOTRRenderBiped extends RenderBiped
 {
 	private ModelBiped capeModel = new LOTRModelBiped();
+	public ModelBiped npcRenderPassModel;
 	
 	public LOTRRenderBiped(ModelBiped model, float f)
 	{
@@ -47,6 +47,12 @@ public abstract class LOTRRenderBiped extends RenderBiped
     {
         field_82423_g = new LOTRModelBiped(1F);
         field_82425_h = new LOTRModelBiped(0.5F);
+    }
+	
+    @Override
+    public ResourceLocation getEntityTexture(Entity entity)
+    {
+		return super.getEntityTexture(entity);
     }
 	
 	@Override
@@ -62,12 +68,41 @@ public abstract class LOTRRenderBiped extends RenderBiped
 			}
 			LOTRClientProxy.renderHealthBar(entity, d, d1 + 0.5D, d2, 64, renderManager);
 		}
+		
+		if (entity instanceof LOTREntityNPC)
+		{
+			LOTRClientProxy.renderQuestBook(((LOTREntityNPC)entity), d, d1, d2, f1);
+		}
 	}
+	
+	@Override
+	public int shouldRenderPass(EntityLivingBase entity, int pass, float f)
+	{
+		return super.shouldRenderPass(entity, pass, f);
+	}
+	
+	@Override
+	public void setRenderPassModel(ModelBase model)
+	{
+		super.setRenderPassModel(model);
+		if (model instanceof ModelBiped)
+		{
+			npcRenderPassModel = (ModelBiped)model;
+		}
+	}
+	
+	@Override
+    public void func_82408_c(EntityLiving entity, int pass, float f)
+    {
+		super.func_82408_c(entity, pass, f);
+    }
 	
 	@Override
 	protected void func_82420_a(EntityLiving entity, ItemStack itemstack)
     {
 		super.func_82420_a(entity, itemstack);
+		
+		field_82423_g.bipedHeadwear.showModel = field_82425_h.bipedHeadwear.showModel = modelBipedMain.bipedHeadwear.showModel = ((LOTREntityNPC)entity).shouldRenderNPCHair();
 		
 		setupHeldItems(entity, itemstack, true);
 		setupHeldItems(entity, ((LOTREntityNPC)entity).getHeldItemLeft(), false);
@@ -329,7 +364,7 @@ public abstract class LOTRRenderBiped extends RenderBiped
 			LOTRRenderShield.renderShield(shield, entity, modelBipedMain);
 		}
 	}
-	
+
 	public float getHeldItemYTranslation()
 	{
 		return 0.1875F;

@@ -44,12 +44,14 @@ public class LOTRBiomeGenFarHarad extends LOTRBiome
 		
 		setGoodEvilWeight(0, 100);
 		
-		decorator.grassPerChunk = 5;
-		decorator.doubleGrassPerChunk = 10;
+		decorator.grassPerChunk = 8;
+		decorator.doubleGrassPerChunk = 12;
 		decorator.flowersPerChunk = 3;
 		decorator.doubleFlowersPerChunk = 1;
 		
 		registerSavannaFlowers();
+		
+		biomeColors.setWater(0x2ED4EA);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 	}

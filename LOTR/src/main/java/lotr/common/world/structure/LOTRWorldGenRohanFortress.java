@@ -367,8 +367,7 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 			horse.setLocationAndAngles(i - 4 + 0.5D, j + 1, k + 0.5D, 0F, 0F);
 			horse.onSpawnWithEgg(null);
 			horse.setHorseType(0);
-			horse.setGrowingAge(0);
-			horse.saddleMount();
+			horse.saddleMountForWorldGen();
 			world.spawnEntityInWorld(horse);
 			
 			EntityLeashKnot leash = EntityLeashKnot.func_110129_a(world, i - 7, j + 2, k);
@@ -385,8 +384,7 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 			horse.setLocationAndAngles(i + 4 + 0.5D, j + 1, k + 0.5D, 0F, 0F);
 			horse.onSpawnWithEgg(null);
 			horse.setHorseType(0);
-			horse.setGrowingAge(0);
-			horse.saddleMount();
+			horse.saddleMountForWorldGen();
 			world.spawnEntityInWorld(horse);
 			
 			EntityLeashKnot leash = EntityLeashKnot.func_110129_a(world, i + 7, j + 2, k);
@@ -632,7 +630,7 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 			horse.onSpawnWithEgg(null);
 			horse.setHorseType(0);
 			horse.setGrowingAge(0);
-			horse.saddleMount();
+			horse.saddleMountForWorldGen();
 			world.spawnEntityInWorld(horse);
 			
 			EntityLeashKnot leash = EntityLeashKnot.func_110129_a(world, i, j + 2, k - 7);
@@ -650,7 +648,7 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 			horse.onSpawnWithEgg(null);
 			horse.setHorseType(0);
 			horse.setGrowingAge(0);
-			horse.saddleMount();
+			horse.saddleMountForWorldGen();
 			world.spawnEntityInWorld(horse);
 			
 			EntityLeashKnot leash = EntityLeashKnot.func_110129_a(world, i, j + 2, k + 7);
@@ -896,7 +894,7 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 			horse.onSpawnWithEgg(null);
 			horse.setHorseType(0);
 			horse.setGrowingAge(0);
-			horse.saddleMount();
+			horse.saddleMountForWorldGen();
 			world.spawnEntityInWorld(horse);
 			
 			EntityLeashKnot leash = EntityLeashKnot.func_110129_a(world, i - 7, j + 2, k);
@@ -914,7 +912,7 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 			horse.onSpawnWithEgg(null);
 			horse.setHorseType(0);
 			horse.setGrowingAge(0);
-			horse.saddleMount();
+			horse.saddleMountForWorldGen();
 			world.spawnEntityInWorld(horse);
 			
 			EntityLeashKnot leash = EntityLeashKnot.func_110129_a(world, i + 7, j + 2, k);
@@ -1160,7 +1158,7 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 			horse.onSpawnWithEgg(null);
 			horse.setHorseType(0);
 			horse.setGrowingAge(0);
-			horse.saddleMount();
+			horse.saddleMountForWorldGen();
 			world.spawnEntityInWorld(horse);
 			
 			EntityLeashKnot leash = EntityLeashKnot.func_110129_a(world, i, j + 2, k - 7);
@@ -1178,7 +1176,7 @@ public class LOTRWorldGenRohanFortress extends LOTRWorldGenStructureBase
 			horse.onSpawnWithEgg(null);
 			horse.setHorseType(0);
 			horse.setGrowingAge(0);
-			horse.saddleMount();
+			horse.saddleMountForWorldGen();
 			world.spawnEntityInWorld(horse);
 			
 			EntityLeashKnot leash = EntityLeashKnot.func_110129_a(world, i, j + 2, k + 7);

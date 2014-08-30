@@ -2,8 +2,7 @@ package lotr.common.world.structure2;
 
 import java.util.Random;
 
-import lotr.common.LOTRFoods;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.block.*;
 import lotr.common.entity.LOTREntities;
 import lotr.common.entity.item.LOTREntityBanner;
@@ -408,7 +407,13 @@ public abstract class LOTRWorldGenStructureBase2 extends WorldGenerator
 		return world.getTileEntity(i, j, k);
 	}
 	
-	protected void fillChest(World world, Random random, int i, int j, int k, LOTRChestContents contents)
+	protected void placeChest(World world, Random random, int i, int j, int k, int meta, LOTRChestContents contents)
+	{
+		setBlockAndMetadata(world, i, j, k, Blocks.chest, meta);
+		fillChest(world, random, i, j, k, contents);
+	}
+	
+	private void fillChest(World world, Random random, int i, int j, int k, LOTRChestContents contents)
 	{
 		int i1 = i;
 		int k1 = k;
@@ -436,12 +441,22 @@ public abstract class LOTRWorldGenStructureBase2 extends WorldGenerator
 	
 	protected void placeSpawnerChest(World world, int i, int j, int k, int meta, Class entityClass)
 	{
+		placeSpawnerChest(world, null, i, j, k, meta, entityClass, null);
+	}
+	
+	protected void placeSpawnerChest(World world, Random random, int i, int j, int k, int meta, Class entityClass, LOTRChestContents contents)
+	{
 		setBlockAndMetadata(world, i, j, k, LOTRMod.spawnerChest, 0);
 		setBlockAndMetadata(world, i, j, k, LOTRMod.spawnerChest, meta);
 		TileEntity tileentity = getTileEntity(world, i, j, k);
 		if (tileentity != null && tileentity instanceof LOTRTileEntitySpawnerChest)
 		{
 			((LOTRTileEntitySpawnerChest)tileentity).setMobID(entityClass);
+		}
+		
+		if (contents != null)
+		{
+			fillChest(world, random, i, j, k, contents);
 		}
 	}
 	
@@ -547,7 +562,7 @@ public abstract class LOTRWorldGenStructureBase2 extends WorldGenerator
 		}
 	}
 	
-	protected void placeBanner(World world, int i, int j, int k, int direction, int type)
+	protected void placeBanner(World world, int i, int j, int k, LOTRFaction faction, int direction)
 	{
 		int i1 = i;
 		int k1 = k;
@@ -562,11 +577,11 @@ public abstract class LOTRWorldGenStructureBase2 extends WorldGenerator
 		
 		LOTREntityBanner banner = new LOTREntityBanner(world);
 		banner.setLocationAndAngles(i + 0.5D, j, k + 0.5D, (float)direction * 90F, 0F);
-		banner.setBannerType(type);
+		banner.setBannerFaction(faction);
 		world.spawnEntityInWorld(banner);
 	}
 	
-	protected void placeWallBanner(World world, int i, int j, int k, int direction, int type)
+	protected void placeWallBanner(World world, int i, int j, int k, LOTRFaction faction, int direction)
 	{
 		int i1 = i;
 		int k1 = k;
@@ -580,7 +595,7 @@ public abstract class LOTRWorldGenStructureBase2 extends WorldGenerator
 		}
 		
 		LOTREntityBannerWall banner = new LOTREntityBannerWall(world, i, j, k, direction);
-		banner.setBannerType(type);
+		banner.setBannerFaction(faction);
 		world.spawnEntityInWorld(banner);
 	}
 	

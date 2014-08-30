@@ -1,6 +1,7 @@
 package lotr.client;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import lotr.common.LOTRShields.ShieldType;
 import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.entity.npc.LOTRHiredNPCInfo.Task;
+import lotr.common.quest.LOTRMiniQuest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
@@ -40,7 +42,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		theProxy = proxy;
 		
 		NetworkRegistry.INSTANCE.newChannel("lotr.login", this);
-		NetworkRegistry.INSTANCE.newChannel("lotr.loginP", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.loginPD", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.promptAch", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.promptAl", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.updateShld", this);
@@ -72,6 +74,9 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.eatFood", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.bannerGui", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.npcUUID", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.miniquest", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.smokes", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.mqOffer", this);
 	}
 	
 	@Override
@@ -99,7 +104,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			LOTRLevelData.beaconState = data.readByte();
 		}
 		
-		else if (channel.equals("lotr.loginP"))
+		else if (channel.equals("lotr.loginPD"))
 		{
 			NBTTagCompound nbt = new PacketBuffer(data).readNBTTagCompoundFromBuffer();
 			LOTRLevelData.getData(entityplayer).load(nbt);
@@ -173,10 +178,19 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		{
 			LOTRAchievement.Category c = LOTRAchievement.Category.values()[data.readByte()];
 			LOTRAchievement achievement = LOTRAchievement.achievementForCategoryAndID(c, data.readByte());
+			boolean display = data.readBoolean();
+			
 			if (achievement != null)
 			{
-				LOTRLevelData.getData(entityplayer).addAchievement(achievement);
-				LOTRTickHandlerClient.achievementDisplay.queueAchievement(achievement);
+				if (!mc.isSingleplayer())
+				{
+					LOTRLevelData.getData(entityplayer).addAchievement(achievement);
+				}
+				
+				if (display)
+				{
+					LOTRTickHandlerClient.achievementDisplay.queueAchievement(achievement);
+				}
 			}
 		}
 		
@@ -494,6 +508,48 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 				LOTREntityNPC npc = (LOTREntityNPC)entity;
 				UUID uuid = new UUID(data.readLong(), data.readLong());
 				npc.setUniqueID(uuid);
+			}
+		}
+		
+		else if (channel.equals("lotr.miniquest"))
+		{
+			if (!mc.isSingleplayer())
+			{
+				LOTRPlayerData playerData = LOTRLevelData.getData(entityplayer);
+				NBTTagCompound nbt = new PacketBuffer(data).readNBTTagCompoundFromBuffer();
+				LOTRMiniQuest quest = LOTRMiniQuest.loadQuestFromNBT(nbt, playerData);
+				if (quest != null)
+				{
+					playerData.addMiniQuest(quest);
+				}
+			}
+		}
+		
+		else if (channel.equals("lotr.smokes"))
+		{
+			Entity entity = world.getEntityByID(data.readInt());
+			if (entity instanceof LOTREntityNPC)
+			{
+				((LOTREntityNPC)entity).spawnSmokes();
+			}
+		}
+		
+		else if (channel.equals("lotr.mqOffer"))
+		{
+			LOTRPlayerData playerData = LOTRLevelData.getData(entityplayer);
+			
+			int entityId = data.readInt();
+			LOTREntityNPC npc = (LOTREntityNPC)world.getEntityByID(entityId);
+
+			NBTTagCompound nbt = new PacketBuffer(data).readNBTTagCompoundFromBuffer();
+			LOTRMiniQuest quest = LOTRMiniQuest.loadQuestFromNBT(nbt, playerData);
+			if (quest != null)
+			{
+				mc.displayGuiScreen(new LOTRGuiMiniquestOffer(quest, npc));
+			}
+			else
+			{
+				LOTRGuiMiniquestOffer.sendClosePacket(null, npc, false);
 			}
 		}
 	}

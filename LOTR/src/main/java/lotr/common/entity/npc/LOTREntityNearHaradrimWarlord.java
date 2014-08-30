@@ -15,8 +15,7 @@ public class LOTREntityNearHaradrimWarlord extends LOTREntityNearHaradrimWarrior
 	public LOTREntityNearHaradrimWarlord(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		npcCape = LOTRCapes.NEAR_HARAD;
 	}
 	

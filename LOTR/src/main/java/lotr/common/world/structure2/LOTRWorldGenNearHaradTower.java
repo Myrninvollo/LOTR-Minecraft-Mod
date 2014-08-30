@@ -2,17 +2,8 @@ package lotr.common.world.structure2;
 
 import java.util.Random;
 
-import lotr.common.LOTRFoods;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
-import lotr.common.entity.npc.LOTREntityNearHaradrim;
-import lotr.common.entity.npc.LOTREntityNearHaradrimArcher;
-import lotr.common.entity.npc.LOTREntityNearHaradrimWarlord;
-import lotr.common.entity.npc.LOTREntityNearHaradrimWarrior;
-import lotr.common.entity.npc.LOTREntityWoodElf;
-import lotr.common.entity.npc.LOTREntityWoodElfCaptain;
-import lotr.common.entity.npc.LOTREntityWoodElfScout;
-import lotr.common.entity.npc.LOTREntityWoodElfWarrior;
+import lotr.common.*;
+import lotr.common.entity.npc.*;
 import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -65,8 +56,8 @@ public class LOTRWorldGenNearHaradTower extends LOTRWorldGenStructureBase2
 		
 		if (restrictions)
 		{
-			int minHeight = j;
-			int maxHeight = j;
+			int minHeight = 0;
+			int maxHeight = 0;
 			
 			for (int i1 = -radiusPlusOne; i1 <= radiusPlusOne; i1++)
 			{
@@ -281,20 +272,20 @@ public class LOTRWorldGenNearHaradTower extends LOTRWorldGenStructureBase2
 		}
 		
 		setBlockAndMetadata(world, 0, topHeight + 1, -5, LOTRMod.slabSingle4, 8);
-		placeBanner(world, 0, topHeight + 2, -5, 0, 9);
+		placeBanner(world, 0, topHeight + 2, -5, LOTRFaction.NEAR_HARAD, 0);
 		
 		setBlockAndMetadata(world, 5, topHeight + 1, 0, LOTRMod.slabSingle4, 8);
-		placeBanner(world, 5, topHeight + 2, 0, 1, 9);
+		placeBanner(world, 5, topHeight + 2, 0, LOTRFaction.NEAR_HARAD, 1);
 		
 		setBlockAndMetadata(world, 0, topHeight + 1, 5, LOTRMod.slabSingle4, 8);
-		placeBanner(world, 0, topHeight + 2, 5, 2, 9);
+		placeBanner(world, 0, topHeight + 2, 5, LOTRFaction.NEAR_HARAD, 2);
 		
 		setBlockAndMetadata(world, -5, topHeight + 1, 0, LOTRMod.slabSingle4, 8);
-		placeBanner(world, -5, topHeight + 2, 0, 3, 9);
+		placeBanner(world, -5, topHeight + 2, 0, LOTRFaction.NEAR_HARAD, 3);
 		
 		setBlockAndMetadata(world, 0, 1, -6, Blocks.wooden_door, 1);
 		setBlockAndMetadata(world, 0, 2, -6, Blocks.wooden_door, 8);
-		placeWallBanner(world, 0, 7, -6, 2, 9);
+		placeWallBanner(world, 0, 7, -6, LOTRFaction.NEAR_HARAD, 2);
 		
 		if (usingPlayer == null)
 		{
@@ -325,8 +316,7 @@ public class LOTRWorldGenNearHaradTower extends LOTRWorldGenStructureBase2
 		}
 		if (l == 4)
 		{
-			setBlockAndMetadata(world, i, j, k, Blocks.chest, 0);
-			fillChest(world, random, i, j, k, LOTRChestContents.NEAR_HARAD_TOWER);
+			placeChest(world, random, i, j, k, 0, LOTRChestContents.NEAR_HARAD_TOWER);
 		}
 		if (l == 5)
 		{

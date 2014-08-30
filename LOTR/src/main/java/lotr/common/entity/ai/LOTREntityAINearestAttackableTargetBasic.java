@@ -2,8 +2,7 @@ package lotr.common.entity.ai;
 
 import lotr.common.LOTRLevelData;
 import lotr.common.LOTRMod;
-import lotr.common.entity.npc.LOTREntityBandit;
-import lotr.common.entity.npc.LOTREntityNPC;
+import lotr.common.entity.npc.*;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,6 +28,14 @@ public class LOTREntityAINearestAttackableTargetBasic extends EntityAINearestAtt
 		{
 			LOTREntityNPC npc = (LOTREntityNPC)taskOwner;
 			if (npc.hiredNPCInfo.isActive && npc.hiredNPCInfo.isHalted())
+			{
+				return false;
+			}
+		}
+		if (taskOwner instanceof LOTREntityNPCRideable)
+		{
+			LOTREntityNPCRideable rideable = (LOTREntityNPCRideable)taskOwner;
+			if (rideable.isNPCTamed() || rideable.riddenByEntity instanceof EntityPlayer)
 			{
 				return false;
 			}

@@ -21,7 +21,7 @@ public class LOTREntityRohanMeadhost extends LOTREntityRohanMan implements LOTRT
 	public LOTREntityRohanMeadhost(World world)
 	{
 		super(world);
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		
 		npcLocationName = "entity.lotr.RohanMeadhost.locationName";
 		

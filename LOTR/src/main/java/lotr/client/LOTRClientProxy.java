@@ -23,21 +23,25 @@ import lotr.common.entity.projectile.*;
 import lotr.common.item.*;
 import lotr.common.tileentity.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -349,6 +353,46 @@ public class LOTRClientProxy extends LOTRCommonProxy
             GL11.glColor4f(1F, 1F, 1F, 1F);
             GL11.glPopMatrix();
         }
+    }
+    
+    private static ItemStack questBookItem;
+    
+    public static void renderQuestBook(LOTREntityNPC npc, double d, double d1, double d2, float tick)
+    {
+    	if (questBookItem == null)
+    	{
+    		questBookItem = new ItemStack(LOTRMod.redBook);
+    	}
+    	
+    	EntityPlayer entityplayer = Minecraft.getMinecraft().thePlayer;
+    	if (!LOTRLevelData.getData(entityplayer).getMiniQuestsForEntity(npc, true).isEmpty())
+    	{
+    		float age = ((float)npc.ticksExisted + tick);
+    		float rotation = age % 360F;
+    		rotation *= 6F;
+	        
+	        Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationItemsTexture);
+			GL11.glPushMatrix();
+			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			GL11.glTranslatef((float)d, (float)d1 + npc.height + 1F, (float)d2);
+			float scale = 1F;
+			GL11.glRotatef(rotation, 0F, 1F, 0F);
+			GL11.glTranslatef(-0.5F * scale, 0F, 0.03125F * scale);
+			GL11.glScalef(scale, scale, scale);
+			IIcon icon = questBookItem.getIconIndex();
+	        if (icon == null)
+	        {
+	            icon = ((TextureMap)Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationItemsTexture)).getAtlasSprite("missingno");
+	        }
+			Tessellator tessellator = Tessellator.instance;
+	        float f2 = icon.getMinU();
+	        float f3 = icon.getMaxU();
+	        float f4 = icon.getMinV();
+	        float f5 = icon.getMaxV();
+			ItemRenderer.renderItemIn2D(tessellator, f3, f4, f2, f5, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
+			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+			GL11.glPopMatrix();
+    	}
     }
     
     public static void sendClientInfoPacket()

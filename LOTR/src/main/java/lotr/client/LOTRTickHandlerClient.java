@@ -3,8 +3,7 @@ package lotr.client;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
@@ -16,6 +15,7 @@ import lotr.common.*;
 import lotr.common.block.LOTRBlockLeavesBase;
 import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.item.LOTREntityPortal;
+import lotr.common.entity.npc.LOTREntityNPCRideable;
 import lotr.common.item.*;
 import lotr.common.world.biome.*;
 import net.minecraft.block.Block;
@@ -44,13 +44,17 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.input.BOMInputStream;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
+import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -146,33 +150,28 @@ public class LOTRTickHandlerClient
 				{
 					try
 					{
-						URL updateURL = new URL("http://dl.dropbox.com/s/sidxw1dicl2nsev/version.txt");
-						HttpURLConnection updateConnection = (HttpURLConnection)updateURL.openConnection();
-						BufferedReader updateReader = new BufferedReader(new InputStreamReader(updateConnection.getInputStream()));
-						String updateVersion = updateReader.readLine();
-						updateReader.close();
+						/*URL updateURL = new URL("http://dl.dropbox.com/s/sidxw1dicl2nsev/version.txt?dl=1");
+						File updateFile = new File(DimensionManager.getCurrentSaveRootDirectory(), "lotrupdate.txt");
+						FileUtils.copyURLToFile(updateURL, updateFile);
+						BufferedReader reader = new BufferedReader(new InputStreamReader(new BOMInputStream(new FileInputStream(updateFile)), Charsets.UTF_8.name()));
+						String updateVersion = reader.readLine();
+						reader.close();
 						
-						int i = updateVersion.indexOf("Beta");
-						if (i >= 0)
+						String version = null;
+						for (ModContainer mod : Loader.instance().getModList())
 						{
-							updateVersion = updateVersion.substring(i);
-							
-							String version = null;
-							for (ModContainer mod : Loader.instance().getModList())
+							if (mod.getMod() == LOTRMod.instance)
 							{
-								if (mod.getMod() == LOTRMod.instance)
-								{
-									version = mod.getVersion();
-								}
-							}
-	
-							if (version != null && !updateVersion.equals(version))
-							{
-								IChatComponent component = new ChatComponentText("The Lord of the Rings Mod:");
-								component.getChatStyle().setColor(EnumChatFormatting.YELLOW);
-								entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.update", new Object[] {component, updateVersion}));
+								version = mod.getVersion();
 							}
 						}
+
+						if (version != null && !updateVersion.equals(version))
+						{
+							IChatComponent component = new ChatComponentText("The Lord of the Rings Mod:");
+							component.getChatStyle().setColor(EnumChatFormatting.YELLOW);
+							entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.update", new Object[] {component, updateVersion}));
+						}*/
 					}
 					catch (Exception e)
 					{
@@ -305,20 +304,24 @@ public class LOTRTickHandlerClient
 			EntityClientPlayerMP entityplayer = minecraft.thePlayer;
 			World world = minecraft.theWorld;
 			
-			if (entityplayer != null && world != null && entityplayer.ridingEntity instanceof LOTREntityCamel)
+			if (entityplayer != null && world != null && entityplayer.ridingEntity instanceof LOTREntityNPCRideable)
 			{
-				GuiScreen gui = minecraft.currentScreen;
-				if (gui instanceof GuiInventory || gui instanceof GuiContainerCreative)
+				LOTREntityNPCRideable npc = (LOTREntityNPCRideable)entityplayer.ridingEntity;
+				if (npc.getMountInventory() != null)
 				{
-					entityplayer.closeScreen();
-					
-					ByteBuf data = Unpooled.buffer();
-		        	
-		        	data.writeInt(entityplayer.getEntityId());
-		        	data.writeByte((byte)entityplayer.dimension);
-		        	
-		        	C17PacketCustomPayload packet = new C17PacketCustomPayload("lotr.camelGui", data);
-		        	minecraft.thePlayer.sendQueue.addToSendQueue(packet);
+					GuiScreen gui = minecraft.currentScreen;
+					if (gui instanceof GuiInventory || gui instanceof GuiContainerCreative)
+					{
+						entityplayer.closeScreen();
+						
+						ByteBuf data = Unpooled.buffer();
+			        	
+			        	data.writeInt(entityplayer.getEntityId());
+			        	data.writeByte((byte)entityplayer.dimension);
+			        	
+			        	C17PacketCustomPayload packet = new C17PacketCustomPayload("lotr.mountInv", data);
+			        	minecraft.thePlayer.sendQueue.addToSendQueue(packet);
+					}
 				}
 			}
 		}

@@ -51,6 +51,8 @@ public class LOTRChestContents
 	
 	public static LOTRChestContents MIRKWOOD_LOOT;
 	
+	public static LOTRChestContents DOL_GULDUR_TOWER;
+	
 	public static LOTRChestContents DWARVEN_MINE_CORRIDOR;
 	
 	public static LOTRChestContents DWARVEN_TOWER;
@@ -585,6 +587,31 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.goldRing), 1, 1, 10),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.silverRing), 1, 1, 10),
 			new WeightedRandomChestContent(new ItemStack(Items.compass), 1, 1, 50)
+		}).enablePouches().enableEnchantedBooks();
+		
+		DOL_GULDUR_TOWER = new LOTRChestContents(6, 8, new WeightedRandomChestContent[]
+		{
+			new WeightedRandomChestContent(new ItemStack(Items.bone), 1, 3, 50),
+			new WeightedRandomChestContent(new ItemStack(Items.rotten_flesh), 1, 3, 50),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.orcSteel), 1, 4, 100),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.guldurilCrystal), 1, 3, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugOrcDraught), 1, 1, 100),
+			new WeightedRandomChestContent(new ItemStack(Items.arrow), 2, 8, 100),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.orcBow), 1, 1, 50),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.daggerDolGuldur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.daggerDolGuldurPoisoned), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.swordDolGuldur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.spearDolGuldur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.pickaxeDolGuldur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.axeDolGuldur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.battleaxeDolGuldur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.hammerDolGuldur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.helmetDolGuldur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.bodyDolGuldur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.legsDolGuldur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.bootsDolGuldur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.maggotyBread), 1, 4, 100),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.bottlePoison), 1, 1, 25)
 		}).enablePouches().enableEnchantedBooks();
 		
 		DWARVEN_MINE_CORRIDOR = new LOTRChestContents(3, 6, new WeightedRandomChestContent[]

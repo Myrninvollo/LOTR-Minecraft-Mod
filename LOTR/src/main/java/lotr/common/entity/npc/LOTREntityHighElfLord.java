@@ -13,8 +13,7 @@ public class LOTREntityHighElfLord extends LOTREntityHighElfWarrior implements L
 	public LOTREntityHighElfLord(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		npcCape = LOTRCapes.HIGH_ELF;
 	}
 	

@@ -2,8 +2,7 @@ package lotr.common.world.structure2;
 
 import java.util.Random;
 
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.npc.LOTREntityRangerNorth;
 import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.block.Block;
@@ -220,11 +219,7 @@ public class LOTRWorldGenRangerWatchtower extends LOTRWorldGenStructureBase2
 		setBlockAndMetadata(world, -2, 17, 0, Blocks.torch, 5);
 		setBlockAndMetadata(world, 2, 17, 0, Blocks.torch, 5);
 		
-		setBlockAndMetadata(world, 0, 16, 1, Blocks.chest, 0);
-		for (int l = 0; l < 4; l++)
-		{
-			fillChest(world, random, 0, 16, 1, LOTRChestContents.RANGER_TENT);
-		}
+		placeChest(world, random, 0, 16, 1, 0, LOTRChestContents.RANGER_TENT);
 		
 		setBlockAndMetadata(world, 0, 11, 1, LOTRMod.rangerTable, 0);
 		
@@ -256,7 +251,7 @@ public class LOTRWorldGenRangerWatchtower extends LOTRWorldGenStructureBase2
 		setBlockAndMetadata(world, -1, 22, 0, Blocks.torch, 0);
 		setBlockAndMetadata(world, 1, 22, 0, Blocks.torch, 0);
 		
-		placeBanner(world, 0, 23, 0, 0, 12);
+		placeBanner(world, 0, 23, 0, LOTRFaction.RANGER_NORTH, 0);
 		
 		if (usingPlayer == null)
 		{

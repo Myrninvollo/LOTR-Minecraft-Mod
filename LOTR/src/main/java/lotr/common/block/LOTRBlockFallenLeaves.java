@@ -10,8 +10,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
@@ -23,6 +22,7 @@ public class LOTRBlockFallenLeaves extends Block implements IShearable
 {
 	public static List<LOTRBlockFallenLeaves> allFallenLeaves = new ArrayList();
 	private static Random leafRand = new Random();
+	
 	private Block[] leafBlocks;
 	
 	public LOTRBlockFallenLeaves(Block... blocks)
@@ -132,9 +132,25 @@ public class LOTRBlockFallenLeaves extends Block implements IShearable
     }
     
     @Override
+    public void onNeighborBlockChange(World world, int i, int j, int k, Block block)
+    {
+        if (!canBlockStay(world, i, j, k))
+        {
+            dropBlockAsItem(world, i, j, k, world.getBlockMetadata(i, j, k), 0);
+            world.setBlockToAir(i, j, k);
+        }
+    }
+    
+    @Override
     public Item getItemDropped(int i, Random random, int j)
     {
         return null;
+    }
+    
+    @Override
+    public int damageDropped(int i)
+    {
+        return i;
     }
     
     @Override

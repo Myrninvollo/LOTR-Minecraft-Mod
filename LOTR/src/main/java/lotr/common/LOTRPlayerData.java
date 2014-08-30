@@ -3,15 +3,19 @@ package lotr.common;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
+import java.io.IOException;
 import java.util.*;
 
+import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.inventory.LOTRSlotAlignmentReward;
+import lotr.common.quest.LOTRMiniQuest;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
@@ -24,7 +28,7 @@ public class LOTRPlayerData
 {
 	private UUID playerUUID;
 	
-	private Map alignments = new HashMap();
+	private Map<LOTRFaction, Integer> alignments = new HashMap();
 	private LOTRFaction viewingFaction;
 	private boolean checkedAlignments = false;
 	private boolean hideAlignment = false;
@@ -32,7 +36,7 @@ public class LOTRPlayerData
 	private boolean hideOnMap = false;
 	private int waypointToggleMode;
 
-	private List achievements = new ArrayList();
+	private List<LOTRAchievement> achievements = new ArrayList();
 	private boolean checkedMenu = false;
 	
 	private LOTRShields shield;
@@ -47,6 +51,8 @@ public class LOTRPlayerData
 	private boolean askedForGandalf = false;
 	
 	private int alcoholTolerance;
+	
+	private List<LOTRMiniQuest> miniQuests = new ArrayList();
 	
 	public LOTRPlayerData(UUID uuid)
 	{
@@ -136,6 +142,17 @@ public class LOTRPlayerData
 		playerData.setBoolean("AskedForGandalf", askedForGandalf);
 		
 		playerData.setInteger("Alcohol", alcoholTolerance);
+		
+		taglist = new NBTTagList();
+		it = miniQuests.iterator();
+		while (it.hasNext())
+		{
+			LOTRMiniQuest quest = (LOTRMiniQuest)it.next();
+			NBTTagCompound nbt = new NBTTagCompound();
+			quest.writeToNBT(nbt);
+			taglist.appendTag(nbt);
+		}
+		playerData.setTag("MiniQuests", taglist);
 	}
 	
 	public void load(NBTTagCompound playerData)
@@ -196,6 +213,41 @@ public class LOTRPlayerData
 		askedForGandalf = playerData.getBoolean("AskedForGandalf");
 		
 		alcoholTolerance = playerData.getInteger("Alcohol");
+		
+		taglist = playerData.getTagList("MiniQuests", new NBTTagCompound().getId());
+		for (int i = 0; i < taglist.tagCount(); i++)
+		{
+			NBTTagCompound nbt = taglist.getCompoundTagAt(i);
+			LOTRMiniQuest quest = LOTRMiniQuest.loadQuestFromNBT(nbt, this);
+			if (quest != null)
+			{
+				miniQuests.add(quest);
+			}
+		}
+	}
+	
+	public void sendPlayerData(EntityPlayerMP entityplayer) throws IOException
+	{
+		ByteBuf data = Unpooled.buffer();
+		
+		NBTTagCompound nbt = new NBTTagCompound();
+		save(nbt);
+		nbt.removeTag("Achievements");
+		nbt.removeTag("MiniQuests");
+		new PacketBuffer(data).writeNBTTagCompoundToBuffer(nbt);
+
+		S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.loginPD", data);
+		((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
+		
+		for (LOTRAchievement achievement : achievements)
+		{
+			sendAchievementPacket(entityplayer, achievement, false);
+		}
+		
+		for (LOTRMiniQuest quest : miniQuests)
+		{
+			sendMiniQuestPacket(entityplayer, quest);
+		}
 	}
 	
 	public int getAlignment(LOTRFaction faction)
@@ -209,8 +261,8 @@ public class LOTRPlayerData
 			return -1;
 		}
 		
-		Object obj = alignments.get(faction);
-		return obj != null ? (Integer)obj : 0;
+		Integer alignment = alignments.get(faction);
+		return alignment != null ? alignment.intValue() : 0;
 	}
 	
 	public void setAlignment(LOTRFaction faction, int alignment)
@@ -248,7 +300,7 @@ public class LOTRPlayerData
 		
 		if (alignmentSource.isKill)
 		{
-			Iterator it = faction.killPositives.iterator();
+			Iterator it = faction.killBonuses.iterator();
 			while (it.hasNext())
 			{
 				LOTRFaction nextFaction = (LOTRFaction)it.next();
@@ -261,7 +313,7 @@ public class LOTRPlayerData
 				sendAlignmentBonusPacket(alignmentSource, factionBonus, nextFaction, posX, posY, posZ);
 			}
 			
-			it = faction.killNegatives.iterator();
+			it = faction.killPenalties.iterator();
 			while (it.hasNext())
 			{
 				LOTRFaction nextFaction = (LOTRFaction)it.next();
@@ -372,13 +424,7 @@ public class LOTRPlayerData
 		EntityPlayer entityplayer = getPlayer();
 		if (entityplayer != null && !entityplayer.worldObj.isRemote && achievement.canPlayerEarn(entityplayer))
 		{
-			ByteBuf data = Unpooled.buffer();
-			
-			data.writeByte((byte)achievement.category.ordinal());
-			data.writeByte((byte)achievement.ID);
-			
-			S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.achieve", data);
-			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
+			sendAchievementPacket((EntityPlayerMP)entityplayer, achievement, true);
 			
 			MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.lotr.achievement", new Object[] {entityplayer.func_145748_c_(), achievement.getChatComponentForEarn()}));
 			
@@ -413,6 +459,18 @@ public class LOTRPlayerData
 				addAchievement(LOTRAchievement.travel50);
 			}
 		}
+	}
+	
+	private void sendAchievementPacket(EntityPlayerMP entityplayer, LOTRAchievement achievement, boolean display)
+	{
+		ByteBuf data = Unpooled.buffer();
+		
+		data.writeByte(achievement.category.ordinal());
+		data.writeByte(achievement.ID);
+		data.writeBoolean(display);
+		
+		S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.achieve", data);
+		entityplayer.playerNetServerHandler.sendPacket(packet);
 	}
 	
 	public boolean hasAchievement(LOTRAchievement achievement)
@@ -640,5 +698,106 @@ public class LOTRPlayerData
 				addAchievement(LOTRAchievement.gainHighAlcoholTolerance);
 			}
 		}
+	}
+	
+	public List<LOTRMiniQuest> getMiniQuests()
+	{
+		return miniQuests;
+	}
+	
+	public void addMiniQuest(LOTRMiniQuest quest)
+	{
+		miniQuests.add(quest);
+		updateMiniQuest(quest);
+	}
+	
+	public void updateMiniQuest(LOTRMiniQuest quest)
+	{
+		LOTRLevelData.markDirty();
+		
+		EntityPlayer entityplayer = getPlayer();
+		if (entityplayer != null && !entityplayer.worldObj.isRemote)
+		{
+			try
+			{
+				sendMiniQuestPacket((EntityPlayerMP)entityplayer, quest);
+			}
+			catch (IOException e)
+			{
+				System.out.println("Error sending miniquest packet to player " + entityplayer.getCommandSenderName());
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void sendMiniQuestPacket(EntityPlayerMP entityplayer, LOTRMiniQuest quest) throws IOException
+	{
+		ByteBuf data = Unpooled.buffer();
+		
+		NBTTagCompound nbt = new NBTTagCompound();
+		quest.writeToNBT(nbt);
+		new PacketBuffer(data).writeNBTTagCompoundToBuffer(nbt);
+
+		S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.miniquest", data);
+		((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
+	}
+	
+	public List getMiniQuestsForEntity(LOTREntityNPC npc, boolean activeOnly)
+	{
+		List list = new ArrayList();
+		for (LOTRMiniQuest quest : miniQuests)
+		{
+			if (quest.entityUUID.equals(npc.getUniqueID()))
+			{
+				if (activeOnly)
+				{
+					if (quest.isActive())
+					{
+						list.add(quest);
+					}
+				}
+				else
+				{
+					list.add(quest);
+				}
+			}
+		}
+		return list;
+	}
+	
+	public List getMiniQuestsForFaction(LOTRFaction f, boolean activeOnly)
+	{
+		List list = new ArrayList();
+		for (LOTRMiniQuest quest : miniQuests)
+		{
+			if (quest.entityFaction == f)
+			{
+				if (activeOnly)
+				{
+					if (quest.isActive())
+					{
+						list.add(quest);
+					}
+				}
+				else
+				{
+					list.add(quest);
+				}
+			}
+		}
+		return list;
+	}
+	
+	public List getActiveMiniQuests()
+	{
+		List list = new ArrayList();
+		for (LOTRMiniQuest quest : miniQuests)
+		{
+			if (quest.isActive())
+			{
+				list.add(quest);
+			}
+		}
+		return list;
 	}
 }

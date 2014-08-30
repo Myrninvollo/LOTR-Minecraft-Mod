@@ -43,6 +43,9 @@ public class LOTRRenderElvenBlade implements IItemRenderer
 		boolean glows = false;
 		IIcon icon = itemstack.getItem().getIconFromDamage(0);
 		EntityLivingBase entity = (EntityLivingBase)data[1];
+		
+		entity.worldObj.theProfiler.startSection("elvenBlade");
+		
 		List orcs = entity.worldObj.getEntitiesWithinAABB(LOTREntityOrc.class, entity.boundingBox.expand(distance, distance, distance));
 		if (!orcs.isEmpty())
 		{
@@ -83,6 +86,8 @@ public class LOTRRenderElvenBlade implements IItemRenderer
 		
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
+		
+		entity.worldObj.theProfiler.endSection();
 	}
 	
 	private void renderEffect()

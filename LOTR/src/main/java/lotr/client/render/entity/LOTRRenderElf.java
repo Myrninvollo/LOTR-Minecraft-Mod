@@ -45,7 +45,7 @@ public class LOTRRenderElf extends LOTRRenderBiped
     }
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
         LOTREntityElf elf = (LOTREntityElf)entity;
 		boolean male = elf.familyInfo.isNPCMale();

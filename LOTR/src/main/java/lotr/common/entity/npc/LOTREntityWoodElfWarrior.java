@@ -3,13 +3,16 @@ package lotr.common.entity.npc;
 import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.entity.animal.LOTREntityElk;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class LOTREntityWoodElfWarrior extends LOTREntityWoodElfScout
+public class LOTREntityWoodElfWarrior extends LOTREntityWoodElf
 {
 	public LOTREntityWoodElfWarrior(World world)
 	{
@@ -23,7 +26,15 @@ public class LOTREntityWoodElfWarrior extends LOTREntityWoodElfScout
 	@Override
 	public LOTRNPCMount createMountToRide()
 	{
-		return new LOTREntityElk(worldObj);
+		LOTREntityElk elk = new LOTREntityElk(worldObj);
+		elk.setMountArmor(new ItemStack(LOTRMod.elkArmorWoodElven));
+		return elk;
+	}
+	
+	@Override
+	public EntityAIBase createElfRangedAttackAI()
+	{
+		return new EntityAIArrowAttack(this, 1.25D, 25, 35, 24F);
 	}
 	
 	@Override
@@ -31,6 +42,13 @@ public class LOTREntityWoodElfWarrior extends LOTREntityWoodElfScout
 	{
 		return new LOTREntityAIAttackOnCollide(this, 1.4D, false);
 	}
+	
+	@Override
+    protected void applyEntityAttributes()
+    {
+        super.applyEntityAttributes();
+		getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(24D);
+    }
 	
 	@Override
     public IEntityLivingData onSpawnWithEgg(IEntityLivingData data)
@@ -78,8 +96,44 @@ public class LOTREntityWoodElfWarrior extends LOTREntityWoodElfScout
 	}
 	
 	@Override
+    public void attackEntityWithRangedAttack(EntityLivingBase target, float f)
+    {
+        EntityArrow arrow = new EntityArrow(worldObj, this, target, 1.3F + (getDistanceToEntity(target) / 24F * 0.3F), 0.5F);
+		arrow.setDamage(arrow.getDamage() + 0.75D);
+        playSound("random.bow", 1F, 1F / (rand.nextFloat() * 0.4F + 0.8F));
+        worldObj.spawnEntityInWorld(arrow);
+    }
+	
+	@Override
 	public int getAlignmentBonus()
 	{
 		return LOTRAlignmentValues.Bonuses.WOOD_ELF_WARRIOR;
+	}
+	
+	@Override
+	public String getSpeechBank(EntityPlayer entityplayer)
+	{
+		if (isFriendly(entityplayer))
+		{
+			if (hiredNPCInfo.getHiringPlayer() == entityplayer)
+			{
+				return "woodElf_hired";
+			}
+			else
+			{
+				if (LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.WOOD_ELF_TRUST)
+				{
+					return "woodElfWarrior_friendly";
+				}
+				else
+				{
+					return "woodElf_neutral";
+				}
+			}
+		}
+		else
+		{
+			return "woodElfWarrior_hostile";
+		}
 	}
 }

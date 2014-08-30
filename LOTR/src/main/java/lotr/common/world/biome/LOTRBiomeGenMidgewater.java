@@ -48,7 +48,7 @@ public class LOTRBiomeGenMidgewater extends LOTRBiome
 		
 		biomeColors.setGrass(0x82824C);
 		biomeColors.setFoliage(0x826A3B);
-		biomeColors.setWater(0xE0FFAE);
+		biomeColors.setWater(0x564F3C);
 		
 		setBanditChance(LOTRBanditSpawner.UNCOMMON);
 		

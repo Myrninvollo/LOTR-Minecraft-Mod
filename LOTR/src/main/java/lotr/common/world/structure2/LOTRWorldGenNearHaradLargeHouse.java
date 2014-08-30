@@ -221,8 +221,7 @@ public class LOTRWorldGenNearHaradLargeHouse extends LOTRWorldGenStructureBase2
 		
 		setBlockAndMetadata(world, 10, 1, 3, Blocks.furnace, 5);
 		setBlockAndMetadata(world, 10, 1, 2, Blocks.furnace, 5);
-		setBlockAndMetadata(world, 10, 1, 1, Blocks.chest, 5);
-		fillChest(world, random, 10, 1, 1, LOTRChestContents.NEAR_HARAD_HOUSE);
+		placeChest(world, random, 10, 1, 1, 5, LOTRChestContents.NEAR_HARAD_HOUSE);
 		
 		setBlockAndMetadata(world, 4, 3, 1, Blocks.torch, 3);
 		setBlockAndMetadata(world, 7, 3, 1, Blocks.torch, 3);

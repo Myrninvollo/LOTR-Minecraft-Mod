@@ -41,10 +41,7 @@ public class LOTREntityTroll extends LOTREntityNPC
         tasks.addTask(7, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 8F, 0.05F));
         tasks.addTask(8, new EntityAIWatchClosest(this, EntityLiving.class, 12F, 0.01F));
         tasks.addTask(9, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(4, LOTREntityAINearestAttackableTargetTroll.class);
+        addTargetTasks(true, LOTREntityAINearestAttackableTargetTroll.class);
         spawnsInDarkness = true;
 	}
 	
@@ -68,7 +65,7 @@ public class LOTREntityTroll extends LOTREntityNPC
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(40D);
+		getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(50D);
         getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(24D);
         getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.2D);
         getEntityAttribute(npcAttackDamage).setBaseValue(5D);
@@ -86,6 +83,7 @@ public class LOTREntityTroll extends LOTREntityNPC
 			double maxHealth = getEntityAttribute(SharedMonsterAttributes.maxHealth).getBaseValue();
 			maxHealth *= 1.5D;
 			getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(maxHealth);
+			setHealth(getMaxHealth());
 			
 			double attack = getEntityAttribute(npcAttackDamage).getBaseValue();
 			attack += 3D;

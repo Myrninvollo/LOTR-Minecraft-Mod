@@ -20,7 +20,7 @@ public class LOTRRenderNearHaradrim extends LOTRRenderBiped
 	}
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
 		LOTREntityNearHaradrim haradrim = (LOTREntityNearHaradrim)entity;
 		if (haradrim.isHaradrimMale())

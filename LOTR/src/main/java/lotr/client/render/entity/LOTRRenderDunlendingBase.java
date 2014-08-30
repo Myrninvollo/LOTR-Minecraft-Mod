@@ -18,7 +18,7 @@ public class LOTRRenderDunlendingBase extends LOTRRenderBiped
 	}
 	
 	@Override
-    protected ResourceLocation getEntityTexture(Entity entity)
+	public ResourceLocation getEntityTexture(Entity entity)
     {
         return LOTRRandomSkins.getRandomSkin(dunlendingSkins, (LOTREntityDunlending)entity);
     }

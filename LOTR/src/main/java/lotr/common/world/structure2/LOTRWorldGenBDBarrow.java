@@ -54,8 +54,8 @@ public class LOTRWorldGenBDBarrow extends LOTRWorldGenStructureBase2
 		
 		if (restrictions)
 		{
-			int minHeight = j;
-			int maxHeight = j;
+			int minHeight = 0;
+			int maxHeight = 0;
 			
 			for (int i1 = -radius; i1 <= radius; i1++)
 			{
@@ -66,15 +66,14 @@ public class LOTRWorldGenBDBarrow extends LOTRWorldGenStructureBase2
 					{
 						return false;
 					}
-					
-					int j2 = getY(j1);
-					if (j2 < minHeight)
+
+					if (j1 < minHeight)
 					{
-						minHeight = j2;
+						minHeight = j1;
 					}
-					if (j2 > maxHeight)
+					if (j1 > maxHeight)
 					{
-						maxHeight = j2;
+						maxHeight = j1;
 					}
 				}
 			}
@@ -136,9 +135,8 @@ public class LOTRWorldGenBDBarrow extends LOTRWorldGenStructureBase2
 				setBlockAndMetadata(world, i1, 1, k1, Blocks.dirt, 0);
 			}
 		}
-		
-		setBlockAndMetadata(world, 0, 0, 0, Blocks.chest, 0);
-		fillChest(world, random, 0, 0, 0, LOTRChestContents.BARROW_DOWNS);
+
+		placeChest(world, random, 0, 0, 0, 0, LOTRChestContents.BARROW_DOWNS);
 		
 		setBlockAndMetadata(world, -3, 2, 0, Blocks.torch, 2);
 		setBlockAndMetadata(world, 3, 2, 0, Blocks.torch, 1);

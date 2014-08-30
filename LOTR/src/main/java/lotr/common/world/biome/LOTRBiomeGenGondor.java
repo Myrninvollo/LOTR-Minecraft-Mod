@@ -128,4 +128,10 @@ public class LOTRBiomeGenGondor extends LOTRBiome
 	{
 		return 0.02F;
 	}
+	
+	@Override
+	public int spawnCountMultiplier()
+	{
+		return 4;
+	}
 }

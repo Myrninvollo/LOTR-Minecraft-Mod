@@ -1,12 +1,8 @@
 package lotr.common.entity.npc;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.item.LOTRItemLeatherHat;
 import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -18,8 +14,7 @@ public class LOTREntityHobbitShirriffChief extends LOTREntityHobbitShirriff impl
 	public LOTREntityHobbitShirriffChief(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 	}
 	
 	@Override

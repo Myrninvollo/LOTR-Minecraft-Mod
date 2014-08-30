@@ -2,38 +2,14 @@ package lotr.common.entity.npc;
 
 import java.util.List;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFoods;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
-import lotr.common.entity.ai.LOTREntityAIDrink;
-import lotr.common.entity.ai.LOTREntityAIEat;
-import lotr.common.entity.ai.LOTREntityAIFollowHiringPlayer;
-import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
-import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
-import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
-import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetOrc;
-import lotr.common.entity.ai.LOTREntityAIOrcAvoidGoodPlayer;
-import lotr.common.entity.ai.LOTREntityAIOrcSkirmish;
+import lotr.common.*;
+import lotr.common.entity.ai.*;
 import lotr.common.entity.animal.LOTREntityRabbit;
 import lotr.common.entity.item.LOTREntityOrcBomb;
 import lotr.common.world.biome.LOTRBiome;
 import lotr.common.world.biome.LOTRBiomeGenIronHills;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIOpenDoor;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityAIWatchClosest2;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
@@ -72,12 +48,11 @@ public abstract class LOTREntityOrc extends LOTREntityNPC
         tasks.addTask(9, new EntityAIWatchClosest2(this, LOTREntityNPC.class, 5F, 0.05F));
         tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8F, 0.02F));
         tasks.addTask(11, new EntityAILookIdle(this));
-        targetTasks.addTask(1, new LOTREntityAIHiringPlayerHurtByTarget(this));
-        targetTasks.addTask(2, new LOTREntityAIHiringPlayerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-        addTargetTasks(4, LOTREntityAINearestAttackableTargetOrc.class);
-		targetTasks.addTask(5, new LOTREntityAIOrcSkirmish(this, true));
-		targetTasks.addTask(6, new LOTREntityAINearestAttackableTargetOrc(this, LOTREntityRabbit.class, 2000, false));
+
+        int target = addTargetTasks(true, LOTREntityAINearestAttackableTargetOrc.class);
+		targetTasks.addTask(target + 1, new LOTREntityAIOrcSkirmish(this, true));
+		targetTasks.addTask(target + 2, new LOTREntityAINearestAttackableTargetOrc(this, LOTREntityRabbit.class, 2000, false));
+		
 		spawnsInDarkness = true;
 	}
 	

@@ -2,11 +2,7 @@ package lotr.common.entity.npc;
 
 import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
-import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
-import lotr.common.item.LOTRItemSpear;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,11 +13,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-public class LOTREntityElfWarrior extends LOTREntityElf
+public class LOTREntityGaladhrimWarrior extends LOTREntityGaladhrimElf
 {
 	public boolean isDefendingTree;
 	
-	public LOTREntityElfWarrior(World world)
+	public LOTREntityGaladhrimWarrior(World world)
 	{
 		super(world);
 		tasks.addTask(2, meleeAttackAI);
@@ -142,13 +138,13 @@ public class LOTREntityElfWarrior extends LOTREntityElf
 		{
 			if (hiredNPCInfo.getHiringPlayer() == entityplayer)
 			{
-				return "elf_hired";
+				return "galadhrim_hired";
 			}
-			return "elfWarrior_friendly";
+			return "galadhrimWarrior_friendly";
 		}
 		else
 		{
-			return "elfWarrior_hostile";
+			return "galadhrimWarrior_hostile";
 		}
 	}
 }

@@ -1,15 +1,14 @@
 package lotr.common.entity;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRFaction;
+
+import org.apache.commons.io.input.BOMInputStream;
+
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class LOTREntityRegistry
@@ -86,7 +85,7 @@ public class LOTREntityRegistry
 			}
 			else
 			{
-				BufferedReader bufferedreader = new BufferedReader(new FileReader(config));
+				BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(new BOMInputStream(new FileInputStream(config))));
 				String s = "";
 
 				while ((s = bufferedreader.readLine()) != null)

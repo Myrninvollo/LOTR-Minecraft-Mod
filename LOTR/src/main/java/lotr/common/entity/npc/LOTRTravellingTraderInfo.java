@@ -57,8 +57,8 @@ public class LOTRTravellingTraderInfo
 			{
 				escort.setLocationAndAngles(theEntity.posX, theEntity.posY, theEntity.posZ, theEntity.rotationYaw, theEntity.rotationPitch);
 				escort.isNPCPersistent = true;
-				escort.liftSpawnRestrictions = true;
 				escort.spawnRidingHorse = false;
+				escort.onSpawnWithEgg(null);
 				theEntity.worldObj.spawnEntityInWorld(escort);
 				escort.setHomeArea(i, j, k, 16);
 				escortUUIDs.add(escort.getUniqueID());

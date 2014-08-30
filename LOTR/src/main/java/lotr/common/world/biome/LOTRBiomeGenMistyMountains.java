@@ -81,7 +81,10 @@ public class LOTRBiomeGenMistyMountains extends LOTRBiome
 	@Override
     public void decorate(World world, Random random, int i, int k)
     {
-		genStandardOre(world, random, i, k, 2, mithrilGen, 0, 16);
+		if (random.nextInt(4) == 0)
+		{
+			genStandardOre(world, random, i, k, 1, mithrilGen, 0, 16);
+		}
 		
         super.decorate(world, random, i, k);
 		

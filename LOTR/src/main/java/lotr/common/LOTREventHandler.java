@@ -17,6 +17,7 @@ import lotr.common.entity.npc.*;
 import lotr.common.entity.projectile.*;
 import lotr.common.inventory.*;
 import lotr.common.item.LOTRItemPouch;
+import lotr.common.quest.LOTRMiniQuest;
 import lotr.common.world.biome.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -44,7 +45,6 @@ import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
 import org.apache.commons.lang3.StringUtils;
@@ -157,6 +157,11 @@ public class LOTREventHandler implements IFuelHandler
 			if (entityplayer.openContainer instanceof LOTRContainerDolGuldurTable)
 			{
 				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useDolGuldurTable);
+			}
+			
+			if (entityplayer.openContainer instanceof LOTRContainerGundabadTable)
+			{
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.useGundabadTable);
 			}
 			
 			if (itemstack.getItem() == Items.saddle)
@@ -639,6 +644,27 @@ public class LOTREventHandler implements IFuelHandler
 						}
 					}
 				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onFillBucket(FillBucketEvent event)
+	{
+		EntityPlayer entityplayer = event.entityPlayer;
+		World world = event.world;
+		MovingObjectPosition target = event.target;
+		
+		if (target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
+		{
+			int i = target.blockX;
+			int j = target.blockY;
+			int k = target.blockZ;
+			
+			if (!world.isRemote && isProtectedByBanner(world, i, j, k, entityplayer, true))
+			{
+				event.setCanceled(true);
+				return;
 			}
 		}
 	}
@@ -1250,6 +1276,7 @@ public class LOTREventHandler implements IFuelHandler
 			{
 				entityplayer = (EntityPlayer)entity.func_94060_bK();
 			}
+			
 			if (entityplayer != null)
 			{
 				LOTRFaction entityFaction = LOTRMod.getNPCFaction(entity);
@@ -1323,6 +1350,12 @@ public class LOTREventHandler implements IFuelHandler
 							}
 						}
 					}
+				}
+				
+				List<LOTRMiniQuest> miniquests = LOTRLevelData.getData(entityplayer).getMiniQuests();
+				for (LOTRMiniQuest quest : miniquests)
+				{
+					quest.onKill(entityplayer, entity);
 				}
 			}
 		}
@@ -1421,6 +1454,25 @@ public class LOTREventHandler implements IFuelHandler
 						if (attackingPlayer.isPotionActive(Potion.confusion.id))
 						{
 							LOTRLevelData.getData(attackingPlayer).addAchievement(LOTRAchievement.killWhileDrunk);
+							
+							if (entity instanceof EntityLiving && ((EntityLiving)entity).getAttackTarget() == attackingPlayer)
+							{
+								boolean blownSmoke = false;
+								List<LOTREntitySmokeRing> nearbySmokeRings = world.getEntitiesWithinAABB(LOTREntitySmokeRing.class, attackingPlayer.boundingBox.expand(24D, 24D, 24D));
+								for (LOTREntitySmokeRing ring : nearbySmokeRings)
+								{
+									if (ring.getThrower() == attackingPlayer)
+									{
+										blownSmoke = true;
+										break;
+									}
+								}
+								
+								if (blownSmoke)
+								{
+									LOTRLevelData.getData(attackingPlayer).addAchievement(LOTRAchievement.turnDownForWhat);
+								}
+							}
 						}
 						
 						if (entity instanceof LOTREntityOrc)

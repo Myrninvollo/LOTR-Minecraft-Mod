@@ -78,6 +78,9 @@ public class LOTRStructures
 		registerStructure(122, LOTRWorldGenWoodElfTower.class, "WoodElfTower", 0xA69F93, 0x4B4335);
 		registerStructure(123, LOTRWorldGenRuinedWoodElfTower.class, "RuinedWoodElfTower", 0xA69F93, 0x7A746A);
 		
+		registerStructure(130, LOTRWorldGenDolGuldurAltar.class, "DolGuldurAltar", 0x43454E, 0x1F2125);
+		registerStructure(131, LOTRWorldGenDolGuldurTower.class, "DolGuldurTower", 0x43454E, 0x1F2125);
+		
 		registerStructure(150, LOTRWorldGenDwarvenMineEntrance.class, "DwarvenMineEntrance", 0x44514B, 0x25302C);
 		registerStructure(151, LOTRWorldGenDwarvenTower.class, "DwarvenTower", 0x44514B, 0x25302C);
 		registerStructure(152, LOTRWorldGenDwarfHouse.class, "DwarfHouse", 0x44514B, 0x25302C);

@@ -167,6 +167,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		return new ItemStack(Item.getItemById(ID));
 	}
 	
+	@Override
 	public String getMountArmorTexture()
 	{
 		ItemStack armor = getMountArmor();
@@ -211,24 +212,27 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
 		return (!isMoving || !getBelongsToNPC()) && super.isHorseSaddled();
 	}
 	
-    public void saddleMount()
+    public void saddleMountForWorldGen()
     {
+    	setGrowingAge(0);
     	LOTRReflection.getHorseInv(this).setInventorySlotContents(0, new ItemStack(Items.saddle));
     	LOTRReflection.setupHorseInv(this);
     	setHorseTamed(true);
+    }
+    
+    public void setChestedForWorldGen()
+    {
+    	setChested(true);
+    	LOTRReflection.setupHorseInv(this);
     }
     
     public void setMountArmor(ItemStack itemstack)
     {
     	LOTRReflection.getHorseInv(this).setInventorySlotContents(1, itemstack);
     	LOTRReflection.setupHorseInv(this);
-    	
-    	if (worldObj.isRemote)
-    	{
-    		setMountArmorWatched(itemstack);
-    	}
     }
 
+    @Override
     public boolean isMountArmorValid(ItemStack itemstack)
     {
     	if (itemstack != null && itemstack.getItem() instanceof LOTRItemMountArmor)
@@ -465,7 +469,6 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
         return flag;
     }
 	
-	
 	@Override
     public boolean attackEntityFrom(DamageSource damagesource, float f)
     {
@@ -500,7 +503,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
         {
         	AnimalChest animalchest = LOTRReflection.getHorseInv(this);
         	animalchest.func_110133_a(getCommandSenderName());
-            entityplayer.openGui(LOTRMod.instance, LOTRCommonProxy.GUI_ID_MOUNT_INV, worldObj, getEntityId(), 0, 0);
+            entityplayer.openGui(LOTRMod.instance, LOTRCommonProxy.GUI_ID_MOUNT_INV, worldObj, getEntityId(), animalchest.getSizeInventory(), 0);
         }
     }
 	

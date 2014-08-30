@@ -16,8 +16,7 @@ public class LOTREntityRangerNorthCaptain extends LOTREntityRangerNorth implemen
 	public LOTREntityRangerNorthCaptain(World world)
 	{
 		super(world);
-		targetTasks.taskEntries.clear();
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 	}
 	
 	@Override

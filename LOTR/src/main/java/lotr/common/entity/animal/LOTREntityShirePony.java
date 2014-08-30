@@ -1,15 +1,8 @@
 package lotr.common.entity.animal;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRReflection;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.IEntityLivingData;
+import lotr.common.*;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class LOTREntityShirePony extends LOTREntityHorse

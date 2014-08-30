@@ -47,8 +47,6 @@ public class LOTRBiomeGenLindon extends LOTRBiome
 		decorator.doubleGrassPerChunk = 1;
 		
         registerPlainsFlowers();
-        addFlower(LOTRMod.elanor, 0, 20);
-		addFlower(LOTRMod.niphredil, 0, 10);
 		
 		decorator.addRandomStructure(new LOTRWorldGenHighElvenHall(false), 1000);
 		
@@ -120,6 +118,6 @@ public class LOTRBiomeGenLindon extends LOTRBiome
 	@Override
 	public int spawnCountMultiplier()
 	{
-		return 4;
+		return 5;
 	}
 }

@@ -47,8 +47,9 @@ public class LOTRRecipes
 	public static List blueMountainsRecipes = new ArrayList();
 	public static List rangerRecipes = new ArrayList();
 	public static List dolGuldurRecipes = new ArrayList();
+	public static List gundabadRecipes = new ArrayList();
 	
-	private static List[] commonOrcRecipes = new List[] {morgulRecipes, urukRecipes, angmarRecipes, dolGuldurRecipes};
+	private static List[] commonOrcRecipes = new List[] {morgulRecipes, urukRecipes, angmarRecipes, dolGuldurRecipes, gundabadRecipes};
 	private static List[] commonMorgulRecipes = new List[] {morgulRecipes, angmarRecipes, dolGuldurRecipes};
 	private static List[] commonElfRecipes = new List[] {elvenRecipes, woodElvenRecipes, highElvenRecipes};
 	private static List[] commonDwarfRecipes = new List[] {dwarvenRecipes, blueMountainsRecipes};
@@ -91,6 +92,7 @@ public class LOTRRecipes
 		createBlueMountainsRecipes();
 		createRangerRecipes();
 		createDolGuldurRecipes();
+		createGundabadRecipes();
 	}
 
 	private static void registerOres()
@@ -1005,6 +1007,18 @@ public class LOTRRecipes
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(strawBedItem), new Object[]
 		{
 			"XXX", "YYY", 'X', Items.wheat, 'Y', "plankWood"
+		}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(thatchFloor, 3), new Object[]
+		{
+			"XX", 'X', thatch
+		}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(dalishPastryItem), new Object[]
+		{
+			"ABA", "CDC", "EEE", 'A', LOTRMod.mapleSyrup, 'B', Items.milk_bucket, 'C', Items.sugar, 'D', Items.egg, 'E', Items.wheat
+		}));
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(redBook), new Object[]
+		{
+			Items.book, new ItemStack(Items.dye, 1, 1), Items.gold_nugget
 		}));
 	}
 	
@@ -2551,6 +2565,30 @@ public class LOTRRecipes
 			"XYX", "XYX", " Y ", 'X', orcSteel, 'Y', "stickWood"
 		}));
 		dolGuldurRecipes.add(new ShapedOreRecipe(new ItemStack(chandelier, 2, 7), new Object[]
+		{
+			" X ", "YZY", 'X', "stickWood", 'Y', orcTorchItem, 'Z', orcSteel
+		}));
+    }
+    
+    private static void createGundabadRecipes()
+    {
+		gundabadRecipes.add(new ShapedOreRecipe(new ItemStack(gundabadTable), new Object[]
+		{
+			"XX", "YY", 'X', "plankWood", 'Y', Blocks.cobblestone
+		}));
+		gundabadRecipes.add(new ShapedOreRecipe(new ItemStack(orcTorchItem, 2), new Object[]
+		{
+			"X", "Y", "Y", 'X', Items.coal, 'Y', "stickWood"
+		}));
+		gundabadRecipes.add(new ShapedOreRecipe(new ItemStack(orcForge), new Object[]
+		{
+			"XXX", "X X", "XXX", 'X', Blocks.cobblestone
+		}));
+		gundabadRecipes.add(new ShapedOreRecipe(new ItemStack(banner, 1, 14), new Object[]
+		{
+			"X", "Y", "Z", 'X', Blocks.wool, 'Y', "stickWood", 'Z', "plankWood"
+		}));
+		gundabadRecipes.add(new ShapedOreRecipe(new ItemStack(chandelier, 2, 7), new Object[]
 		{
 			" X ", "YZY", 'X', "stickWood", 'Y', orcTorchItem, 'Z', orcSteel
 		}));

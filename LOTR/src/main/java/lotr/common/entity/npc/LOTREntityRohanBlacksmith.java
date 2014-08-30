@@ -26,7 +26,7 @@ public class LOTREntityRohanBlacksmith extends LOTREntityRohanMan implements LOT
 	public LOTREntityRohanBlacksmith(World world)
 	{
 		super(world);
-		targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		addTargetTasks(false);
 		
 		if (!worldObj.isRemote)
 		{

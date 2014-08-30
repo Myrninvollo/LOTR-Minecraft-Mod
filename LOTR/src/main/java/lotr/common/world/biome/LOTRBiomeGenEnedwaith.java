@@ -126,6 +126,6 @@ public class LOTRBiomeGenEnedwaith extends LOTRBiome
 	@Override
 	public int spawnCountMultiplier()
 	{
-		return 5;
+		return 10;
 	}
 }

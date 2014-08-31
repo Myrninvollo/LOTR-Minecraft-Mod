@@ -49,6 +49,7 @@ public class LOTRCommonProxy implements IGuiHandler
 	public static int GUI_ID_MOUNT_INV = 29;
 	public static int GUI_ID_DOL_GULDUR_TABLE = 30;
 	public static int GUI_ID_GUNDABAD_TABLE = 31;
+	public static int GUI_ID_RED_BOOK = 32;
 	
 	public boolean isClient()
 	{
@@ -430,6 +431,10 @@ public class LOTRCommonProxy implements IGuiHandler
 		if (ID == GUI_ID_GUNDABAD_TABLE)
 		{
 			return new LOTRGuiGundabadTable(entityplayer.inventory, world, i, j, k);
+		}
+		if (ID == GUI_ID_RED_BOOK)
+		{
+			return new LOTRGuiRedBook();
 		}
 		return null;
 	}

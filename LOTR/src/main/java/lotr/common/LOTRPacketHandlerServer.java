@@ -67,6 +67,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.mountInv", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.editBanner", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.mqAccept", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.mqDelete", this);
 	}
 	
 	@Override
@@ -969,6 +970,35 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 							}
 						}
 					}
+				}
+			}
+		}
+		
+		else if (channel.equals("lotr.mqDelete"))
+		{
+			int id = data.readInt();
+			World world = DimensionManager.getWorld(data.readByte());
+			if (world != null)
+			{
+				Entity entity = world.getEntityByID(id);
+				if (entity instanceof EntityPlayer)
+				{
+					EntityPlayer entityplayer = (EntityPlayer)entity;
+					LOTRPlayerData playerData = LOTRLevelData.getData(entityplayer);
+					
+					UUID questUUID = new UUID(data.readLong(), data.readLong());
+					LOTRMiniQuest removeQuest = null;
+					
+					for (LOTRMiniQuest quest : playerData.getMiniQuests())
+					{
+						if (quest.entityUUID.equals(questUUID))
+						{
+							removeQuest = quest;
+							break;
+						}
+					}
+					
+					playerData.removeMiniQuest(removeQuest, false);
 				}
 			}
 		}

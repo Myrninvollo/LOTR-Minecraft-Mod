@@ -38,7 +38,7 @@ public class LOTRMiniQuestKillEntity extends LOTRMiniQuestKill
 	@Override
 	public boolean isValidQuest()
 	{
-		return super.isValidQuest() && entityType != null && entityType.isAssignableFrom(EntityLivingBase.class);
+		return super.isValidQuest() && entityType != null && EntityLivingBase.class.isAssignableFrom(entityType);
 	}
 
 	@Override
@@ -54,10 +54,11 @@ public class LOTRMiniQuestKillEntity extends LOTRMiniQuestKill
 		if (entity.getClass().isAssignableFrom(entityType))
 		{
 			killCount++;
+			updateQuest();
 		}
 	}
 	
-	public static class QuestFactory extends QuestFactoryBase
+	public static class QuestFactory extends QuestFactoryBase<LOTRMiniQuestKillEntity>
 	{
 		private Class entityType;
 		private int minTarget;
@@ -68,18 +69,24 @@ public class LOTRMiniQuestKillEntity extends LOTRMiniQuestKill
 			super(name);
 		}
 		
-		public QuestFactory setKillClass(Class entityClass, int min, int max)
+		public QuestFactory setKillEntity(Class entityClass, int min, int max)
 		{
 			entityType = entityClass;
 			minTarget = min;
 			maxTarget = max;
 			return this;
 		}
+		
+		@Override
+		public Class getQuestClass()
+		{
+			return LOTRMiniQuestKillEntity.class;
+		}
 
 		@Override
 		public LOTRMiniQuest createQuest(EntityPlayer entityplayer, Random rand)
 		{
-			LOTRMiniQuestKillEntity quest = createQuestBase(LOTRMiniQuestKillEntity.class, entityplayer);
+			LOTRMiniQuestKillEntity quest = createQuestBase(entityplayer);
 			quest.entityType = entityType;
 			quest.killTarget = MathHelper.getRandomIntegerInRange(rand, minTarget, maxTarget);
 			return quest;

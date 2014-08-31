@@ -106,6 +106,8 @@ public class LOTRTickHandlerServer
 			{
 				LOTRItemStructureSpawner.lastStructureSpawnTick--;
 			}
+			
+			LOTRTime.update(world);
 		}
 		
 		if (world == DimensionManager.getWorld(LOTRMod.idDimension))

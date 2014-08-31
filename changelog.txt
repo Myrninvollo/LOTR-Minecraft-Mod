@@ -2,6 +2,7 @@ Public Beta 20
 
 + Added mini-quests
 + Added the Red Book
++ Added the Shire Reckoning calendar
 + Added Middle-earth Shields as a replacement for capes
 + Added several new types of horse armour, including upgraded versions of vanilla horse armour with better protection
 + Added Angmar and Mordor warg armour

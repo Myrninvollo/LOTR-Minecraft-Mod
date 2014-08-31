@@ -31,7 +31,7 @@ public class LOTRGuiAchievements extends LOTRGui
 	private int totalAvailableCount;
     private float currentScroll = 0F;
     private boolean isScrolling = false;
-	private boolean wasClicking;
+	private boolean wasMouseDown;
 	
 	@Override
     public void initGui()
@@ -60,7 +60,7 @@ public class LOTRGuiAchievements extends LOTRGui
         int k1 = i1 + 12;
         int l1 = j1 + 200;
 
-        if (!wasClicking && isMouseDown && i >= i1 && j >= j1 && i < k1 && j < l1)
+        if (!wasMouseDown && isMouseDown && i >= i1 && j >= j1 && i < k1 && j < l1)
         {
             isScrolling = hasScrollBar();
         }
@@ -70,7 +70,7 @@ public class LOTRGuiAchievements extends LOTRGui
             isScrolling = false;
         }
 
-        wasClicking = isMouseDown;
+        wasMouseDown = isMouseDown;
 
         if (isScrolling)
         {

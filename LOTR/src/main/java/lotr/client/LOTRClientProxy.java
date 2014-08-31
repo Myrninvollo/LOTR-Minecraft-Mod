@@ -21,6 +21,7 @@ import lotr.common.entity.item.*;
 import lotr.common.entity.npc.*;
 import lotr.common.entity.projectile.*;
 import lotr.common.item.*;
+import lotr.common.quest.LOTRMiniQuest;
 import lotr.common.tileentity.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -362,6 +363,11 @@ public class LOTRClientProxy extends LOTRCommonProxy
     	if (questBookItem == null)
     	{
     		questBookItem = new ItemStack(LOTRMod.redBook);
+    	}
+    	
+    	if (Minecraft.getMinecraft().renderViewEntity.getDistanceToEntity(npc) > LOTRMiniQuest.RENDER_HEAD_DISTANCE)
+    	{
+    		return;
     	}
     	
     	EntityPlayer entityplayer = Minecraft.getMinecraft().thePlayer;

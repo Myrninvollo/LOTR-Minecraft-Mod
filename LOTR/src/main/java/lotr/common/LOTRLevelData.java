@@ -165,6 +165,8 @@ public class LOTRLevelData
 			
 			LOTRWaypoint.save(levelData);
 			
+			LOTRTime.saveDates(levelData);
+			
 			CompressedStreamTools.writeCompressed(levelData, outputStream);
 			outputStream.close();
 			
@@ -461,6 +463,8 @@ public class LOTRLevelData
 			LOTRGuiMessageTypes.loadAll(levelData);
 			
 			LOTRWaypoint.load(levelData);
+			
+			LOTRTime.loadDates(levelData);
 			
 			inputStream.close();
 			

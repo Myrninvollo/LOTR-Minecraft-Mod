@@ -1,5 +1,6 @@
 package lotr.common;
 
+import java.awt.Color;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -40,15 +41,15 @@ public enum LOTRFaction
 	public boolean allowPlayer;
 	public boolean allowEntityRegistry;
 	private String factionName;
-	public float[] factionColors;
+	public Color factionColor;
 	public List<InvasionSpawnEntry> invasionMobs = new ArrayList<InvasionSpawnEntry>();
 	private Map<Integer, LOTRAchievement> alignmentAchievements = new HashMap();
 	
 	public static Set playersTakenRewardItem = new HashSet();
 	
-	private LOTRFaction(int i)
+	private LOTRFaction(int color)
 	{
-		this(true, true, i);
+		this(true, true, color);
 	}
 	
 	private LOTRFaction(boolean flag)
@@ -56,15 +57,12 @@ public enum LOTRFaction
 		this(false, flag, 0);
 	}
 	
-	private LOTRFaction(boolean flag, boolean flag1, int i)
+	private LOTRFaction(boolean flag, boolean flag1, int color)
 	{
 		allowPlayer = flag;
 		allowEntityRegistry = flag1;
 		
-		factionColors = new float[3];
-		factionColors[0] = (float)((i >> 16) & 255) / 255F;
-		factionColors[1] = (float)((i >> 8) & 255) / 255F;
-		factionColors[2] = (float)(i & 255) / 255F;
+		factionColor = new Color(color);
 	}
 	
 	private void addAlignmentAchievement(int alignment, LOTRAchievement achievement)

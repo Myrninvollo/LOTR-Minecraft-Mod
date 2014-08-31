@@ -1035,8 +1035,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 				{
 					if (quest.isActive() && quest.entityUUID.equals(getUniqueID()))
 					{
-						quest.entityDead = true;
-						playerData.updateMiniQuest(quest);
+						quest.setEntityDead();
 					}
 				}
 			}
@@ -1186,7 +1185,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 				{
 					LOTRMiniQuest currentQuest = questsInProgress.get(0);
 					currentQuest.onInteract(entityplayer, this);
-					
+
 					if (currentQuest.isCompleted())
 					{
 						sendSpeechBank(entityplayer, currentQuest.speechBankComplete, currentQuest);
@@ -1209,7 +1208,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 						if (quest != null)
 						{
 							quest.entityUUID = getUniqueID();
-							quest.entityName = getCommandSenderName();
+							quest.entityName = getNPCName();
 							quest.entityFaction = getFaction();
 							
 							if (quest.isValidQuest())

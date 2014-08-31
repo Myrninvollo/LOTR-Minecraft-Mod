@@ -3,6 +3,8 @@ package lotr.common.quest;
 import lotr.common.LOTRPlayerData;
 import lotr.common.entity.npc.LOTREntityNPC;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 
@@ -56,6 +58,12 @@ public abstract class LOTRMiniQuestKill extends LOTRMiniQuest
 	public String getQuestProgress()
 	{
 		return StatCollector.translateToLocalFormatted("lotr.miniquest.kill.progress", new Object[] {killCount, killTarget});
+	}
+	
+	@Override
+	public ItemStack getQuestIcon()
+	{
+		return new ItemStack(Items.iron_sword);
 	}
 	
 	@Override

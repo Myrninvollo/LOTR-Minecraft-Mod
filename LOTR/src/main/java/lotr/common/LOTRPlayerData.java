@@ -24,6 +24,8 @@ import net.minecraft.world.World;
 
 import com.google.common.base.Charsets;
 
+import cpw.mods.fml.common.FMLLog;
+
 public class LOTRPlayerData
 {
 	private UUID playerUUID;
@@ -53,6 +55,7 @@ public class LOTRPlayerData
 	private int alcoholTolerance;
 	
 	private List<LOTRMiniQuest> miniQuests = new ArrayList();
+	private int completedMiniQuests;
 	
 	public LOTRPlayerData(UUID uuid)
 	{
@@ -153,6 +156,7 @@ public class LOTRPlayerData
 			taglist.appendTag(nbt);
 		}
 		playerData.setTag("MiniQuests", taglist);
+		playerData.setInteger("MiniQuestsComplete", completedMiniQuests);
 	}
 	
 	public void load(NBTTagCompound playerData)
@@ -224,6 +228,7 @@ public class LOTRPlayerData
 				miniQuests.add(quest);
 			}
 		}
+		completedMiniQuests = playerData.getInteger("MiniQuestsComplete");
 	}
 	
 	public void sendPlayerData(EntityPlayerMP entityplayer) throws IOException
@@ -711,6 +716,35 @@ public class LOTRPlayerData
 		updateMiniQuest(quest);
 	}
 	
+	public void removeMiniQuest(LOTRMiniQuest quest, boolean addToCompleted)
+	{
+		if (miniQuests.remove(quest))
+		{
+			if (addToCompleted)
+			{
+				completedMiniQuests++;
+			}
+			LOTRLevelData.markDirty();
+			
+			EntityPlayer entityplayer = getPlayer();
+			if (entityplayer != null && !entityplayer.worldObj.isRemote)
+			{
+				ByteBuf data = Unpooled.buffer();
+				
+				data.writeLong(quest.entityUUID.getMostSignificantBits());
+				data.writeLong(quest.entityUUID.getLeastSignificantBits());
+				data.writeBoolean(addToCompleted);
+
+				S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.mqRemove", data);
+				((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
+			}
+		}
+		else
+		{
+			System.out.println("Warning: Attempted to remove a mini-quest which does not belong to the player data");
+		}
+	}
+	
 	public void updateMiniQuest(LOTRMiniQuest quest)
 	{
 		LOTRLevelData.markDirty();
@@ -799,5 +833,10 @@ public class LOTRPlayerData
 			}
 		}
 		return list;
+	}
+	
+	public int getCompletedMiniQuests()
+	{
+		return completedMiniQuests;
 	}
 }

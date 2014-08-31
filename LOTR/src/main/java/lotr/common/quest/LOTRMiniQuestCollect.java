@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class LOTRMiniQuestCollect extends LOTRMiniQuest
 {
@@ -86,17 +87,20 @@ public class LOTRMiniQuestCollect extends LOTRMiniQuest
 	}
 	
 	@Override
+	public ItemStack getQuestIcon()
+	{
+		return collectItem;
+	}
+	
+	@Override
 	public void onInteract(EntityPlayer entityplayer, LOTREntityNPC npc)
 	{
+		int prevAmountGiven = amountGiven;
+		
 		for (int slot = 0; slot < entityplayer.inventory.mainInventory.length; slot++)
 		{
 			ItemStack itemstack = entityplayer.inventory.mainInventory[slot];
-			if (itemstack == null)
-			{
-				continue;
-			}
-				
-			if (collectItem.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(collectItem, itemstack))
+			if (isQuestItem(itemstack) && ItemStack.areItemStackTagsEqual(collectItem, itemstack))
 			{
 				int amountRemaining = collectTarget - amountGiven;
 				
@@ -123,6 +127,27 @@ public class LOTRMiniQuestCollect extends LOTRMiniQuest
 				break;
 			}
 		}
+		
+		if (amountGiven > prevAmountGiven && !isCompleted())
+		{
+			updateQuest();
+		}
+	}
+	
+	private boolean isQuestItem(ItemStack item)
+	{
+		if (item == null)
+		{
+			return false;
+		}
+		if (item.getItem() == collectItem.getItem())
+		{
+			if (collectItem.getItemDamage() == OreDictionary.WILDCARD_VALUE || item.getItemDamage() == collectItem.getItemDamage())
+			{
+				return ItemStack.areItemStackTagsEqual(item, collectItem);
+			}
+		}
+		return false;
 	}
 	
 	@Override
@@ -134,7 +159,7 @@ public class LOTRMiniQuestCollect extends LOTRMiniQuest
 		return Math.max(bonus, 1);
 	}
 
-	public static class QuestFactory extends QuestFactoryBase
+	public static class QuestFactory extends QuestFactoryBase<LOTRMiniQuestCollect>
 	{
 		private ItemStack collectItem;
 		private int minTarget;
@@ -149,6 +174,10 @@ public class LOTRMiniQuestCollect extends LOTRMiniQuest
 		public QuestFactory setCollectItem(ItemStack itemstack, int min, int max)
 		{
 			collectItem = itemstack;
+			if (collectItem.isItemStackDamageable())
+			{
+				collectItem.setItemDamage(OreDictionary.WILDCARD_VALUE);
+			}
 			minTarget = min;
 			maxTarget = max;
 			return this;
@@ -159,11 +188,17 @@ public class LOTRMiniQuestCollect extends LOTRMiniQuest
 			rewardFactor = f;
 			return this;
 		}
+		
+		@Override
+		public Class getQuestClass()
+		{
+			return LOTRMiniQuestCollect.class;
+		}
 
 		@Override
 		public LOTRMiniQuest createQuest(EntityPlayer entityplayer, Random rand)
 		{
-			LOTRMiniQuestCollect quest = createQuestBase(LOTRMiniQuestCollect.class, entityplayer);
+			LOTRMiniQuestCollect quest = createQuestBase(entityplayer);
 			quest.collectItem = collectItem.copy();
 			quest.collectTarget = MathHelper.getRandomIntegerInRange(rand, minTarget, maxTarget);
 			quest.rewardFactor = rewardFactor;

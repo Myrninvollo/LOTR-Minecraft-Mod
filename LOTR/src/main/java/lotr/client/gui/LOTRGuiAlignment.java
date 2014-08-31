@@ -71,7 +71,8 @@ public class LOTRGuiAlignment extends LOTRGui
 			mc.getTextureManager().bindTexture(LOTRClientProxy.alignmentTexture);
 	        drawTexturedModalRect(x - 116, y, 0, 0, 232, 18);
 	        
-	        GL11.glColor4f(faction.factionColors[0], faction.factionColors[1], faction.factionColors[2], 1F);
+	        float[] factionColors = faction.factionColor.getColorComponents(null);
+	        GL11.glColor4f(factionColors[0], factionColors[1], factionColors[2], 1F);
 	        drawTexturedModalRect(x - 116, y, 0, 34, 232, 18);
 
 	        GL11.glColor4f(1F, 1F, 1F, 1F);

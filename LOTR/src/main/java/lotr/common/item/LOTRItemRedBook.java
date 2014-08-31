@@ -23,10 +23,7 @@ public class LOTRItemRedBook extends Item
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
 	{
-		if (!world.isRemote)
-		{
-			//entityplayer.openGui(LOTRMod.instance, LOTRMod.proxy.GUI_ID_RED_BOOK, world, 0, 0, 0);
-		}
+		entityplayer.openGui(LOTRMod.instance, LOTRMod.proxy.GUI_ID_RED_BOOK, world, 0, 0, 0);
 		return itemstack;
 	}
 	

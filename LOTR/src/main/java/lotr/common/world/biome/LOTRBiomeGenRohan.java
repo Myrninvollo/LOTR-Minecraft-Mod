@@ -10,6 +10,7 @@ import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
 import lotr.common.world.feature.*;
 import lotr.common.world.structure.*;
 import lotr.common.world.structure2.LOTRWorldGenMeadHall;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
@@ -52,6 +53,7 @@ public class LOTRBiomeGenRohan extends LOTRBiome
 		else
 		{
 			spawnableCreatureList.add(new SpawnListEntry(LOTREntityHorse.class, 50, 2, 6));
+			spawnableCreatureList.add(new SpawnListEntry(EntityCow.class, 20, 4, 4));
 			
 			spawnableGoodList.add(new SpawnListEntry(LOTREntityRohirrim.class, 20, 4, 4));
 			spawnableGoodList.add(new SpawnListEntry(LOTREntityRohirrimArcher.class, 10, 4, 4));

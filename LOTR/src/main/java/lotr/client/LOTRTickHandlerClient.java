@@ -28,8 +28,7 @@ import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.entity.player.EntityPlayer;
@@ -77,9 +76,12 @@ public class LOTRTickHandlerClient
 	public static HashMap playersInMorgulPortals = new HashMap();
 	
 	private GuiScreen lastGuiOpen;
+	
 	private boolean checkedUpdate = false;
+	
 	private int mistTick;
 	private static final int mistTickMax = 80;
+	
 	public static LOTRFaction currentAlignmentFaction = LOTRFaction.HOBBIT;
 	private int alignmentXPosBase;
 	private int alignmentYPosBase;
@@ -91,11 +93,17 @@ public class LOTRTickHandlerClient
 	public static boolean renderMenuPrompt = false;
 	public static boolean renderAlignmentPrompt = false;
 	private int onscreenPromptTick;
+	
 	private int frostTick;
 	private static final int frostTickMax = 80;
+	
 	private int burnTick;
 	private static final int burnTickMax = 40;
+	
 	private int drunkennessDirection = 1;
+	
+	private int newDate = 0;
+	private static final int newDateMax = 200;
 	
 	public LOTRTickHandlerClient()
 	{
@@ -272,6 +280,11 @@ public class LOTRTickHandlerClient
 							drunkennessDirection *= -1;
 						}
 					}
+					
+					if (newDate > 0)
+					{
+						newDate--;
+					}
 				}
 			}
 			
@@ -368,6 +381,7 @@ public class LOTRTickHandlerClient
 					{
 						onscreenPromptTick = 0;
 					}
+					
 					float transparency = 1F;
 					if (onscreenPromptTick < 50)
 					{
@@ -395,7 +409,50 @@ public class LOTRTickHandlerClient
 						int j = resolution.getScaledHeight();
 						int x = (i - minecraft.fontRenderer.getStringWidth(message)) / 2;
 						int y = (j - minecraft.fontRenderer.FONT_HEIGHT) * 2 / 3;
+						
+						GL11.glEnable(GL11.GL_BLEND);
+						OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 						minecraft.fontRenderer.drawString(message, x, y, 0xFFFFFF + ((int)(transparency * 255F) << 24));
+						GL11.glDisable(GL11.GL_BLEND);
+					}
+					
+					if (newDate > 0)
+					{
+						int halfMaxDate = newDateMax / 2;
+						float alpha = 0F;
+						if (newDate > halfMaxDate)
+						{
+							alpha = (float)(newDateMax - newDate) / (float)halfMaxDate;
+						}
+						else
+						{
+							alpha = (float)(newDate) / (float)halfMaxDate;
+						}
+						
+						if (alpha > 0.1F)
+						{			
+							String date = LOTRTime.ShireReckoning.getShireDate().getDateName(true);
+							
+							ScaledResolution resolution = new ScaledResolution(minecraft, minecraft.displayWidth, minecraft.displayHeight);
+							int i = resolution.getScaledWidth();
+							int j = resolution.getScaledHeight();
+
+							float scale = 1.5F;
+							float invScale = 1F / scale;
+							
+							i *= invScale;
+							j *= invScale;
+							
+							int x = (i - minecraft.fontRenderer.getStringWidth(date)) / 2;
+							int y = (j - minecraft.fontRenderer.FONT_HEIGHT) * 2 / 5;
+							
+							GL11.glScalef(scale, scale, scale);
+		                    GL11.glEnable(GL11.GL_BLEND);
+		                    OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+							minecraft.fontRenderer.drawString(date, x, y, 0xFFFFFF + ((int)(alpha * 255F) << 24));
+							GL11.glDisable(GL11.GL_BLEND);
+							GL11.glScalef(invScale, invScale, invScale);
+						}
 					}
 				}
 			}
@@ -722,7 +779,8 @@ public class LOTRTickHandlerClient
 		
         drawTexturedModalRect(alignmentXPosCurrent - 116, alignmentYPosCurrent, 0, 0, 232, 18);
         
-        GL11.glColor4f(currentAlignmentFaction.factionColors[0], currentAlignmentFaction.factionColors[1], currentAlignmentFaction.factionColors[2], 1F);
+        float[] factionColors = currentAlignmentFaction.factionColor.getColorComponents(null);
+        GL11.glColor4f(factionColors[0], factionColors[1], factionColors[2], 1F);
         drawTexturedModalRect(alignmentXPosCurrent - 116, alignmentYPosCurrent, 0, 34, 232, 18);
 
         GL11.glColor4f(1F, 1F, 1F, 1F);
@@ -824,5 +882,10 @@ public class LOTRTickHandlerClient
 	public void onBurnDamage()
 	{
 		burnTick = burnTickMax;
+	}
+	
+	public void updateDate()
+	{
+		newDate = newDateMax;
 	}
 }

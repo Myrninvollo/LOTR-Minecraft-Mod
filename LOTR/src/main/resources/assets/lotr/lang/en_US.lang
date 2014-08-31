@@ -872,10 +872,49 @@ lotr.gui.achievements.hover.subtitle=Middle-earth Achievement
 lotr.gui.miniquestOffer.accept=Accept
 lotr.gui.miniquestOffer.decline=Decline
 
+lotr.gui.redBook.page.miniquests=Mini-Quests
+lotr.gui.redBook.miniquests.active=Active Mini-Quests: %d
+lotr.gui.redBook.miniquests.complete=Completed Mini-Quests: %d
+lotr.gui.redBook.miniquests.delete1=Are you sure you want to remove
+lotr.gui.redBook.miniquests.delete2=this mini-quest?
+lotr.gui.redBook.miniquests.deleteYes=Remove
+lotr.gui.redBook.miniquests.deleteNo=Cancel
+
+lotr.date.shire=S.R.
+lotr.date.shire.long=Shire Reckoning
+
+lotr.date.shire.day.sterday=Sterday
+lotr.date.shire.day.sunday=Sunday
+lotr.date.shire.day.monday=Monday
+lotr.date.shire.day.trewsday=Trewsday
+lotr.date.shire.day.hevensday=Hevensday
+lotr.date.shire.day.mersday=Mersday
+lotr.date.shire.day.highday=Highday
+
+lotr.date.shire.month.yule2=2 Yule
+lotr.date.shire.month.afteryule=Afteryule
+lotr.date.shire.month.solmath=Solmath
+lotr.date.shire.month.rethe=Rethe
+lotr.date.shire.month.astron=Astron
+lotr.date.shire.month.thrimidge=Thrimidge
+lotr.date.shire.month.forelithe=Forelithe
+lotr.date.shire.month.lithe1=1 Lithe
+lotr.date.shire.month.midyearsday=Mid-year's Day
+lotr.date.shire.month.overlithe=Overlithe
+lotr.date.shire.month.lithe2=2 Lithe
+lotr.date.shire.month.afterlithe=Afterlithe
+lotr.date.shire.month.wedmath=Wedmath
+lotr.date.shire.month.halimath=Halimath
+lotr.date.shire.month.winterfilth=Winterfilth
+lotr.date.shire.month.blotmath=Blotmath
+lotr.date.shire.month.foreyule=Foreyule
+lotr.date.shire.month.yule1=1 Yule
+
 lotr.miniquest.collect=Collect %d %s
 lotr.miniquest.collect.progress=%d of %d given
-lotr.miniquest.kill=Rid the world of %d %s
+lotr.miniquest.kill=Slay %d %s
 lotr.miniquest.kill.progress=%d of %d slain
+lotr.miniquest.entityDead=Quest giver has died
 
 lotr.shields.category.ALIGNMENT=Alignment Shields
 lotr.shields.category.ACHIEVABLE=Achievable Shields

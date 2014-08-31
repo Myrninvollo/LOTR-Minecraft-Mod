@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.server.S3FPacketCustomPayload;
+import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
@@ -77,7 +77,7 @@ public class LOTRGuiMiniquestOffer extends LOTRGuiScreenBase
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		
 		String name = theNPC.getCommandSenderName();
-		fontRendererObj.drawString(name, guiLeft + xSize / 2 - fontRendererObj.getStringWidth(name) / 2, guiTop + 10, 0x7A5D43);
+		drawCenteredString(name, guiLeft + xSize / 2, guiTop + 10, 0x7A5D43);
 		
 		fontRendererObj.drawSplitString(description, guiLeft + descriptionX, guiTop + descriptionY, descriptionWidth, 0x7A5D43);
 		
@@ -225,7 +225,7 @@ public class LOTRGuiMiniquestOffer extends LOTRGuiScreenBase
 			e.printStackTrace();
 		}
 		
-		S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.mqAccept", data);
+		C17PacketCustomPayload packet = new C17PacketCustomPayload("lotr.mqAccept", data);
 		minecraft.thePlayer.sendQueue.addToSendQueue(packet);
 	}
 }

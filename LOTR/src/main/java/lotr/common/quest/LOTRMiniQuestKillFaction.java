@@ -52,10 +52,11 @@ public class LOTRMiniQuestKillFaction extends LOTRMiniQuestKill
 		if (LOTRMod.getNPCFaction(entity) == killFaction)
 		{
 			killCount++;
+			updateQuest();
 		}
 	}
 	
-	public static class QuestFactory extends QuestFactoryBase
+	public static class QuestFactory extends QuestFactoryBase<LOTRMiniQuestKillFaction>
 	{
 		private LOTRFaction killFaction;
 		private int minTarget;
@@ -73,11 +74,17 @@ public class LOTRMiniQuestKillFaction extends LOTRMiniQuestKill
 			maxTarget = max;
 			return this;
 		}
+		
+		@Override
+		public Class getQuestClass()
+		{
+			return LOTRMiniQuestKillFaction.class;
+		}
 
 		@Override
 		public LOTRMiniQuest createQuest(EntityPlayer entityplayer, Random rand)
 		{
-			LOTRMiniQuestKillFaction quest = createQuestBase(LOTRMiniQuestKillFaction.class, entityplayer);
+			LOTRMiniQuestKillFaction quest = createQuestBase(entityplayer);
 			quest.killFaction = killFaction;
 			quest.killTarget = MathHelper.getRandomIntegerInRange(rand, minTarget, maxTarget);
 			return quest;

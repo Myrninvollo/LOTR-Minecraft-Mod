@@ -74,9 +74,11 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.eatFood", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.bannerGui", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.npcUUID", this);
-		NetworkRegistry.INSTANCE.newChannel("lotr.miniquest", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.smokes", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.miniquest", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.mqOffer", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.mqRemove", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.time", this);
 	}
 	
 	@Override
@@ -511,26 +513,43 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			}
 		}
 		
-		else if (channel.equals("lotr.miniquest"))
-		{
-			if (!mc.isSingleplayer())
-			{
-				LOTRPlayerData playerData = LOTRLevelData.getData(entityplayer);
-				NBTTagCompound nbt = new PacketBuffer(data).readNBTTagCompoundFromBuffer();
-				LOTRMiniQuest quest = LOTRMiniQuest.loadQuestFromNBT(nbt, playerData);
-				if (quest != null)
-				{
-					playerData.addMiniQuest(quest);
-				}
-			}
-		}
-		
 		else if (channel.equals("lotr.smokes"))
 		{
 			Entity entity = world.getEntityByID(data.readInt());
 			if (entity instanceof LOTREntityNPC)
 			{
 				((LOTREntityNPC)entity).spawnSmokes();
+			}
+		}
+		
+		else if (channel.equals("lotr.miniquest"))
+		{
+			if (!mc.isSingleplayer())
+			{
+				LOTRPlayerData playerData = LOTRLevelData.getData(entityplayer);
+				NBTTagCompound nbt = new PacketBuffer(data).readNBTTagCompoundFromBuffer();
+				LOTRMiniQuest miniquest = LOTRMiniQuest.loadQuestFromNBT(nbt, playerData);
+				if (miniquest != null)
+				{
+					LOTRMiniQuest existingQuest = null;
+					for (LOTRMiniQuest quest : playerData.getMiniQuests())
+					{
+						if (quest.entityUUID.equals(miniquest.entityUUID))
+						{
+							existingQuest = quest;
+							break;
+						}
+					}
+					
+					if (existingQuest == null)
+					{
+						playerData.addMiniQuest(miniquest);
+					}
+					else
+					{
+						existingQuest.readFromNBT(nbt);
+					}
+				}
 			}
 		}
 		
@@ -550,6 +569,43 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			else
 			{
 				LOTRGuiMiniquestOffer.sendClosePacket(null, npc, false);
+			}
+		}
+		
+		else if (channel.equals("lotr.mqRemove"))
+		{
+			if (!mc.isSingleplayer())
+			{
+				LOTRPlayerData playerData = LOTRLevelData.getData(entityplayer);
+				
+				UUID questUUID = new UUID(data.readLong(), data.readLong());
+				boolean addToCompleted = data.readBoolean();
+				LOTRMiniQuest removeQuest = null;
+				
+				for (LOTRMiniQuest quest : playerData.getMiniQuests())
+				{
+					if (quest.entityUUID.equals(questUUID))
+					{
+						removeQuest = quest;
+						break;
+					}
+				}
+				
+				playerData.removeMiniQuest(removeQuest, addToCompleted);
+			}
+		}
+		
+		else if (channel.equals("lotr.time"))
+		{
+			boolean update = data.readBoolean();
+			
+			NBTTagCompound nbt = new PacketBuffer(data).readNBTTagCompoundFromBuffer();
+			LOTRTime.loadDates(nbt);
+			
+			System.out.println("update time " + update);
+			if (update)
+			{
+				LOTRClientProxy.tickHandler.updateDate();
 			}
 		}
 	}

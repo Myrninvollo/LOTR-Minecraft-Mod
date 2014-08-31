@@ -284,6 +284,8 @@ public class LOTREventHandler implements IFuelHandler
 			LOTRWaypoint.Custom.sendLoginCustomWaypointsPackets(entityplayermp);
 			
 			LOTRLevelData.sendTakenAlignmentRewardsToPlayer(entityplayermp);
+			
+			LOTRTime.sendUpdatePacket(entityplayermp, false);
 		}
 	}
 

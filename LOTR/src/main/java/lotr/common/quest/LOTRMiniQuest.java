@@ -7,10 +7,11 @@ import lotr.common.LOTRAlignmentValues.AlignmentBonus;
 import lotr.common.entity.npc.LOTREntityNPC;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.FMLLog;
 
-public abstract class LOTRMiniQuest
+public abstract class LOTRMiniQuest implements Comparable<LOTRMiniQuest>
 {
 	private static Map<String, Class<? extends LOTRMiniQuest>> nameToQuestMapping = new HashMap();
 	private static Map<Class<? extends LOTRMiniQuest>, String> questToNameMapping = new HashMap();
@@ -29,6 +30,7 @@ public abstract class LOTRMiniQuest
 	}
 	
 	public static int MAX_MINIQUESTS_PER_FACTION = 3;
+	public static double RENDER_HEAD_DISTANCE = 24D;
 	
 	public LOTRMiniQuest(LOTRPlayerData pd)
 	{
@@ -39,7 +41,7 @@ public abstract class LOTRMiniQuest
 	public UUID entityUUID;
 	public String entityName;
 	public LOTRFaction entityFaction;
-	public boolean entityDead;
+	private boolean entityDead;
 	private boolean completed;
 	public String speechBankStart;
 	public String speechBankProgress;
@@ -101,10 +103,9 @@ public abstract class LOTRMiniQuest
 		try
 		{
 			Q quest = questType.getConstructor(new Class[] {LOTRPlayerData.class}).newInstance(new Object[] {playerData});
-			quest.playerData = playerData;
 			return quest;
 		}
-		catch (ReflectiveOperationException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -116,11 +117,35 @@ public abstract class LOTRMiniQuest
 		return entityUUID != null && entityFaction != null;
 	}
 	
+	@Override
+	public final int compareTo(LOTRMiniQuest other)
+	{
+		if (!other.isActive() && isActive())
+		{
+			return 1;
+		}
+		else if (!isActive() && other.isActive())
+		{
+			return -1;
+		}
+		
+		if (entityFaction == other.entityFaction)
+		{
+			return entityName.compareTo(other.entityName);
+		}
+		else
+		{
+			return Integer.compare(entityFaction.ordinal(), other.entityFaction.ordinal());
+		}
+	}
+	
 	public abstract String getQuestObjective();
 	
 	public abstract String getObjectiveInSpeech();
 	
 	public abstract String getQuestProgress();
+	
+	public abstract ItemStack getQuestIcon();
 	
 	public void onInteract(EntityPlayer entityplayer, LOTREntityNPC npc) {}
 	
@@ -136,18 +161,35 @@ public abstract class LOTRMiniQuest
 		return completed;
 	}
 	
-	public void complete(EntityPlayer entityplayer, LOTREntityNPC npc)
+	protected void complete(EntityPlayer entityplayer, LOTREntityNPC npc)
 	{
 		completed = true;
-		playerData.updateMiniQuest(this);
+		updateQuest();
+		playerData.removeMiniQuest(this, true);
 		
 		AlignmentBonus bonus = LOTRAlignmentValues.createMiniquestBonus(getAlignmentBonus());
 		playerData.addAlignment(bonus, entityFaction, npc);
 	}
 	
+	public void setEntityDead()
+	{
+		entityDead = true;
+		updateQuest();
+	}
+	
+	public boolean isEntityDead()
+	{
+		return entityDead;
+	}
+	
+	protected void updateQuest()
+	{
+		playerData.updateMiniQuest(this);
+	}
+	
 	public abstract int getAlignmentBonus();
 	
-	public static abstract class QuestFactoryBase
+	public static abstract class QuestFactoryBase<Q extends LOTRMiniQuest>
 	{
 		private String questBaseName;
 		private String questName;
@@ -162,11 +204,13 @@ public abstract class LOTRMiniQuest
 			questBaseName = name;
 		}
 		
+		public abstract Class<Q> getQuestClass();
+		
 		public abstract LOTRMiniQuest createQuest(EntityPlayer entityplayer, Random rand);
 		
-		public <Q extends LOTRMiniQuest> Q createQuestBase(Class<Q> questType, EntityPlayer entityplayer)
+		public Q createQuestBase(EntityPlayer entityplayer)
 		{
-			Q quest = newQuestInstance(questType, LOTRLevelData.getData(entityplayer));
+			Q quest = newQuestInstance(getQuestClass(), LOTRLevelData.getData(entityplayer));
 			String name = "miniquest/" + getQuestBaseName() + "/" + questName + "_";
 			quest.speechBankStart = name + "start";
 			quest.speechBankProgress = name + "progress";

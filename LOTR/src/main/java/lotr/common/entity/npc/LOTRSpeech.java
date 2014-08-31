@@ -75,6 +75,7 @@ public class LOTRSpeech
 				{
 					String s = subfile.getPath();
 					s = s.substring(speechBankDir.getPath().length() + 1);
+					s = s.replace(File.separator, "/");
 					
 					int i = s.indexOf(".txt");
 					if (i < 0)
@@ -153,15 +154,14 @@ public class LOTRSpeech
 		}
 	}
 	
-	private static String[] getSpeechBank(String bankName)
+	private static String[] getSpeechBank(String name)
 	{
-		bankName = bankName.replace("/", File.separator);
-		String[] bank = allSpeechBanks.get(bankName);
+		String[] bank = allSpeechBanks.get(name);
 		if (bank != null)
 		{
 			return bank;
 		}
-		return new String[] {"Speech bank " + bankName + " could not be found"};
+		return new String[] {"Speech bank " + name + " could not be found"};
 	}
 	
 	public static String getRandomSpeech(String speechBankName)

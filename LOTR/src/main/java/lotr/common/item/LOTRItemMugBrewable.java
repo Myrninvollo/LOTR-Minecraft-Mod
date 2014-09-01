@@ -110,42 +110,40 @@ public class LOTRItemMugBrewable extends Item
     public void addInformation(ItemStack itemstack, EntityPlayer entityplayer, List list, boolean flag)
 	{
 		int i = itemstack.getItemDamage();
-		if (i < 0 || i >= strengths.length)
+		if (i >= 0 && i < strengths.length)
 		{
-			i = 0;
+			float strength = getStrength(itemstack);
+	        list.add(getStrengthSubtitle(itemstack));
+        
+	        if (alcoholicity > 0F)
+	        {
+	        	EnumChatFormatting c = EnumChatFormatting.GREEN;
+	        	float f = alcoholicity * strength * 10F;
+	        	if (f < 2F)
+	        	{
+	        		c = EnumChatFormatting.GREEN;
+	        	}
+	        	else if (f < 5F)
+	        	{
+	        		c = EnumChatFormatting.YELLOW;
+	        	}
+	        	else if (f < 10F)
+	        	{
+	        		c = EnumChatFormatting.GOLD;
+	        	}
+	        	else if (f < 20F)
+	        	{
+	        		c = EnumChatFormatting.RED;
+	        	}
+	        	else
+	        	{
+	        		c = EnumChatFormatting.DARK_RED;
+	        	}
+	        	list.add(c + StatCollector.translateToLocal("item.lotr.drink.alcoholicity") + ": " + String.format("%.2f", f) + "%");
+	        }
+	        
+	        addPotionEffectsToTooltip(itemstack, entityplayer, list, flag, convertPotionEffectsForStrength(strength));
 		}
-		float strength = getStrength(itemstack);
-		
-        list.add(getStrengthSubtitle(itemstack));
-        
-        if (alcoholicity > 0F)
-        {
-        	EnumChatFormatting c = EnumChatFormatting.GREEN;
-        	float f = alcoholicity * strength * 10F;
-        	if (f < 2F)
-        	{
-        		c = EnumChatFormatting.GREEN;
-        	}
-        	else if (f < 5F)
-        	{
-        		c = EnumChatFormatting.YELLOW;
-        	}
-        	else if (f < 10F)
-        	{
-        		c = EnumChatFormatting.GOLD;
-        	}
-        	else if (f < 20F)
-        	{
-        		c = EnumChatFormatting.RED;
-        	}
-        	else
-        	{
-        		c = EnumChatFormatting.DARK_RED;
-        	}
-        	list.add(c + StatCollector.translateToLocal("item.lotr.drink.alcoholicity") + ": " + String.format("%.2f", f) + "%");
-        }
-        
-        addPotionEffectsToTooltip(itemstack, entityplayer, list, flag, convertPotionEffectsForStrength(strength));
 	}
 	
 	public static void addPotionEffectsToTooltip(ItemStack itemstack, EntityPlayer entityplayer, List list, boolean flag, List itemEffects)

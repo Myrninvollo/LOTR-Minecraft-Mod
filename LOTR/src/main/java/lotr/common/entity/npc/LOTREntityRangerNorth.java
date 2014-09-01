@@ -4,6 +4,8 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -61,5 +63,11 @@ public class LOTREntityRangerNorth extends LOTREntityRanger
 		{
 			return "rangerNorth_hostile";
 		}
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.RANGER_NORTH.createQuest(entityplayer);
 	}
 }

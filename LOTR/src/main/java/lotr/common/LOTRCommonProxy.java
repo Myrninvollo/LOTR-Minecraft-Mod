@@ -61,6 +61,11 @@ public class LOTRCommonProxy implements IGuiHandler
 		return null;
 	}
 	
+	public EntityPlayer getClientPlayer()
+	{
+		return null;
+	}
+	
 	public void onPreload() {}
 	
 	public void onLoad() {}

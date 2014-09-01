@@ -2,6 +2,8 @@ package lotr.common.entity.npc;
 
 import lotr.common.*;
 import lotr.common.entity.animal.LOTREntityHorse;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import lotr.common.world.biome.LOTRBiomeGenLindon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -112,5 +114,11 @@ public class LOTREntityHighElf extends LOTREntityElf
 		{
 			return "highElf_hostile";
 		}
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.HIGH_ELF.createQuest(entityplayer);
 	}
 }

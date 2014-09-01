@@ -29,7 +29,7 @@ public abstract class LOTRMiniQuest implements Comparable<LOTRMiniQuest>
 		registerQuestType("KillEntity", LOTRMiniQuestKillEntity.class);
 	}
 	
-	public static int MAX_MINIQUESTS_PER_FACTION = 3;
+	public static int MAX_MINIQUESTS_PER_FACTION = 5;
 	public static double RENDER_HEAD_DISTANCE = 24D;
 	
 	public LOTRMiniQuest(LOTRPlayerData pd)

@@ -146,6 +146,7 @@ public class LOTRGuiRedBook extends LOTRGuiScreenBase
 					
 					int min = 0 + Math.round(currentScroll * (size - maxDisplayedMiniQuests));
 					int max = maxDisplayedMiniQuests - 1 + Math.round(currentScroll * (size - maxDisplayedMiniQuests));
+					min = Math.max(min, 0);
 					max = Math.min(max, size - 1);
 					
 					for (int index = min; index <= max; index++)

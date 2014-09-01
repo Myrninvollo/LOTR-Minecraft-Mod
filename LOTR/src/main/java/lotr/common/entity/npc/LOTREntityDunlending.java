@@ -13,6 +13,8 @@ import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
 import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetBasic;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import lotr.common.world.biome.LOTRBiomeGenDunland;
 import lotr.common.world.structure.LOTRChestContents;
 import net.minecraft.entity.EntityLiving;
@@ -253,5 +255,11 @@ public class LOTREntityDunlending extends LOTREntityNPC
 		{
 			return "dunlending_hostile";
 		}
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.DUNLAND.createQuest(entityplayer);
 	}
 }

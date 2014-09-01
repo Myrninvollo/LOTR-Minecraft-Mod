@@ -311,12 +311,11 @@ public class LOTRTickHandlerClient
 	public void onRenderTick(TickEvent.RenderTickEvent event)
 	{
 		Minecraft minecraft = Minecraft.getMinecraft();
+		EntityClientPlayerMP entityplayer = minecraft.thePlayer;
+		World world = minecraft.theWorld;
 		
 		if (event.phase == Phase.START)
 		{
-			EntityClientPlayerMP entityplayer = minecraft.thePlayer;
-			World world = minecraft.theWorld;
-			
 			if (entityplayer != null && world != null && entityplayer.ridingEntity instanceof LOTREntityNPCRideable)
 			{
 				LOTREntityNPCRideable npc = (LOTREntityNPCRideable)entityplayer.ridingEntity;
@@ -333,19 +332,19 @@ public class LOTRTickHandlerClient
 			        	data.writeByte((byte)entityplayer.dimension);
 			        	
 			        	C17PacketCustomPayload packet = new C17PacketCustomPayload("lotr.mountInv", data);
-			        	minecraft.thePlayer.sendQueue.addToSendQueue(packet);
+			        	entityplayer.sendQueue.addToSendQueue(packet);
 					}
 				}
 			}
 		}
 		
 		if (event.phase == Phase.END)
-		{	
+		{
 			LOTRTileEntityMobSpawnerRenderer.onRenderTick();
 			
-			if (minecraft.thePlayer != null && minecraft.theWorld != null)
+			if (entityplayer != null && world != null)
 			{
-				if (minecraft.thePlayer.dimension == LOTRMod.idDimension || LOTRMod.alwaysShowAlignment)
+				if (entityplayer.dimension == LOTRMod.idDimension || LOTRMod.alwaysShowAlignment)
 				{
 					alignmentXPosCurrent = alignmentXPosBase;
 					int interval = (int)(((float)alignmentYPosBase + 20F) / 10F);
@@ -374,7 +373,7 @@ public class LOTRTickHandlerClient
 					renderAlignment(minecraft);
 				}
 				
-				if (minecraft.thePlayer.dimension == LOTRMod.idDimension && minecraft.currentScreen == null)
+				if (entityplayer.dimension == LOTRMod.idDimension && minecraft.currentScreen == null)
 				{
 					onscreenPromptTick++;
 					if (onscreenPromptTick >= 150)

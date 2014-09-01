@@ -601,8 +601,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			
 			NBTTagCompound nbt = new PacketBuffer(data).readNBTTagCompoundFromBuffer();
 			LOTRTime.loadDates(nbt);
-			
-			System.out.println("update time " + update);
+
 			if (update)
 			{
 				LOTRClientProxy.tickHandler.updateDate();

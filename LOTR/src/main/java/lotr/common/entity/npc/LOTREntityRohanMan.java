@@ -11,6 +11,8 @@ import lotr.common.entity.ai.LOTREntityAIHiredRemainStill;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
 import lotr.common.entity.animal.LOTREntityHorse;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import lotr.common.world.biome.LOTRBiomeGenRohan;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -134,5 +136,11 @@ public abstract class LOTREntityRohanMan extends LOTREntityNPC
 			f += 20F;
 		}
 		return f;
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.ROHAN.createQuest(entityplayer);
 	}
 }

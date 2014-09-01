@@ -3,6 +3,8 @@ package lotr.common.entity.npc;
 import lotr.common.*;
 import lotr.common.entity.ai.*;
 import lotr.common.entity.animal.LOTREntityHorse;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import lotr.common.world.biome.LOTRBiomeGenGondor;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.*;
@@ -119,5 +121,11 @@ public abstract class LOTREntityGondorMan extends LOTREntityNPC
 			f += 20F;
 		}
 		return f;
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.GONDOR.createQuest(entityplayer);
 	}
 }

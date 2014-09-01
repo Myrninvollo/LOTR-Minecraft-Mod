@@ -9,6 +9,8 @@ import lotr.common.entity.ai.*;
 import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.animal.LOTREntityShirePony;
 import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import lotr.common.world.biome.LOTRBiomeGenHarondor;
 import lotr.common.world.biome.LOTRBiomeGenNearHarad.ImmuneToHeat;
 import lotr.common.world.biome.LOTRBiomeGenNearHaradFertile;
@@ -246,5 +248,11 @@ public class LOTREntityNearHaradrim extends LOTREntityNPC implements ImmuneToHea
 		{
 			return "nearHaradrim_hostile";
 		}
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.NEAR_HARAD.createQuest(entityplayer);
 	}
 }

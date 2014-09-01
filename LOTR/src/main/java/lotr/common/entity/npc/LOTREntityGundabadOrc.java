@@ -2,8 +2,11 @@ package lotr.common.entity.npc;
 
 import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -128,5 +131,11 @@ public class LOTREntityGundabadOrc extends LOTREntityOrc
 	public int getAlignmentBonus()
 	{
 		return LOTRAlignmentValues.Bonuses.GUNDABAD_ORC;
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.GUNDABAD.createQuest(entityplayer);
 	}
 }

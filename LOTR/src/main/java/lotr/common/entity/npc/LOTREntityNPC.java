@@ -46,6 +46,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 import com.google.common.collect.Multimap;
 
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class LOTREntityNPC extends EntityCreature
 {
@@ -204,6 +206,18 @@ public abstract class LOTREntityNPC extends EntityCreature
 			}
 		}
 	}
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public boolean isInRangeToRenderDist(double dist)
+    {
+		LOTRPlayerData data = LOTRLevelData.getData(LOTRMod.proxy.getClientPlayer());
+        if (!data.getMiniQuestsForEntity(this, true).isEmpty())
+        {
+        	return true;
+        }
+        return super.isInRangeToRenderDist(dist);
+    }
 	
 	@Override
 	public void onChunkLoad()
@@ -1179,8 +1193,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 				LOTRPlayerData playerData = LOTRLevelData.getData(entityplayer);
 				
 				List<LOTRMiniQuest> questsInProgress = playerData.getMiniQuestsForEntity(this, true);
-				
-				System.out.println("Quests for entity " + questsInProgress.size());
+
 				if (!questsInProgress.isEmpty())
 				{
 					LOTRMiniQuest currentQuest = questsInProgress.get(0);
@@ -1201,7 +1214,6 @@ public abstract class LOTREntityNPC extends EntityCreature
 				else
 				{
 					List<LOTRMiniQuest> questsForFaction = playerData.getMiniQuestsForFaction(getFaction(), true);
-					System.out.println("Quests for faction " + questsForFaction.size());
 					if (rand.nextInt(5) == 0 && questsForFaction.size() < LOTRMiniQuest.MAX_MINIQUESTS_PER_FACTION)
 					{
 						LOTRMiniQuest quest = createMiniQuest(entityplayer);

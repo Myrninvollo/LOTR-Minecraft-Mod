@@ -76,7 +76,7 @@ public class LOTRGuiMiniquestOffer extends LOTRGuiScreenBase
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		
-		String name = theNPC.getCommandSenderName();
+		String name = theNPC.getNPCName();
 		drawCenteredString(name, guiLeft + xSize / 2, guiTop + 10, 0x7A5D43);
 		
 		fontRendererObj.drawSplitString(description, guiLeft + descriptionX, guiTop + descriptionY, descriptionWidth, 0x7A5D43);

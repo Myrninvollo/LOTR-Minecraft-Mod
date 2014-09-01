@@ -20,6 +20,8 @@ import lotr.common.entity.ai.LOTREntityAINPCFollowSpouse;
 import lotr.common.entity.ai.LOTREntityAINPCMarry;
 import lotr.common.entity.ai.LOTREntityAINPCMate;
 import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import lotr.common.world.biome.LOTRBiomeGenBlueMountains;
 import lotr.common.world.biome.LOTRBiomeGenIronHills;
 import lotr.common.world.biome.LOTRBiomeGenRedMountains;
@@ -369,6 +371,12 @@ public class LOTREntityDwarf extends LOTREntityNPC
 		{
 			return isChild() ? "dwarfChild_unfriendly" : "dwarf_hostile";
 		}
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.DURIN.createQuest(entityplayer);
 	}
 	
 	@Override

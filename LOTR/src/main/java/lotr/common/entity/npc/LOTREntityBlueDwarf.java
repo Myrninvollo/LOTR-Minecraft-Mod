@@ -4,6 +4,8 @@ import lotr.common.LOTRAchievement;
 import lotr.common.LOTRAlignmentValues;
 import lotr.common.LOTRFaction;
 import lotr.common.LOTRMod;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
@@ -63,5 +65,11 @@ public class LOTREntityBlueDwarf extends LOTREntityDwarf
 		{
 			return isChild() ? "blueDwarfChild_unfriendly" : "blueDwarf_hostile";
 		}
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.BLUE_MOUNTAINS.createQuest(entityplayer);
 	}
 }

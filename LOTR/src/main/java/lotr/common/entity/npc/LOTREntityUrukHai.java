@@ -2,6 +2,8 @@ package lotr.common.entity.npc;
 
 import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -119,5 +121,11 @@ public class LOTREntityUrukHai extends LOTREntityOrc
 	public boolean canPickUpLoot()
 	{
 		return false;
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.URUK.createQuest(entityplayer);
 	}
 }

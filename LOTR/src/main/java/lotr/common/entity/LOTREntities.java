@@ -22,13 +22,13 @@ public class LOTREntities
 
 	public static void registerCreature(Class entityClass, String name, int id, int eggBackground, int eggSpots)
 	{
-		registerEntity(entityClass, name, id, 80, 3, true);
+		registerEntity(entityClass, name, id, 100, 3, true);
 		creatures.put(Integer.valueOf(id), new SpawnEggInfo(id, eggBackground, eggSpots));
 	}
 	
 	public static void registerCreature(Class entityClass, String name, int id)
 	{
-		registerEntity(entityClass, name, id, 80, 3, true);
+		registerEntity(entityClass, name, id, 100, 3, true);
 	}
 
 	public static void registerEntity(Class entityClass, String name, int id, int updateRange, int updateFreq, boolean sendVelocityUpdates)

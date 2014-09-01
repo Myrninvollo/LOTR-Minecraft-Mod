@@ -78,8 +78,6 @@ public abstract class LOTRMiniQuestKill extends LOTRMiniQuest
 	@Override
 	public int getAlignmentBonus()
 	{
-		int i = killTarget / 2;
-		i = Math.max(i, 1);
-		return i;
+		return killTarget;
 	}
 }

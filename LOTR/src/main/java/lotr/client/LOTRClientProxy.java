@@ -24,10 +24,12 @@ import lotr.common.item.*;
 import lotr.common.quest.LOTRMiniQuest;
 import lotr.common.tileentity.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -56,6 +58,8 @@ public class LOTRClientProxy extends LOTRCommonProxy
 	public static ResourceLocation enchantmentTexture = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 	public static ResourceLocation alignmentTexture = new ResourceLocation("lotr:gui/alignment.png");
 	public static ResourceLocation particlesTexture = new ResourceLocation("lotr:misc/particles.png");
+	
+	public static int TESSELLATOR_MAX_BRIGHTNESS = 15728880;
 
 	public static LOTRModelWingedHelmet modelWingedHelmet = new LOTRModelWingedHelmet(1F);
 	public static LOTRModelLeatherHat modelLeatherHat = new LOTRModelLeatherHat();
@@ -91,6 +95,12 @@ public class LOTRClientProxy extends LOTRCommonProxy
 	public World getClientWorld()
 	{
 		return Minecraft.getMinecraft().theWorld;
+	}
+	
+	@Override
+	public EntityPlayer getClientPlayer()
+	{
+		return Minecraft.getMinecraft().thePlayer;
 	}
 
 	@Override
@@ -356,49 +366,93 @@ public class LOTRClientProxy extends LOTRCommonProxy
         }
     }
     
-    private static ItemStack questBookItem;
-    
+    private static ItemStack getQuestBookItem()
+    {
+    	return new ItemStack(LOTRMod.redBook);
+    }
+
     public static void renderQuestBook(LOTREntityNPC npc, double d, double d1, double d2, float tick)
     {
-    	if (questBookItem == null)
-    	{
-    		questBookItem = new ItemStack(LOTRMod.redBook);
-    	}
+    	Minecraft mc = Minecraft.getMinecraft();
+    	World world = mc.theWorld;
+    	world.theProfiler.startSection("renderMiniquestBook");
     	
-    	if (Minecraft.getMinecraft().renderViewEntity.getDistanceToEntity(npc) > LOTRMiniQuest.RENDER_HEAD_DISTANCE)
-    	{
-    		return;
-    	}
+    	float distance = mc.renderViewEntity.getDistanceToEntity(npc);
+    	boolean aboveHead = distance <= LOTRMiniQuest.RENDER_HEAD_DISTANCE;
     	
-    	EntityPlayer entityplayer = Minecraft.getMinecraft().thePlayer;
+    	TextureManager textureManager = mc.getTextureManager();
+    	RenderManager renderManager = RenderManager.instance;
+    	EntityPlayer entityplayer = mc.thePlayer;
+    	
     	if (!LOTRLevelData.getData(entityplayer).getMiniQuestsForEntity(npc, true).isEmpty())
     	{
-    		float age = ((float)npc.ticksExisted + tick);
-    		float rotation = age % 360F;
-    		rotation *= 6F;
-	        
-	        Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationItemsTexture);
-			GL11.glPushMatrix();
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			GL11.glTranslatef((float)d, (float)d1 + npc.height + 1F, (float)d2);
-			float scale = 1F;
-			GL11.glRotatef(rotation, 0F, 1F, 0F);
-			GL11.glTranslatef(-0.5F * scale, 0F, 0.03125F * scale);
-			GL11.glScalef(scale, scale, scale);
-			IIcon icon = questBookItem.getIconIndex();
+			IIcon icon = getQuestBookItem().getIconIndex();
 	        if (icon == null)
 	        {
-	            icon = ((TextureMap)Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationItemsTexture)).getAtlasSprite("missingno");
+	            icon = ((TextureMap)textureManager.getTexture(TextureMap.locationItemsTexture)).getAtlasSprite("missingno");
 	        }
 			Tessellator tessellator = Tessellator.instance;
-	        float f2 = icon.getMinU();
-	        float f3 = icon.getMaxU();
-	        float f4 = icon.getMinV();
-	        float f5 = icon.getMaxV();
-			ItemRenderer.renderItemIn2D(tessellator, f3, f4, f2, f5, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
-			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-			GL11.glPopMatrix();
+	        float minU = icon.getMinU();
+	        float maxU = icon.getMaxU();
+	        float minV = icon.getMinV();
+	        float maxV = icon.getMaxV();
+			
+    		if (aboveHead)
+    		{
+	    		float age = ((float)npc.ticksExisted + tick);
+	    		float rotation = age % 360F;
+	    		rotation *= 6F;
+
+				GL11.glPushMatrix();
+				GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+				GL11.glDisable(GL11.GL_LIGHTING);
+				GL11.glTranslatef((float)d, (float)d1 + npc.height + 1F, (float)d2);
+				float scale = 1F;
+				GL11.glRotatef(rotation, 0F, 1F, 0F);
+				GL11.glTranslatef(-0.5F * scale, 0F, 0.03125F * scale);
+				GL11.glScalef(scale, scale, scale);
+				
+				textureManager.bindTexture(TextureMap.locationItemsTexture);
+				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
+				GL11.glColor4f(1F, 1F, 1F, 1F);
+				GL11.glColor4f(1F, 1F, 1F, 1F);
+				ItemRenderer.renderItemIn2D(tessellator, maxU, minV, minU, maxV, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
+				
+				GL11.glEnable(GL11.GL_LIGHTING);
+				GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+				GL11.glPopMatrix();
+    		}
+    		else
+            {
+    			float scale = (distance / (float)LOTRMiniQuest.RENDER_HEAD_DISTANCE) * 1F;
+    			scale = (float)Math.pow(scale, 1.4D);
+    			
+                GL11.glPushMatrix();
+                GL11.glTranslatef((float)d, (float)d1 + npc.height + 1F, (float)d2);
+                GL11.glNormal3f(0F, 1F, 0F);
+                GL11.glRotatef(-renderManager.playerViewY, 0F, 1F, 0F);
+                GL11.glRotatef(renderManager.playerViewX, 1F, 0F, 0F);
+                GL11.glScalef(scale, scale, scale);
+                GL11.glDisable(GL11.GL_LIGHTING);
+                GL11.glDepthMask(false);
+                GL11.glDisable(GL11.GL_DEPTH_TEST);
+
+	    		textureManager.bindTexture(TextureMap.locationItemsTexture);
+				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
+				GL11.glColor4f(1F, 1F, 1F, 1F);
+				GL11.glColor4f(1F, 1F, 1F, 1F);
+				GL11.glTranslatef(-0.5F, 0F, 0F);
+				ItemRenderer.renderItemIn2D(tessellator, maxU, minV, minU, maxV, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
+    			
+                GL11.glEnable(GL11.GL_DEPTH_TEST);
+                GL11.glDepthMask(true);
+                GL11.glEnable(GL11.GL_LIGHTING);
+                GL11.glColor4f(1F, 1F, 1F, 1F);
+                GL11.glPopMatrix();
+            }
     	}
+    	
+    	world.theProfiler.endSection();
     }
     
     public static void sendClientInfoPacket()

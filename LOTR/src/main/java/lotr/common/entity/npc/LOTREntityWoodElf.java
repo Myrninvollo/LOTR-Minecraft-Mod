@@ -9,6 +9,8 @@ import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtByTarget;
 import lotr.common.entity.ai.LOTREntityAIHiringPlayerHurtTarget;
 import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetWoodElf;
 import lotr.common.entity.npc.LOTREntityNPC.AttackMode;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import lotr.common.world.biome.LOTRBiome;
 import net.minecraft.entity.ai.EntityAIArrowAttack;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -135,5 +137,11 @@ public class LOTREntityWoodElf extends LOTREntityElf
 		{
 			return "woodElf_hostile";
 		}
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.WOOD_ELF.createQuest(entityplayer);
 	}
 }

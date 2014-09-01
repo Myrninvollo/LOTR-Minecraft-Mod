@@ -4,6 +4,7 @@ import java.util.Random;
 
 import lotr.common.LOTRPlayerData;
 import lotr.common.entity.npc.LOTREntityNPC;
+import lotr.common.item.LOTRItemMugBrewable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -174,7 +175,7 @@ public class LOTRMiniQuestCollect extends LOTRMiniQuest
 		public QuestFactory setCollectItem(ItemStack itemstack, int min, int max)
 		{
 			collectItem = itemstack;
-			if (collectItem.isItemStackDamageable())
+			if (collectItem.isItemStackDamageable() || collectItem.getItem() instanceof LOTRItemMugBrewable)
 			{
 				collectItem.setItemDamage(OreDictionary.WILDCARD_VALUE);
 			}

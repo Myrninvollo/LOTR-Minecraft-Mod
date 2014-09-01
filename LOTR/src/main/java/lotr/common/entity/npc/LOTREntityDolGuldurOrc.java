@@ -2,9 +2,12 @@ package lotr.common.entity.npc;
 
 import lotr.common.*;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -109,5 +112,11 @@ public class LOTREntityDolGuldurOrc extends LOTREntityOrc
 	protected LOTRAchievement getKillAchievement()
 	{
 		return LOTRAchievement.killDolGuldurOrc;
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return LOTRMiniQuestFactory.DOL_GULDUR.createQuest(entityplayer);
 	}
 }

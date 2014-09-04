@@ -51,7 +51,7 @@ public class LOTRMiniQuestKillEntity extends LOTRMiniQuestKill
 	@Override
 	public void onKill(EntityPlayer entityplayer, EntityLivingBase entity)
 	{
-		if (entity.getClass().isAssignableFrom(entityType))
+		if (killCount < killTarget && entity.getClass().isAssignableFrom(entityType))
 		{
 			killCount++;
 			updateQuest();

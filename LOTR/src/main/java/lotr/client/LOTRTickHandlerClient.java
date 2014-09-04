@@ -227,6 +227,8 @@ public class LOTRTickHandlerClient
 					int j = MathHelper.floor_double(entityplayer.posY);
 					int k = MathHelper.floor_double(entityplayer.posZ);
 					
+					LOTRBiomeGenOcean.updateWaterColor(i, j, k);
+					
 					if (LOTRMod.enableMistyMountainsMist)
 					{
 						BiomeGenBase biome = world.getBiomeGenForCoords(i, k);
@@ -410,7 +412,7 @@ public class LOTRTickHandlerClient
 						int y = (j - minecraft.fontRenderer.FONT_HEIGHT) * 2 / 3;
 						
 						GL11.glEnable(GL11.GL_BLEND);
-						OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+						OpenGlHelper.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
 						minecraft.fontRenderer.drawString(message, x, y, 0xFFFFFF + ((int)(transparency * 255F) << 24));
 						GL11.glDisable(GL11.GL_BLEND);
 					}
@@ -447,7 +449,7 @@ public class LOTRTickHandlerClient
 							
 							GL11.glScalef(scale, scale, scale);
 		                    GL11.glEnable(GL11.GL_BLEND);
-		                    OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+		                    OpenGlHelper.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
 							minecraft.fontRenderer.drawString(date, x, y, 0xFFFFFF + ((int)(alpha * 255F) << 24));
 							GL11.glDisable(GL11.GL_BLEND);
 							GL11.glScalef(invScale, invScale, invScale);

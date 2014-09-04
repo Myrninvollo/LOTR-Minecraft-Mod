@@ -1173,7 +1173,7 @@ public class LOTREventHandler implements IFuelHandler
 				event.setCanceled(true);
 				if (!world.isRemote && entity instanceof EntityPlayer)
 				{
-					((EntityPlayer)entity).inventory.damageArmor(event.ammount + 1);
+					((EntityPlayer)entity).inventory.damageArmor(event.ammount);
 					LOTRLevelData.getData((EntityPlayer)entity).addAchievement(LOTRAchievement.wearFullGalvorn);
 				}
 				return;

@@ -44,7 +44,7 @@ public class LOTRPlayerData
 	private LOTRShields shield;
 	private boolean enableShield = true;
 	
-	private boolean friendlyFire = true;
+	private boolean friendlyFire = false;
 	private boolean hiredDeathMessages = true;
 	
 	private ChunkCoordinates deathPoint;

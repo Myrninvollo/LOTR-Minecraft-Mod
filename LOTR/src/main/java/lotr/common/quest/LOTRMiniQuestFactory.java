@@ -203,7 +203,7 @@ public enum LOTRMiniQuestFactory
 		BLUE_MOUNTAINS.addQuest(new LOTRMiniQuestCollect.QuestFactory("mineMithril").setCollectItem(new ItemStack(LOTRMod.oreMithril), 1, 6).setRewardFactor(10F));
 		BLUE_MOUNTAINS.addQuest(new LOTRMiniQuestCollect.QuestFactory("collectMineral").setCollectItem(new ItemStack(Items.gold_ingot), 3, 15).setRewardFactor(2F));
 		BLUE_MOUNTAINS.addQuest(new LOTRMiniQuestCollect.QuestFactory("collectMineral").setCollectItem(new ItemStack(LOTRMod.silver), 3, 15).setRewardFactor(2F));
-		BLUE_MOUNTAINS.addQuest(new LOTRMiniQuestCollect.QuestFactory("collectMineral").setCollectItem(new ItemStack(Items.diamond), 2, 8).setRewardFactor(3F));
+		BLUE_MOUNTAINS.addQuest(new LOTRMiniQuestCollect.QuestFactory("collectMineral").setCollectItem(new ItemStack(Items.diamond), 2, 8).setRewardFactor(4F));
 		BLUE_MOUNTAINS.addQuest(new LOTRMiniQuestCollect.QuestFactory("collectMineral").setCollectItem(new ItemStack(Items.glowstone_dust), 5, 15).setRewardFactor(2F));
 		BLUE_MOUNTAINS.addQuest(new LOTRMiniQuestCollect.QuestFactory("forgeDwarfWeapon").setCollectItem(new ItemStack(LOTRMod.hammerBlueDwarven), 1, 3).setRewardFactor(5F));
 		BLUE_MOUNTAINS.addQuest(new LOTRMiniQuestCollect.QuestFactory("forgeDwarfWeapon").setCollectItem(new ItemStack(LOTRMod.battleaxeBlueDwarven), 1, 3).setRewardFactor(5F));
@@ -339,7 +339,7 @@ public enum LOTRMiniQuestFactory
 		DURIN.addQuest(new LOTRMiniQuestCollect.QuestFactory("mineMithril").setCollectItem(new ItemStack(LOTRMod.oreMithril), 1, 6).setRewardFactor(10F));
 		DURIN.addQuest(new LOTRMiniQuestCollect.QuestFactory("collectMineral").setCollectItem(new ItemStack(Items.gold_ingot), 3, 15).setRewardFactor(2F));
 		DURIN.addQuest(new LOTRMiniQuestCollect.QuestFactory("collectMineral").setCollectItem(new ItemStack(LOTRMod.silver), 3, 15).setRewardFactor(2F));
-		DURIN.addQuest(new LOTRMiniQuestCollect.QuestFactory("collectMineral").setCollectItem(new ItemStack(Items.diamond), 2, 8).setRewardFactor(3F));
+		DURIN.addQuest(new LOTRMiniQuestCollect.QuestFactory("collectMineral").setCollectItem(new ItemStack(Items.diamond), 2, 8).setRewardFactor(4F));
 		DURIN.addQuest(new LOTRMiniQuestCollect.QuestFactory("collectMineral").setCollectItem(new ItemStack(Items.glowstone_dust), 5, 15).setRewardFactor(2F));
 		DURIN.addQuest(new LOTRMiniQuestCollect.QuestFactory("forgeDwarfWeapon").setCollectItem(new ItemStack(LOTRMod.hammerDwarven), 1, 3).setRewardFactor(5F));
 		DURIN.addQuest(new LOTRMiniQuestCollect.QuestFactory("forgeDwarfWeapon").setCollectItem(new ItemStack(LOTRMod.battleaxeDwarven), 1, 3).setRewardFactor(5F));

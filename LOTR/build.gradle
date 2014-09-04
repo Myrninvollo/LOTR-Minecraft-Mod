@@ -18,11 +18,11 @@ buildscript {
 apply plugin: 'forge'
 
 version = "20"
-group= "lotr" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group= "lotr"
 archivesBaseName = "lotr"
 
 minecraft {
-    version = "1.7.10-10.13.0.1180"
+    version = "1.7.10-10.13.0.1208"
     assetDir = "eclipse/assets"
 }
 

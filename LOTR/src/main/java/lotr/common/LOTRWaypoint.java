@@ -190,8 +190,8 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 		faction = f;
 		x = i;
 		y = j;
-		xCoord = (int)(((double)(x - LOTRGenLayerWorld.originX) + 0.5D) * LOTRGenLayerWorld.scale);
-		zCoord = (int)(((double)(y - LOTRGenLayerWorld.originZ) + 0.5D) * LOTRGenLayerWorld.scale);
+		xCoord = Math.round(((float)(x - LOTRGenLayerWorld.originX) + 0.5F) * LOTRGenLayerWorld.scale);
+		zCoord = Math.round(((float)(y - LOTRGenLayerWorld.originZ) + 0.5F) * LOTRGenLayerWorld.scale);
 	}
 	
 	public enum Region
@@ -242,7 +242,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 		RED_MOUNTAINS;
 		
 		public List waypoints = new ArrayList();
-		public List playersUnlocked = new ArrayList();
+		public List<UUID> playersUnlocked = new ArrayList();
 		
 		public void unlockForPlayer(EntityPlayer entityplayer)
 		{
@@ -391,15 +391,11 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 			nbt.setString("Name", region.name());
 			
 			NBTTagList players = new NBTTagList();
-			for (Object obj: region.playersUnlocked)
+			for (UUID uuid : region.playersUnlocked)
 			{
-				if (obj instanceof UUID)
-				{
-					NBTTagCompound playerData = new NBTTagCompound();
-					playerData.setLong("UUIDMost", ((UUID)obj).getMostSignificantBits());
-					playerData.setLong("UUIDLeast", ((UUID)obj).getLeastSignificantBits());
-					players.appendTag(playerData);
-				}
+				NBTTagCompound playerData = new NBTTagCompound();
+				playerData.setString("PlayerUUID", uuid.toString());
+				players.appendTag(playerData);
 			}
 			nbt.setTag("Players", players);
 			
@@ -431,7 +427,15 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 						for (int j = 0; j < players.tagCount(); j++)
 						{
 							NBTTagCompound playerData = (NBTTagCompound)players.getCompoundTagAt(j);
-							UUID player = new UUID(playerData.getLong("UUIDMost"), playerData.getLong("UUIDLeast"));
+							UUID player = null;
+							if (playerData.hasKey("PlayerUUID"))
+							{
+								player = UUID.fromString(playerData.getString("PlayerUUID"));
+							}
+							else
+							{
+								player = new UUID(playerData.getLong("UUIDMost"), playerData.getLong("UUIDLeast"));
+							}
 							region.playersUnlocked.add(player);
 						}
 					}
@@ -457,7 +461,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 	{
 		public static int INITIAL_CUSTOM = 5;
 
-		public static Map playerCustomWaypoints = new HashMap();
+		public static Map<UUID, List<Custom>> playerCustomWaypoints = new HashMap();
 		
 		private static int nextWaypointID = 0;
 		
@@ -473,8 +477,8 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 			name = s;
 			xCoord = MathHelper.floor_double(posX);
 			zCoord = MathHelper.floor_double(posZ);
-			x = (int)Math.round(((double)xCoord / (double)LOTRGenLayerWorld.scale) - 0.5D + LOTRGenLayerWorld.originX);
-			y = (int)Math.round(((double)zCoord / (double)LOTRGenLayerWorld.scale) - 0.5D + LOTRGenLayerWorld.originZ);
+			x = Math.round(((float)xCoord / (float)LOTRGenLayerWorld.scale) - 0.5F + LOTRGenLayerWorld.originX);
+			y = Math.round(((float)zCoord / (float)LOTRGenLayerWorld.scale) - 0.5F + LOTRGenLayerWorld.originZ);
 			ID = nextWaypointID;
 			nextWaypointID++;
 		}
@@ -537,9 +541,9 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 			return ID;
 		}
 		
-		public static List getWaypointList(EntityPlayer entityplayer)
+		public static List<Custom> getWaypointList(EntityPlayer entityplayer)
 		{
-			List waypoints = (List)playerCustomWaypoints.get(entityplayer.getUniqueID());
+			List waypoints = playerCustomWaypoints.get(entityplayer.getUniqueID());
 			if (waypoints == null)
 			{
 				waypoints = new ArrayList();
@@ -604,20 +608,20 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 			Packet packet = new S3FPacketCustomPayload("lotr.clearCWP", Unpooled.buffer());
 			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
 
-			List waypoints = getWaypointList(entityplayer);
+			List<Custom> waypoints = getWaypointList(entityplayer);
 			for (int i = 0; i < waypoints.size(); i++)
 			{
-				Custom waypoint = (Custom)waypoints.get(i);
+				Custom waypoint = waypoints.get(i);
 				sendWaypointPacket(entityplayer, waypoint);
 			}
 		}
 		
 		public static Custom waypointForPlayerForID(EntityPlayer entityplayer, int ID)
 		{
-			List list = getWaypointList(entityplayer);
+			List<Custom> list = getWaypointList(entityplayer);
 			for (int l = 0; l < list.size(); l++)
 			{
-				Custom waypoint = (Custom)list.get(l);
+				Custom waypoint = list.get(l);
 				if (waypoint.getID() == ID)
 				{
 					return waypoint;
@@ -632,13 +636,12 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 			
 			NBTTagList waypointData = new NBTTagList();
 			
-			Iterator iterator = playerCustomWaypoints.keySet().iterator();
+			Iterator<UUID> iterator = playerCustomWaypoints.keySet().iterator();
 			while (iterator.hasNext())
 			{
-				UUID player = (UUID)iterator.next();
+				UUID player = iterator.next();
 				NBTTagCompound playerData = new NBTTagCompound();
-				playerData.setLong("UUIDMost", player.getMostSignificantBits());
-				playerData.setLong("UUIDLeast", player.getLeastSignificantBits());
+				playerData.setString("PlayerUUID", player.toString());
 				
 				NBTTagList waypointList = new NBTTagList();
 				List waypoints = (List)playerCustomWaypoints.get(player);
@@ -675,7 +678,16 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 				for (int i = 0; i < waypointData.tagCount(); i++)
 				{
 					NBTTagCompound playerData = waypointData.getCompoundTagAt(i);
-					UUID player = new UUID(playerData.getLong("UUIDMost"), playerData.getLong("UUIDLeast"));
+					UUID player = null;
+					if (playerData.hasKey("PlayerUUID"))
+					{
+						player = UUID.fromString(playerData.getString("PlayerUUID"));
+					}
+					else
+					{
+						player = new UUID(playerData.getLong("UUIDMost"), playerData.getLong("UUIDLeast"));
+					}
+					
 					List waypoints = new ArrayList();
 					
 					NBTTagList waypointList = playerData.getTagList("Waypoints", new NBTTagCompound().getId());

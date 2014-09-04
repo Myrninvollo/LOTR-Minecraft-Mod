@@ -263,6 +263,7 @@ public abstract class LOTREntityWarg extends LOTREntityNPCRideable implements II
     {
     	wargInventory.setInventorySlotContents(1, itemstack);
     	setupWargInventory();
+    	setWargArmorWatched(getWargArmor());
     }
     
     public ItemStack getWargArmor()

@@ -180,7 +180,7 @@ public class LOTRUnitTradeEntry
 			}
 			else if (entity instanceof LOTREntityWarg)
 			{
-				((LOTREntityWarg)entity).setCurrentItemOrArmor(4, new ItemStack(mountArmor));
+				((LOTREntityWarg)entity).setWargArmor(new ItemStack(mountArmor));
 			}
 		}
 		
@@ -270,7 +270,7 @@ public class LOTRUnitTradeEntry
 			new LOTRUnitTradeEntry(LOTREntityWoodElf.class, 15, 200),
 			new LOTRUnitTradeEntry(LOTREntityWoodElfScout.class, 25, 250),
 			new LOTRUnitTradeEntry(LOTREntityWoodElfWarrior.class, 30, 300),
-			new LOTRUnitTradeEntry(LOTREntityWoodElfWarrior.class, LOTREntityElk.class, "WoodElfWarrior_Elk", 35, 400),
+			new LOTRUnitTradeEntry(LOTREntityWoodElfWarrior.class, LOTREntityElk.class, "WoodElfWarrior_Elk", 35, 400).setMountArmor(LOTRMod.elkArmorWoodElven),
 			new LOTRUnitTradeEntry(LOTREntityWoodElfBannerBearer.class, 40, 450)
 		};
 		

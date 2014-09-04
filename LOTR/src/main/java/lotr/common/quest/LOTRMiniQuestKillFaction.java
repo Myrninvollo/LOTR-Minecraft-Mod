@@ -49,7 +49,7 @@ public class LOTRMiniQuestKillFaction extends LOTRMiniQuestKill
 	@Override
 	public void onKill(EntityPlayer entityplayer, EntityLivingBase entity)
 	{
-		if (LOTRMod.getNPCFaction(entity) == killFaction)
+		if (killCount < killTarget && LOTRMod.getNPCFaction(entity) == killFaction)
 		{
 			killCount++;
 			updateQuest();

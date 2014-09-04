@@ -110,6 +110,8 @@ public class LOTRClientProxy extends LOTRCommonProxy
 		channel.register(new LOTRPacketHandlerClient(this));
 
 		customEffectRenderer = new LOTREffectRenderer(Minecraft.getMinecraft());
+		
+		LOTRMapTextures.loadMapTexture();
 
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityPortal.class, new LOTRRenderPortal());
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityHorse.class, new LOTRRenderHorse());

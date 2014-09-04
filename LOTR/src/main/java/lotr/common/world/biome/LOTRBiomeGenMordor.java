@@ -54,6 +54,8 @@ public class LOTRBiomeGenMordor extends LOTRBiome
 		{
 			spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorWarg.class, 15, 1, 3));
 			spawnableEvilList.add(new SpawnListEntry(LOTREntityOlogHai.class, 15, 1, 3));
+			
+			setDisableRain();
 		}
 		
 		decorator.flowersPerChunk = 0;

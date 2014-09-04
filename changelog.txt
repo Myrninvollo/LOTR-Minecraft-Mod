@@ -1,3 +1,24 @@
+Public Beta 20.1
+
++ Added icons to the Middle-earth map which display the location of miniquest-givers
++ Added coin rewards for completing mini-quests
++ Added achievements for completing mini-quests from various factions
++ Added varying ocean water colour depending on latitude
++ Added updated Spanish (Argentina) and Spanish (Mexico) translations
++ Added an overlay texture to the map display
+
+* Increased the maximum map zoom level by 2
+* Fixed map dragging working improperly on higher zoom levels
+* Fixed the map displaying waypoint and player positions inaccurately on higher zoom levels
+* Fixed mobs with hats being displayed incorrectly in the miniquest offer screen
+* Fixed the dwarven spider-killing miniquest speechbanks
+* Fixed wood-elves in towers spawning with elk
+* Fixed hired wood-elven cavalry not armouring their elk
+* Fixed hired warg riders not armouring their wargs
+* Fixed cavalry units not displaying mount armour in the unit hiring screen
+* Fixed rain falling in Mordor
+* Fixed friendly fire being enabled by default
+
 Public Beta 20
 
 + Added mini-quests

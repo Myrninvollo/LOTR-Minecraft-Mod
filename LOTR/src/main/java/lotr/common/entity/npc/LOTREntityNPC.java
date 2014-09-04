@@ -101,7 +101,7 @@ public abstract class LOTREntityNPC extends EntityCreature
 	public int npcTalkTick = 0;
 	
 	private List<ItemStack> enpouchedDrops = new ArrayList();
-	private boolean enpouchNPCDrops = true;
+	private boolean enpouchNPCDrops = false;
 	
 	public LOTREntityNPC(World world)
 	{
@@ -584,6 +584,20 @@ public abstract class LOTREntityNPC extends EntityCreature
 				}
 			}
 		}
+		
+		if (!worldObj.isRemote)
+		{
+			List players = worldObj.playerEntities;
+			for (Object obj : players)
+			{
+				EntityPlayer entityplayer = (EntityPlayer)obj;
+				List<LOTRMiniQuest> miniquests = LOTRLevelData.getData(entityplayer).getMiniQuestsForEntity(this, true);
+				for (LOTRMiniQuest quest : miniquests)
+				{
+					quest.updateLocation(this);
+				}
+			}
+		}
 	}
 	
 	protected void onAttackModeChange(AttackMode mode) {}
@@ -928,6 +942,8 @@ public abstract class LOTREntityNPC extends EntityCreature
 	@Override
 	public void onDeath(DamageSource damagesource)
 	{
+		enpouchNPCDrops = true;
+		
 		hiredNPCInfo.onDeath(damagesource);
 		if (travellingTraderInfo != null)
 		{

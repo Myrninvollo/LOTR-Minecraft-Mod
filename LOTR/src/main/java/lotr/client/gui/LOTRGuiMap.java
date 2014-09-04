@@ -3,29 +3,23 @@ package lotr.client.gui;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
-import lotr.client.LOTRClientProxy;
-import lotr.client.LOTRKeyHandler;
-import lotr.common.LOTRAbstractWaypoint;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
-import lotr.common.LOTRWaypoint;
+import lotr.client.*;
+import lotr.common.*;
+import lotr.common.quest.LOTRMiniQuest;
 import lotr.common.world.biome.LOTRBiome;
 import lotr.common.world.genlayer.LOTRGenLayerWorld;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.EmptyChunk;
 
@@ -37,16 +31,19 @@ import com.google.common.base.Charsets;
 
 public class LOTRGuiMap extends LOTRGui
 {
-	private static ResourceLocation mapTexture = new ResourceLocation("lotr:map/map.png");
+	private static ResourceLocation overlayTexture = new ResourceLocation("lotr:map/mapOverlay.png");
 	private static ResourceLocation borderTexture = new ResourceLocation("lotr:map/mapScreen.png");
 	
 	public static Map playerLocations = new HashMap();
 	private static Map playerSkins = new HashMap();
 	
+	private static ItemStack questBookIcon = new ItemStack(LOTRMod.redBook);
+	
 	private static final int MIN_ZOOM = -3;
-	private static final int MAX_ZOOM = 2;
+	private static final int MAX_ZOOM = 4;
 	private static final int mapXSize = 256;
 	private static final int mapYSize = 200;
+	private static final int borderWidth = 4;
 	
 	private static final int addWPButtonX = mapXSize - 16;
 	private static final int addWPButtonY = 6;
@@ -61,12 +58,12 @@ public class LOTRGuiMap extends LOTRGui
 	private static final int waypointToggleWidth = 10;
 	
 	private static int zoom = 0;
-	private double zoomPower;
+	private float zoomPower;
 	
 	public boolean isPlayerOp = false;
 	
-	private int posX;
-	private int posY;
+	private float posX;
+	private float posY;
 	private int isMouseButtonDown;
 	private int prevMouseX;
 	private int prevMouseY;
@@ -164,21 +161,20 @@ public class LOTRGuiMap extends LOTRGui
 	@Override
 	public void drawScreen(int i, int j, float f)
 	{
+		zLevel = 0F;
+		
 		drawDefaultBackground();
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		drawCenteredString(StatCollector.translateToLocal("lotr.gui.map.title"), guiLeft + mapXSize / 2, guiTop - 30, 0xFFFFFF);
 		
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		mc.getTextureManager().bindTexture(mapTexture);
+		zoomPower = (float)Math.pow(2, zoom);
+		int zoomScaleX = Math.round(mapXSize / zoomPower);
+		int zoomScaleY = Math.round(mapYSize / zoomPower);
 		
-		zoomPower = Math.pow(2, zoom);
-		int zoomScaleX = (int)Math.round(mapXSize / zoomPower);
-		int zoomScaleY = (int)Math.round(mapYSize / zoomPower);
-		
-		int i1 = guiLeft + 4;
-		int i2 = guiLeft + mapXSize - 4;
-		int j1 = guiTop + 4;
-		int j2 = guiTop + mapYSize - 4;
+		int i1 = guiLeft + borderWidth;
+		int i2 = guiLeft + mapXSize - borderWidth;
+		int j1 = guiTop + borderWidth;
+		int j2 = guiTop + mapYSize - borderWidth;
 		isMouseWithinMap = i >= i1 && i < i2 && j >= j1 && j < j2;
 		
         if (!hasOverlay && Mouse.isButtonDown(0))
@@ -191,11 +187,11 @@ public class LOTRGuiMap extends LOTRGui
                 }
                 else
                 {
-					int x = (int)((double)(i - prevMouseX) / zoomPower);
-					int y = (int)((double)(j - prevMouseY) / zoomPower);
+                	float x = (float)(i - prevMouseX) / zoomPower;
+                	float y = (float)(j - prevMouseY) / zoomPower;
                     posX -= x;
 					posY -= y;
-                    if (x != 0 || y != 0)
+                    if (x != 0F || y != 0F)
 					{
 						selectedWaypoint = null;
 					}
@@ -210,8 +206,8 @@ public class LOTRGuiMap extends LOTRGui
             isMouseButtonDown = 0;
         }
 		
-		int minX = posX - zoomScaleX / 2;
-		int maxX = posX + zoomScaleX / 2;
+		float minX = posX - zoomScaleX / 2;
+		float maxX = posX + zoomScaleX / 2;
 		if (minX < 0)
 		{
 			posX = 0 + zoomScaleX / 2;
@@ -221,8 +217,8 @@ public class LOTRGuiMap extends LOTRGui
 			posX = LOTRGenLayerWorld.imageWidth - zoomScaleX / 2;
 		}
 		
-		int minY = posY - zoomScaleY / 2;
-		int maxY = posY + zoomScaleY / 2;
+		float minY = posY - zoomScaleY / 2;
+		float maxY = posY + zoomScaleY / 2;
 		if (minY < 0)
 		{
 			posY = 0 + zoomScaleY / 2;
@@ -237,6 +233,8 @@ public class LOTRGuiMap extends LOTRGui
 		double minV = (double)(posY - zoomScaleY / 2) / (double)LOTRGenLayerWorld.imageHeight;
 		double maxV = (double)(posY + zoomScaleY / 2) / (double)LOTRGenLayerWorld.imageHeight;
 		
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		mc.getTextureManager().bindTexture(LOTRMapTextures.mapTexture);
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
 		tessellator.addVertexWithUV(guiLeft, guiTop + mapYSize, zLevel, minU, maxV);
@@ -244,6 +242,14 @@ public class LOTRGuiMap extends LOTRGui
 		tessellator.addVertexWithUV(guiLeft + mapXSize, guiTop, zLevel, maxU, minV);
 		tessellator.addVertexWithUV(guiLeft, guiTop, zLevel, minU, minV);
 		tessellator.draw();
+		
+        mc.getTextureManager().bindTexture(overlayTexture);
+        GL11.glEnable(GL11.GL_BLEND);
+        OpenGlHelper.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
+        GL11.glColor4f(1F, 1F, 1F, 0.2F);
+		drawTexturedModalRect(guiLeft, guiTop, 0, 0, mapXSize, mapYSize);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GL11.glDisable(GL11.GL_BLEND);
 		
 		if (!waypointMode.canDisplayWaypoint(selectedWaypoint))
 		{
@@ -293,10 +299,13 @@ public class LOTRGuiMap extends LOTRGui
 		}
 		else if (!hasOverlay && isMouseWithinMap)
 		{
-			int biomePosX = posX + (int)Math.round(((i - guiLeft) - mapXSize / 2) / zoomPower);
-			int biomePosZ = posY + (int)Math.round(((j - guiTop) - mapYSize / 2) / zoomPower);
+			float biomePosX = posX + (((i - guiLeft) - mapXSize / 2) / zoomPower);
+			float biomePosZ = posY + (((j - guiTop) - mapYSize / 2) / zoomPower);
 			
-			int biomeID = LOTRGenLayerWorld.biomeImageData[biomePosZ * LOTRGenLayerWorld.imageWidth + biomePosX];
+			int biomePosX_int = Math.round(biomePosX);
+			int biomePosZ_int = Math.round(biomePosZ);
+			
+			int biomeID = LOTRGenLayerWorld.biomeImageData[biomePosZ_int * LOTRGenLayerWorld.imageWidth + biomePosX_int];
 			BiomeGenBase biome = LOTRBiome.lotrBiomeList[biomeID];
 			if (biome instanceof LOTRBiome)
 			{
@@ -315,9 +324,9 @@ public class LOTRGuiMap extends LOTRGui
 				drawRect(x, y, x + rectWidth, y + rectHeight, 0xC0000000);
 				drawCenteredString(biomeName, guiLeft + mapXSize / 2, y + border, 0xFFFFFF);
 				
-				mouseXCoord = (biomePosX - LOTRGenLayerWorld.originX) * LOTRGenLayerWorld.scale;
-				mouseZCoord = (biomePosZ - LOTRGenLayerWorld.originZ) * LOTRGenLayerWorld.scale;
-				String coords = "x: " + mouseXCoord + ", z: " + mouseZCoord;
+				mouseXCoord = Math.round((biomePosX - LOTRGenLayerWorld.originX) * LOTRGenLayerWorld.scale);
+				mouseZCoord = Math.round((biomePosZ - LOTRGenLayerWorld.originZ) * LOTRGenLayerWorld.scale);
+				String coords = StatCollector.translateToLocalFormatted("lotr.gui.map.coords", new Object[] {mouseXCoord, mouseZCoord});
 				int stringX = guiLeft + mapXSize / 2;
 				int stringY = y + border * 2 + stringHeight;
 				drawCenteredString(coords, stringX, stringY, 0xFFFFFF);
@@ -343,80 +352,35 @@ public class LOTRGuiMap extends LOTRGui
 			renderPlayer(mc.thePlayer.getUniqueID(), mc.thePlayer.getCommandSenderName(), mc.thePlayer.posX, mc.thePlayer.posZ, i, j);
 		}
 		
-		mc.getTextureManager().bindTexture(borderTexture);
-
-		if (waypointMode != WaypointMode.NONE)
-		{
-			List waypoints = LOTRWaypoint.getListOfAllWaypoints(mc.thePlayer);
-			for (int l = 0; l < waypoints.size(); l++)
-			{
-				LOTRAbstractWaypoint waypoint = (LOTRAbstractWaypoint)waypoints.get(l);
-				if (waypointMode.canDisplayWaypoint(waypoint))
-				{
-					int x = MathHelper.floor_double((waypoint.getX() - posX) * zoomPower) + mapXSize / 2;
-					int y = MathHelper.floor_double((waypoint.getY() - posY) * zoomPower) + mapYSize / 2;
-					if (x - 2 >= 0 && x + 2 <= mapXSize && y - 2 >= 0 && y + 2 <= mapYSize)
-					{
-						boolean unlocked = waypoint.hasPlayerUnlocked(mc.thePlayer);
-						boolean custom = waypoint instanceof LOTRWaypoint.Custom;
-						drawTexturedModalRect(guiLeft + x - 2, guiTop + y - 2, custom ? 8 : (unlocked ? 4 : 0), 200, 4, 4);
-					}
-				}
-			}
-			
-			if (selectedWaypoint != null && waypointMode.canDisplayWaypoint(selectedWaypoint))
-			{
-				String name = selectedWaypoint.getDisplayName();
-				String coords = "x: " + selectedWaypoint.getXCoord() + ", z: " + selectedWaypoint.getZCoord();
-				
-				int x = MathHelper.floor_double((selectedWaypoint.getX() - posX) * zoomPower) + mapXSize / 2;
-				int y = MathHelper.floor_double((selectedWaypoint.getY() - posY) * zoomPower) + mapYSize / 2;
-				y += 5;
-				
-				x += guiLeft;
-				y += guiTop;
-				int border = 3;
-				int stringHeight = fontRendererObj.FONT_HEIGHT;
-				int rectWidth = Math.max(fontRendererObj.getStringWidth(name), fontRendererObj.getStringWidth(coords)) + border * 2;
-				x -= rectWidth / 2;
-				int rectHeight = border * 3 + stringHeight * 2;
-				
-				x = Math.max(x, guiLeft + 6);
-				x = Math.min(x, guiLeft + mapXSize - 6 - rectWidth);
-				y = Math.max(y, guiTop + 6);
-				y = Math.min(y, guiTop + mapYSize - 6 - rectHeight);
-				
-				drawRect(x, y, x + rectWidth, y + rectHeight, 0xC0000000);
-				
-				int stringX = x + rectWidth / 2;
-				int stringY = y + border;
-				drawCenteredString(name, stringX, stringY, 0xFFFFFF);
-				
-				drawCenteredString(coords, stringX, stringY + stringHeight + border, 0xFFFFFF);	
-			}
-		}
+		renderMiniQuests(mc.thePlayer, i, j);
 		
+		renderWaypoints();
+		
+		zLevel = 100F;
         mc.getTextureManager().bindTexture(borderTexture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, mapXSize, mapYSize);
 		
-		drawTexturedModalRect(guiLeft + waypointToggleX, guiTop + waypointToggleY, waypointToggleWidth, 204 + (waypointMode.ordinal() * waypointToggleWidth), waypointToggleWidth, waypointToggleWidth);
-		
-		if (isMiddleEarth())
+		if (!hasOverlay)
 		{
-			drawTexturedModalRect(guiLeft + addWPButtonX, guiTop + addWPButtonY, 0, 204, addWPButtonWidth, addWPButtonWidth);
+			drawTexturedModalRect(guiLeft + waypointToggleX, guiTop + waypointToggleY, waypointToggleWidth, 204 + (waypointMode.ordinal() * waypointToggleWidth), waypointToggleWidth, waypointToggleWidth);
 			
-			if (selectedWaypoint instanceof LOTRWaypoint.Custom)
+			if (isMiddleEarth())
 			{
-				drawTexturedModalRect(guiLeft + delWPButtonX, guiTop + delWPButtonY, 0, 204 + addWPButtonWidth, delWPButtonWidth, delWPButtonWidth);
+				drawTexturedModalRect(guiLeft + addWPButtonX, guiTop + addWPButtonY, 0, 204, addWPButtonWidth, addWPButtonWidth);
+				
+				if (selectedWaypoint instanceof LOTRWaypoint.Custom)
+				{
+					drawTexturedModalRect(guiLeft + delWPButtonX, guiTop + delWPButtonY, 0, 204 + addWPButtonWidth, delWPButtonWidth, delWPButtonWidth);
+				}
 			}
 		}
 		
 		if (hasOverlay)
 		{
-			int x = guiLeft + 4;
-			int y = guiTop + 4;
-			int x1 = guiLeft + mapXSize - 4;
-			int y1 = guiTop + mapYSize - 4;
+			int x = guiLeft + borderWidth;
+			int y = guiTop + borderWidth;
+			int x1 = guiLeft + mapXSize - borderWidth;
+			int y1 = guiTop + mapYSize - borderWidth;
 			drawRect(x, y, x1, y1, 0xC0000000);
 			
 			if (overlayDisplayString != null)
@@ -440,7 +404,211 @@ public class LOTRGuiMap extends LOTRGui
 		
 		super.drawScreen(i, j, f);
 	}
-	
+    
+    private void renderPlayer(UUID player, String playerName, double playerPosX, double playerPosZ, int mouseX, int mouseY)
+    {
+    	Tessellator tessellator = Tessellator.instance;
+    	
+    	int[] pos = transformCoords((float)playerPosX, (float)playerPosZ);
+    	int playerX = pos[0];
+    	int playerZ = pos[1];
+		
+		int iconWidthHalf = 4;
+		int border = borderWidth + iconWidthHalf + 1;
+		
+		playerX = Math.max(guiLeft + border, playerX);
+		playerX = Math.min(guiLeft + mapXSize - border - 1, playerX);
+		playerZ = Math.max(guiTop + border, playerZ);
+		playerZ = Math.min(guiTop + mapYSize - border - 1, playerZ);
+
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		
+		ResourceLocation texture = (ResourceLocation)playerSkins.get(player);
+		if (texture == null)
+		{
+			texture = AbstractClientPlayer.getLocationSkin(playerName);
+			AbstractClientPlayer.getDownloadImageSkin(texture, playerName);
+			playerSkins.put(player, texture);
+		}
+
+		mc.getTextureManager().bindTexture(texture);
+		
+		double iconMinU = 8D / 64D;
+		double iconMaxU = 16D / 64D;
+		double iconMinV = 8D / 32D;
+		double iconMaxV = 16D / 32D;
+		
+		double playerX_d = playerX + 0.5D;
+		double playerZ_d = playerZ + 0.5D;
+		
+		tessellator.startDrawingQuads();
+		tessellator.addVertexWithUV(playerX_d - iconWidthHalf, playerZ_d + iconWidthHalf, zLevel, iconMinU, iconMaxV);
+		tessellator.addVertexWithUV(playerX_d + iconWidthHalf, playerZ_d + iconWidthHalf, zLevel, iconMaxU, iconMaxV);
+		tessellator.addVertexWithUV(playerX_d + iconWidthHalf, playerZ_d - iconWidthHalf, zLevel, iconMaxU, iconMinV);
+		tessellator.addVertexWithUV(playerX_d - iconWidthHalf, playerZ_d - iconWidthHalf, zLevel, iconMinU, iconMinV);
+		tessellator.draw();
+		
+		iconMinU = 40D / 64D;
+		iconMaxU = 48D / 64D;
+		iconMinV = 8D / 32D;
+		iconMaxV = 16D / 32D;
+		
+		tessellator.startDrawingQuads();
+		tessellator.addVertexWithUV(playerX_d - iconWidthHalf - 0.5D, playerZ_d + iconWidthHalf + 0.5D, zLevel, iconMinU, iconMaxV);
+		tessellator.addVertexWithUV(playerX_d + iconWidthHalf + 0.5D, playerZ_d + iconWidthHalf + 0.5D, zLevel, iconMaxU, iconMaxV);
+		tessellator.addVertexWithUV(playerX_d + iconWidthHalf + 0.5D, playerZ_d - iconWidthHalf - 0.5D, zLevel, iconMaxU, iconMinV);
+		tessellator.addVertexWithUV(playerX_d - iconWidthHalf - 0.5D, playerZ_d - iconWidthHalf - 0.5D, zLevel, iconMinU, iconMinV);
+		tessellator.draw();
+		
+		if (!hasOverlay && mouseX >= playerX - iconWidthHalf && mouseX < playerX + iconWidthHalf && mouseY >= playerZ - iconWidthHalf && mouseY < playerZ + iconWidthHalf)
+		{
+			int stringWidth = mc.fontRenderer.getStringWidth(playerName);
+			int stringHeight = mc.fontRenderer.FONT_HEIGHT;
+			int stringBorder = 3;
+			
+			int x = guiLeft + mapXSize / 2 - stringWidth / 2 - stringBorder;
+			int y = guiTop + mapYSize - 4 - stringHeight - stringBorder * 3;
+			
+			drawRect(x, y, x + stringWidth + stringBorder * 2, y + stringHeight + stringBorder * 2, 0xC0000000);
+			mc.fontRenderer.drawString(playerName, x + stringBorder, y + stringBorder, 0xFFFFFF);
+		}
+    }
+    
+    private void renderMiniQuests(EntityPlayer entityplayer, int mouseX, int mouseY)
+    {
+    	if (hasOverlay)
+    	{
+    		return;
+    	}
+    	
+    	List<LOTRMiniQuest> quests = LOTRLevelData.getData(entityplayer).getActiveMiniQuests();
+    	for (LOTRMiniQuest quest : quests)
+    	{
+    		ChunkCoordinates location = quest.getLastLocation();
+    		if (location != null)
+    		{
+    	    	int[] pos = transformCoords(location.posX, location.posZ);
+    	    	int questX = pos[0];
+    	    	int questZ = pos[1];
+    			
+    			float scale = 0.5F;
+    			float invScale = 1F / scale;
+    			
+    			IIcon icon = questBookIcon.getIconIndex();
+    			int iconWidthHalf = icon.getIconWidth() / 2;
+    			iconWidthHalf *= scale;
+    			int border = borderWidth + iconWidthHalf + 1;
+    			
+    			questX = Math.max(guiLeft + border, questX);
+    			questX = Math.min(guiLeft + mapXSize - border - 1, questX);
+    			questZ = Math.max(guiTop + border, questZ);
+    			questZ = Math.min(guiTop + mapYSize - border - 1, questZ);
+    			
+    			int iconX = Math.round((float)questX * invScale);
+    			int iconZ = Math.round((float)questZ * invScale);
+    			iconX -= iconWidthHalf;
+    			iconZ -= iconWidthHalf;
+    			
+    			GL11.glScalef(scale, scale, scale);
+    			GL11.glColor4f(1F, 1F, 1F, 1F);
+    			GL11.glEnable(GL11.GL_LIGHTING);
+    			GL11.glEnable(GL11.GL_CULL_FACE);
+    			renderItem.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.getTextureManager(), questBookIcon, iconX, iconZ);
+    			GL11.glDisable(GL11.GL_LIGHTING);
+    			GL11.glEnable(GL11.GL_ALPHA_TEST);
+    			GL11.glScalef(invScale, invScale, invScale);
+    			
+    			if (!hasOverlay && mouseX >= questX - iconWidthHalf && mouseX < questX + iconWidthHalf && mouseY >= questZ - iconWidthHalf && mouseY < questZ + iconWidthHalf)
+    			{
+    				String name = quest.entityName;
+    				
+    				int stringWidth = mc.fontRenderer.getStringWidth(name);
+    				int stringHeight = mc.fontRenderer.FONT_HEIGHT;
+    				int stringBorder = 3;
+    				
+    				int x = guiLeft + mapXSize / 2 - stringWidth / 2 - stringBorder;
+    				int y = guiTop + mapYSize - 4 - stringHeight - stringBorder * 3;
+    				
+    				drawRect(x, y, x + stringWidth + stringBorder * 2, y + stringHeight + stringBorder * 2, 0xC0000000);
+    				mc.fontRenderer.drawString(name, x + stringBorder, y + stringBorder, 0xFFFFFF);
+    			}
+    		}
+    	}
+    }
+    
+    private void renderWaypoints()
+    {
+		if (waypointMode == WaypointMode.NONE)
+		{
+			return;
+		}
+		
+		mc.getTextureManager().bindTexture(borderTexture);
+		
+		List waypoints = LOTRWaypoint.getListOfAllWaypoints(mc.thePlayer);
+		for (int l = 0; l < waypoints.size(); l++)
+		{
+			LOTRAbstractWaypoint waypoint = (LOTRAbstractWaypoint)waypoints.get(l);
+			if (waypointMode.canDisplayWaypoint(waypoint))
+			{
+    	    	int[] pos = transformCoords(waypoint.getXCoord(), waypoint.getZCoord());
+    	    	int x = pos[0];
+    	    	int y = pos[1];
+
+				if (x - 2 >= guiLeft && x + 2 <= guiLeft + mapXSize && y - 2 >= guiTop && y + 2 <= guiTop + mapYSize)
+				{
+					boolean unlocked = waypoint.hasPlayerUnlocked(mc.thePlayer);
+					boolean custom = waypoint instanceof LOTRWaypoint.Custom;
+					drawTexturedModalRect(x - 2, y - 2, custom ? 8 : (unlocked ? 4 : 0), 200, 4, 4);
+				}
+			}
+		}
+		
+		if (selectedWaypoint != null && waypointMode.canDisplayWaypoint(selectedWaypoint))
+		{
+			String name = selectedWaypoint.getDisplayName();
+			String coords = "x: " + selectedWaypoint.getXCoord() + ", z: " + selectedWaypoint.getZCoord();
+			
+	    	int[] pos = transformCoords(selectedWaypoint.getXCoord(), selectedWaypoint.getZCoord());
+	    	int x = pos[0];
+	    	int y = pos[1];
+	    	
+			y += 5;
+			
+			int border = 3;
+			int stringHeight = fontRendererObj.FONT_HEIGHT;
+			int rectWidth = Math.max(fontRendererObj.getStringWidth(name), fontRendererObj.getStringWidth(coords)) + border * 2;
+			x -= rectWidth / 2;
+			int rectHeight = border * 3 + stringHeight * 2;
+			
+			x = Math.max(x, guiLeft + 6);
+			x = Math.min(x, guiLeft + mapXSize - 6 - rectWidth);
+			y = Math.max(y, guiTop + 6);
+			y = Math.min(y, guiTop + mapYSize - 6 - rectHeight);
+			
+			drawRect(x, y, x + rectWidth, y + rectHeight, 0xC0000000);
+			
+			int stringX = x + rectWidth / 2;
+			int stringY = y + border;
+			drawCenteredString(name, stringX, stringY, 0xFFFFFF);
+			
+			drawCenteredString(coords, stringX, stringY + stringHeight + border, 0xFFFFFF);	
+		}
+    }
+    
+    private int[] transformCoords(float x, float z)
+    {
+		x = (x / LOTRGenLayerWorld.scale) + LOTRGenLayerWorld.originX;
+		z = (z / LOTRGenLayerWorld.scale) + LOTRGenLayerWorld.originZ;
+		x -= posX;
+		z -= posY;
+		x *= zoomPower;
+		z *= zoomPower;
+		x += guiLeft + mapXSize / 2;
+		z += guiTop + mapYSize / 2;
+		return new int[] {Math.round(x), Math.round(z)};
+    }
+    
 	@Override
     protected void keyTyped(char c, int i)
     {
@@ -643,9 +811,11 @@ public class LOTRGuiMap extends LOTRGui
     			LOTRAbstractWaypoint waypoint = (LOTRAbstractWaypoint)waypoints.get(l);
     			if (waypointMode.canDisplayWaypoint(waypoint))
     			{
-					int x = MathHelper.floor_double((waypoint.getX() - posX) * zoomPower) + mapXSize / 2;
-					int y = MathHelper.floor_double((waypoint.getY() - posY) * zoomPower) + mapYSize / 2;
-					if (Math.abs(x - (i - guiLeft)) <= 3 && Math.abs(y - (j - guiTop)) <= 3)
+        	    	int[] pos = transformCoords(waypoint.getXCoord(), waypoint.getZCoord());
+        	    	int x = pos[0];
+        	    	int y = pos[1];
+        	    	
+					if (Math.abs(x - i) <= 3 && Math.abs(y - j) <= 3)
 					{
 						selectedWaypoint = waypoint;
 						return;
@@ -717,82 +887,6 @@ public class LOTRGuiMap extends LOTRGui
 			mc.thePlayer.sendQueue.addToSendQueue(packet);
 		}
 	}
-    
-    private void renderPlayer(UUID player, String playerName, double playerPosX, double playerPosZ, int mouseX, int mouseY)
-    {
-    	Tessellator tessellator = Tessellator.instance;
-    	
-    	int playerX = (int)playerPosX;
-		int playerZ = (int)playerPosZ;
-		playerX = (playerX / LOTRGenLayerWorld.scale) + LOTRGenLayerWorld.originX;
-		playerZ = (playerZ / LOTRGenLayerWorld.scale) + LOTRGenLayerWorld.originZ;
-		playerX -= posX;
-		playerZ -= posY;
-		playerX *= zoomPower;
-		playerZ *= zoomPower;
-		playerX += guiLeft + mapXSize / 2;
-		playerZ += guiTop + mapYSize / 2;
-		
-		int iconWidth = 4;
-		int border = 4 + iconWidth + 1;
-		
-		playerX = Math.max(guiLeft + border, playerX);
-		playerX = Math.min(guiLeft + mapXSize - border - 1, playerX);
-		playerZ = Math.max(guiTop + border, playerZ);
-		playerZ = Math.min(guiTop + mapYSize - border - 1, playerZ);
-
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		
-		ResourceLocation texture = (ResourceLocation)playerSkins.get(player);
-		if (texture == null)
-		{
-			texture = AbstractClientPlayer.getLocationSkin(playerName);
-			AbstractClientPlayer.getDownloadImageSkin(texture, playerName);
-			playerSkins.put(player, texture);
-		}
-
-		mc.getTextureManager().bindTexture(texture);
-		
-		double iconMinU = 8D / 64D;
-		double iconMaxU = 16D / 64D;
-		double iconMinV = 8D / 32D;
-		double iconMaxV = 16D / 32D;
-		
-		double playerX_d = playerX + 0.5D;
-		double playerZ_d = playerZ + 0.5D;
-		
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(playerX_d - iconWidth, playerZ_d + iconWidth, zLevel, iconMinU, iconMaxV);
-		tessellator.addVertexWithUV(playerX_d + iconWidth, playerZ_d + iconWidth, zLevel, iconMaxU, iconMaxV);
-		tessellator.addVertexWithUV(playerX_d + iconWidth, playerZ_d - iconWidth, zLevel, iconMaxU, iconMinV);
-		tessellator.addVertexWithUV(playerX_d - iconWidth, playerZ_d - iconWidth, zLevel, iconMinU, iconMinV);
-		tessellator.draw();
-		
-		iconMinU = 40D / 64D;
-		iconMaxU = 48D / 64D;
-		iconMinV = 8D / 32D;
-		iconMaxV = 16D / 32D;
-		
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(playerX_d - iconWidth - 0.5D, playerZ_d + iconWidth + 0.5D, zLevel, iconMinU, iconMaxV);
-		tessellator.addVertexWithUV(playerX_d + iconWidth + 0.5D, playerZ_d + iconWidth + 0.5D, zLevel, iconMaxU, iconMaxV);
-		tessellator.addVertexWithUV(playerX_d + iconWidth + 0.5D, playerZ_d - iconWidth - 0.5D, zLevel, iconMaxU, iconMinV);
-		tessellator.addVertexWithUV(playerX_d - iconWidth - 0.5D, playerZ_d - iconWidth - 0.5D, zLevel, iconMinU, iconMinV);
-		tessellator.draw();
-		
-		if (!hasOverlay && mouseX >= playerX - 4 && mouseX < playerX + 4 && mouseY >= playerZ - 4 && mouseY < playerZ + 4)
-		{
-			int stringWidth = mc.fontRenderer.getStringWidth(playerName);
-			int stringHeight = mc.fontRenderer.FONT_HEIGHT;
-			int stringBorder = 3;
-			
-			int x = guiLeft + mapXSize / 2 - stringWidth / 2 - stringBorder;
-			int y = guiTop + mapYSize - 4 - stringHeight - stringBorder * 3;
-			
-			drawRect(x, y, x + stringWidth + stringBorder * 2, y + stringHeight + stringBorder * 2, 0xC0000000);
-			mc.fontRenderer.drawString(playerName, x + stringBorder, y + stringBorder, 0xFFFFFF);
-		}
-    }
     
     private boolean isMiddleEarth()
     {

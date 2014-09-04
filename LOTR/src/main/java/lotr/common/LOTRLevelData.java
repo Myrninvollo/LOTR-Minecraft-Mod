@@ -143,8 +143,7 @@ public class LOTRLevelData
 			for (UUID uuid : playerData.keySet())
 			{
 				NBTTagCompound nbt = new NBTTagCompound();
-				nbt.setLong("UUIDMost", uuid.getMostSignificantBits());
-				nbt.setLong("UUIDLeast", uuid.getLeastSignificantBits());
+				nbt.setString("PlayerUUID", uuid.toString());
 				LOTRPlayerData pd = playerData.get(uuid);
 				pd.save(nbt);
 				playerDataTags.appendTag(nbt);
@@ -281,7 +280,15 @@ public class LOTRLevelData
 				for (int i = 0; i < playerDataTags.tagCount(); i++)
 				{
 					NBTTagCompound nbt = playerDataTags.getCompoundTagAt(i);
-					UUID uuid = new UUID(nbt.getLong("UUIDMost"), nbt.getLong("UUIDLeast"));
+					UUID uuid = null;
+					if (nbt.hasKey("PlayerUUID"))
+					{
+						uuid = UUID.fromString(nbt.getString("PlayerUUID"));
+					}
+					else
+					{
+						uuid = new UUID(nbt.getLong("UUIDMost"), nbt.getLong("UUIDLeast"));
+					}
 					LOTRPlayerData pd = new LOTRPlayerData(uuid);
 					pd.load(nbt);
 					playerData.put(uuid, pd);

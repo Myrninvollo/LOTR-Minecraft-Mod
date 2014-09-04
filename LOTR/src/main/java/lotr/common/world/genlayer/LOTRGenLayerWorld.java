@@ -85,7 +85,7 @@ public class LOTRGenLayerWorld extends GenLayer
 			{
 				BufferedImage biomeImage = null;
 				String imageName = "assets/lotr/map/map.png";
-						
+				
 				ModContainer mc = FMLCommonHandler.instance().findContainerFor(LOTRMod.instance);
 				if (mc.getSource().isFile())
 				{

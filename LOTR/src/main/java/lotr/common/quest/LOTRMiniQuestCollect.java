@@ -159,6 +159,12 @@ public class LOTRMiniQuestCollect extends LOTRMiniQuest
 		int bonus = Math.round(f);
 		return Math.max(bonus, 1);
 	}
+	
+	@Override
+	public int getCoinBonus()
+	{
+		return Math.round((float)getAlignmentBonus() * 1.5F);
+	}
 
 	public static class QuestFactory extends QuestFactoryBase<LOTRMiniQuestCollect>
 	{

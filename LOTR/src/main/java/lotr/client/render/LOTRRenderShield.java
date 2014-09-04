@@ -97,6 +97,7 @@ public class LOTRRenderShield
 		
 		mc.getTextureManager().bindTexture(shieldTexture);
 		
+		GL11.glEnable(GL11.GL_ALPHA_TEST);
 		doRenderShield(0F);
 		doRenderShield(0.5F);
 

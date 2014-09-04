@@ -2,6 +2,8 @@ package lotr.common.quest;
 
 import java.util.*;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import lotr.common.*;
 import lotr.common.LOTRAlignmentValues.AlignmentBonus;
 import lotr.common.entity.npc.LOTREntityNPC;
@@ -9,6 +11,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.MathHelper;
 import cpw.mods.fml.common.FMLLog;
 
 public abstract class LOTRMiniQuest implements Comparable<LOTRMiniQuest>
@@ -42,6 +46,7 @@ public abstract class LOTRMiniQuest implements Comparable<LOTRMiniQuest>
 	public String entityName;
 	public LOTRFaction entityFaction;
 	private boolean entityDead;
+	private Pair<ChunkCoordinates, Integer> lastLocation;
 	private boolean completed;
 	public String speechBankStart;
 	public String speechBankProgress;
@@ -50,15 +55,26 @@ public abstract class LOTRMiniQuest implements Comparable<LOTRMiniQuest>
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		nbt.setString("QuestType", questToNameMapping.get(getClass()));
+		
 		nbt.setLong("UUIDMost", entityUUID.getMostSignificantBits());
 		nbt.setLong("UUIDLeast", entityUUID.getLeastSignificantBits());
 		nbt.setString("Owner", entityName);
 		nbt.setString("Faction", entityFaction.name());
 		nbt.setBoolean("OwnerDead", entityDead);
+		
 		nbt.setBoolean("Completed", completed);
 		nbt.setString("SpeechStart", speechBankStart);
 		nbt.setString("SpeechProgress", speechBankProgress);
 		nbt.setString("SpeechComplete", speechBankComplete);
+		
+		if (lastLocation != null)
+		{
+			ChunkCoordinates coords = lastLocation.getLeft();
+			nbt.setInteger("XPos", coords.posX);
+			nbt.setInteger("YPos", coords.posY);
+			nbt.setInteger("ZPos", coords.posZ);
+			nbt.setInteger("Dimension", lastLocation.getRight());
+		}
 	}
 
 	public void readFromNBT(NBTTagCompound nbt)
@@ -67,10 +83,18 @@ public abstract class LOTRMiniQuest implements Comparable<LOTRMiniQuest>
 		entityName = nbt.getString("Owner");
 		entityFaction = LOTRFaction.forName(nbt.getString("Faction"));
 		entityDead = nbt.getBoolean("OwnerDead");
+		
 		completed = nbt.getBoolean("Completed");
 		speechBankStart = nbt.getString("SpeechStart");
 		speechBankProgress = nbt.getString("SpeechProgress");
 		speechBankComplete = nbt.getString("SpeechComplete");
+		
+		if (nbt.hasKey("Dimension"))
+		{
+			ChunkCoordinates coords = new ChunkCoordinates(nbt.getInteger("XPos"), nbt.getInteger("YPos"), nbt.getInteger("ZPos"));
+			int dimension = nbt.getInteger("Dimension");
+			lastLocation = Pair.of(coords, dimension);
+		}
 	}
 	
 	public static LOTRMiniQuest loadQuestFromNBT(NBTTagCompound nbt, LOTRPlayerData playerData)
@@ -169,6 +193,20 @@ public abstract class LOTRMiniQuest implements Comparable<LOTRMiniQuest>
 		
 		AlignmentBonus bonus = LOTRAlignmentValues.createMiniquestBonus(getAlignmentBonus());
 		playerData.addAlignment(bonus, entityFaction, npc);
+		
+		int coins = getCoinBonus();
+		while (coins > 64)
+		{
+			coins -= 64;
+			npc.entityDropItem(new ItemStack(LOTRMod.silverCoin, 64), 0F);
+		}
+		npc.entityDropItem(new ItemStack(LOTRMod.silverCoin, coins), 0F);
+		
+		LOTRAchievement achievement = entityFaction.getMiniquestAchievement();
+		if (achievement != null)
+		{
+			playerData.addAchievement(achievement);
+		}
 	}
 	
 	public void setEntityDead()
@@ -182,12 +220,51 @@ public abstract class LOTRMiniQuest implements Comparable<LOTRMiniQuest>
 		return entityDead;
 	}
 	
+	public void updateLocation(LOTREntityNPC npc)
+	{
+		int i = MathHelper.floor_double(npc.posX);
+		int j = MathHelper.floor_double(npc.posY);
+		int k = MathHelper.floor_double(npc.posZ);
+		ChunkCoordinates coords = new ChunkCoordinates(i, j, k);
+		int dim = npc.dimension;
+
+		ChunkCoordinates prevCoords = null;
+		if (lastLocation != null)
+		{
+			prevCoords = lastLocation.getLeft();
+		}
+		
+		lastLocation = Pair.of(coords, dim);
+
+		boolean sendUpdate = false;
+		if (prevCoords == null)
+		{
+			sendUpdate = true;
+		}
+		else
+		{
+			sendUpdate = coords.getDistanceSquaredToChunkCoordinates(prevCoords) > 256D;
+		}
+	
+		if (sendUpdate)
+		{
+			updateQuest();
+		}
+	}
+	
+	public ChunkCoordinates getLastLocation()
+	{
+		return lastLocation == null ? null : lastLocation.getLeft();
+	}
+	
 	protected void updateQuest()
 	{
 		playerData.updateMiniQuest(this);
 	}
 	
 	public abstract int getAlignmentBonus();
+	
+	public abstract int getCoinBonus();
 	
 	public static abstract class QuestFactoryBase<Q extends LOTRMiniQuest>
 	{

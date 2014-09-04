@@ -80,4 +80,10 @@ public abstract class LOTRMiniQuestKill extends LOTRMiniQuest
 	{
 		return killTarget;
 	}
+	
+	@Override
+	public int getCoinBonus()
+	{
+		return Math.round((float)killTarget * 1.5F);
+	}
 }

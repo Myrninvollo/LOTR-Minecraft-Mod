@@ -35,15 +35,20 @@ public enum LOTRFaction
 	
 	public static int totalPlayerFactions;
 	
+	private String factionName;
+	public Color factionColor;
+	
+	public boolean allowPlayer;
+	public boolean allowEntityRegistry;
+	
 	private Set enemies = new HashSet();
 	public Set killBonuses = new HashSet();
 	public Set killPenalties = new HashSet();
-	public boolean allowPlayer;
-	public boolean allowEntityRegistry;
-	private String factionName;
-	public Color factionColor;
+
 	public List<InvasionSpawnEntry> invasionMobs = new ArrayList<InvasionSpawnEntry>();
+	
 	private Map<Integer, LOTRAchievement> alignmentAchievements = new HashMap();
+	private LOTRAchievement miniquestAchievement;
 	
 	public static Set playersTakenRewardItem = new HashSet();
 	
@@ -93,6 +98,23 @@ public enum LOTRFaction
 			}
 		}
 	}
+	
+	private void setMiniquestAchievement(LOTRAchievement achievement)
+	{
+		if (achievement.allyFaction != this)
+		{
+			throw new IllegalArgumentException("Miniquest achievements must require alliance with the faction");
+		}
+		else
+		{
+			miniquestAchievement = achievement;
+		}
+	}
+	
+	public LOTRAchievement getMiniquestAchievement()
+	{
+		return miniquestAchievement;
+	}
 
 	public static void initFactionProperties()
 	{
@@ -107,6 +129,8 @@ public enum LOTRFaction
 		HOBBIT.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_HOBBIT);
 		HOBBIT.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_HOBBIT);
 		HOBBIT.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_HOBBIT);
+		
+		HOBBIT.setMiniquestAchievement(LOTRAchievement.doMiniquestHobbit);
 		
 		HOBBIT.addEnemy(GUNDABAD);
 		HOBBIT.addEnemy(ANGMAR);
@@ -125,6 +149,8 @@ public enum LOTRFaction
 		RANGER_NORTH.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_RANGER_NORTH);
 		RANGER_NORTH.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_RANGER_NORTH);
 		RANGER_NORTH.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_RANGER_NORTH);
+		
+		RANGER_NORTH.setMiniquestAchievement(LOTRAchievement.doMiniquestRanger);
 		
 		RANGER_NORTH.addEnemy(GUNDABAD);
 		RANGER_NORTH.addEnemy(ANGMAR);
@@ -149,6 +175,8 @@ public enum LOTRFaction
 		BLUE_MOUNTAINS.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_BLUE_MOUNTAINS);
 		BLUE_MOUNTAINS.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_BLUE_MOUNTAINS);
 		
+		BLUE_MOUNTAINS.setMiniquestAchievement(LOTRAchievement.doMiniquestBlueMountains);
+		
 		BLUE_MOUNTAINS.addEnemy(GUNDABAD);
 		BLUE_MOUNTAINS.addEnemy(ANGMAR);
 		BLUE_MOUNTAINS.addEnemy(DOL_GULDUR);
@@ -168,6 +196,8 @@ public enum LOTRFaction
 		HIGH_ELF.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_HIGH_ELF);
 		HIGH_ELF.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_HIGH_ELF);
 		HIGH_ELF.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_HIGH_ELF);
+		
+		HIGH_ELF.setMiniquestAchievement(LOTRAchievement.doMiniquestHighElf);
 		
 		HIGH_ELF.addEnemy(GUNDABAD);
 		HIGH_ELF.addEnemy(ANGMAR);
@@ -192,6 +222,8 @@ public enum LOTRFaction
 		GUNDABAD.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_GUNDABAD);
 		GUNDABAD.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_GUNDABAD);
 		GUNDABAD.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_GUNDABAD);
+		
+		GUNDABAD.setMiniquestAchievement(LOTRAchievement.doMiniquestGundabad);
 		
 		GUNDABAD.addEnemy(HOBBIT);
 		GUNDABAD.addEnemy(RANGER_NORTH);
@@ -227,6 +259,8 @@ public enum LOTRFaction
 		ANGMAR.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_ANGMAR);
 		ANGMAR.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_ANGMAR);
 		
+		ANGMAR.setMiniquestAchievement(LOTRAchievement.doMiniquestAngmar);
+		
 		ANGMAR.addEnemy(HOBBIT);
 		ANGMAR.addEnemy(RANGER_NORTH);
 		ANGMAR.addEnemy(BLUE_MOUNTAINS);
@@ -257,6 +291,8 @@ public enum LOTRFaction
 		WOOD_ELF.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_WOOD_ELF);
 		WOOD_ELF.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_WOOD_ELF);
 		
+		WOOD_ELF.setMiniquestAchievement(LOTRAchievement.doMiniquestWoodElf);
+		
 		WOOD_ELF.addEnemy(GUNDABAD);
 		WOOD_ELF.addEnemy(ANGMAR);
 		WOOD_ELF.addEnemy(DOL_GULDUR);
@@ -282,6 +318,8 @@ public enum LOTRFaction
 		DOL_GULDUR.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_DOL_GULDUR);
 		DOL_GULDUR.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_DOL_GULDUR);
 		
+		DOL_GULDUR.setMiniquestAchievement(LOTRAchievement.doMiniquestDolGuldur);
+		
 		DOL_GULDUR.addEnemy(HOBBIT);
 		DOL_GULDUR.addEnemy(RANGER_NORTH);
 		DOL_GULDUR.addEnemy(BLUE_MOUNTAINS);
@@ -304,11 +342,13 @@ public enum LOTRFaction
 		DOL_GULDUR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDolGuldurOrc.class, 10));
 		DOL_GULDUR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDolGuldurOrcArcher.class, 5));
 		DOL_GULDUR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityDolGuldurBannerBearer.class, 2));
-		MORDOR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityMirkTroll.class, 3));
+		DOL_GULDUR.invasionMobs.add(new InvasionSpawnEntry(LOTREntityMirkTroll.class, 3));
 		
 		DWARF.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_DWARF);
 		DWARF.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_DWARF);
 		DWARF.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_DWARF);
+		
+		DWARF.setMiniquestAchievement(LOTRAchievement.doMiniquestDwarf);
 		
 		DWARF.addEnemy(GUNDABAD);
 		DWARF.addEnemy(ANGMAR);
@@ -329,6 +369,8 @@ public enum LOTRFaction
 		GALADHRIM.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_GALADHRIM);
 		GALADHRIM.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_GALADHRIM);
 		GALADHRIM.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_GALADHRIM);
+		
+		GALADHRIM.setMiniquestAchievement(LOTRAchievement.doMiniquestGaladhrim);
 		
 		GALADHRIM.addEnemy(GUNDABAD);
 		GALADHRIM.addEnemy(ANGMAR);
@@ -353,6 +395,8 @@ public enum LOTRFaction
 		DUNLAND.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_DUNLAND);
 		DUNLAND.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_DUNLAND);
 		DUNLAND.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_DUNLAND);
+		
+		DUNLAND.setMiniquestAchievement(LOTRAchievement.doMiniquestDunland);
 		
 		DUNLAND.addEnemy(RANGER_NORTH);
 		DUNLAND.addEnemy(HIGH_ELF);
@@ -379,6 +423,8 @@ public enum LOTRFaction
 		URUK_HAI.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_URUK_HAI);
 		URUK_HAI.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_URUK_HAI);
 		URUK_HAI.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_URUK_HAI);
+		
+		URUK_HAI.setMiniquestAchievement(LOTRAchievement.doMiniquestUrukHai);
 		
 		URUK_HAI.addEnemy(HOBBIT);
 		URUK_HAI.addEnemy(RANGER_NORTH);
@@ -426,6 +472,8 @@ public enum LOTRFaction
 		ROHAN.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_ROHAN);
 		ROHAN.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_ROHAN);
 		
+		ROHAN.setMiniquestAchievement(LOTRAchievement.doMiniquestRohan);
+		
 		ROHAN.addEnemy(GUNDABAD);
 		ROHAN.addEnemy(ANGMAR);
 		ROHAN.addEnemy(DOL_GULDUR);
@@ -450,6 +498,8 @@ public enum LOTRFaction
 		GONDOR.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_GONDOR);
 		GONDOR.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_GONDOR);
 		GONDOR.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_GONDOR);
+		
+		GONDOR.setMiniquestAchievement(LOTRAchievement.doMiniquestGondor);
 		
 		GONDOR.addEnemy(GUNDABAD);
 		GONDOR.addEnemy(ANGMAR);
@@ -477,6 +527,8 @@ public enum LOTRFaction
 		MORDOR.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_MORDOR);
 		MORDOR.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_MORDOR);
 		MORDOR.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_MORDOR);
+		
+		MORDOR.setMiniquestAchievement(LOTRAchievement.doMiniquestMordor);
 		
 		MORDOR.addEnemy(HOBBIT);
 		MORDOR.addEnemy(RANGER_NORTH);
@@ -509,6 +561,8 @@ public enum LOTRFaction
 		NEAR_HARAD.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_NEAR_HARAD);
 		NEAR_HARAD.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_NEAR_HARAD);
 		NEAR_HARAD.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_NEAR_HARAD);
+		
+		NEAR_HARAD.setMiniquestAchievement(LOTRAchievement.doMiniquestNearHarad);
 		
 		NEAR_HARAD.addEnemy(RANGER_NORTH);
 		NEAR_HARAD.addEnemy(HIGH_ELF);

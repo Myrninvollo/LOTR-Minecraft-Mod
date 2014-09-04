@@ -330,6 +330,7 @@ public class LOTRWorldGenWoodElfTower extends LOTRWorldGenStructureBase
 			
 			LOTREntityWoodElf woodElf = random.nextInt(3) == 0 ? new LOTREntityWoodElfScout(world) : new LOTREntityWoodElfWarrior(world);
 			woodElf.setLocationAndAngles(i - 3 + 0.5D, sectionBase + 1, k - 3 + 0.5D, world.rand.nextFloat() * 360F, 0F);
+			woodElf.spawnRidingHorse = false;
 			woodElf.onSpawnWithEgg(null);
 			woodElf.setHomeArea(i, sectionBase + 1, k, 12);
 			woodElf.isNPCPersistent = true;

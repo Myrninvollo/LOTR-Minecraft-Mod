@@ -5,6 +5,7 @@ import io.netty.buffer.Unpooled;
 
 import java.io.IOException;
 
+import lotr.client.model.LOTRModelLeatherHat;
 import lotr.client.render.entity.LOTRRenderBiped;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.entity.npc.LOTRSpeech;
@@ -134,8 +135,16 @@ public class LOTRGuiMiniquestOffer extends LOTRGuiScreenBase
         			
                 	model.bipedHead.rotateAngleX = model.bipedHead.rotateAngleY = model.bipedHead.rotateAngleZ = 0F;
                 	model.bipedHeadwear.rotateAngleX = model.bipedHeadwear.rotateAngleY = model.bipedHeadwear.rotateAngleZ = 0F;
-        			model.bipedHead.render(0.0625F);
-        			model.bipedHeadwear.render(0.0625F);
+                	
+                	if (model instanceof LOTRModelLeatherHat)
+                	{
+                		model.render(theNPC, 0F, 0F, 0F, 0F, 0F, 0.0625F);
+                	}
+                	else
+                	{
+	        			model.bipedHead.render(0.0625F);
+	        			model.bipedHeadwear.render(0.0625F);
+                	}
         		}
         	}
         }

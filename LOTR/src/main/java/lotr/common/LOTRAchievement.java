@@ -42,9 +42,9 @@ public class LOTRAchievement implements Comparable
 		MIRKWOOD,
 		IRON_HILLS,
 		LOTHLORIEN,
-		ROHAN,
 		DUNLAND,
 		FANGORN,
+		ROHAN,
 		GONDOR,
 		NINDALF,
 		MORDOR,
@@ -275,6 +275,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement alignmentGood1000_HOBBIT;
 	public static LOTRAchievement rideGiraffeShire;
 	public static LOTRAchievement buyPotatoHobbitFarmer;
+	public static LOTRAchievement doMiniquestHobbit;
 	
 	public static LOTRAchievement enterBlueMountains;
 	public static LOTRAchievement alignmentGood10_BLUE_MOUNTAINS;
@@ -288,9 +289,10 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement tradeBlueDwarfCommander;
 	public static LOTRAchievement tradeBlueDwarfMerchant;
 	public static LOTRAchievement marryBlueDwarf;
+	public static LOTRAchievement doMiniquestBlueMountains;
 	
 	public static LOTRAchievement enterLindon;
-	//EMPTY
+	public static LOTRAchievement doMiniquestHighElf;
 	public static LOTRAchievement alignmentGood10_HIGH_ELF;
 	public static LOTRAchievement alignmentGood100_HIGH_ELF;
 	public static LOTRAchievement alignmentGood1000_HIGH_ELF;
@@ -330,6 +332,8 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement enterBarrowDowns;
 	public static LOTRAchievement useRangerTable;
 	public static LOTRAchievement useGundabadTable;
+	public static LOTRAchievement doMiniquestRanger;
+	public static LOTRAchievement doMiniquestGundabad;
 	
 	public static LOTRAchievement tradeAngmarCaptain;
 	public static LOTRAchievement killAngmarOrc;
@@ -339,6 +343,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement alignmentGood10_ANGMAR;
 	public static LOTRAchievement alignmentGood100_ANGMAR;
 	public static LOTRAchievement alignmentGood1000_ANGMAR;
+	public static LOTRAchievement doMiniquestAngmar;
 	
 	public static LOTRAchievement enterEregion;
 	
@@ -380,6 +385,8 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement tradeDolGuldurCaptain;
 	public static LOTRAchievement killMirkTroll;
 	public static LOTRAchievement wearFullDolGuldur;
+	public static LOTRAchievement doMiniquestWoodElf;
+	public static LOTRAchievement doMiniquestDolGuldur;
 	
 	public static LOTRAchievement killDwarf;
 	public static LOTRAchievement wearFullDwarven;
@@ -398,6 +405,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement alignmentGood100_DWARF;
 	public static LOTRAchievement alignmentGood1000_DWARF;
 	public static LOTRAchievement marryDwarf;
+	public static LOTRAchievement doMiniquestDwarf;
 	
 	public static LOTRAchievement killElf;
 	public static LOTRAchievement useElvenPortal;
@@ -412,6 +420,29 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement alignmentGood100_GALADHRIM;
 	public static LOTRAchievement alignmentGood1000_GALADHRIM;
 	public static LOTRAchievement tradeElvenTrader;
+	public static LOTRAchievement doMiniquestGaladhrim;
+	
+	public static LOTRAchievement killDunlending;
+	public static LOTRAchievement wearFullDunlending;
+	public static LOTRAchievement useDunlendingTable;
+	public static LOTRAchievement tradeDunlendingWarlord;
+	public static LOTRAchievement useDunlendingTrident;
+	public static LOTRAchievement tradeDunlendingBartender;
+	public static LOTRAchievement enterDunland;
+	public static LOTRAchievement alignmentGood10_DUNLAND;
+	public static LOTRAchievement alignmentGood100_DUNLAND;
+	public static LOTRAchievement alignmentGood1000_DUNLAND;
+	public static LOTRAchievement doMiniquestDunland;
+	
+	public static LOTRAchievement killEnt;
+	public static LOTRAchievement drinkEntDraught;
+	public static LOTRAchievement killHuorn;
+	public static LOTRAchievement talkEnt;
+	public static LOTRAchievement enterFangorn;
+	public static LOTRAchievement alignmentGood10_FANGORN;
+	public static LOTRAchievement alignmentGood100_FANGORN;
+	public static LOTRAchievement alignmentGood1000_FANGORN;
+	public static LOTRAchievement summonHuorn;
 	
 	public static LOTRAchievement raidUrukCamp;
 	public static LOTRAchievement useUrukTable;
@@ -434,27 +465,8 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement alignmentGood10_URUK_HAI;
 	public static LOTRAchievement alignmentGood100_URUK_HAI;
 	public static LOTRAchievement alignmentGood1000_URUK_HAI;
-	
-	public static LOTRAchievement killDunlending;
-	public static LOTRAchievement wearFullDunlending;
-	public static LOTRAchievement useDunlendingTable;
-	public static LOTRAchievement tradeDunlendingWarlord;
-	public static LOTRAchievement useDunlendingTrident;
-	public static LOTRAchievement tradeDunlendingBartender;
-	public static LOTRAchievement enterDunland;
-	public static LOTRAchievement alignmentGood10_DUNLAND;
-	public static LOTRAchievement alignmentGood100_DUNLAND;
-	public static LOTRAchievement alignmentGood1000_DUNLAND;
-	
-	public static LOTRAchievement killEnt;
-	public static LOTRAchievement drinkEntDraught;
-	public static LOTRAchievement killHuorn;
-	public static LOTRAchievement talkEnt;
-	public static LOTRAchievement enterFangorn;
-	public static LOTRAchievement alignmentGood10_FANGORN;
-	public static LOTRAchievement alignmentGood100_FANGORN;
-	public static LOTRAchievement alignmentGood1000_FANGORN;
-	public static LOTRAchievement summonHuorn;
+	public static LOTRAchievement doMiniquestRohan;
+	public static LOTRAchievement doMiniquestUrukHai;
 	
 	public static LOTRAchievement killGondorSoldier;
 	public static LOTRAchievement lightGondorBeacon;
@@ -471,6 +483,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement alignmentGood1000_GONDOR;
 	public static LOTRAchievement enterTolfalas;
 	public static LOTRAchievement enterLebennin;
+	public static LOTRAchievement doMiniquestGondor;
 	
 	public static LOTRAchievement mineRemains;
 	public static LOTRAchievement craftAncientItem;
@@ -499,6 +512,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement alignmentGood10_MORDOR;
 	public static LOTRAchievement alignmentGood100_MORDOR;
 	public static LOTRAchievement alignmentGood1000_MORDOR;
+	public static LOTRAchievement doMiniquestMordor;
 	
 	public static LOTRAchievement enterHarondor;
 	public static LOTRAchievement enterNearHarad;
@@ -512,6 +526,7 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement rideCamel;
 	public static LOTRAchievement tradeBazaarTrader;
 	public static LOTRAchievement tradeNearHaradMerchant;
+	public static LOTRAchievement doMiniquestNearHarad;
 	
 	public static LOTRAchievement enterUmbar;
 	
@@ -592,6 +607,7 @@ public class LOTRAchievement implements Comparable
 		alignmentGood1000_HOBBIT = new LOTRAchievement(SHIRE, 14, LOTRMod.goldRing, "alignmentGood1000_HOBBIT").setRequiresAlly(LOTRFaction.HOBBIT).setSpecial();
 		rideGiraffeShire = new LOTRAchievement(SHIRE, 15, Items.saddle, "rideGiraffeShire");
 		buyPotatoHobbitFarmer = new LOTRAchievement(SHIRE, 16, Items.potato, "buyPotatoHobbitFarmer").setRequiresAlly(LOTRFaction.HOBBIT);
+		doMiniquestHobbit = new LOTRAchievement(SHIRE, 17, LOTRMod.redBook, "doMiniquestHobbit").setRequiresAlly(LOTRFaction.HOBBIT);
 		
 		enterBlueMountains = new LOTRAchievement(BLUE_MOUNTAINS, 0, new ItemStack(LOTRMod.rock, 1, 3), "enterBlueMountains").setBiomeAchievement();
 		alignmentGood10_BLUE_MOUNTAINS = new LOTRAchievement(BLUE_MOUNTAINS, 1, LOTRMod.goldRing, "alignmentGood10_BLUE_MOUNTAINS").setRequiresAlly(LOTRFaction.BLUE_MOUNTAINS).setSpecial();
@@ -605,9 +621,10 @@ public class LOTRAchievement implements Comparable
 		tradeBlueDwarfCommander = new LOTRAchievement(BLUE_MOUNTAINS, 9, LOTRMod.silverCoin, "tradeBlueDwarfCommander").setRequiresAlly(LOTRFaction.BLUE_MOUNTAINS);
 		tradeBlueDwarfMerchant = new LOTRAchievement(BLUE_MOUNTAINS, 10, LOTRMod.silverCoin, "tradeBlueDwarfMerchant").setRequiresAlly(LOTRFaction.BLUE_MOUNTAINS);
 		marryBlueDwarf = new LOTRAchievement(BLUE_MOUNTAINS, 11, LOTRMod.dwarvenRing, "marryBlueDwarf").setRequiresAlly(LOTRFaction.BLUE_MOUNTAINS);
+		doMiniquestBlueMountains = new LOTRAchievement(BLUE_MOUNTAINS, 12, LOTRMod.redBook, "doMiniquestBlueMountains").setRequiresAlly(LOTRFaction.BLUE_MOUNTAINS);
 
 		enterLindon = new LOTRAchievement(LINDON, 0, new ItemStack(LOTRMod.brick, 1, 11), "enterLindon").setBiomeAchievement();
-		//EMPTY
+		doMiniquestHighElf = new LOTRAchievement(LINDON, 1, LOTRMod.redBook, "doMiniquestHighElf").setRequiresAlly(LOTRFaction.HIGH_ELF);
 		alignmentGood10_HIGH_ELF = new LOTRAchievement(LINDON, 2, LOTRMod.goldRing, "alignmentGood10_HIGH_ELF").setRequiresAlly(LOTRFaction.HIGH_ELF).setSpecial();
 		alignmentGood100_HIGH_ELF = new LOTRAchievement(LINDON, 3, LOTRMod.goldRing, "alignmentGood100_HIGH_ELF").setRequiresAlly(LOTRFaction.HIGH_ELF).setSpecial();
 		alignmentGood1000_HIGH_ELF = new LOTRAchievement(LINDON, 4, LOTRMod.goldRing, "alignmentGood1000_HIGH_ELF").setRequiresAlly(LOTRFaction.HIGH_ELF).setSpecial();
@@ -647,6 +664,8 @@ public class LOTRAchievement implements Comparable
 		enterBarrowDowns = new LOTRAchievement(ERIADOR, 25, Items.bone, "enterBarrowDowns").setBiomeAchievement();
 		useRangerTable = new LOTRAchievement(ERIADOR, 26, LOTRMod.rangerTable, "useRangerTable").setRequiresAlly(LOTRFaction.RANGER_NORTH);
 		useGundabadTable = new LOTRAchievement(ERIADOR, 27, LOTRMod.gundabadTable, "useGundabadTable").setRequiresAlly(LOTRFaction.GUNDABAD);
+		doMiniquestRanger = new LOTRAchievement(ERIADOR, 28, LOTRMod.redBook, "doMiniquestRanger").setRequiresAlly(LOTRFaction.RANGER_NORTH);
+		doMiniquestGundabad = new LOTRAchievement(ERIADOR, 29, LOTRMod.redBook, "doMiniquestGundabad").setRequiresAlly(LOTRFaction.GUNDABAD);
 
 		tradeAngmarCaptain = new LOTRAchievement(ANGMAR, 0, LOTRMod.silverCoin, "tradeAngmarCaptain").setRequiresAlly(LOTRFaction.ANGMAR);
 		killAngmarOrc = new LOTRAchievement(ANGMAR, 1, LOTRMod.orcBone, "killAngmarOrc").setRequiresEnemy(LOTRFaction.ANGMAR);
@@ -656,6 +675,7 @@ public class LOTRAchievement implements Comparable
 		alignmentGood10_ANGMAR = new LOTRAchievement(ANGMAR, 5, LOTRMod.goldRing, "alignmentGood10_ANGMAR").setRequiresAlly(LOTRFaction.ANGMAR).setSpecial();
 		alignmentGood100_ANGMAR = new LOTRAchievement(ANGMAR, 6, LOTRMod.goldRing, "alignmentGood100_ANGMAR").setRequiresAlly(LOTRFaction.ANGMAR).setSpecial();
 		alignmentGood1000_ANGMAR = new LOTRAchievement(ANGMAR, 7, LOTRMod.goldRing, "alignmentGood1000_ANGMAR").setRequiresAlly(LOTRFaction.ANGMAR).setSpecial();
+		doMiniquestAngmar = new LOTRAchievement(ANGMAR, 8, LOTRMod.redBook, "doMiniquestAngmar").setRequiresAlly(LOTRFaction.ANGMAR);
 
 		enterEregion = new LOTRAchievement(EREGION, 0, new ItemStack(LOTRMod.sapling2, 1, 2), "enterEregion").setBiomeAchievement();
 
@@ -697,6 +717,8 @@ public class LOTRAchievement implements Comparable
 		tradeDolGuldurCaptain = new LOTRAchievement(MIRKWOOD, 20, LOTRMod.silverCoin, "tradeDolGuldurCaptain").setRequiresAlly(LOTRFaction.DOL_GULDUR);
 		killMirkTroll = new LOTRAchievement(MIRKWOOD, 21, LOTRMod.trollBone, "killMirkTroll").setRequiresEnemy(LOTRFaction.DOL_GULDUR);
 		wearFullDolGuldur = new LOTRAchievement(MIRKWOOD, 22, LOTRMod.bodyDolGuldur, "wearFullDolGuldur");
+		doMiniquestWoodElf = new LOTRAchievement(MIRKWOOD, 23, LOTRMod.redBook, "doMiniquestWoodElf").setRequiresAlly(LOTRFaction.WOOD_ELF);
+		doMiniquestDolGuldur = new LOTRAchievement(MIRKWOOD, 24, LOTRMod.redBook, "doMiniquestDolGuldur").setRequiresAlly(LOTRFaction.DOL_GULDUR);
 
 		killDwarf = new LOTRAchievement(IRON_HILLS, 0, LOTRMod.dwarfBone, "killDwarf").setRequiresEnemy(LOTRFaction.DWARF);
 		wearFullDwarven = new LOTRAchievement(IRON_HILLS, 1, LOTRMod.bodyDwarven, "wearFullDwarven");
@@ -715,6 +737,7 @@ public class LOTRAchievement implements Comparable
 		alignmentGood100_DWARF = new LOTRAchievement(IRON_HILLS, 14, LOTRMod.goldRing, "alignmentGood100_DWARF").setRequiresAlly(LOTRFaction.DWARF).setSpecial();
 		alignmentGood1000_DWARF = new LOTRAchievement(IRON_HILLS, 15, LOTRMod.goldRing, "alignmentGood1000_DWARF").setRequiresAlly(LOTRFaction.DWARF).setSpecial();
 		marryDwarf = new LOTRAchievement(IRON_HILLS, 16, LOTRMod.dwarvenRing, "marryDwarf").setRequiresAlly(LOTRFaction.DWARF);
+		doMiniquestDwarf = new LOTRAchievement(IRON_HILLS, 17, LOTRMod.redBook, "doMiniquestDwarf").setRequiresAlly(LOTRFaction.DWARF);
 
 		killElf = new LOTRAchievement(LOTHLORIEN, 0, LOTRMod.elfBone, "killElf").setRequiresEnemy(LOTRFaction.GALADHRIM);
 		useElvenPortal = new LOTRAchievement(LOTHLORIEN, 1, LOTRMod.quenditeGrass, "useElvenPortal").setRequiresAlly(LOTRFaction.GALADHRIM);
@@ -729,7 +752,30 @@ public class LOTRAchievement implements Comparable
 		alignmentGood100_GALADHRIM = new LOTRAchievement(LOTHLORIEN, 10, LOTRMod.goldRing, "alignmentGood100_GALADHRIM").setRequiresAlly(LOTRFaction.GALADHRIM).setSpecial();
 		alignmentGood1000_GALADHRIM = new LOTRAchievement(LOTHLORIEN, 11, LOTRMod.goldRing, "alignmentGood1000_GALADHRIM").setRequiresAlly(LOTRFaction.GALADHRIM).setSpecial();
 		tradeElvenTrader = new LOTRAchievement(LOTHLORIEN, 12, LOTRMod.silverCoin, "tradeElvenTrader").setRequiresAlly(LOTRFaction.GALADHRIM);
+		doMiniquestGaladhrim = new LOTRAchievement(LOTHLORIEN, 13, LOTRMod.redBook, "doMiniquestGaladhrim").setRequiresAlly(LOTRFaction.GALADHRIM);
 
+		killDunlending = new LOTRAchievement(DUNLAND, 0, LOTRMod.dunlendingClub, "killDunlending").setRequiresEnemy(LOTRFaction.DUNLAND);
+		wearFullDunlending = new LOTRAchievement(DUNLAND, 1, LOTRMod.bodyDunlending, "wearFullDunlending");
+		useDunlendingTable = new LOTRAchievement(DUNLAND, 2, LOTRMod.dunlendingTable, "useDunlendingTable").setRequiresAlly(LOTRFaction.DUNLAND);
+		tradeDunlendingWarlord = new LOTRAchievement(DUNLAND, 3, LOTRMod.silverCoin, "tradeDunlendingWarlord").setRequiresAlly(LOTRFaction.DUNLAND);
+		useDunlendingTrident = new LOTRAchievement(DUNLAND, 4, LOTRMod.dunlendingTrident, "useDunlendingTrident");
+		tradeDunlendingBartender = new LOTRAchievement(DUNLAND, 5, LOTRMod.silverCoin, "tradeDunlendingBartender").setRequiresAlly(LOTRFaction.DUNLAND);
+		enterDunland = new LOTRAchievement(DUNLAND, 6, Items.stone_sword, "enterDunland").setBiomeAchievement();
+		alignmentGood10_DUNLAND = new LOTRAchievement(DUNLAND, 7, LOTRMod.goldRing, "alignmentGood10_DUNLAND").setRequiresAlly(LOTRFaction.DUNLAND).setSpecial();
+		alignmentGood100_DUNLAND = new LOTRAchievement(DUNLAND, 8, LOTRMod.goldRing, "alignmentGood100_DUNLAND").setRequiresAlly(LOTRFaction.DUNLAND).setSpecial();
+		alignmentGood1000_DUNLAND = new LOTRAchievement(DUNLAND, 9, LOTRMod.goldRing, "alignmentGood1000_DUNLAND").setRequiresAlly(LOTRFaction.DUNLAND).setSpecial();
+		doMiniquestDunland = new LOTRAchievement(DUNLAND, 10, LOTRMod.redBook, "doMiniquestDunland").setRequiresAlly(LOTRFaction.DUNLAND);
+
+		killEnt = new LOTRAchievement(FANGORN, 0, Blocks.log, "killEnt").setRequiresEnemy(LOTRFaction.FANGORN);
+		drinkEntDraught = new LOTRAchievement(FANGORN, 1, LOTRMod.entDraught, "drinkEntDraught");
+		killHuorn = new LOTRAchievement(FANGORN, 2, Blocks.log, "killHuorn").setRequiresEnemy(LOTRFaction.FANGORN);
+		talkEnt = new LOTRAchievement(FANGORN, 3, Blocks.log, "talkEnt");
+		enterFangorn = new LOTRAchievement(FANGORN, 4, Blocks.leaves, "enterFangorn").setBiomeAchievement();
+		alignmentGood10_FANGORN = new LOTRAchievement(FANGORN, 5, LOTRMod.goldRing, "alignmentGood10_FANGORN").setRequiresAlly(LOTRFaction.FANGORN).setSpecial();
+		alignmentGood100_FANGORN = new LOTRAchievement(FANGORN, 6, LOTRMod.goldRing, "alignmentGood100_FANGORN").setRequiresAlly(LOTRFaction.FANGORN).setSpecial();
+		alignmentGood1000_FANGORN = new LOTRAchievement(FANGORN, 7, LOTRMod.goldRing, "alignmentGood1000_FANGORN").setRequiresAlly(LOTRFaction.FANGORN).setSpecial();
+		summonHuorn = new LOTRAchievement(FANGORN, 8, new ItemStack(LOTRMod.entDraught, 1, 2), "summonHuorn").setRequiresAlly(LOTRFaction.FANGORN);
+		
 		raidUrukCamp = new LOTRAchievement(ROHAN, 0, Items.skull, "raidUrukCamp").setRequiresEnemy(LOTRFaction.URUK_HAI);
 		useUrukTable = new LOTRAchievement(ROHAN, 1, LOTRMod.urukTable, "useUrukTable").setRequiresAlly(LOTRFaction.URUK_HAI);
 		tradeUrukTrader = new LOTRAchievement(ROHAN, 2, LOTRMod.silverCoin, "tradeUrukTrader").setRequiresAlly(LOTRFaction.URUK_HAI);
@@ -751,27 +797,8 @@ public class LOTRAchievement implements Comparable
 		alignmentGood10_URUK_HAI = new LOTRAchievement(ROHAN, 18, LOTRMod.goldRing, "alignmentGood10_URUK_HAI").setRequiresAlly(LOTRFaction.URUK_HAI).setSpecial();
 		alignmentGood100_URUK_HAI = new LOTRAchievement(ROHAN, 19, LOTRMod.goldRing, "alignmentGood100_URUK_HAI").setRequiresAlly(LOTRFaction.URUK_HAI).setSpecial();
 		alignmentGood1000_URUK_HAI = new LOTRAchievement(ROHAN, 20, LOTRMod.goldRing, "alignmentGood1000_URUK_HAI").setRequiresAlly(LOTRFaction.URUK_HAI).setSpecial();
-
-		killDunlending = new LOTRAchievement(DUNLAND, 0, LOTRMod.dunlendingClub, "killDunlending").setRequiresEnemy(LOTRFaction.DUNLAND);
-		wearFullDunlending = new LOTRAchievement(DUNLAND, 1, LOTRMod.bodyDunlending, "wearFullDunlending");
-		useDunlendingTable = new LOTRAchievement(DUNLAND, 2, LOTRMod.dunlendingTable, "useDunlendingTable").setRequiresAlly(LOTRFaction.DUNLAND);
-		tradeDunlendingWarlord = new LOTRAchievement(DUNLAND, 3, LOTRMod.silverCoin, "tradeDunlendingWarlord").setRequiresAlly(LOTRFaction.DUNLAND);
-		useDunlendingTrident = new LOTRAchievement(DUNLAND, 4, LOTRMod.dunlendingTrident, "useDunlendingTrident");
-		tradeDunlendingBartender = new LOTRAchievement(DUNLAND, 5, LOTRMod.silverCoin, "tradeDunlendingBartender").setRequiresAlly(LOTRFaction.DUNLAND);
-		enterDunland = new LOTRAchievement(DUNLAND, 6, Items.stone_sword, "enterDunland").setBiomeAchievement();
-		alignmentGood10_DUNLAND = new LOTRAchievement(DUNLAND, 7, LOTRMod.goldRing, "alignmentGood10_DUNLAND").setRequiresAlly(LOTRFaction.DUNLAND).setSpecial();
-		alignmentGood100_DUNLAND = new LOTRAchievement(DUNLAND, 8, LOTRMod.goldRing, "alignmentGood100_DUNLAND").setRequiresAlly(LOTRFaction.DUNLAND).setSpecial();
-		alignmentGood1000_DUNLAND = new LOTRAchievement(DUNLAND, 9, LOTRMod.goldRing, "alignmentGood1000_DUNLAND").setRequiresAlly(LOTRFaction.DUNLAND).setSpecial();
-
-		killEnt = new LOTRAchievement(FANGORN, 0, Blocks.log, "killEnt").setRequiresEnemy(LOTRFaction.FANGORN);
-		drinkEntDraught = new LOTRAchievement(FANGORN, 1, LOTRMod.entDraught, "drinkEntDraught");
-		killHuorn = new LOTRAchievement(FANGORN, 2, Blocks.log, "killHuorn").setRequiresEnemy(LOTRFaction.FANGORN);
-		talkEnt = new LOTRAchievement(FANGORN, 3, Blocks.log, "talkEnt");
-		enterFangorn = new LOTRAchievement(FANGORN, 4, Blocks.leaves, "enterFangorn").setBiomeAchievement();
-		alignmentGood10_FANGORN = new LOTRAchievement(FANGORN, 5, LOTRMod.goldRing, "alignmentGood10_FANGORN").setRequiresAlly(LOTRFaction.FANGORN).setSpecial();
-		alignmentGood100_FANGORN = new LOTRAchievement(FANGORN, 6, LOTRMod.goldRing, "alignmentGood100_FANGORN").setRequiresAlly(LOTRFaction.FANGORN).setSpecial();
-		alignmentGood1000_FANGORN = new LOTRAchievement(FANGORN, 7, LOTRMod.goldRing, "alignmentGood1000_FANGORN").setRequiresAlly(LOTRFaction.FANGORN).setSpecial();
-		summonHuorn = new LOTRAchievement(FANGORN, 8, new ItemStack(LOTRMod.entDraught, 1, 2), "summonHuorn").setRequiresAlly(LOTRFaction.FANGORN);
+		doMiniquestRohan = new LOTRAchievement(ROHAN, 21, LOTRMod.redBook, "doMiniquestRohan").setRequiresAlly(LOTRFaction.ROHAN);
+		doMiniquestUrukHai = new LOTRAchievement(ROHAN, 22, LOTRMod.redBook, "doMiniquestUrukHai").setRequiresAlly(LOTRFaction.URUK_HAI);
 
 		killGondorSoldier = new LOTRAchievement(GONDOR, 0, LOTRMod.swordGondor, "killGondorSoldier").setRequiresEnemy(LOTRFaction.GONDOR);
 		lightGondorBeacon = new LOTRAchievement(GONDOR, 1, LOTRMod.beacon, "lightGondorBeacon");
@@ -788,6 +815,7 @@ public class LOTRAchievement implements Comparable
 		alignmentGood1000_GONDOR = new LOTRAchievement(GONDOR, 12, LOTRMod.goldRing, "alignmentGood1000_GONDOR").setRequiresAlly(LOTRFaction.GONDOR).setSpecial();
 		enterTolfalas = new LOTRAchievement(GONDOR, 13, Blocks.stone, "enterTolfalas").setBiomeAchievement();
 		enterLebennin = new LOTRAchievement(GONDOR, 14, Blocks.grass, "enterLebennin").setBiomeAchievement();
+		doMiniquestGondor = new LOTRAchievement(GONDOR, 15, LOTRMod.redBook, "doMiniquestGondor").setRequiresAlly(LOTRFaction.GONDOR);
 
 		mineRemains = new LOTRAchievement(NINDALF, 0, LOTRMod.remains, "mineRemains");
 		craftAncientItem = new LOTRAchievement(NINDALF, 1, LOTRMod.ancientItem, "craftAncientItem");
@@ -816,6 +844,7 @@ public class LOTRAchievement implements Comparable
 		alignmentGood10_MORDOR = new LOTRAchievement(MORDOR, 19, LOTRMod.goldRing, "alignmentGood10_MORDOR").setRequiresAlly(LOTRFaction.MORDOR).setSpecial();
 		alignmentGood100_MORDOR = new LOTRAchievement(MORDOR, 20, LOTRMod.goldRing, "alignmentGood100_MORDOR").setRequiresAlly(LOTRFaction.MORDOR).setSpecial();
 		alignmentGood1000_MORDOR = new LOTRAchievement(MORDOR, 21, LOTRMod.goldRing, "alignmentGood1000_MORDOR").setRequiresAlly(LOTRFaction.MORDOR).setSpecial();
+		doMiniquestMordor = new LOTRAchievement(MORDOR, 22, LOTRMod.redBook, "doMiniquestMordor").setRequiresAlly(LOTRFaction.MORDOR);
 
 		enterHarondor = new LOTRAchievement(NEAR_HARAD, 0, Blocks.dirt, "enterHarondor").setBiomeAchievement();
 		enterNearHarad = new LOTRAchievement(NEAR_HARAD, 1, Blocks.sand, "enterNearHarad").setBiomeAchievement();
@@ -829,6 +858,7 @@ public class LOTRAchievement implements Comparable
 		rideCamel = new LOTRAchievement(NEAR_HARAD, 9, Items.saddle, "rideCamel");
 		tradeBazaarTrader = new LOTRAchievement(NEAR_HARAD, 10, LOTRMod.silverCoin, "tradeBazaarTrader").setRequiresAlly(LOTRFaction.NEAR_HARAD);
 		tradeNearHaradMerchant = new LOTRAchievement(NEAR_HARAD, 11, LOTRMod.silverCoin, "tradeNearHaradMerchant").setRequiresAlly(LOTRFaction.NEAR_HARAD);
+		doMiniquestNearHarad = new LOTRAchievement(NEAR_HARAD, 12, LOTRMod.redBook, "doMiniquestNearHarad").setRequiresAlly(LOTRFaction.NEAR_HARAD);
 
 		enterUmbar = new LOTRAchievement(UMBAR, 0, Blocks.grass, "enterUmbar").setBiomeAchievement();
 

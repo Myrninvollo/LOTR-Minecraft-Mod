@@ -230,6 +230,7 @@ public class LOTREntityHorse extends EntityHorse implements LOTRNPCMount
     {
     	LOTRReflection.getHorseInv(this).setInventorySlotContents(1, itemstack);
     	LOTRReflection.setupHorseInv(this);
+    	setMountArmorWatched(itemstack);
     }
 
     @Override

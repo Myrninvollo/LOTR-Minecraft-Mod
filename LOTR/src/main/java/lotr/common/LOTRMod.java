@@ -48,7 +48,7 @@ import cpw.mods.fml.common.network.FMLEventChannel;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "lotr", name = "The Lord of the Rings Mod", version = "Beta v20.0 for Minecraft 1.7.10")
+@Mod(modid = "lotr", name = "The Lord of the Rings Mod", version = "Beta v20.1 for Minecraft 1.7.10")
 public class LOTRMod
 {
 	@SidedProxy(clientSide = "lotr.client.LOTRClientProxy", serverSide = "lotr.common.LOTRCommonProxy")
@@ -81,7 +81,7 @@ public class LOTRMod
 	public static ArmorMaterial armorElven = EnumHelper.addArmorMaterial("LOTR_ELVEN", 22, new int[]{2, 6, 5, 2}, 14);
 	public static ArmorMaterial armorWarg = EnumHelper.addArmorMaterial("LOTR_WARG", 10, new int[]{1, 4, 3, 1}, 8);
 	public static ArmorMaterial armorDwarven = EnumHelper.addArmorMaterial("LOTR_DWARVEN", 24, new int[]{2, 6, 5, 2}, 8);
-	public static ArmorMaterial armorGalvorn = EnumHelper.addArmorMaterial("LOTR_GALVORN", 19, new int[]{2, 6, 5, 2}, 15);
+	public static ArmorMaterial armorGalvorn = EnumHelper.addArmorMaterial("LOTR_GALVORN", 22, new int[]{2, 6, 5, 2}, 15);
 	public static ArmorMaterial armorUruk = EnumHelper.addArmorMaterial("LOTR_URUK", 21, new int[]{2, 6, 5, 2}, 6);
 	public static ArmorMaterial armorWoodElvenScout = EnumHelper.addArmorMaterial("LOTR_WOOD_ELVEN_SCOUT", 12, new int[]{1, 4, 3, 1}, 10);
 	public static ArmorMaterial armorRohan = EnumHelper.addArmorMaterial("LOTR_ROHAN", 14, new int[]{2, 5, 4, 2}, 12);
@@ -2182,6 +2182,7 @@ public class LOTRMod
 		event.registerServerCommand(new LOTRCommandFastTravelTimer());
 		event.registerServerCommand(new LOTRCommandSummon());
 		event.registerServerCommand(new LOTRCommandFastTravelCooldown());
+		
 		if (event.getServer().isDedicatedServer())
 		{
 			event.registerServerCommand(new LOTRCommandBanStructures());

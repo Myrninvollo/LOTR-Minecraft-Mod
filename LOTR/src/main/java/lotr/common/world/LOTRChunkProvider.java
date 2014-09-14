@@ -35,7 +35,7 @@ public class LOTRChunkProvider implements IChunkProvider
 	private static double COORDINATE_SCALE = 684.412D;
 	private static double HEIGHT_SCALE = 1D;
 	private static double MAIN_NOISE_SCALE_XZ = 400D;
-	private static double MAIN_NOISE_SCALE_Y =  5000D;
+	private static double MAIN_NOISE_SCALE_Y = 5000D;
 	private static double DEPTH_NOISE_SCALE = 200D;
 	private static double DEPTH_NOISE_EXP = 0.5D;
 	private static double HEIGHT_STRETCH = 6D;

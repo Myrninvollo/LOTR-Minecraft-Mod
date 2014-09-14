@@ -159,7 +159,7 @@ public abstract class LOTRMiniQuest implements Comparable<LOTRMiniQuest>
 		}
 		else
 		{
-			return Integer.compare(entityFaction.ordinal(), other.entityFaction.ordinal());
+			return Integer.valueOf(entityFaction.ordinal()).compareTo(Integer.valueOf(other.entityFaction.ordinal()));
 		}
 	}
 	

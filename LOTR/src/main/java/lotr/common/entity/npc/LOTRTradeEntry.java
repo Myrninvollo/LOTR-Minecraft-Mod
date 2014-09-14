@@ -657,7 +657,11 @@ public class LOTRTradeEntry
 			new LOTRTradeEntry(new ItemStack(Blocks.yellow_flower, 1, 0), 1),
 			new LOTRTradeEntry(new ItemStack(Blocks.red_mushroom, 1, 0), 3),
 			new LOTRTradeEntry(new ItemStack(Blocks.brown_mushroom, 1, 0), 3),
-			new LOTRTradeEntry(new ItemStack(LOTRMod.morgulShroom, 1, 0), 20)
+			new LOTRTradeEntry(new ItemStack(LOTRMod.morgulShroom, 1, 0), 20),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.haradFlower, 1, 0), 1),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.haradFlower, 1, 1), 1),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.haradFlower, 1, 2), 2),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.haradFlower, 1, 3), 2)
 		};
 		
 		NEAR_HARAD_PLANTS_TRADER_SELL = new LOTRTradeEntry[]
@@ -768,6 +772,10 @@ public class LOTRTradeEntry
 			new LOTRTradeEntry(new ItemStack(LOTRMod.date, 4), 8),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.planks, 4, 14), 8),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.sapling3, 1, 2), 50),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.haradFlower, 1, 0), 5),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.haradFlower, 1, 1), 5),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.haradFlower, 1, 2), 8),
+			new LOTRTradeEntry(new ItemStack(LOTRMod.haradFlower, 1, 3), 8),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.doubleFlower, 1, 3), 12),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.doubleFlower, 1, 2), 8),
 			new LOTRTradeEntry(new ItemStack(LOTRMod.banana), 5),

@@ -48,6 +48,7 @@ public class LOTRPlayerData
 	private boolean hiredDeathMessages = true;
 	
 	private ChunkCoordinates deathPoint;
+	private int deathDim;
 	private int fastTravelTimer;
 	private boolean structuresBanned = false;
 	private boolean askedForGandalf = false;
@@ -139,6 +140,7 @@ public class LOTRPlayerData
 			playerData.setInteger("DeathX", deathPoint.posX);
 			playerData.setInteger("DeathY", deathPoint.posY);
 			playerData.setInteger("DeathZ", deathPoint.posZ);
+			playerData.setInteger("DeathDim", deathDim);
 		}
 		playerData.setInteger("FTTimer", fastTravelTimer);
 		playerData.setBoolean("StructuresBanned", structuresBanned);
@@ -211,7 +213,16 @@ public class LOTRPlayerData
 		if (playerData.hasKey("DeathX") && playerData.hasKey("DeathY") && playerData.hasKey("DeathZ"))
 		{
 			deathPoint = new ChunkCoordinates(playerData.getInteger("DeathX"), playerData.getInteger("DeathY"), playerData.getInteger("DeathZ"));
+			if (playerData.hasKey("DeathDim"))
+			{
+				deathDim = playerData.getInteger("DeathDim");
+			}
+			else
+			{
+				deathDim = LOTRDimension.MIDDLE_EARTH.dimensionID; 
+			}
 		}
+		
 		fastTravelTimer = playerData.getInteger("FTTimer");
 		structuresBanned = playerData.getBoolean("StructuresBanned");
 		askedForGandalf = playerData.getBoolean("AskedForGandalf");
@@ -257,13 +268,9 @@ public class LOTRPlayerData
 	
 	public int getAlignment(LOTRFaction faction)
 	{
-		if (faction == LOTRFaction.UNALIGNED)
+		if (faction.hasFixedAlignment)
 		{
-			return 0;
-		}
-		else if (!faction.allowPlayer)
-		{
-			return -1;
+			return faction.fixedAlignment;
 		}
 		
 		Integer alignment = alignments.get(faction);
@@ -272,7 +279,7 @@ public class LOTRPlayerData
 	
 	public void setAlignment(LOTRFaction faction, int alignment)
 	{
-		if (faction.allowPlayer)
+		if (faction.allowPlayer && !faction.hasFixedAlignment)
 		{
 			int prevAlignment = getAlignment(faction);
 			
@@ -397,7 +404,7 @@ public class LOTRPlayerData
 		return achievements;
 	}
 	
-	public List getEarnedAchievements()
+	public List getEarnedAchievements(LOTRDimension dimension)
 	{
 		List earnedAchievements = new ArrayList();
 		EntityPlayer entityplayer = getPlayer();
@@ -407,7 +414,7 @@ public class LOTRPlayerData
 			while (it.hasNext())
 			{
 				LOTRAchievement achievement = (LOTRAchievement)it.next();
-				if (achievement.canPlayerEarn(entityplayer))
+				if (achievement.getDimension() == dimension && achievement.canPlayerEarn(entityplayer))
 				{
 					earnedAchievements.add(achievement);
 				}
@@ -431,9 +438,9 @@ public class LOTRPlayerData
 		{
 			sendAchievementPacket((EntityPlayerMP)entityplayer, achievement, true);
 			
-			MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.lotr.achievement", new Object[] {entityplayer.func_145748_c_(), achievement.getChatComponentForEarn()}));
+			MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.lotr.achievement", new Object[] {entityplayer.func_145748_c_(), achievement.getDimension().getDimensionName(), achievement.getChatComponentForEarn()}));
 			
-			List earnedAchievements = getEarnedAchievements();
+			List earnedAchievements = getEarnedAchievements(LOTRDimension.MIDDLE_EARTH);
 			int biomes = 0;
 			for (int i = 0; i < earnedAchievements.size(); i++)
 			{
@@ -682,6 +689,17 @@ public class LOTRPlayerData
 	public void setDeathPoint(int i, int j, int k)
 	{
 		deathPoint = new ChunkCoordinates(i, j, k);
+		LOTRLevelData.markDirty();
+	}
+	
+	public int getDeathDimension()
+	{
+		return deathDim;
+	}
+	
+	public void setDeathDimension(int dim)
+	{
+		deathDim = dim;
 		LOTRLevelData.markDirty();
 	}
 	

@@ -6,19 +6,11 @@ import lotr.common.LOTRMod;
 import lotr.common.entity.LOTREntities;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.entity.npc.LOTREntityNPC;
+import lotr.common.world.biome.LOTRBiomeGenFarHaradSwamp;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -246,6 +238,18 @@ public class LOTREntityCrocodile extends EntityMob
 		}
         
 		return false;
+    }
+	
+	@Override
+    protected boolean isValidLightLevel()
+    {
+		int i = MathHelper.floor_double(posX);
+		int k = MathHelper.floor_double(posZ);
+		if (worldObj.getBiomeGenForCoords(i, k) instanceof LOTRBiomeGenFarHaradSwamp)
+		{
+			return true;
+		}
+		return super.isValidLightLevel();
     }
 	
 	@Override

@@ -15,7 +15,7 @@ public class LOTRBiomeGenEregionForest extends LOTRBiomeGenEregion
 		decorator.treesPerChunk = 8;
         decorator.flowersPerChunk = 4;
 		decorator.doubleFlowersPerChunk = 2;
-        decorator.grassPerChunk = 6;
+        decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 3;
 	}
 	

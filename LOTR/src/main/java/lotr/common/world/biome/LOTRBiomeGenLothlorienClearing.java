@@ -8,7 +8,7 @@ public class LOTRBiomeGenLothlorienClearing extends LOTRBiomeGenLothlorien
 
 		decorator.treesPerChunk = 0;
 		decorator.flowersPerChunk = 8;
-		decorator.grassPerChunk = 8;
+		decorator.grassPerChunk = 12;
 		decorator.doubleGrassPerChunk = 2;
 	}
 

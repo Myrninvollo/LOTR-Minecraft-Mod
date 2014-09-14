@@ -30,16 +30,21 @@ public enum LOTRFaction
 	NEAR_HARAD(0xEAAB5D),
 	FAR_HARAD(0x2E6342),
 	HALF_TROLL(0x9E8373),
-	HOSTILE(true),
-	UNALIGNED(false);
 	
-	public static int totalPlayerFactions;
+	UTUMNO(0x330500, LOTRDimension.UTUMNO, -66666),
 	
+	HOSTILE(true, -1),
+	UNALIGNED(false, 0);
+
+	public LOTRDimension factionDimension;
 	private String factionName;
 	public Color factionColor;
 	
 	public boolean allowPlayer;
 	public boolean allowEntityRegistry;
+	
+	public boolean hasFixedAlignment;
+	public int fixedAlignment;
 	
 	private Set enemies = new HashSet();
 	public Set killBonuses = new HashSet();
@@ -54,20 +59,47 @@ public enum LOTRFaction
 	
 	private LOTRFaction(int color)
 	{
-		this(true, true, color);
+		this(color, LOTRDimension.MIDDLE_EARTH);
 	}
 	
-	private LOTRFaction(boolean flag)
+	private LOTRFaction(int color, LOTRDimension dim)
 	{
-		this(false, flag, 0);
+		this(color, dim, true, true, Integer.MIN_VALUE);
 	}
 	
-	private LOTRFaction(boolean flag, boolean flag1, int color)
+	private LOTRFaction(int color, LOTRDimension dim, int alignment)
 	{
-		allowPlayer = flag;
-		allowEntityRegistry = flag1;
+		this(color, dim, true, true, alignment);
+	}
+	
+	private LOTRFaction(boolean registry, int alignment)
+	{
+		this(0, null, false, registry, alignment);
+	}
+	
+	private LOTRFaction(int color, LOTRDimension dim, boolean player, boolean registry, int alignment)
+	{
+		allowPlayer = player;
+		allowEntityRegistry = registry;
 		
 		factionColor = new Color(color);
+		
+		factionDimension = dim;
+		if (dim != null)
+		{
+			dim.factionList.add(this);
+		}
+		
+		if (alignment != Integer.MIN_VALUE)
+		{
+			setFixedAlignment(alignment);
+		}
+	}
+	
+	private void setFixedAlignment(int alignment)
+	{
+		hasFixedAlignment = true;
+		fixedAlignment = alignment;
 	}
 	
 	private void addAlignmentAchievement(int alignment, LOTRAchievement achievement)
@@ -118,14 +150,6 @@ public enum LOTRFaction
 
 	public static void initFactionProperties()
 	{
-		for (LOTRFaction f : values())
-		{
-			if (f.allowPlayer)
-			{
-				totalPlayerFactions++;
-			}
-		}
-		
 		HOBBIT.addAlignmentAchievement(10, LOTRAchievement.alignmentGood10_HOBBIT);
 		HOBBIT.addAlignmentAchievement(100, LOTRAchievement.alignmentGood100_HOBBIT);
 		HOBBIT.addAlignmentAchievement(1000, LOTRAchievement.alignmentGood1000_HOBBIT);
@@ -444,7 +468,8 @@ public enum LOTRFaction
 		
 		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHai.class, 10));
 		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiCrossbower.class, 5));
-		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiBerserker.class, 3));
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiBerserker.class, 5));
+		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiSapper.class, 3));
 		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukHaiBannerBearer.class, 2));
 		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukWarg.class, 10));
 		URUK_HAI.invasionMobs.add(new InvasionSpawnEntry(LOTREntityUrukWargBombardier.class, 1));
@@ -620,6 +645,15 @@ public enum LOTRFaction
 		HALF_TROLL.addKillBonus(GONDOR);
 		
 		// No Half-troll invasion mobs yet
+		
+		for (LOTRFaction f : LOTRFaction.values())
+		{
+			if (f.allowPlayer && f != LOTRFaction.UTUMNO)
+			{
+				LOTRFaction.UTUMNO.addEnemy(f);
+				f.addEnemy(LOTRFaction.UTUMNO);
+			}
+		}
 	}
 	
 	public void addEnemy(LOTRFaction f)
@@ -711,7 +745,7 @@ public enum LOTRFaction
 		ArrayList list = new ArrayList();
 		for (LOTRFaction f : values())
 		{
-			if (!f.allowPlayer)
+			if (!f.allowPlayer || f.hasFixedAlignment)
 			{
 				continue;
 			}

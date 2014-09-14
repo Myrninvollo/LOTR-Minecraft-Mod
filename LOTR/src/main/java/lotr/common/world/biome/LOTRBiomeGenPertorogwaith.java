@@ -34,9 +34,11 @@ public class LOTRBiomeGenPertorogwaith extends LOTRBiome
 		
 		setGoodEvilWeight(0, 100);
 		
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 4;
 		decorator.flowersPerChunk = 0;
+		
+		registerHaradFlowers();
 		
 		biomeColors.setSky(0x827C72);
 		

@@ -53,10 +53,10 @@ public class LOTRItemStructureSpawner extends Item
 
 	@Override
     @SideOnly(Side.CLIENT)
-    public int getColorFromItemStack(ItemStack itemstack, int i)
+    public int getColorFromItemStack(ItemStack itemstack, int pass)
     {
-		LOTRStructures.StructureInfo info = (LOTRStructures.StructureInfo)LOTRStructures.structureSpawners.get(Integer.valueOf(itemstack.getItemDamage()));
-        return info != null ? (i == 0 ? info.primaryColor : info.secondaryColor) : 16777215;
+		LOTRStructures.StructureInfo info = LOTRStructures.structureSpawners.get(itemstack.getItemDamage());
+        return info != null ? (pass == 0 ? info.primaryColor : info.secondaryColor) : 16777215;
     }
 
     @Override

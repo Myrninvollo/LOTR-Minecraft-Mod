@@ -196,7 +196,7 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(Items.bowl), 2, 4, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.lettuce), 1, 4, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.apple), 1, 3, 100),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.appleGreen), 1, 3, 75),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.appleGreen), 1, 3, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.sugar), 2, 5, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.egg), 1, 4, 100),
 			new WeightedRandomChestContent(new ItemStack(Items.pumpkin_pie), 1, 2, 100),

@@ -17,7 +17,7 @@ public class LOTRBiomeGenValesOfAnduinWoodlands extends LOTRBiomeGenValesOfAndui
 		decorator.treesPerChunk = 5;
 		decorator.flowersPerChunk = 5;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 4;
 		
 		registerForestFlowers();

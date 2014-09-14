@@ -90,12 +90,12 @@ public class LOTRSkyRenderer extends IRenderHandler
 	{
 		world.theProfiler.startSection("lotrSky");
 		
-		boolean renderSkyFeatures = true;
+		boolean renderSkyFeatures = world.provider.isSurfaceWorld();
 		
 		int i = MathHelper.floor_double(mc.renderViewEntity.posX);
 		int k = MathHelper.floor_double(mc.renderViewEntity.posZ);
 		BiomeGenBase biome = world.getBiomeGenForCoords(i, k);
-		if (biome instanceof LOTRBiome)
+		if (biome instanceof LOTRBiome && renderSkyFeatures)
 		{
 			renderSkyFeatures = ((LOTRBiome)biome).hasSky();
 		}

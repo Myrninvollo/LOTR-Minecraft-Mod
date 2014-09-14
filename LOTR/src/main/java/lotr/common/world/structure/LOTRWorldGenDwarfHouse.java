@@ -16,6 +16,15 @@ import net.minecraft.world.World;
 
 public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 {
+	protected Block stoneBlock;
+	protected int stoneMeta;
+
+	protected Block fillerBlock;
+	protected int fillerMeta;
+	
+	protected Block topBlock;
+	protected int topMeta;
+	
 	protected Block brickBlock;
 	protected int brickMeta;
 	
@@ -35,6 +44,13 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 	public LOTRWorldGenDwarfHouse(boolean flag)
 	{
 		super(flag);
+		
+		stoneBlock = Blocks.stone;
+		stoneMeta = 0;
+		fillerBlock = Blocks.dirt;
+		fillerMeta = 0;
+		topBlock = Blocks.grass;
+		topMeta = 0;
 		
 		brickBlock = LOTRMod.brick;
 		brickMeta = 6;
@@ -136,7 +152,7 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 							setBlockAndNotifyAdequately(world, i1, j1, k1, Blocks.air, 0);
 							if (j1 == j + 1)
 							{
-								setBlockAndNotifyAdequately(world, i1, j1 - 1, k1, Blocks.stone, 0);
+								setBlockAndNotifyAdequately(world, i1, j1 - 1, k1, stoneBlock, stoneMeta);
 							}
 						}
 					}
@@ -180,7 +196,7 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 							setBlockAndNotifyAdequately(world, i1, j1, k1, Blocks.air, 0);
 							if (j1 == j + 1)
 							{
-								setBlockAndNotifyAdequately(world, i1, j1 - 1, k1, Blocks.stone, 0);
+								setBlockAndNotifyAdequately(world, i1, j1 - 1, k1, stoneBlock, stoneMeta);
 							}
 						}
 					}
@@ -224,7 +240,7 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 							setBlockAndNotifyAdequately(world, i1, j1, k1, Blocks.air, 0);
 							if (j1 == j + 1)
 							{
-								setBlockAndNotifyAdequately(world, i1, j1 - 1, k1, Blocks.stone, 0);
+								setBlockAndNotifyAdequately(world, i1, j1 - 1, k1, stoneBlock, stoneMeta);
 							}
 						}
 					}
@@ -268,17 +284,11 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 							setBlockAndNotifyAdequately(world, i1, j1, k1, Blocks.air, 0);
 							if (j1 == j + 1)
 							{
-								setBlockAndNotifyAdequately(world, i1, j1 - 1, k1, Blocks.stone, 0);
+								setBlockAndNotifyAdequately(world, i1, j1 - 1, k1, stoneBlock, stoneMeta);
 							}
 						}
 					}
 				}
-			}
-			
-			List intersectingCreatures = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1D, j + 1D, k + 1D).expand(7D, 5D, 7D));
-			for (Object obj : intersectingCreatures)
-			{
-				((EntityLiving)obj).setDead();
 			}
 		}
 		
@@ -291,24 +301,30 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 					if (!LOTRMod.isOpaque(world, i1, j1, k1))
 					{
 						Block block = null;
+						int meta = -1;
+						
 						if (j1 >= j + 2)
 						{
 							if (world.getBlock(i1, j1 + 1, k1).isOpaqueCube())
 							{
-								block = Blocks.dirt;
+								block = fillerBlock;
+								meta = fillerMeta;
 							}
 							else
 							{
-								block = Blocks.grass;
+								block = topBlock;
+								meta = topMeta;
 							}
 						}
 						else
 						{
-							block = Blocks.stone;
+							block = stoneBlock;
+							meta = stoneMeta;
 						}
+						
 						if (block != null)
 						{
-							setBlockAndNotifyAdequately(world, i1, j1, k1, block, 0);
+							setBlockAndNotifyAdequately(world, i1, j1, k1, block, meta);
 							if (world.getBlock(i1, j1 - 1, k1) == Blocks.grass)
 							{
 								setBlockAndNotifyAdequately(world, i1, j1 - 1, k1, Blocks.dirt, 0);
@@ -455,13 +471,13 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 			int i2 = 5 - (j1 - j);
 			for (int i1 = i - i2; i1 <= i + i2; i1++)
 			{
-				setBlockAndNotifyAdequately(world, i1, j1, k - 7, Blocks.stone, 0);
+				setBlockAndNotifyAdequately(world, i1, j1, k - 7, stoneBlock, stoneMeta);
 			}
 		}
 		
 		for (int i1 = i - 1; i1 <= i + 1; i1++)
 		{
-			setBlockAndNotifyAdequately(world, i1, j, k - 7, Blocks.stone, 0);
+			setBlockAndNotifyAdequately(world, i1, j, k - 7, stoneBlock, stoneMeta);
 		}
 		
 		for (int j1 = j + 1; j1 <= j + 2; j1++)
@@ -469,9 +485,9 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 			setBlockAndNotifyAdequately(world, i - 1, j1, k - 6, pillarBlock, pillarMeta);
 			setBlockAndNotifyAdequately(world, i, j1, k - 6, Blocks.air, 0);
 			setBlockAndNotifyAdequately(world, i + 1, j1, k - 6, pillarBlock, pillarMeta);
-			setBlockAndNotifyAdequately(world, i - 1, j1, k - 7, Blocks.stone, 0);
+			setBlockAndNotifyAdequately(world, i - 1, j1, k - 7, stoneBlock, stoneMeta);
 			setBlockAndNotifyAdequately(world, i, j1, k - 7, Blocks.air, 0);
-			setBlockAndNotifyAdequately(world, i + 1, j1, k - 7, Blocks.stone, 0);
+			setBlockAndNotifyAdequately(world, i + 1, j1, k - 7, stoneBlock, stoneMeta);
 		}
 		
 		setBlockAndNotifyAdequately(world, i, j + 1, k - 7, LOTRMod.dwarvenDoor, 1);
@@ -655,13 +671,13 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 			int k2 = 5 - (j1 - j);
 			for (int k1 = k - k2; k1 <= k + k2; k1++)
 			{
-				setBlockAndNotifyAdequately(world, i + 7, j1, k1, Blocks.stone, 0);
+				setBlockAndNotifyAdequately(world, i + 7, j1, k1, stoneBlock, stoneMeta);
 			}
 		}
 		
 		for (int k1 = k - 1; k1 <= k + 1; k1++)
 		{
-			setBlockAndNotifyAdequately(world, i + 7, j, k1, Blocks.stone, 0);
+			setBlockAndNotifyAdequately(world, i + 7, j, k1, stoneBlock, stoneMeta);
 		}
 		
 		for (int j1 = j + 1; j1 <= j + 2; j1++)
@@ -669,9 +685,9 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 			setBlockAndNotifyAdequately(world, i + 6, j1, k - 1, pillarBlock, pillarMeta);
 			setBlockAndNotifyAdequately(world, i + 6, j1, k, Blocks.air, 0);
 			setBlockAndNotifyAdequately(world, i + 6, j1, k + 1, pillarBlock, pillarMeta);
-			setBlockAndNotifyAdequately(world, i + 7, j1, k - 1, Blocks.stone, 0);
+			setBlockAndNotifyAdequately(world, i + 7, j1, k - 1, stoneBlock, stoneMeta);
 			setBlockAndNotifyAdequately(world, i + 7, j1, k, Blocks.air, 0);
-			setBlockAndNotifyAdequately(world, i + 7, j1, k + 1, Blocks.stone, 0);
+			setBlockAndNotifyAdequately(world, i + 7, j1, k + 1, stoneBlock, stoneMeta);
 		}
 		
 		setBlockAndNotifyAdequately(world, i + 7, j + 1, k, LOTRMod.dwarvenDoor, 2);
@@ -855,13 +871,13 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 			int i2 = 5 - (j1 - j);
 			for (int i1 = i - i2; i1 <= i + i2; i1++)
 			{
-				setBlockAndNotifyAdequately(world, i1, j1, k + 7, Blocks.stone, 0);
+				setBlockAndNotifyAdequately(world, i1, j1, k + 7, stoneBlock, stoneMeta);
 			}
 		}
 		
 		for (int i1 = i - 1; i1 <= i + 1; i1++)
 		{
-			setBlockAndNotifyAdequately(world, i1, j, k + 7, Blocks.stone, 0);
+			setBlockAndNotifyAdequately(world, i1, j, k + 7, stoneBlock, stoneMeta);
 		}
 		
 		for (int j1 = j + 1; j1 <= j + 2; j1++)
@@ -1052,13 +1068,13 @@ public class LOTRWorldGenDwarfHouse extends LOTRWorldGenStructureBase
 			int k2 = 5 - (j1 - j);
 			for (int k1 = k - k2; k1 <= k + k2; k1++)
 			{
-				setBlockAndNotifyAdequately(world, i - 7, j1, k1, Blocks.stone, 0);
+				setBlockAndNotifyAdequately(world, i - 7, j1, k1, stoneBlock, stoneMeta);
 			}
 		}
 		
 		for (int k1 = k - 1; k1 <= k + 1; k1++)
 		{
-			setBlockAndNotifyAdequately(world, i - 7, j, k1, Blocks.stone, 0);
+			setBlockAndNotifyAdequately(world, i - 7, j, k1, stoneBlock, stoneMeta);
 		}
 		
 		for (int j1 = j + 1; j1 <= j + 2; j1++)

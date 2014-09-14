@@ -2,11 +2,11 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
-import lotr.common.entity.animal.LOTREntityFlamingo;
-import lotr.common.entity.animal.LOTREntityJungleScorpion;
+import lotr.common.entity.animal.*;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
 import net.minecraft.world.gen.feature.WorldGenMegaJungle;
@@ -24,18 +24,20 @@ public class LOTRBiomeGenFarHaradJungle extends LOTRBiomeGenFarHarad
         spawnableCreatureList.clear();
         spawnableCreatureList.add(new SpawnListEntry(LOTREntityFlamingo.class, 10, 4, 4));
         
+        spawnableLOTRAmbientList.clear();
+        spawnableLOTRAmbientList.add(new SpawnListEntry(LOTREntityBird.class, 10, 4, 4));
+        
         spawnableMonsterList.add(new SpawnListEntry(LOTREntityJungleScorpion.class, 30, 4, 4));
 
         decorator.treesPerChunk = 50;
+        decorator.vinesPerChunk = 50;
         decorator.flowersPerChunk = 4;
         decorator.doubleFlowersPerChunk = 4;
-        decorator.grassPerChunk = 10;
+        decorator.grassPerChunk = 15;
 		decorator.doubleGrassPerChunk = 10;
         decorator.enableFern = true;
 		
 		registerJungleFlowers();
-		
-		setBanditChance(LOTRBanditSpawner.NEVER);
     }
 
     @Override
@@ -64,15 +66,6 @@ public class LOTRBiomeGenFarHaradJungle extends LOTRBiomeGenFarHarad
     public void decorate(World world, Random random, int i, int k)
     {
         super.decorate(world, random, i, k);
-        
-        WorldGenVines vines = new WorldGenVines();
-        for (int l = 0; l < 50; l++)
-        {
-            int i1 = i + random.nextInt(16) + 8;
-            int j1 = 64;
-            int k1 = k + random.nextInt(16) + 8;
-            vines.generate(world, random, i1, j1, k1);
-        }
         
         if (random.nextInt(3) == 0)
         {

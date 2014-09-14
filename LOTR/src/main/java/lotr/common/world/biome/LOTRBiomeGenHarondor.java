@@ -43,7 +43,7 @@ public class LOTRBiomeGenHarondor extends LOTRBiome
 		
 		setGoodEvilWeight(50, 50);
 		
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 1;
 		decorator.cactiPerChunk = 1;
 		decorator.deadBushPerChunk = 1;

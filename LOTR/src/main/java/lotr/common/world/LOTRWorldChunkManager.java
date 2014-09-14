@@ -3,14 +3,13 @@ package lotr.common.world;
 import java.util.List;
 import java.util.Random;
 
+import lotr.common.LOTRDimension;
 import lotr.common.LOTRMod;
 import lotr.common.world.biome.LOTRBiome;
 import lotr.common.world.genlayer.LOTRGenLayerWorld;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeCache;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.WorldChunkManager;
+import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 import cpw.mods.fml.relauncher.Side;
@@ -22,12 +21,14 @@ public class LOTRWorldChunkManager extends WorldChunkManager
     private GenLayer genBiomes;
     private GenLayer biomeIndexLayer;
     private BiomeCache biomeCache;
+    private LOTRDimension lotrDimension;
 
-    public LOTRWorldChunkManager(World world)
+    public LOTRWorldChunkManager(World world, LOTRDimension dim)
     {
 		worldObj = world;
 		biomeCache = new BiomeCache(this);
-        GenLayer[] layers = LOTRGenLayerWorld.createWorld(world.getSeed(), world.getWorldInfo().getTerrainType());
+		lotrDimension = dim;
+        GenLayer[] layers = LOTRGenLayerWorld.createWorld(dim, world.getSeed());
         genBiomes = layers[0];
         biomeIndexLayer = layers[1];
     }
@@ -51,7 +52,7 @@ public class LOTRWorldChunkManager extends WorldChunkManager
         int[] ints = biomeIndexLayer.getInts(i, k, xSize, zSize);
         for (int l = 0; l < xSize * zSize; l++)
         {
-            float f = (float)LOTRBiome.lotrBiomeList[ints[l]].getIntRainfall() / 65536F;
+            float f = (float)lotrDimension.biomeList[ints[l]].getIntRainfall() / 65536F;
             if (f > 1F)
             {
                 f = 1F;
@@ -86,7 +87,7 @@ public class LOTRWorldChunkManager extends WorldChunkManager
         int[] ints = genBiomes.getInts(i, k, xSize, zSize);
         for (int l = 0; l < xSize * zSize; l++)
         {
-            biomes[l] = LOTRBiome.lotrBiomeList[ints[l]];
+            biomes[l] = lotrDimension.biomeList[ints[l]];
         }
 
         return biomes;
@@ -119,7 +120,7 @@ public class LOTRWorldChunkManager extends WorldChunkManager
             int[] ints = biomeIndexLayer.getInts(i, k, xSize, zSize);
             for (int l = 0; l < xSize * zSize; l++)
             {
-                biomes[l] = LOTRBiome.lotrBiomeList[ints[l]];
+                biomes[l] = lotrDimension.biomeList[ints[l]];
             }
             return biomes;
         }
@@ -137,7 +138,7 @@ public class LOTRWorldChunkManager extends WorldChunkManager
         int[] ints = genBiomes.getInts(i1, k1, i3, k3);
         for (int l = 0; l < i3 * k3; l++)
         {
-            BiomeGenBase biome = LOTRBiome.lotrBiomeList[ints[l]];
+            BiomeGenBase biome = lotrDimension.biomeList[ints[l]];
             if (!list.contains(biome))
             {
                 return false;
@@ -163,7 +164,7 @@ public class LOTRWorldChunkManager extends WorldChunkManager
         {
             int xPos = i1 + l % i3 << 2;
             int zPos = k1 + l / i3 << 2;
-            BiomeGenBase biome = LOTRBiome.lotrBiomeList[ints[l]];
+            BiomeGenBase biome = lotrDimension.biomeList[ints[l]];
             if (list.contains(biome) && (chunkpos == null || random.nextInt(j + 1) == 0))
             {
                 chunkpos = new ChunkPosition(xPos, 0, zPos);

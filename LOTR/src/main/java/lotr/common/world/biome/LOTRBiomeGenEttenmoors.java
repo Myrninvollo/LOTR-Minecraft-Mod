@@ -46,7 +46,7 @@ public class LOTRBiomeGenEttenmoors extends LOTRBiome
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityAngmarWarg.class, 5, 4, 4));
 		
 		decorator.flowersPerChunk = 1;
-		decorator.grassPerChunk = 2;
+		decorator.grassPerChunk = 4;
 		decorator.doubleGrassPerChunk = 2;
 		decorator.generateAthelas = true;
 		

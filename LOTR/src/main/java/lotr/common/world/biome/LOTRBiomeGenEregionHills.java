@@ -8,7 +8,7 @@ public class LOTRBiomeGenEregionHills extends LOTRBiomeGenEregion
 		
 		decorator.treesPerChunk = 0;
         decorator.flowersPerChunk = 1;
-        decorator.grassPerChunk = 2;
+        decorator.grassPerChunk = 5;
 	}
 
 	@Override

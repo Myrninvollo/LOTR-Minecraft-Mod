@@ -18,7 +18,7 @@ public class LOTRBiomeGenLothlorienEdge extends LOTRBiomeGenLothlorien
 
 		decorator.treesPerChunk = 3;
 		decorator.flowersPerChunk = 2;
-		decorator.grassPerChunk = 5;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 1;
 		
 		invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.GUNDABAD, LOTRInvasionSpawner.RARE));

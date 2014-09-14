@@ -28,7 +28,7 @@ public class LOTRBiomeGenGladdenFields extends LOTRBiomeGenValesOfAnduin
 		decorator.treesPerChunk = 2;
 		decorator.flowersPerChunk = 2;
 		decorator.doubleFlowersPerChunk = 10;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 5;
 		decorator.waterlilyPerChunk = 1;
 		decorator.reedsPerChunk = 10;

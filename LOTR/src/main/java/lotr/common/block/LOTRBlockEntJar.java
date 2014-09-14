@@ -1,5 +1,7 @@
 package lotr.common.block;
 
+import java.util.Random;
+
 import lotr.common.LOTRCreativeTabs;
 import lotr.common.LOTRMod;
 import lotr.common.item.LOTRItemEntDraught;
@@ -241,5 +243,26 @@ public class LOTRBlockEntJar extends BlockContainer
 			entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, container.copy());
 		}
 		return true;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(World world, int i, int j, int k, Random random)
+	{
+		if (random.nextInt(4) == 0)
+		{
+			TileEntity tileentity = world.getTileEntity(i, j, k);
+			if (tileentity != null && tileentity instanceof LOTRTileEntityEntJar)
+			{
+				LOTRTileEntityEntJar jar = (LOTRTileEntityEntJar)tileentity;
+				if (jar.drinkMeta >= 0)
+				{
+					double d = i + 0.25D + (double)(random.nextFloat() * 0.5F);
+					double d1 = j + 1D;
+					double d2 = k + 0.25D + (double)(random.nextFloat() * 0.5F);
+					world.spawnParticle("happyVillager", d, d1, d2, 0D, 0.2D, 0D);
+				}
+			}
+		}
 	}
 }

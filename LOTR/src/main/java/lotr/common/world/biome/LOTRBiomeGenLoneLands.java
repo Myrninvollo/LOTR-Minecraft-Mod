@@ -45,7 +45,7 @@ public class LOTRBiomeGenLoneLands extends LOTRBiome
 		
 		decorator.treesPerChunk = 0;
 		decorator.flowersPerChunk = 3;
-		decorator.grassPerChunk = 5;
+		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 6;
 		decorator.generateAthelas = true;
 		

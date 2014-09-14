@@ -1,7 +1,6 @@
 package lotr.common.world;
 
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.item.LOTREntityPortal;
 import lotr.common.item.LOTRItemPouch;
 import net.minecraft.entity.Entity;
@@ -28,7 +27,7 @@ public class LOTRTeleporter extends Teleporter
 		int j;
 		int k;
 		
-		if (world.provider.dimensionId == LOTRMod.idDimension)
+		if (world.provider.dimensionId == LOTRDimension.MIDDLE_EARTH.dimensionID)
 		{
 			i = 0;
 			k = 0;
@@ -43,7 +42,7 @@ public class LOTRTeleporter extends Teleporter
 		
 		entity.setLocationAndAngles((double)i + 0.5D, (double)j + 1D, (double)k + 0.5D, entity.rotationYaw, 0.0F);
 
-		if (world.provider.dimensionId == LOTRMod.idDimension && LOTRLevelData.madeMiddleEarthPortal == 0)
+		if (world.provider.dimensionId == LOTRDimension.MIDDLE_EARTH.dimensionID && LOTRLevelData.madeMiddleEarthPortal == 0)
 		{
 			LOTRLevelData.setMadeMiddleEarthPortal(1);
 			world.provider.setSpawnPoint(i, j, k);

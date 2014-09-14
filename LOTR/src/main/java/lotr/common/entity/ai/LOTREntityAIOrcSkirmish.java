@@ -18,10 +18,10 @@ public class LOTREntityAIOrcSkirmish extends LOTREntityAINearestAttackableTarget
     @Override
     public boolean shouldExecute()
     {
-		if (!theOrc.worldObj.getGameRules().getGameRuleBooleanValue("enableOrcSkirmish"))
+		/*if (!theOrc.worldObj.getGameRules().getGameRuleBooleanValue("enableOrcSkirmish"))
 		{
 			return false;
-		}
+		}*/
 		if (!canOrcSkirmish(theOrc))
 		{
 			return false;
@@ -61,7 +61,7 @@ public class LOTREntityAIOrcSkirmish extends LOTREntityAINearestAttackableTarget
 		if (entity instanceof LOTREntityOrc)
 		{
 			LOTREntityOrc orc = (LOTREntityOrc)entity;
-			return !orc.isTrader() && !orc.hiredNPCInfo.isActive && orc.ridingEntity == null;
+			return !orc.isTrader() && !orc.hiredNPCInfo.isActive && orc.ridingEntity == null && orc.canOrcSkirmish();
 		}
 		return false;
 	}

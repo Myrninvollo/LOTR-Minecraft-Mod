@@ -3,12 +3,9 @@ package lotr.client.render.entity;
 import java.util.List;
 
 import lotr.client.model.LOTRModelOrc;
-import lotr.common.LOTRMod;
-import lotr.common.LOTRShields;
 import lotr.common.entity.npc.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -46,10 +43,15 @@ public class LOTRRenderOrc extends LOTRRenderBiped
 	@Override
 	protected void preRenderCallback(EntityLivingBase entity, float f)
 	{
-		if (!((LOTREntityOrc)entity).isWeakOrc)
+		LOTREntityOrc orc = (LOTREntityOrc)entity;
+		if (orc.isWeakOrc)
 		{
-			return;
+			GL11.glScalef(0.85F, 0.85F, 0.85F);
 		}
-		GL11.glScalef(0.85F, 0.85F, 0.85F);
+		else if (orc instanceof LOTREntityUrukHaiBerserker)
+		{
+			float scale = LOTREntityUrukHaiBerserker.BERSERKER_SCALE;
+			GL11.glScalef(scale, scale, scale);
+		}
 	}
 }

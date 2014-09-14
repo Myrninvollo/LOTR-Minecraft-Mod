@@ -29,7 +29,7 @@ public class LOTRBiomeGenBreeland extends LOTRBiome
 		
 		decorator.flowersPerChunk = 2;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 1;
 		decorator.generateAthelas = true;
 		

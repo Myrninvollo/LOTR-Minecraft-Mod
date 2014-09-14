@@ -8,8 +8,10 @@ import lotr.common.block.LOTRBlockCraftingTable;
 import lotr.common.block.LOTRBlockPortal;
 import lotr.common.entity.item.LOTREntityPortal;
 import lotr.common.entity.npc.*;
+import lotr.common.item.LOTRItemSpear;
 import lotr.common.item.LOTRItemStructureSpawner;
 import lotr.common.world.*;
+import lotr.common.world.LOTRChunkProviderUtumno.UtumnoLevel;
 import lotr.common.world.biome.LOTRBiome;
 import lotr.common.world.biome.LOTRBiomeGenMistyMountains;
 import net.minecraft.block.Block;
@@ -110,7 +112,7 @@ public class LOTRTickHandlerServer
 			LOTRTime.update(world);
 		}
 		
-		if (world == DimensionManager.getWorld(LOTRMod.idDimension))
+		if (world == DimensionManager.getWorld(LOTRDimension.MIDDLE_EARTH.dimensionID))
 		{
 			if (world.getWorldInfo().getClass() != LOTRDerivedWorldInfo.class)
 			{
@@ -228,8 +230,16 @@ public class LOTRTickHandlerServer
 				}
 			}
 		}
+		
+		if (world == DimensionManager.getWorld(LOTRDimension.UTUMNO.dimensionID))
+		{
+			if (!world.playerEntities.isEmpty() && world.getGameRules().getGameRuleBooleanValue("doMobSpawning"))
+			{
+				LOTRSpawnerNPCs.performSpawning(world);
+			}
+		}
 	}
-	
+
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event)
 	{
@@ -264,7 +274,7 @@ public class LOTRTickHandlerServer
 				}
 			}
 			
-			if (entityplayer.dimension == LOTRMod.idDimension)
+			if (entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID)
 			{
 				if (!LOTRLevelData.getData(entityplayer).getCheckedMenu())
 				{
@@ -295,7 +305,7 @@ public class LOTRTickHandlerServer
 				}
 			}
 			
-			if ((entityplayer.dimension == 0 || entityplayer.dimension == LOTRMod.idDimension))
+			if ((entityplayer.dimension == 0 || entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID))
 			{
 				List items = world.getEntitiesWithinAABB(EntityItem.class, entityplayer.boundingBox.expand(16D, 16D, 16D));
 				for (Object obj : items)
@@ -377,7 +387,7 @@ public class LOTRTickHandlerServer
 				}
 			}
 			
-			if ((entityplayer.dimension == 0 || entityplayer.dimension == LOTRMod.idDimension) && playersInPortals.containsKey(entityplayer))
+			if ((entityplayer.dimension == 0 || entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID) && playersInPortals.containsKey(entityplayer))
 			{
 				List portals = world.getEntitiesWithinAABB(LOTREntityPortal.class, entityplayer.boundingBox.expand(8D, 8D, 8D));
 				boolean inPortal = false;
@@ -400,9 +410,9 @@ public class LOTRTickHandlerServer
 						int dimension = 0;
 						if (entityplayer.dimension == 0)
 						{
-							dimension = LOTRMod.idDimension;
+							dimension = LOTRDimension.MIDDLE_EARTH.dimensionID;
 						}
-						else if (entityplayer.dimension == LOTRMod.idDimension)
+						else if (entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID)
 						{
 							dimension = 0;
 						}
@@ -421,12 +431,20 @@ public class LOTRTickHandlerServer
 			
 			updatePlayerInPortal(entityplayer, playersInElvenPortals, ((LOTRBlockPortal)LOTRMod.elvenPortal));
 			updatePlayerInPortal(entityplayer, playersInMorgulPortals, ((LOTRBlockPortal)LOTRMod.morgulPortal));
+			
+			if (entityplayer.dimension == LOTRDimension.UTUMNO.dimensionID)
+			{
+				if (world.rand.nextInt(200) == 0)
+				{
+					world.playSoundEffect(entityplayer.posX, entityplayer.posY, entityplayer.posZ, "ambient.cave.cave", 2F, 0.8F + world.rand.nextFloat() * 0.2F);
+				}
+			}
 		}
 	}
 	
 	private void updatePlayerInPortal(EntityPlayerMP entityplayer, HashMap players, LOTRBlockPortal portalBlock)
 	{
-		if ((entityplayer.dimension == 0 || entityplayer.dimension == LOTRMod.idDimension) && players.containsKey(entityplayer))
+		if ((entityplayer.dimension == 0 || entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID) && players.containsKey(entityplayer))
 		{
 			boolean inPortal = entityplayer.worldObj.getBlock(MathHelper.floor_double(entityplayer.posX), MathHelper.floor_double(entityplayer.boundingBox.minY), MathHelper.floor_double(entityplayer.posZ)) == portalBlock;
 			if (inPortal)
@@ -439,9 +457,9 @@ public class LOTRTickHandlerServer
 					int dimension = 0;
 					if (entityplayer.dimension == 0)
 					{
-						dimension = LOTRMod.idDimension;
+						dimension = LOTRDimension.MIDDLE_EARTH.dimensionID;
 					}
-					else if (entityplayer.dimension == LOTRMod.idDimension)
+					else if (entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID)
 					{
 						dimension = 0;
 					}
@@ -480,9 +498,26 @@ public class LOTRTickHandlerServer
 			}
 		}
 		
-		if (entityplayer.dimension == LOTRMod.idDimension)
+		if (entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID)
 		{
 			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.enterMiddleEarth);
+		}
+		
+		if (entityplayer.dimension == LOTRDimension.UTUMNO.dimensionID)
+		{
+			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.enterUtumnoIce);
+			
+			int y = MathHelper.floor_double(entityplayer.boundingBox.minY);
+			UtumnoLevel level = UtumnoLevel.forY(y);
+			
+			if (level == UtumnoLevel.OBSIDIAN)
+			{
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.enterUtumnoObsidian);
+			}
+			else if (level == UtumnoLevel.FIRE)
+			{
+				LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.enterUtumnoFire);
+			}
 		}
 		
 		if (entityplayer.inventory.hasItem(LOTRMod.pouch))

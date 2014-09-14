@@ -111,7 +111,6 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			NBTTagCompound nbt = new PacketBuffer(data).readNBTTagCompoundFromBuffer();
 			LOTRLevelData.getData(entityplayer).load(nbt);
 			
-			LOTRTickHandlerClient.currentAlignmentFaction = LOTRLevelData.getData(entityplayer).getViewingFaction();
 			LOTRGuiMap.WaypointMode.setWaypointMode(LOTRLevelData.getData(entityplayer).getWaypointToggleMode());
 		}
 		

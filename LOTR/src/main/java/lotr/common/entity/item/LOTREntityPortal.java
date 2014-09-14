@@ -2,6 +2,7 @@ package lotr.common.entity.item;
 
 import java.util.List;
 
+import lotr.common.LOTRDimension;
 import lotr.common.LOTRMod;
 import lotr.common.world.LOTRTeleporter;
 import net.minecraft.entity.Entity;
@@ -70,7 +71,7 @@ public class LOTREntityPortal extends Entity
 			prevPortalRotation += 360F;
 		}
 			
-		if (!worldObj.isRemote && dimension != 0 && dimension != LOTRMod.idDimension)
+		if (!worldObj.isRemote && dimension != 0 && dimension != LOTRDimension.MIDDLE_EARTH.dimensionID)
 		{
 			setDead();
 		}
@@ -163,9 +164,9 @@ public class LOTREntityPortal extends Entity
 			int dimension = 0;
 			if (entity.dimension == 0)
 			{
-				dimension = LOTRMod.idDimension;
+				dimension = LOTRDimension.MIDDLE_EARTH.dimensionID;
 			}
-			else if (entity.dimension == LOTRMod.idDimension)
+			else if (entity.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID)
 			{
 				dimension = 0;
 			}

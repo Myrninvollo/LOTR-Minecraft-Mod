@@ -9,7 +9,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class LOTRItemBone extends Item
 {
-	private static List<Item> boneItems = new ArrayList<Item>();
+	private static List<Item> boneItems = new ArrayList();
 	
 	public LOTRItemBone()
 	{

@@ -42,10 +42,10 @@ public class LOTRBiomeGenNearHaradFertile extends LOTRBiome
 		
 		decorator.flowersPerChunk = 1;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 2;
 		
-		registerPlainsFlowers();
+		registerHaradFlowers();
 		
 		decorator.addRandomStructure(new LOTRWorldGenHaradObelisk(false), 3000);
 		decorator.addRandomStructure(new LOTRWorldGenNearHaradVillage(false), 40);

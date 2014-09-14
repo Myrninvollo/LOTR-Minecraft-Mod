@@ -32,7 +32,7 @@ public class LOTRBiomeGenDolGuldur extends LOTRBiomeGenMirkwood
 		decorator.treesPerChunk = 1;
 		decorator.vinesPerChunk = 2;
 		decorator.flowersPerChunk = 0;
-		decorator.grassPerChunk = 3;
+		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 1;
 		
 		biomeColors.setGrass(0x2E4431);

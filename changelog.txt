@@ -1,3 +1,39 @@
+Public Beta 21
+
++ Added the realm of Utumno
++ Added Utumno achievements and the Utumno faction
++ Added Utumno bricks
++ Added Utumno Orcs and Wargs
++ Added many new mini-quests
++ Added new Harad biomes: Near Harad Semidesert, and Far Harad Arid Savannah, Cloud Forest, Swampland, Mangrove, and Bushland
++ Added mangrove trees and wood
++ Added several new tall grass types
++ Added clover to all biomes
++ Added new Harad flowers
++ Added termite mounds and exploding termites
++ Added dik-diks
++ Added flax
++ Added berry bushes and several types of berries
++ Added Uruk-hai Berserkers and renamed the old Berserkers to Sappers
++ Added more variance in tree generation for some plains biomes
++ Added Rohan, Gondor, Mordor, and Near Harad pillars and pillar slabs
+
+* Changed the Near Harad armour recipes to use bronze
+* The Forodwaith biome now extends south around the Bay of Forochel
+* Changed Blue Mountains houses to have Sarlluin exteriors instead of dirt and stone
+* Blue Mountains mines can now spawn upon Sarlluin, and therefore higher up and more commonly
+* Fixed white water in ent jars
+* Ent jars containing brewed draughts now produce particle effects
+* Fixed Rohirrim being angered when non-horse mounts are killed in Rohan
+* Drunkards no longer give mini-quests
+
+Public Beta 20.2
+
++ Added more realistic rain and splash particle textures
++ Added the configuration option for a sepia-toned Middle-earth map 
+
+* Fixed the Middle-earth respawning
+
 Public Beta 20.1
 
 + Added icons to the Middle-earth map which display the location of miniquest-givers

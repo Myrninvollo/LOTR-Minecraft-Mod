@@ -26,7 +26,7 @@ public class LOTRBiomeGenNurn extends LOTRBiomeGenMordor
 		enableRain = true;
 
 		decorator.flowersPerChunk = 0;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.generateWater = true;
 		
 		decorator.clearRandomStructures();

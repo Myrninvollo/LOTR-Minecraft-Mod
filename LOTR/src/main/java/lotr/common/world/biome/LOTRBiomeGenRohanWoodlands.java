@@ -20,7 +20,7 @@ public class LOTRBiomeGenRohanWoodlands extends LOTRBiomeGenRohan
 		decorator.treesPerChunk = 5;
 		decorator.flowersPerChunk = 3;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 5;
+		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 3;
 		
 		registerForestFlowers();

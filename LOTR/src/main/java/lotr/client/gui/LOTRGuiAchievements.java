@@ -1,12 +1,9 @@
 package lotr.client.gui;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.*;
 
-import lotr.common.LOTRAchievement;
+import lotr.common.*;
 import lotr.common.LOTRAchievement.Category;
-import lotr.common.LOTRLevelData;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
@@ -21,14 +18,19 @@ public class LOTRGuiAchievements extends LOTRGui
 	private static ResourceLocation pageTexture = new ResourceLocation("lotr:gui/achievements/page.png");
 	private static ResourceLocation iconsTexture = new ResourceLocation("lotr:gui/achievements/icons.png");
 
+	private static LOTRDimension currentDimension;
+	private static LOTRDimension prevDimension;
+	
+	private static Category currentCategory;
 	private static int currentCategoryIndex = 0;
-	private Category currentCategory = Category.values()[currentCategoryIndex];
 	private ArrayList currentCategoryTakenAchievements = new ArrayList();
 	private ArrayList currentCategoryUntakenAchievements = new ArrayList();
 	private int currentCategoryTakenCount;
 	private int currentCategoryUntakenCount;
+	
 	private int totalTakenCount;
 	private int totalAvailableCount;
+	
     private float currentScroll = 0F;
     private boolean isScrolling = false;
 	private boolean wasMouseDown;
@@ -46,8 +48,15 @@ public class LOTRGuiAchievements extends LOTRGui
     public void updateScreen()
     {
         super.updateScreen();
-		
-		currentCategory = Category.values()[currentCategoryIndex];
+        
+        currentDimension = LOTRDimension.getCurrentDimension(mc.theWorld);
+        if (currentDimension != prevDimension)
+        {
+        	currentCategoryIndex = 0;
+        }
+        prevDimension = currentDimension;
+        
+		currentCategory = currentDimension.achievementCategories.get(currentCategoryIndex);
 		updateAchievementLists();
     }
 	
@@ -91,13 +100,13 @@ public class LOTRGuiAchievements extends LOTRGui
 		GL11.glColor4f(1F, 1F, 1F, 1F);
         mc.getTextureManager().bindTexture(pageTexture);
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-        String s = StatCollector.translateToLocal("lotr.gui.achievements.title");
-		s = s + ": (" + totalTakenCount + "/" + totalAvailableCount + ")";
-		fontRendererObj.drawString(s, guiLeft + xSize / 2 - fontRendererObj.getStringWidth(s) / 2, guiTop - 30, 0xFFFFFF);
+        
+        String title = StatCollector.translateToLocalFormatted("lotr.gui.achievements.title", new Object[] {currentDimension.getDimensionName(), totalTakenCount, totalAvailableCount});
+		drawCenteredString(title, guiLeft + xSize / 2, guiTop - 30, 0xFFFFFF);
 		
 		String categoryName = currentCategory.getDisplayName();
-		categoryName = categoryName + " (" + currentCategoryTakenCount + "/" + (currentCategoryTakenCount + currentCategoryUntakenCount) + ")";
-		fontRendererObj.drawString(categoryName, guiLeft + xSize / 2 - fontRendererObj.getStringWidth(categoryName) / 2, guiTop + 18, 0x7A5D43);
+		categoryName = StatCollector.translateToLocalFormatted("lotr.gui.achievements.category", new Object[] {categoryName, currentCategoryTakenCount, (currentCategoryTakenCount + currentCategoryUntakenCount)});
+		drawCenteredString(categoryName, guiLeft + xSize / 2, guiTop + 18, 0x7A5D43);
 
 		super.drawScreen(i, j, f);
 		
@@ -191,11 +200,13 @@ public class LOTRGuiAchievements extends LOTRGui
     {
         if (button.enabled)
         {
+        	List<Category> categories = currentDimension.achievementCategories;
+        	
 			if (button.id == 2)
 			{
 				if (currentCategoryIndex == 0)
 				{
-					currentCategoryIndex = Category.values().length - 1;
+					currentCategoryIndex = categories.size() - 1;
 				}
 				else
 				{
@@ -206,7 +217,7 @@ public class LOTRGuiAchievements extends LOTRGui
 			
 			else if (button.id == 3)
 			{
-				if (currentCategoryIndex == Category.values().length - 1)
+				if (currentCategoryIndex == categories.size() - 1)
 				{
 					currentCategoryIndex = 0;
 				}
@@ -267,10 +278,11 @@ public class LOTRGuiAchievements extends LOTRGui
 	{
 		currentCategoryTakenAchievements.clear();
 		currentCategoryUntakenAchievements.clear();
-		Iterator i = currentCategory.list.iterator();
-		while (i.hasNext())
+		
+		Iterator<LOTRAchievement> it = currentCategory.list.iterator();
+		while (it.hasNext())
 		{
-			LOTRAchievement achievement = (LOTRAchievement)i.next();
+			LOTRAchievement achievement = it.next();
 			if (achievement.canPlayerEarn(mc.thePlayer))
 			{
 				if (LOTRLevelData.getData(mc.thePlayer).hasAchievement(achievement))
@@ -286,13 +298,13 @@ public class LOTRGuiAchievements extends LOTRGui
 		currentCategoryTakenCount = currentCategoryTakenAchievements.size();
 		currentCategoryUntakenCount = currentCategoryUntakenAchievements.size();
 		
-		totalTakenCount = LOTRLevelData.getData(mc.thePlayer).getEarnedAchievements().size();
+		totalTakenCount = LOTRLevelData.getData(mc.thePlayer).getEarnedAchievements(currentDimension).size();
 		
 		totalAvailableCount = 0;
-		i = LOTRAchievement.allAchievements.iterator();
-		while (i.hasNext())
+		it = currentDimension.allAchievements.iterator();
+		while (it.hasNext())
 		{
-			LOTRAchievement achievement = (LOTRAchievement)i.next();
+			LOTRAchievement achievement = it.next();
 			if (achievement.canPlayerEarn(mc.thePlayer))
 			{
 				totalAvailableCount++;

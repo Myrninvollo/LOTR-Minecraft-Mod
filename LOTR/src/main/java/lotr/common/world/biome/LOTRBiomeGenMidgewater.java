@@ -36,7 +36,7 @@ public class LOTRBiomeGenMidgewater extends LOTRBiome
 		decorator.treesPerChunk = 1;
 		decorator.logsPerChunk = 3;
 		decorator.flowersPerChunk = 0;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 4;
 		decorator.enableFern = true;
 		decorator.mushroomsPerChunk = 3;

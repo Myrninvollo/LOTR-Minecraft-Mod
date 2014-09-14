@@ -1,6 +1,7 @@
 package lotr.common.entity.npc;
 
 import lotr.common.LOTRFoods;
+import lotr.common.quest.LOTRMiniQuest;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.player.EntityPlayer;
@@ -51,6 +52,12 @@ public class LOTREntityDunlendingDrunkard extends LOTREntityDunlending
 	public String getSpeechBank(EntityPlayer entityplayer)
 	{
 		return "dunlendingDrunkard";
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return null;
 	}
 	
 	@Override

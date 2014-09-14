@@ -24,7 +24,7 @@ public class LOTRBiomeGenWilderlandForest extends LOTRBiomeGenWilderland
 		decorator.treesPerChunk = 10;
 		decorator.flowersPerChunk = 4;
 		decorator.doubleFlowersPerChunk = 2;
-		decorator.grassPerChunk = 6;
+		decorator.grassPerChunk = 12;
 		decorator.doubleGrassPerChunk = 5;
 		
 		registerForestFlowers();

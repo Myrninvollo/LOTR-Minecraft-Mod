@@ -44,7 +44,7 @@ public class LOTRBiomeGenEmynMuil extends LOTRBiome
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityMordorOrcBombardier.class, 3, 1, 2));
 		
 		decorator.flowersPerChunk = 1;
-		decorator.grassPerChunk = 5;
+		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 2;
 		
 		registerMountainsFlowers();

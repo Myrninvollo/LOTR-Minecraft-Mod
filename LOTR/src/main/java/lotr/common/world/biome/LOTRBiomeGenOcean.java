@@ -39,7 +39,7 @@ public class LOTRBiomeGenOcean extends LOTRBiome
 		decorator.treesPerChunk = 1;
 		decorator.flowersPerChunk = 2;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 1;
 		
 		decorator.addRandomStructure(new LOTRWorldGenNumenorRuin(false), 500);

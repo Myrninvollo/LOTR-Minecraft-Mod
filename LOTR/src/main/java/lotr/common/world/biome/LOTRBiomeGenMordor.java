@@ -2,10 +2,7 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRMod;
-import lotr.common.LOTRWaypoint;
+import lotr.common.*;
 import lotr.common.entity.npc.LOTREntityMordorOrc;
 import lotr.common.entity.npc.LOTREntityMordorOrcArcher;
 import lotr.common.entity.npc.LOTREntityMordorOrcBombardier;
@@ -14,9 +11,7 @@ import lotr.common.entity.npc.LOTREntityOlogHai;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.LOTRInvasionSpawner;
 import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
-import lotr.common.world.feature.LOTRWorldGenBoulder;
-import lotr.common.world.feature.LOTRWorldGenCharredTrees;
-import lotr.common.world.feature.LOTRWorldGenMordorMoss;
+import lotr.common.world.feature.*;
 import lotr.common.world.structure.LOTRWorldGenMordorCamp;
 import lotr.common.world.structure.LOTRWorldGenMordorTower;
 import lotr.common.world.structure.LOTRWorldGenMordorWargPit;
@@ -155,6 +150,14 @@ public class LOTRBiomeGenMordor extends LOTRBiome
 					new LOTRWorldGenMordorMoss().generate(world, random, i1, j1, k1);
 				}
 			}
+		}
+		
+		if (LOTRStructureLocations.MORDOR_CHERRY_TREE.isAt(i, k))
+		{
+			int i1 = i + 8;
+			int k1 = k + 8;
+			int j1 = world.getHeightValue(i1, k1);
+			LOTRWorldGenHugeTrees.newCherry().disableRestrictions().generate(world, random, i1, j1, k1);
 		}
     }
 

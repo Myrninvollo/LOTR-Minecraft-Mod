@@ -8,7 +8,7 @@ public class LOTRBiomeGenGondorHills extends LOTRBiomeGenGondor
 		
 		decorator.treesPerChunk = 1;
 		decorator.flowersPerChunk = 2;
-		decorator.grassPerChunk = 3;
+		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 1;
 	}
 	

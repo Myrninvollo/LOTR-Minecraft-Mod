@@ -14,7 +14,7 @@ public class LOTRBiomeGenMinhiriathWasteland extends LOTRBiomeGenMinhiriath
 	{
 		super(i);
 
-		decorator.grassPerChunk = 1;
+		decorator.grassPerChunk = 2;
 		decorator.doubleGrassPerChunk = 0;
 		decorator.flowersPerChunk = 0;
 		

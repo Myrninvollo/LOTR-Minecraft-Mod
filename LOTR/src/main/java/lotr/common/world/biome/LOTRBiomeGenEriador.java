@@ -34,7 +34,8 @@ public class LOTRBiomeGenEriador extends LOTRBiome
 		
 		setGoodEvilWeight(20, 80);
 		
-		decorator.grassPerChunk = 3;
+		decorator.setTreeCluster(8, 20);
+		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 4;
 		decorator.generateAthelas = true;
 		

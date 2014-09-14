@@ -2,10 +2,10 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRWaypoint;
+import lotr.common.*;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenBoulder;
+import lotr.common.world.mapstructure.LOTRWorldGenUtumnoEntrance;
 import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import lotr.common.world.structure2.LOTRWorldGenRuinedHouse;
 import net.minecraft.init.Blocks;
@@ -41,6 +41,7 @@ public class LOTRBiomeGenForodwaith extends LOTRBiome
 		decorator.generateWater = false;
 		
 		biomeColors.setSky(0x99A4A8);
+		biomeColors.setWater(0x093363);
 		
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 4000);
 		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 5), 4000);
@@ -70,6 +71,11 @@ public class LOTRBiomeGenForodwaith extends LOTRBiome
     public void decorate(World world, Random random, int i, int k)
     {
         super.decorate(world, random, i, k);
+        
+		if (LOTRStructureLocations.UTUMNO_ENTRANCE.isAt(i, k))
+		{
+			new LOTRWorldGenUtumnoEntrance().generate(world, random, i, world.getHeightValue(i, k), k);
+		}
 		
 		if (random.nextInt(32) == 0)
 		{

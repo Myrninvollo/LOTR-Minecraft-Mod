@@ -3,10 +3,7 @@ package lotr.common.block;
 import java.util.List;
 import java.util.Random;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -125,9 +122,9 @@ public abstract class LOTRBlockPortal extends BlockContainer
 			int dimension = 0;
 			if (entity.dimension == 0)
 			{
-				dimension = LOTRMod.idDimension;
+				dimension = LOTRDimension.MIDDLE_EARTH.dimensionID;
 			}
-			else if (entity.dimension == LOTRMod.idDimension)
+			else if (entity.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID)
 			{
 				dimension = 0;
 			}
@@ -173,7 +170,7 @@ public abstract class LOTRBlockPortal extends BlockContainer
     @Override
     public void onBlockAdded(World world, int i, int j, int k)
     {
-		if (world.provider.dimensionId != 0 && world.provider.dimensionId != LOTRMod.idDimension)
+		if (world.provider.dimensionId != 0 && world.provider.dimensionId != LOTRDimension.MIDDLE_EARTH.dimensionID)
 		{
 			world.setBlockToAir(i, j, k);
 		}

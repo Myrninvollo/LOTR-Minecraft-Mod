@@ -45,7 +45,7 @@ public class LOTRBiomeGenColdfells extends LOTRBiome
 		decorator.treesPerChunk = 2;
 		decorator.flowersPerChunk = 2;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 3;
+		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 2;
 		decorator.generateAthelas = true;
 		

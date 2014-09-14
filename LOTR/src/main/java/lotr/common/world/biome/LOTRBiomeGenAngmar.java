@@ -57,7 +57,7 @@ public class LOTRBiomeGenAngmar extends LOTRBiome
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityAngmarWarg.class, 30, 4, 4));
 		
 		decorator.flowersPerChunk = 0;
-		decorator.grassPerChunk = 2;
+		decorator.grassPerChunk = 4;
 		decorator.doubleGrassPerChunk = 1;
 		
 		biomeColors.setGrass(0x787C57);

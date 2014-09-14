@@ -61,13 +61,17 @@ public class LOTRBiomeDecorator
 	public boolean enableFern = false;
     public int deadBushPerChunk = 0;
 	public int waterlilyPerChunk = 0;
-    public int mushroomsPerChunk = 0;
+	public int mushroomsPerChunk = 0;
+    public boolean enableRandomMushroom = true;
     public int reedsPerChunk = 0;
     public int cactiPerChunk = 0;
     public boolean generateWater = true;
 	public boolean generateLava = true;
 	public boolean generateCobwebs = true;
 	public boolean generateAthelas = false;
+	
+	private int treeClusterSize;
+	private int treeClusterChance = -1;
 	
 	private WorldGenerator orcDungeonGen = new LOTRWorldGenOrcDungeon(false);
 	private WorldGenerator trollHoardGen = new LOTRWorldGenTrollHoard();
@@ -79,6 +83,17 @@ public class LOTRBiomeDecorator
     public LOTRBiomeDecorator(LOTRBiome lotrbiome)
     {
         biome = lotrbiome;
+    }
+    
+    public void setTreeCluster(int size, int chance)
+    {
+    	treeClusterSize = size;
+    	treeClusterChance = chance;
+    }
+    
+    public void clearTreeCluster()
+    {
+    	setTreeCluster(0, -1);
     }
 	
 	public void addRandomStructure(WorldGenerator structure, int chunkChance)
@@ -168,6 +183,18 @@ public class LOTRBiomeDecorator
         if (rand.nextFloat() < biome.getTreeIncreaseChance())
         {
             trees++;
+        }
+        
+        if (treeClusterChance > 0)
+        {
+            Random chunkRand = new Random();
+            long seed = (long)((chunkX / treeClusterSize) * 3129871) ^ (long)(chunkZ / treeClusterSize) * 116129781L;
+            seed = seed * seed * 42317861L + seed * 11L;
+            chunkRand.setSeed(seed);
+            if (chunkRand.nextInt(treeClusterChance) == 0)
+            {
+            	trees += 6 + rand.nextInt(5);
+            }
         }
 
         for (int l = 0; l < trees; l++)
@@ -281,20 +308,23 @@ public class LOTRBiomeDecorator
             }
         }
 
-        if (rand.nextInt(4) == 0)
+        if (enableRandomMushroom)
         {
-            int i = chunkX + rand.nextInt(16) + 8;
-            int j = rand.nextInt(128);
-            int k = chunkZ + rand.nextInt(16) + 8;
-            mushroomBrownGen.generate(worldObj, rand, i, j, k);
-        }
-
-        if (rand.nextInt(8) == 0)
-        {
-            int i = chunkX + rand.nextInt(16) + 8;
-            int j = rand.nextInt(128);
-            int k = chunkZ + rand.nextInt(16) + 8;
-            mushroomRedGen.generate(worldObj, rand, i, j, k);
+	        if (rand.nextInt(4) == 0)
+	        {
+	            int i = chunkX + rand.nextInt(16) + 8;
+	            int j = rand.nextInt(128);
+	            int k = chunkZ + rand.nextInt(16) + 8;
+	            mushroomBrownGen.generate(worldObj, rand, i, j, k);
+	        }
+	
+	        if (rand.nextInt(8) == 0)
+	        {
+	            int i = chunkX + rand.nextInt(16) + 8;
+	            int j = rand.nextInt(128);
+	            int k = chunkZ + rand.nextInt(16) + 8;
+	            mushroomRedGen.generate(worldObj, rand, i, j, k);
+	        }
         }
 
         for (int l = 0; l < reedsPerChunk; l++)

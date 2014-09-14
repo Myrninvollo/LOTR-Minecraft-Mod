@@ -46,7 +46,7 @@ public class LOTRBiomeGenFangorn extends LOTRBiome
 		decorator.logsPerChunk = 5;
 		decorator.flowersPerChunk = 6;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 6;
+		decorator.grassPerChunk = 12;
 		decorator.doubleGrassPerChunk = 6;
 		decorator.enableFern = true;
 		

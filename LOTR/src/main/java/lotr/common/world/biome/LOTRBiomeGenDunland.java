@@ -47,7 +47,7 @@ public class LOTRBiomeGenDunland extends LOTRBiome
 		spawnableLOTRAmbientList.add(new SpawnListEntry(LOTREntityCrebain.class, 10, 4, 4));
 		
 		decorator.treesPerChunk = 0;
-        decorator.grassPerChunk = 3;
+        decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 1;
 		
 		registerForestFlowers();

@@ -11,7 +11,7 @@ public class LOTRBlockSlabThatch extends LOTRBlockSlabBase
 {
     public LOTRBlockSlabThatch(boolean flag)
     {
-        super(flag, Material.grass, 0);
+        super(flag, Material.grass, 1);
     }
 	
 	@Override

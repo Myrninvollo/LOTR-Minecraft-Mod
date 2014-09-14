@@ -9,7 +9,7 @@ public class LOTRBiomeGenIthilienHills extends LOTRBiomeGenIthilien
 		decorator.treesPerChunk = 0;
 		decorator.logsPerChunk = 0;
         decorator.flowersPerChunk = 2;
-        decorator.grassPerChunk = 4;
+        decorator.grassPerChunk = 8;
 	}
 
 	@Override

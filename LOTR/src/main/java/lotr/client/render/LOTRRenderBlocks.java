@@ -84,6 +84,11 @@ public class LOTRRenderBlocks implements ISimpleBlockRenderingHandler
 		{
 			return renderblocks.renderBlockFence((BlockFence)block, i, j, k);
 		}
+		if (id == LOTRMod.proxy.getGrassRenderID())
+		{
+			renderGrass(world, i, j, k, block, renderblocks, true);
+			return true;
+		}
 		
 		return false;
 	}
@@ -437,6 +442,10 @@ public class LOTRRenderBlocks implements ISimpleBlockRenderingHandler
 		{
 			renderClover(world, i, j, k, plantBlock, renderblocks, plant.getItemDamage() == 1 ? 4 : 3, false);
 		}
+		else if (plantBlock instanceof LOTRBlockGrass)
+		{
+			renderGrass(world, i, j, k, plantBlock, renderblocks, false);
+		}
 		else if (plantBlock instanceof LOTRBlockFlower)
 		{
 			renderblocks.drawCrossedSquares(plantBlock.getIcon(2, plant.getItemDamage()), (double)i, (double)j, (double)k, 0.75F);
@@ -707,6 +716,51 @@ public class LOTRRenderBlocks implements ISimpleBlockRenderingHandler
 		}
 
 		renderblocks.setRenderBounds(0D, 0D, 0D, 1D, 1D, 1D);
+	}
+	
+	private static void renderGrass(IBlockAccess world, int i, int j, int k, Block block, RenderBlocks renderblocks, boolean randomTranslation)
+    {
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.setBrightness(block.getMixedBrightnessForBlock(world, i, j, k));
+		
+		int meta = world.getBlockMetadata(i, j, k);
+        int l = block.colorMultiplier(world, i, j, k);
+		float f = 1F;
+        float f1 = (float)(l >> 16 & 255) / 255F;
+        float f2 = (float)(l >> 8 & 255) / 255F;
+        float f3 = (float)(l & 255) / 255F;
+        if (EntityRenderer.anaglyphEnable)
+        {
+            float f4 = (f1 * 30F + f2 * 59F + f3 * 11F) / 100F;
+            float f5 = (f1 * 30F + f2 * 70F) / 100F;
+            float f6 = (f1 * 30F + f3 * 70F) / 100F;
+            f1 = f4;
+            f2 = f5;
+            f3 = f6;
+        }
+        tessellator.setColorOpaque_F(f * f1, f * f2, f * f3);
+
+		double posX = (double)i;
+		double posY = (double)j;
+		double posZ = (double)k;
+		if (randomTranslation)
+		{
+            long seed = (long)(i * 3129871) ^ (long)k * 116129781L ^ (long)j;
+            seed = seed * seed * 42317861L + seed * 11L;
+            posX += (((float)(seed >> 16 & 15L) / 15.0F) - 0.5D) * 0.5D;
+            posY += (((float)(seed >> 20 & 15L) / 15.0F) - 1D) * 0.2D;
+            posZ += (((float)(seed >> 24 & 15L) / 15.0F) - 0.5D) * 0.5D;
+		}
+		
+		renderblocks.drawCrossedSquares(block.getIcon(2, meta), posX, posY, posZ, 1F);
+		renderblocks.clearOverrideBlockTexture();
+		
+		if (block == LOTRMod.tallGrass && LOTRBlockTallGrass.grassOverlay[meta])
+		{
+			tessellator.setColorOpaque_F(1F, 1F, 1F);
+			renderblocks.drawCrossedSquares(block.getIcon(-1, meta), posX, posY, posZ, 1F);
+			renderblocks.clearOverrideBlockTexture();
+		}
 	}
 	
 	private static void renderStandardInvBlock(RenderBlocks renderblocks, Block block, float f, float f1, float f2, float f3, float f4, float f5)

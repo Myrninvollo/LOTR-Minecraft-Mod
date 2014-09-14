@@ -29,7 +29,7 @@ public class LOTRBiomeGenOldForest extends LOTRBiome
 		hasPodzol = true;
 		decorator.treesPerChunk = 16;
 		decorator.flowersPerChunk = 1;
-		decorator.grassPerChunk = 6;
+		decorator.grassPerChunk = 12;
 		decorator.doubleGrassPerChunk = 5;
 		decorator.enableFern = true;
 		decorator.mushroomsPerChunk = 2;

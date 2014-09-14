@@ -51,8 +51,9 @@ public class LOTRBiomeGenGondor extends LOTRBiome
 		
 		setGoodEvilWeight(70, 30);
 		
+		decorator.setTreeCluster(10, 30);
 		decorator.flowersPerChunk = 1;
-        decorator.grassPerChunk = 4;
+        decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 1;
 		decorator.generateAthelas = true;
 		

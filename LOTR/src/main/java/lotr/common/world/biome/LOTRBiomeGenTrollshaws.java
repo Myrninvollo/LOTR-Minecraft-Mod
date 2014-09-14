@@ -50,7 +50,7 @@ public class LOTRBiomeGenTrollshaws extends LOTRBiome
 		decorator.treesPerChunk = 1;
 		decorator.flowersPerChunk = 3;
 		decorator.doubleFlowersPerChunk = 2;
-        decorator.grassPerChunk = 3;
+        decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 2;
 		decorator.generateAthelas = true;
 		

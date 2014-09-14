@@ -42,7 +42,7 @@ public class LOTRBiomeGenNindalf extends LOTRBiome
 		decorator.treesPerChunk = 1;
 		decorator.logsPerChunk = 2;
 		decorator.flowersPerChunk = 0;
-		decorator.grassPerChunk = 6;
+		decorator.grassPerChunk = 12;
 		decorator.doubleGrassPerChunk = 6;
 		decorator.enableFern = true;
 		decorator.reedsPerChunk = 10;

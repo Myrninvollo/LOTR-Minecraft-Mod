@@ -99,19 +99,19 @@ public enum LOTRShields
 		}
 		if (this == ACHIEVEMENT_BRONZE)
 		{
-			return LOTRLevelData.getData(entityplayer).getEarnedAchievements().size() >= 25;
+			return LOTRLevelData.getData(entityplayer).getEarnedAchievements(LOTRDimension.MIDDLE_EARTH).size() >= 25;
 		}
 		else if (this == ACHIEVEMENT_SILVER)
 		{
-			return LOTRLevelData.getData(entityplayer).getEarnedAchievements().size() >= 50;
+			return LOTRLevelData.getData(entityplayer).getEarnedAchievements(LOTRDimension.MIDDLE_EARTH).size() >= 50;
 		}
 		else if (this == ACHIEVEMENT_GOLD)
 		{
-			return LOTRLevelData.getData(entityplayer).getEarnedAchievements().size() >= 100;
+			return LOTRLevelData.getData(entityplayer).getEarnedAchievements(LOTRDimension.MIDDLE_EARTH).size() >= 100;
 		}
 		else if (this == ACHIEVEMENT_MITHRIL)
 		{
-			return LOTRLevelData.getData(entityplayer).getEarnedAchievements().size() >= 200;
+			return LOTRLevelData.getData(entityplayer).getEarnedAchievements(LOTRDimension.MIDDLE_EARTH).size() >= 200;
 		}
 		else if (this == DEFEAT_MTC)
 		{

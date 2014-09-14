@@ -2,26 +2,13 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRMod;
-import lotr.common.LOTRWaypoint;
-import lotr.common.entity.npc.LOTREntityGundabadWarg;
-import lotr.common.entity.npc.LOTREntityUrukHai;
-import lotr.common.entity.npc.LOTREntityUrukHaiBerserker;
-import lotr.common.entity.npc.LOTREntityUrukHaiCrossbower;
-import lotr.common.entity.npc.LOTREntityUrukWarg;
+import lotr.common.*;
+import lotr.common.entity.npc.*;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.feature.LOTRWorldGenLarch;
 import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenMegaPineTree;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenTaiga1;
-import net.minecraft.world.gen.feature.WorldGenTaiga2;
-import net.minecraft.world.gen.feature.WorldGenerator;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.world.gen.feature.*;
 
 public class LOTRBiomeGenMistyMountains extends LOTRBiome
 {
@@ -36,7 +23,8 @@ public class LOTRBiomeGenMistyMountains extends LOTRBiome
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityGundabadWarg.class, 20, 4, 4));
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukHai.class, 20, 4, 6));
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukHaiCrossbower.class, 10, 4, 6));
-		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukHaiBerserker.class, 3, 1, 2));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukHaiSapper.class, 3, 1, 2));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukHaiBerserker.class, 5, 4, 6));
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukWarg.class, 20, 4, 4));
 		
 		decorator.flowersPerChunk = 0;

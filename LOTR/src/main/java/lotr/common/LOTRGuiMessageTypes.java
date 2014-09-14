@@ -17,7 +17,8 @@ import net.minecraft.util.StatCollector;
 
 public enum LOTRGuiMessageTypes
 {
-	FRIENDLY_FIRE("friendlyFire");
+	FRIENDLY_FIRE("friendlyFire"),
+	UTUMNO_WARN("utumnoWarn");
 	
 	private String message;
 	public Set playersRecievedMessage = new HashSet();

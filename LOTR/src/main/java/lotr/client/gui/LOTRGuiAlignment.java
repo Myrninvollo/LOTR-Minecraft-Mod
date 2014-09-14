@@ -1,9 +1,10 @@
 package lotr.client.gui;
 
+import java.util.List;
+
 import lotr.client.LOTRClientProxy;
 import lotr.client.LOTRTickHandlerClient;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRLevelData;
+import lotr.common.*;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Keyboard;
@@ -12,8 +13,12 @@ import org.lwjgl.opengl.GL11;
 
 public class LOTRGuiAlignment extends LOTRGui
 {
+	private static LOTRDimension currentDimension;
+	private static LOTRDimension prevDimension;
+	
 	private static int currentFactionIndex = 0;
-	private LOTRFaction currentFaction = LOTRFaction.values()[currentFactionIndex];
+	private LOTRFaction currentFaction;
+	
 	private static final int maxAlignmentsDisplayed = 5;
 	
 	@Override
@@ -21,21 +26,26 @@ public class LOTRGuiAlignment extends LOTRGui
     {
 		xSize = 220;
 		super.initGui();
-		
-		currentFactionIndex = Math.min(LOTRTickHandlerClient.currentAlignmentFaction.ordinal(), LOTRFaction.totalPlayerFactions - maxAlignmentsDisplayed);
     }
 	
 	@Override
     public void updateScreen()
     {
         super.updateScreen();
-		
+        
+        currentDimension = LOTRDimension.getCurrentDimension(mc.theWorld);
+        if (currentDimension != prevDimension)
+        {
+        	currentFactionIndex = 0;
+        }
+        prevDimension = currentDimension;
+        
         updateCurrentFaction();
     }
 	
 	private void updateCurrentFaction()
 	{
-		currentFaction = LOTRFaction.values()[currentFactionIndex];
+		currentFaction = currentDimension.factionList.get(currentFactionIndex);
 	}
 	
 	@Override
@@ -44,22 +54,23 @@ public class LOTRGuiAlignment extends LOTRGui
 		drawDefaultBackground();
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 
-		String s = StatCollector.translateToLocal("lotr.gui.alignment.title");
+		String s = StatCollector.translateToLocalFormatted("lotr.gui.alignment.title", new Object[] {currentDimension.getDimensionName()});
 		fontRendererObj.drawString(s, guiLeft + xSize / 2 - fontRendererObj.getStringWidth(s) / 2, guiTop - 30, 0xFFFFFF);
 
 		super.drawScreen(i, j, f);
 		
 		int x = guiLeft + xSize / 2;
 		int y = guiTop;
-		for (int l = currentFactionIndex; l < currentFactionIndex + maxAlignmentsDisplayed; l++)
+		
+		List<LOTRFaction> factions = currentDimension.factionList;
+		for (int index = currentFactionIndex; index < currentFactionIndex + maxAlignmentsDisplayed; index++)
 		{
-			if (l >= LOTRFaction.values().length)
+			if (index >= factions.size())
 			{
 				break;
 			}
 			
-			LOTRFaction faction = LOTRFaction.values()[l];
-			
+			LOTRFaction faction = factions.get(index);
 			if (!faction.allowPlayer)
 			{
 				continue;
@@ -151,6 +162,6 @@ public class LOTRGuiAlignment extends LOTRGui
 	
 	private void increaseFactionIndex()
 	{
-		currentFactionIndex = Math.min(currentFactionIndex + 1, LOTRFaction.totalPlayerFactions - maxAlignmentsDisplayed);
+		currentFactionIndex = Math.min(currentFactionIndex + 1, Math.max(0, currentDimension.factionList.size() - maxAlignmentsDisplayed));
 	}
 }

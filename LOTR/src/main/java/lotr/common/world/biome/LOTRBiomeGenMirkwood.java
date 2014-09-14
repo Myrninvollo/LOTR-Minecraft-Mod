@@ -50,7 +50,7 @@ public class LOTRBiomeGenMirkwood extends LOTRBiome
 			decorator.treesPerChunk = 8;
 			decorator.vinesPerChunk = 20;
 			decorator.flowersPerChunk = 0;
-			decorator.grassPerChunk = 6;
+			decorator.grassPerChunk = 12;
 			decorator.doubleGrassPerChunk = 6;
 			decorator.enableFern = true;
 			decorator.mushroomsPerChunk = 4;

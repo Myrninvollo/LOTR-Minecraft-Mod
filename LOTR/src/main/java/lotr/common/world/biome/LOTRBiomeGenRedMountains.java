@@ -29,7 +29,7 @@ public class LOTRBiomeGenRedMountains extends LOTRBiome
 
 		decorator.treesPerChunk = 1;
 		decorator.flowersPerChunk = 1;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 1;
 		
 		registerMountainsFlowers();

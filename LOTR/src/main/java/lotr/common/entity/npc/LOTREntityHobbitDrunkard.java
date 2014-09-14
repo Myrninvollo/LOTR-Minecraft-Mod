@@ -3,6 +3,8 @@ package lotr.common.entity.npc;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRFoods;
 import lotr.common.LOTRLevelData;
+import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.quest.LOTRMiniQuestFactory;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -65,6 +67,12 @@ public class LOTREntityHobbitDrunkard extends LOTREntityHobbit
 	public String getSpeechBank(EntityPlayer entityplayer)
 	{
 		return "hobbitDrunkard";
+	}
+	
+	@Override
+	public LOTRMiniQuest createMiniQuest(EntityPlayer entityplayer)
+	{
+		return null;
 	}
 	
 	@Override

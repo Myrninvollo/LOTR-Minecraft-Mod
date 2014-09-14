@@ -43,8 +43,9 @@ public class LOTRGuiMessage extends LOTRGuiScreenBase
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		String s = type.getMessage();
 		fontRendererObj.drawSplitString(s, guiLeft + border, guiTop + border, xSize - (border * 2), 0x404040);
+		
 		s = StatCollector.translateToLocal("lotr.gui.message.notDisplayedAgain");
-		fontRendererObj.drawString(s, guiLeft + border, guiTop + ySize - (border / 2) - fontRendererObj.FONT_HEIGHT, 0x6C6C6C);
+		drawCenteredString(s, guiLeft + xSize / 2, guiTop + ySize - (border / 2) - fontRendererObj.FONT_HEIGHT, 0x6C6C6C);
 		
 		if (buttonTimer > 0)
 		{

@@ -31,9 +31,10 @@ public class LOTRBiomeGenWilderland extends LOTRBiome
 		
 		spawnableCreatureList.add(new SpawnListEntry(LOTREntityHorse.class, 5, 2, 6));
 		
+		decorator.setTreeCluster(8, 20);
 		decorator.flowersPerChunk = 2;
 		decorator.doubleFlowersPerChunk = 1;
-        decorator.grassPerChunk = 7;
+        decorator.grassPerChunk = 14;
 		decorator.doubleGrassPerChunk = 8;
 		
 		registerPlainsFlowers();

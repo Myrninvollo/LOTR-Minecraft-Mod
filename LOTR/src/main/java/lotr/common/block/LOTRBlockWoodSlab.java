@@ -11,7 +11,7 @@ public class LOTRBlockWoodSlab extends LOTRBlockSlabBase
 {
     public LOTRBlockWoodSlab(boolean flag)
     {
-        super(flag, Material.wood, 7);
+        super(flag, Material.wood, 8);
     }
 	
 	@Override

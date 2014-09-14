@@ -12,16 +12,16 @@ public class LOTRBlockSapling3 extends LOTRBlockSaplingBase
     public LOTRBlockSapling3()
     {
         super();
-		setSaplingNames("maple", "larch", "datePalm");
+		setSaplingNames("maple", "larch", "datePalm", "mangrove");
     }
 	
 	@Override
     public void growTree(World world, int i, int j, int k, Random random)
     {
-        int metadata = world.getBlockMetadata(i, j, k) & 3;
+        int meta = world.getBlockMetadata(i, j, k) & 3;
         WorldGenerator treeGen = null;
 		
-		if (metadata == 0)
+		if (meta == 0)
 		{
 			if (random.nextInt(10) == 0)
 			{
@@ -32,20 +32,24 @@ public class LOTRBlockSapling3 extends LOTRBlockSaplingBase
 				treeGen = LOTRWorldGenSimpleTrees.newMaple(true);
 			}
 		}
-		else if (metadata == 1)
+		else if (meta == 1)
 		{
 			treeGen = new LOTRWorldGenLarch(true);
 		}
-		else if (metadata == 2)
+		else if (meta == 2)
 		{
 			treeGen = new LOTRWorldGenDatePalm(true);
+		}
+		else if (meta == 3)
+		{
+			treeGen = new LOTRWorldGenMangrove(true);
 		}
 		
 		world.setBlock(i, j, k, Blocks.air, 0, 4);
 		
 		if (treeGen != null && !treeGen.generate(world, random, i, j, k))
 		{
-			world.setBlock(i, j, k, this, metadata, 4);
+			world.setBlock(i, j, k, this, meta, 4);
 		}
     }
 }

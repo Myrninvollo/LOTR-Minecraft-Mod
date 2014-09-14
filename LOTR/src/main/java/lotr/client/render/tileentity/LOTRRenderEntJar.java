@@ -1,5 +1,7 @@
 package lotr.client.render.tileentity;
 
+import java.awt.Color;
+
 import lotr.common.LOTRMod;
 import lotr.common.tileentity.LOTRTileEntityEntJar;
 import net.minecraft.client.renderer.Tessellator;
@@ -23,6 +25,7 @@ public class LOTRRenderEntJar extends TileEntitySpecialRenderer
 		{
 			return;
 		}
+		
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_CULL_FACE);
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -31,41 +34,50 @@ public class LOTRRenderEntJar extends TileEntitySpecialRenderer
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glColor4f(1F, 1F, 1F, 0.5F);
+		float transparency = 0.5F;
+		
+		Tessellator tessellator = Tessellator.instance;
 		IIcon icon = null;
-		float f1 = 0F;
-		float f2 = 0F;
-		float f3 = 0F;
-		float f4 = 0F;
+		float minU = 0F;
+		float maxU = 0F;
+		float minV = 0F;
+		float maxV = 0F;
+		int color = 0xFFFFFF;
+		
 		if (jar.drinkMeta >= 0)
 		{
 			bindTexture(TextureMap.locationItemsTexture);
 			ItemStack drink = new ItemStack(LOTRMod.entDraught, 1, jar.drinkMeta);
 			icon = drink.getIconIndex();
-			f1 = icon.getInterpolatedU(7);
-			f2 = icon.getInterpolatedU(8);
-			f3 = icon.getInterpolatedV(7);
-			f4 = icon.getInterpolatedV(8);
+			minU = icon.getInterpolatedU(7);
+			maxU = icon.getInterpolatedU(8);
+			minV = icon.getInterpolatedV(7);
+			maxV = icon.getInterpolatedV(8);
 		}
 		else
 		{
 			bindTexture(TextureMap.locationBlocksTexture);
 			icon = Blocks.water.getBlockTextureFromSide(1);
-			f1 = icon.getInterpolatedU(0);
-			f2 = icon.getInterpolatedU(6);
-			f3 = icon.getInterpolatedV(0);
-			f4 = icon.getInterpolatedV(6);
+			minU = icon.getInterpolatedU(0);
+			maxU = icon.getInterpolatedU(6);
+			minV = icon.getInterpolatedV(0);
+			maxV = icon.getInterpolatedV(6);
+			
+			color = Blocks.water.colorMultiplier(jar.getWorldObj(), jar.xCoord, jar.yCoord, jar.zCoord);
 		}
 		
 		double d3 = 0.1875D;
 		double d4 = -0.0625D - (0.75D * (double)jar.drinkAmount / (double)LOTRTileEntityEntJar.MAX_CAPACITY);
-		Tessellator tessellator = Tessellator.instance;
+		
 		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(-d3, d4, d3, (double)f1, (double)f4);
-		tessellator.addVertexWithUV(d3, d4, d3, (double)f2, (double)f4);
-		tessellator.addVertexWithUV(d3, d4, -d3, (double)f2, (double)f3);
-		tessellator.addVertexWithUV(-d3, d4, -d3, (double)f1, (double)f3);
+		float[] colors = new Color(color).getColorComponents(null);
+		tessellator.setColorRGBA_F(colors[0], colors[1], colors[2], transparency);
+		tessellator.addVertexWithUV(-d3, d4, d3, (double)minU, (double)maxV);
+		tessellator.addVertexWithUV(d3, d4, d3, (double)maxU, (double)maxV);
+		tessellator.addVertexWithUV(d3, d4, -d3, (double)maxU, (double)minV);
+		tessellator.addVertexWithUV(-d3, d4, -d3, (double)minU, (double)minV);
 		tessellator.draw();
+		
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glEnable(GL11.GL_LIGHTING);

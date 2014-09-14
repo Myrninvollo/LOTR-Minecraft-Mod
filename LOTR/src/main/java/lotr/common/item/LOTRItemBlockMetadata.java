@@ -22,6 +22,13 @@ public class LOTRItemBlockMetadata extends ItemBlock
     {
         return field_150939_a.getIcon(2, i);
     }
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public int getColorFromItemStack(ItemStack itemstack, int pass)
+    {
+        return field_150939_a.getRenderColor(itemstack.getItemDamage());
+    }
 
 	@Override
     public int getMetadata(int i)

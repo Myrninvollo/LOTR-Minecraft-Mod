@@ -16,7 +16,7 @@ public class LOTRBiomeGenShireWoodlands extends LOTRBiomeGenShire
 		decorator.treesPerChunk = 9;
 		decorator.flowersPerChunk = 6;
 		decorator.doubleFlowersPerChunk = 2;
-		decorator.grassPerChunk = 5;
+		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 2;
 		decorator.enableFern = true;
 		

@@ -28,9 +28,10 @@ public class LOTRBiomeGenValesOfAnduin extends LOTRBiome
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityGundabadWarg.class, 6, 4, 4));
 		
 		decorator.treesPerChunk = 0;
+		decorator.setTreeCluster(8, 10);
 		decorator.flowersPerChunk = 3;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 2;
 		
         registerPlainsFlowers();

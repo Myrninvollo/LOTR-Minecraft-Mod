@@ -31,7 +31,7 @@ public class LOTRBiomeGenTundra extends LOTRBiome
 
 		decorator.treesPerChunk = 0;
 		decorator.flowersPerChunk = 1;
-		decorator.grassPerChunk = 2;
+		decorator.grassPerChunk = 4;
 		decorator.doubleGrassPerChunk = 1;
 		decorator.generateOrcDungeon = true;
 		

@@ -126,7 +126,7 @@ public class LOTRModelSpider extends ModelBase
         float f10 = -(MathHelper.cos(f * 0.6662F * 2F + (float)Math.PI) * 0.4F) * f1;
         float f11 = -(MathHelper.cos(f * 0.6662F * 2F + ((float)Math.PI / 2F)) * 0.4F) * f1;
         float f12 = -(MathHelper.cos(f * 0.6662F * 2F + ((float)Math.PI * 3F / 2F)) * 0.4F) * f1;
-        float f13 = Math.abs(MathHelper.sin(f * 0.6662F + 0F) * 0.4F) * f1 ;
+        float f13 = Math.abs(MathHelper.sin(f * 0.6662F + 0F) * 0.4F) * f1;
         float f14 = Math.abs(MathHelper.sin(f * 0.6662F + (float)Math.PI) * 0.4F) * f1;
         float f15 = Math.abs(MathHelper.sin(f * 0.6662F + ((float)Math.PI / 2F)) * 0.4F) * f1;
         float f16 = Math.abs(MathHelper.sin(f * 0.6662F + ((float)Math.PI * 3F / 2F)) * 0.4F) * f1;

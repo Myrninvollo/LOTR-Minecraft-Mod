@@ -159,6 +159,11 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPCRideable
 		return getSpiderScaleAmount();
 	}
 	
+	protected boolean canRideSpider()
+	{
+		return true;
+	}
+	
 	@Override
 	public void onLivingUpdate()
 	{
@@ -227,7 +232,7 @@ public abstract class LOTREntitySpiderBase extends LOTREntityNPCRideable
     			return true;
     		}
     		
-    		if (getAttackTarget() != entityplayer)
+    		if (canRideSpider() && getAttackTarget() != entityplayer)
     		{
     			boolean hasRequiredAlignment = LOTRLevelData.getData(entityplayer).getAlignment(getFaction()) >= LOTRAlignmentValues.Levels.SPIDER_RIDE;
     			boolean notifyNotEnoughAlignment = false;

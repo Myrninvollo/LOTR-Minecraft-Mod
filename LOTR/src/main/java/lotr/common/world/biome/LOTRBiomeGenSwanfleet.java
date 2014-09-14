@@ -29,7 +29,7 @@ public class LOTRBiomeGenSwanfleet extends LOTRBiomeGenEriador
 		decorator.quagmirePerChunk = 1;
 		decorator.treesPerChunk = 1;
 		decorator.flowersPerChunk = 4;
-		decorator.grassPerChunk = 3;
+		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 6;
 		decorator.enableFern = true;
 		decorator.waterlilyPerChunk = 2;

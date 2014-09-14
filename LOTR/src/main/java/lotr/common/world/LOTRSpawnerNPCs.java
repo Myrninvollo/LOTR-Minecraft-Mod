@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import lotr.common.LOTRDimension;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.world.biome.LOTRBiome;
 import net.minecraft.block.Block;
@@ -30,8 +31,6 @@ import cpw.mods.fml.common.eventhandler.Event;
 
 public class LOTRSpawnerNPCs
 {
-	private static int MAX_SPAWN_COUNT = 130;
-	
     private static HashMap eligibleChunksForSpawning = new HashMap();
 	
     public static ChunkPosition getRandomSpawningPointInChunk(World world, int i, int k)
@@ -74,7 +73,7 @@ public class LOTRSpawnerNPCs
 
 		ChunkCoordinates spawnPointCoords = world.getSpawnPoint();
 		int totalSpawnCountValue = countNPCs(world);
-		int maxSpawnCountValue = MAX_SPAWN_COUNT * eligibleChunksForSpawning.size() / 256;
+		int maxSpawnCountValue = LOTRDimension.getCurrentDimension(world).maxSpawnedNPCs * eligibleChunksForSpawning.size() / 256;
 		if (totalSpawnCountValue <= maxSpawnCountValue)
 		{
 			ArrayList<ChunkCoordIntPair> tmp = new ArrayList(eligibleChunksForSpawning.keySet());
@@ -221,15 +220,26 @@ public class LOTRSpawnerNPCs
 	
 	private static SpawnListEntry getRandomSpawnListEntry(World world, int i, int j, int k)
 	{
-		BiomeGenBase biome = world.getBiomeGenForCoords(i, k);
-		if (biome instanceof LOTRBiome)
+		List spawnlist = null;
+		
+		if (LOTRDimension.getCurrentDimension(world) == LOTRDimension.UTUMNO)
 		{
-			List list = ((LOTRBiome)biome).getNPCSpawnList();
-			if (!list.isEmpty())
+			spawnlist = LOTRChunkProviderUtumno.UtumnoLevel.forY(j).getNPCSpawnList();
+		}
+		else
+		{
+			BiomeGenBase biome = world.getBiomeGenForCoords(i, k);
+			if (biome instanceof LOTRBiome)
 			{
-				return (SpawnListEntry)WeightedRandom.getRandomItem(world.rand, list);
+				spawnlist = ((LOTRBiome)biome).getNPCSpawnList();
 			}
 		}
+		
+		if (spawnlist != null && !spawnlist.isEmpty())
+		{
+			return (SpawnListEntry)WeightedRandom.getRandomItem(world.rand, spawnlist);
+		}
+		
 		return null;
 	}
 }

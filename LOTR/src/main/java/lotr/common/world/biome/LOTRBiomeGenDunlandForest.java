@@ -16,7 +16,7 @@ public class LOTRBiomeGenDunlandForest extends LOTRBiomeGenDunland
 		decorator.treesPerChunk = 8;
 		decorator.logsPerChunk = 1;
 		decorator.flowersPerChunk = 4;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 2;
 		decorator.mushroomsPerChunk = 1;
 	}

@@ -24,14 +24,12 @@ import lotr.common.item.*;
 import lotr.common.quest.LOTRMiniQuest;
 import lotr.common.tileentity.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -84,6 +82,7 @@ public class LOTRClientProxy extends LOTRCommonProxy
 	private int entJarRenderID;
 	private int trollTotemRenderID;
 	private int fenceRenderID;
+	private int grassRenderID;
 	
 	@Override
 	public boolean isClient()
@@ -111,7 +110,7 @@ public class LOTRClientProxy extends LOTRCommonProxy
 
 		customEffectRenderer = new LOTREffectRenderer(Minecraft.getMinecraft());
 		
-		LOTRMapTextures.loadMapTexture();
+		LOTRTextures.load();
 
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityPortal.class, new LOTRRenderPortal());
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityHorse.class, new LOTRRenderHorse());
@@ -186,6 +185,10 @@ public class LOTRClientProxy extends LOTRCommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityInvasionSpawner.class, new LOTRRenderInvasionSpawner());
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityElk.class, new LOTRRenderElk());
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityMirkTroll.class, new LOTRRenderMirkTroll());
+		RenderingRegistry.registerEntityRenderingHandler(LOTREntityTermite.class, new LOTRRenderTermite());
+		RenderingRegistry.registerEntityRenderingHandler(LOTREntityThrownTermite.class, new RenderSnowball(LOTRMod.termite));
+		RenderingRegistry.registerEntityRenderingHandler(LOTREntityDikDik.class, new LOTRRenderDikDik());
+		RenderingRegistry.registerEntityRenderingHandler(LOTREntityUtumnoIceSpider.class, new LOTRRenderUtumnoIceSpider());
 
 		beaconRenderID = RenderingRegistry.getNextAvailableRenderId();
 		barrelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -199,6 +202,7 @@ public class LOTRClientProxy extends LOTRCommonProxy
 		entJarRenderID = RenderingRegistry.getNextAvailableRenderId();
 		trollTotemRenderID = RenderingRegistry.getNextAvailableRenderId();
 		fenceRenderID = RenderingRegistry.getNextAvailableRenderId();
+		grassRenderID = RenderingRegistry.getNextAvailableRenderId();
 		
 		RenderingRegistry.registerBlockHandler(beaconRenderID, new LOTRRenderBlocks(true));
 		RenderingRegistry.registerBlockHandler(barrelRenderID, new LOTRRenderBlocks(true));
@@ -212,6 +216,7 @@ public class LOTRClientProxy extends LOTRCommonProxy
 		RenderingRegistry.registerBlockHandler(entJarRenderID, new LOTRRenderBlocks(true));
 		RenderingRegistry.registerBlockHandler(trollTotemRenderID, new LOTRRenderBlocks(true));
 		RenderingRegistry.registerBlockHandler(fenceRenderID, new LOTRRenderBlocks(true));
+		RenderingRegistry.registerBlockHandler(grassRenderID, new LOTRRenderBlocks(false));
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(LOTRTileEntityBeacon.class, new LOTRRenderBeacon());
 		ClientRegistry.bindTileEntitySpecialRenderer(LOTRTileEntityMobSpawner.class, new LOTRTileEntityMobSpawnerRenderer());
@@ -224,6 +229,7 @@ public class LOTRClientProxy extends LOTRCommonProxy
 		ClientRegistry.bindTileEntitySpecialRenderer(LOTRTileEntityMug.class, new LOTRRenderMug());
 		ClientRegistry.bindTileEntitySpecialRenderer(LOTRTileEntityEntJar.class, new LOTRRenderEntJar());
 		ClientRegistry.bindTileEntitySpecialRenderer(LOTRTileEntityTrollTotem.class, new LOTRRenderTrollTotem());
+		ClientRegistry.bindTileEntitySpecialRenderer(LOTRTileEntityUtumnoPortal.class, new LOTRRenderUtumnoPortal());
 		
 		MinecraftForgeClient.registerItemRenderer(LOTRMod.hobbitPipe, new LOTRRenderBlownItem());
 		MinecraftForgeClient.registerItemRenderer(LOTRMod.commandHorn, new LOTRRenderBlownItem());
@@ -722,5 +728,11 @@ public class LOTRClientProxy extends LOTRCommonProxy
 	public int getFenceRenderID()
 	{
 		return fenceRenderID;
+	}
+	
+	@Override
+	public int getGrassRenderID()
+	{
+		return grassRenderID;
 	}
 }

@@ -3,10 +3,9 @@ package lotr.client.render;
 import lotr.client.LOTRClientProxy;
 import lotr.client.LOTRTickHandlerClient;
 import lotr.common.*;
+import lotr.common.world.LOTRWorldProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -53,7 +52,7 @@ public class LOTRRenderPlayer
 		EntityPlayer entityplayer = event.entityPlayer;
 		float tick = event.partialRenderTick;
 		
-		if (shouldRenderAlignment(entityplayer) && (mc.theWorld.provider.dimensionId == LOTRMod.idDimension || LOTRMod.alwaysShowAlignment))
+		if (shouldRenderAlignment(entityplayer) && (mc.theWorld.provider instanceof LOTRWorldProvider || LOTRMod.alwaysShowAlignment))
 		{
 			int alignment = LOTRLevelData.getData(entityplayer).getAlignment(LOTRTickHandlerClient.currentAlignmentFaction);
             double dist = entityplayer.getDistanceSqToEntity(renderManager.livingPlayer);

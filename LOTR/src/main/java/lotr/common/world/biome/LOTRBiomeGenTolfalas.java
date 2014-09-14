@@ -34,7 +34,7 @@ public class LOTRBiomeGenTolfalas extends LOTRBiome
 		decorator.treesPerChunk = 1;
 		decorator.flowersPerChunk = 0;
 		decorator.doubleFlowersPerChunk = 0;
-		decorator.grassPerChunk = 6;
+		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 6;
 		decorator.generateAthelas = true;
 		

@@ -17,7 +17,7 @@ public class LOTRBiomeGenLindonWoodlands extends LOTRBiomeGenLindon
 		decorator.treesPerChunk = 6;
 		decorator.flowersPerChunk = 4;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 5;
+		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 3;
 		
 		registerForestFlowers();

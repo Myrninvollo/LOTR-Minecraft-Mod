@@ -93,7 +93,12 @@ public class LOTRBlockFlowerPot extends BlockFlowerPot implements ITileEntityPro
 	public static boolean canAcceptPlant(ItemStack itemstack)
 	{
 		Item item = itemstack.getItem();
-		return item instanceof ItemBlock && ((ItemBlock)item).field_150939_a instanceof LOTRBlockFlower;
+		if (item instanceof ItemBlock)
+		{
+			Block block = ((ItemBlock)item).field_150939_a;
+			return block instanceof LOTRBlockFlower && !(block instanceof LOTRBlockGrass);
+		}
+		return false;
 	}
 	
 	public static void setPlant(World world, int i, int j, int k, ItemStack itemstack)

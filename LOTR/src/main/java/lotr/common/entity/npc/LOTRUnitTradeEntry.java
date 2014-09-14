@@ -226,7 +226,8 @@ public class LOTRUnitTradeEntry
 		{
 			new LOTRUnitTradeEntry(LOTREntityUrukHai.class, 15, 150),
 			new LOTRUnitTradeEntry(LOTREntityUrukHaiCrossbower.class, 25, 200),
-			new LOTRUnitTradeEntry(LOTREntityUrukHaiBerserker.class, 30, 250),
+			new LOTRUnitTradeEntry(LOTREntityUrukHaiSapper.class, 30, 250),
+			new LOTRUnitTradeEntry(LOTREntityUrukHaiBerserker.class, 25, 300),
 			new LOTRUnitTradeEntry(LOTREntityUrukWarg.class, 10, 150),
 			new LOTRUnitTradeEntry(LOTREntityUrukHai.class, LOTREntityUrukWarg.class, "UrukHai_Warg", 25, 250).setMountArmor(LOTRMod.wargArmorUruk, 0.5F),
 			new LOTRUnitTradeEntry(LOTREntityUrukHaiCrossbower.class, LOTREntityUrukWarg.class, "UrukHaiCrossbower_Warg", 35, 300).setMountArmor(LOTRMod.wargArmorUruk, 0.5F),

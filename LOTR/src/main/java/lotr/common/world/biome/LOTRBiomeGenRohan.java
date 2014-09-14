@@ -15,6 +15,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraft.world.gen.feature.*;
 
 public class LOTRBiomeGenRohan extends LOTRBiome
@@ -32,7 +33,8 @@ public class LOTRBiomeGenRohan extends LOTRBiome
 		spawnableEvilList.clear();
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukHai.class, 20, 4, 6));
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukHaiCrossbower.class, 10, 4, 6));
-		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukHaiBerserker.class, 5, 1, 2));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukHaiSapper.class, 3, 1, 2));
+		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukHaiBerserker.class, 5, 4, 6));
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityUrukWarg.class, 5, 4, 4));
 		
 		if (corrupted)
@@ -73,8 +75,9 @@ public class LOTRBiomeGenRohan extends LOTRBiome
 			invasionSpawns.add(new BiomeInvasionListEntry(LOTRFaction.URUK_HAI, LOTRInvasionSpawner.UNCOMMON));
 		}
 		
+		decorator.setTreeCluster(12, 20);
 		decorator.flowersPerChunk = 4;
-        decorator.grassPerChunk = 6;
+        decorator.grassPerChunk = 15;
 		decorator.doubleGrassPerChunk = 5;
 		
         registerPlainsFlowers();

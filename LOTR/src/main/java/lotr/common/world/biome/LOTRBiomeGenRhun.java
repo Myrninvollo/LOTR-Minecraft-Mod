@@ -29,7 +29,7 @@ public class LOTRBiomeGenRhun extends LOTRBiome
 		spawnableEvilList.clear();
 
 		decorator.flowersPerChunk = 1;
-        decorator.grassPerChunk = 7;
+        decorator.grassPerChunk = 12;
 		decorator.doubleGrassPerChunk = 7;
 		
         registerPlainsFlowers();

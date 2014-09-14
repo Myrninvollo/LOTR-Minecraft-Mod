@@ -46,7 +46,7 @@ public class LOTRBiomeGenIronHills extends LOTRBiome
 		
 		decorator.treesPerChunk = 0;
 		decorator.flowersPerChunk = 1;
-        decorator.grassPerChunk = 4;
+        decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 1;
 		decorator.generateWater = false;
 		decorator.generateLava = false;

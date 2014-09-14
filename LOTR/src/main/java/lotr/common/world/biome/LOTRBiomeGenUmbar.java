@@ -15,7 +15,7 @@ public class LOTRBiomeGenUmbar extends LOTRBiome
 		
 		setGoodEvilWeight(0, 100);
 		
-		decorator.grassPerChunk = 3;
+		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 1;
 		decorator.flowersPerChunk = 1;
 		

@@ -18,7 +18,7 @@ public class LOTRBiomeGenShireOrchard extends LOTRBiomeGenShire
 		decorator.treesPerChunk = 0;
 		decorator.flowersPerChunk = 6;
 		decorator.doubleFlowersPerChunk = 3;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 1;
 	}
 

@@ -1,43 +1,36 @@
 package lotr.common.world;
 
 import lotr.client.render.LOTRSkyRenderer;
-import lotr.common.LOTRLevelData;
+import lotr.common.LOTRDimension;
 import lotr.common.LOTRMod;
 import lotr.common.world.biome.LOTRBiome;
-import lotr.common.world.biome.LOTRBiomeGenFangorn;
-import lotr.common.world.biome.LOTRBiomeGenMirkwood;
 import lotr.common.world.biome.LOTRBiomeGenOcean;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.client.IRenderHandler;
 import net.minecraftforge.common.ForgeModContainer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class LOTRWorldProvider extends WorldProvider 
+public abstract class LOTRWorldProvider extends WorldProvider 
 {
 	@SideOnly(Side.CLIENT)
 	private IRenderHandler lotrSkyRenderer;
 	
+	public abstract LOTRDimension getLOTRDimension();
+	
 	@Override
     public void registerWorldChunkManager()
     {
-        worldChunkMgr = new LOTRWorldChunkManager(worldObj);
-        dimensionId = LOTRMod.idDimension;
+        worldChunkMgr = new LOTRWorldChunkManager(worldObj, getLOTRDimension());
+        dimensionId = getLOTRDimension().dimensionID;
     }
-    
-	@Override
-    public IChunkProvider createChunkGenerator()
-    {
-        return new LOTRChunkProvider(worldObj, worldObj.getSeed());
-    }
-	
+
 	@Override
     @SideOnly(Side.CLIENT)
     public IRenderHandler getSkyRenderer()
@@ -55,50 +48,35 @@ public class LOTRWorldProvider extends WorldProvider
 			return super.getSkyRenderer();
 		}
     }
-
-	@Override
-    public boolean canRespawnHere()
-    {
-        return true;
-    }
 	
 	@Override
     public String getWelcomeMessage()
 	{
-		return "Entering Middle-earth";
+		return StatCollector.translateToLocalFormatted("lotr.dimension.enter", getLOTRDimension().getDimensionName());
 	}
 	
 	@Override
     public String getDepartMessage()
 	{
-		return "Leaving Middle-earth";
+		return StatCollector.translateToLocalFormatted("lotr.dimension.exit", getLOTRDimension().getDimensionName());
 	}
 	
 	@Override
     public String getSaveFolder()
 	{
-		return "MiddleEarth";
+		return getLOTRDimension().dimensionName;
 	}
 	
 	@Override
     public String getDimensionName()
     {
-        return "MiddleEarth";
+        return getLOTRDimension().dimensionName;
     }
 	
 	@Override
-    public ChunkCoordinates getSpawnPoint()
+    public boolean canRespawnHere()
     {
-        return new ChunkCoordinates(LOTRLevelData.middleEarthPortalX, LOTRLevelData.middleEarthPortalY, LOTRLevelData.middleEarthPortalZ);
-    }
-
-	@Override
-    public void setSpawnPoint(int i, int j, int k)
-    {
-		if (!(i == 8 && j == 64 && k == 8) && !worldObj.isRemote)
-		{
-			LOTRLevelData.markMiddleEarthPortalLocation(i, j, k);
-		}
+        return true;
     }
 	
 	@Override
@@ -120,7 +98,8 @@ public class LOTRWorldProvider extends WorldProvider
 					chunk.getBiomeArray()[chunkZ << 4 | chunkX] = (byte)(biomeID & 255);
 				}
 				
-				return LOTRBiome.lotrBiomeList[biomeID] == null ? LOTRBiome.shire : LOTRBiome.lotrBiomeList[biomeID];
+				LOTRDimension dim = getLOTRDimension();
+				return dim.biomeList[biomeID] == null ? dim.biomeList[0] : dim.biomeList[biomeID];
             }
         }
 

@@ -1,8 +1,8 @@
 package lotr.common.world.mapgen.dwarvenmine;
 
-import lotr.common.world.biome.LOTRBiome;
-import lotr.common.world.biome.LOTRBiomeGenBlueMountains;
-import lotr.common.world.biome.LOTRBiomeGenIronHills;
+import lotr.common.LOTRMod;
+import lotr.common.world.biome.*;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.structure.MapGenStructure;
@@ -23,7 +23,12 @@ public class LOTRMapGenDwarvenMine extends MapGenStructure
 			BiomeGenBase biome = worldObj.getBiomeGenForCoords(i1, k1);
 			if (biome instanceof LOTRBiomeGenIronHills || (biome instanceof LOTRBiomeGenBlueMountains && biome != LOTRBiome.blueMountainsFoothills))
 			{
-				return worldObj.getBlock(i1, j1 - 1, k1) == Blocks.grass && rand.nextDouble() < spawnChance;
+				Block block = worldObj.getBlock(i1, j1 - 1, k1);
+				int meta = worldObj.getBlockMetadata(i1, j1 - 1, k1);
+				if (block == Blocks.grass || (block == LOTRMod.rock && meta == 3))
+				{
+					return rand.nextDouble() < spawnChance;
+				}
 			}
 		}
         return false;

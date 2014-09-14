@@ -53,14 +53,24 @@ public class LOTRAchievement implements Comparable
 		FAR_HARAD,
 		PERTOROGWAITH,
 		RHUN,
-		OROCARNI;
+		OROCARNI,
+		
+		UTUMNO(LOTRDimension.UTUMNO);
 		
 		private String displayName;
+		public LOTRDimension dimension;
 		public List<LOTRAchievement> list = new ArrayList();
 		
 		private Category()
 		{
+			this(LOTRDimension.MIDDLE_EARTH);
+		}
+		
+		private Category(LOTRDimension dim)
+		{
 			displayName = name();
+			dimension = dim;
+			dimension.achievementCategories.add(this);
 		}
 		
 		public String getDisplayName()
@@ -104,7 +114,7 @@ public class LOTRAchievement implements Comparable
 		}
 		
 		category.list.add(this);
-		allAchievements.add(this);
+		getDimension().allAchievements.add(this);
 	}
 	
 	public LOTRAchievement setBiomeAchievement()
@@ -139,6 +149,11 @@ public class LOTRAchievement implements Comparable
 	public String getDescription()
 	{
 		return StatCollector.translateToLocal("lotr.achievement." + name + ".desc");
+	}
+	
+	public LOTRDimension getDimension()
+	{
+		return category.dimension;
 	}
 	
 	public boolean canPlayerEarn(EntityPlayer entityplayer)
@@ -213,9 +228,7 @@ public class LOTRAchievement implements Comparable
 		
 		return 0;
 	}
-	
-	public static List allAchievements = new ArrayList();
-	
+
 	public static LOTRAchievement enterMiddleEarth;
 	// empty slots
 	public static LOTRAchievement killOrc;
@@ -545,6 +558,10 @@ public class LOTRAchievement implements Comparable
 	public static LOTRAchievement enterRhun;
 	
 	public static LOTRAchievement enterRedMountains;
+	
+	public static LOTRAchievement enterUtumnoIce;
+	public static LOTRAchievement enterUtumnoObsidian;
+	public static LOTRAchievement enterUtumnoFire;
 	
 	public static void createAchievements()
 	{
@@ -877,6 +894,10 @@ public class LOTRAchievement implements Comparable
 		enterRhun = new LOTRAchievement(RHUN, 0, Blocks.grass, "enterRhun").setBiomeAchievement();
 		
 		enterRedMountains = new LOTRAchievement(OROCARNI, 0, new ItemStack(LOTRMod.rock, 1, 4), "enterRedMountains").setBiomeAchievement();
+		
+		enterUtumnoIce = new LOTRAchievement(UTUMNO, 0, new ItemStack(LOTRMod.utumnoBrick, 1, 3), "enterUtumnoIce").setSpecial();
+		enterUtumnoObsidian = new LOTRAchievement(UTUMNO, 1, new ItemStack(LOTRMod.utumnoBrick, 1, 5), "enterUtumnoObsidian").setSpecial();
+		enterUtumnoFire = new LOTRAchievement(UTUMNO, 2, new ItemStack(LOTRMod.utumnoBrick, 1, 1), "enterUtumnoFire").setSpecial();
 	}
 	
 	public static Category categoryForName(String name)

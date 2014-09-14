@@ -22,7 +22,7 @@ public class LOTRBiomeGenIthilienWasteland extends LOTRBiomeGenIthilien
 		decorator.treesPerChunk = 4;
 		decorator.logsPerChunk = 2;
         decorator.flowersPerChunk = 1;
-        decorator.grassPerChunk = 6;
+        decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 2;
 	}
 

@@ -1,5 +1,7 @@
 package lotr.client;
 
+import java.util.List;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lotr.client.gui.LOTRGuiPouch;
@@ -48,39 +50,34 @@ public class LOTRKeyHandler
 			mc.thePlayer.openGui(LOTRMod.instance, LOTRCommonProxy.GUI_ID_LOTR, mc.theWorld, 0, 0, 0);
 		}
 		
+		LOTRDimension currentDimension = LOTRDimension.getCurrentDimension(mc.theWorld);
+		List<LOTRFaction> dimensionFactions = currentDimension.factionList;
+		
 		if (keyBindingAlignmentCycleLeft.getIsKeyPressed() && mc.currentScreen == null)
 		{
-			int i = LOTRTickHandlerClient.currentAlignmentFaction.ordinal();
+			int i = dimensionFactions.indexOf(LOTRTickHandlerClient.currentAlignmentFaction);
 			if (i > 0)
 			{
 				i--;
 			}
 			else
 			{
-				i = LOTRFaction.values().length - 1;
-				while (!LOTRFaction.values()[i].allowPlayer)
-				{
-					i--;
-				}
+				i = dimensionFactions.size() - 1;
 			}
 			
-			LOTRTickHandlerClient.currentAlignmentFaction = LOTRFaction.values()[i];
+			LOTRTickHandlerClient.currentAlignmentFaction = dimensionFactions.get(i);
 			usedAlignmentKeys = true;
 		}
 		
 		if (keyBindingAlignmentCycleRight.getIsKeyPressed() && mc.currentScreen == null)
 		{
-			int i = LOTRTickHandlerClient.currentAlignmentFaction.ordinal();
-			if (i < LOTRFaction.values().length)
+			int i = dimensionFactions.indexOf(LOTRTickHandlerClient.currentAlignmentFaction);
+			if (i < dimensionFactions.size())
 			{
 				i++;
-				while (!LOTRFaction.values()[i].allowPlayer)
+				if (i >= dimensionFactions.size())
 				{
-					i++;
-					if (i >= LOTRFaction.values().length)
-					{
-						i = 0;
-					}
+					i = 0;
 				}
 			}
 			else
@@ -88,7 +85,7 @@ public class LOTRKeyHandler
 				i = 0;
 			}
 			
-			LOTRTickHandlerClient.currentAlignmentFaction = LOTRFaction.values()[i];
+			LOTRTickHandlerClient.currentAlignmentFaction = dimensionFactions.get(i);
 			usedAlignmentKeys = true;
 		}
 		

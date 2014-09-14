@@ -60,7 +60,7 @@ public class LOTRBiomeGenIthilien extends LOTRBiome
 		decorator.logsPerChunk = 1;
 		decorator.flowersPerChunk = 4;
 		decorator.doubleFlowersPerChunk = 4;
-        decorator.grassPerChunk = 6;
+        decorator.grassPerChunk = 12;
 		decorator.doubleGrassPerChunk = 4;
 		decorator.waterlilyPerChunk = 2;
 		decorator.generateAthelas = true;

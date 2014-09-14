@@ -851,7 +851,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 		{
 			int id = data.readInt();
 			World world = DimensionManager.getWorld(data.readByte());
-			if (world != null && world.provider.dimensionId == LOTRMod.idDimension)
+			if (world != null && world.provider.dimensionId == LOTRDimension.MIDDLE_EARTH.dimensionID)
 			{
 				Entity entity = world.getEntityByID(id);
 				if (entity instanceof EntityPlayer)
@@ -873,7 +873,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 		{
 			int id = data.readInt();
 			World world = DimensionManager.getWorld(data.readByte());
-			if (world != null && world.provider.dimensionId == LOTRMod.idDimension)
+			if (world != null && world.provider.dimensionId == LOTRDimension.MIDDLE_EARTH.dimensionID)
 			{
 				Entity entity = world.getEntityByID(id);
 				if (entity instanceof EntityPlayer)

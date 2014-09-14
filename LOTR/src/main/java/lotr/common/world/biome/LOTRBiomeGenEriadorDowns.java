@@ -15,7 +15,7 @@ public class LOTRBiomeGenEriadorDowns extends LOTRBiomeGenEriador
 	{
 		super(i);
 
-		decorator.grassPerChunk = 2;
+		decorator.grassPerChunk = 5;
 		decorator.doubleGrassPerChunk = 1;
 	}
 	

@@ -15,7 +15,7 @@ public class LOTRBiomeGenTaiga extends LOTRBiomeGenTundra
 
 		decorator.treesPerChunk = 2;
 		decorator.flowersPerChunk = 2;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 2;
 		
 		registerTaigaFlowers();

@@ -699,35 +699,39 @@ public class LOTRWorldGenWoodElfTower extends LOTRWorldGenStructureBase
 		i += random.nextInt(xRange);
 		k += random.nextInt(zRange);
 		
-		if (random.nextBoolean())
+		if (random.nextInt(3) == 0)
 		{
-			if (random.nextInt(3) == 0)
+			LOTREntityNPC npc;
+			
+			if (random.nextInt(20) == 0)
 			{
-				LOTREntityNPC npc;
-				
-				if (random.nextInt(50) == 0)
-				{
-					npc = new LOTREntityDwarf(world);
-				}
-				else
-				{
-					npc = new LOTREntityGundabadOrc(world);
-				}
-				
-				npc.setLocationAndAngles(i + 0.5D, j, k + 0.5D, 0F, 0F);
-				npc.spawnRidingHorse = false;
-				npc.onSpawnWithEgg(null);
-				for (int l = 0; l < 5; l++)
-				{
-					npc.setCurrentItemOrArmor(l, null);
-				}
-				npc.isNPCPersistent = true;
-				world.spawnEntityInWorld(npc);
+				npc = new LOTREntityDwarf(world);
 			}
 			else
 			{
-				placeSkull(world, random, i, j, k);
+				if (random.nextBoolean())
+				{
+					npc = new LOTREntityGundabadOrc(world);
+				}
+				else
+				{
+					npc = new LOTREntityDolGuldurOrc(world);
+				}
 			}
+			
+			npc.setLocationAndAngles(i + 0.5D, j, k + 0.5D, 0F, 0F);
+			npc.spawnRidingHorse = false;
+			npc.onSpawnWithEgg(null);
+			for (int l = 0; l < 5; l++)
+			{
+				npc.setCurrentItemOrArmor(l, null);
+			}
+			npc.isNPCPersistent = true;
+			world.spawnEntityInWorld(npc);
+		}
+		else
+		{
+			placeSkull(world, random, i, j, k);
 		}
 	}
 }

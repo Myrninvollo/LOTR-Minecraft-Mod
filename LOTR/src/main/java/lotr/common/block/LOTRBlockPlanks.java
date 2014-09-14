@@ -26,7 +26,7 @@ public class LOTRBlockPlanks extends Block
 	private static String[] plank2Names = {"lebethron", "beech", "holly", "banana"};
 	@SideOnly(Side.CLIENT)
 	private static IIcon[] plank3Icons;
-	private static String[] plank3Names = {"maple", "larch", "datePalm"};
+	private static String[] plank3Names = {"maple", "larch", "datePalm", "mangrove"};
 	
 	public LOTRBlockPlanks()
 	{

@@ -18,7 +18,7 @@ public class LOTRBiomeGenMinhiriath extends LOTRBiomeGenEriador
 	{
 		super(i);
 
-		decorator.grassPerChunk = 3;
+		decorator.grassPerChunk = 5;
 		decorator.doubleGrassPerChunk = 3;
 	}
 	

@@ -10,19 +10,21 @@ import lotr.common.block.LOTRBlockSaplingBase;
 import lotr.common.entity.*;
 import lotr.common.entity.LOTREntityRegistry.RegistryInfo;
 import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetBasic;
-import lotr.common.entity.animal.LOTREntityButterfly;
-import lotr.common.entity.animal.LOTREntityZebra;
+import lotr.common.entity.animal.*;
 import lotr.common.entity.item.*;
 import lotr.common.entity.npc.*;
 import lotr.common.entity.projectile.*;
 import lotr.common.inventory.*;
 import lotr.common.item.LOTRItemPouch;
 import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.world.LOTRTeleporterUtumno;
+import lotr.common.world.LOTRWorldProviderUtumno;
 import lotr.common.world.biome.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.*;
-import net.minecraft.entity.passive.*;
+import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -45,6 +47,7 @@ import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
 import org.apache.commons.lang3.StringUtils;
@@ -314,7 +317,10 @@ public class LOTREventHandler implements IFuelHandler
 			EntityPlayerMP entityplayermp = (EntityPlayerMP)entityplayer;
 			WorldServer worldserver = (WorldServer)world;
 			
-			if (entityplayermp.dimension == LOTRMod.idDimension && worldserver.getGameRules().getGameRuleBooleanValue("enableMiddleEarthRespawning"))
+			ChunkCoordinates deathPoint = LOTRLevelData.getData(entityplayermp).getDeathPoint();
+			int deathDimension = LOTRLevelData.getData(entityplayermp).getDeathDimension();
+
+			if (deathDimension == LOTRDimension.MIDDLE_EARTH.dimensionID)
 			{
 				ChunkCoordinates bedLocation = entityplayermp.getBedLocation(entityplayermp.dimension);
 				boolean hasBed = bedLocation != null;
@@ -326,13 +332,12 @@ public class LOTREventHandler implements IFuelHandler
 				ChunkCoordinates spawnLocation = hasBed ? bedLocation : worldserver.getSpawnPoint();
 				float respawnThreshold = hasBed ? 5000F : 2000F;
 
-				ChunkCoordinates deathPoint = LOTRLevelData.getData(entityplayermp).getDeathPoint();
 				if (deathPoint != null)
 				{
 					boolean flag = deathPoint.getDistanceSquaredToChunkCoordinates(spawnLocation) > respawnThreshold * respawnThreshold;
 					if (flag)
 					{
-						double randomDistance = 500D + worldserver.rand.nextDouble() * 1500D;
+						double randomDistance = MathHelper.getRandomDoubleInRange(worldserver.rand, 500D, 1500D);
 						float angle = worldserver.rand.nextFloat() * (float)Math.PI * 2F;
 						
 						int i = deathPoint.posX + (int)(randomDistance * MathHelper.sin(angle));
@@ -345,6 +350,11 @@ public class LOTREventHandler implements IFuelHandler
 						entityplayermp.playerNetServerHandler.setPlayerLocation(i + 0.5D, j, k + 0.5D, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
 					}
 				}
+			}
+			else if (deathDimension == LOTRDimension.UTUMNO.dimensionID)
+			{
+				new LOTRTeleporterUtumno(worldserver).placeInPortal(entityplayermp, 0D, 0D, 0D, 0F);
+				entityplayermp.playerNetServerHandler.setPlayerLocation(entityplayermp.posX, entityplayermp.posY, entityplayermp.posZ, entityplayermp.rotationYaw, entityplayermp.rotationPitch);
 			}
 		}
 	}
@@ -594,6 +604,23 @@ public class LOTREventHandler implements IFuelHandler
 				event.setCanceled(true);
 				return;
 			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onBlockBreaking(PlayerEvent.BreakSpeed event)
+	{
+		EntityPlayer entityplayer = event.entityPlayer;
+		World world = entityplayer.worldObj;
+		Block block = event.block;
+		int i = event.x;
+		int j = event.y;
+		int k = event.z;
+		
+		if (block instanceof LOTRWorldProviderUtumno.UtumnoBlock)
+		{
+			event.setCanceled(true);
+			return;
 		}
 	}
 	
@@ -964,11 +991,7 @@ public class LOTREventHandler implements IFuelHandler
 					
 					if (world.rand.nextInt(frostChance) == 0)
 					{
-						boolean attacked = entity.attackEntityFrom(LOTRBiomeGenForodwaith.frost, 1F);
-						if (flag && entity instanceof EntityPlayer)
-						{
-							((EntityPlayerMP)entity).playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.frost", Unpooled.buffer(0)));
-						}
+						entity.attackEntityFrom(LOTRBiomeGenForodwaith.frost, 1F);
 					}
 				}
 			}
@@ -1155,6 +1178,11 @@ public class LOTREventHandler implements IFuelHandler
 			return;
 		}
 		
+		if (entity instanceof EntityPlayerMP && event.source == LOTRBiomeGenForodwaith.frost)
+		{
+			((EntityPlayerMP)entity).playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.frost", Unpooled.buffer(0)));
+		}
+		
 		if (event.source instanceof EntityDamageSourceIndirect)
 		{
 			boolean wearingAllGalvorn = true;
@@ -1265,6 +1293,7 @@ public class LOTREventHandler implements IFuelHandler
 			int j = MathHelper.floor_double(entityplayer.posY);
 			int k = MathHelper.floor_double(entityplayer.posZ);
 			LOTRLevelData.getData(entityplayer).setDeathPoint(i, j, k);
+			LOTRLevelData.getData(entityplayer).setDeathDimension(entityplayer.dimension);
 		}
 		
 		if (!world.isRemote)
@@ -1377,7 +1406,7 @@ public class LOTREventHandler implements IFuelHandler
 			LOTRLevelData.getData(entityplayer).addAchievement(LOTRAchievement.killButterfly);
 		}
 		
-		if (!world.isRemote && entity instanceof EntityHorse && source.getEntity() instanceof EntityPlayer)
+		if (!world.isRemote && entity.getClass() == LOTREntityHorse.class && source.getEntity() instanceof EntityPlayer)
 		{
 			EntityPlayer entityplayer = (EntityPlayer)source.getEntity();
 			if (!entityplayer.capabilities.isCreativeMode)

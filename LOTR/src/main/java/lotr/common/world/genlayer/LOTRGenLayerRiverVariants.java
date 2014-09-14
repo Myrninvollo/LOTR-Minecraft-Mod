@@ -1,5 +1,6 @@
 package lotr.common.world.genlayer;
 
+import lotr.common.LOTRDimension;
 import lotr.common.world.biome.LOTRBiome;
 import lotr.common.world.biome.LOTRBiomeGenDeadMarshes;
 import lotr.common.world.biome.LOTRBiomeGenFarHarad;
@@ -40,7 +41,7 @@ public class LOTRGenLayerRiverVariants extends GenLayer
         {
 			if (rivers[l] >= 0)
             {
-				BiomeGenBase biome = LOTRBiome.lotrBiomeList[biomes[l]];
+				BiomeGenBase biome = LOTRDimension.MIDDLE_EARTH.biomeList[biomes[l]];
 				if (biome instanceof LOTRBiome && !((LOTRBiome)biome).getEnableRiver())
 				{
 					ints[l] = biomes[l];

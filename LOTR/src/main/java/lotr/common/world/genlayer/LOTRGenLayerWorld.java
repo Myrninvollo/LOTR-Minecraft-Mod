@@ -11,6 +11,7 @@ import java.util.zip.ZipFile;
 
 import javax.imageio.ImageIO;
 
+import lotr.common.LOTRDimension;
 import lotr.common.LOTRMod;
 import lotr.common.world.biome.LOTRBiome;
 import net.minecraft.world.WorldType;
@@ -26,7 +27,6 @@ import cpw.mods.fml.common.ModContainer;
 
 public class LOTRGenLayerWorld extends GenLayer
 {
-	public static Map colorsToBiomeIDs = new HashMap();
 	public static int[] biomeImageData;
 	public static int originX = 810;
 	public static int originZ = 730;
@@ -34,8 +34,14 @@ public class LOTRGenLayerWorld extends GenLayer
 	public static int imageWidth;
 	public static int imageHeight;
 	
-	public static GenLayer[] createWorld(long seed, WorldType worldType)
+	public static GenLayer[] createWorld(LOTRDimension dim, long seed)
 	{
+		if (dim == LOTRDimension.UTUMNO)
+		{
+			GenLayer layer = new LOTRGenLayerBiome(LOTRBiome.utumno);
+			return new GenLayer[] {layer, layer};
+		}
+		
         byte scale = 3;
 		
 		GenLayer layer = new LOTRGenLayerWorld();
@@ -72,7 +78,7 @@ public class LOTRGenLayerWorld extends GenLayer
         layer.initWorldGenSeed(seed + 1000L);
         layer1.initWorldGenSeed(seed + 1000L);
 		
-        return new GenLayer[] {layer, layer1, layer};
+        return new GenLayer[] {layer, layer1};
 	}
 	
     public LOTRGenLayerWorld()
@@ -120,10 +126,10 @@ public class LOTRGenLayerWorld extends GenLayer
 				for (int i = 0; i < colors.length; i++)
 				{
 					int color = colors[i] & 0x00FFFFFF;
-					Object obj = colorsToBiomeIDs.get(Integer.valueOf(color));
-					if (obj != null)
+					Integer biomeID = LOTRDimension.MIDDLE_EARTH.colorsToBiomeIDs.get(color);
+					if (biomeID != null)
 					{
-						biomeImageData[i] = (Integer)obj;
+						biomeImageData[i] = biomeID;
 					}
 					else
 					{

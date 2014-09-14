@@ -36,7 +36,7 @@ public class LOTRBiomeGenLothlorien extends LOTRBiome
 		
 		decorator.treesPerChunk = 9;
 		decorator.flowersPerChunk = 6;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 2;
 		decorator.generateLava = false;
 		decorator.generateCobwebs = false;

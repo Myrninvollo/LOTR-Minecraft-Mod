@@ -1,5 +1,6 @@
 package lotr.common.world.genlayer;
 
+import lotr.common.LOTRDimension;
 import lotr.common.world.biome.*;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.gen.layer.GenLayer;
@@ -27,7 +28,7 @@ public class LOTRGenLayerBeach extends GenLayer
             {
                 initChunkSeed((long)(i1 + i), (long)(k1 + k));
                 int biomeID = biomes[i1 + 1 + (k1 + 1) * (xSize + 2)];
-                BiomeGenBase biome = LOTRBiome.lotrBiomeList[biomeID];
+                BiomeGenBase biome = LOTRDimension.MIDDLE_EARTH.biomeList[biomeID];
                 
                 int newBiomeID = biomeID;
                 
@@ -48,7 +49,7 @@ public class LOTRGenLayerBeach extends GenLayer
                     	{
                     		newBiomeID = LOTRBiome.beachStone.biomeID;
                     	}
-                    	else
+                    	else if (!(biome instanceof LOTRBiomeGenBeach))
                     	{
 	                    	if (nextInt(20) == 0)
 	                    	{

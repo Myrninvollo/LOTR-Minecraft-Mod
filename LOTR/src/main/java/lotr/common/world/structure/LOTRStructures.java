@@ -9,26 +9,26 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class LOTRStructures
 {
-	private static HashMap idToClassMapping = new HashMap();
-	private static HashMap idToStringMapping = new HashMap();
-	public static HashMap structureSpawners = new LinkedHashMap();
+	private static HashMap<Integer, Class> idToClassMapping = new HashMap();
+	private static HashMap<Integer, String> idToStringMapping = new HashMap();
+	public static HashMap<Integer, StructureInfo> structureSpawners = new LinkedHashMap();
 	
 	private static void registerStructure(int id, Class structureClass, String name, int background, int foreground)
 	{
-		idToClassMapping.put(Integer.valueOf(id), structureClass);
-		idToStringMapping.put(Integer.valueOf(id), name);
-		structureSpawners.put(Integer.valueOf(id), new StructureInfo(id, background, foreground));
+		idToClassMapping.put(id, structureClass);
+		idToStringMapping.put(id, name);
+		structureSpawners.put(id, new StructureInfo(id, background, foreground));
 	}
 	
-	public static WorldGenerator getStructureFromID(int id)
+	public static WorldGenerator getStructureFromID(int ID)
 	{
 		WorldGenerator generator = null;
 		try
 		{
-			Class structureClass = (Class)idToClassMapping.get(Integer.valueOf(id));
+			Class structureClass = idToClassMapping.get(ID);
 			if (structureClass != null)
 			{
-				generator = (WorldGenerator)structureClass.getConstructor(new Class[] {boolean.class}).newInstance(new Object[] {Boolean.valueOf(true)});
+				generator = (WorldGenerator)structureClass.getConstructor(new Class[] {boolean.class}).newInstance(new Object[] {true});
 			}
 		}
 		catch (Exception e)
@@ -38,9 +38,9 @@ public class LOTRStructures
 		return generator;
 	}
 	
-	public static String getNameFromID(int id)
+	public static String getNameFromID(int ID)
 	{
-		return (String)idToStringMapping.get(Integer.valueOf(id));
+		return idToStringMapping.get(ID);
 	}
 	
 	public static void registerStructures()

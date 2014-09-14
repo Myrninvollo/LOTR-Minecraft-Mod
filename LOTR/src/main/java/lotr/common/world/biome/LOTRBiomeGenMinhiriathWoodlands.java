@@ -25,7 +25,7 @@ public class LOTRBiomeGenMinhiriathWoodlands extends LOTRBiomeGenMinhiriath
 
 		decorator.treesPerChunk = 8;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 5;
+		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 3;
 		
 		registerForestFlowers();

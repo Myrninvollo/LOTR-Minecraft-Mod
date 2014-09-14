@@ -46,6 +46,7 @@ public class LOTRBiomeGenDagorlad extends LOTRBiome
 		biomeColors.setSky(0x54493D);
 		biomeColors.setClouds(0x333333);
 		biomeColors.setFog(0x666666);
+		biomeColors.setWater(0x26211D);
 		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 		

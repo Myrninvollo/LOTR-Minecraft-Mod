@@ -43,7 +43,7 @@ public class LOTRBiomeGenDeadMarshes extends LOTRBiome
 		decorator.treesPerChunk = 0;
 		decorator.logsPerChunk = 2;
 		decorator.flowersPerChunk = 3;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 4;
 		decorator.enableFern = true;
 		decorator.reedsPerChunk = 10;

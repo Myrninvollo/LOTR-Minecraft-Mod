@@ -3,9 +3,6 @@ package lotr.client;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.*;
 
 import lotr.client.fx.LOTREntityDeadMarshFace;
@@ -13,10 +10,10 @@ import lotr.client.gui.*;
 import lotr.client.render.tileentity.LOTRTileEntityMobSpawnerRenderer;
 import lotr.common.*;
 import lotr.common.block.LOTRBlockLeavesBase;
-import lotr.common.entity.animal.LOTREntityCamel;
 import lotr.common.entity.item.LOTREntityPortal;
 import lotr.common.entity.npc.LOTREntityNPCRideable;
 import lotr.common.item.*;
+import lotr.common.world.LOTRWorldProvider;
 import lotr.common.world.biome.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -43,21 +40,17 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.input.BOMInputStream;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
@@ -126,6 +119,12 @@ public class LOTRTickHandlerClient
 				alignmentChange--;
 			}
 			
+			LOTRDimension currentDimension = LOTRDimension.getCurrentDimension(world);
+			if (currentAlignmentFaction.factionDimension != currentDimension)
+			{
+				currentAlignmentFaction = currentDimension.factionList.get(0);
+			}
+			
 			if (minecraft.currentScreen == null)
 			{
 				lastGuiOpen = null;
@@ -188,7 +187,7 @@ public class LOTRTickHandlerClient
 					checkedUpdate = true;
 				}
 			
-				if ((entityplayer.dimension == 0 || entityplayer.dimension == LOTRMod.idDimension) && playersInPortals.containsKey(entityplayer))
+				if ((entityplayer.dimension == 0 || entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID) && playersInPortals.containsKey(entityplayer))
 				{
 					List portals = world.getEntitiesWithinAABB(LOTREntityPortal.class, entityplayer.boundingBox.expand(8D, 8D, 8D));
 					boolean inPortal = false;
@@ -228,6 +227,7 @@ public class LOTRTickHandlerClient
 					int k = MathHelper.floor_double(entityplayer.posZ);
 					
 					LOTRBiomeGenOcean.updateWaterColor(i, j, k);
+					LOTRBiomeGenUtumno.updateFogColor(i, j, k);
 					
 					if (LOTRMod.enableMistyMountainsMist)
 					{
@@ -346,7 +346,7 @@ public class LOTRTickHandlerClient
 			
 			if (entityplayer != null && world != null)
 			{
-				if (entityplayer.dimension == LOTRMod.idDimension || LOTRMod.alwaysShowAlignment)
+				if (world.provider instanceof LOTRWorldProvider || LOTRMod.alwaysShowAlignment)
 				{
 					alignmentXPosCurrent = alignmentXPosBase;
 					int interval = (int)(((float)alignmentYPosBase + 20F) / 10F);
@@ -375,7 +375,7 @@ public class LOTRTickHandlerClient
 					renderAlignment(minecraft);
 				}
 				
-				if (entityplayer.dimension == LOTRMod.idDimension && minecraft.currentScreen == null)
+				if (entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID && minecraft.currentScreen == null)
 				{
 					onscreenPromptTick++;
 					if (onscreenPromptTick >= 150)
@@ -464,7 +464,7 @@ public class LOTRTickHandlerClient
 
 	private void updatePlayerInPortal(EntityPlayer entityplayer, HashMap players, Block portalBlock)
 	{
-		if ((entityplayer.dimension == 0 || entityplayer.dimension == LOTRMod.idDimension) && players.containsKey(entityplayer))
+		if ((entityplayer.dimension == 0 || entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID) && players.containsKey(entityplayer))
 		{
 			boolean inPortal = entityplayer.worldObj.getBlock(MathHelper.floor_double(entityplayer.posX), MathHelper.floor_double(entityplayer.boundingBox.minY), MathHelper.floor_double(entityplayer.posZ)) == portalBlock;
 			if (inPortal)
@@ -612,15 +612,13 @@ public class LOTRTickHandlerClient
 		            	LOTRAchievement achievement = LOTRAchievement.achievementForCategoryAndID(category, achievementID);
 
 		            	IChatComponent name = new ChatComponentTranslation("lotr.gui.achievements.hover.name", new Object[] {achievement.getAchievementChatComponent(), category.getDisplayName()});
-	                    IChatComponent subtitle = new ChatComponentTranslation("lotr.gui.achievements.hover.subtitle", new Object[0]);
+	                    IChatComponent subtitle = new ChatComponentTranslation("lotr.gui.achievements.hover.subtitle", new Object[] {achievement.getDimension().getDimensionName()});
 	                    subtitle.getChatStyle().setItalic(true);
 	                    String desc = achievement.getDescription();
 	                    
 	                    ArrayList list = Lists.newArrayList(new String[] {name.getFormattedText(), subtitle.getFormattedText()});
 	                    list.addAll(mc.fontRenderer.listFormattedStringToWidth(desc, 150));
 	                    proxyGui.func_146283_a(list, x, y);
-	                    
-	                    System.out.println("Drawing");
 	            	}
 	            	catch (Exception e)
 	            	{
@@ -635,7 +633,7 @@ public class LOTRTickHandlerClient
 	public void onRenderDebugText(RenderGameOverlayEvent.Text event)
 	{
 		Minecraft mc = Minecraft.getMinecraft();
-		if (mc.gameSettings.showDebugInfo && mc.theWorld != null && mc.thePlayer != null && mc.thePlayer.dimension == LOTRMod.idDimension)
+		if (mc.gameSettings.showDebugInfo && mc.theWorld != null && mc.thePlayer != null && mc.theWorld.provider instanceof LOTRWorldProvider)
 		{
             int i = MathHelper.floor_double(mc.thePlayer.posX);
             int k = MathHelper.floor_double(mc.thePlayer.posZ);
@@ -755,6 +753,7 @@ public class LOTRTickHandlerClient
         GL11.glDepthMask(true);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
+        GL11.glDisable(GL11.GL_BLEND);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 	}
 	
@@ -767,7 +766,7 @@ public class LOTRTickHandlerClient
         GL11.glColor4f(1F, 1F, 1F, 1F);
         mc.getTextureManager().bindTexture(LOTRClientProxy.alignmentTexture);
 		
-		boolean boss = BossStatus.bossName != null && BossStatus.statusBarTime > 0 && LOTRMod.alignmentMoveWhenBoss;
+		boolean boss = BossStatus.bossName != null && BossStatus.statusBarTime > 0;
 		alignmentXPosBase = (i / 2) + LOTRMod.alignmentXOffset;
 		alignmentYPosBase = (boss ? 22 : 2) + LOTRMod.alignmentYOffset;
 		

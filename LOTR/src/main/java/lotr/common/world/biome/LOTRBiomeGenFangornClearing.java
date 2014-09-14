@@ -13,7 +13,7 @@ public class LOTRBiomeGenFangornClearing extends LOTRBiomeGenFangorn
 
 		decorator.treesPerChunk = 0;
 		decorator.flowersPerChunk = 4;
-		decorator.grassPerChunk = 5;
+		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 8;
 	}
 

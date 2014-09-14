@@ -36,8 +36,9 @@ public class LOTRBiomeGenEnedwaith extends LOTRBiome
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityDunlendingArcher.class, 5, 4, 6));
 		
 		decorator.treesPerChunk = 0;
+		decorator.setTreeCluster(8, 30);
 		decorator.flowersPerChunk = 1;
-		decorator.grassPerChunk = 4;
+		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 4;
 		
 		registerPlainsFlowers();

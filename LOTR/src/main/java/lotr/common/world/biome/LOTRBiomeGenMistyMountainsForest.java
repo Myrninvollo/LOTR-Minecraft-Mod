@@ -12,7 +12,7 @@ public class LOTRBiomeGenMistyMountainsForest extends LOTRBiomeGenMistyMountains
 
 		decorator.treesPerChunk = 7;
 		decorator.flowersPerChunk = 1;
-		decorator.grassPerChunk = 3;
+		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 2;
 		decorator.generateWater = true;
 	}

@@ -35,7 +35,7 @@ public class LOTRBiomeGenBrownLands extends LOTRBiome
 		
 		decorator.treesPerChunk = 0;
 		decorator.flowersPerChunk = 0;
-		decorator.grassPerChunk = 1;
+		decorator.grassPerChunk = 2;
 		
 		biomeColors.setGrass(0xAD875F);
 		biomeColors.setSky(0x877962);

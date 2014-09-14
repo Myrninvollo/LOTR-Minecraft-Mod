@@ -540,4 +540,9 @@ public class LOTRCommonProxy implements IGuiHandler
 	{
 		return 0;
 	}
+	
+	public int getGrassRenderID()
+	{
+		return 0;
+	}
 }

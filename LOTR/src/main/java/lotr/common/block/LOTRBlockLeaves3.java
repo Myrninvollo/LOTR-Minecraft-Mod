@@ -10,7 +10,7 @@ public class LOTRBlockLeaves3 extends LOTRBlockLeavesBase
     public LOTRBlockLeaves3()
     {
         super();
-		setLeafNames("maple", "larch", "datePalm");
+		setLeafNames("maple", "larch", "datePalm", "mangrove");
     }
 	
     @Override

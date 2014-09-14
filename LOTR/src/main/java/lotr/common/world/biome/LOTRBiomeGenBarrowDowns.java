@@ -29,7 +29,7 @@ public class LOTRBiomeGenBarrowDowns extends LOTRBiome
 		
 		setGoodEvilWeight(0, 100);
 		
-		decorator.grassPerChunk = 3;
+		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 6;
 		decorator.generateAthelas = true;
 		

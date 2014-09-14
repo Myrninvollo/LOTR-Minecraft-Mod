@@ -234,7 +234,7 @@ public class LOTRGuiMap extends LOTRGui
 		double maxV = (double)(posY + zoomScaleY / 2) / (double)LOTRGenLayerWorld.imageHeight;
 		
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		mc.getTextureManager().bindTexture(LOTRMapTextures.mapTexture);
+		mc.getTextureManager().bindTexture(LOTRTextures.mapTexture);
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
 		tessellator.addVertexWithUV(guiLeft, guiTop + mapYSize, zLevel, minU, maxV);
@@ -306,7 +306,7 @@ public class LOTRGuiMap extends LOTRGui
 			int biomePosZ_int = Math.round(biomePosZ);
 			
 			int biomeID = LOTRGenLayerWorld.biomeImageData[biomePosZ_int * LOTRGenLayerWorld.imageWidth + biomePosX_int];
-			BiomeGenBase biome = LOTRBiome.lotrBiomeList[biomeID];
+			BiomeGenBase biome = LOTRDimension.MIDDLE_EARTH.biomeList[biomeID];
 			if (biome instanceof LOTRBiome)
 			{
 				String biomeName = ((LOTRBiome)biome).getBiomeDisplayName();
@@ -890,7 +890,7 @@ public class LOTRGuiMap extends LOTRGui
     
     private boolean isMiddleEarth()
     {
-    	return mc.thePlayer.dimension == LOTRMod.idDimension;
+    	return mc.thePlayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID;
     }
     
     public static void addPlayerLocationInfo(UUID player, String name, double x, double z)

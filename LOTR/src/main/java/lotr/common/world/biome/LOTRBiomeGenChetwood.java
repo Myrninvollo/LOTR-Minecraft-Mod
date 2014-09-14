@@ -22,7 +22,7 @@ public class LOTRBiomeGenChetwood extends LOTRBiomeGenBreeland
 		decorator.treesPerChunk = 4;
 		decorator.flowersPerChunk = 4;
 		decorator.doubleFlowersPerChunk = 2;
-		decorator.grassPerChunk = 3;
+		decorator.grassPerChunk = 6;
 		decorator.doubleGrassPerChunk = 1;
 		
 		registerForestFlowers();

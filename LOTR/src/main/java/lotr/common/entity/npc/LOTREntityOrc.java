@@ -141,11 +141,16 @@ public abstract class LOTREntityOrc extends LOTREntityNPC
 			{
 				orcSkirmishTick--;
 			}
-			if (!worldObj.getGameRules().getGameRuleBooleanValue("enableOrcSkirmish"))
+			/*if (!worldObj.getGameRules().getGameRuleBooleanValue("enableOrcSkirmish"))
 			{
 				orcSkirmishTick = 0;
-			}
+			}*/
 		}
+	}
+	
+	public boolean canOrcSkirmish()
+	{
+		return true;
 	}
 	
 	public boolean isOrcSkirmishing()

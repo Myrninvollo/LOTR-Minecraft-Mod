@@ -87,7 +87,7 @@ public abstract class LOTRBlockSlabBase extends BlockSlab
     {
         if (item!= Item.getItemFromBlock(doubleSlab))
         {
-            for (int j = 0; j <= subtypes; j++)
+            for (int j = 0; j < subtypes; j++)
             {
                 list.add(new ItemStack(item, 1, j));
             }
@@ -225,6 +225,22 @@ public abstract class LOTRBlockSlabBase extends BlockSlab
 			public ThatchDouble(Block block)
 			{
 				super(block, (BlockSlab)LOTRMod.slabSingleThatch, (BlockSlab)LOTRMod.slabDoubleThatch, true);
+			}
+		}
+		
+		public static class Slab5Single extends ItemSlab
+		{
+			public Slab5Single(Block block)
+			{
+				super(block, (BlockSlab)LOTRMod.slabSingle5, (BlockSlab)LOTRMod.slabDouble5, false);
+			}
+		}
+		
+		public static class Slab5Double extends ItemSlab
+		{
+			public Slab5Double(Block block)
+			{
+				super(block, (BlockSlab)LOTRMod.slabSingle5, (BlockSlab)LOTRMod.slabDouble5, true);
 			}
 		}
 	}

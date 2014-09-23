@@ -11,11 +11,11 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.util.StatCollector;
 
-public class LOTRGui extends LOTRGuiScreenBase
+public abstract class LOTRGuiMenu extends LOTRGuiScreenBase
 {
 	public static int guiIndex = 0;
-	public static Class[] guiClasses = {LOTRGuiMap.class, LOTRGuiAlignment.class, LOTRGuiAchievements.class, LOTRGuiShields.class, LOTRGuiOptions.class};
-	private static String[] guiTitles = {"map", "alignment", "achievements", "shields", "options"};
+	public static Class[] guiClasses = {LOTRGuiMap.class, LOTRGuiAlignment.class, LOTRGuiAchievements.class, LOTRGuiTitles.class, LOTRGuiShields.class, LOTRGuiOptions.class};
+	private static String[] guiTitles = {"map", "alignment", "achievements", "titles", "shields", "options"};
 	private static String[] guiTitlesTranslated;
 	public static RenderItem renderItem = new RenderItem();
 	
@@ -24,6 +24,8 @@ public class LOTRGui extends LOTRGuiScreenBase
     public int guiLeft;
     public int guiTop;
 	private boolean sentCheckPacket = false;
+	private GuiButton pageLeft;
+	private GuiButton pageRight;
 	
 	private void setGuiTitles()
 	{
@@ -44,25 +46,25 @@ public class LOTRGui extends LOTRGuiScreenBase
 		
 		int i = 120;
 		int j = 20;
-		buttonList.add(new LOTRGuiButtonLeftRight(0, true, guiLeft - 160, guiTop + (ySize + j) / 4, ""));
-		buttonList.add(new LOTRGuiButtonLeftRight(1, false, guiLeft + xSize + 160 - i, guiTop + (ySize + j) / 4, ""));
+		buttonList.add(pageLeft = new LOTRGuiButtonLeftRight(1000, true, guiLeft - 160, guiTop + (ySize + j) / 4, ""));
+		buttonList.add(pageRight = new LOTRGuiButtonLeftRight(1001, false, guiLeft + xSize + 160 - i, guiTop + (ySize + j) / 4, ""));
 		
 		if (guiIndex == 0)
 		{
-			((GuiButton)buttonList.get(0)).displayString = guiTitlesTranslated[guiClasses.length - 1];
+			pageLeft.displayString = guiTitlesTranslated[guiClasses.length - 1];
 		}
 		else
 		{
-			((GuiButton)buttonList.get(0)).displayString = guiTitlesTranslated[guiIndex - 1];
+			pageLeft.displayString = guiTitlesTranslated[guiIndex - 1];
 		}
 		
 		if (guiIndex == guiClasses.length - 1)
 		{
-			((GuiButton)buttonList.get(1)).displayString = guiTitlesTranslated[0];
+			pageRight.displayString = guiTitlesTranslated[0];
 		}
 		else
 		{
-			((GuiButton)buttonList.get(1)).displayString = guiTitlesTranslated[guiIndex + 1];
+			pageRight.displayString = guiTitlesTranslated[guiIndex + 1];
 		}
 	}
 	
@@ -94,7 +96,7 @@ public class LOTRGui extends LOTRGuiScreenBase
         {
 			boolean flag = false;
 			
-			if (button.id == 0)
+			if (button == pageLeft)
 			{
 				guiIndex--;
 				if (guiIndex < 0)
@@ -104,7 +106,7 @@ public class LOTRGui extends LOTRGuiScreenBase
 				flag = true;
 			}
 			
-			else if (button.id == 1)
+			else if (button == pageRight)
 			{
 				guiIndex++;
 				if (guiIndex >= guiClasses.length)

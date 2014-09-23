@@ -11,7 +11,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-public class LOTRGuiAlignment extends LOTRGui
+public class LOTRGuiAlignment extends LOTRGuiMenu
 {
 	private static LOTRDimension currentDimension;
 	private static LOTRDimension prevDimension;

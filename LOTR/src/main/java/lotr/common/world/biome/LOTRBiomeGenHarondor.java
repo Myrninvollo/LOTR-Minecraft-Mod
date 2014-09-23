@@ -2,24 +2,16 @@ package lotr.common.world.biome;
 
 import java.util.Random;
 
-import lotr.common.LOTRAchievement;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRWaypoint;
-import lotr.common.entity.npc.LOTREntityNearHaradrimArcher;
-import lotr.common.entity.npc.LOTREntityNearHaradrimWarrior;
-import lotr.common.entity.npc.LOTREntityRangerIthilien;
-import lotr.common.world.LOTRBanditSpawner;
-import lotr.common.world.LOTRInvasionSpawner;
+import lotr.common.*;
+import lotr.common.entity.npc.*;
+import lotr.common.world.*;
 import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
-import lotr.common.world.feature.LOTRWorldGenBoulder;
-import lotr.common.world.feature.LOTRWorldGenDesertTrees;
+import lotr.common.world.feature.*;
 import lotr.common.world.structure.LOTRWorldGenHaradObelisk;
 import lotr.common.world.structure2.LOTRWorldGenNearHaradDesertCamp;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.*;
 
 public class LOTRBiomeGenHarondor extends LOTRBiome
 {
@@ -102,7 +94,17 @@ public class LOTRBiomeGenHarondor extends LOTRBiome
 	@Override
     public WorldGenAbstractTree func_150567_a(Random random)
     {
+		if (random.nextInt(5) == 0)
+		{
+			return new LOTRWorldGenCedar(false);
+		}
 		return new LOTRWorldGenDesertTrees();
+    }
+	
+	@Override
+    public WorldGenerator getRandomWorldGenForGrass(Random random)
+    {
+        return random.nextBoolean() ? new WorldGenTallGrass(LOTRMod.aridGrass, 0) : super.getRandomWorldGenForGrass(random);
     }
 	
 	@Override

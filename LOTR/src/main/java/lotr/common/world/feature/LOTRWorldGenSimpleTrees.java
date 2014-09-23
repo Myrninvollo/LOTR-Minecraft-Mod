@@ -81,6 +81,11 @@ public class LOTRWorldGenSimpleTrees extends WorldGenAbstractTree
 	{
 		return new LOTRWorldGenSimpleTrees(flag, 4, 8, LOTRMod.wood3, 0, LOTRMod.leaves3, 0);
 	}
+	
+	public static LOTRWorldGenSimpleTrees newChestnut(boolean flag)
+	{
+		return new LOTRWorldGenSimpleTrees(flag, 5, 7, LOTRMod.wood4, 0, LOTRMod.leaves4, 0);
+	}
 
 	@Override
     public boolean generate(World world, Random random, int i, int j, int k)

@@ -191,7 +191,7 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 
 		stairBlock = Blocks.oak_stairs;
 		
-		int randomWood = random.nextInt(4);
+		int randomWood = random.nextInt(5);
 		switch (randomWood)
 		{
 			case 0:
@@ -229,6 +229,15 @@ public class LOTRWorldGenHobbitTavern extends LOTRWorldGenStructureBase
 				wallMeta = 0;
 				
 				stairBlock = LOTRMod.stairsShirePine;
+				break;
+			case 4:
+				pillarBlock = LOTRMod.wood4;
+				pillarMeta = 0;
+				
+				wallBlock = LOTRMod.planks2;
+				wallMeta = 0;
+				
+				stairBlock = LOTRMod.stairsChestnut;
 				break;
 		}
 		

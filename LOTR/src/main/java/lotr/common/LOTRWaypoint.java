@@ -5,12 +5,7 @@ import static lotr.common.LOTRWaypoint.Region.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import lotr.common.world.genlayer.LOTRGenLayerWorld;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +16,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.Constants;
 
 import com.google.common.base.Charsets;
 
@@ -411,7 +407,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 	{
 		clearAllWaypoints();
 		
-		NBTTagList waypointData = levelData.getTagList("Waypoints", new NBTTagCompound().getId());
+		NBTTagList waypointData = levelData.getTagList("Waypoints", Constants.NBT.TAG_COMPOUND);
 		if (waypointData != null)
 		{
 			for (int i = 0; i < waypointData.tagCount(); i++)
@@ -421,7 +417,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 				Region region = regionForName(name);
 				if (region != null)
 				{
-					NBTTagList players = nbt.getTagList("Players", new NBTTagCompound().getId());
+					NBTTagList players = nbt.getTagList("Players", Constants.NBT.TAG_COMPOUND);
 					if (players != null)
 					{
 						for (int j = 0; j < players.tagCount(); j++)
@@ -672,7 +668,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 			
 			playerCustomWaypoints.clear();
 			
-			NBTTagList waypointData = levelData.getTagList("CustomWaypoints", new NBTTagCompound().getId());
+			NBTTagList waypointData = levelData.getTagList("CustomWaypoints", Constants.NBT.TAG_COMPOUND);
 			if (waypointData != null)
 			{
 				for (int i = 0; i < waypointData.tagCount(); i++)
@@ -690,7 +686,7 @@ public enum LOTRWaypoint implements LOTRAbstractWaypoint
 					
 					List waypoints = new ArrayList();
 					
-					NBTTagList waypointList = playerData.getTagList("Waypoints", new NBTTagCompound().getId());
+					NBTTagList waypointList = playerData.getTagList("Waypoints", Constants.NBT.TAG_COMPOUND);
 					if (waypointList != null)
 					{
 						for (int j = 0; j < waypointList.tagCount(); j++)

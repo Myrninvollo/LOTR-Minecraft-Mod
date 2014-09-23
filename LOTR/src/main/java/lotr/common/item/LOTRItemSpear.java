@@ -1,13 +1,12 @@
 package lotr.common.item;
 
-import lotr.common.dispenser.LOTRDispenserBehaviorSpear;
+import lotr.common.dispenser.LOTRDispenseSpear;
 import lotr.common.entity.projectile.LOTREntitySpear;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class LOTRItemSpear extends LOTRItemSword
@@ -19,7 +18,7 @@ public class LOTRItemSpear extends LOTRItemSword
 		super(material);
 		
 		lotrWeaponDamage = material.getDamageVsEntity() + 3F;
-		BlockDispenser.dispenseBehaviorRegistry.putObject(this, new LOTRDispenserBehaviorSpear());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(this, new LOTRDispenseSpear());
 		
 		if (sword == null || !(sword instanceof ItemSword))
 		{
@@ -38,15 +37,10 @@ public class LOTRItemSpear extends LOTRItemSword
 		charge /= getMaxDrawTime();
 		charge = Math.max(charge, 2F);
 		
-        LOTREntitySpear spear = new LOTREntitySpear(world, entityplayer, itemstack.getItem(), itemstack.getItemDamage(), charge);
+        LOTREntitySpear spear = new LOTREntitySpear(world, entityplayer, itemstack.copy(), charge);
 		if (charge >= 2F)
 		{
 			spear.setIsCritical(true);
-		}
-		
-		if (itemstack.getTagCompound() != null)
-		{
-			spear.setItemData((NBTTagCompound)itemstack.getTagCompound().copy());
 		}
 		
         if (EnchantmentHelper.getEnchantmentLevel(Enchantment.fireAspect.effectId, itemstack) > 0)

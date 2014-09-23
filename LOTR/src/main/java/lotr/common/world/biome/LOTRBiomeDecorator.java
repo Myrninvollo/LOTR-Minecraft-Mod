@@ -58,7 +58,8 @@ public class LOTRBiomeDecorator
     public int doubleFlowersPerChunk = 0;
     public int grassPerChunk = 1;
     public int doubleGrassPerChunk = 0;
-	public boolean enableFern = false;
+    public boolean enableFern = false;
+	public boolean enableSpecialGrasses = true;
     public int deadBushPerChunk = 0;
 	public int waterlilyPerChunk = 0;
 	public int mushroomsPerChunk = 0;
@@ -357,6 +358,14 @@ public class LOTRBiomeDecorator
 			int j = rand.nextInt(128);
             int k = chunkZ + rand.nextInt(16) + 8;
             pumpkinGen.generate(worldObj, rand, i, j, k);
+        }
+        
+        if (flowersPerChunk > 0 && rand.nextInt(4) == 0)
+        {
+            int i = chunkX + rand.nextInt(16) + 8;
+			int j = rand.nextInt(128);
+            int k = chunkZ + rand.nextInt(16) + 8;
+            new LOTRWorldGenBerryBush().generate(worldObj, rand, i, j, k);
         }
 		
 		if (generateAthelas && rand.nextInt(40) == 0)

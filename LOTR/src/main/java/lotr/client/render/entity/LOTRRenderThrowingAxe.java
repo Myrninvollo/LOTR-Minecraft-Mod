@@ -57,7 +57,7 @@ public class LOTRRenderThrowingAxe extends Render
         }
 		GL11.glRotatef(-135F, 0F, 0F, 1F);
 		
-		ItemStack axeItem = new ItemStack(Item.getItemById(axe.getItemID()), 1, 0);
+		ItemStack axeItem = axe.getItem();
 		IIcon icon = axeItem.getIconIndex();
 		if (icon == null)
 		{

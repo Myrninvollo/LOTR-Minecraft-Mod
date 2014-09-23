@@ -18,7 +18,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class LOTRGuiShields extends LOTRGui
+public class LOTRGuiShields extends LOTRGuiMenu
 {
 	private static ModelBiped playerModel = new ModelBiped();
 	public static int playerModelRotation = 0;
@@ -27,6 +27,11 @@ public class LOTRGuiShields extends LOTRGui
 	private static int currentShieldTypeID;
 	private LOTRShields currentShield;
 	private static int currentShieldID;
+	
+	private GuiButton shieldLeft;
+	private GuiButton shieldRight;
+	private GuiButton shieldSelect;
+	private GuiButton changeCategory;
 	
 	static
 	{
@@ -37,10 +42,10 @@ public class LOTRGuiShields extends LOTRGui
     public void initGui()
     {
 		super.initGui();
-		buttonList.add(new LOTRGuiButtonShieldsArrows(2, true, guiLeft + xSize / 2 - 64, guiTop + 210));
-		buttonList.add(new GuiButton(3, guiLeft + xSize / 2 - 40, guiTop + 210, 80, 20, StatCollector.translateToLocal("lotr.gui.shields.select")));
-		buttonList.add(new LOTRGuiButtonShieldsArrows(4, false, guiLeft + xSize / 2 + 44, guiTop + 210));
-		buttonList.add(new GuiButton(5, guiLeft + xSize / 2 - 80, guiTop + 240, 160, 20, ""));
+		buttonList.add(shieldLeft = new LOTRGuiButtonShieldsArrows(0, true, guiLeft + xSize / 2 - 64, guiTop + 210));
+		buttonList.add(shieldSelect = new GuiButton(1, guiLeft + xSize / 2 - 40, guiTop + 210, 80, 20, StatCollector.translateToLocal("lotr.gui.shields.select")));
+		buttonList.add(shieldRight = new LOTRGuiButtonShieldsArrows(2, false, guiLeft + xSize / 2 + 44, guiTop + 210));
+		buttonList.add(changeCategory = new GuiButton(3, guiLeft + xSize / 2 - 80, guiTop + 240, 160, 20, ""));
 		updateCurrentShield();
 	}
 	
@@ -57,7 +62,7 @@ public class LOTRGuiShields extends LOTRGui
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		
 		String s = StatCollector.translateToLocal("lotr.gui.shields.title");
-		drawCenteredString(s, guiLeft + 100, guiTop - 30, 0xFFFFFF);
+		drawCenteredString(s, guiLeft + xSize / 2, guiTop - 30, 0xFFFFFF);
 		
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
 		RenderHelper.enableStandardItemLighting();
@@ -101,11 +106,11 @@ public class LOTRGuiShields extends LOTRGui
 			y += fontRendererObj.FONT_HEIGHT;
 		}
 		
-		((GuiButton)buttonList.get(2)).enabled = currentShieldID > 0;
-		((GuiButton)buttonList.get(3)).enabled = currentShield.canPlayerWear(mc.thePlayer);
-		((GuiButton)buttonList.get(3)).displayString = LOTRLevelData.getData(mc.thePlayer).getShield() == currentShield ? StatCollector.translateToLocal("lotr.gui.shields.selected") : StatCollector.translateToLocal("lotr.gui.shields.select");
-		((GuiButton)buttonList.get(4)).enabled = currentShieldID < currentShieldType.list.size() - 1;
-		((GuiButton)buttonList.get(5)).displayString = currentShieldType.getDisplayName();
+		shieldLeft.enabled = currentShieldID > 0;
+		shieldSelect.enabled = currentShield.canPlayerWear(mc.thePlayer);
+		shieldSelect.displayString = LOTRLevelData.getData(mc.thePlayer).getShield() == currentShield ? StatCollector.translateToLocal("lotr.gui.shields.selected") : StatCollector.translateToLocal("lotr.gui.shields.select");
+		shieldRight.enabled = currentShieldID < currentShieldType.list.size() - 1;
+		changeCategory.displayString = currentShieldType.getDisplayName();
 		
 		super.drawScreen(i, j, f);
 	}
@@ -115,7 +120,7 @@ public class LOTRGuiShields extends LOTRGui
     {
         if (button.enabled)
         {
-			if (button.id == 2)
+			if (button == shieldLeft)
 			{
 				if (currentShieldID > 0)
 				{
@@ -124,7 +129,7 @@ public class LOTRGuiShields extends LOTRGui
 				}
 			}
 			
-			else if (button.id == 3)
+			else if (button == shieldSelect)
 			{
 	        	ByteBuf data = Unpooled.buffer();
 	        	
@@ -137,7 +142,7 @@ public class LOTRGuiShields extends LOTRGui
 	        	mc.thePlayer.sendQueue.addToSendQueue(packet);
 			}
 			
-			else if (button.id == 4)
+			else if (button == shieldRight)
 			{
 				if (currentShieldID < currentShieldType.list.size() - 1)
 				{
@@ -146,7 +151,7 @@ public class LOTRGuiShields extends LOTRGui
 				}
 			}
 			
-			else if (button.id == 5)
+			else if (button == changeCategory)
 			{
 				if (currentShieldTypeID < ShieldType.values().length - 1)
 				{

@@ -196,6 +196,11 @@ public class LOTRGenLayerBiomeVariants extends GenLayer
 					}
 				}
 				
+				else if (biome == LOTRBiome.nearHaradFertile.biomeID && variant < 20)
+				{
+					newBiome = LOTRBiome.nearHaradFertileForest.biomeID;
+				}
+				
 				else if (biome == LOTRBiome.farHarad.biomeID && variant < 20)
 				{
 					newBiome = LOTRBiome.farHaradForest.biomeID;

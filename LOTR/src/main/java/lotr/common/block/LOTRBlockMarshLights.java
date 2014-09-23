@@ -15,7 +15,7 @@ public class LOTRBlockMarshLights extends Block
 {
 	public LOTRBlockMarshLights()
 	{
-		super(Material.air);
+		super(Material.circuits);
 	}
 	
 	@Override
@@ -77,18 +77,16 @@ public class LOTRBlockMarshLights extends Block
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
-		if (random.nextInt(3) != 0)
+		if (random.nextInt(3) > 0)
 		{
-			return;
-		}
-		
-		if (random.nextInt(3) == 0)
-		{
-			LOTRMod.proxy.spawnParticle("marshFlame", (double)((float)i + random.nextFloat()), (double)j - 0.5D, (double)((float)k + random.nextFloat()), 0D, (double)(0.05F + random.nextFloat() * 0.1F), 0D);
-		}
-		else
-		{
-			LOTRMod.proxy.spawnParticle("marshLight", (double)((float)i + random.nextFloat()), (double)j - 0.5D, (double)((float)k + random.nextFloat()), 0D, (double)(0.05F + random.nextFloat() * 0.1F), 0D);
+			if (random.nextInt(3) == 0)
+			{
+				LOTRMod.proxy.spawnParticle("marshFlame", i + random.nextFloat(), j - 0.5D, k + random.nextFloat(), 0D, (double)(0.05F + random.nextFloat() * 0.1F), 0D);
+			}
+			else
+			{
+				LOTRMod.proxy.spawnParticle("marshLight", i + random.nextFloat(), j - 0.5D, k + random.nextFloat(), 0D, (double)(0.05F + random.nextFloat() * 0.1F), 0D);
+			}
 		}
     }
 }

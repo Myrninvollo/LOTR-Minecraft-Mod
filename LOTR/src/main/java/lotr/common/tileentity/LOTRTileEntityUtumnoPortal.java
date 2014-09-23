@@ -30,7 +30,7 @@ public class LOTRTileEntityUtumnoPortal extends TileEntity
 			for (Object obj : players)
 			{
 				EntityPlayer entityplayer = (EntityPlayer)obj;
-				LOTRGuiMessageTypes.UTUMNO_WARN.sendMessageIfNotReceived(entityplayer);
+				LOTRLevelData.getData(entityplayer).sendMessageIfNotReceived(LOTRGuiMessageTypes.UTUMNO_WARN);
 			}
 			
 			List nearbyEntities = worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getBoundingBox(xCoord - (WIDTH - 2), yCoord, zCoord - (WIDTH - 2), xCoord + (WIDTH - 1), yCoord + 3, zCoord + (WIDTH - 1)));

@@ -301,7 +301,7 @@ public class LOTRCommonProxy implements IGuiHandler
 		{
 			try
 			{
-				return LOTRGui.guiClasses[LOTRGui.guiIndex].newInstance();
+				return LOTRGuiMenu.guiClasses[LOTRGuiMenu.guiIndex].newInstance();
 			}
 			catch (Exception e)
 			{

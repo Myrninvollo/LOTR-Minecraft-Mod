@@ -5,21 +5,15 @@ import java.util.Random;
 import lotr.common.LOTRAchievement;
 import lotr.common.LOTRWaypoint;
 import lotr.common.entity.animal.LOTREntityCamel;
-import lotr.common.entity.npc.LOTREntityNearHaradrim;
-import lotr.common.entity.npc.LOTREntityNearHaradrimArcher;
-import lotr.common.entity.npc.LOTREntityNearHaradrimWarrior;
+import lotr.common.entity.npc.*;
 import lotr.common.world.LOTRBanditSpawner;
-import lotr.common.world.feature.LOTRWorldGenDatePalm;
-import lotr.common.world.feature.LOTRWorldGenDesertTrees;
-import lotr.common.world.feature.LOTRWorldGenDoubleFlower;
+import lotr.common.world.feature.*;
 import lotr.common.world.structure.LOTRWorldGenHaradObelisk;
 import lotr.common.world.structure2.LOTRWorldGenNearHaradFortress;
 import lotr.common.world.structure2.LOTRWorldGenNearHaradVillage;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.*;
 
 public class LOTRBiomeGenNearHaradFertile extends LOTRBiome
 {
@@ -42,7 +36,7 @@ public class LOTRBiomeGenNearHaradFertile extends LOTRBiome
 		
 		decorator.flowersPerChunk = 1;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 6;
+		decorator.grassPerChunk = 10;
 		decorator.doubleGrassPerChunk = 2;
 		
 		registerHaradFlowers();
@@ -88,7 +82,14 @@ public class LOTRBiomeGenNearHaradFertile extends LOTRBiome
 		{
 			return new LOTRWorldGenDatePalm(false);
 		}
-		return new LOTRWorldGenDesertTrees();
+		else
+		{
+			if (random.nextInt(3) > 0)
+			{
+				return new LOTRWorldGenCedar(false);
+			}
+			return new LOTRWorldGenDesertTrees();
+		}
     }
 	
 	@Override
@@ -109,7 +110,7 @@ public class LOTRBiomeGenNearHaradFertile extends LOTRBiome
 	@Override
 	public float getTreeIncreaseChance()
 	{
-		return 0.2F;
+		return 0.4F;
 	}
 	
 	@Override

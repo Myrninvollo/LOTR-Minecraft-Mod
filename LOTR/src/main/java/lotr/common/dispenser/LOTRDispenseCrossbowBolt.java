@@ -6,7 +6,7 @@ import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.world.World;
 
-public class LOTRDispenserBehaviorCrossbowBolt extends BehaviorProjectileDispense
+public class LOTRDispenseCrossbowBolt extends BehaviorProjectileDispense
 {
     @Override
     protected IProjectile getProjectileEntity(World world, IPosition iposition)

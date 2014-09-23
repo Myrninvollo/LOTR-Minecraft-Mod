@@ -1,16 +1,16 @@
 package lotr.common.dispenser;
 
-import lotr.common.entity.projectile.LOTREntityPlate;
+import lotr.common.entity.projectile.LOTREntityThrownTermite;
 import net.minecraft.dispenser.BehaviorProjectileDispense;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.world.World;
 
-public class LOTRDispenserBehaviorPlate extends BehaviorProjectileDispense
+public class LOTRDispenseTermite extends BehaviorProjectileDispense
 {
     @Override
     protected IProjectile getProjectileEntity(World world, IPosition position)
     {
-        return new LOTREntityPlate(world, position.getX(), position.getY(), position.getZ());
+        return new LOTREntityThrownTermite(world, position.getX(), position.getY(), position.getZ());
     }
 }

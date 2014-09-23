@@ -1,6 +1,7 @@
 package lotr.common.tileentity;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -9,8 +10,36 @@ import net.minecraft.tileentity.TileEntity;
 
 public class LOTRTileEntityPlate extends TileEntity
 {
-	public Item foodItem;
-	public int foodDamage;
+	private Item foodItem;
+	private int foodDamage;
+	
+	public ItemStack getFoodItem()
+	{
+		if (foodItem == null)
+		{
+			return null;
+		}
+		else
+		{
+			return new ItemStack(foodItem, 1, foodDamage);
+		}
+	}
+	
+	public void setFoodItem(ItemStack item)
+	{
+		if (item == null)
+		{
+			foodItem = null;
+			foodDamage = 0;
+		}
+		else
+		{
+			foodItem = item.getItem();
+			foodDamage = item.getItemDamage();
+		}
+		
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+	}
 	
 	@Override
     public void writeToNBT(NBTTagCompound nbt)

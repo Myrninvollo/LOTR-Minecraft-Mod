@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class LOTRDispenserBehaviorSpear extends BehaviorDefaultDispenseItem
+public class LOTRDispenseSpear extends BehaviorDefaultDispenseItem
 {
     @Override
     public ItemStack dispenseStack(IBlockSource dispenser, ItemStack itemstack)
@@ -17,7 +17,7 @@ public class LOTRDispenserBehaviorSpear extends BehaviorDefaultDispenseItem
         World world = dispenser.getWorld();
         IPosition iposition = BlockDispenser.func_149939_a(dispenser);
         EnumFacing enumfacing = BlockDispenser.func_149937_b(dispenser.getBlockMetadata());
-        LOTREntitySpear spear = new LOTREntitySpear(world, itemstack.getItem(), itemstack.getItemDamage(), iposition.getX(), iposition.getY(), iposition.getZ());
+        LOTREntitySpear spear = new LOTREntitySpear(world, itemstack.copy(), iposition.getX(), iposition.getY(), iposition.getZ());
         spear.setThrowableHeading((double)enumfacing.getFrontOffsetX(), (double)((float)enumfacing.getFrontOffsetY() + 0.1F), (double)enumfacing.getFrontOffsetZ(), 1.1F, 6F);
 		spear.canBePickedUp = 1;
         world.spawnEntityInWorld(spear);

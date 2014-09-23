@@ -212,12 +212,6 @@ public class LOTRWorldGenMeadHall extends LOTRWorldGenStructureBase2
 			setBlockAndMetadata(world, i1, 5, 23, plankBlock, plankMeta);
 		}
 		
-		for (int j1 = 5; j1 >= 1; j1--)
-		{
-			setBlockAndMetadata(world, -(j - j1) - 5, j1, 23, woodBlock, woodMeta);
-			setBlockAndMetadata(world, (j - j1) + 5, j1, 23, woodBlock, woodMeta);
-		}
-		
 		for (int k1 = 1; k1 <= 23; k1 += 22)
 		{
 			setBlockAndMetadata(world, -3, 4, k1, woodBlock, woodMeta);

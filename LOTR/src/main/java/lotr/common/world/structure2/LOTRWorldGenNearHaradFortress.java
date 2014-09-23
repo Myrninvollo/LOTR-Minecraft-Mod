@@ -121,7 +121,7 @@ public class LOTRWorldGenNearHaradFortress extends LOTRWorldGenStructureBase2
 		{
 			for (int k1 = 1; k1 <= 6; k1++)
 			{
-				setBlockAndMetadata(world, i1, 0, k1, LOTRMod.planks, 14);
+				setBlockAndMetadata(world, i1, 0, k1, LOTRMod.planks2, 2);
 				setBlockAndMetadata(world, i1, 5, k1, LOTRMod.brick, 15);
 			}
 		}
@@ -130,7 +130,7 @@ public class LOTRWorldGenNearHaradFortress extends LOTRWorldGenStructureBase2
 		{
 			for (int i2 = i1; i2 <= i1 + 1; i2++)
 			{
-				setBlockAndMetadata(world, i2, 0, 0, LOTRMod.planks, 14);
+				setBlockAndMetadata(world, i2, 0, 0, LOTRMod.planks2, 2);
 				setAir(world, i2, 1, 0);
 				setAir(world, i2, 2, 0);
 			}
@@ -168,7 +168,7 @@ public class LOTRWorldGenNearHaradFortress extends LOTRWorldGenStructureBase2
 		{
 			for (int k1 = 3; k1 <= 6; k1++)
 			{
-				setBlockAndMetadata(world, i1, 0, k1, LOTRMod.planks, 14);
+				setBlockAndMetadata(world, i1, 0, k1, LOTRMod.planks2, 2);
 				setBlockAndMetadata(world, i1, 5, k1, LOTRMod.brick, 15);
 				setBlockAndMetadata(world, i1, 9, k1, Blocks.sandstone, 2);
 			}
@@ -268,8 +268,8 @@ public class LOTRWorldGenNearHaradFortress extends LOTRWorldGenStructureBase2
 			setBlockAndMetadata(world, 18, 3, k1, LOTRMod.brick, 15);
 		}
 		
-		setBlockAndMetadata(world, 14, 0, 4, LOTRMod.planks, 14);
-		setBlockAndMetadata(world, 14, 0, 5, LOTRMod.planks, 14);
+		setBlockAndMetadata(world, 14, 0, 4, LOTRMod.planks2, 2);
+		setBlockAndMetadata(world, 14, 0, 5, LOTRMod.planks2, 2);
 		
 		for (int j1 = 1; j1 <= 6; j1 += 5)
 		{

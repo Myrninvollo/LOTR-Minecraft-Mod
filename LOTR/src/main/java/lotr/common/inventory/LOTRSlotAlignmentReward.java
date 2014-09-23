@@ -31,7 +31,7 @@ public class LOTRSlotAlignmentReward extends LOTRSlotProtected
     public void onPickupFromSlot(EntityPlayer entityplayer, ItemStack itemstack)
     {
 		LOTRFaction faction = ((LOTREntityNPC)theTrader).getFaction();
-		boolean prevTaken = LOTRLevelData.hasTakenAlignmentRewardItem(entityplayer, faction);
+		boolean prevTaken = LOTRLevelData.getData(entityplayer).hasTakenAlignmentReward(faction);
 		if (prevTaken)
 		{
 			for (int i = 0; i < REBUY_COST; i++)
@@ -43,7 +43,7 @@ public class LOTRSlotAlignmentReward extends LOTRSlotProtected
 		{
 			if (!entityplayer.worldObj.isRemote)
 			{
-				LOTRLevelData.setTakenAlignmentRewardItem(entityplayer, faction, true);
+				LOTRLevelData.getData(entityplayer).setTakenAlignmentReward(faction, true);
 			}
 		}
 		

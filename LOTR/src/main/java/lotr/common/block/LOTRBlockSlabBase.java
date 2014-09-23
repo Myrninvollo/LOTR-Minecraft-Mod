@@ -10,9 +10,7 @@ import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemSlab;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.Facing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -31,6 +29,13 @@ public abstract class LOTRBlockSlabBase extends BlockSlab
 		subtypes = j;
         setCreativeTab(LOTRCreativeTabs.tabBlock);
         useNeighborBrightness = true;
+        
+        if (material == Material.wood)
+        {
+        	setHardness(2F);
+        	setResistance(5F);
+        	setStepSound(Block.soundTypeWood);
+        }
     }
 	
 	public static void registerSlabs(Block block, Block block1)
@@ -148,6 +153,22 @@ public abstract class LOTRBlockSlabBase extends BlockSlab
 			}
 		}
 		
+		public static class WoodSlab3Single extends ItemSlab
+		{
+			public WoodSlab3Single(Block block)
+			{
+				super(block, (BlockSlab)LOTRMod.woodSlabSingle3, (BlockSlab)LOTRMod.woodSlabDouble3, false);
+			}
+		}
+		
+		public static class WoodSlab3Double extends ItemSlab
+		{
+			public WoodSlab3Double(Block block)
+			{
+				super(block, (BlockSlab)LOTRMod.woodSlabSingle3, (BlockSlab)LOTRMod.woodSlabDouble3, true);
+			}
+		}
+		
 		public static class Slab1Single extends ItemSlab
 		{
 			public Slab1Single(Block block)
@@ -212,22 +233,6 @@ public abstract class LOTRBlockSlabBase extends BlockSlab
 			}
 		}
 		
-		public static class ThatchSingle extends ItemSlab
-		{
-			public ThatchSingle(Block block)
-			{
-				super(block, (BlockSlab)LOTRMod.slabSingleThatch, (BlockSlab)LOTRMod.slabDoubleThatch, false);
-			}
-		}
-		
-		public static class ThatchDouble extends ItemSlab
-		{
-			public ThatchDouble(Block block)
-			{
-				super(block, (BlockSlab)LOTRMod.slabSingleThatch, (BlockSlab)LOTRMod.slabDoubleThatch, true);
-			}
-		}
-		
 		public static class Slab5Single extends ItemSlab
 		{
 			public Slab5Single(Block block)
@@ -241,6 +246,22 @@ public abstract class LOTRBlockSlabBase extends BlockSlab
 			public Slab5Double(Block block)
 			{
 				super(block, (BlockSlab)LOTRMod.slabSingle5, (BlockSlab)LOTRMod.slabDouble5, true);
+			}
+		}
+		
+		public static class ThatchSingle extends ItemSlab
+		{
+			public ThatchSingle(Block block)
+			{
+				super(block, (BlockSlab)LOTRMod.slabSingleThatch, (BlockSlab)LOTRMod.slabDoubleThatch, false);
+			}
+		}
+		
+		public static class ThatchDouble extends ItemSlab
+		{
+			public ThatchDouble(Block block)
+			{
+				super(block, (BlockSlab)LOTRMod.slabSingleThatch, (BlockSlab)LOTRMod.slabDoubleThatch, true);
 			}
 		}
 	}

@@ -35,7 +35,7 @@ public class LOTRBiomeGenWilderlandForest extends LOTRBiomeGenWilderland
 	{
 		if (random.nextInt(5) == 0)
 		{
-			return random.nextInt(10) == 0 ? new WorldGenBigTree(false) : new WorldGenTrees(false);
+			return func_150567_a(random);
 		}
 		return new WorldGenTaiga2(false);
 	}

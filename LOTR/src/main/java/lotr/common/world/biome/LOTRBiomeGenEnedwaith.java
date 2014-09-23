@@ -10,7 +10,7 @@ import lotr.common.entity.npc.*;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.LOTRInvasionSpawner;
 import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
-import lotr.common.world.feature.LOTRWorldGenBoulder;
+import lotr.common.world.feature.*;
 import lotr.common.world.structure.LOTRWorldGenGondorObelisk;
 import lotr.common.world.structure.LOTRWorldGenGondorRuin;
 import lotr.common.world.structure.LOTRWorldGenStoneRuin;
@@ -105,6 +105,10 @@ public class LOTRBiomeGenEnedwaith extends LOTRBiome
 		if (random.nextBoolean())
 		{
 			return new WorldGenTaiga2(false);
+		}
+		else if (random.nextInt(20) == 0)
+		{
+			return random.nextInt(10) == 0 ? LOTRWorldGenBigTrees.newChestnut(false) : LOTRWorldGenSimpleTrees.newChestnut(false);
 		}
 		else
 		{

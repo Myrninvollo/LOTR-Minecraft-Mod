@@ -3,16 +3,13 @@ package lotr.common.entity;
 import java.util.List;
 
 import lotr.common.*;
-import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.world.LOTRInvasionSpawner.InvasionSpawnEntry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.WeightedRandom;
+import net.minecraft.util.*;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -45,7 +42,7 @@ public class LOTREntityInvasionSpawner extends Entity
 		int j = MathHelper.floor_double(boundingBox.minY);
 		int k = MathHelper.floor_double(posZ);
 		
-		if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, this, false))
+		if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forInvasionSpawner(this), false))
 		{
 			return false;
 		}

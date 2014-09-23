@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 public class LOTRContainerUnitTrade extends Container
 {
 	public LOTRUnitTradeable theUnitTrader;
-	private LOTRFaction faction;
+	private LOTRFaction traderFaction;
 	private World theWorld;
 	private IInventory alignmentRewardInv;
 	public int alignmentRewardSlots;
@@ -25,7 +25,7 @@ public class LOTRContainerUnitTrade extends Container
     public LOTRContainerUnitTrade(EntityPlayer entityplayer, LOTRUnitTradeable trader, World world)
     {
 		theUnitTrader = trader;
-		faction = ((LOTREntityNPC)theUnitTrader).getFaction();
+		traderFaction = ((LOTREntityNPC)theUnitTrader).getFaction();
 		theWorld = world;
 		
 		ItemStack reward = theUnitTrader.createAlignmentReward();
@@ -37,7 +37,7 @@ public class LOTRContainerUnitTrade extends Container
 		{
 			addSlotToContainer(new LOTRSlotAlignmentReward(this, alignmentRewardInv, 0, 174, 78, theUnitTrader));
 			
-			if (!world.isRemote && LOTRLevelData.getData(entityplayer).getAlignment(faction) >= LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
+			if (!world.isRemote && LOTRLevelData.getData(entityplayer).getAlignment(traderFaction) >= LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
 			{
 				alignmentRewardInv.setInventorySlotContents(0, reward);
 			}
@@ -72,12 +72,12 @@ public class LOTRContainerUnitTrade extends Container
 			Slot slot = (Slot)inventorySlots.get(i);
 			if (slot instanceof LOTRSlotAlignmentReward)
 			{
-				if (LOTRLevelData.getData(entityplayer).getAlignment(faction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
+				if (LOTRLevelData.getData(entityplayer).getAlignment(traderFaction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
 				{
 					return null;
 				}
 				
-				if (slot.getHasStack() && LOTRLevelData.hasTakenAlignmentRewardItem(entityplayer, faction))
+				if (slot.getHasStack() && LOTRLevelData.getData(entityplayer).hasTakenAlignmentReward(traderFaction));
 				{
 					int coins = 0;
 					for (ItemStack itemstack : entityplayer.inventory.mainInventory)

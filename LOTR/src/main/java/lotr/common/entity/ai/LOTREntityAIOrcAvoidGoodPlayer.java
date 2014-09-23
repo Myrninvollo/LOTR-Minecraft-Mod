@@ -3,10 +3,8 @@ package lotr.common.entity.ai;
 import java.util.ArrayList;
 import java.util.List;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRLevelData;
+import lotr.common.*;
 import lotr.common.entity.npc.LOTREntityOrc;
-import lotr.common.world.biome.LOTRBiomeGenMordor;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -14,9 +12,7 @@ import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
-import net.minecraft.world.biome.BiomeGenBase;
 
 public class LOTREntityAIOrcAvoidGoodPlayer extends EntityAIBase
 {
@@ -43,8 +39,7 @@ public class LOTREntityAIOrcAvoidGoodPlayer extends EntityAIBase
 		{
 			return false;
 		}
-		BiomeGenBase biome = theOrc.worldObj.getBiomeGenForCoords(MathHelper.floor_double(theOrc.posX), MathHelper.floor_double(theOrc.posZ));
-		if (biome instanceof LOTRBiomeGenMordor)
+		if (theOrc.getFaction() == LOTRFaction.MORDOR)
 		{
 			return false;
 		}

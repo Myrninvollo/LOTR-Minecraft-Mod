@@ -6,11 +6,13 @@ import lotr.common.LOTRMod;
 import lotr.common.entity.animal.LOTREntityHorse;
 import lotr.common.entity.npc.LOTREntityTroll;
 import lotr.common.world.feature.LOTRWorldGenFangornTrees;
+import lotr.common.world.genlayer.LOTRGenLayerWorld;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class LOTRWorldGenMarshHut extends LOTRWorldGenStructureBase
@@ -142,5 +144,20 @@ public class LOTRWorldGenMarshHut extends LOTRWorldGenStructureBase
 		}
 		
 		return true;
+	}
+	
+	private static Random generateRand = new Random();
+	
+	public static boolean generatesAt(World world, int i, int k)
+	{
+		long seed = world.getSeed();
+		generateRand.setSeed(seed * 2L);
+		generateRand.setSeed(generateRand.nextLong() * seed ^ 2L + 5393056L);
+		generateRand.setSeed(generateRand.nextLong() ^ 2860262L * 198702867L * seed);
+		
+		int x = MathHelper.getRandomIntegerInRange(generateRand, 600, 620);
+		int z = MathHelper.getRandomIntegerInRange(generateRand, 380, 400);
+
+		return i == x * LOTRGenLayerWorld.scale && k == z * LOTRGenLayerWorld.scale;
 	}
 }

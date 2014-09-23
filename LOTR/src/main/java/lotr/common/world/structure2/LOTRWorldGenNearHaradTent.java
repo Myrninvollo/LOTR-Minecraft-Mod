@@ -94,7 +94,7 @@ public class LOTRWorldGenNearHaradTent extends LOTRWorldGenStructureBase2
 				{
 					for (int j1 = 1; j1 <= 5; j1++)
 					{
-						setBlockAndMetadata(world, i1, j1, k1, LOTRMod.fence, 14);
+						setBlockAndMetadata(world, i1, j1, k1, LOTRMod.fence2, 2);
 					}
 					setBlockAndMetadata(world, i1, 6, k1, Blocks.torch, 5);
 				}
@@ -120,7 +120,7 @@ public class LOTRWorldGenNearHaradTent extends LOTRWorldGenStructureBase2
 				{
 					for (int j1 = 1; j1 <= 4; j1++)
 					{
-						setBlockAndMetadata(world, i1, j1, k1, LOTRMod.fence, 14);
+						setBlockAndMetadata(world, i1, j1, k1, LOTRMod.fence2, 2);
 					}
 				}
 				
@@ -135,9 +135,9 @@ public class LOTRWorldGenNearHaradTent extends LOTRWorldGenStructureBase2
 		
 		for (int j1 = 1; j1 <= 5; j1++)
 		{
-			setBlockAndMetadata(world, 0, j1, 0, LOTRMod.fence, 14);
+			setBlockAndMetadata(world, 0, j1, 0, LOTRMod.fence2, 2);
 		}
-		setBlockAndMetadata(world, 0, 6, 0, LOTRMod.planks, 14);
+		setBlockAndMetadata(world, 0, 6, 0, LOTRMod.planks2, 2);
 		placeBanner(world, 0, 7, 0, LOTRFaction.NEAR_HARAD, 0);
 		
 		for (int j1 = 2; j1 <= 3; j1++)

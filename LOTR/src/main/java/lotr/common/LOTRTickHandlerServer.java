@@ -257,6 +257,12 @@ public class LOTRTickHandlerServer
 			
 			runAchievementChecks(entityplayer);
 			
+			LOTRTitle.PlayerTitle title = LOTRLevelData.getData(entityplayer).getPlayerTitle();
+			if (title != null && !title.getTitle().canPlayerUse(entityplayer))
+			{
+				LOTRLevelData.getData(entityplayer).setPlayerTitle(null);
+			}
+			
 			int fastTravelTimer = LOTRLevelData.getData(entityplayer).getFTTimer();
 			if (fastTravelTimer > 0)
 			{

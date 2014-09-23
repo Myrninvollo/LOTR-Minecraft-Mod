@@ -12,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -134,7 +135,7 @@ public class LOTRTileEntityArmorStand extends TileEntity implements IInventory
 	
 	private void readArmorStandFromNBT(NBTTagCompound nbt)
 	{
-        NBTTagList items = nbt.getTagList("Items", new NBTTagCompound().getId());
+        NBTTagList items = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
         inventory = new ItemStack[getSizeInventory()];
         for (int i = 0; i < items.tagCount(); i++)
         {

@@ -231,4 +231,9 @@ public class LOTRAlignmentValues
         componentAlignmentRequired.getChatStyle().setColor(EnumChatFormatting.YELLOW);
 		entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.insufficientAlignment3", new Object[] {componentAlignmentRequired, faction1.factionName(), faction2.factionName(), faction3.factionName()}));
 	}
+	
+	public static void notifyMiniQuestsNeeded(EntityPlayer entityplayer, LOTRFaction faction)
+	{
+		entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.requireMiniQuest", new Object[] {faction.factionName()}));
+	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import lotr.common.LOTRCreativeTabs;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,6 +23,8 @@ public class LOTRBlockWoodBase extends BlockLog
     public LOTRBlockWoodBase()
     {
         super();
+        setHardness(2F);
+        setStepSound(Block.soundTypeWood);
 		setCreativeTab(LOTRCreativeTabs.tabBlock);
     }
 	

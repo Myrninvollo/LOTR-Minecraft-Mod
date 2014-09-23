@@ -13,7 +13,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class LOTRGuiAchievements extends LOTRGui
+public class LOTRGuiAchievements extends LOTRGuiMenu
 {
 	private static ResourceLocation pageTexture = new ResourceLocation("lotr:gui/achievements/page.png");
 	private static ResourceLocation iconsTexture = new ResourceLocation("lotr:gui/achievements/icons.png");
@@ -28,6 +28,9 @@ public class LOTRGuiAchievements extends LOTRGui
 	private int currentCategoryTakenCount;
 	private int currentCategoryUntakenCount;
 	
+	private GuiButton categoryLeft;
+	private GuiButton categoryRight;
+	
 	private int totalTakenCount;
 	private int totalAvailableCount;
 	
@@ -40,8 +43,8 @@ public class LOTRGuiAchievements extends LOTRGui
     {
 		xSize = 220;
 		super.initGui();
-		buttonList.add(new LOTRGuiButtonAchievements(2, true, guiLeft + 13, guiTop + 13));
-		buttonList.add(new LOTRGuiButtonAchievements(3, false, guiLeft + 191, guiTop + 13));
+		buttonList.add(categoryLeft = new LOTRGuiButtonAchievements(0, true, guiLeft + 13, guiTop + 13));
+		buttonList.add(categoryRight = new LOTRGuiButtonAchievements(1, false, guiLeft + 191, guiTop + 13));
 	}
 	
 	@Override
@@ -202,7 +205,7 @@ public class LOTRGuiAchievements extends LOTRGui
         {
         	List<Category> categories = currentDimension.achievementCategories;
         	
-			if (button.id == 2)
+			if (button == categoryLeft)
 			{
 				if (currentCategoryIndex == 0)
 				{
@@ -215,7 +218,7 @@ public class LOTRGuiAchievements extends LOTRGui
 				currentScroll = 0F;
 			}
 			
-			else if (button.id == 3)
+			else if (button == categoryRight)
 			{
 				if (currentCategoryIndex == categories.size() - 1)
 				{

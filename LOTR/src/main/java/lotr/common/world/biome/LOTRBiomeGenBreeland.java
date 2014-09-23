@@ -73,13 +73,17 @@ public class LOTRBiomeGenBreeland extends LOTRBiome
 		{
 			return new WorldGenForest(false, false);
 		}
-		else if (random.nextBoolean())
+		else if (random.nextInt(4) == 0)
 		{
 			return random.nextInt(4) == 0 ? LOTRWorldGenBigTrees.newMaple(false) : LOTRWorldGenSimpleTrees.newMaple(false);
 		}
-		else if (random.nextInt(4) == 0)
+		else if (random.nextInt(3) == 0)
 		{
 			return random.nextInt(4) == 0 ? LOTRWorldGenBigTrees.newBeech(false) : LOTRWorldGenSimpleTrees.newBeech(false);
+		}
+		else if (random.nextInt(3) == 0)
+		{
+			return random.nextInt(10) == 0 ? LOTRWorldGenBigTrees.newChestnut(false) : LOTRWorldGenSimpleTrees.newChestnut(false);
 		}
 		else
 		{

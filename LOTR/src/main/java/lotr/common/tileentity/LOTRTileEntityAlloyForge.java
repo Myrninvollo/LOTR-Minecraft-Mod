@@ -19,6 +19,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraftforge.common.util.Constants;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -126,7 +127,7 @@ public abstract class LOTRTileEntityAlloyForge extends TileEntity implements IIn
     {
         super.readFromNBT(nbt);
 		
-        NBTTagList items = nbt.getTagList("Items", new NBTTagCompound().getId());
+        NBTTagList items = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
         inventory = new ItemStack[getSizeInventory()];
         for (int i = 0; i < items.tagCount(); i++)
         {

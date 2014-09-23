@@ -185,7 +185,8 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(Items.string), 1, 5, 50),
 			new WeightedRandomChestContent(new ItemStack(Items.compass), 1, 1, 50),
 			new WeightedRandomChestContent(new ItemStack(Items.lead), 1, 2, 50),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.sulfurMatch), 1, 4, 50)
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.sulfurMatch), 1, 4, 50),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.chestnut), 1, 6, 50)
 		}).enablePouches().enableEnchantedBooks();
 		
 		HOBBIT_HOLE_LARDER = new LOTRChestContents(2, 5, new WeightedRandomChestContent[]
@@ -218,7 +219,13 @@ public class LOTRChestContents
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugAle), 1, 1, 100),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugCider), 1, 1, 50),
 			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugPerry), 1, 1, 50),
-			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugCherryLiqueur), 1, 1, 25)
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.mugCherryLiqueur), 1, 1, 25),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.blueberry), 2, 5, 10),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.blackberry), 2, 5, 10),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.raspberry), 2, 5, 10),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.cranberry), 2, 5, 10),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.elderberry), 2, 5, 10),
+			new WeightedRandomChestContent(new ItemStack(LOTRMod.chestnutRoast), 2, 4, 50)
 		});
 		
 		HOBBIT_HOLE_TREASURE = new LOTRChestContents(3, 6, new WeightedRandomChestContent[]

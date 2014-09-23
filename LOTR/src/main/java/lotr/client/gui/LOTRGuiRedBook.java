@@ -134,7 +134,7 @@ public class LOTRGuiRedBook extends LOTRGuiScreenBase
 		{
 			drawCenteredString(StatCollector.translateToLocalFormatted("lotr.gui.redBook.miniquests.active", new Object[] {getPlayerData().getActiveMiniQuests().size()}), x, guiTop + 70, textColor);
 			
-			drawCenteredString(StatCollector.translateToLocalFormatted("lotr.gui.redBook.miniquests.complete", new Object[] {getPlayerData().getCompletedMiniQuests()}), x, guiTop + 90, textColor);
+			drawCenteredString(StatCollector.translateToLocalFormatted("lotr.gui.redBook.miniquests.complete", new Object[] {getPlayerData().getCompletedMiniQuestsTotal()}), x, guiTop + 90, textColor);
 			
 			if (deletingMiniquest == null)
 			{

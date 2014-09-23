@@ -1,16 +1,16 @@
 package lotr.common.dispenser;
 
-import lotr.common.entity.projectile.LOTREntityPebble;
+import lotr.common.entity.projectile.LOTREntityConker;
 import net.minecraft.dispenser.BehaviorProjectileDispense;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.world.World;
 
-public class LOTRDispenserBehaviorPebble extends BehaviorProjectileDispense
+public class LOTRDispenseConker extends BehaviorProjectileDispense
 {
     @Override
     protected IProjectile getProjectileEntity(World world, IPosition position)
     {
-        return new LOTREntityPebble(world, position.getX(), position.getY(), position.getZ());
+        return new LOTREntityConker(world, position.getX(), position.getY(), position.getZ());
     }
 }

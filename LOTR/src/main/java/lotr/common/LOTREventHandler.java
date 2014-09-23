@@ -5,8 +5,8 @@ import io.netty.buffer.Unpooled;
 
 import java.util.*;
 
-import lotr.common.block.LOTRBlockFlowerPot;
-import lotr.common.block.LOTRBlockSaplingBase;
+import lotr.common.LOTRBannerProtectFilters.BannerProtection;
+import lotr.common.block.*;
 import lotr.common.entity.*;
 import lotr.common.entity.LOTREntityRegistry.RegistryInfo;
 import lotr.common.entity.ai.LOTREntityAINearestAttackableTargetBasic;
@@ -17,6 +17,7 @@ import lotr.common.entity.projectile.*;
 import lotr.common.inventory.*;
 import lotr.common.item.LOTRItemPouch;
 import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.tileentity.LOTRTileEntityPlate;
 import lotr.common.world.LOTRTeleporterUtumno;
 import lotr.common.world.LOTRWorldProviderUtumno;
 import lotr.common.world.biome.*;
@@ -38,6 +39,7 @@ import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -47,7 +49,6 @@ import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
 import org.apache.commons.lang3.StringUtils;
@@ -286,8 +287,6 @@ public class LOTREventHandler implements IFuelHandler
 			LOTRWaypoint.sendLoginWaypointsPacket(entityplayermp);
 			LOTRWaypoint.Custom.sendLoginCustomWaypointsPackets(entityplayermp);
 			
-			LOTRLevelData.sendTakenAlignmentRewardsToPlayer(entityplayermp);
-			
 			LOTRTime.sendUpdatePacket(entityplayermp, false);
 		}
 	}
@@ -449,18 +448,13 @@ public class LOTREventHandler implements IFuelHandler
 		}
 	}
 	
-	public static boolean isProtectedByBanner(World world, int i, int j, int k, Entity entity, boolean sendMessage)
+	public static boolean isProtectedByBanner(World world, int i, int j, int k, LOTRBannerProtectFilters.IFilter protectFilter, boolean sendMessage)
 	{
-		return isProtectedByBanner(world, i, j, k, entity, sendMessage, LOTREntityBanner.PROTECTION_RANGE);
+		return isProtectedByBanner(world, i, j, k, protectFilter, sendMessage, LOTREntityBanner.PROTECTION_RANGE);
 	}
 
-	public static boolean isProtectedByBanner(World world, int i, int j, int k, Entity entity, boolean sendMessage, double range)
+	public static boolean isProtectedByBanner(World world, int i, int j, int k, LOTRBannerProtectFilters.IFilter protectFilter, boolean sendMessage, double range)
 	{
-		if (entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.isCreativeMode)
-		{
-			return false;
-		}
-		
 		String protectorName = null;
 		
 		List banners = world.getEntitiesWithinAABB(LOTREntityBanner.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 1, k + 1).expand(range, range, range));
@@ -472,59 +466,25 @@ public class LOTREventHandler implements IFuelHandler
 				LOTREntityBanner banner = (LOTREntityBanner)banners.get(l);
 				if (banner.isProtectingTerritory())
 				{
-					LOTRFaction bannerFaction = banner.getBannerFaction();
-					
-					if (entity instanceof EntityPlayer)
+					BannerProtection result = protectFilter.protects(banner);
+					if (result == BannerProtection.NONE)
 					{
-						EntityPlayer entityplayer = (EntityPlayer)entity;
-						if (banner.playerSpecificProtection)
-						{
-							UUID placingPlayer = banner.allowedPlayers[0];
-							if (placingPlayer != null)
-							{
-								boolean isPlayerWhitelisted = false;
-								for (UUID uuid : banner.allowedPlayers)
-								{
-									if (uuid != null && uuid.equals(entityplayer.getUniqueID()))
-									{
-										isPlayerWhitelisted = true;
-										break;
-									}
-								}
-								if (!isPlayerWhitelisted)
-								{
-									GameProfile profile = MinecraftServer.getServer().func_152358_ax().func_152652_a(placingPlayer);
-									if (StringUtils.isEmpty(profile.getName()))
-									{
-										MinecraftServer.getServer().func_147130_as().fillProfileProperties(profile, true);
-									}
-									protectorName = profile.getName();
-									break bannerSearch;
-								}
-							}
-						}
-						else
-						{
-							int alignment = LOTRLevelData.getData(entityplayer).getAlignment(bannerFaction);
-							if (alignment <= 0)
-							{
-								protectorName = bannerFaction.factionName();
-								break bannerSearch;
-							}
-						}
+						continue;
 					}
-					else if (entity instanceof LOTREntityInvasionSpawner)
+					else if (result == BannerProtection.FACTION)
 					{
-						LOTREntityInvasionSpawner spawner = (LOTREntityInvasionSpawner)entity;
-						if (spawner.getFaction().isEnemy(bannerFaction))
-						{
-							protectorName = bannerFaction.factionName();
-							break bannerSearch;
-						}
+						protectorName = banner.getBannerFaction().factionName();
+						break bannerSearch;
 					}
-					else if (LOTRMod.getNPCFaction(entity).isEnemy(bannerFaction))
+					else if (result == BannerProtection.PLAYER_SPECIFIC)
 					{
-						protectorName = bannerFaction.factionName();
+						UUID placingPlayer = banner.getPlacingPlayer();
+						GameProfile profile = MinecraftServer.getServer().func_152358_ax().func_152652_a(placingPlayer);
+						if (StringUtils.isEmpty(profile.getName()))
+						{
+							MinecraftServer.getServer().func_147130_as().fillProfileProperties(profile, true);
+						}
+						protectorName = profile.getName();
 						break bannerSearch;
 					}
 				}
@@ -533,14 +493,9 @@ public class LOTREventHandler implements IFuelHandler
 		
 		if (protectorName != null)
 		{
-			if (entity instanceof EntityPlayerMP)
+			if (sendMessage)
 			{
-				EntityPlayerMP entityplayer = (EntityPlayerMP)entity;
-				if (sendMessage)
-				{
-					entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLand", new Object[] {protectorName}));
-				}
-				entityplayer.sendContainerToPlayer(entityplayer.inventoryContainer);
+				protectFilter.warnProtection(new ChatComponentTranslation("chat.lotr.protectedLand", new Object[] {protectorName}));
 			}
 			return true;
 		}
@@ -572,7 +527,7 @@ public class LOTREventHandler implements IFuelHandler
 		
 		if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
 		{
-			if (!world.isRemote && isProtectedByBanner(world, i, j, k, entityplayer, true))
+			if (!world.isRemote && isProtectedByBanner(world, i, j, k, LOTRBannerProtectFilters.forPlayer(entityplayer), true))
 			{
 				event.setCanceled(true);
 				return;
@@ -604,6 +559,22 @@ public class LOTREventHandler implements IFuelHandler
 				event.setCanceled(true);
 				return;
 			}
+			
+			if (!world.isRemote && world.getBlock(i, j, k) == LOTRMod.plateBlock && entityplayer.isSneaking())
+			{
+				TileEntity tileentity = world.getTileEntity(i, j, k);
+				if (tileentity instanceof LOTRTileEntityPlate)
+				{
+					LOTRTileEntityPlate plate = (LOTRTileEntityPlate)tileentity;
+					if (plate.getFoodItem() != null)
+					{
+						((LOTRBlockPlate)LOTRMod.plateBlock).dropPlateItem(plate);
+						plate.setFoodItem(null);
+						event.setCanceled(true);
+						return;
+					}
+				}
+			}
 		}
 	}
 	
@@ -634,7 +605,7 @@ public class LOTREventHandler implements IFuelHandler
 		int j = event.y;
 		int k = event.z;
 		
-		if (!world.isRemote && isProtectedByBanner(world, i, j, k, entityplayer, true))
+		if (!world.isRemote && isProtectedByBanner(world, i, j, k, LOTRBannerProtectFilters.forPlayer(entityplayer), true))
 		{
 			event.setCanceled(true);
 			return;
@@ -690,7 +661,7 @@ public class LOTREventHandler implements IFuelHandler
 			int j = target.blockY;
 			int k = target.blockZ;
 			
-			if (!world.isRemote && isProtectedByBanner(world, i, j, k, entityplayer, true))
+			if (!world.isRemote && isProtectedByBanner(world, i, j, k, LOTRBannerProtectFilters.forPlayer(entityplayer), true))
 			{
 				event.setCanceled(true);
 				return;
@@ -1210,7 +1181,8 @@ public class LOTREventHandler implements IFuelHandler
 			if (!world.isRemote && entity instanceof EntityPlayer && event.source.getSourceOfDamage() instanceof LOTREntitySpear)
 			{
 				LOTREntitySpear spear = (LOTREntitySpear)event.source.getSourceOfDamage();
-				if (spear.getItemID() == Item.getIdFromItem(LOTRMod.spearOrc))
+				Item spearItem = spear.getItem().getItem();
+				if (spearItem == LOTRMod.spearOrc || spearItem == LOTRMod.spearAngmar || spearItem == LOTRMod.spearDolGuldur || spearItem == LOTRMod.spearUruk)
 				{
 					ItemStack chestplate = entity.getEquipmentInSlot(3);
 					if (chestplate != null && chestplate.getItem() == LOTRMod.bodyMithril)
@@ -1523,7 +1495,7 @@ public class LOTREventHandler implements IFuelHandler
 						if (source.getSourceOfDamage() instanceof LOTREntityThrowingAxe)
 						{
 							LOTREntityThrowingAxe axe = (LOTREntityThrowingAxe)source.getSourceOfDamage();
-							if (axe.getItemID() == Item.getIdFromItem(LOTRMod.throwingAxeDwarven))
+							if (axe.getItem().getItem() == LOTRMod.throwingAxeDwarven)
 							{
 								LOTRLevelData.getData(attackingPlayer).addAchievement(LOTRAchievement.useDwarvenThrowingAxe);
 							}
@@ -1539,6 +1511,54 @@ public class LOTREventHandler implements IFuelHandler
 	{
 		EntityPlayerMP entityplayer = event.player;
 		String message = event.message;
+		String username = event.username;
+		ChatComponentTranslation chatComponent = event.component;
+		
+		LOTRTitle.PlayerTitle playerTitle = LOTRLevelData.getData(entityplayer).getPlayerTitle();
+		if (playerTitle != null)
+		{
+			String title = playerTitle.getTitle().getUntranslatedName();
+			EnumChatFormatting titleColor = playerTitle.getColor();
+			
+			List newFormatArgs = new ArrayList();
+	
+			for (Object arg : chatComponent.getFormatArgs())
+			{
+				if (arg instanceof ChatComponentText)
+				{
+					ChatComponentText componentText = (ChatComponentText)arg;
+					if (componentText.getUnformattedText().equals(username))
+					{
+						IChatComponent titleComponent = new ChatComponentText("[").appendSibling(new ChatComponentTranslation(title)).appendText("]").appendText(" ");
+						titleComponent.getChatStyle().setColor(titleColor);
+						
+						IChatComponent usernameComponent = componentText;
+	
+						IChatComponent fullUsernameComponent = new ChatComponentText("").appendSibling(titleComponent).appendSibling(usernameComponent);
+						newFormatArgs.add(fullUsernameComponent);
+					}
+					else
+					{
+						newFormatArgs.add(componentText);
+					}
+				}
+				else
+				{
+					newFormatArgs.add(arg);
+				}
+			}
+		
+			ChatComponentTranslation newChatComponent = new ChatComponentTranslation(chatComponent.getKey(), newFormatArgs.toArray());
+			newChatComponent.setChatStyle(chatComponent.getChatStyle().createShallowCopy());
+	        Iterator siblings = chatComponent.getSiblings().iterator();
+	        while (siblings.hasNext())
+	        {
+	            IChatComponent sibling = (IChatComponent)siblings.next();
+	            newChatComponent.appendSibling(sibling.createCopy());
+	        }
+	        chatComponent = newChatComponent;
+	        event.component = newChatComponent;
+		}
 		
 		if (!entityplayer.capabilities.isCreativeMode && !LOTRLevelData.getData(entityplayer).getAskedForGandalf() && StringUtils.containsIgnoreCase(message, "I want Mevans to add Gandalf"))
 		{

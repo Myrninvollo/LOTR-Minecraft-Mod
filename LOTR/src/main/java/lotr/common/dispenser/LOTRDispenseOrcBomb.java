@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class LOTRDispenserBehaviorOrcBomb extends BehaviorDefaultDispenseItem
+public class LOTRDispenseOrcBomb extends BehaviorDefaultDispenseItem
 {
     @Override
     protected ItemStack dispenseStack(IBlockSource dispenser, ItemStack itemstack)

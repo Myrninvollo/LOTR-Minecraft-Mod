@@ -1,10 +1,11 @@
 package lotr.common.entity.projectile;
 
-import lotr.common.LOTREventHandler;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -106,11 +107,25 @@ public class LOTREntityPlate extends EntityThrowable
 	private boolean breakGlass(int i, int j, int k)
 	{
 		Block block = worldObj.getBlock(i, j, k);
-		if (block.getMaterial() == Material.glass && getThrower() != null && !LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, getThrower(), true))
+		if (block.getMaterial() == Material.glass)
 		{
-			worldObj.playAuxSFX(2001, i, j, k, Block.getIdFromBlock(block) + (worldObj.getBlockMetadata(i, j, k) << 12));
-			worldObj.setBlockToAir(i, j, k);
-			return true;
+			boolean bannerProtection = false;
+			
+			if (getThrower() instanceof EntityPlayer)
+			{
+				bannerProtection = LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forPlayer((EntityPlayer)getThrower()), true);
+			}
+			else if (getThrower() instanceof EntityLiving)
+			{
+				bannerProtection = LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forNPC((EntityLiving)getThrower()), true);
+			}
+			
+			if (!bannerProtection)
+			{
+				worldObj.playAuxSFX(2001, i, j, k, Block.getIdFromBlock(block) + (worldObj.getBlockMetadata(i, j, k) << 12));
+				worldObj.setBlockToAir(i, j, k);
+				return true;
+			}
 		}
 		return false;
 	}

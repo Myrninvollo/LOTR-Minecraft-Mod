@@ -74,6 +74,20 @@ public class LOTRItemMountArmor extends Item
 		}
     }
 	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIconFromDamage(int i)
+    {
+		if (templateItem != null)
+		{
+			return templateItem.getIconFromDamage(i);
+		}
+		else
+		{
+			return super.getIconFromDamage(i);
+		}
+    }
+	
 	private ItemStack createTemplateItemStack(ItemStack source)
 	{
 		ItemStack template = new ItemStack(templateItem);

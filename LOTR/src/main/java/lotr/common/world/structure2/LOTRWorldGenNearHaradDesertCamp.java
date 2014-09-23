@@ -109,8 +109,8 @@ public class LOTRWorldGenNearHaradDesertCamp extends LOTRWorldGenStructureBase2
 				continue;
 			}
 			
-			setBlockAndMetadata(world, camelX, camelY, camelZ, LOTRMod.fence, 14);
-			setBlockAndMetadata(world, camelX, camelY + 1, camelZ, LOTRMod.fence, 14);
+			setBlockAndMetadata(world, camelX, camelY, camelZ, LOTRMod.fence2, 2);
+			setBlockAndMetadata(world, camelX, camelY + 1, camelZ, LOTRMod.fence2, 2);
 			spawnNPCAndSetHome(camel, world, camelX, camelY, camelZ, -1);
 			
 			camel.saddleMountForWorldGen();

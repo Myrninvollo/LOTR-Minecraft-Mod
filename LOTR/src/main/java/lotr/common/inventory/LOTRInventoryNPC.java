@@ -6,6 +6,7 @@ import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 
 public class LOTRInventoryNPC extends InventoryBasic
 {
@@ -21,7 +22,7 @@ public class LOTRInventoryNPC extends InventoryBasic
 	
     public void readFromNBT(NBTTagCompound nbt)
     {
-        NBTTagList items = nbt.getTagList(nbtName, new NBTTagCompound().getId());
+        NBTTagList items = nbt.getTagList(nbtName, Constants.NBT.TAG_COMPOUND);
 		
         for (int i = 0; i < items.tagCount(); i++)
         {

@@ -139,7 +139,7 @@ public class LOTREntityAIAttackOnCollide extends EntityAIBase
 			double range = (double)theOwner.getNavigator().getPathSearchRange();
 			if (d > 5D && d < range * 0.75D)
 			{
-				LOTREntitySpear spear = new LOTREntitySpear(worldObj, theOwner, entityTarget, heldItem.getItem(), 0, 0.75F + ((float)d * 0.025F), 0.5F);
+				LOTREntitySpear spear = new LOTREntitySpear(worldObj, theOwner, entityTarget, heldItem.copy(), 0.75F + ((float)d * 0.025F), 0.5F);
 				worldObj.playSoundAtEntity(theOwner, "random.bow", 1F, 1F / (worldObj.rand.nextFloat() * 0.4F + 1.2F) + 0.25F);
 				theOwner.setCurrentItemOrArmor(0, new ItemStack(spearItem.swordReplacement));
 				worldObj.spawnEntityInWorld(spear);

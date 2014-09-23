@@ -149,7 +149,12 @@ public class LOTRWorldGenMangrove extends WorldGenAbstractTree
                     			int roots = 0;
 	                        	while (world.getBlock(rootX, rootY, k1).isReplaceable(world, rootX, rootY, rootZ))
                     			{
-	                        		setBlockAndNotifyAdequately(world, rootX, rootY, rootZ, woodID, woodMeta);
+	                        		setBlockAndNotifyAdequately(world, rootX, rootY, rootZ, woodID, woodMeta | 12);
+	                        		if (world.getBlock(rootX, rootY - 1, rootZ) == Blocks.grass)
+	                        		{
+	                        			setBlockAndNotifyAdequately(world, rootX, rootY - 1, rootZ, Blocks.dirt, 0);
+	                        		}
+	                        		
 	                        		rootY--;
 	                        		if (random.nextInt(3) > 0)
 	                        		{

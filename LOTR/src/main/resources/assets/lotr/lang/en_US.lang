@@ -379,16 +379,37 @@ tile.lotr:haradFlower.1.name=Yellow Sand Gem
 tile.lotr:haradFlower.2.name=Harad Daisy
 tile.lotr:haradFlower.3.name=Southbells
 tile.lotr:flaxPlant.name=Flax Plant
-tile.lotr:berryBush.0.name=Blueberry Bush
-tile.lotr:berryBush.1.name=Blackberry Bush
-tile.lotr:berryBush.2.name=Raspberry Bush
-tile.lotr:berryBush.3.name=Cranberry Bush
-tile.lotr:berryBush.4.name=Elderberry Bush
-tile.lotr:berryBush.8.name=Bare Blueberry Bush
-tile.lotr:berryBush.9.name=Bare Blackberry Bush
-tile.lotr:berryBush.10.name=Bare Raspberry Bush
-tile.lotr:berryBush.11.name=Bare Cranberry Bush
-tile.lotr:berryBush.12.name=Bare Elderberry Bush
+tile.lotr:berryBush.0.name=Bare Blueberry Bush
+tile.lotr:berryBush.1.name=Bare Blackberry Bush
+tile.lotr:berryBush.2.name=Bare Raspberry Bush
+tile.lotr:berryBush.3.name=Bare Cranberry Bush
+tile.lotr:berryBush.4.name=Bare Elderberry Bush
+tile.lotr:berryBush.8.name=Blueberry Bush
+tile.lotr:berryBush.9.name=Blackberry Bush
+tile.lotr:berryBush.10.name=Raspberry Bush
+tile.lotr:berryBush.11.name=Cranberry Bush
+tile.lotr:berryBush.12.name=Elderberry Bush
+tile.lotr:planks2.0.name=Chestnut Wood Planks
+tile.lotr:planks2.1.name=Baobab Wood Planks
+tile.lotr:planks2.2.name=Cedar Wood Planks
+tile.lotr:fence2.0.name=Chestnut Wood Fence
+tile.lotr:fence2.1.name=Baobab Wood Fence
+tile.lotr:fence2.2.name=Cedar Wood Fence
+tile.lotr:woodSlabSingle3.0.name=Chestnut Wood Slab
+tile.lotr:woodSlabSingle3.1.name=Baobab Wood Slab
+tile.lotr:woodSlabSingle3.2.name=Cedar Wood Slab
+tile.lotr:wood4.0.name=Chestnut Wood
+tile.lotr:wood4.1.name=Baobab Wood
+tile.lotr:wood4.2.name=Cedar Wood
+tile.lotr:leaves4.0.name=Chestnut Leaves
+tile.lotr:leaves4.1.name=Baobab Leaves
+tile.lotr:leaves4.2.name=Cedar Leaves
+tile.lotr:sapling4.0.name=Chestnut Sapling
+tile.lotr:sapling4.1.name=Baobab Sapling
+tile.lotr:sapling4.2.name=Cedar Sapling
+tile.lotr:stairsChestnut.name=Chestnut Wood Stairs
+tile.lotr:stairsBaobab.name=Baobab Wood Stairs
+tile.lotr:stairsCedar.name=Cedar Wood Stairs
 
 item.lotr:goldRing.name=Gold Ring
 item.lotr:pouch.0.name=Small Pouch
@@ -804,7 +825,7 @@ item.lotr:hoeDolGuldur.name=Dol Guldur Hoe
 item.lotr:battleaxeDolGuldur.name=Dol Guldur Battleaxe
 item.lotr:hammerDolGuldur.name=Dol Guldur Warhammer
 item.lotr:helmetDolGuldur.name=Dol Guldur Helmet
-item.lotr:bodyDolGuldur.name=Dol Guldur Chesplate
+item.lotr:bodyDolGuldur.name=Dol Guldur Chestplate
 item.lotr:legsDolGuldur.name=Dol Guldur Leggings
 item.lotr:bootsDolGuldur.name=Dol Guldur Boots
 item.lotr:dalishPastry.name=Dalish Pastry
@@ -817,6 +838,8 @@ item.lotr:blackberry.name=Blackberry
 item.lotr:raspberry.name=Raspberry
 item.lotr:cranberry.name=Cranberry
 item.lotr:elderberry.name=Elderberry
+item.lotr:chestnut.name=Conker
+item.lotr:chestnutRoast.name=Roast Chestnut
 
 item.lotr.orcBomb.fire=Fire
 item.lotr.orcBomb.doubleStrength=Double Strength
@@ -886,45 +909,6 @@ container.lotr.trade.sellPrice=x %d
 
 container.lotr.unitTrade.requiresAlignment=Requires +%d alignment
 
-lotr.gui.menuPrompt=Press '%s' to view the Middle-earth menu
-lotr.gui.alignmentPrompt=Use the keys '%s' and '%s' to cycle between alignments
-
-lotr.gui.map=Map
-lotr.gui.alignment=Alignment
-lotr.gui.achievements=Achievements
-lotr.gui.shields=Shields
-lotr.gui.options=Options
-
-lotr.gui.map.title=Middle-earth Map
-lotr.gui.map.coords=x: %d, z: %d
-lotr.gui.map.waypointUnavailableEnemy=This waypoint is not available for enemy players
-lotr.gui.map.waypointUnavailableTravel=Unlock this waypoint by visiting its region
-lotr.gui.map.fastTravel=Press '%s' to fast travel to the selected waypoint
-lotr.gui.map.fastTravelTimeRemaining=Fast travel will be available in: %s
-lotr.gui.map.tp=Press '%s' to /tp
-
-lotr.gui.map.customWaypoint.allUsed.1=You have used all of %d custom waypoints
-lotr.gui.map.customWaypoint.allUsed.2=Delete existing custom waypoints
-lotr.gui.map.customWaypoint.allUsed.3= if you wish to add more
-lotr.gui.map.customWaypoint.canCreate.1=You have used %d of %d custom waypoints
-lotr.gui.map.customWaypoint.canCreate.2=You have %d custom waypoints remaining
-lotr.gui.map.customWaypoint.canCreate.3=Press %s to create a custom waypoint
-lotr.gui.map.customWaypoint.canCreate.4=at your current location
-lotr.gui.map.customWaypoint.unlockMore.1=Additional custom waypoints can be unlocked
-lotr.gui.map.customWaypoint.unlockMore.2=by earning more Middle-earth achievements
-lotr.gui.map.customWaypoint.create.1=Custom waypoint name:
-lotr.gui.map.customWaypoint.create.2=Press %s to create waypoint
-lotr.gui.map.customWaypoint.delete.1=Are you sure you wish to delete the waypoint
-lotr.gui.map.customWaypoint.delete.2=%s?
-lotr.gui.map.customWaypoint.delete.3=Press %s to delete waypoint
-
-lotr.gui.alignment.title=%s Alignment
-
-lotr.gui.achievements.title=%s Achievements (%d/%d)
-lotr.gui.achievements.category=%s (%d/%d)
-lotr.gui.achievements.hover.name=%s (%s)
-lotr.gui.achievements.hover.subtitle=%s Achievement
-
 lotr.gui.miniquestOffer.accept=Accept
 lotr.gui.miniquestOffer.decline=Decline
 
@@ -972,6 +956,100 @@ lotr.miniquest.kill=Slay %d %s
 lotr.miniquest.kill.progress=%d of %d slain
 lotr.miniquest.entityDead=Quest giver has died
 
+lotr.gui.menuPrompt=Press '%s' to view the Middle-earth menu
+lotr.gui.alignmentPrompt=Use the keys '%s' and '%s' to cycle between alignments
+
+lotr.gui.map=Map
+lotr.gui.alignment=Alignment
+lotr.gui.achievements=Achievements
+lotr.gui.titles=Titles
+lotr.gui.shields=Shields
+lotr.gui.options=Options
+
+lotr.gui.map.title=Middle-earth Map
+lotr.gui.map.coords=x: %d, z: %d
+lotr.gui.map.waypointUnavailableEnemy=This waypoint is not available for enemy players
+lotr.gui.map.waypointUnavailableTravel=Unlock this waypoint by visiting its region
+lotr.gui.map.fastTravel=Press '%s' to fast travel to the selected waypoint
+lotr.gui.map.fastTravelTimeRemaining=Fast travel will be available in: %s
+lotr.gui.map.tp=Press '%s' to /tp
+
+lotr.gui.map.customWaypoint.allUsed.1=You have used all of %d custom waypoints
+lotr.gui.map.customWaypoint.allUsed.2=Delete existing custom waypoints
+lotr.gui.map.customWaypoint.allUsed.3= if you wish to add more
+lotr.gui.map.customWaypoint.canCreate.1=You have used %d of %d custom waypoints
+lotr.gui.map.customWaypoint.canCreate.2=You have %d custom waypoints remaining
+lotr.gui.map.customWaypoint.canCreate.3=Press %s to create a custom waypoint
+lotr.gui.map.customWaypoint.canCreate.4=at your current location
+lotr.gui.map.customWaypoint.unlockMore.1=Additional custom waypoints can be unlocked
+lotr.gui.map.customWaypoint.unlockMore.2=by earning more Middle-earth achievements
+lotr.gui.map.customWaypoint.create.1=Custom waypoint name:
+lotr.gui.map.customWaypoint.create.2=Press %s to create waypoint
+lotr.gui.map.customWaypoint.delete.1=Are you sure you wish to delete the waypoint
+lotr.gui.map.customWaypoint.delete.2=%s?
+lotr.gui.map.customWaypoint.delete.3=Press %s to delete waypoint
+
+lotr.gui.alignment.title=%s Alignment
+
+lotr.gui.achievements.title=%s Achievements (%d/%d)
+lotr.gui.achievements.category=%s (%d/%d)
+lotr.gui.achievements.hover.name=%s (%s)
+lotr.gui.achievements.hover.subtitle=%s Achievement
+
+lotr.gui.titles.title=Middle-earth Titles
+lotr.gui.titles.currentTitle=Current title: %s
+lotr.gui.titles.currentTitle.none=None
+lotr.gui.titles.select=Select Title
+lotr.gui.titles.remove=Remove Title
+
+lotr.titles.unlock.starter=Starter title
+lotr.titles.unlock.exclusive=Exclusive title!
+lotr.titles.unlock.alignment=Earn %2$d %1$s alignment
+
+lotr.title.adventurer=Adventurer
+lotr.title.rogue=Rogue
+lotr.title.bartender=Bartender
+lotr.title.gaffer=Gaffer
+lotr.title.scholar=Scholar
+lotr.title.minstrel=Minstrel
+lotr.title.bard=Bard
+lotr.title.artisan=Artisan
+lotr.title.warrior=Warrior
+lotr.title.ranger=Ranger
+lotr.title.scourge=Scourge
+
+lotr.title.creator=Eru Ilúvatar
+lotr.title.creator2=Manwë Súlimo
+lotr.title.moderator=Vala
+lotr.title.gruk=Polish Noble
+
+lotr.title.HOBBIT_100=Hobbit
+lotr.title.RANGER_100=Dúnedain
+lotr.title.BLUE_MOUNTAINS_100=Blue Dwarf
+lotr.title.HIGH_ELF_100=High Elf
+lotr.title.GUNDABAD_100=Gundabad
+lotr.title.ANGMAR_100=Angmar
+lotr.title.WOOD_ELF_100=Wood-elf
+lotr.title.DOL_GULDUR_100=Dol Guldur
+lotr.title.DURIN_100=Durin's Folk
+lotr.title.LOTHLORIEN_100=Lothlórien
+lotr.title.DUNLAND_100=Dunlending
+lotr.title.URUK_100=Uruk-hai
+lotr.title.FANGORN_100=Ent
+lotr.title.ROHAN_100=Rohan
+lotr.title.GONDOR_100=Gondor
+lotr.title.MORDOR_100=Mordor
+lotr.title.NEAR_HARAD_100=Near Harad
+lotr.title.FAR_HARAD_100=Far Harad
+lotr.title.HALF_TROLL_100=Half-troll
+
+lotr.title.trollSlayer=Trollslayer
+lotr.title.alcoholic=Alcoholic
+lotr.title.earnCoins=Filthy Rich
+lotr.title.explore50Biomes=Worldwalker
+lotr.title.fourLeafClover=Lucky
+lotr.title.enterUtumno=Flame of Udûn
+
 lotr.shields.category.ALIGNMENT=Alignment Shields
 lotr.shields.category.ACHIEVABLE=Achievable Shields
 lotr.shields.category.EXCLUSIVE=Exclusive Shields
@@ -1018,7 +1096,7 @@ lotr.shields.ACHIEVEMENT_MITHRIL.desc=Awarded for earning 200 achievements in Mi
 lotr.shields.DEFEAT_MTC.name=Trollslayer's Shield
 lotr.shields.DEFEAT_MTC.desc=Awarded for defeating the Mountain Troll Chieftain
 lotr.shields.ALCOHOLIC.name=Alcoholic's Shield
-lotr.shields.ALCOHOLIC.desc=Awarded for enjoying a copious amount of alcholic beverages
+lotr.shields.ALCOHOLIC.desc=Awarded for enjoying a copious amount of alcoholic beverages
 
 lotr.shields.ELVEN_CONTEST.name=Elven Contest Shield
 lotr.shields.ELVEN_CONTEST.desc=Awarded as a prize in Building Contest #1 (Elven)
@@ -1502,6 +1580,7 @@ lotr.biome.farHaradCloudForest.name=Far Harad Cloud Forest
 lotr.biome.farHaradBushland.name=Far Harad Bushland
 lotr.biome.farHaradBushlandHills.name=Far Harad Bushland Hills
 lotr.biome.farHaradMangrove.name=Far Harad Mangrove
+lotr.biome.nearHaradFertileForest.name=Near Harad Fertile Forest
 
 lotr.biome.utumno.name=Utumno
 
@@ -1598,6 +1677,7 @@ chat.lotr.achievement=%s has just earned the %s achievement %s
 chat.lotr.insufficientAlignment=You need at least %s %s alignment to perform this action
 chat.lotr.insufficientAlignment2=You need at least %s %s or %s alignment to perform this action
 chat.lotr.insufficientAlignment3=You need at least %s %s, %s, or %s alignment to perform this action
+chat.lotr.requireMiniQuest=You must complete a %s mini-quest to perform this action
 chat.lotr.allowStructures=You have been allowed to spawn structures
 chat.lotr.banStructures=You have been banned from spawning structures
 chat.lotr.spawnStructure.disabled=Structure spawning is disabled on this server
@@ -1786,7 +1866,7 @@ lotr.achievement.rideGiraffeShire.desc=Ride a giraffe into the Shire
 lotr.achievement.buyPotatoHobbitFarmer.title=Boil 'Em, Mash 'Em...
 lotr.achievement.buyPotatoHobbitFarmer.desc=Buy potatoes from a Hobbit Farmer
 lotr.achievement.doMiniquestHobbit.title=Local Shirriff
-lotr.achievement.doMiniquestHobbit.desc=Complete a Hobbit Mini-Quest
+lotr.achievement.doMiniquestHobbit.desc=Complete a Hobbit mini-quest
 
 lotr.achievement.enterBlueMountains.title=Firebeards and Broadbeams
 lotr.achievement.enterBlueMountains.desc=Enter the Blue Mountains
@@ -1813,12 +1893,12 @@ lotr.achievement.tradeBlueDwarfMerchant.desc=Trade with a merchant of the Blue M
 lotr.achievement.marryBlueDwarf.title=Blue Blessings
 lotr.achievement.marryBlueDwarf.desc=Perform a Blue Mountains dwarf marriage
 lotr.achievement.doMiniquestBlueMountains.title=Welcoming Halls
-lotr.achievement.doMiniquestBlueMountains.desc=Complete a Blue Mountains Mini-Quest
+lotr.achievement.doMiniquestBlueMountains.desc=Complete a Blue Mountains mini-quest
 
 lotr.achievement.enterLindon.title=The Last Fair Realm
 lotr.achievement.enterLindon.desc=Enter the land of Lindon
 lotr.achievement.doMiniquestHighElf.title=Fair and Free
-lotr.achievement.doMiniquestHighElf.desc=Complete a High Elf Mini-Quest
+lotr.achievement.doMiniquestHighElf.desc=Complete a High Elf mini-quest
 lotr.achievement.alignmentGood10_HIGH_ELF.title=High Elven Friend
 lotr.achievement.alignmentGood10_HIGH_ELF.desc=Reach +10 alignment with the High Elves
 lotr.achievement.alignmentGood100_HIGH_ELF.title=High Elven Champion
@@ -1896,9 +1976,9 @@ lotr.achievement.useRangerTable.desc=Craft an item on the Ranger Crafting Table
 lotr.achievement.useGundabadTable.title=Crude Worker
 lotr.achievement.useGundabadTable.desc=Craft an item on the Gundabad Crafting Table
 lotr.achievement.doMiniquestRanger.title=Errand Scout
-lotr.achievement.doMiniquestRanger.desc=Complete a Ranger Mini-Quest
+lotr.achievement.doMiniquestRanger.desc=Complete a Ranger mini-quest
 lotr.achievement.doMiniquestGundabad.title=Scavenging Filth
-lotr.achievement.doMiniquestGundabad.desc=Complete a Gundabad Mini-Quest
+lotr.achievement.doMiniquestGundabad.desc=Complete a Gundabad mini-quest
 
 lotr.achievement.tradeAngmarCaptain.title=Hour of Vengeance
 lotr.achievement.tradeAngmarCaptain.desc=Hire a unit from an Angmar Orc Chieftain
@@ -1917,7 +1997,7 @@ lotr.achievement.alignmentGood100_ANGMAR.desc=Reach +100 alignment with the Orcs
 lotr.achievement.alignmentGood1000_ANGMAR.title=Angmar Scourge
 lotr.achievement.alignmentGood1000_ANGMAR.desc=Reach +1000 alignment with the Orcs of Angmar
 lotr.achievement.doMiniquestAngmar.title=Servant of Evil
-lotr.achievement.doMiniquestAngmar.desc=Complete an Angmar Mini-Quest
+lotr.achievement.doMiniquestAngmar.desc=Complete an Angmar mini-quest
 
 lotr.achievement.enterEregion.title=Faded Splendor
 lotr.achievement.enterEregion.desc=Enter the land of Eregion
@@ -1995,9 +2075,9 @@ lotr.achievement.killMirkTroll.desc=Kill a Mirk-troll
 lotr.achievement.wearFullDolGuldur.title=The Corrupt
 lotr.achievement.wearFullDolGuldur.desc=Equip a full suit of Dol Guldur armor
 lotr.achievement.doMiniquestWoodElf.title=Trust of the Elves
-lotr.achievement.doMiniquestWoodElf.desc=Complete a Wood-elf Mini-Quest
+lotr.achievement.doMiniquestWoodElf.desc=Complete a Wood-elf mini-quest
 lotr.achievement.doMiniquestDolGuldur.title=Spider Spawn
-lotr.achievement.doMiniquestDolGuldur.desc=Complete a Dol Guldur Mini-Quest
+lotr.achievement.doMiniquestDolGuldur.desc=Complete a Dol Guldur mini-quest
 
 lotr.achievement.killDwarf.title=Dwarf Slayer
 lotr.achievement.killDwarf.desc=Kill a dwarf
@@ -2034,7 +2114,7 @@ lotr.achievement.alignmentGood1000_DWARF.desc=Reach +1000 alignment with the Dwa
 lotr.achievement.marryDwarf.title=The Reluctant Union
 lotr.achievement.marryDwarf.desc=Perform a dwarf marriage among Durin's Folk
 lotr.achievement.doMiniquestDwarf.title=Kin of Durin
-lotr.achievement.doMiniquestDwarf.desc=Complete a Durin's Folk Mini-Quest
+lotr.achievement.doMiniquestDwarf.desc=Complete a Durin's Folk mini-quest
 
 lotr.achievement.killElf.title=Elf Slayer
 lotr.achievement.killElf.desc=Kill a Galadhrim elf
@@ -2061,7 +2141,7 @@ lotr.achievement.alignmentGood100_GALADHRIM.desc=Reach +100 alignment with the E
 lotr.achievement.alignmentGood1000_GALADHRIM.title=Elven Lord
 lotr.achievement.alignmentGood1000_GALADHRIM.desc=Reach +1000 alignment with the Elves of Lothlórien
 lotr.achievement.doMiniquestGaladhrim.title=Friend of the Lady
-lotr.achievement.doMiniquestGaladhrim.desc=Complete a Galadhrim Mini-Quest
+lotr.achievement.doMiniquestGaladhrim.desc=Complete a Galadhrim mini-quest
 
 lotr.achievement.killDunlending.title=Dunlending Slayer
 lotr.achievement.killDunlending.desc=Kill a Dunlending
@@ -2084,7 +2164,7 @@ lotr.achievement.alignmentGood100_DUNLAND.desc=Reach +100 alignment with the Dun
 lotr.achievement.alignmentGood1000_DUNLAND.title=Dunlending Warlord
 lotr.achievement.alignmentGood1000_DUNLAND.desc=Reach +1000 alignment with the Dunlendings
 lotr.achievement.doMiniquestDunland.title=Blood Pact
-lotr.achievement.doMiniquestDunland.desc=Complete a Dunland Mini-Quest
+lotr.achievement.doMiniquestDunland.desc=Complete a Dunland mini-quest
 
 lotr.achievement.killEnt.title=Enemy of the Forest
 lotr.achievement.killEnt.desc=Kill an Ent
@@ -2148,9 +2228,9 @@ lotr.achievement.alignmentGood100_URUK_HAI.desc=Reach +100 alignment with the Ur
 lotr.achievement.alignmentGood1000_URUK_HAI.title=Uruk Scourge
 lotr.achievement.alignmentGood1000_URUK_HAI.desc=Reach +1000 alignment with the Uruk-hai
 lotr.achievement.doMiniquestRohan.title=Esquire of Rohan
-lotr.achievement.doMiniquestRohan.desc=Complete a Rohan Mini-Quest
+lotr.achievement.doMiniquestRohan.desc=Complete a Rohan mini-quest
 lotr.achievement.doMiniquestUrukHai.title=Fell Deeds Awake
-lotr.achievement.doMiniquestUrukHai.desc=Complete an Uruk-hai Mini-Quest
+lotr.achievement.doMiniquestUrukHai.desc=Complete an Uruk-hai mini-quest
 
 lotr.achievement.killGondorSoldier.title=Gondorian Slayer
 lotr.achievement.killGondorSoldier.desc=Kill a Gondor Soldier
@@ -2183,7 +2263,7 @@ lotr.achievement.enterTolfalas.desc=Visit the island of Tolfalas
 lotr.achievement.enterLebennin.title=Land of Five Streams
 lotr.achievement.enterLebennin.desc=Enter the province of Lebennin
 lotr.achievement.doMiniquestGondor.title=In Aid of Gondor
-lotr.achievement.doMiniquestGondor.desc=Complete a Gondor Mini-Quest
+lotr.achievement.doMiniquestGondor.desc=Complete a Gondor mini-quest
 
 lotr.achievement.mineRemains.title=Worth the Risk?
 lotr.achievement.mineRemains.desc=Dig up a block of remains
@@ -2239,7 +2319,7 @@ lotr.achievement.alignmentGood100_MORDOR.desc=Reach +100 alignment with the forc
 lotr.achievement.alignmentGood1000_MORDOR.title=Mordor Scourge
 lotr.achievement.alignmentGood1000_MORDOR.desc=Reach +1000 alignment with the forces of Mordor
 lotr.achievement.doMiniquestMordor.title=Hand of Sauron
-lotr.achievement.doMiniquestMordor.desc=Complete a Mordor Mini-Quest
+lotr.achievement.doMiniquestMordor.desc=Complete a Mordor mini-quest
 
 lotr.achievement.enterHarondor.title=Southward Bound
 lotr.achievement.enterHarondor.desc=Enter the region of Harondor
@@ -2266,7 +2346,7 @@ lotr.achievement.tradeBazaarTrader.desc=Trade with a trader in a Near Harad baza
 lotr.achievement.tradeNearHaradMerchant.title=Exotic Goods
 lotr.achievement.tradeNearHaradMerchant.desc=Trade with a merchant of Near Harad
 lotr.achievement.doMiniquestNearHarad.title=Desert Wanderer
-lotr.achievement.doMiniquestNearHarad.desc=Complete a Near Harad Mini-Quest
+lotr.achievement.doMiniquestNearHarad.desc=Complete a Near Harad mini-quest
 
 lotr.achievement.enterUmbar.title=City of Corsairs
 lotr.achievement.enterUmbar.desc=Enter the land of Umbar

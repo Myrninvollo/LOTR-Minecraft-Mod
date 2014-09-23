@@ -2,14 +2,12 @@ package lotr.common.dispenser;
 
 import lotr.common.entity.projectile.LOTREntityThrowingAxe;
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.dispenser.IPosition;
+import net.minecraft.dispenser.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class LOTRDispenserBehaviorThrowingAxe extends BehaviorDefaultDispenseItem
+public class LOTRDispenseThrowingAxe extends BehaviorDefaultDispenseItem
 {
     @Override
     public ItemStack dispenseStack(IBlockSource dispenser, ItemStack itemstack)
@@ -17,7 +15,7 @@ public class LOTRDispenserBehaviorThrowingAxe extends BehaviorDefaultDispenseIte
         World world = dispenser.getWorld();
         IPosition iposition = BlockDispenser.func_149939_a(dispenser);
         EnumFacing enumfacing = BlockDispenser.func_149937_b(dispenser.getBlockMetadata());
-        LOTREntityThrowingAxe axe = new LOTREntityThrowingAxe(world, itemstack.getItem(), itemstack.getItemDamage(), iposition.getX(), iposition.getY(), iposition.getZ());
+        LOTREntityThrowingAxe axe = new LOTREntityThrowingAxe(world, itemstack.copy(), iposition.getX(), iposition.getY(), iposition.getZ());
         axe.setThrowableHeading((double)enumfacing.getFrontOffsetX(), (double)((float)enumfacing.getFrontOffsetY() + 0.1F), (double)enumfacing.getFrontOffsetZ(), 1.1F, 6F);
 		axe.canBePickedUp = 1;
         world.spawnEntityInWorld(axe);

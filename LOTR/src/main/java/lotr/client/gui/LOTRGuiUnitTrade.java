@@ -36,7 +36,7 @@ public class LOTRGuiUnitTrade extends GuiContainer
 {
 	private static ResourceLocation guiTexture = new ResourceLocation("lotr:gui/npc/unit_trade.png");
 	private LOTRUnitTradeable theUnitTrader;
-	private LOTRFaction faction;
+	private LOTRFaction traderFaction;
 	private LOTRUnitTradeEntry[] trades;
 	private int currentTradeEntryIndex;
 	private LOTREntityNPC currentDisplayedMob;
@@ -50,7 +50,7 @@ public class LOTRGuiUnitTrade extends GuiContainer
 		xSize = 220;
 		ySize = 238;
 		theUnitTrader = trader;
-		faction = ((LOTREntityNPC)theUnitTrader).getFaction();
+		traderFaction = ((LOTREntityNPC)theUnitTrader).getFaction();
 		trades = theUnitTrader.getUnits();
 	}
 	
@@ -109,7 +109,7 @@ public class LOTRGuiUnitTrade extends GuiContainer
 		{
 			Slot slot = inventorySlots.getSlot(0);
 
-			boolean hasRewardCost = slot.getHasStack() && LOTRLevelData.hasTakenAlignmentRewardItem(mc.thePlayer, faction);
+			boolean hasRewardCost = slot.getHasStack() && LOTRLevelData.getData(mc.thePlayer).hasTakenAlignmentReward(traderFaction);
 			if (hasRewardCost)
 			{
 				GL11.glEnable(GL11.GL_LIGHTING);
@@ -121,7 +121,7 @@ public class LOTRGuiUnitTrade extends GuiContainer
 				cost = LOTRSlotAlignmentReward.REBUY_COST;
 				fontRendererObj.drawString(String.valueOf(cost), 179, 104, 0x373737);
 			}
-			else if (!slot.getHasStack() && LOTRLevelData.getData(mc.thePlayer).getAlignment(faction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
+			else if (!slot.getHasStack() && LOTRLevelData.getData(mc.thePlayer).getAlignment(traderFaction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
 			{
 				if (func_146978_c(slot.xDisplayPosition, slot.yDisplayPosition, 16, 16, i, j))
 		        {
@@ -143,7 +143,7 @@ public class LOTRGuiUnitTrade extends GuiContainer
 			Slot slot = inventorySlots.getSlot(0);
 	        drawTexturedModalRect(guiLeft + slot.xDisplayPosition - 3, guiTop + slot.yDisplayPosition - 3, xSize, 16, 22, 22);
 	        
-			if (!slot.getHasStack() && LOTRLevelData.getData(mc.thePlayer).getAlignment(faction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
+			if (!slot.getHasStack() && LOTRLevelData.getData(mc.thePlayer).getAlignment(traderFaction) < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED)
 			{
 		        drawTexturedModalRect(guiLeft + slot.xDisplayPosition, guiTop + slot.yDisplayPosition, xSize, 0, 16, 16);
 			}

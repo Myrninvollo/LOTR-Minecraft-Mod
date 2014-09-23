@@ -4,6 +4,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class LOTRPouchRecipe extends ShapelessOreRecipe
@@ -26,7 +27,7 @@ public class LOTRPouchRecipe extends ShapelessOreRecipe
 			if (itemstack != null && itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("LOTRPouchData"))
 			{
 				NBTTagCompound nbt = itemstack.getTagCompound().getCompoundTag("LOTRPouchData");
-				NBTTagList items = nbt.getTagList("Items", new NBTTagCompound().getId());
+				NBTTagList items = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 				for (int j = 0; j < items.tagCount(); j++)
 				{
 					NBTTagCompound itemData = (NBTTagCompound)items.getCompoundTagAt(j);

@@ -189,6 +189,7 @@ public class LOTRClientProxy extends LOTRCommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityThrownTermite.class, new RenderSnowball(LOTRMod.termite));
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityDikDik.class, new LOTRRenderDikDik());
 		RenderingRegistry.registerEntityRenderingHandler(LOTREntityUtumnoIceSpider.class, new LOTRRenderUtumnoIceSpider());
+		RenderingRegistry.registerEntityRenderingHandler(LOTREntityConker.class, new RenderSnowball(LOTRMod.chestnut));
 
 		beaconRenderID = RenderingRegistry.getNextAvailableRenderId();
 		barrelRenderID = RenderingRegistry.getNextAvailableRenderId();
@@ -373,11 +374,6 @@ public class LOTRClientProxy extends LOTRCommonProxy
             GL11.glPopMatrix();
         }
     }
-    
-    private static ItemStack getQuestBookItem()
-    {
-    	return new ItemStack(LOTRMod.redBook);
-    }
 
     public static void renderQuestBook(LOTREntityNPC npc, double d, double d1, double d2, float tick)
     {
@@ -394,7 +390,8 @@ public class LOTRClientProxy extends LOTRCommonProxy
     	
     	if (!LOTRLevelData.getData(entityplayer).getMiniQuestsForEntity(npc, true).isEmpty())
     	{
-			IIcon icon = getQuestBookItem().getIconIndex();
+    		ItemStack questBook = new ItemStack(LOTRMod.redBook);
+			IIcon icon =  questBook.getIconIndex();
 	        if (icon == null)
 	        {
 	            icon = ((TextureMap)textureManager.getTexture(TextureMap.locationItemsTexture)).getAtlasSprite("missingno");
@@ -435,6 +432,8 @@ public class LOTRClientProxy extends LOTRCommonProxy
     			float scale = (distance / (float)LOTRMiniQuest.RENDER_HEAD_DISTANCE) * 1F;
     			scale = (float)Math.pow(scale, 1.4D);
     			
+    			float alpha = (float)Math.pow(scale, -0.5D);
+    			
                 GL11.glPushMatrix();
                 GL11.glTranslatef((float)d, (float)d1 + npc.height + 1F, (float)d2);
                 GL11.glNormal3f(0F, 1F, 0F);
@@ -444,14 +443,17 @@ public class LOTRClientProxy extends LOTRCommonProxy
                 GL11.glDisable(GL11.GL_LIGHTING);
                 GL11.glDepthMask(false);
                 GL11.glDisable(GL11.GL_DEPTH_TEST);
+                GL11.glEnable(GL11.GL_BLEND);
+				OpenGlHelper.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
 
 	    		textureManager.bindTexture(TextureMap.locationItemsTexture);
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240F, 240F);
-				GL11.glColor4f(1F, 1F, 1F, 1F);
-				GL11.glColor4f(1F, 1F, 1F, 1F);
+				GL11.glColor4f(1F, 1F, 1F, alpha);
+				GL11.glColor4f(1F, 1F, 1F, alpha);
 				GL11.glTranslatef(-0.5F, 0F, 0F);
 				ItemRenderer.renderItemIn2D(tessellator, maxU, minV, minU, maxV, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
     			
+				GL11.glDisable(GL11.GL_BLEND);
                 GL11.glEnable(GL11.GL_DEPTH_TEST);
                 GL11.glDepthMask(true);
                 GL11.glEnable(GL11.GL_LIGHTING);

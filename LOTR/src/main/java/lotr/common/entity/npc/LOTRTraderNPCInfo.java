@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
+import net.minecraftforge.common.util.Constants;
 
 public class LOTRTraderNPCInfo
 {
@@ -86,7 +87,7 @@ public class LOTRTraderNPCInfo
 			NBTTagCompound buyTradesData = data.getCompoundTag("LOTRBuyTrades");
 			if (buyTradesData.hasKey("Trades"))
 			{
-				NBTTagList buyTradesTrags = buyTradesData.getTagList("Trades", new NBTTagCompound().getId());
+				NBTTagList buyTradesTrags = buyTradesData.getTagList("Trades", Constants.NBT.TAG_COMPOUND);
 				buyTrades = new LOTRTradeEntry[buyTradesTrags.tagCount()];
 				for (int i = 0; i < buyTradesTrags.tagCount(); i++)
 				{
@@ -103,7 +104,7 @@ public class LOTRTraderNPCInfo
 			NBTTagCompound sellTradesData = data.getCompoundTag("LOTRSellTrades");
 			if (sellTradesData.hasKey("Trades"))
 			{
-				NBTTagList sellTradesTrags = sellTradesData.getTagList("Trades", new NBTTagCompound().getId());
+				NBTTagList sellTradesTrags = sellTradesData.getTagList("Trades", Constants.NBT.TAG_COMPOUND);
 				sellTrades = new LOTRTradeEntry[sellTradesTrags.tagCount()];
 				for (int i = 0; i < sellTradesTrags.tagCount(); i++)
 				{

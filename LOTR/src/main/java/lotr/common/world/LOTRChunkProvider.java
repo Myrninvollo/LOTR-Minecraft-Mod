@@ -231,20 +231,20 @@ public class LOTRChunkProvider implements IChunkProvider
 								
                                 if (j1 == 0 && fillerBlock == Blocks.sand)
                                 {
-                                    j1 = rand.nextInt(4);
+                                    j1 = 10 + rand.nextInt(4);
                                     fillerBlock = Blocks.sandstone;
                                 }
 								
                                 if ((biome instanceof LOTRBiomeGenGondor || biome instanceof LOTRBiomeGenIthilien) && j1 == 0 && fillerBlock == Blocks.dirt)
                                 {
-                                    j1 = 6 + rand.nextInt(3);
+                                    j1 = 8 + rand.nextInt(3);
                                     fillerBlock = LOTRMod.rock;
 									fillerMeta = (byte)1;
                                 }
 								
                                 else if (biome instanceof LOTRBiomeGenRohan && j1 == 0 && fillerBlock == Blocks.dirt)
                                 {
-                                    j1 = 6 + rand.nextInt(3);
+                                    j1 = 8 + rand.nextInt(3);
                                     fillerBlock = LOTRMod.rock;
                                     fillerMeta = (byte)2;
                                 }

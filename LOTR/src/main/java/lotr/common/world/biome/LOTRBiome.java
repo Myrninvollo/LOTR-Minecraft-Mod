@@ -159,6 +159,7 @@ public class LOTRBiome extends BiomeGenBase
 	public static BiomeGenBase farHaradBushland;
 	public static BiomeGenBase farHaradBushlandHills;
 	public static BiomeGenBase farHaradMangrove;
+	public static BiomeGenBase nearHaradFertileForest;
 	
 	public static BiomeGenBase utumno;
 	
@@ -292,6 +293,7 @@ public class LOTRBiome extends BiomeGenBase
 		farHaradBushland = new LOTRBiomeGenFarHaradBushland(125).setTemperatureRainfall(1F, 0.4F).setMinMaxHeight(0.2F, 0.1F).setColor(0x91793B).setBiomeName("farHaradBushland");
 		farHaradBushlandHills = new LOTRBiomeGenFarHaradBushland(126).setTemperatureRainfall(0.8F, 0.4F).setMinMaxHeight(0.8F, 0.8F).setColor(0x7F6B38).setBiomeName("farHaradBushlandHills");
 		farHaradMangrove = new LOTRBiomeGenFarHaradMangrove(127).setTemperatureRainfall(1F, 0.9F).setMinMaxHeight(-0.05F, 0.05F).setColor(0x67723B).setBiomeName("farHaradMangrove");
+		nearHaradFertileForest = new LOTRBiomeGenNearHaradFertileForest(128).setTemperatureRainfall(1.2F, 1F).setMinMaxHeight(0.2F, 0.4F).setColor(0x708E34).setBiomeName("nearHaradFertileForest");
 		
 		utumno = new LOTRBiomeGenUtumno(0).setTemperatureRainfall(2F, 0F).setMinMaxHeight(0F, 0F).setColor(0x000000).setBiomeName("utumno");
 	}
@@ -673,34 +675,37 @@ public class LOTRBiome extends BiomeGenBase
 	@Override
 	public WorldGenerator getRandomWorldGenForGrass(Random random)
 	{
-		if (decorator.enableFern && random.nextInt(3) == 0)
+		boolean fern = decorator.enableFern;
+		boolean special = decorator.enableSpecialGrasses;
+				
+		if (fern && random.nextInt(3) == 0)
 		{
 			return new WorldGenTallGrass(Blocks.tallgrass, 2);
 		}
 		else
 		{
-			if (random.nextInt(100) == 0)
+			if (special && random.nextInt(500) == 0)
 			{
 				return new WorldGenTallGrass(LOTRMod.flaxPlant, 0);
 			}
 			else if (random.nextInt(4) > 0)
 			{
-				if (random.nextInt(40) == 0)
+				if (special)
 				{
-					return new WorldGenTallGrass(LOTRMod.tallGrass, 3);
+					if (random.nextInt(50) == 0)
+					{
+						return new WorldGenTallGrass(LOTRMod.tallGrass, 3);
+					}
+					if (random.nextInt(16) == 0)
+					{
+						return new WorldGenTallGrass(LOTRMod.tallGrass, 1);
+					}
+					if (random.nextInt(10) == 0)
+					{
+						return new WorldGenTallGrass(LOTRMod.tallGrass, 2);
+					}
 				}
-				else if (random.nextInt(16) == 0)
-				{
-					return new WorldGenTallGrass(LOTRMod.tallGrass, 1);
-				}
-				else if (random.nextInt(10) == 0)
-				{
-					return new WorldGenTallGrass(LOTRMod.tallGrass, 2);
-				}
-				else
-				{
-					return new WorldGenTallGrass(LOTRMod.tallGrass, 0);
-				}
+				return new WorldGenTallGrass(LOTRMod.tallGrass, 0);
 			}
 			else if (random.nextInt(3) == 0)
 			{

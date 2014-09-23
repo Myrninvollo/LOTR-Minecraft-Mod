@@ -10,7 +10,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
-public class LOTRDispenserBehaviorMobEgg extends BehaviorDefaultDispenseItem
+public class LOTRDispenseSpawnEgg extends BehaviorDefaultDispenseItem
 {
     @Override
     public ItemStack dispenseStack(IBlockSource dispenser, ItemStack itemstack)

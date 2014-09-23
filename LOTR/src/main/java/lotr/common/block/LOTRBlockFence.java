@@ -5,6 +5,7 @@ import java.util.List;
 
 import lotr.common.LOTRCreativeTabs;
 import lotr.common.LOTRMod;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,10 +19,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class LOTRBlockFence extends BlockFence
 {
-	public LOTRBlockFence()
+	private Block plankBlock;
+	
+	public LOTRBlockFence(Block planks)
 	{
 		super("", Material.wood);
+		setHardness(2F);
+		setResistance(5F);
+		setStepSound(Block.soundTypeWood);
 		setCreativeTab(LOTRCreativeTabs.tabDeco);
+		plankBlock = planks;
 	}
 	
 	@Override
@@ -54,7 +61,7 @@ public class LOTRBlockFence extends BlockFence
 	@SideOnly(Side.CLIENT)
     public IIcon getIcon(int i, int j)
     {
-		return LOTRMod.planks.getIcon(i, j);
+		return plankBlock.getIcon(i, j);
 	}
 	
 	@Override
@@ -62,7 +69,7 @@ public class LOTRBlockFence extends BlockFence
     public void getSubBlocks(Item item, CreativeTabs tab, List list)
     {
 		List plankTypes = new ArrayList();
-		LOTRMod.planks.getSubBlocks(Item.getItemFromBlock(LOTRMod.planks), LOTRMod.planks.getCreativeTabToDisplayOn(), plankTypes);
+		plankBlock.getSubBlocks(Item.getItemFromBlock(plankBlock), plankBlock.getCreativeTabToDisplayOn(), plankTypes);
 		for (int j = 0; j < plankTypes.size(); j++)
 		{
 			Object obj = plankTypes.get(j);

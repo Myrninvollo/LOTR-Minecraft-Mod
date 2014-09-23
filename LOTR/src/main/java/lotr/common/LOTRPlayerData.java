@@ -5,6 +5,7 @@ import io.netty.buffer.Unpooled;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.Map.Entry;
 
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.inventory.LOTRSlotAlignmentReward;
@@ -18,13 +19,11 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 
 import com.google.common.base.Charsets;
-
-import cpw.mods.fml.common.FMLLog;
 
 public class LOTRPlayerData
 {
@@ -34,6 +33,7 @@ public class LOTRPlayerData
 	private LOTRFaction viewingFaction;
 	private boolean checkedAlignments = false;
 	private boolean hideAlignment = false;
+	private Set<LOTRFaction> takenAlignmentRewards = new HashSet();
 	
 	private boolean hideOnMap = false;
 	private int waypointToggleMode;
@@ -49,14 +49,19 @@ public class LOTRPlayerData
 	
 	private ChunkCoordinates deathPoint;
 	private int deathDim;
-	private int fastTravelTimer;
-	private boolean structuresBanned = false;
-	private boolean askedForGandalf = false;
 	
 	private int alcoholTolerance;
 	
 	private List<LOTRMiniQuest> miniQuests = new ArrayList();
-	private int completedMiniQuests;
+	private Map<LOTRFaction, Integer> completedMiniQuests = new HashMap();
+	
+	private Map<LOTRGuiMessageTypes, Boolean> sentMessageTypes = new HashMap();
+	
+	private LOTRTitle.PlayerTitle playerTitle;
+	
+	private int fastTravelTimer;
+	private boolean structuresBanned = false;
+	private boolean askedForGandalf = false;
 	
 	public LOTRPlayerData(UUID uuid)
 	{
@@ -89,18 +94,18 @@ public class LOTRPlayerData
 	
 	public void save(NBTTagCompound playerData)
 	{
-		NBTTagList taglist = new NBTTagList();
-		Iterator it = alignments.keySet().iterator();
-		while (it.hasNext())
+		NBTTagList alignmentTags = new NBTTagList();
+		for (Entry<LOTRFaction, Integer> entry : alignments.entrySet())
 		{
-			LOTRFaction faction = (LOTRFaction)it.next();
-			int alignment = (Integer)alignments.get(faction);
+			LOTRFaction faction = entry.getKey();
+			int alignment = entry.getValue();
+			
 			NBTTagCompound nbt = new NBTTagCompound();
 			nbt.setString("Faction", faction.name());
 			nbt.setInteger("Alignment", alignment);
-			taglist.appendTag(nbt);
+			alignmentTags.appendTag(nbt);
 		}
-		playerData.setTag("AlignmentMap", taglist);
+		playerData.setTag("AlignmentMap", alignmentTags);
 		
 		if (viewingFaction != null)
 		{
@@ -109,20 +114,27 @@ public class LOTRPlayerData
 		playerData.setBoolean("CheckedAlignments", checkedAlignments);
 		playerData.setBoolean("HideAlignment", hideAlignment);
 		
+		NBTTagList takenRewardsTags = new NBTTagList();
+		for (LOTRFaction faction : takenAlignmentRewards)
+		{
+			NBTTagCompound nbt = new NBTTagCompound();
+			nbt.setString("Faction", faction.name());
+			takenRewardsTags.appendTag(nbt);
+		}
+		playerData.setTag("TakenAlignmentRewards", takenRewardsTags);
+		
 		playerData.setBoolean("HideOnMap", hideOnMap);
 		playerData.setInteger("WPToggle", waypointToggleMode);
 		
-		taglist = new NBTTagList();
-		it = achievements.iterator();
-		while (it.hasNext())
+		NBTTagList achievementTags = new NBTTagList();
+		for (LOTRAchievement achievement : achievements)
 		{
-			LOTRAchievement achievement = (LOTRAchievement)it.next();
 			NBTTagCompound nbt = new NBTTagCompound();
 			nbt.setString("Category", achievement.category.name());
 			nbt.setInteger("ID", achievement.ID);
-			taglist.appendTag(nbt);
+			achievementTags.appendTag(nbt);
 		}
-		playerData.setTag("Achievements", taglist);
+		playerData.setTag("Achievements", achievementTags);
 		
 		playerData.setBoolean("CheckedMenu", checkedMenu);
 		
@@ -142,31 +154,61 @@ public class LOTRPlayerData
 			playerData.setInteger("DeathZ", deathPoint.posZ);
 			playerData.setInteger("DeathDim", deathDim);
 		}
-		playerData.setInteger("FTTimer", fastTravelTimer);
-		playerData.setBoolean("StructuresBanned", structuresBanned);
-		playerData.setBoolean("AskedForGandalf", askedForGandalf);
 		
 		playerData.setInteger("Alcohol", alcoholTolerance);
 		
-		taglist = new NBTTagList();
-		it = miniQuests.iterator();
-		while (it.hasNext())
+		NBTTagList miniquestTags = new NBTTagList();
+		for (LOTRMiniQuest quest : miniQuests)
 		{
-			LOTRMiniQuest quest = (LOTRMiniQuest)it.next();
 			NBTTagCompound nbt = new NBTTagCompound();
 			quest.writeToNBT(nbt);
-			taglist.appendTag(nbt);
+			miniquestTags.appendTag(nbt);
 		}
-		playerData.setTag("MiniQuests", taglist);
-		playerData.setInteger("MiniQuestsComplete", completedMiniQuests);
+		playerData.setTag("MiniQuests", miniquestTags);
+		
+		NBTTagList completedMiniquestTags = new NBTTagList();
+		for (Entry<LOTRFaction, Integer> entry : completedMiniQuests.entrySet())
+		{
+			LOTRFaction faction = entry.getKey();
+			int completed = entry.getValue();
+			
+			NBTTagCompound nbt = new NBTTagCompound();
+			nbt.setString("Faction", faction.name());
+			nbt.setInteger("Completed", completed);
+			completedMiniquestTags.appendTag(nbt);
+		}
+		playerData.setTag("CompletedMiniQuests", completedMiniquestTags);
+		
+		NBTTagList sentMessageTags = new NBTTagList();
+		for (Entry<LOTRGuiMessageTypes, Boolean> entry : sentMessageTypes.entrySet())
+		{
+			LOTRGuiMessageTypes message = entry.getKey();
+			boolean sent = entry.getValue();
+			
+			NBTTagCompound nbt = new NBTTagCompound();
+			nbt.setString("Message", message.getSaveName());
+			nbt.setBoolean("Sent", sent);
+			sentMessageTags.appendTag(nbt);
+		}
+		playerData.setTag("SentMessageTypes", sentMessageTags);
+		
+		if (playerTitle != null)
+		{
+			playerData.setString("PlayerTitle", playerTitle.getTitle().getTitleName());
+			playerData.setInteger("PlayerTitleColor", playerTitle.getColor().getFormattingCode());
+		}
+		
+		playerData.setInteger("FTTimer", fastTravelTimer);
+		playerData.setBoolean("StructuresBanned", structuresBanned);
+		playerData.setBoolean("AskedForGandalf", askedForGandalf);
 	}
 	
 	public void load(NBTTagCompound playerData)
 	{
-		NBTTagList taglist = playerData.getTagList("AlignmentMap", new NBTTagCompound().getId());
-		for (int i = 0; i < taglist.tagCount(); i++)
+		NBTTagList alignmentTags = playerData.getTagList("AlignmentMap", Constants.NBT.TAG_COMPOUND);
+		for (int i = 0; i < alignmentTags.tagCount(); i++)
 		{
-			NBTTagCompound nbt = taglist.getCompoundTagAt(i);
+			NBTTagCompound nbt = alignmentTags.getCompoundTagAt(i);
 			LOTRFaction faction = LOTRFaction.forName(nbt.getString("Faction"));
 			if (faction != null)
 			{
@@ -179,13 +221,24 @@ public class LOTRPlayerData
 		checkedAlignments = playerData.getBoolean("CheckedAlignments");
 		hideAlignment = playerData.getBoolean("HideAlignment");
 		
+		NBTTagList takenRewardsTags = playerData.getTagList("TakenAlignmentRewards", Constants.NBT.TAG_COMPOUND);
+		for (int i = 0; i < takenRewardsTags.tagCount(); i++)
+		{
+			NBTTagCompound nbt = takenRewardsTags.getCompoundTagAt(i);
+			LOTRFaction faction = LOTRFaction.forName(nbt.getString("Faction"));
+			if (faction != null)
+			{
+				takenAlignmentRewards.add(faction);
+			}
+		}
+		
 		hideOnMap = playerData.getBoolean("HideOnMap");
 		waypointToggleMode = playerData.getInteger("WPToggle");
 		
-		taglist = playerData.getTagList("Achievements", new NBTTagCompound().getId());
-		for (int i = 0; i < taglist.tagCount(); i++)
+		NBTTagList achievementTags = playerData.getTagList("Achievements", Constants.NBT.TAG_COMPOUND);
+		for (int i = 0; i < achievementTags.tagCount(); i++)
 		{
-			NBTTagCompound nbt = taglist.getCompoundTagAt(i);
+			NBTTagCompound nbt = achievementTags.getCompoundTagAt(i);
 			String category = nbt.getString("Category");
 			int ID = nbt.getInteger("ID");
 			LOTRAchievement achievement = LOTRAchievement.achievementForCategoryAndID(LOTRAchievement.categoryForName(category), ID);
@@ -223,23 +276,57 @@ public class LOTRPlayerData
 			}
 		}
 		
-		fastTravelTimer = playerData.getInteger("FTTimer");
-		structuresBanned = playerData.getBoolean("StructuresBanned");
-		askedForGandalf = playerData.getBoolean("AskedForGandalf");
-		
 		alcoholTolerance = playerData.getInteger("Alcohol");
 		
-		taglist = playerData.getTagList("MiniQuests", new NBTTagCompound().getId());
-		for (int i = 0; i < taglist.tagCount(); i++)
+		NBTTagList miniquestTags = playerData.getTagList("MiniQuests", Constants.NBT.TAG_COMPOUND);
+		for (int i = 0; i < miniquestTags.tagCount(); i++)
 		{
-			NBTTagCompound nbt = taglist.getCompoundTagAt(i);
+			NBTTagCompound nbt = miniquestTags.getCompoundTagAt(i);
 			LOTRMiniQuest quest = LOTRMiniQuest.loadQuestFromNBT(nbt, this);
 			if (quest != null)
 			{
 				miniQuests.add(quest);
 			}
 		}
-		completedMiniQuests = playerData.getInteger("MiniQuestsComplete");
+		
+		NBTTagList completedMiniquestTags = playerData.getTagList("CompletedMiniQuests", Constants.NBT.TAG_COMPOUND);
+		for (int i = 0; i < completedMiniquestTags.tagCount(); i++)
+		{
+			NBTTagCompound nbt = completedMiniquestTags.getCompoundTagAt(i);
+			LOTRFaction faction = LOTRFaction.forName(nbt.getString("Faction"));
+			if (faction != null)
+			{
+				int completed = nbt.getInteger("Completed");
+				completedMiniQuests.put(faction, completed);
+			}
+		}
+		
+		NBTTagList sentMessageTags = playerData.getTagList("SentMessageTypes", Constants.NBT.TAG_COMPOUND);
+		for (int i = 0; i < sentMessageTags.tagCount(); i++)
+		{
+			NBTTagCompound nbt = sentMessageTags.getCompoundTagAt(i);
+			LOTRGuiMessageTypes message = LOTRGuiMessageTypes.forSaveName(nbt.getString("Message"));
+			if (message != null)
+			{
+				boolean sent = nbt.getBoolean("Sent");
+				sentMessageTypes.put(message, sent);
+			}
+		}
+		
+		if (playerData.hasKey("PlayerTitle"))
+		{
+			LOTRTitle title = LOTRTitle.forName(playerData.getString("PlayerTitle"));
+			if (title != null)
+			{
+				int colorCode = playerData.getInteger("PlayerTitleColor");
+				EnumChatFormatting color = LOTRTitle.PlayerTitle.colorForID(colorCode);
+				playerTitle = new LOTRTitle.PlayerTitle(title, color);
+			}
+		}
+		
+		fastTravelTimer = playerData.getInteger("FTTimer");
+		structuresBanned = playerData.getBoolean("StructuresBanned");
+		askedForGandalf = playerData.getBoolean("AskedForGandalf");
 	}
 	
 	public void sendPlayerData(EntityPlayerMP entityplayer) throws IOException
@@ -389,7 +476,7 @@ public class LOTRPlayerData
 			EntityPlayer entityplayer = getPlayer();
 			if (entityplayer != null && !entityplayer.worldObj.isRemote)
 			{
-				if (alignment >= LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED && prevAlignment < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED && !LOTRLevelData.hasTakenAlignmentRewardItem(entityplayer, faction))
+				if (alignment >= LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED && prevAlignment < LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED && !hasTakenAlignmentReward(faction))
 				{
 					entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.alignmentRewardItem", new Object[] {LOTRSlotAlignmentReward.ALIGNMENT_REQUIRED, faction.factionName()}));
 				}
@@ -397,6 +484,42 @@ public class LOTRPlayerData
 		}
 		
 		faction.checkAlignmentAchievements(this, alignment);
+	}
+	
+	public boolean hasTakenAlignmentReward(LOTRFaction faction)
+	{
+		return takenAlignmentRewards.contains(faction);
+	}
+	
+	public void setTakenAlignmentReward(LOTRFaction faction, boolean flag)
+	{
+		if (!faction.allowPlayer)
+		{
+			return;
+		}
+		
+		if (flag)
+		{
+			takenAlignmentRewards.add(faction);
+		}
+		else
+		{
+			takenAlignmentRewards.remove(faction);
+		}
+		
+		EntityPlayer entityplayer = getPlayer();
+		if (entityplayer != null && !entityplayer.worldObj.isRemote)
+		{
+			LOTRLevelData.markDirty();
+			
+			ByteBuf data = Unpooled.buffer();
+			
+			data.writeByte(faction.ordinal());
+			data.writeBoolean(flag);
+
+			S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.rewardItem", data);
+			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
+		}
 	}
 	
 	public List getAchievements()
@@ -740,7 +863,7 @@ public class LOTRPlayerData
 		{
 			if (addToCompleted)
 			{
-				completedMiniQuests++;
+				completeMiniQuest(quest);
 			}
 			LOTRLevelData.markDirty();
 			
@@ -853,8 +976,83 @@ public class LOTRPlayerData
 		return list;
 	}
 	
-	public int getCompletedMiniQuests()
+	public int getCompletedMiniQuestsTotal()
 	{
-		return completedMiniQuests;
+		int i = 0;
+		for (int completed : completedMiniQuests.values())
+		{
+			i += completed;
+		}
+		return i;
+	}
+	
+	public int getCompletedMiniQuests(LOTRFaction faction)
+	{
+		Integer completed = completedMiniQuests.get(faction);
+		return completed != null ? completed.intValue() : 0;
+	}
+	
+	private void completeMiniQuest(LOTRMiniQuest quest)
+	{
+		LOTRFaction faction = quest.entityFaction;
+		int completed = getCompletedMiniQuests(faction);
+		completed++;
+		completedMiniQuests.put(faction, completed);
+	}
+	
+	public void sendMessageIfNotReceived(LOTRGuiMessageTypes message)
+	{
+		EntityPlayer entityplayer = getPlayer();
+		if (entityplayer != null && !entityplayer.worldObj.isRemote)
+		{
+			Boolean sent = sentMessageTypes.get(message);
+			if (sent == null)
+			{
+				sent = false;
+				sentMessageTypes.put(message, sent);
+			}
+			
+			if (!sent)
+			{
+				sentMessageTypes.put(message, true);
+				LOTRLevelData.markDirty();
+				
+				ByteBuf data = Unpooled.buffer();
+				
+				data.writeByte(message.ordinal());
+				
+				((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.message", data));
+			}
+		}
+	}
+	
+	public LOTRTitle.PlayerTitle getPlayerTitle()
+	{
+		return playerTitle;
+	}
+	
+	public void setPlayerTitle(LOTRTitle.PlayerTitle title)
+	{
+		playerTitle = title;
+		LOTRLevelData.markDirty();
+		
+		EntityPlayer entityplayer = getPlayer();
+		if (entityplayer != null && !entityplayer.worldObj.isRemote)
+		{
+			ByteBuf data = Unpooled.buffer();
+			
+			if (playerTitle == null)
+			{
+				data.writeInt(-1);
+				data.writeInt(-1);
+			}
+			else
+			{
+				data.writeInt(playerTitle.getTitle().titleID);
+				data.writeInt(playerTitle.getColor().getFormattingCode());
+			}
+			
+			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.title", data));
+		}
 	}
 }

@@ -16,9 +16,7 @@ import lotr.common.entity.npc.LOTREntityHobbitShirriff;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.LOTRInvasionSpawner;
 import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
-import lotr.common.world.feature.LOTRWorldGenClover;
-import lotr.common.world.feature.LOTRWorldGenHugeTrees;
-import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
+import lotr.common.world.feature.*;
 import lotr.common.world.structure.*;
 import lotr.common.world.structure2.LOTRWorldGenHobbitFarm;
 import net.minecraft.world.World;
@@ -139,6 +137,10 @@ public class LOTRBiomeGenShire extends LOTRBiome
 			{
 				return random.nextBoolean() ? LOTRWorldGenSimpleTrees.newApple(false) : LOTRWorldGenSimpleTrees.newPear(false);
 			}
+		}
+		if (random.nextInt(4) == 0)
+		{
+			return random.nextInt(3) == 0 ? LOTRWorldGenBigTrees.newChestnut(false) : LOTRWorldGenSimpleTrees.newChestnut(false);
 		}
         return random.nextInt(3) == 0 ? new WorldGenBigTree(false) : new WorldGenTrees(false);
     }

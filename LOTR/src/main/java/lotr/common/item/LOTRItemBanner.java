@@ -4,11 +4,7 @@ import static lotr.common.LOTRFaction.*;
 
 import java.util.List;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRCreativeTabs;
-import lotr.common.LOTREventHandler;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRLevelData;
+import lotr.common.*;
 import lotr.common.entity.item.LOTREntityBanner;
 import lotr.common.entity.item.LOTREntityBannerWall;
 import net.minecraft.block.Block;
@@ -140,7 +136,7 @@ public class LOTRItemBanner extends Item
 					}
 					else
 					{
-						if (!world.isRemote && LOTREventHandler.isProtectedByBanner(world, i, j, k, entityplayer, false, LOTREntityBanner.PROTECTION_RANGE * 2))
+						if (!world.isRemote && LOTREventHandler.isProtectedByBanner(world, i, j, k, LOTRBannerProtectFilters.forPlayer(entityplayer), false, LOTREntityBanner.PROTECTION_RANGE * 2))
 						{
 							entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLandBanner"));
 							return false;
@@ -155,7 +151,7 @@ public class LOTRItemBanner extends Item
 					if (world.checkNoEntityCollision(banner.boundingBox) && world.getCollidingBoundingBoxes(banner, banner.boundingBox).size() == 0 && !world.isAnyLiquid(banner.boundingBox))
 					{
 						banner.setBannerFaction(getFaction(itemstack));
-						banner.allowedPlayers[0] = entityplayer.getUniqueID();
+						banner.setPlacingPlayer(entityplayer);
 						world.spawnEntityInWorld(banner);
 						world.playSoundAtEntity(banner, Blocks.planks.stepSound.func_150496_b(), (Blocks.planks.stepSound.getVolume() + 1F) / 2F, Blocks.planks.stepSound.getPitch() * 0.8F);
 						itemstack.stackSize--;

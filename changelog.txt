@@ -4,28 +4,45 @@ Public Beta 21
 + Added Utumno achievements and the Utumno faction
 + Added Utumno bricks
 + Added Utumno Orcs and Wargs
++ Added player titles
 + Added many new mini-quests
-+ Added new Harad biomes: Near Harad Semidesert, and Far Harad Arid Savannah, Cloud Forest, Swampland, Mangrove, and Bushland
-+ Added mangrove trees and wood
-+ Added several new tall grass types
-+ Added clover to all biomes
-+ Added new Harad flowers
++ Added new Harad biomes: Near Harad Semidesert and Fertile Forest, and Far Harad Arid Savannah, Cloud Forest, Swampland, Mangrove, and Bushland
++ Added mangrove, baobab, and cedar trees, and wood
 + Added termite mounds and exploding termites
 + Added dik-diks
++ Added new Harad flowers
++ Added chestnut trees, wood, conkers, and roast chestnuts
++ Added roots and more branches to large Mallorn trees
++ Added the ability to grow large Mallorn trees on quendite grass
++ Added several new tall grass types
++ Added clover to all biomes
 + Added flax
 + Added berry bushes and several types of berries
 + Added Uruk-hai Berserkers and renamed the old Berserkers to Sappers
 + Added more variance in tree generation for some plains biomes
++ Added thicker layers of sandstone for sandy biomes
 + Added Rohan, Gondor, Mordor, and Near Harad pillars and pillar slabs
++ Added the ability to shift-click a plate to make the food pop out
++ Added a gradual distance-dependent transparency effect for on-screen quest book rendering
++ Added an updated logo
 
+* Banners can no longer be destroyed by anything other than direct or indirect attacks from players
+* Banners now protect against orc bombs
+* Changed the storage of completed mini-quests to record the amount completed per faction
 * Changed the Near Harad armour recipes to use bronze
 * The Forodwaith biome now extends south around the Bay of Forochel
 * Changed Blue Mountains houses to have Sarlluin exteriors instead of dirt and stone
 * Blue Mountains mines can now spawn upon Sarlluin, and therefore higher up and more commonly
 * Fixed white water in ent jars
 * Ent jars containing brewed draughts now produce particle effects
+* Fixed marsh lights not generating
+* Spears and other projectiles now save and send to clients the full itemstack data
+* Fixed a spear-related ticking entity server crash
 * Fixed Rohirrim being angered when non-horse mounts are killed in Rohan
+* Fixed a mead hall generation error
 * Drunkards no longer give mini-quests
+* Fixed the friendly and neutral orc speech banks being reversed
+* Fixed iron, gold, and diamond LOTR horse armour items not being displayed in the hand
 
 Public Beta 20.2
 

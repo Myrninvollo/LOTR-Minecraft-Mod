@@ -7,8 +7,11 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 import lotr.common.LOTRMod;
+import lotr.common.block.*;
 import lotr.common.item.LOTRItemBerry;
 import lotr.common.item.LOTRItemBone;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
@@ -87,21 +90,60 @@ public class LOTRRecipes
 
 	private static void registerOres()
 	{
-		OreDictionary.registerOre("plankWood", new ItemStack(planks, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("slabWood", new ItemStack(woodSlabSingle, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("slabWood", new ItemStack(woodSlabSingle2, 1, OreDictionary.WILDCARD_VALUE));
+		Iterator<Block> blockIterator = Block.blockRegistry.iterator();
+		while (blockIterator.hasNext())
+		{
+			Block block = blockIterator.next();
+			
+			if (block instanceof LOTRBlockPlanksBase)
+			{
+				OreDictionary.registerOre("plankWood", new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE));
+			}
+			
+			if (block instanceof LOTRBlockSlabBase && block.getMaterial() == Material.wood)
+			{
+				OreDictionary.registerOre("slabWood", new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE));
+			}
+			
+			if (block instanceof LOTRBlockStairs && block.getMaterial() == Material.wood)
+			{
+				OreDictionary.registerOre("stairWood", new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE));
+			}
+			
+			if (block instanceof LOTRBlockWoodBase)
+			{
+				OreDictionary.registerOre("logWood", new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE));
+			}
+			
+			if (block instanceof LOTRBlockLeavesBase)
+			{
+				OreDictionary.registerOre("treeLeaves", new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE));
+			}
+			
+			if (block instanceof LOTRBlockSaplingBase)
+			{
+				OreDictionary.registerOre("treeSapling", new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE));
+			}
+		}
+		
 		OreDictionary.registerOre("stickWood", mallornStick);
 		
-		OreDictionary.registerOre("logWood", new ItemStack(wood, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("logWood", new ItemStack(fruitWood, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("logWood", new ItemStack(wood2, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("logWood", new ItemStack(wood3, 1, OreDictionary.WILDCARD_VALUE));
-		
-		OreDictionary.registerOre("treeLeaves", new ItemStack(leaves, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("treeLeaves", new ItemStack(fruitLeaves, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("treeLeaves", new ItemStack(leaves2, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("treeLeaves", new ItemStack(leaves3, 1, OreDictionary.WILDCARD_VALUE));
-		
+		Iterator<Item> itemIterator = Item.itemRegistry.iterator();
+		while (itemIterator.hasNext())
+		{
+			Item item = itemIterator.next();
+			
+			if (item == Items.bone || item instanceof LOTRItemBone)
+			{
+				OreDictionary.registerOre("bone", item);
+			}
+			
+			if (item instanceof LOTRItemBerry)
+			{
+				OreDictionary.registerOre("berry", item);
+			}
+		}
+
 		OreDictionary.registerOre("oreCopper", oreCopper);
 		OreDictionary.registerOre("oreTin", oreTin);
 		OreDictionary.registerOre("oreSilver", oreSilver);
@@ -122,11 +164,6 @@ public class LOTRRecipes
 		
 		OreDictionary.registerOre("apple", Items.apple);
 		OreDictionary.registerOre("apple", appleGreen);
-		
-		OreDictionary.registerOre("bone", Items.bone);
-		LOTRItemBone.registerAllBones("bone");
-		
-		LOTRItemBerry.registerAllBerries("berry");
 	}
 	
 	private static void createStandardRecipes()
@@ -1052,6 +1089,37 @@ public class LOTRRecipes
 		{
 			flax
 		});
+		GameRegistry.addShapelessRecipe(new ItemStack(planks2, 4, 0), new Object[]
+		{
+			new ItemStack(wood4, 1, 0)
+		});
+		GameRegistry.addRecipe(new ItemStack(stairsChestnut, 4), new Object[]
+		{
+			"X  ", "XX ", "XXX", 'X', new ItemStack(planks2, 1, 0)
+		});
+		GameRegistry.addShapelessRecipe(new ItemStack(planks2, 4, 1), new Object[]
+		{
+			new ItemStack(wood4, 1, 1)
+		});
+		GameRegistry.addRecipe(new ItemStack(stairsBaobab, 4), new Object[]
+		{
+			"X  ", "XX ", "XXX", 'X', new ItemStack(planks2, 1, 1)
+		});
+		for (int i = 0; i <= 2; i++)
+		{
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(fence2, 4, i), new Object[]
+			{
+				"XYX", "XYX", 'X', new ItemStack(planks2, 1, i), 'Y', "stickWood"
+			}));
+		}
+		GameRegistry.addShapelessRecipe(new ItemStack(planks2, 4, 2), new Object[]
+		{
+			new ItemStack(wood4, 1, 2)
+		});
+		GameRegistry.addRecipe(new ItemStack(stairsCedar, 4), new Object[]
+		{
+			"X  ", "XX ", "XXX", 'X', new ItemStack(planks2, 1, 2)
+		});
 	}
 	
 	private static void createWoodenSlabRecipes()
@@ -1116,6 +1184,19 @@ public class LOTRRecipes
 		{
 			"XXX", 'X', new ItemStack(planks, 1, 15)
 		}));
+		
+		woodenSlabRecipes.add(new ShapedOreRecipe(new ItemStack(woodSlabSingle3, 6, 0), new Object[]
+		{
+			"XXX", 'X', new ItemStack(planks2, 1, 0)
+		}));
+		woodenSlabRecipes.add(new ShapedOreRecipe(new ItemStack(woodSlabSingle3, 6, 1), new Object[]
+		{
+			"XXX", 'X', new ItemStack(planks2, 1, 1)
+		}));
+		woodenSlabRecipes.add(new ShapedOreRecipe(new ItemStack(woodSlabSingle3, 6, 2), new Object[]
+		{
+			"XXX", 'X', new ItemStack(planks2, 1, 2)
+		}));
 	}
 	
 	private static void createSmeltingRecipes()
@@ -1141,6 +1222,7 @@ public class LOTRRecipes
 		GameRegistry.addSmelting(lionRaw, new ItemStack(lionCooked), 0.35F);
 		GameRegistry.addSmelting(zebraRaw, new ItemStack(zebraCooked), 0.35F);
 		GameRegistry.addSmelting(rhinoRaw, new ItemStack(rhinoCooked), 0.35F);
+		GameRegistry.addSmelting(chestnut, new ItemStack(chestnutRoast), 0.3F);
 		
 		addSmeltingXPForItem(bronze, 0.7F);
 		addSmeltingXPForItem(mithril, 1F);

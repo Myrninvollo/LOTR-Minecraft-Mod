@@ -35,12 +35,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
-import net.minecraft.world.*;
+import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 import com.google.common.collect.Multimap;
@@ -1171,7 +1172,7 @@ public abstract class LOTREntityNPC extends EntityCreature
         	int i = MathHelper.floor_double(posX);
             int j = MathHelper.floor_double(boundingBox.minY);
             int k = MathHelper.floor_double(posZ);
-        	if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, this, false))
+        	if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forNPC(this), false))
         	{
         		return false;
         	}

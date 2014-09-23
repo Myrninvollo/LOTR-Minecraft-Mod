@@ -6,6 +6,7 @@ import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 
 public class LOTRInventoryPouch extends InventoryBasic
 {
@@ -61,7 +62,7 @@ public class LOTRInventoryPouch extends InventoryBasic
 		if (getPouchItem().hasTagCompound() && getPouchItem().getTagCompound().hasKey("LOTRPouchData"))
 		{
 			NBTTagCompound nbt = getPouchItem().getTagCompound().getCompoundTag("LOTRPouchData");
-			NBTTagList items = nbt.getTagList("Items", new NBTTagCompound().getId());
+			NBTTagList items = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 			for (int i = 0; i < items.tagCount(); i++)
 			{
 				NBTTagCompound itemData = (NBTTagCompound)items.getCompoundTagAt(i);

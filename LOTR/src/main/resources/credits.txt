@@ -2,13 +2,19 @@
 
 Credits
 
-Mevans - design, code, models, textures
+Mevans - design, code, models, textures, etc.
 Spielerninja Ninja - models
 Gruk Kacep - textures
 
 Yorick Hamletson - elf, orc, and dwarf sound effects
 Javier Ortiz - rabbit model, original bird model
 Gruk Kacep - original scorpion model
+
+Mini-quests:
+
+Goran Dragic - many factions' speechbanks
+Yorick Hamletson - Rohirrim speechbanks
+Joetatoe - Near Haradrim speechbanks
 
 Textures:
 

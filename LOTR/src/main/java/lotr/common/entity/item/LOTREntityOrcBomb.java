@@ -1,9 +1,13 @@
 package lotr.common.entity.item;
 
+import lotr.common.LOTRBannerProtectFilters;
+import lotr.common.LOTREventHandler;
 import lotr.common.block.LOTRBlockOrcBomb;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 public class LOTREntityOrcBomb extends EntityTNTPrimed
@@ -123,5 +127,15 @@ public class LOTREntityOrcBomb extends EntityTNTPrimed
 		boolean fire = LOTRBlockOrcBomb.isFireBomb(meta);
 		
 		worldObj.newExplosion(this, posX, posY, posZ, (strength + 1) * 4F, fire, doTerrainDamage);
+    }
+    
+    @Override
+    public boolean func_145774_a(Explosion explosion, World world, int i, int j, int k, Block block, float strength)
+    {
+        if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forTNT(this), false))
+        {
+        	return false;
+        }
+        return super.func_145774_a(explosion, world, i, j, k, block, strength);
     }
 }

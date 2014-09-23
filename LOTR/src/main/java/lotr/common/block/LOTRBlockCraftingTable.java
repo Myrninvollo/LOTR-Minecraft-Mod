@@ -1,10 +1,6 @@
 package lotr.common.block;
 
-import lotr.common.LOTRAlignmentValues;
-import lotr.common.LOTRCreativeTabs;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRLevelData;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,7 +22,9 @@ public class LOTRBlockCraftingTable extends Block
 	@Override
     public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int side, float f, float f1, float f2)
     {
-		if (LOTRLevelData.getData(entityplayer).getAlignment(tableFaction) >= LOTRAlignmentValues.Levels.USE_TABLE)
+		boolean hasRequiredAlignment = LOTRLevelData.getData(entityplayer).getAlignment(tableFaction) >= LOTRAlignmentValues.Levels.USE_TABLE;
+		
+		if (hasRequiredAlignment)
 		{
 			if (!world.isRemote)
 			{
@@ -42,11 +40,13 @@ public class LOTRBlockCraftingTable extends Block
 				double d2 = k + (double)world.rand.nextFloat();
 				world.spawnParticle("smoke", d, d1, d2, 0D, 0D, 0D);
 			}
+			
 			if (!world.isRemote)
 			{
 				LOTRAlignmentValues.notifyAlignmentNotHighEnough(entityplayer, LOTRAlignmentValues.Levels.USE_TABLE, tableFaction);
 			}
 		}
+		
 		return true;
     }
 }

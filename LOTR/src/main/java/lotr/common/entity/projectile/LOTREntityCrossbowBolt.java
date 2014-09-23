@@ -3,6 +3,7 @@ package lotr.common.entity.projectile;
 import lotr.common.LOTRMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -18,17 +19,17 @@ public class LOTREntityCrossbowBolt extends LOTREntityProjectileBase
 	
     public LOTREntityCrossbowBolt(World world, double d, double d1, double d2)
     {
-        super(world, LOTRMod.crossbowBolt, 0, d, d1, d2);
+        super(world, new ItemStack(LOTRMod.crossbowBolt), d, d1, d2);
     }
 
     public LOTREntityCrossbowBolt(World world, EntityLivingBase entityliving, float charge)
     {
-        super(world, entityliving, LOTRMod.crossbowBolt, 0, charge);
+        super(world, entityliving, new ItemStack(LOTRMod.crossbowBolt), charge);
     }
 	
     public LOTREntityCrossbowBolt(World world, EntityLivingBase entityliving, EntityLivingBase target, float charge, float inaccuracy)
     {
-        super(world, entityliving, target, LOTRMod.crossbowBolt, 0, charge, inaccuracy);
+        super(world, entityliving, target, new ItemStack(LOTRMod.crossbowBolt), charge, inaccuracy);
     }
 	
 	@Override

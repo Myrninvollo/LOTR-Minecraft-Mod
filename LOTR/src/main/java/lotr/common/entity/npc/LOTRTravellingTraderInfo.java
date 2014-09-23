@@ -14,6 +14,7 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
+import net.minecraftforge.common.util.Constants;
 
 public class LOTRTravellingTraderInfo
 {
@@ -144,7 +145,7 @@ public class LOTRTravellingTraderInfo
 		timeUntilDespawn = nbt.getInteger("DespawnTime");
 		
 		escortUUIDs.clear();
-		NBTTagList tags = nbt.getTagList("Escorts", new NBTTagCompound().getId());
+		NBTTagList tags = nbt.getTagList("Escorts", Constants.NBT.TAG_COMPOUND);
 		if (tags != null)
 		{
 			for (int i = 0; i < tags.tagCount(); i++)

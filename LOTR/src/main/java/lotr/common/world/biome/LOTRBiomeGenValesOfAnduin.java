@@ -100,6 +100,10 @@ public class LOTRBiomeGenValesOfAnduin extends LOTRBiome
 		{
 			return new WorldGenTaiga2(false);
 		}
+		else if (random.nextInt(10) == 0)
+		{
+			return random.nextInt(10) == 0 ? LOTRWorldGenBigTrees.newChestnut(false) : LOTRWorldGenSimpleTrees.newChestnut(false);
+		}
 		else
 		{
 			return super.func_150567_a(random);

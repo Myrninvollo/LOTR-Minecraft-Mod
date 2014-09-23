@@ -18,6 +18,7 @@ import lotr.common.entity.npc.LOTREntityRangerIthilien;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.LOTRInvasionSpawner;
 import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
+import lotr.common.world.feature.LOTRWorldGenCedar;
 import lotr.common.world.feature.LOTRWorldGenSimpleTrees;
 import lotr.common.world.structure.LOTRWorldGenGondorObelisk;
 import lotr.common.world.structure.LOTRWorldGenGondorRuins;
@@ -122,13 +123,17 @@ public class LOTRBiomeGenIthilien extends LOTRBiome
 		{
 			return random.nextBoolean() ? LOTRWorldGenSimpleTrees.newApple(false) : LOTRWorldGenSimpleTrees.newPear(false);
 		}
-		else if (random.nextInt(20) == 0)
+		else if (random.nextInt(10) == 0)
 		{
 			return new WorldGenForest(false, false);
 		}
-		else if (random.nextInt(5) == 0)
+		else if (random.nextInt(8) == 0)
 		{
 			return random.nextInt(8) == 0 ? LOTRWorldGenSimpleTrees.newLebethronLarge(false) : LOTRWorldGenSimpleTrees.newLebethron(false);
+		}
+		else if (random.nextInt(5) == 0)
+		{
+			return new LOTRWorldGenCedar(false);
 		}
 		else
 		{

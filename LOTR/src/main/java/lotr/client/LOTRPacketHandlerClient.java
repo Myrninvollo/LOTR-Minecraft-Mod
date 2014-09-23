@@ -1,7 +1,6 @@
 package lotr.client;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 
 import java.util.List;
@@ -23,8 +22,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 import com.google.common.base.Charsets;
@@ -79,6 +77,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.mqOffer", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.mqRemove", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.time", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.title", this);
 	}
 	
 	@Override
@@ -458,7 +457,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 		{
 			LOTRFaction faction = LOTRFaction.forID(data.readByte());
 			boolean flag = data.readBoolean();
-			LOTRLevelData.setTakenAlignmentRewardItem(entityplayer, faction, flag);
+			LOTRLevelData.getData(entityplayer).setTakenAlignmentReward(faction, flag);
 		}
 		
 		else if (channel.equals("lotr.hearts"))
@@ -604,6 +603,23 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			if (update)
 			{
 				LOTRClientProxy.tickHandler.updateDate();
+			}
+		}
+		
+		else if (channel.equals("lotr.title"))
+		{
+			int titleID = data.readInt();
+			int colorCode = data.readInt();
+			
+			LOTRTitle title = LOTRTitle.forID(titleID);
+			if (title == null)
+			{
+				LOTRLevelData.getData(entityplayer).setPlayerTitle(null);
+			}
+			else
+			{
+				EnumChatFormatting color = LOTRTitle.PlayerTitle.colorForID(colorCode);
+				LOTRLevelData.getData(entityplayer).setPlayerTitle(new LOTRTitle.PlayerTitle(title, color));
 			}
 		}
 	}

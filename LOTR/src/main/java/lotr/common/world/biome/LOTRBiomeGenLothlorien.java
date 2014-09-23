@@ -3,8 +3,7 @@ package lotr.common.world.biome;
 import java.util.Random;
 
 import lotr.common.*;
-import lotr.common.entity.animal.LOTREntityBird;
-import lotr.common.entity.animal.LOTREntityButterfly;
+import lotr.common.entity.animal.*;
 import lotr.common.entity.npc.LOTREntityGaladhrimElf;
 import lotr.common.entity.npc.LOTREntityGaladhrimWarrior;
 import lotr.common.world.LOTRBanditSpawner;
@@ -20,7 +19,8 @@ public class LOTRBiomeGenLothlorien extends LOTRBiome
 	{
 		super(i);
 		
-		spawnableCreatureList.clear();
+		spawnableCreatureList.add(new SpawnListEntry(LOTREntityHorse.class, 20, 4, 6));
+		
 		spawnableWaterCreatureList.clear();
 		spawnableCaveCreatureList.clear();
 		
@@ -132,6 +132,12 @@ public class LOTRBiomeGenLothlorien extends LOTRBiome
 		}
 		return random.nextInt(35) == 0 ? new LOTRWorldGenMallornLarge(false) : LOTRWorldGenSimpleTrees.newMallorn(false);
     }
+	
+	@Override
+	public float getChanceToSpawnAnimals()
+	{
+		return 0.5F;
+	}
 	
 	@Override
 	public int spawnCountMultiplier()

@@ -9,9 +9,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -53,12 +51,13 @@ public class LOTRBlockPlate extends BlockContainer
     public void breakBlock(World world, int i, int j, int k, Block block, int meta)
     {
 		TileEntity tileentity = world.getTileEntity(i, j, k);
-		if (!world.isRemote && tileentity != null && tileentity instanceof LOTRTileEntityPlate)
+		if (!world.isRemote && tileentity instanceof LOTRTileEntityPlate)
 		{
 			LOTRTileEntityPlate plate = (LOTRTileEntityPlate)tileentity;
-			if (plate.foodItem != null)
+			ItemStack foodItem = plate.getFoodItem();
+			if (foodItem != null)
 			{
-				dropBlockAsItem(world, i, j, k, new ItemStack(plate.foodItem, 1, plate.foodDamage));
+				dropBlockAsItem(world, i, j, k, foodItem);
 			}
 		}
         super.breakBlock(world, i, j, k, block, meta);
@@ -125,40 +124,47 @@ public class LOTRBlockPlate extends BlockContainer
     {
 		ItemStack itemstack = entityplayer.getCurrentEquippedItem();
 		TileEntity tileentity = world.getTileEntity(i, j, k);
-		if (tileentity != null && tileentity instanceof LOTRTileEntityPlate)
+		
+		if (tileentity instanceof LOTRTileEntityPlate)
 		{
 			LOTRTileEntityPlate plate = (LOTRTileEntityPlate)tileentity;
-			if (plate.foodItem == null && itemstack != null && itemstack.getItem() instanceof ItemFood)
+			ItemStack plateItem = plate.getFoodItem();
+			
+			if (plateItem == null && itemstack != null && itemstack.getItem() instanceof ItemFood)
 			{
-				plate.foodItem = itemstack.getItem();
-				plate.foodDamage = itemstack.getItemDamage();
+				plate.setFoodItem(itemstack.copy());
 				if (!entityplayer.capabilities.isCreativeMode)
 				{
 					itemstack.stackSize--;
 				}
-				world.markBlockForUpdate(i, j, k);
 				return true;
 			}
-			else if (plate.foodItem != null && entityplayer.canEat(false))
+			else if (plateItem != null)
 			{
-				ItemStack food = new ItemStack(plate.foodItem, 1, plate.foodDamage);
-				food.getItem().onEaten(food, world, entityplayer);
-				plate.foodItem = null;
-				plate.foodDamage = 0;
-				world.markBlockForUpdate(i, j, k);
-				return true;
+				if (entityplayer.canEat(false))
+				{
+					plateItem.getItem().onEaten(plateItem, world, entityplayer);
+					plate.setFoodItem(null);
+					return true;
+				}
 			}
 		}
+		
 		return false;
 	}
 	
-	public static Item getFoodItem(World world, int i, int j, int k)
+	public static ItemStack getFoodItem(World world, int i, int j, int k)
 	{
 		TileEntity tileentity = world.getTileEntity(i, j, k);
-		if (tileentity != null && tileentity instanceof LOTRTileEntityPlate)
+		if (tileentity instanceof LOTRTileEntityPlate)
 		{
-			return ((LOTRTileEntityPlate)tileentity).foodItem;
+			return ((LOTRTileEntityPlate)tileentity).getFoodItem();
 		}
 		return null;
+	}
+	
+	public void dropPlateItem(LOTRTileEntityPlate plate)
+	{
+		dropBlockAsItem(plate.getWorldObj(), plate.xCoord, plate.yCoord, plate.zCoord, plate.getFoodItem());
 	}
 }

@@ -1,7 +1,7 @@
 package lotr.common.item;
 
 import lotr.common.LOTRCreativeTabs;
-import lotr.common.dispenser.LOTRDispenserBehaviorThrowingAxe;
+import lotr.common.dispenser.LOTRDispenseThrowingAxe;
 import lotr.common.entity.projectile.LOTREntityThrowingAxe;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +21,7 @@ public class LOTRItemThrowingAxe extends Item
 		setMaxDamage(material.getMaxUses());
 		setFull3D();
 		setCreativeTab(LOTRCreativeTabs.tabCombat);
-		BlockDispenser.dispenseBehaviorRegistry.putObject(this, new LOTRDispenserBehaviorThrowingAxe());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(this, new LOTRDispenseThrowingAxe());
 	}
 	
 	public ToolMaterial getAxeMaterial()
@@ -32,7 +32,7 @@ public class LOTRItemThrowingAxe extends Item
 	@Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
-        LOTREntityThrowingAxe axe = new LOTREntityThrowingAxe(world, entityplayer, itemstack.getItem(), itemstack.getItemDamage(), 1F);
+        LOTREntityThrowingAxe axe = new LOTREntityThrowingAxe(world, entityplayer, itemstack.copy(), 1F);
         world.playSoundAtEntity(entityplayer, "random.bow", 1F, 1F / (itemRand.nextFloat() * 0.4F + 1.2F) + 0.25F);
         if (!world.isRemote)
         {

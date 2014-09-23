@@ -11,15 +11,11 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.init.Items;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.S2BPacketChangeGameState;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.registry.IThrowableEntity;
 import cpw.mods.fml.relauncher.Side;
@@ -37,10 +33,8 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
     public Entity shootingEntity;
     private int ticksInGround;
     private int ticksInAir = 0;
-	private int itemDamage;
 	public int canBePickedUp = 0;
 	public int knockbackStrength = 0;
-	private NBTTagCompound itemData;
 
     public LOTREntityProjectileBase(World world)
     {
@@ -48,21 +42,19 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
         setSize(0.5F, 0.5F);
     }
 	
-    public LOTREntityProjectileBase(World world, Item item, int damage, double d, double d1, double d2)
+    public LOTREntityProjectileBase(World world, ItemStack item, double d, double d1, double d2)
     {
         super(world);
-		setItemID(Item.getIdFromItem(item));
-		itemDamage = damage;
+        setItem(item);
         setSize(0.5F, 0.5F);
         setPosition(d, d1, d2);
         yOffset = 0F;
     }
 
-    public LOTREntityProjectileBase(World world, EntityLivingBase entityliving, Item item, int damage, float charge)
+    public LOTREntityProjectileBase(World world, EntityLivingBase entityliving, ItemStack item, float charge)
     {
         super(world);
-		setItemID(Item.getIdFromItem(item));
-		itemDamage = damage;
+        setItem(item);
         shootingEntity = entityliving;
 		if (entityliving instanceof EntityPlayer)
 		{
@@ -81,11 +73,10 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
         setThrowableHeading(motionX, motionY, motionZ, charge * 1.5F, 1F);
     }
 	
-    public LOTREntityProjectileBase(World world, EntityLivingBase entityliving, EntityLivingBase target, Item item, int damage, float charge, float inaccuracy)
+    public LOTREntityProjectileBase(World world, EntityLivingBase entityliving, EntityLivingBase target, ItemStack item, float charge, float inaccuracy)
     {
         super(world);
-		setItemID(Item.getIdFromItem(item));
-		itemDamage = damage;
+        setItem(item);
         shootingEntity = entityliving;
 		if (entityliving instanceof EntityPlayer)
 		{
@@ -108,11 +99,6 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
             float d6 = (float)d3 * 0.2F;
             setThrowableHeading(d, d1 + (double)d6, d2, charge * 1.5F, inaccuracy);
         }
-    }
-    
-    public void setItemData(NBTTagCompound nbt)
-    {
-    	itemData = nbt;
     }
 	
 	@Override
@@ -139,24 +125,27 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 	@Override
 	protected void entityInit()
 	{
-		dataWatcher.addObject(16, Integer.valueOf(0));
 		dataWatcher.addObject(17, Byte.valueOf((byte)0));
+		dataWatcher.addObject(18, new ItemStack(Blocks.dirt));
 	}
 	
-	public int getItemID()
+	public ItemStack getItem()
 	{
-		return dataWatcher.getWatchableObjectInt(16);
+		return dataWatcher.getWatchableObjectItemStack(18);
 	}
 	
-	public void setItemID(int i)
+	public void setItem(ItemStack item)
 	{
-		if (Item.getItemById(i) == null)
+		if (item == null)
 		{
-			setDead();
+			if (!worldObj.isRemote)
+			{
+				setDead();
+			}
 		}
 		else
 		{
-			dataWatcher.updateObject(16, Integer.valueOf(i));
+			dataWatcher.updateObject(18, item);
 		}
 	}
 
@@ -204,6 +193,11 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
     public void onUpdate()
     {
         super.onUpdate();
+        
+        if (!worldObj.isRemote && (getItem() == null || getItem().getItem() instanceof ItemBlock))
+        {
+        	setDead();
+        }
         
         if (prevRotationPitch == 0F && prevRotationYaw == 0F)
         {
@@ -303,7 +297,7 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
                         damage += rand.nextFloat() * (damage / 2F + 1F);
                     }
                     
-					ItemStack itemstack = getProjectileItemStack();
+					ItemStack itemstack = getItem();
                    	if (itemstack != null && hitEntity instanceof EntityLivingBase)
                    	{
                    		damage += EnchantmentHelper.func_152377_a(itemstack, ((EntityLivingBase)hitEntity).getCreatureAttribute());
@@ -429,13 +423,12 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
         nbt.setByte("inData", (byte)inData);
         nbt.setByte("shake", (byte)shake);
         nbt.setByte("inGround", (byte)(inGround ? 1 : 0));
-		nbt.setInteger("itemID", getItemID());
-		nbt.setInteger("itemDamage", itemDamage);
 		nbt.setByte("pickup", (byte)canBePickedUp);
 		nbt.setByte("Knockback", (byte)knockbackStrength);
-		if (itemData != null)
+		
+		if (getItem() != null)
 		{
-			nbt.setTag("ItemTagCompound", itemData);
+			nbt.setTag("ProjectileItem", getItem().writeToNBT(new NBTTagCompound()));
 		}
     }
 
@@ -449,41 +442,32 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
         inData = nbt.getByte("inData");
         shake = nbt.getByte("shake");
         inGround = nbt.getByte("inGround") == 1;
-        setItemID(nbt.getInteger("itemID"));
-		itemDamage = nbt.getInteger("itemDamage");
 		canBePickedUp = nbt.getByte("pickup");
 		knockbackStrength = nbt.getByte("Knockback");
-		if (nbt.hasKey("ItemTagCompound"))
+		
+		if (nbt.hasKey("itemID"))
 		{
-			itemData = nbt.getCompoundTag("ItemTagCompound");
+			ItemStack item = new ItemStack(Item.getItemById(nbt.getInteger("itemID")), 1, nbt.getInteger("itemDamage"));
+			if (nbt.hasKey("ItemTagCompound"))
+			{
+				item.setTagCompound(nbt.getCompoundTag("ItemTagCompound"));
+			}
+			setItem(item);
+		}
+		else
+		{
+			setItem(ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("ProjectileItem")));
 		}
     }
 	
 	public abstract boolean isDamageable();
 	
-	private ItemStack getProjectileItemStack()
-	{
-		Item item = Item.getItemById(getItemID());
-		if (item == null)
-		{
-			return null;
-		}
-		
-		ItemStack itemstack = new ItemStack(item);
-		if (itemData != null && !itemData.hasNoTags())
-		{
-			itemstack.setTagCompound(itemData);
-		}
-		
-		return itemstack;
-	}
-	
 	private ItemStack createDropItem()
 	{
-		ItemStack itemstack = getProjectileItemStack();
-		if (itemstack != null && isDamageable())
+		ItemStack itemstack = getItem().copy();
+		if (isDamageable())
 		{
-			itemstack.setItemDamage(itemDamage + 1);
+			itemstack.setItemDamage(itemstack.getItemDamage() + 1);
 			if (itemstack.getItemDamage() >= itemstack.getMaxDamage())
 			{
 				return null;
@@ -580,22 +564,12 @@ public abstract class LOTREntityProjectileBase extends Entity implements IThrowa
 
     public void setIsCritical(boolean flag)
     {
-        byte b0 = dataWatcher.getWatchableObjectByte(17);
-
-        if (flag)
-        {
-            dataWatcher.updateObject(17, Byte.valueOf((byte)(b0 | 1)));
-        }
-        else
-        {
-            dataWatcher.updateObject(17, Byte.valueOf((byte)(b0 & -2)));
-        }
+    	dataWatcher.updateObject(17, Byte.valueOf((byte)(flag ? 1 : 0)));
     }
 	
     public boolean getIsCritical()
     {
-        byte b0 = dataWatcher.getWatchableObjectByte(17);
-        return (b0 & 1) != 0;
+        return dataWatcher.getWatchableObjectByte(17) == (byte)1;
     }
 	
 	public String getImpactSound()

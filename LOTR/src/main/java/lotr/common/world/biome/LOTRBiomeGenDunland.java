@@ -13,7 +13,7 @@ import lotr.common.entity.npc.LOTREntityDunlendingWarrior;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.LOTRInvasionSpawner;
 import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
-import lotr.common.world.feature.LOTRWorldGenBoulder;
+import lotr.common.world.feature.*;
 import lotr.common.world.structure.LOTRWorldGenDunlandHillFort;
 import lotr.common.world.structure.LOTRWorldGenDunlendingCampfire;
 import lotr.common.world.structure.LOTRWorldGenDunlendingHouse;
@@ -107,7 +107,11 @@ public class LOTRBiomeGenDunland extends LOTRBiome
 	@Override
     public WorldGenAbstractTree func_150567_a(Random random)
     {
-		if (random.nextInt(3) == 0)
+		if (random.nextInt(10) == 0)
+		{
+			return random.nextInt(10) == 0 ? LOTRWorldGenBigTrees.newChestnut(false) : LOTRWorldGenSimpleTrees.newChestnut(false);
+		}
+		else if (random.nextInt(3) == 0)
 		{
 			return random.nextInt(10) == 0 ? new WorldGenBigTree(false) : new WorldGenTrees(false, 4 + random.nextInt(5), 0, 0, false);
 		}

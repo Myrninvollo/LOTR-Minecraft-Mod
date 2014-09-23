@@ -76,7 +76,7 @@ public class LOTRWorldGenElfHouse extends LOTRWorldGenStructureBase
 			j--;
 			
 			LOTRWorldGenMallornLarge treeGen = new LOTRWorldGenMallornLarge(true);
-			int j1 = treeGen.generateWithOptionalForceAndReturnHeight(world, random, i, j, k, true);
+			int j1 = treeGen.generateAndReturnHeight(world, random, i, j, k, true);
 			j += MathHelper.floor_double(j1 * MathHelper.randomFloatClamp(random, LOTRWorldGenMallornLarge.HOUSE_HEIGHT_MIN, LOTRWorldGenMallornLarge.HOUSE_HEIGHT_MAX));
 		}
 		

@@ -22,7 +22,9 @@ public class LOTRRenderPlateFood extends TileEntitySpecialRenderer
 	public void renderTileEntityAt(TileEntity tileentity, double d, double d1, double d2, float f)
 	{
 		LOTRTileEntityPlate plate = (LOTRTileEntityPlate)tileentity;
-		if (plate.foodItem != null)
+		ItemStack plateItem = plate.getFoodItem();
+		
+		if (plateItem != null)
 		{
 			GL11.glPushMatrix();
 			GL11.glDisable(GL11.GL_CULL_FACE);
@@ -33,9 +35,9 @@ public class LOTRRenderPlateFood extends TileEntitySpecialRenderer
 			GL11.glRotatef(rotation, 0F, 1F, 0F);
 			GL11.glRotatef(90F, 1F, 0F, 0F);
 			GL11.glTranslatef(-0.25F, -0.25F, 0F);
-			ItemStack itemstack = new ItemStack(plate.foodItem, 1, plate.foodDamage);
+
 			bindTexture(TextureMap.locationItemsTexture);
-			IIcon icon = itemstack.getIconIndex();
+			IIcon icon = plateItem.getIconIndex();
 			Tessellator tessellator = Tessellator.instance;
 			float f4 = icon.getMinU();
 			float f1 = icon.getMaxU();
@@ -43,6 +45,7 @@ public class LOTRRenderPlateFood extends TileEntitySpecialRenderer
 			float f3 = icon.getMaxV();
 			GL11.glScalef(0.5625F, 0.5625F, 0.5625F);
 			ItemRenderer.renderItemIn2D(tessellator, f1, f2, f4, f3, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
+			
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			GL11.glEnable(GL11.GL_CULL_FACE);
 			GL11.glPopMatrix();

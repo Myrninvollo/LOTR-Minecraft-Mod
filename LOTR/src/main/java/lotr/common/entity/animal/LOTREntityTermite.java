@@ -1,9 +1,10 @@
 package lotr.common.entity.animal;
 
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.entity.LOTREntities;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.entity.npc.LOTREntityNPC;
+import net.minecraft.block.Block;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityMob;
@@ -11,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 public class LOTREntityTermite extends EntityMob
@@ -99,6 +101,16 @@ public class LOTREntityTermite extends EntityMob
         	worldObj.createExplosion(this, posX, posY, posZ, explosionSize, LOTRMod.canGrief(worldObj));
             setDead();
         }
+    }
+    
+    @Override
+    public boolean func_145774_a(Explosion explosion, World world, int i, int j, int k, Block block, float strength)
+    {
+        if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forNPC(this), false))
+        {
+        	return false;
+        }
+        return super.func_145774_a(explosion, world, i, j, k, block, strength);
     }
 
 	@Override

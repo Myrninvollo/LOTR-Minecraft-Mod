@@ -17,6 +17,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -110,7 +111,7 @@ public class LOTRItemPouch extends Item
 		if (itemstack.hasTagCompound() && itemstack.getTagCompound().hasKey("LOTRPouchData"))
 		{
 			NBTTagCompound nbt = itemstack.getTagCompound().getCompoundTag("LOTRPouchData");
-			NBTTagList items = nbt.getTagList("Items", new NBTTagCompound().getId());
+			NBTTagList items = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
 			for (int i = 0; i < items.tagCount(); i++)
 			{
 				slotsFull++;

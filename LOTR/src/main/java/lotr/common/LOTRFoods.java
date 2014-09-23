@@ -25,7 +25,13 @@ public class LOTRFoods
 		new ItemStack(LOTRMod.cherry),
 		new ItemStack(Items.cookie),
 		new ItemStack(LOTRMod.hobbitPancake),
-		new ItemStack(LOTRMod.rabbitCooked)
+		new ItemStack(LOTRMod.rabbitCooked),
+		new ItemStack(LOTRMod.blueberry),
+		new ItemStack(LOTRMod.blackberry),
+		new ItemStack(LOTRMod.raspberry),
+		new ItemStack(LOTRMod.cranberry),
+		new ItemStack(LOTRMod.elderberry),
+		new ItemStack(LOTRMod.chestnutRoast)
 	});
 	
 	public static LOTRFoods HOBBIT_DRINK = new LOTRFoods(new ItemStack[]
@@ -47,7 +53,9 @@ public class LOTRFoods
 		new ItemStack(LOTRMod.appleGreen),
 		new ItemStack(LOTRMod.pear),
 		new ItemStack(Items.bread),
-		new ItemStack(LOTRMod.rabbitCooked)
+		new ItemStack(LOTRMod.rabbitCooked),
+		new ItemStack(LOTRMod.blueberry),
+		new ItemStack(LOTRMod.blackberry)
 	});
 	
 	public static LOTRFoods ROHAN_DRINK = new LOTRFoods(new ItemStack[]
@@ -110,7 +118,8 @@ public class LOTRFoods
 		new ItemStack(Items.baked_potato),
 		new ItemStack(Items.apple),
 		new ItemStack(Items.bread),
-		new ItemStack(LOTRMod.rabbitCooked)
+		new ItemStack(LOTRMod.rabbitCooked),
+		new ItemStack(LOTRMod.chestnutRoast)
 	});
 	
 	public static LOTRFoods DUNLENDING_DRINK = new LOTRFoods(new ItemStack[]
@@ -132,7 +141,8 @@ public class LOTRFoods
 		new ItemStack(Items.carrot),
 		new ItemStack(LOTRMod.lembas),
 		new ItemStack(LOTRMod.lembas),
-		new ItemStack(LOTRMod.lembas)
+		new ItemStack(LOTRMod.lembas),
+		new ItemStack(LOTRMod.chestnutRoast)
 	});
 	
 	public static LOTRFoods ELF_DRINK = new LOTRFoods(new ItemStack[]

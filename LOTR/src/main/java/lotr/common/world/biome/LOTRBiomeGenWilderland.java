@@ -11,15 +11,13 @@ import lotr.common.entity.npc.LOTREntityNearHaradMerchant;
 import lotr.common.world.LOTRBanditSpawner;
 import lotr.common.world.LOTRInvasionSpawner;
 import lotr.common.world.LOTRInvasionSpawner.BiomeInvasionListEntry;
-import lotr.common.world.feature.LOTRWorldGenBoulder;
-import lotr.common.world.feature.LOTRWorldGenDeadTrees;
+import lotr.common.world.feature.*;
 import lotr.common.world.structure.LOTRWorldGenGundabadCamp;
 import lotr.common.world.structure.LOTRWorldGenStoneRuin;
 import lotr.common.world.structure2.LOTRWorldGenRuinedHouse;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.*;
 
 public class LOTRBiomeGenWilderland extends LOTRBiome
 {
@@ -83,6 +81,14 @@ public class LOTRBiomeGenWilderland extends LOTRBiome
 	@Override
     public WorldGenAbstractTree func_150567_a(Random random)
     {
+		if (random.nextInt(10) == 0)
+		{
+			return random.nextInt(10) == 0 ? LOTRWorldGenBigTrees.newChestnut(false) : LOTRWorldGenSimpleTrees.newChestnut(false);
+		}
+		if (random.nextInt(5) == 0)
+		{
+			return new WorldGenTaiga2(false);
+		}
         return random.nextBoolean() ? LOTRWorldGenDeadTrees.newOak() : super.func_150567_a(random);
     }
 	

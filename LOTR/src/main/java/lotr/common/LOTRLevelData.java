@@ -3,30 +3,22 @@ package lotr.common;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.*;
 
-import org.apache.commons.lang3.StringUtils;
-
-import lotr.common.inventory.LOTRSlotAlignmentReward;
 import lotr.common.world.LOTRTravellingTraderSpawner;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.nbt.*;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PreYggdrasilConverter;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.util.Constants;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Charsets;
 import com.mojang.authlib.GameProfile;
@@ -149,19 +141,7 @@ public class LOTRLevelData
 				playerDataTags.appendTag(nbt);
 			}
 			levelData.setTag("PlayerData", playerDataTags);
-			
-			NBTTagCompound takenAlignmentRewards = new NBTTagCompound();
-			for (LOTRFaction faction : LOTRFaction.values())
-			{
-				if (faction.allowPlayer)
-				{
-					takenAlignmentRewards.setTag(faction.name(), savePlayerSet(faction.playersTakenRewardItem));
-				}
-			}
-			levelData.setTag("TakenAlignmentRewards", takenAlignmentRewards);
-			
-			LOTRGuiMessageTypes.saveAll(levelData);
-			
+
 			LOTRWaypoint.save(levelData);
 			
 			LOTRTime.saveDates(levelData);
@@ -276,7 +256,7 @@ public class LOTRLevelData
 			clearAllPlayerData();
 			if (levelData.hasKey("PlayerData"))
 			{
-				NBTTagList playerDataTags = levelData.getTagList("PlayerData", new NBTTagCompound().getId());
+				NBTTagList playerDataTags = levelData.getTagList("PlayerData", Constants.NBT.TAG_COMPOUND);
 				for (int i = 0; i < playerDataTags.tagCount(); i++)
 				{
 					NBTTagCompound nbt = playerDataTags.getCompoundTagAt(i);
@@ -298,7 +278,7 @@ public class LOTRLevelData
 			{
 				//BEGIN OBSOLETE LOAD
 				
-				NBTTagList alignmentTags = levelData.getTagList("Alignments", new NBTTagCompound().getId());
+				NBTTagList alignmentTags = levelData.getTagList("Alignments", Constants.NBT.TAG_COMPOUND);
 				if (alignmentTags != null)
 				{
 					for (int i = 0; i < alignmentTags.tagCount(); i++)
@@ -308,7 +288,7 @@ public class LOTRLevelData
 						UUID player = new UUID(nbt.getLong("UUIDMost"), nbt.getLong("UUIDLeast"));
 						LOTRPlayerData pd = getData(player);
 						
-						NBTTagList list = nbt.getTagList("AlignmentMap", new NBTTagCompound().getId());
+						NBTTagList list = nbt.getTagList("AlignmentMap", Constants.NBT.TAG_COMPOUND);
 						if (list != null)
 						{
 							for (int j = 0; j < list.tagCount(); j++)
@@ -326,7 +306,7 @@ public class LOTRLevelData
 					}
 				}
 				
-				NBTTagList achievementTags = levelData.getTagList("Achievements", new NBTTagCompound().getId());
+				NBTTagList achievementTags = levelData.getTagList("Achievements", Constants.NBT.TAG_COMPOUND);
 				if (achievementTags != null)
 				{
 					for (int i = 0; i < achievementTags.tagCount(); i++)
@@ -336,7 +316,7 @@ public class LOTRLevelData
 						UUID player = new UUID(nbt.getLong("UUIDMost"), nbt.getLong("UUIDLeast"));
 						LOTRPlayerData pd = getData(player);
 						
-						NBTTagList list = nbt.getTagList("List", new NBTTagCompound().getId());
+						NBTTagList list = nbt.getTagList("List", Constants.NBT.TAG_COMPOUND);
 						if (list != null)
 						{
 							for (int j = 0; j < list.tagCount(); j++)
@@ -358,7 +338,7 @@ public class LOTRLevelData
 					}
 				}
 				
-				NBTTagList friendlyFireTags = levelData.getTagList("FriendlyFire", new NBTTagCompound().getId());
+				NBTTagList friendlyFireTags = levelData.getTagList("FriendlyFire", Constants.NBT.TAG_COMPOUND);
 				if (friendlyFireTags != null)
 				{
 					for (int i = 0; i < friendlyFireTags.tagCount(); i++)
@@ -370,7 +350,7 @@ public class LOTRLevelData
 					}
 				}
 				
-				NBTTagList hiredDeathMessagesTags = levelData.getTagList("HiredDeathMessages", new NBTTagCompound().getId());
+				NBTTagList hiredDeathMessagesTags = levelData.getTagList("HiredDeathMessages", Constants.NBT.TAG_COMPOUND);
 				if (hiredDeathMessagesTags != null)
 				{
 					for (int i = 0; i < hiredDeathMessagesTags.tagCount(); i++)
@@ -382,7 +362,7 @@ public class LOTRLevelData
 					}
 				}
 				
-				NBTTagList playerDeathPointsTags = levelData.getTagList("PlayerDeathPoints", new NBTTagCompound().getId());
+				NBTTagList playerDeathPointsTags = levelData.getTagList("PlayerDeathPoints", Constants.NBT.TAG_COMPOUND);
 				if (playerDeathPointsTags != null)
 				{
 					for (int i = 0; i < playerDeathPointsTags.tagCount(); i++)
@@ -394,7 +374,7 @@ public class LOTRLevelData
 					}
 				}
 				
-				NBTTagList fastTravelTimersTags = levelData.getTagList("FastTravelTimers", new NBTTagCompound().getId());
+				NBTTagList fastTravelTimersTags = levelData.getTagList("FastTravelTimers", Constants.NBT.TAG_COMPOUND);
 				if (fastTravelTimersTags != null)
 				{
 					for (int i = 0; i < fastTravelTimersTags.tagCount(); i++)
@@ -406,7 +386,7 @@ public class LOTRLevelData
 					}
 				}
 
-				NBTTagList viewingFactionsTags = levelData.getTagList("ViewingFactions", new NBTTagCompound().getId());
+				NBTTagList viewingFactionsTags = levelData.getTagList("ViewingFactions", Constants.NBT.TAG_COMPOUND);
 				if (viewingFactionsTags != null)
 				{
 					for (int i = 0; i < viewingFactionsTags.tagCount(); i++)
@@ -457,18 +437,7 @@ public class LOTRLevelData
 				
 				//END OBSOLETE LOAD
 			}
-			
-			NBTTagCompound takenAlignmentRewards = levelData.getCompoundTag("TakenAlignmentRewards");
-			for (LOTRFaction faction : LOTRFaction.values())
-			{
-				if (faction.allowPlayer)
-				{
-					loadPlayerSet(takenAlignmentRewards, faction.playersTakenRewardItem, faction.name());
-				}
-			}
-			
-			LOTRGuiMessageTypes.loadAll(levelData);
-			
+
 			LOTRWaypoint.load(levelData);
 			
 			LOTRTime.loadDates(levelData);
@@ -491,11 +460,11 @@ public class LOTRLevelData
 		NBTTagCompound structureLocations = levelData.getCompoundTag("StructureLocations");
 		if (structureLocations.hasKey(name))
 		{
-			tags = structureLocations.getTagList(name, new NBTTagCompound().getId());
+			tags = structureLocations.getTagList(name, Constants.NBT.TAG_COMPOUND);
 		}
 		else if (levelData.hasKey(name + "Locations"))
 		{
-			tags = levelData.getTagList(name + "Locations", new NBTTagCompound().getId());
+			tags = levelData.getTagList(name + "Locations", Constants.NBT.TAG_COMPOUND);
 		}
 		
 		if (tags != null)
@@ -515,7 +484,7 @@ public class LOTRLevelData
 	private static void loadPlayerSet(NBTTagCompound levelData, Set<UUID> playerSet, String name)
 	{
 		playerSet.clear();
-		NBTTagList tags = levelData.getTagList(name, new NBTTagCompound().getId());
+		NBTTagList tags = levelData.getTagList(name, Constants.NBT.TAG_COMPOUND);
 		if (tags != null)
 		{
 			for (int i = 0; i < tags.tagCount(); i++)
@@ -815,64 +784,6 @@ public class LOTRLevelData
 				S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.playerPos", data);
 				((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
 			}
-		}
-	}
-	
-	public static boolean hasTakenAlignmentRewardItem(EntityPlayer entityplayer, LOTRFaction faction)
-	{
-		if (!faction.allowPlayer)
-		{
-			return false;
-		}
-		
-		return faction.playersTakenRewardItem.contains(entityplayer.getUniqueID());
-	}
-	
-	public static void setTakenAlignmentRewardItem(EntityPlayer entityplayer, LOTRFaction faction, boolean flag)
-	{
-		if (!faction.allowPlayer)
-		{
-			return;
-		}
-		
-		if (flag)
-		{
-			faction.playersTakenRewardItem.add(entityplayer.getUniqueID());
-		}
-		else
-		{
-			faction.playersTakenRewardItem.remove(entityplayer.getUniqueID());
-		}
-		
-		if (!entityplayer.worldObj.isRemote)
-		{
-			markDirty();
-			sendTakenAlignmentRewardItemPacket(entityplayer, faction, flag);
-		}
-	}
-	
-	private static void sendTakenAlignmentRewardItemPacket(EntityPlayer entityplayer, LOTRFaction faction, boolean flag)
-	{
-		ByteBuf data = Unpooled.buffer();
-		
-		data.writeByte((byte)faction.ordinal());
-		data.writeBoolean(flag);
-
-		S3FPacketCustomPayload packet = new S3FPacketCustomPayload("lotr.rewardItem", data);
-		((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
-	}
-	
-	public static void sendTakenAlignmentRewardsToPlayer(EntityPlayer entityplayer)
-	{
-		for (LOTRFaction faction : LOTRFaction.values())
-		{
-			if (!faction.allowPlayer)
-			{
-				continue;
-			}
-			
-			boolean flag = hasTakenAlignmentRewardItem(entityplayer, faction);
-			sendTakenAlignmentRewardItemPacket(entityplayer, faction, flag);
 		}
 	}
 	

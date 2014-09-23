@@ -59,7 +59,7 @@ public class LOTRRenderSpear extends Render
 		}
 		else
 		{
-			ItemStack itemstack = new ItemStack(Item.getItemById(spear.getItemID()), 1, 0);
+			ItemStack itemstack = spear.getItem();
 			IItemRenderer customRenderer = MinecraftForgeClient.getItemRenderer(itemstack, IItemRenderer.ItemRenderType.EQUIPPED);
 			if (customRenderer != null)
 			{

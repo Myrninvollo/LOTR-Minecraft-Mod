@@ -17,10 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraft.world.gen.feature.WorldGenLakes;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.feature.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -42,10 +39,11 @@ public class LOTRBiomeGenDeadMarshes extends LOTRBiome
 		decorator.quagmirePerChunk = 2;
 		decorator.treesPerChunk = 0;
 		decorator.logsPerChunk = 2;
-		decorator.flowersPerChunk = 3;
 		decorator.grassPerChunk = 8;
 		decorator.doubleGrassPerChunk = 4;
+		decorator.flowersPerChunk = 0;
 		decorator.enableFern = true;
+		decorator.enableSpecialGrasses = false;
 		decorator.reedsPerChunk = 10;
 		
 		flowers.clear();
@@ -89,8 +87,16 @@ public class LOTRBiomeGenDeadMarshes extends LOTRBiome
 			new WorldGenLakes(Blocks.water).generate(world, random, i1, j1, k1);
 		}
 		
-        if (random.nextInt(3) == 0)
-        {
+		for (int l = 0; l < 6; l++)
+		{
+            int i1 = i + random.nextInt(16) + 8;
+            int k1 = k + random.nextInt(16) + 8;
+			int j1 = random.nextInt(128);
+			new WorldGenFlowers(LOTRMod.deadPlant).generate(world, random, i1, j1, k1);
+		}
+		
+		for (int l = 0; l < 4; l++)
+		{
             int i1 = i + random.nextInt(16) + 8;
             int k1 = k + random.nextInt(16) + 8;
 			int j1;
@@ -98,7 +104,7 @@ public class LOTRBiomeGenDeadMarshes extends LOTRBiome
 			new LOTRWorldGenMarshLights().generate(world, random, i1, j1, k1);
         }
 		
-		if (i == 623 * LOTRGenLayerWorld.scale && k == 417 * LOTRGenLayerWorld.scale)
+        if (LOTRWorldGenMarshHut.generatesAt(world, i, k))
 		{
 			int i1 = i + 8;
 			int k1 = k + 8;

@@ -20,6 +20,7 @@ import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -32,7 +33,7 @@ public class LOTREntityBanner extends Entity
 	
 	public static int MAX_PLAYERS = 5;
 	public boolean playerSpecificProtection;
-	public UUID[] allowedPlayers = new UUID[MAX_PLAYERS];
+	private UUID[] allowedPlayers = new UUID[MAX_PLAYERS];
 	
 	public LOTREntityBanner(World world)
 	{
@@ -74,6 +75,36 @@ public class LOTREntityBanner extends Entity
 		return worldObj.getBlock(i, j - 1, k) == Blocks.gold_block;
 	}
 	
+	public void setPlacingPlayer(EntityPlayer player)
+	{
+		allowedPlayers[0] = player.getUniqueID();
+	}
+	
+	public UUID getPlacingPlayer()
+	{
+		return allowedPlayers[0];
+	}
+	
+	public void whitelistPlayer(int index, UUID player)
+	{
+		allowedPlayers[index] = player;
+	}
+	
+	public boolean isPlayerWhitelisted(EntityPlayer entityplayer)
+	{
+		if (playerSpecificProtection)
+		{
+			for (UUID uuid : allowedPlayers)
+			{
+				if (uuid != null && uuid.equals(entityplayer.getUniqueID()))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public boolean canBeCollidedWith()
 	{
@@ -105,7 +136,7 @@ public class LOTREntityBanner extends Entity
         
         if (!worldObj.isRemote && !onGround)
         {
-        	attackEntityFrom(DamageSource.generic, 1F);
+        	dropAsItem(true);
         }
         
         ignoreFrustumCheck = isProtectingTerritory();
@@ -140,7 +171,7 @@ public class LOTREntityBanner extends Entity
     	setBannerType(nbt.getByte("BannerType"));
     	playerSpecificProtection = nbt.getBoolean("PlayerProtection");
     	
-    	NBTTagList allowedPlayersTags = nbt.getTagList("AllowedPlayers", new NBTTagCompound().getId());
+    	NBTTagList allowedPlayersTags = nbt.getTagList("AllowedPlayers", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < allowedPlayersTags.tagCount(); i++)
         {
         	NBTTagCompound playerData = allowedPlayersTags.getCompoundTagAt(i);
@@ -208,24 +239,35 @@ public class LOTREntityBanner extends Entity
     @Override
     public boolean attackEntityFrom(DamageSource damagesource, float f)
     {
+    	if (!(damagesource.getEntity() instanceof EntityPlayer))
+    	{
+    		return false;
+    	}
+    	
 		if (!isDead && !worldObj.isRemote)
 		{
-			setDead();
 			setBeenAttacked();
 			worldObj.playSoundAtEntity(this, Blocks.planks.stepSound.getBreakSound(), (Blocks.planks.stepSound.getVolume() + 1F) / 2F, Blocks.planks.stepSound.getPitch() * 0.8F);
 			
-			boolean flag = true;
+			boolean drop = true;
 			if (damagesource.getEntity() instanceof EntityPlayer && ((EntityPlayer)damagesource.getEntity()).capabilities.isCreativeMode)
 			{
-				flag = false;
+				drop = false;
 			}
 			
-			if (flag)
-			{
-				entityDropItem(new ItemStack(LOTRMod.banner, 1, getBannerType()), 0F);
-			}
+			dropAsItem(drop);
 		}
+		
 		return true;
+    }
+    
+    private void dropAsItem(boolean drop)
+    {
+    	setDead();
+    	if (drop)
+    	{
+    		entityDropItem(new ItemStack(LOTRMod.banner, 1, getBannerType()), 0F);
+    	}
     }
 	
 	@Override

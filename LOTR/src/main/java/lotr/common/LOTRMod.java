@@ -289,6 +289,17 @@ public class LOTRMod
 	public static Block flaxPlant;
 	public static Block flaxCrop;
 	public static Block berryBush;
+	public static Block planks2;
+	public static Block fence2;
+	public static Block woodSlabSingle3;
+	public static Block woodSlabDouble3;
+	public static Block wood4;
+	public static Block leaves4;
+	public static Block sapling4;
+	public static Block stairsChestnut;
+	public static Block stairsBaobab;
+	public static Block fallenLeavesLOTR2;
+	public static Block stairsCedar;
 
 	public static Item goldRing;
 	public static Item pouch;
@@ -670,6 +681,8 @@ public class LOTRMod
 	public static Item raspberry;
 	public static Item cranberry;
 	public static Item elderberry;
+	public static Item chestnut;
+	public static Item chestnutRoast;
 
 	public static boolean alwaysShowAlignment;
 	public static int alignmentXOffset;
@@ -696,12 +709,12 @@ public class LOTRMod
 		oreMithril = new LOTRBlockOre().setHardness(4F).setResistance(10F).setStepSound(Block.soundTypeStone).setBlockName("lotr:oreMithril");
 		beacon = new LOTRBlockBeacon().setHardness(0F).setResistance(5F).setStepSound(Block.soundTypeWood).setBlockName("lotr:beacon");
 		simbelmyne = new LOTRBlockFlower().setBlockName("lotr:simbelmyne");
-		wood = new LOTRBlockWood().setHardness(2F).setStepSound(Block.soundTypeWood).setBlockName("lotr:wood");
+		wood = new LOTRBlockWood().setBlockName("lotr:wood");
 		leaves = new LOTRBlockLeaves().setBlockName("lotr:leaves");
-		planks = new LOTRBlockPlanks().setHardness(2F).setResistance(5F).setStepSound(Block.soundTypeWood).setBlockName("lotr:planks");
+		planks = new LOTRBlockPlanks().setBlockName("lotr:planks");
 		sapling = new LOTRBlockSapling().setBlockName("lotr:sapling");
-		woodSlabSingle = new LOTRBlockWoodSlab(false).setHardness(2F).setResistance(5F).setStepSound(Block.soundTypeWood).setBlockName("lotr:woodSlabSingle");
-		woodSlabDouble = new LOTRBlockWoodSlab(true).setHardness(2F).setResistance(5F).setStepSound(Block.soundTypeWood).setBlockName("lotr:woodSlabDouble");
+		woodSlabSingle = new LOTRBlockWoodSlab(false).setBlockName("lotr:woodSlabSingle");
+		woodSlabDouble = new LOTRBlockWoodSlab(true).setBlockName("lotr:woodSlabDouble");
 		stairsShirePine = new LOTRBlockStairs(planks, 0).setBlockName("lotr:stairsPine");
 		shireHeather = new LOTRBlockFlower().setFlowerBounds(0.1F, 0F, 0.1F, 0.9F, 0.7F, 0.9F).setBlockName("lotr:shireHeather");
 		brick = new LOTRBlockBrick().setHardness(1.5F).setResistance(10F).setStepSound(Block.soundTypeStone).setBlockName("lotr:brick");
@@ -750,7 +763,7 @@ public class LOTRMod
 		elvenBed = new LOTRBlockBed(planks, 1).setBlockName("lotr:elvenBed");
 		pillar = new LOTRBlockPillar().setBlockName("lotr:pillar");
 		oreGlowstone = new LOTRBlockOre().setHardness(3F).setResistance(5F).setStepSound(Block.soundTypeStone).setLightLevel(0.75F).setBlockName("lotr:oreGlowstone");
-		fruitWood = new LOTRBlockFruitWood().setHardness(2F).setStepSound(Block.soundTypeWood).setBlockName("lotr:fruitWood");
+		fruitWood = new LOTRBlockFruitWood().setBlockName("lotr:fruitWood");
 		fruitLeaves = new LOTRBlockFruitLeaves().setBlockName("lotr:fruitLeaves");
 		fruitSapling = new LOTRBlockFruitSapling().setBlockName("lotr:fruitSapling");
 		stairsApple = new LOTRBlockStairs(planks, 4).setBlockName("lotr:stairsApple");
@@ -786,7 +799,7 @@ public class LOTRMod
 		armorStand = new LOTRBlockArmorStand().setHardness(0F).setResistance(1F).setStepSound(Block.soundTypeStone).setBlockName("lotr:armorStand");
 		buttonRohanRock = new LOTRBlockButton(false, "lotr:rock_rohan").setHardness(0.5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:buttonRohanRock");
 		asphodel = new LOTRBlockFlower().setBlockName("lotr:asphodel");
-		wood2 = new LOTRBlockWood2().setHardness(2F).setStepSound(Block.soundTypeWood).setBlockName("lotr:wood2");
+		wood2 = new LOTRBlockWood2().setBlockName("lotr:wood2");
 		leaves2 = new LOTRBlockLeaves2().setBlockName("lotr:leaves2");
 		sapling2 = new LOTRBlockSapling2().setBlockName("lotr:sapling2");
 		stairsLebethron = new LOTRBlockStairs(planks, 8).setBlockName("lotr:stairsLebethron");
@@ -812,7 +825,7 @@ public class LOTRMod
 		slabSingle3 = new LOTRBlockSlab3(false).setHardness(2F).setResistance(10F).setStepSound(Block.soundTypeStone).setBlockName("lotr:slabSingle3");
 		slabDouble3 = new LOTRBlockSlab3(true).setHardness(2F).setResistance(10F).setStepSound(Block.soundTypeStone).setBlockName("lotr:slabDouble3");
 		stairsBlueRockBrick = new LOTRBlockStairs(brick, 14).setBlockName("lotr:stairsBlueRockBrick");
-		fence = new LOTRBlockFence().setHardness(2F).setResistance(5F).setStepSound(Block.soundTypeWood).setBlockName("lotr:fence");
+		fence = new LOTRBlockFence(planks).setBlockName("lotr:fence");
 		doubleFlower = new LOTRBlockDoubleFlower().setBlockName("lotr:doubleFlower");
 		oreSulfur = new LOTRBlockOre().setHardness(3F).setResistance(5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:oreSulfur");
 		oreSaltpeter = new LOTRBlockOre().setHardness(3F).setResistance(5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:oreSaltpeter");
@@ -827,7 +840,7 @@ public class LOTRMod
 		bananaBlock = new LOTRBlockBanana().setHardness(0F).setResistance(1F).setStepSound(Block.soundTypeWood).setBlockName("lotr:banana");
 		bananaCake = new LOTRBlockPlaceableFood().setHardness(0.5F).setStepSound(Block.soundTypeCloth).setBlockName("lotr:bananaCake");
 		lionBed = new LOTRBlockBed(Blocks.planks, 0).setBlockName("lotr:lionBed");
-		wood3 = new LOTRBlockWood3().setHardness(2F).setStepSound(Block.soundTypeWood).setBlockName("lotr:wood3");
+		wood3 = new LOTRBlockWood3().setBlockName("lotr:wood3");
 		leaves3 = new LOTRBlockLeaves3().setBlockName("lotr:leaves3");
 		sapling3 = new LOTRBlockSapling3().setBlockName("lotr:sapling3");
 		stairsMaple = new LOTRBlockStairs(planks, 12).setBlockName("lotr:stairsMaple");
@@ -880,6 +893,17 @@ public class LOTRMod
 		flaxPlant = new LOTRBlockFlower().setBlockName("lotr:flaxPlant");
 		flaxCrop = new LOTRBlockFlaxCrop().setBlockName("lotr:flax");
 		berryBush = new LOTRBlockBerryBush().setBlockName("lotr:berryBush");
+		planks2 = new LOTRBlockPlanks2().setBlockName("lotr:planks2");
+		fence2 = new LOTRBlockFence(planks2).setBlockName("lotr:fence2");
+		woodSlabSingle3 = new LOTRBlockWoodSlab3(false).setBlockName("lotr:woodSlabSingle3");
+		woodSlabDouble3 = new LOTRBlockWoodSlab3(true).setBlockName("lotr:woodSlabDouble3");
+		wood4 = new LOTRBlockWood4().setBlockName("lotr:wood4");
+		leaves4 = new LOTRBlockLeaves4().setBlockName("lotr:leaves4");
+		sapling4 = new LOTRBlockSapling4().setBlockName("lotr:sapling4");
+		stairsChestnut = new LOTRBlockStairs(planks2, 0).setBlockName("lotr:stairsChestnut");
+		stairsBaobab = new LOTRBlockStairs(planks2, 1).setBlockName("lotr:stairsBaobab");
+		fallenLeavesLOTR2 = new LOTRBlockFallenLeaves(leaves4).setBlockName("lotr:fallenLeavesLOTR2");
+		stairsCedar = new LOTRBlockStairs(planks2, 2).setBlockName("lotr:stairsCedar");
 		
 		goldRing = new Item().setCreativeTab(LOTRCreativeTabs.tabMagic).setUnlocalizedName("lotr:goldRing");
 		pouch = new LOTRItemPouch().setUnlocalizedName("lotr:pouch");
@@ -1261,6 +1285,8 @@ public class LOTRMod
 		raspberry = new LOTRItemBerry().setUnlocalizedName("lotr:raspberry");
 		cranberry = new LOTRItemBerry().setUnlocalizedName("lotr:cranberry");
 		elderberry = new LOTRItemBerry().setUnlocalizedName("lotr:elderberry");
+		chestnut = new LOTRItemConker().setUnlocalizedName("lotr:chestnut");
+		chestnutRoast = new LOTRItemFood(2, 0.2F, false).setUnlocalizedName("lotr:chestnutRoast");
 		
 		try
 		{
@@ -1295,6 +1321,7 @@ public class LOTRMod
 		LOTRBlockSlabBase.registerSlabs(slabSingle4, slabDouble4);
 		LOTRBlockSlabBase.registerSlabs(slabSingleThatch, slabDoubleThatch);
 		LOTRBlockSlabBase.registerSlabs(slabSingle5, slabDouble5);
+		LOTRBlockSlabBase.registerSlabs(woodSlabSingle3, woodSlabDouble3);
 		
 		registerBlock(rock, LOTRItemBlockMetadata.class);
 		registerBlock(oreCopper);
@@ -1487,6 +1514,17 @@ public class LOTRMod
 		registerBlock(flaxPlant);
 		registerBlock(flaxCrop);
 		registerBlock(berryBush, LOTRItemBlockMetadata.class);
+		registerBlock(planks2, LOTRItemBlockMetadata.class);
+		registerBlock(fence2, LOTRItemBlockMetadata.class);
+		registerBlock(woodSlabSingle3, LOTRBlockSlabBase.SlabItems.WoodSlab3Single.class);
+		registerBlock(woodSlabDouble3, LOTRBlockSlabBase.SlabItems.WoodSlab3Double.class);
+		registerBlock(wood4, LOTRItemBlockMetadata.class);
+		registerBlock(leaves4, LOTRItemLeaves.class);
+		registerBlock(sapling4, LOTRItemBlockMetadata.class);
+		registerBlock(stairsChestnut);
+		registerBlock(stairsBaobab);
+		registerBlock(fallenLeavesLOTR2, LOTRItemFallenLeaves.class);
+		registerBlock(stairsCedar);
 		
 		registerItem(goldRing);
 		registerItem(pouch);
@@ -1868,6 +1906,8 @@ public class LOTRMod
 		registerItem(raspberry);
 		registerItem(cranberry);
 		registerItem(elderberry);
+		registerItem(chestnut);
+		registerItem(chestnutRoast);
 		
 		LOTRDimension.configureDimensions(config);
 		alwaysShowAlignment = config.get("general", "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean();
@@ -1952,7 +1992,7 @@ public class LOTRMod
 				Blocks.fire.setFireInfo(block, 30, 60);
 			}
 			
-			if (block instanceof LOTRBlockPlanks || block instanceof LOTRBlockFence)
+			if (block instanceof LOTRBlockPlanksBase || block instanceof LOTRBlockFence)
 			{
 				Blocks.fire.setFireInfo(block, 5, 20);
 			}
@@ -2194,6 +2234,7 @@ public class LOTRMod
 		LOTREntities.registerEntity(LOTREntityBannerWall.class, "WallBanner", 2017, 160, Integer.MAX_VALUE, false);
 		LOTREntities.registerEntity(LOTREntityInvasionSpawner.class, "InvasionSpawner", 2018, 80, 3, true);
 		LOTREntities.registerEntity(LOTREntityThrownTermite.class, "ThrownTermite", 2019, 64, 10, true);
+		LOTREntities.registerEntity(LOTREntityConker.class, "Conker", 2020, 64, 10, true);
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
 		
@@ -2202,12 +2243,14 @@ public class LOTRMod
 		
 		LOTRDimension.MIDDLE_EARTH.registerDimensions();
 		
-		BlockDispenser.dispenseBehaviorRegistry.putObject(orcBomb, new LOTRDispenserBehaviorOrcBomb());
-		BlockDispenser.dispenseBehaviorRegistry.putObject(spawnEgg, new LOTRDispenserBehaviorMobEgg());
-		BlockDispenser.dispenseBehaviorRegistry.putObject(plate, new LOTRDispenserBehaviorPlate());
-		BlockDispenser.dispenseBehaviorRegistry.putObject(crossbowBolt, new LOTRDispenserBehaviorCrossbowBolt());
-		BlockDispenser.dispenseBehaviorRegistry.putObject(pebble, new LOTRDispenserBehaviorPebble());
-		BlockDispenser.dispenseBehaviorRegistry.putObject(mysteryWeb, new LOTRDispenserBehaviorMysteryWeb());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(Item.getItemFromBlock(orcBomb), new LOTRDispenseOrcBomb());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(spawnEgg, new LOTRDispenseSpawnEgg());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(plate, new LOTRDispensePlate());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(crossbowBolt, new LOTRDispenseCrossbowBolt());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(pebble, new LOTRDispensePebble());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(mysteryWeb, new LOTRDispenseMysteryWeb());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(termite, new LOTRDispenseTermite());
+		BlockDispenser.dispenseBehaviorRegistry.putObject(chestnut, new LOTRDispenseConker());
 		
 		LOTRSpeech.loadAllSpeechBanks();
 		LOTRNames.loadAllNameBanks();
@@ -2218,6 +2261,7 @@ public class LOTRMod
 		LOTRTickHandlerServer.createSpawningLists();
 		LOTRStructures.registerStructures();
 		LOTRMiniQuestFactory.createMiniQuests();
+		LOTRTitle.createTitles();
 	}
 	
 	@Mod.EventHandler
@@ -2490,7 +2534,7 @@ public class LOTRMod
 			{
 				if (friendlyFire && warnFriendlyFire)
 				{
-					LOTRGuiMessageTypes.FRIENDLY_FIRE.sendMessageIfNotReceived(attacker);
+					LOTRLevelData.getData(attacker).sendMessageIfNotReceived(LOTRGuiMessageTypes.FRIENDLY_FIRE);
 				}
 				return false;
 			}

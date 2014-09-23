@@ -30,6 +30,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PreYggdrasilConverter;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
@@ -68,6 +69,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.editBanner", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.mqAccept", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.mqDelete", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.titleSelect", this);
 	}
 	
 	@Override
@@ -932,7 +934,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 						UUID uuid = UUID.fromString(PreYggdrasilConverter.func_152719_a(name));
 						if (uuid != null)
 						{
-							banner.allowedPlayers[index] = uuid;
+							banner.whitelistPlayer(index, uuid);
 						}
 					}
 				}
@@ -999,6 +1001,38 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 					}
 					
 					playerData.removeMiniQuest(removeQuest, false);
+				}
+			}
+		}
+		
+		else if (channel.equals("lotr.titleSelect"))
+		{
+			int id = data.readInt();
+			World world = DimensionManager.getWorld(data.readByte());
+			if (world != null)
+			{
+				Entity entity = world.getEntityByID(id);
+				if (entity instanceof EntityPlayer)
+				{
+					EntityPlayer entityplayer = (EntityPlayer)entity;
+					LOTRPlayerData playerData = LOTRLevelData.getData(entityplayer);
+					
+					int titleID = data.readInt();
+					int colorID = data.readInt();
+					
+					if (titleID == -1)
+					{
+						playerData.setPlayerTitle(null);
+					}
+					else
+					{
+						LOTRTitle title = LOTRTitle.forID(titleID);
+						EnumChatFormatting color = LOTRTitle.PlayerTitle.colorForID(colorID);
+						if (title != null && title.canPlayerUse(entityplayer))
+						{
+							playerData.setPlayerTitle(new LOTRTitle.PlayerTitle(title, color));
+						}
+					}
 				}
 			}
 		}

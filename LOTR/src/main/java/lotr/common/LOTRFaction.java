@@ -55,8 +55,6 @@ public enum LOTRFaction
 	private Map<Integer, LOTRAchievement> alignmentAchievements = new HashMap();
 	private LOTRAchievement miniquestAchievement;
 	
-	public static Set playersTakenRewardItem = new HashSet();
-	
 	private LOTRFaction(int color)
 	{
 		this(color, LOTRDimension.MIDDLE_EARTH);

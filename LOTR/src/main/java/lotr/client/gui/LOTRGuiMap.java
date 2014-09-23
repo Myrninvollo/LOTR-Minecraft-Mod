@@ -29,7 +29,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.google.common.base.Charsets;
 
-public class LOTRGuiMap extends LOTRGui
+public class LOTRGuiMap extends LOTRGuiMenu
 {
 	private static ResourceLocation overlayTexture = new ResourceLocation("lotr:map/mapOverlay.png");
 	private static ResourceLocation borderTexture = new ResourceLocation("lotr:map/mapScreen.png");
@@ -273,7 +273,7 @@ public class LOTRGuiMap extends LOTRGui
 			
 			if (!hasUnlocked)
 			{
-				String s = "If you can see this message, something has gone hideously wrong";
+				String s = "If you can read this, something has gone hideously wrong";
 				
 				if (!selectedWaypoint.isUnlockable(mc.thePlayer))
 				{

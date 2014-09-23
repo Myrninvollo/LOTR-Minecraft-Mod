@@ -16,6 +16,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.common.util.Constants;
 
 public class LOTRTileEntityBarrel extends TileEntity implements IInventory
 {
@@ -240,7 +241,7 @@ public class LOTRTileEntityBarrel extends TileEntity implements IInventory
     
     public void readBarrelFromNBT(NBTTagCompound nbt)
     {
-        NBTTagList items = nbt.getTagList("Items", new NBTTagCompound().getId());
+        NBTTagList items = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
         inventory = new ItemStack[getSizeInventory()];
         for (int i = 0; i < items.tagCount(); i++)
         {

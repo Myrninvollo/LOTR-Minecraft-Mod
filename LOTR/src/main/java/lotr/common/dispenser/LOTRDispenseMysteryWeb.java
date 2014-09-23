@@ -6,7 +6,7 @@ import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.world.World;
 
-public class LOTRDispenserBehaviorMysteryWeb extends BehaviorProjectileDispense
+public class LOTRDispenseMysteryWeb extends BehaviorProjectileDispense
 {
     @Override
     protected IProjectile getProjectileEntity(World world, IPosition position)

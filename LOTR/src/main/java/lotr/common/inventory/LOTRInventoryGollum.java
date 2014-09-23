@@ -6,6 +6,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 
 public class LOTRInventoryGollum implements IInventory
 {
@@ -131,7 +132,7 @@ public class LOTRInventoryGollum implements IInventory
 	
     public void readFromNBT(NBTTagCompound nbt)
     {
-        NBTTagList items = nbt.getTagList("Items", new NBTTagCompound().getId());
+        NBTTagList items = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
         inventory = new ItemStack[getSizeInventory()];
 
         for (int i = 0; i < items.tagCount(); i++)

@@ -113,6 +113,10 @@ public class LOTRBiomeGenLoneLands extends LOTRBiome
 		{
 			return random.nextInt(10) == 0 ? LOTRWorldGenBigTrees.newBeech(false) : LOTRWorldGenSimpleTrees.newBeech(false);
 		}
+		else if (random.nextInt(20) == 0)
+		{
+			return random.nextInt(10) == 0 ? LOTRWorldGenBigTrees.newChestnut(false) : LOTRWorldGenSimpleTrees.newChestnut(false);
+		}
 		else
 		{
 			return super.func_150567_a(random);

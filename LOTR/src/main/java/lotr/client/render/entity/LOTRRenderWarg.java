@@ -59,7 +59,7 @@ public class LOTRRenderWarg extends RenderLiving
             OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)j / 1F, (float)k / 1F);
             GL11.glColor4f(1F, 1F, 1F, 1F);
             GL11.glColor4f(1F, 1F, 1F, 1F);
-			LOTRRenderEntityOrcBomb bombRenderer = (LOTRRenderEntityOrcBomb)RenderManager.instance.getEntityClassRenderObject(LOTREntityOrcBomb.class);
+            LOTRRenderOrcBomb bombRenderer = (LOTRRenderOrcBomb)RenderManager.instance.getEntityClassRenderObject(LOTREntityOrcBomb.class);
 			bombRenderer.renderBomb(entity, 0D, 0D, 0D, f1, ((LOTREntityWargBombardier)entity).getBombFuse(), ((LOTREntityWargBombardier)entity).getBombStrengthLevel(), 0.75F, 1F);
 			GL11.glPopMatrix();
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);

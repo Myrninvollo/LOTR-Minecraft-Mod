@@ -3,8 +3,8 @@ package lotr.common.world.feature;
 import java.util.Random;
 
 import lotr.common.LOTRMod;
-import lotr.common.world.structure.LOTRWorldGenElfHouse;
 import lotr.common.world.structure.LOTRWorldGenElfLordHouse;
+import lotr.common.world.structure2.LOTRWorldGenElfHouse;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -38,7 +38,7 @@ public class LOTRWorldGenMallornLarge extends WorldGenAbstractTree
 	private static int BRANCH_HEIGHT_MAX = 8;
 	
 	public static float HOUSE_HEIGHT_MIN = 0.4F;
-	public static float HOUSE_HEIGHT_MAX = 0.5F;
+	public static float HOUSE_HEIGHT_MAX = 0.7F;
 	
 	private static float HOUSE_CHANCE = 0.4F;
 	private static float HOUSE_ELFLORD_CHANCE = 0.1F;
@@ -67,47 +67,41 @@ public class LOTRWorldGenMallornLarge extends WorldGenAbstractTree
 	public int generateAndReturnHeight(World world, Random random, int i, int j, int k, boolean forceGeneration)
 	{
         int height = MathHelper.getRandomIntegerInRange(random, HEIGHT_MIN, HEIGHT_MAX);
-        int trunkWidth = 1;
+        int trunkWidth = 2;
         
         boolean flag = true;
 
         if ((j >= 1 && j + height + 5 <= 256) || forceGeneration)
         {
-			for (int i1 = i - trunkWidth; i1 <= i + trunkWidth; i1++)
+			for (int j1 = j; j1 <= j + 1 + height; j1++)
 			{
-				for (int k1 = k - trunkWidth; k1 <= k + trunkWidth; k1++)
+				int range = trunkWidth;
+
+				if (j1 == j)
 				{
-					for (int j1 = j; j1 <= j + 1 + height; j1++)
+					range = 0;
+				}
+
+				if (j1 >= j + 1 + height - 2)
+				{
+					range = trunkWidth + 1;
+				}
+
+				for (int i2 = i - range; i2 <= i + range && flag; i2++)
+				{
+					for (int k2 = k - range; k2 <= k + range && flag; k2++)
 					{
-						int range = trunkWidth;
-
-						if (j1 == j)
+						if (j1 >= 0 && j1 < 256)
 						{
-							range = 0;
-						}
-
-						if (j1 >= j + 1 + height - 2)
-						{
-							range = trunkWidth + 1;
-						}
-
-						for (int i2 = i1 - range; i2 <= i1 + range && flag; i2++)
-						{
-							for (int k2 = k1 - range; k2 <= k1 + range && flag; k2++)
+							Block block = world.getBlock(i2, j1, k2);
+							if (!forceGeneration && !isReplaceable(world, i2, j1, k2) && block != LOTRMod.quenditeGrass)
 							{
-								if (j1 >= 0 && j1 < 256)
-								{
-									Block block = world.getBlock(i2, j1, k2);
-									if (!forceGeneration && !isReplaceable(world, i2, j1, k2) && block != LOTRMod.quenditeGrass)
-									{
-										flag = false;
-									}
-								}
-								else if (!forceGeneration)
-								{
-									flag = false;
-								}
+								flag = false;
 							}
+						}
+						else if (!forceGeneration)
+						{
+							flag = false;
 						}
 					}
 				}
@@ -119,33 +113,36 @@ public class LOTRWorldGenMallornLarge extends WorldGenAbstractTree
             }
             else
             {
-				for (int i1 = i - trunkWidth; i1 <= i + trunkWidth; i1++)
-				{
-					for (int k1 = k - trunkWidth; k1 <= k + trunkWidth; k1++)
+            	if (!forceGeneration)
+            	{
+					for (int i1 = i - trunkWidth; i1 <= i + trunkWidth; i1++)
 					{
-						Block block = world.getBlock(i1, j - 1, k1);
-						boolean correctBlock = false;
-						if (saplingGrowth)
+						for (int k1 = k - trunkWidth; k1 <= k + trunkWidth; k1++)
 						{
-							if (block == LOTRMod.quenditeGrass)
+							Block block = world.getBlock(i1, j - 1, k1);
+							boolean correctBlock = false;
+							if (saplingGrowth)
 							{
-								correctBlock = true;
+								if (block == LOTRMod.quenditeGrass)
+								{
+									correctBlock = true;
+								}
 							}
-						}
-						else
-						{
-							if (block == Blocks.grass || block == Blocks.dirt)
+							else
 							{
-								correctBlock = true;
+								if (block == Blocks.grass || block == Blocks.dirt)
+								{
+									correctBlock = true;
+								}
 							}
-						}
-						
-						if (!correctBlock)
-						{
-							return 0;
+							
+							if (!correctBlock)
+							{
+								return 0;
+							}
 						}
 					}
-				}
+            	}
 				
 				for (int i1 = i - trunkWidth; i1 <= i + trunkWidth; i1++)
 				{
@@ -236,9 +233,9 @@ public class LOTRWorldGenMallornLarge extends WorldGenAbstractTree
 				
 				if (trunkWidth > 0)
 				{
-		            for (int j1 = j + (int)(height * BOUGH_BASE_HEIGHT_MIN); j1 > j + height / 2; j1 -= 1 + random.nextInt(4))
+		            for (int j1 = j + (int)(height * BOUGH_BASE_HEIGHT_MIN); j1 > j + (int)(height * 0.67F); j1 -= 1 + random.nextInt(3))
 		            {
-		            	int branches = 1 + random.nextInt(4);
+		            	int branches = 1 + random.nextInt(5);
 		            	for (int b = 0; b < branches; b++)
 		            	{
 			                float branchAngle = random.nextFloat() * (float)Math.PI * 2F;

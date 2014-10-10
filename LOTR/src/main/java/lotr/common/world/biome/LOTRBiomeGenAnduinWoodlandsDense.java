@@ -4,12 +4,13 @@ import java.util.Random;
 
 import lotr.common.world.feature.LOTRWorldGenHugeTrees;
 import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraft.world.gen.feature.WorldGenBigTree;
 
-public class LOTRBiomeGenValesOfAnduinWoodlandsDense extends LOTRBiomeGenValesOfAnduinWoodlands
+public class LOTRBiomeGenAnduinWoodlandsDense extends LOTRBiomeGenAnduinWoodlands
 {
-	public LOTRBiomeGenValesOfAnduinWoodlandsDense(int i)
+	public LOTRBiomeGenAnduinWoodlandsDense(int i)
 	{
 		super(i);
 		

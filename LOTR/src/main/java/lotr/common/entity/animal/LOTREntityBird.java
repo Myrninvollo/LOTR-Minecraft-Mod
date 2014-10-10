@@ -289,6 +289,12 @@ public class LOTREntityBird extends EntityLiving implements LOTRAmbientCreature
         nbt.setInteger("BirdType", getBirdType().ordinal());
         nbt.setBoolean("BirdStill", isBirdStill());
     }
+    
+    @Override
+    protected boolean canDespawn()
+    {
+        return true;
+    }
 
     @Override
     public boolean getCanSpawnHere()

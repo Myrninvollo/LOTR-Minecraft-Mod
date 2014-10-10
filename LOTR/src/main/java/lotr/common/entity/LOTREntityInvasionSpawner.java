@@ -38,11 +38,7 @@ public class LOTREntityInvasionSpawner extends Entity
 	
 	public boolean canInvasionSpawnHere()
     {
-		int i = MathHelper.floor_double(posX);
-		int j = MathHelper.floor_double(boundingBox.minY);
-		int k = MathHelper.floor_double(posZ);
-		
-		if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forInvasionSpawner(this), false))
+		if (LOTRBannerProtection.isProtectedByBanner(worldObj, this, LOTRBannerProtection.forInvasionSpawner(this), false))
 		{
 			return false;
 		}

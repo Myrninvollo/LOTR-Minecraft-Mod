@@ -47,7 +47,7 @@ import cpw.mods.fml.common.network.FMLEventChannel;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = "lotr", name = "The Lord of the Rings Mod", version = "Beta v21.0 for Minecraft 1.7.10")
+@Mod(modid = "lotr", name = "The Lord of the Rings Mod", version = "Beta v21.0 for Minecraft 1.7.10", guiFactory = "lotr.client.gui.config.LOTRGuiFactory")
 public class LOTRMod
 {
 	@SidedProxy(clientSide = "lotr.client.LOTRClientProxy", serverSide = "lotr.common.LOTRCommonProxy")
@@ -684,6 +684,7 @@ public class LOTRMod
 	public static Item chestnut;
 	public static Item chestnutRoast;
 
+	public static Configuration modConfig;
 	public static boolean alwaysShowAlignment;
 	public static int alignmentXOffset;
 	public static int alignmentYOffset;
@@ -700,8 +701,6 @@ public class LOTRMod
 	@Mod.EventHandler
 	public void preload(FMLPreInitializationEvent event)
 	{
-		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-
 		rock = new LOTRBlockRock().setHardness(1.5F).setResistance(10F).setStepSound(Block.soundTypeStone).setBlockName("lotr:rock");
 		oreCopper = new LOTRBlockOre().setHardness(3F).setResistance(5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:oreCopper");
 		oreTin = new LOTRBlockOre().setHardness(3F).setResistance(5F).setStepSound(Block.soundTypeStone).setBlockName("lotr:oreTin");
@@ -1909,33 +1908,40 @@ public class LOTRMod
 		registerItem(chestnut);
 		registerItem(chestnutRoast);
 		
-		LOTRDimension.configureDimensions(config);
-		alwaysShowAlignment = config.get("general", "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean();
-		alignmentXOffset = config.get("general", "Alignment X Offset", 0, "Configure the x-position of the alignment bar on-screen. Negative values move it left, positive values right").getInt();
-		alignmentYOffset = config.get("general", "Alignment Y Offset", 0, "Configure the y-position of the alignment bar on-screen. Negative values move it up, positive values down").getInt();
-		displayAlignmentAboveHead = config.get("general", "Display alignment above head", true, "Enable or disable the rendering of other players' alignment values above their heads").getBoolean();
-		enableLOTRSky = config.get("general", "Enable LOTR sky", true, "Enable or disable the new Middle-earth sky").getBoolean();
-		enableMistyMountainsMist = config.get("general", "Enable Mist", true, "Enable or disable mist in the Misty Mountains").getBoolean();
-		enableSepiaMap = config.get("general", "Sepia Map", false, "If set to true, the Middle-earth map will be displayed in more realistic map colours").getBoolean();
-
-		if (config.hasChanged())
-		{
-			config.save();
-		}
+		modConfig = new Configuration(event.getSuggestedConfigurationFile());
+		loadConfig();
 		
 		proxy.onPreload();
 		
 		LOTRBiome.initBiomes();
-		
 		LOTREntityRegistry.loadRegisteredNPCs(event);
-		
 		LOTRShields.forceClassLoad();
+	}
+	
+	public static void loadConfig()
+	{
+		LOTRDimension.configureDimensions(modConfig);
+		alwaysShowAlignment = modConfig.get(Configuration.CATEGORY_GENERAL, "Always show alignment", false, "If set to false, the alignment bar will only be shown in Middle-earth. If set to true, it will be shown in all dimensions").getBoolean();
+		alignmentXOffset = modConfig.get(Configuration.CATEGORY_GENERAL, "Alignment X Offset", 0, "Configure the x-position of the alignment bar on-screen. Negative values move it left, positive values right").getInt();
+		alignmentYOffset = modConfig.get(Configuration.CATEGORY_GENERAL, "Alignment Y Offset", 0, "Configure the y-position of the alignment bar on-screen. Negative values move it up, positive values down").getInt();
+		displayAlignmentAboveHead = modConfig.get(Configuration.CATEGORY_GENERAL, "Display alignment above head", true, "Enable or disable the rendering of other players' alignment values above their heads").getBoolean();
+		enableLOTRSky = modConfig.get(Configuration.CATEGORY_GENERAL, "Enable LOTR sky", true, "Enable or disable the new Middle-earth sky").getBoolean();
+		enableMistyMountainsMist = modConfig.get(Configuration.CATEGORY_GENERAL, "Enable Mist", true, "Enable or disable mist in the Misty Mountains").getBoolean();
+		enableSepiaMap = modConfig.get(Configuration.CATEGORY_GENERAL, "Sepia Map", false, "If set to true, the Middle-earth map will be displayed in more realistic map colours").getBoolean();
+
+		if (modConfig.hasChanged())
+		{
+			modConfig.save();
+		}
 	}
 
 	@Mod.EventHandler
 	public void load(FMLInitializationEvent event)
 	{
 		proxy.onLoad();
+		
+		int i = 0;
+		double d = 0D;
 		
 		LOTRCreativeTabs.setupIcons();
 		
@@ -2235,6 +2241,7 @@ public class LOTRMod
 		LOTREntities.registerEntity(LOTREntityInvasionSpawner.class, "InvasionSpawner", 2018, 80, 3, true);
 		LOTREntities.registerEntity(LOTREntityThrownTermite.class, "ThrownTermite", 2019, 64, 10, true);
 		LOTREntities.registerEntity(LOTREntityConker.class, "Conker", 2020, 64, 10, true);
+		LOTREntities.registerEntity(LOTREntityTNT.class, "LOTRTNT", 2021, 160, 10, true);
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
 		
@@ -2254,8 +2261,10 @@ public class LOTRMod
 		
 		LOTRSpeech.loadAllSpeechBanks();
 		LOTRNames.loadAllNameBanks();
+		
 		LOTRBrewingRecipes.createBrewingRecipes();
 		LOTREntJarRecipes.createDraughtRecipes();
+		
 		LOTRAchievement.createAchievements();
 		LOTRFaction.initFactionProperties();
 		LOTRTickHandlerServer.createSpawningLists();

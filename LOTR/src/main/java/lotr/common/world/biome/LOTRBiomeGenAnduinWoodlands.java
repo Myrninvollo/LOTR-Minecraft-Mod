@@ -4,9 +4,9 @@ import lotr.common.entity.animal.LOTREntityBird;
 import lotr.common.entity.animal.LOTREntityButterfly;
 import lotr.common.entity.animal.LOTREntityRabbit;
 
-public class LOTRBiomeGenValesOfAnduinWoodlands extends LOTRBiomeGenValesOfAnduin
+public class LOTRBiomeGenAnduinWoodlands extends LOTRBiomeGenAnduin
 {
-	public LOTRBiomeGenValesOfAnduinWoodlands(int i)
+	public LOTRBiomeGenAnduinWoodlands(int i)
 	{
 		super(i);
 		

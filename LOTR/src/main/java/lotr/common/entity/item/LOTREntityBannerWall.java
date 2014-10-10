@@ -1,9 +1,6 @@
 package lotr.common.entity.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.item.LOTRItemBanner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
@@ -11,9 +8,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Direction;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class LOTREntityBannerWall extends EntityHanging
 {
@@ -99,6 +97,20 @@ public class LOTREntityBannerWall extends EntityHanging
     public int getHeightPixels()
     {
         return 16;
+    }
+	
+    @Override
+    public boolean attackEntityFrom(DamageSource damagesource, float f)
+    {
+		if (!worldObj.isRemote && damagesource.getEntity() instanceof EntityPlayer)
+		{
+			EntityPlayer entityplayer = (EntityPlayer)damagesource.getEntity();
+			if (LOTRBannerProtection.isProtectedByBanner(worldObj, this, LOTRBannerProtection.forPlayer(entityplayer), true))
+			{
+				return false;
+			}
+		}
+		return super.attackEntityFrom(damagesource, f);
     }
 
     @Override

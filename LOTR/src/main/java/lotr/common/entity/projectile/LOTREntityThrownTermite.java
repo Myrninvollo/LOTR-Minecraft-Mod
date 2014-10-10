@@ -1,7 +1,6 @@
 package lotr.common.entity.projectile;
 
-import lotr.common.LOTRBannerProtectFilters;
-import lotr.common.LOTREventHandler;
+import lotr.common.LOTRBannerProtection;
 import lotr.common.entity.animal.LOTREntityTermite;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
@@ -40,7 +39,7 @@ public class LOTREntityThrownTermite extends EntityThrowable
     @Override
     public boolean func_145774_a(Explosion explosion, World world, int i, int j, int k, Block block, float strength)
     {
-        if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forThrown(this), false))
+        if (LOTRBannerProtection.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtection.forThrown(this), false))
         {
         	return false;
         }

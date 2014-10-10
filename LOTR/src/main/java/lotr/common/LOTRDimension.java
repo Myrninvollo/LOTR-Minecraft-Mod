@@ -12,7 +12,7 @@ import net.minecraftforge.common.config.Configuration;
 
 public enum LOTRDimension
 {
-	MIDDLE_EARTH("MiddleEarth", 100, LOTRWorldProviderMiddleEarth.class, true, 130),
+	MIDDLE_EARTH("MiddleEarth", 100, LOTRWorldProviderMiddleEarth.class, true, 100),
 	UTUMNO("Utumno", 101, LOTRWorldProviderUtumno.class, true, 300);
 	
 	public String dimensionName;
@@ -49,7 +49,7 @@ public enum LOTRDimension
 	{
 		for (LOTRDimension dim : values())
 		{
-			dim.dimensionID = config.get("general", dim.dimensionName + " Dimension ID", dim.defaultID).getInt();
+			dim.dimensionID = config.get(Configuration.CATEGORY_GENERAL, dim.dimensionName + " Dimension ID", dim.defaultID).getInt();
 		}
 	}
 	

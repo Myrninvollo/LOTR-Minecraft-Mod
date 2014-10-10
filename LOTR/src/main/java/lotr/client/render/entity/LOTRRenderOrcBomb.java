@@ -10,11 +10,11 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-public class LOTRRenderEntityOrcBomb extends Render
+public class LOTRRenderOrcBomb extends Render
 {
     private RenderBlocks blockRenderer = new RenderBlocks();
 
-    public LOTRRenderEntityOrcBomb()
+    public LOTRRenderOrcBomb()
     {
         shadowSize = 0.5F;
     }
@@ -29,7 +29,7 @@ public class LOTRRenderEntityOrcBomb extends Render
     public void doRender(Entity entity, double d, double d1, double d2, float f, float f1)
     {
 		LOTREntityOrcBomb bomb = (LOTREntityOrcBomb)entity;
-		renderBomb(bomb, d, d1, d2, f1, bomb.fuse, bomb.getBombStrengthLevel(), 1F, entity.getBrightness(f1));
+		renderBomb(bomb, d, d1, d2, f1, bomb.orcBombFuse, bomb.getBombStrengthLevel(), 1F, entity.getBrightness(f1));
 	}
 	
 	public void renderBomb(Entity entity, double d, double d1, double d2, float ticks, int fuse, int strengthLevel, float bombScale, float brightness)

@@ -1,6 +1,7 @@
 package lotr.common.entity.animal;
 
-import lotr.common.*;
+import lotr.common.LOTRBannerProtection;
+import lotr.common.LOTRMod;
 import lotr.common.entity.LOTREntities;
 import lotr.common.entity.ai.LOTREntityAIAttackOnCollide;
 import lotr.common.entity.npc.LOTREntityNPC;
@@ -106,7 +107,7 @@ public class LOTREntityTermite extends EntityMob
     @Override
     public boolean func_145774_a(Explosion explosion, World world, int i, int j, int k, Block block, float strength)
     {
-        if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forNPC(this), false))
+        if (LOTRBannerProtection.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtection.anyBanner(), false))
         {
         	return false;
         }

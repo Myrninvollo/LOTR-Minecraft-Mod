@@ -485,6 +485,7 @@ public class LOTRPacketHandlerClient extends SimpleChannelInboundHandler<FMLProx
 			{
 				LOTREntityBanner banner = (LOTREntityBanner)entity;
 				banner.playerSpecificProtection = data.readBoolean();
+				banner.setAlignmentProtection(data.readInt());
 				
 				LOTRGuiBanner gui = new LOTRGuiBanner(banner);
 				

@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import lotr.common.*;
 import lotr.common.quest.LOTRMiniQuest;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.util.*;
@@ -17,6 +18,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 public class LOTRGuiRedBook extends LOTRGuiScreenBase
 {
@@ -238,13 +240,16 @@ public class LOTRGuiRedBook extends LOTRGuiScreenBase
 		GL11.glColor4f(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(questX + miniquestDelX, questY + miniquestDelY, miniquestPanelWidth, 0, miniquestDelWidth, miniquestDelHeight);
 		
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+        RenderHelper.enableGUIStandardItemLighting();
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
 		renderItem.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.getTextureManager(), quest.getQuestIcon(), questX + 149, questY + 24);
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glColor4f(1F, 1F, 1F, 1F);
-		
+
 		GL11.glPopMatrix();
 	}
 	

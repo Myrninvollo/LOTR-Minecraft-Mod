@@ -21,8 +21,7 @@ public class LOTRGuiHiredFarmer extends LOTRGuiHiredNPC
 		((LOTRGuiButtonOptions)buttonList.get(0)).setState(theNPC.hiredNPCInfo.isGuardMode());
 		
 		buttonList.add(new LOTRGuiSlider(1, guiLeft + xSize / 2 - 80, guiTop + 94, 160, 20, StatCollector.translateToLocal("lotr.gui.farmer.range"), 0F));
-		((LOTRGuiSlider)buttonList.get(1)).sliderValue = (float)(theNPC.hiredNPCInfo.getGuardRange() - LOTRHiredNPCInfo.GUARD_RANGE_MIN) / (float)(LOTRHiredNPCInfo.GUARD_RANGE_MAX - LOTRHiredNPCInfo.GUARD_RANGE_MIN);
-		((LOTRGuiSlider)buttonList.get(1)).setState(String.valueOf(theNPC.hiredNPCInfo.getGuardRange()));
+		((LOTRGuiSlider)buttonList.get(1)).setSliderValue(theNPC.hiredNPCInfo.getGuardRange(), LOTRHiredNPCInfo.GUARD_RANGE_MIN, LOTRHiredNPCInfo.GUARD_RANGE_MAX);
 		((LOTRGuiSlider)buttonList.get(1)).visible = theNPC.hiredNPCInfo.isGuardMode();
 		
 		buttonList.add(new LOTRGuiButtonOptions(2, guiLeft + xSize / 2 - 80, guiTop + 142, 160, 20, StatCollector.translateToLocal("lotr.gui.farmer.openInv")));
@@ -61,7 +60,7 @@ public class LOTRGuiHiredFarmer extends LOTRGuiHiredNPC
 		slider_guardRange.visible = theNPC.hiredNPCInfo.isGuardMode();
 		if (slider_guardRange.dragging)
 		{
-			int i = LOTRHiredNPCInfo.GUARD_RANGE_MIN + Math.round(slider_guardRange.sliderValue * (LOTRHiredNPCInfo.GUARD_RANGE_MAX - LOTRHiredNPCInfo.GUARD_RANGE_MIN));
+			int i = slider_guardRange.getSliderValue(LOTRHiredNPCInfo.GUARD_RANGE_MIN, LOTRHiredNPCInfo.GUARD_RANGE_MAX);
 			theNPC.hiredNPCInfo.setGuardRange(i);
 			slider_guardRange.setState(String.valueOf(i));
 			sendActionPacket(slider_guardRange.id, i);

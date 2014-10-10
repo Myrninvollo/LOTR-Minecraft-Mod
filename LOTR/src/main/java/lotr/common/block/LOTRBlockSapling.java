@@ -36,15 +36,15 @@ public class LOTRBlockSapling extends LOTRBlockSaplingBase
 			if (world.getBlock(i, j - 1, k) == LOTRMod.quenditeGrass)
 			{
 				saplingSearch:
-	            for (int i1 = 2; i1 >= -2; i1--)
+	            for (int i1 = -4; i1 <= 4; i1++)
 	            {
-	                for (int k1 = 2; k1 >= -2; k1--)
+	                for (int k1 = -4; k1 <= 4; k1++)
 	                {
 	                	boolean canGenerate = true;
 	                	subSearch:
-	                	for (int i2 = -1; i2 <= 1; i2++)
+	                	for (int i2 = -2; i2 <= 2; i2++)
 	                	{
-	                		for (int k2 = -1; k2 <= 1; k2++)
+	                		for (int k2 = -2; k2 <= 2; k2++)
 	                    	{
 	                			int i3 = i + i1 + i2;
 	                			int k3 = k + k1 + k2;
@@ -59,7 +59,7 @@ public class LOTRBlockSapling extends LOTRBlockSaplingBase
 	                    if (canGenerate)
 	                    {
 	                    	treeGen = new LOTRWorldGenMallornLarge(true).setSaplingGrowth();
-	                    	trunkWidth = 1;
+	                    	trunkWidth = 2;
 							xOffset = i1;
 							zOffset = k1;
 	                        break saplingSearch;

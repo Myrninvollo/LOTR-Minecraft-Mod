@@ -15,11 +15,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.*;
 
-public class LOTRBiomeGenValesOfAnduin extends LOTRBiome
+public class LOTRBiomeGenAnduin extends LOTRBiome
 {
 	private WorldGenerator boulderGen = new LOTRWorldGenBoulder(Blocks.stone, 0, 2, 4);
 	
-	public LOTRBiomeGenValesOfAnduin(int i)
+	public LOTRBiomeGenAnduin(int i)
 	{
 		super(i);
 		
@@ -28,11 +28,11 @@ public class LOTRBiomeGenValesOfAnduin extends LOTRBiome
 		spawnableEvilList.add(new SpawnListEntry(LOTREntityGundabadWarg.class, 6, 4, 4));
 		
 		decorator.treesPerChunk = 0;
-		decorator.setTreeCluster(8, 10);
-		decorator.flowersPerChunk = 3;
+		decorator.setTreeCluster(4, 20);
+		decorator.flowersPerChunk = 2;
 		decorator.doubleFlowersPerChunk = 1;
-		decorator.grassPerChunk = 8;
-		decorator.doubleGrassPerChunk = 2;
+		decorator.grassPerChunk = 4;
+		decorator.doubleGrassPerChunk = 1;
 		
         registerPlainsFlowers();
 		
@@ -113,13 +113,19 @@ public class LOTRBiomeGenValesOfAnduin extends LOTRBiome
 	@Override
 	public float getTreeIncreaseChance()
 	{
+		return 0.15F;
+	}
+	
+	@Override
+	public float getChanceToSpawnLakes()
+	{
 		return 0.25F;
 	}
 	
 	@Override
 	public float getChanceToSpawnAnimals()
 	{
-		return 0.1F;
+		return 0.2F;
 	}
 	
 	@Override

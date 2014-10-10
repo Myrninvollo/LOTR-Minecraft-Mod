@@ -28,7 +28,6 @@ public class LOTRBlockOrcBomb extends Block
     {
         super(Material.iron);
         setCreativeTab(LOTRCreativeTabs.tabCombat);
-		setBlockBounds(0.125F, 0F, 0.125F, 0.875F, 0.9375F, 0.875F);
     }
 	
 	@Override
@@ -133,7 +132,7 @@ public class LOTRBlockOrcBomb extends Block
         {
 			int meta = world.getBlockMetadata(i, j, k);
 				
-            LOTREntityOrcBomb bomb = new LOTREntityOrcBomb(world, (double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), explosion.getExplosivePlacedBy());
+            LOTREntityOrcBomb bomb = new LOTREntityOrcBomb(world, i + 0.5F, j + 0.5F, k + 0.5F, explosion.getExplosivePlacedBy());
 			bomb.setBombStrengthLevel(meta);
 			bomb.setFuseFromExplosion();
 			bomb.droppedByPlayer = true;
@@ -152,12 +151,12 @@ public class LOTRBlockOrcBomb extends Block
             {
 				meta = world.getBlockMetadata(i, j, k);
 				
-                LOTREntityOrcBomb bomb = new LOTREntityOrcBomb(world, (double)((float)i + 0.5F), (double)((float)j + 0.5F), (double)((float)k + 0.5F), null);
+                LOTREntityOrcBomb bomb = new LOTREntityOrcBomb(world, i + 0.5F, j + 0.5F, k + 0.5F, null);
 				bomb.setBombStrengthLevel(meta);
 				bomb.droppedByPlayer = true;
 				
                 world.spawnEntityInWorld(bomb);
-                world.playSoundAtEntity(bomb, "random.fuse", 1.0F, 1.0F);
+                world.playSoundAtEntity(bomb, "game.tnt.primed", 1F, 1F);
             }
         }
     }
@@ -208,11 +207,11 @@ public class LOTRBlockOrcBomb extends Block
 	@SideOnly(Side.CLIENT)
     public void getSubBlocks(Item item, CreativeTabs tab, List list)
     {
-		for (int k = 0; k <= 1; k++)
+		for (int i = 0; i <= 1; i++)
 		{
 			for (int j = 0; j <= 2; j++)
 			{
-				list.add(new ItemStack(item, 1, j + k * 8));
+				list.add(new ItemStack(item, 1, j + i * 8));
 			}
 		}
     }

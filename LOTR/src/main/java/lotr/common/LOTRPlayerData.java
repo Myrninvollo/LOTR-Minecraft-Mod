@@ -7,12 +7,19 @@ import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
 
+import lotr.common.block.LOTRBlockCraftingTable;
 import lotr.common.entity.npc.LOTREntityNPC;
 import lotr.common.inventory.LOTRSlotAlignmentReward;
 import lotr.common.quest.LOTRMiniQuest;
+import lotr.common.world.LOTRChunkProviderUtumno.UtumnoLevel;
+import lotr.common.world.biome.LOTRBiome;
+import lotr.common.world.biome.LOTRBiomeGenMistyMountains;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.*;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.Packet;
@@ -21,6 +28,7 @@ import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.util.Constants;
 
 import com.google.common.base.Charsets;
@@ -70,17 +78,17 @@ public class LOTRPlayerData
 	
 	private EntityPlayer getPlayer()
 	{
-		World[] worlds = null;
+		World[] searchWorlds = null;
 		if (LOTRMod.proxy.isClient())
 		{
-			worlds = new World[] {LOTRMod.proxy.getClientWorld()};
+			searchWorlds = new World[] {LOTRMod.proxy.getClientWorld()};
 		}
 		else
 		{
-			worlds = MinecraftServer.getServer().worldServers;
+			searchWorlds = MinecraftServer.getServer().worldServers;
 		}
 		
-		for (World world : worlds)
+		for (World world : searchWorlds)
 		{
 			EntityPlayer entityplayer = world.func_152378_a(playerUUID);
 			if (entityplayer != null)
@@ -353,6 +361,44 @@ public class LOTRPlayerData
 		}
 	}
 	
+	public void onUpdate(EntityPlayerMP entityplayer, World world)
+	{
+		runAchievementChecks(entityplayer, world);
+		
+		if (playerTitle != null && !playerTitle.getTitle().canPlayerUse(entityplayer))
+		{
+			setPlayerTitle(null);
+		}
+		
+		int ftInterval = 20;
+		if (fastTravelTimer > 0 && world.getWorldTime() % ftInterval == 0L)
+		{
+			fastTravelTimer -= ftInterval;
+			setFTTimer(fastTravelTimer);
+		}
+		
+		if (world.getWorldTime() % (long)(10 * 60 * 20) == 0L)
+		{
+			if (alcoholTolerance > 0)
+			{
+				alcoholTolerance--;
+				setAlcoholTolerance(alcoholTolerance);
+			}
+		}
+		
+		if (entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID)
+		{
+			if (!getCheckedMenu())
+			{
+				entityplayer.playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.promptAch", Unpooled.buffer(0)));
+			}
+			else if (!getCheckedAlignments())
+			{
+				entityplayer.playerNetServerHandler.sendPacket(new S3FPacketCustomPayload("lotr.promptAl", Unpooled.buffer(0)));
+			}
+		}
+	}
+	
 	public int getAlignment(LOTRFaction faction)
 	{
 		if (faction.hasFixedAlignment)
@@ -594,6 +640,205 @@ public class LOTRPlayerData
 				addAchievement(LOTRAchievement.travel50);
 			}
 		}
+	}
+	
+	private void runAchievementChecks(EntityPlayer entityplayer, World world)
+	{
+		int i = MathHelper.floor_double(entityplayer.posX);
+		int j = MathHelper.floor_double(entityplayer.boundingBox.minY);
+		int k = MathHelper.floor_double(entityplayer.posZ);
+		
+		BiomeGenBase biome = world.getBiomeGenForCoords(i, k);
+		
+		if (biome instanceof LOTRBiome)
+		{
+			LOTRBiome lotrbiome = (LOTRBiome)biome;
+			if (lotrbiome.getBiomeAchievement() != null)
+			{
+				addAchievement(lotrbiome.getBiomeAchievement());
+			}
+			
+			if (lotrbiome.getBiomeWaypoints() != null)
+			{
+				lotrbiome.getBiomeWaypoints().unlockForPlayer(entityplayer);
+			}
+		}
+		
+		if (entityplayer.dimension == LOTRDimension.MIDDLE_EARTH.dimensionID)
+		{
+			addAchievement(LOTRAchievement.enterMiddleEarth);
+		}
+		
+		if (entityplayer.dimension == LOTRDimension.UTUMNO.dimensionID)
+		{
+			addAchievement(LOTRAchievement.enterUtumnoIce);
+			
+			int y = MathHelper.floor_double(entityplayer.boundingBox.minY);
+			UtumnoLevel level = UtumnoLevel.forY(y);
+			
+			if (level == UtumnoLevel.OBSIDIAN)
+			{
+				addAchievement(LOTRAchievement.enterUtumnoObsidian);
+			}
+			else if (level == UtumnoLevel.FIRE)
+			{
+				addAchievement(LOTRAchievement.enterUtumnoFire);
+			}
+		}
+		
+		if (entityplayer.inventory.hasItem(LOTRMod.pouch))
+		{
+			addAchievement(LOTRAchievement.getPouch);
+		}
+		
+		Set tables = new HashSet();
+		int crossbowBolts = 0;
+		for (ItemStack item : entityplayer.inventory.mainInventory)
+		{
+			if (item != null && item.getItem() instanceof ItemBlock)
+			{
+				Block block = Block.getBlockFromItem(item.getItem());
+				if (block instanceof LOTRBlockCraftingTable)
+				{
+					tables.add(block);
+				}
+			}
+			
+			if (item != null && item.getItem() == LOTRMod.crossbowBolt)
+			{
+				crossbowBolts += item.stackSize;
+			}
+		}
+		
+		if (tables.size() >= 5)
+		{
+			addAchievement(LOTRAchievement.collectCraftingTables);
+		}
+		
+		if (crossbowBolts >= 128)
+		{
+			addAchievement(LOTRAchievement.collectCrossbowBolts);
+		}
+		
+		if (world.getWorldTime() % 5L == 0L && !hasAchievement(LOTRAchievement.hundreds))
+		{
+			int hiredUnits = 0;
+			List<LOTREntityNPC> nearbyNPCs = world.getEntitiesWithinAABB(LOTREntityNPC.class, entityplayer.boundingBox.expand(64D, 64D, 64D));
+			for (LOTREntityNPC npc : nearbyNPCs)
+			{
+				if (npc.hiredNPCInfo.isActive && npc.hiredNPCInfo.getHiringPlayer() == entityplayer)
+				{
+					hiredUnits++;
+				}
+			}
+			
+			if (hiredUnits >= 100)
+			{
+				addAchievement(LOTRAchievement.hundreds);
+			}
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorMithril))
+		{
+			addAchievement(LOTRAchievement.wearFullMithril);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorWarg))
+		{
+			addAchievement(LOTRAchievement.wearFullWargFur);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorBlueDwarven))
+		{
+			addAchievement(LOTRAchievement.wearFullBlueDwarven);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorHighElven))
+		{
+			addAchievement(LOTRAchievement.wearFullHighElven);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorRanger))
+		{
+			addAchievement(LOTRAchievement.wearFullRanger);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorAngmar))
+		{
+			addAchievement(LOTRAchievement.wearFullAngmar);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorWoodElvenScout))
+		{
+			addAchievement(LOTRAchievement.wearFullWoodElvenScout);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorWoodElven))
+		{
+			addAchievement(LOTRAchievement.wearFullWoodElven);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorDolGuldur))
+		{
+			addAchievement(LOTRAchievement.wearFullDolGuldur);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorDwarven))
+		{
+			addAchievement(LOTRAchievement.wearFullDwarven);
+		}
+		
+		if (biome instanceof LOTRBiomeGenMistyMountains && entityplayer.posY > 192D)
+		{
+			addAchievement(LOTRAchievement.climbMistyMountains);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorElven))
+		{
+			addAchievement(LOTRAchievement.wearFullElven);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorUruk))
+		{
+			addAchievement(LOTRAchievement.wearFullUruk);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorRohan))
+		{
+			addAchievement(LOTRAchievement.wearFullRohirric);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorDunlending))
+		{
+			addAchievement(LOTRAchievement.wearFullDunlending);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorGondor))
+		{
+			addAchievement(LOTRAchievement.wearFullGondorian);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorOrc))
+		{
+			addAchievement(LOTRAchievement.wearFullOrc);
+		}
+		
+		if (isPlayerWearingFull(entityplayer, LOTRMod.armorNearHarad))
+		{
+			addAchievement(LOTRAchievement.wearFullNearHarad);
+		}
+	}
+	
+	private boolean isPlayerWearingFull(EntityPlayer entityplayer, ArmorMaterial material)
+	{
+		for (ItemStack itemstack : entityplayer.inventory.armorInventory)
+		{
+			if (itemstack == null || !(itemstack.getItem() instanceof ItemArmor) || ((ItemArmor)itemstack.getItem()).getArmorMaterial() != material)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	private void sendAchievementPacket(EntityPlayerMP entityplayer, LOTRAchievement achievement, boolean display)

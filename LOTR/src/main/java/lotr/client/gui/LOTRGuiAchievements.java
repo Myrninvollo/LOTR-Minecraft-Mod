@@ -192,7 +192,7 @@ public class LOTRGuiAchievements extends LOTRGuiMenu
 				drawTexturedModalRect(guiLeft + 181, guiTop + offset + 2, 190, 17, 16, 16);
 			}
 		}
-		
+
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glColor4f(1F, 1F, 1F, 1F);

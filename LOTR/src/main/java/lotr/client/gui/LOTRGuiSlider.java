@@ -1,7 +1,9 @@
 package lotr.client.gui;
 
+import lotr.common.entity.npc.LOTRHiredNPCInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
@@ -27,6 +29,18 @@ public class LOTRGuiSlider extends GuiButton
 	public int getHoverState(boolean flag)
     {
         return 0;
+    }
+    
+    public int getSliderValue(int min, int max)
+    {
+    	return min + Math.round(sliderValue * (max - min));
+    }
+    
+    public void setSliderValue(int value, int min, int max)
+    {
+    	value = MathHelper.clamp_int(value, min, max);
+    	sliderValue = (float)(value - min) / (float)(max - min);
+    	setState(String.valueOf(value));
     }
 
 	@Override

@@ -136,7 +136,7 @@ public class LOTRItemBanner extends Item
 					}
 					else
 					{
-						if (!world.isRemote && LOTREventHandler.isProtectedByBanner(world, i, j, k, LOTRBannerProtectFilters.forPlayer(entityplayer), false, LOTREntityBanner.PROTECTION_RANGE * 2))
+						if (!world.isRemote && LOTRBannerProtection.isProtectedByBanner(world, i, j, k, LOTRBannerProtection.forPlayer(entityplayer), false, LOTREntityBanner.PROTECTION_RANGE * 2))
 						{
 							entityplayer.addChatMessage(new ChatComponentTranslation("chat.lotr.protectedLandBanner"));
 							return false;

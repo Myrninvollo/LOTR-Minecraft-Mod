@@ -70,6 +70,7 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 		NetworkRegistry.INSTANCE.newChannel("lotr.mqAccept", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.mqDelete", this);
 		NetworkRegistry.INSTANCE.newChannel("lotr.titleSelect", this);
+		NetworkRegistry.INSTANCE.newChannel("lotr.editBannerAlignment", this);
 	}
 	
 	@Override
@@ -1033,6 +1034,22 @@ public class LOTRPacketHandlerServer extends SimpleChannelInboundHandler<FMLProx
 							playerData.setPlayerTitle(new LOTRTitle.PlayerTitle(title, color));
 						}
 					}
+				}
+			}
+		}
+		
+		else if (channel.equals("lotr.editBannerAlignment"))
+		{
+			int id = data.readInt();
+			World world = DimensionManager.getWorld(data.readByte());
+			if (world != null)
+			{
+				Entity entity = world.getEntityByID(id);
+				if (entity instanceof LOTREntityBanner)
+				{
+					LOTREntityBanner banner = (LOTREntityBanner)entity;
+					int alignment = data.readInt();
+					banner.setAlignmentProtection(alignment);
 				}
 			}
 		}

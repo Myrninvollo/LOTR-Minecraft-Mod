@@ -51,8 +51,6 @@ public class LOTRBiomeGenFarHarad extends LOTRBiome
 		
 		registerHaradFlowers();
 		
-		biomeColors.setWater(0x4BE2ED);
-		
 		setBanditChance(LOTRBanditSpawner.NEVER);
 	}
 

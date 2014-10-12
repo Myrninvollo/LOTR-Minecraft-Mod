@@ -126,6 +126,12 @@ public class LOTREntityRabbit extends EntityCreature implements LOTRAmbientCreat
             }
         }
 	}
+	
+	@Override
+    protected boolean canDespawn()
+    {
+        return true;
+    }
 
     @Override
     public boolean getCanSpawnHere()

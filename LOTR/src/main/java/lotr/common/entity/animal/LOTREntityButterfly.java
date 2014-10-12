@@ -299,6 +299,12 @@ public class LOTREntityButterfly extends EntityLiving implements LOTRAmbientCrea
         nbt.setInteger("ButterflyType", getButterflyType().ordinal());
         nbt.setBoolean("ButterflyStill", isButterflyStill());
     }
+    
+    @Override
+    protected boolean canDespawn()
+    {
+        return true;
+    }
 
     @Override
     public boolean getCanSpawnHere()

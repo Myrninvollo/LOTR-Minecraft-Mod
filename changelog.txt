@@ -12,24 +12,30 @@ Public Beta 21
 + Added dik-diks
 + Added new Harad flowers
 + Added chestnut trees, wood, conkers, and roast chestnuts
-+ Added roots and more branches to large Mallorn trees
++ Added roots, more branches, and wider trunks to large Mallorn trees
 + Added the ability to grow large Mallorn trees on quendite grass
 + Added several new tall grass types
 + Added clover to all biomes
 + Added flax
 + Added berry bushes and several types of berries
-+ Added Uruk-hai Berserkers and renamed the old Berserkers to Sappers
++ Added latitude-varying water colours for all biomes
++ Added improved Vales of Anduin biomes
 + Added more variance in tree generation for some plains biomes
 + Added thicker layers of sandstone for sandy biomes
++ Added the ability to set a required alignment level for banners in faction protection mode
++ Added Uruk-hai Berserkers and renamed the old Berserkers to Sappers
 + Added Rohan, Gondor, Mordor, and Near Harad pillars and pillar slabs
 + Added the ability to shift-click a plate to make the food pop out
 + Added a gradual distance-dependent transparency effect for on-screen quest book rendering
 + Added an updated logo
++ Added a Forge modlist configuration screen for the mod's config file
 
-* Banners can no longer be destroyed by anything other than direct or indirect attacks from players
-* Banners now protect against orc bombs
-* Changed the storage of completed mini-quests to record the amount completed per faction
+* Protection banners can no longer be destroyed by anything other than direct or indirect attacks from players
+* Banners now protect against orc bombs and TNT
+* Banner protection now covers wall banners and non-protecting standing banners
 * Changed the Near Harad armour recipes to use bronze
+* Changed the storage of completed mini-quests to record the amount completed per faction
+* Fixed blocks rendering darkly in the mini-quest screen
 * The Forodwaith biome now extends south around the Bay of Forochel
 * Changed Blue Mountains houses to have Sarlluin exteriors instead of dirt and stone
 * Blue Mountains mines can now spawn upon Sarlluin, and therefore higher up and more commonly
@@ -43,6 +49,7 @@ Public Beta 21
 * Drunkards no longer give mini-quests
 * Fixed the friendly and neutral orc speech banks being reversed
 * Fixed iron, gold, and diamond LOTR horse armour items not being displayed in the hand
+* Fixed some plants using stone block sounds
 
 Public Beta 20.2
 

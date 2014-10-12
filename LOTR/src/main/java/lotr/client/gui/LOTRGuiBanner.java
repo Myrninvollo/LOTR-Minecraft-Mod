@@ -6,6 +6,7 @@ import io.netty.buffer.Unpooled;
 import java.util.UUID;
 
 import lotr.common.entity.item.LOTREntityBanner;
+import lotr.common.entity.npc.LOTRHiredNPCInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -38,6 +39,9 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
     private boolean firstInit = true;
     
     private GuiButton modeButton;
+    
+    private LOTRGuiSlider alignmentSlider;
+    
     private GuiTextField[] allowedPlayers = new GuiTextField[LOTREntityBanner.MAX_PLAYERS];
     private boolean[] invalidUsernames = new boolean[LOTREntityBanner.MAX_PLAYERS];
 
@@ -52,7 +56,9 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
         guiLeft = (width - xSize) / 2;
 		guiTop = (height - ySize) / 2;
 		buttonList.add((modeButton = new GuiButton(0, guiLeft + xSize / 2 - 80, guiTop + 20, 160, 20, "")));
-
+		buttonList.add((alignmentSlider = new LOTRGuiSlider(1, guiLeft + xSize / 2 - 80, guiTop + 80, 160, 20, StatCollector.translateToLocal("lotr.gui.bannerEdit.protectionMode.faction.alignment"), 0F)));
+		alignmentSlider.setSliderValue(theBanner.getAlignmentProtection(), LOTREntityBanner.ALIGNMENT_PROTECTION_MIN, LOTREntityBanner.ALIGNMENT_PROTECTION_MAX);
+		
 		for (int i = 0; i < allowedPlayers.length; i++)
 		{
 			GuiTextField textBox = new GuiTextField(fontRendererObj, guiLeft + xSize / 2 - 80, guiTop + 70 + i * 24, 160, 20);
@@ -114,7 +120,7 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 		{
 			modeButton.displayString = StatCollector.translateToLocal("lotr.gui.bannerEdit.protectionMode.faction");
 
-			String s = StatCollector.translateToLocalFormatted("lotr.gui.bannerEdit.protectionMode.faction.desc.1", new Object[] {theBanner.getBannerFaction().factionName()});
+			String s = StatCollector.translateToLocalFormatted("lotr.gui.bannerEdit.protectionMode.faction.desc.1", new Object[] {theBanner.getAlignmentProtection(), theBanner.getBannerFaction().factionName()});
 			fontRendererObj.drawString(s, guiLeft + xSize / 2 - fontRendererObj.getStringWidth(s) / 2, guiTop + 46, 0x404040);
 
 			s = StatCollector.translateToLocal("lotr.gui.bannerEdit.protectionMode.faction.desc.2");
@@ -141,6 +147,23 @@ public class LOTRGuiBanner extends LOTRGuiScreenBase
 			textBox.updateCursorCounter();
 			textBox.setVisible(theBanner.playerSpecificProtection);
 			textBox.setEnabled(l != 0 && theBanner.playerSpecificProtection);
+		}
+		
+		alignmentSlider.visible = !theBanner.playerSpecificProtection;
+		if (alignmentSlider.dragging)
+		{
+			int alignment = alignmentSlider.getSliderValue(LOTREntityBanner.ALIGNMENT_PROTECTION_MIN, LOTREntityBanner.ALIGNMENT_PROTECTION_MAX);
+			theBanner.setAlignmentProtection(alignment);
+			alignmentSlider.setState(String.valueOf(alignment));
+			
+			ByteBuf data = Unpooled.buffer();
+
+			data.writeInt(theBanner.getEntityId());
+			data.writeByte(theBanner.worldObj.provider.dimensionId);
+			data.writeInt(alignment);
+			
+			Packet packet = new C17PacketCustomPayload("lotr.editBannerAlignment", data);
+			mc.thePlayer.sendQueue.addToSendQueue(packet);
 		}
     }
 

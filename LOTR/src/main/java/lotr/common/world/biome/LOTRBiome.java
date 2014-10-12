@@ -29,7 +29,7 @@ public class LOTRBiome extends BiomeGenBase
 		{EnumCreatureType.class, Class.class, int.class, Material.class, boolean.class, boolean.class}
 	};
 	
-	public static EnumCreatureType creatureType_LOTRAmbient = (EnumCreatureType)EnumHelper.addEnum(correctCreatureTypeParams, EnumCreatureType.class, "LOTRAmbient", LOTRAmbientCreature.class, 60, Material.air, true, false);
+	public static EnumCreatureType creatureType_LOTRAmbient = (EnumCreatureType)EnumHelper.addEnum(correctCreatureTypeParams, EnumCreatureType.class, "LOTRAmbient", LOTRAmbientCreature.class, 50, Material.air, true, false);
 	
 	public static BiomeGenBase river;
 	public static BiomeGenBase rohan;
@@ -67,8 +67,8 @@ public class LOTRBiome extends BiomeGenBase
 	public static BiomeGenBase midgewater;
 	public static BiomeGenBase brownLands;
 	public static BiomeGenBase ocean;
-	public static BiomeGenBase valesOfAnduin;
-	public static BiomeGenBase valesOfAnduinWoodlands;
+	public static BiomeGenBase anduinHills;
+	public static BiomeGenBase anduinHillsWoodlands;
 	public static BiomeGenBase gladdenFields;
 	public static BiomeGenBase lothlorienEdge;
 	public static BiomeGenBase forodwaith;
@@ -140,7 +140,7 @@ public class LOTRBiome extends BiomeGenBase
 	public static BiomeGenBase nearHaradFertile;
 	public static BiomeGenBase pertorogwaith;
 	public static BiomeGenBase eriadorWoodlandsDense;
-	public static BiomeGenBase valesOfAnduinWoodlandsDense;
+	public static BiomeGenBase anduinHillsWoodlandsDense;
 	public static BiomeGenBase enedwaithWoodlandsDense;
 	public static BiomeGenBase wilderlandForestDense;
 	public static BiomeGenBase wilderlandHills;
@@ -160,6 +160,8 @@ public class LOTRBiome extends BiomeGenBase
 	public static BiomeGenBase farHaradBushlandHills;
 	public static BiomeGenBase farHaradMangrove;
 	public static BiomeGenBase nearHaradFertileForest;
+	public static BiomeGenBase anduinVale;
+	public static BiomeGenBase anduinValeWoodlands;
 	
 	public static BiomeGenBase utumno;
 	
@@ -201,9 +203,9 @@ public class LOTRBiome extends BiomeGenBase
 		midgewater = new LOTRBiomeGenMidgewater(33).setTemperatureRainfall(0.6F, 1F).setMinMaxHeight(0.05F, 0.2F).setColor(0x377755).setBiomeName("midgewater");
 		brownLands = new LOTRBiomeGenBrownLands(34).setTemperatureRainfall(0.6F, 0.2F).setMinMaxHeight(0.2F, 0.2F).setColor(0x775438).setBiomeName("brownLands");
 		ocean = new LOTRBiomeGenOcean(35).setTemperatureRainfall(0.5F, 0.5F).setMinMaxHeight(-1F, 0.3F).setColor(0x0055A0).setBiomeName("ocean");
-		valesOfAnduin = new LOTRBiomeGenValesOfAnduin(36).setTemperatureRainfall(0.8F, 0.8F).setMinMaxHeight(0.1F, 0.1F).setColor(0x30AD75).setBiomeName("valesOfAnduin");
-		valesOfAnduinWoodlands = new LOTRBiomeGenValesOfAnduinWoodlands(37).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.1F, 0.2F).setColor(0x2DAD5E).setBiomeName("valesOfAnduinWoodlands");
-		gladdenFields = new LOTRBiomeGenGladdenFields(38).setTemperatureRainfall(0.6F, 1F).setMinMaxHeight(0.05F, 0.2F).setColor(0x40BC7A).setBiomeName("gladdenFields");
+		anduinHills = new LOTRBiomeGenAnduin(36).setTemperatureRainfall(0.7F, 0.7F).setMinMaxHeight(0.6F, 0.4F).setColor(0x30AD75).setBiomeName("anduinHills");
+		anduinHillsWoodlands = new LOTRBiomeGenAnduinWoodlands(37).setTemperatureRainfall(0.7F, 0.9F).setMinMaxHeight(0.7F, 0.4F).setColor(0x2DAD5E).setBiomeName("anduinHillsWoodlands");
+		gladdenFields = new LOTRBiomeGenGladdenFields(38).setTemperatureRainfall(0.6F, 1.2F).setMinMaxHeight(0.05F, 0.2F).setColor(0x349651).setBiomeName("gladdenFields");
 		lothlorienEdge = new LOTRBiomeGenLothlorienEdge(39).setTemperatureRainfall(0.9F, 1F).setMinMaxHeight(0.2F, 0.2F).setColor(0xEFC743).setBiomeName("lothlorienEdge");
 		forodwaith = new LOTRBiomeGenForodwaith(40).setTemperatureRainfall(0F, 0.2F).setMinMaxHeight(0.1F, 0.1F).setColor(0xC9DAE0).setBiomeName("forodwaith");
 		enedwaith = new LOTRBiomeGenEnedwaith(41).setTemperatureRainfall(0.6F, 0.8F).setMinMaxHeight(0.2F, 0.3F).setColor(0xADB754).setBiomeName("enedwaith");
@@ -250,7 +252,7 @@ public class LOTRBiome extends BiomeGenBase
 		gondorHills = new LOTRBiomeGenGondorHills(82).setTemperatureRainfall(0.7F, 0.8F).setMinMaxHeight(0.5F, 0.5F).setColor(0xB6B75B).setBiomeName("gondorHills");
 		island = new LOTRBiomeGenOcean(83).setTemperatureRainfall(0.7F, 0.8F).setMinMaxHeight(0F, 0.3F).setColor(0x39B57B).setBiomeName("island");
 		forodwaithMountains = new LOTRBiomeGenForodwaithMountains(84).setTemperatureRainfall(0F, 0.2F).setMinMaxHeight(2F, 2F).setColor(0xD4EDF4).setBiomeName("forodwaithMountains");
-		mistyMountainsFoothills = new LOTRBiomeGenMistyMountains(85).setTemperatureRainfall(0.25F, 0.6F).setMinMaxHeight(0.6F, 0.9F).setColor(0x8DB59D).setBiomeName("mistyMountainsFoothills");
+		mistyMountainsFoothills = new LOTRBiomeGenMistyMountains(85).setTemperatureRainfall(0.25F, 0.6F).setMinMaxHeight(0.7F, 0.9F).setColor(0x8DB59D).setBiomeName("mistyMountainsFoothills");
 		greyMountainsFoothills = new LOTRBiomeGenGreyMountains(86).setTemperatureRainfall(0.5F, 0.7F).setMinMaxHeight(0.5F, 0.9F).setColor(0x659165).setBiomeName("greyMountainsFoothills");
 		blueMountainsFoothills = new LOTRBiomeGenBlueMountainsFoothills(87).setTemperatureRainfall(0.5F, 0.8F).setMinMaxHeight(0.5F, 0.9F).setColor(0x60B395).setBiomeName("blueMountainsFoothills");
 		tundra = new LOTRBiomeGenTundra(88).setTemperatureRainfall(0.1F, 0.3F).setMinMaxHeight(0.1F, 0.2F).setColor(0xA5C9AA).setBiomeName("tundra");
@@ -274,7 +276,7 @@ public class LOTRBiome extends BiomeGenBase
 		nearHaradFertile = new LOTRBiomeGenNearHaradFertile(106).setTemperatureRainfall(1.2F, 0.7F).setMinMaxHeight(0.2F, 0.1F).setColor(0x94A051).setBiomeName("nearHaradFertile");
 		pertorogwaith = new LOTRBiomeGenPertorogwaith(107).setTemperatureRainfall(0.7F, 0.1F).setMinMaxHeight(0.2F, 0.5F).setColor(0x897A67).setBiomeName("pertorogwaith");
 		eriadorWoodlandsDense = new LOTRBiomeGenEriadorWoodlandsDense(108).setTemperatureRainfall(0.7F, 0.9F).setMinMaxHeight(0.3F, 0.8F).setColor(0x557A3F).setBiomeName("eriadorWoodlandsDense");
-		valesOfAnduinWoodlandsDense = new LOTRBiomeGenValesOfAnduinWoodlandsDense(109).setTemperatureRainfall(0.8F, 0.9F).setMinMaxHeight(0.3F, 0.8F).setColor(0x398E55).setBiomeName("valesOfAnduinWoodlandsDense");
+		anduinHillsWoodlandsDense = new LOTRBiomeGenAnduinWoodlandsDense(109).setTemperatureRainfall(0.7F, 0.9F).setMinMaxHeight(0.7F, 0.8F).setColor(0x398E55).setBiomeName("anduinHillsWoodlandsDense");
 		enedwaithWoodlandsDense = new LOTRBiomeGenEnedwaithWoodlandsDense(110).setTemperatureRainfall(0.7F, 0.9F).setMinMaxHeight(0.3F, 0.8F).setColor(0x82913F).setBiomeName("enedwaithWoodlandsDense");
 		wilderlandForestDense = new LOTRBiomeGenWilderlandForestDense(111).setTemperatureRainfall(0.9F, 0.7F).setMinMaxHeight(0.3F, 0.8F).setColor(0x607235).setBiomeName("wilderlandForestDense");
 		wilderlandHills = new LOTRBiomeGenWilderlandHills(112).setTemperatureRainfall(0.7F, 0.5F).setMinMaxHeight(0.5F, 0.5F).setColor(0x869652).setBiomeName("wilderlandHills");
@@ -294,6 +296,8 @@ public class LOTRBiome extends BiomeGenBase
 		farHaradBushlandHills = new LOTRBiomeGenFarHaradBushland(126).setTemperatureRainfall(0.8F, 0.4F).setMinMaxHeight(0.8F, 0.8F).setColor(0x7F6B38).setBiomeName("farHaradBushlandHills");
 		farHaradMangrove = new LOTRBiomeGenFarHaradMangrove(127).setTemperatureRainfall(1F, 0.9F).setMinMaxHeight(-0.05F, 0.05F).setColor(0x67723B).setBiomeName("farHaradMangrove");
 		nearHaradFertileForest = new LOTRBiomeGenNearHaradFertileForest(128).setTemperatureRainfall(1.2F, 1F).setMinMaxHeight(0.2F, 0.4F).setColor(0x708E34).setBiomeName("nearHaradFertileForest");
+		anduinVale = new LOTRBiomeGenAnduinVale(129).setTemperatureRainfall(0.9F, 1.1F).setMinMaxHeight(0.05F, 0.05F).setColor(0x39A360).setBiomeName("anduinVale");
+		anduinValeWoodlands = new LOTRBiomeGenAnduinValeWoodlands(130).setTemperatureRainfall(1F, 1.2F).setMinMaxHeight(0.1F, 0.2F).setColor(0x34AF59).setBiomeName("anduinValeWoodlands");
 		
 		utumno = new LOTRBiomeGenUtumno(0).setTemperatureRainfall(2F, 0F).setMinMaxHeight(0F, 0F).setColor(0x000000).setBiomeName("utumno");
 	}
@@ -324,6 +328,8 @@ public class LOTRBiome extends BiomeGenBase
 		private Color clouds;
 		private Color fog;
 		private boolean foggy;
+		private boolean hasCustomWater = false;
+		
 		private static int DEFAULT_WATER = 0x6DA9DB;
 		
 		public BiomeColors(LOTRBiome biome)
@@ -389,11 +395,25 @@ public class LOTRBiome extends BiomeGenBase
 		public void setWater(int rgb)
 		{
 			theBiome.waterColorMultiplier = rgb;
+			if (rgb != DEFAULT_WATER)
+			{
+				hasCustomWater = true;
+			}
 		}
 		
 		public void resetWater()
 		{
-			theBiome.waterColorMultiplier = DEFAULT_WATER;
+			setWater(DEFAULT_WATER);
+		}
+		
+		public boolean hasCustomWater()
+		{
+			return hasCustomWater;
+		}
+		
+		public void updateWater(int rgb)
+		{
+			theBiome.waterColorMultiplier = rgb;
 		}
 	}
 	
@@ -751,6 +771,17 @@ public class LOTRBiome extends BiomeGenBase
         return doubleFlowerGen;
 	}
 	
+	public int spawnCountMultiplier()
+	{
+		return 1;
+	}
+	
+	@Override
+    public BiomeGenBase createMutation()
+    {
+        return this;
+    }
+	
 	@Override
 	public boolean canSpawnLightningBolt()
 	{
@@ -843,14 +874,43 @@ public class LOTRBiome extends BiomeGenBase
 		return biomeColors.foggy;
 	}
 	
-	public int spawnCountMultiplier()
-	{
-		return 1;
-	}
+	private static Color waterColorNorth = new Color(0x093363);
+	private static Color waterColorSouth = new Color(0x4BE2ED);
+	private static int waterLimitNorth = -40000;
+	private static int waterLimitSouth = 160000;
 	
-	@Override
-    public BiomeGenBase createMutation()
-    {
-        return this;
-    }
+	public static void updateWaterColor(int i, int j, int k)
+	{
+		int min = 0;
+		int max = waterLimitSouth - waterLimitNorth;
+		float latitude = (float)MathHelper.clamp_int(k - waterLimitNorth, min, max) / (float)max;
+		
+		float[] northColors = waterColorNorth.getColorComponents(null);
+		float[] southColors = waterColorSouth.getColorComponents(null);
+		
+		float dR = southColors[0] - northColors[0];
+		float dG = southColors[1] - northColors[1];
+		float dB = southColors[2] - northColors[2];
+		
+		float r = dR * latitude;
+		float g = dG * latitude;
+		float b = dB * latitude;
+		
+		r += northColors[0];
+		g += northColors[1];
+		b += northColors[2];
+		Color water = new Color(r, g, b);
+		int waterRGB = water.getRGB();
+		
+		for (LOTRDimension dimension : LOTRDimension.values())
+		{
+			for (LOTRBiome biome : dimension.biomeList)
+			{
+				if (biome != null && !biome.biomeColors.hasCustomWater())
+				{
+					biome.biomeColors.updateWater(waterRGB);
+				}
+			}
+		}
+	}
 }

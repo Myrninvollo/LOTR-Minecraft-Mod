@@ -247,6 +247,12 @@ public class LOTREntityMidges extends EntityLiving implements LOTRAmbientCreatur
 			}
 		}
 	}
+	
+	@Override
+    protected boolean canDespawn()
+    {
+        return true;
+    }
 
     @Override
     public boolean getCanSpawnHere()

@@ -1,30 +1,119 @@
 package lotr.common;
 
-import static lotr.common.LOTRBannerProtectFilters.BannerProtection.*;
+import static lotr.common.LOTRBannerProtection.ProtectType.*;
+
+import java.util.List;
+import java.util.UUID;
+
 import lotr.common.entity.LOTREntityInvasionSpawner;
 import lotr.common.entity.item.LOTREntityBanner;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
 
-public class LOTRBannerProtectFilters
+import org.apache.commons.lang3.StringUtils;
+
+import com.mojang.authlib.GameProfile;
+
+public class LOTRBannerProtection
 {
-	public static enum BannerProtection
+	public static enum ProtectType
 	{
 		NONE,
 		FACTION,
 		PLAYER_SPECIFIC;
 	}
 	
+	public static boolean isProtectedByBanner(World world, Entity entity, IFilter protectFilter, boolean sendMessage)
+	{
+		int i = MathHelper.floor_double(entity.posX);
+		int j = MathHelper.floor_double(entity.boundingBox.minY);
+		int k = MathHelper.floor_double(entity.posZ);
+		return isProtectedByBanner(world, i, j, k, protectFilter, sendMessage);
+	}
+	
+	public static boolean isProtectedByBanner(World world, int i, int j, int k, IFilter protectFilter, boolean sendMessage)
+	{
+		return isProtectedByBanner(world, i, j, k, protectFilter, sendMessage, LOTREntityBanner.PROTECTION_RANGE);
+	}
+
+	public static boolean isProtectedByBanner(World world, int i, int j, int k, IFilter protectFilter, boolean sendMessage, double range)
+	{
+		String protectorName = null;
+		
+		List banners = world.getEntitiesWithinAABB(LOTREntityBanner.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 1, k + 1).expand(range, range, range));
+		if (!banners.isEmpty())
+		{
+			bannerSearch:
+			for (int l = 0; l < banners.size(); l++)
+			{
+				LOTREntityBanner banner = (LOTREntityBanner)banners.get(l);
+				if (banner.isProtectingTerritory())
+				{
+					ProtectType result = protectFilter.protects(banner);
+					if (result == NONE)
+					{
+						continue;
+					}
+					else if (result == FACTION)
+					{
+						protectorName = banner.getBannerFaction().factionName();
+						break bannerSearch;
+					}
+					else if (result == PLAYER_SPECIFIC)
+					{
+						UUID placingPlayer = banner.getPlacingPlayer();
+						GameProfile profile = MinecraftServer.getServer().func_152358_ax().func_152652_a(placingPlayer);
+						if (StringUtils.isEmpty(profile.getName()))
+						{
+							MinecraftServer.getServer().func_147130_as().fillProfileProperties(profile, true);
+						}
+						protectorName = profile.getName();
+						break bannerSearch;
+					}
+				}
+			}
+		}
+		
+		if (protectorName != null)
+		{
+			if (sendMessage)
+			{
+				protectFilter.warnProtection(new ChatComponentTranslation("chat.lotr.protectedLand", new Object[] {protectorName}));
+			}
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	public static interface IFilter
 	{
-		public abstract BannerProtection protects(LOTREntityBanner banner);
+		public abstract ProtectType protects(LOTREntityBanner banner);
 		
 		public abstract void warnProtection(IChatComponent message);
+	}
+	
+	public static IFilter anyBanner()
+	{
+		return new IFilter()
+		{
+			@Override
+			public ProtectType protects(LOTREntityBanner banner)
+			{
+				return FACTION;
+			}
+
+			@Override
+			public void warnProtection(IChatComponent message) {}
+		};
 	}
 	
 	public static IFilter forPlayer(final EntityPlayer entityplayer)
@@ -32,7 +121,7 @@ public class LOTRBannerProtectFilters
 		return new IFilter()
 		{
 			@Override
-			public BannerProtection protects(LOTREntityBanner banner)
+			public ProtectType protects(LOTREntityBanner banner)
 			{
 				if (entityplayer.capabilities.isCreativeMode)
 				{
@@ -51,7 +140,7 @@ public class LOTRBannerProtectFilters
 					else
 					{
 						int alignment = LOTRLevelData.getData(entityplayer).getAlignment(banner.getBannerFaction());
-						if (alignment <= 0)
+						if (alignment < banner.getAlignmentProtection())
 						{
 							return FACTION;
 						}
@@ -78,7 +167,7 @@ public class LOTRBannerProtectFilters
 		return new IFilter()
 		{
 			@Override
-			public BannerProtection protects(LOTREntityBanner banner)
+			public ProtectType protects(LOTREntityBanner banner)
 			{
 				if (LOTRMod.getNPCFaction(entity).isEnemy(banner.getBannerFaction()))
 				{
@@ -97,7 +186,7 @@ public class LOTRBannerProtectFilters
 		return new IFilter()
 		{
 			@Override
-			public BannerProtection protects(LOTREntityBanner banner)
+			public ProtectType protects(LOTREntityBanner banner)
 			{
 				if (spawner.getFaction().isEnemy(banner.getBannerFaction()))
 				{
@@ -116,7 +205,7 @@ public class LOTRBannerProtectFilters
 		return new IFilter()
 		{
 			@Override
-			public BannerProtection protects(LOTREntityBanner banner)
+			public ProtectType protects(LOTREntityBanner banner)
 			{
 				EntityLivingBase bomber = bomb.getTntPlacedBy();
 				
@@ -146,7 +235,7 @@ public class LOTRBannerProtectFilters
 		return new IFilter()
 		{
 			@Override
-			public BannerProtection protects(LOTREntityBanner banner)
+			public ProtectType protects(LOTREntityBanner banner)
 			{
 				EntityLivingBase thrower = throwable.getThrower();
 				

@@ -5,8 +5,7 @@ import io.netty.buffer.Unpooled;
 
 import java.util.UUID;
 
-import lotr.common.LOTRFaction;
-import lotr.common.LOTRMod;
+import lotr.common.*;
 import lotr.common.item.LOTRItemBanner;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,9 +29,14 @@ import com.mojang.authlib.GameProfile;
 public class LOTREntityBanner extends Entity
 {
 	public static double PROTECTION_RANGE = 32D;
+
+	public boolean playerSpecificProtection;
+	
+	public static int ALIGNMENT_PROTECTION_MIN = 1;
+	public static int ALIGNMENT_PROTECTION_MAX = 1000;
+	private int alignmentProtection = ALIGNMENT_PROTECTION_MIN;
 	
 	public static int MAX_PLAYERS = 5;
-	public boolean playerSpecificProtection;
 	private UUID[] allowedPlayers = new UUID[MAX_PLAYERS];
 	
 	public LOTREntityBanner(World world)
@@ -73,6 +77,16 @@ public class LOTREntityBanner extends Entity
 		int j = MathHelper.floor_double(boundingBox.minY);
 		int k = MathHelper.floor_double(posZ);
 		return worldObj.getBlock(i, j - 1, k) == Blocks.gold_block;
+	}
+	
+	public int getAlignmentProtection()
+	{
+		return alignmentProtection;
+	}
+	
+	public void setAlignmentProtection(int i)
+	{
+		alignmentProtection = MathHelper.clamp_int(i, ALIGNMENT_PROTECTION_MIN, ALIGNMENT_PROTECTION_MAX);
 	}
 	
 	public void setPlacingPlayer(EntityPlayer player)
@@ -146,7 +160,8 @@ public class LOTREntityBanner extends Entity
     public void writeEntityToNBT(NBTTagCompound nbt)
     {
 		nbt.setByte("BannerType", (byte)getBannerType());
-        nbt.setBoolean("PlayerProtection", playerSpecificProtection);
+		nbt.setBoolean("PlayerProtection", playerSpecificProtection);
+        nbt.setInteger("AlignmentProtection", alignmentProtection);
         
         NBTTagList allowedPlayersTags = new NBTTagList();
         for (int i = 0; i < allowedPlayers.length; i++)
@@ -171,6 +186,8 @@ public class LOTREntityBanner extends Entity
     	setBannerType(nbt.getByte("BannerType"));
     	playerSpecificProtection = nbt.getBoolean("PlayerProtection");
     	
+    	setAlignmentProtection(nbt.getInteger("AlignmentProtection"));
+    	
     	NBTTagList allowedPlayersTags = nbt.getTagList("AllowedPlayers", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < allowedPlayersTags.tagCount(); i++)
         {
@@ -194,14 +211,13 @@ public class LOTREntityBanner extends Entity
     			
     			data.writeInt(getEntityId());
     			data.writeBoolean(playerSpecificProtection);
+    			data.writeInt(getAlignmentProtection());
 
     			for (int i = 0; i < allowedPlayers.length; i++)
     			{
     				UUID uuid = allowedPlayers[i];
     				if (uuid != null)
     				{
-    					System.out.println("Server: UUID " + uuid.toString() + "@" + i);
-    					
     					GameProfile profile = MinecraftServer.getServer().func_152358_ax().func_152652_a(uuid);
     					if (StringUtils.isEmpty(profile.getName()))
 						{
@@ -239,26 +255,37 @@ public class LOTREntityBanner extends Entity
     @Override
     public boolean attackEntityFrom(DamageSource damagesource, float f)
     {
-    	if (!(damagesource.getEntity() instanceof EntityPlayer))
+    	if (isProtectingTerritory() && !(damagesource.getEntity() instanceof EntityPlayer))
     	{
     		return false;
     	}
-    	
-		if (!isDead && !worldObj.isRemote)
-		{
-			setBeenAttacked();
-			worldObj.playSoundAtEntity(this, Blocks.planks.stepSound.getBreakSound(), (Blocks.planks.stepSound.getVolume() + 1F) / 2F, Blocks.planks.stepSound.getPitch() * 0.8F);
-			
-			boolean drop = true;
-			if (damagesource.getEntity() instanceof EntityPlayer && ((EntityPlayer)damagesource.getEntity()).capabilities.isCreativeMode)
+    	else
+    	{
+			if (!isDead && !worldObj.isRemote)
 			{
-				drop = false;
+				if (damagesource.getEntity() instanceof EntityPlayer)
+				{
+					EntityPlayer entityplayer = (EntityPlayer)damagesource.getEntity();
+					if (!isProtectingTerritory() && LOTRBannerProtection.isProtectedByBanner(worldObj, this, LOTRBannerProtection.forPlayer(entityplayer), true))
+					{
+						return false;
+					}
+				}
+				
+				setBeenAttacked();
+				worldObj.playSoundAtEntity(this, Blocks.planks.stepSound.getBreakSound(), (Blocks.planks.stepSound.getVolume() + 1F) / 2F, Blocks.planks.stepSound.getPitch() * 0.8F);
+				
+				boolean drop = true;
+				if (damagesource.getEntity() instanceof EntityPlayer && ((EntityPlayer)damagesource.getEntity()).capabilities.isCreativeMode)
+				{
+					drop = false;
+				}
+				
+				dropAsItem(drop);
 			}
 			
-			dropAsItem(drop);
-		}
-		
-		return true;
+			return true;
+    	}
     }
     
     private void dropAsItem(boolean drop)

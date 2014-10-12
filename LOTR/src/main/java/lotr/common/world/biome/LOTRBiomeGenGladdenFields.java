@@ -16,7 +16,7 @@ import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.feature.WorldGenSwamp;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-public class LOTRBiomeGenGladdenFields extends LOTRBiomeGenValesOfAnduin
+public class LOTRBiomeGenGladdenFields extends LOTRBiomeGenAnduin
 {
 	public LOTRBiomeGenGladdenFields(int i)
 	{

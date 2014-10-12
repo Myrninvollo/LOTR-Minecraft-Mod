@@ -1,11 +1,10 @@
 package lotr.common.entity.projectile;
 
-import lotr.common.*;
+import lotr.common.LOTRBannerProtection;
+import lotr.common.LOTRMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
@@ -109,16 +108,7 @@ public class LOTREntityPlate extends EntityThrowable
 		Block block = worldObj.getBlock(i, j, k);
 		if (block.getMaterial() == Material.glass)
 		{
-			boolean bannerProtection = false;
-			
-			if (getThrower() instanceof EntityPlayer)
-			{
-				bannerProtection = LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forPlayer((EntityPlayer)getThrower()), true);
-			}
-			else if (getThrower() instanceof EntityLiving)
-			{
-				bannerProtection = LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forNPC((EntityLiving)getThrower()), true);
-			}
+			boolean bannerProtection = LOTRBannerProtection.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtection.forThrown(this), true);
 			
 			if (!bannerProtection)
 			{

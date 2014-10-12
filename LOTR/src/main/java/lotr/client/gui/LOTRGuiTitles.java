@@ -40,8 +40,8 @@ public class LOTRGuiTitles extends LOTRGuiMenu
     {
 		xSize = 256;
 		super.initGui();
-		buttonList.add(selectButton = new GuiButton(0, guiLeft + xSize / 2 - 10 - 80, guiTop + 230, 80, 20, StatCollector.translateToLocal("lotr.gui.titles.select")));
-		buttonList.add(removeButton = new GuiButton(1, guiLeft + xSize / 2 + 10, guiTop + 230, 80, 20, StatCollector.translateToLocal("lotr.gui.titles.remove")));
+		buttonList.add(selectButton = new GuiButton(0, guiLeft + xSize / 2 - 10 - 80, guiTop + 220, 80, 20, StatCollector.translateToLocal("lotr.gui.titles.select")));
+		buttonList.add(removeButton = new GuiButton(1, guiLeft + xSize / 2 + 10, guiTop + 220, 80, 20, StatCollector.translateToLocal("lotr.gui.titles.remove")));
 		updateScreen();
 	}
 	
@@ -129,7 +129,7 @@ public class LOTRGuiTitles extends LOTRGuiMenu
 		if (selectedTitle != null)
 		{
 			String title = selectedColor + selectedTitle.getDisplayName();
-			drawCenteredString(title, guiLeft + xSize / 2, guiTop + 190, 0xFFFFFF);
+			drawCenteredString(title, guiLeft + xSize / 2, guiTop + 185, 0xFFFFFF);
 			
 			List<EnumChatFormatting> colors = new ArrayList();
 			for (EnumChatFormatting ecf : EnumChatFormatting.values())
@@ -141,7 +141,7 @@ public class LOTRGuiTitles extends LOTRGuiMenu
 			}
 
 			int colorX = guiLeft + xSize / 2 - ((colorBoxWidth * colors.size()) + (colorBoxGap * (colors.size() - 1))) / 2;
-			int colorY = guiTop + 205;
+			int colorY = guiTop + 200;
 			for (EnumChatFormatting color : colors)
 			{
 				fontRendererObj.drawString(color + "", 0, 0, 0xFFFFFF);

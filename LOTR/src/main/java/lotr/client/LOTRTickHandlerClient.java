@@ -226,7 +226,7 @@ public class LOTRTickHandlerClient
 					int j = MathHelper.floor_double(entityplayer.posY);
 					int k = MathHelper.floor_double(entityplayer.posZ);
 					
-					LOTRBiomeGenOcean.updateWaterColor(i, j, k);
+					LOTRBiome.updateWaterColor(i, j, k);
 					LOTRBiomeGenUtumno.updateFogColor(i, j, k);
 					
 					if (LOTRMod.enableMistyMountainsMist)

@@ -5,7 +5,6 @@ import io.netty.buffer.Unpooled;
 
 import java.util.*;
 
-import lotr.common.LOTRBannerProtectFilters.BannerProtection;
 import lotr.common.block.*;
 import lotr.common.entity.*;
 import lotr.common.entity.LOTREntityRegistry.RegistryInfo;
@@ -24,6 +23,7 @@ import lotr.common.world.biome.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.*;
+import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,11 +34,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.*;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -49,12 +49,12 @@ import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.mojang.authlib.GameProfile;
-
+import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.eventhandler.*;
@@ -74,6 +74,15 @@ public class LOTREventHandler implements IFuelHandler
 		MinecraftForge.EVENT_BUS.register(this);
 		GameRegistry.registerFuelHandler(this);
 	}
+
+	@SubscribeEvent
+    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
+	{
+        if (event.modID.equals(LOTRMod.getModID()))
+        {
+        	LOTRMod.loadConfig();
+        }
+    }
 	
 	@SubscribeEvent
 	public void onCrafting(ItemCraftedEvent event)
@@ -359,75 +368,6 @@ public class LOTREventHandler implements IFuelHandler
 	}
 	
 	@SubscribeEvent
-    public void onEntityJoinWorld(EntityJoinWorldEvent event)
-	{
-		Entity entity = event.entity;
-		World world = entity.worldObj;
-		
-		if (!world.isRemote && entity instanceof EntityCreature)
-		{
-			EntityCreature entitycreature = (EntityCreature)entity;
-			String s = EntityList.getEntityString(entitycreature);
-			Object obj = LOTREntityRegistry.registeredNPCs.get(s);
-			if (obj != null)
-			{
-				RegistryInfo info = (RegistryInfo)obj;
-				if (info.shouldTargetEnemies)
-				{
-					LOTREntityNPC.addTargetTasks(entitycreature, 100, LOTREntityAINearestAttackableTargetBasic.class);
-				}
-			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void onStartTrackingEntity(PlayerEvent.StartTracking event)
-	{
-		Entity entity = event.target;
-		EntityPlayer entityplayer = event.entityPlayer;
-		
-		if (!entity.worldObj.isRemote && entity instanceof LOTREntityNPC)
-		{
-			ByteBuf data = Unpooled.buffer();
-			
-			data.writeInt(entity.getEntityId());
-			data.writeLong(entity.getUniqueID().getMostSignificantBits());
-			data.writeLong(entity.getUniqueID().getLeastSignificantBits());
-			
-			Packet packet = new S3FPacketCustomPayload("lotr.npcUUID", data);
-			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
-		}
-	}
-	
-	@SubscribeEvent
-    public void onEntityAttackedByPlayer(AttackEntityEvent event)
-	{
-		Entity entity = event.target;
-		World world = entity.worldObj;
-		EntityPlayer entityplayer = event.entityPlayer;
-		
-		if (!world.isRemote && entity instanceof LOTREntityWargskinRug)
-		{
-			((LOTREntityWargskinRug)entity).dropRugAsItem(entityplayer.capabilities.isCreativeMode);
-		}
-		
-		if (!world.isRemote && entity instanceof LOTREntityTraderRespawn && entityplayer.capabilities.isCreativeMode)
-		{
-			LOTREntityTraderRespawn traderRespawn = (LOTREntityTraderRespawn)entity;
-			if (traderRespawn.getScale() >= 40)
-			{
-				traderRespawn.onBreak();
-			}
-		}
-		
-		if (!world.isRemote && entity instanceof LOTREntityInvasionSpawner && entityplayer.capabilities.isCreativeMode)
-		{
-			LOTREntityInvasionSpawner spawner = (LOTREntityInvasionSpawner)entity;
-			spawner.onBreak();
-		}
-	}
-	
-	@SubscribeEvent
 	public void onUseBonemeal(BonemealEvent event)
 	{
 		World world = event.world;
@@ -445,63 +385,6 @@ public class LOTREventHandler implements IFuelHandler
 				}
 				event.setResult(Result.ALLOW);
 			}
-		}
-	}
-	
-	public static boolean isProtectedByBanner(World world, int i, int j, int k, LOTRBannerProtectFilters.IFilter protectFilter, boolean sendMessage)
-	{
-		return isProtectedByBanner(world, i, j, k, protectFilter, sendMessage, LOTREntityBanner.PROTECTION_RANGE);
-	}
-
-	public static boolean isProtectedByBanner(World world, int i, int j, int k, LOTRBannerProtectFilters.IFilter protectFilter, boolean sendMessage, double range)
-	{
-		String protectorName = null;
-		
-		List banners = world.getEntitiesWithinAABB(LOTREntityBanner.class, AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 1, k + 1).expand(range, range, range));
-		if (!banners.isEmpty())
-		{
-			bannerSearch:
-			for (int l = 0; l < banners.size(); l++)
-			{
-				LOTREntityBanner banner = (LOTREntityBanner)banners.get(l);
-				if (banner.isProtectingTerritory())
-				{
-					BannerProtection result = protectFilter.protects(banner);
-					if (result == BannerProtection.NONE)
-					{
-						continue;
-					}
-					else if (result == BannerProtection.FACTION)
-					{
-						protectorName = banner.getBannerFaction().factionName();
-						break bannerSearch;
-					}
-					else if (result == BannerProtection.PLAYER_SPECIFIC)
-					{
-						UUID placingPlayer = banner.getPlacingPlayer();
-						GameProfile profile = MinecraftServer.getServer().func_152358_ax().func_152652_a(placingPlayer);
-						if (StringUtils.isEmpty(profile.getName()))
-						{
-							MinecraftServer.getServer().func_147130_as().fillProfileProperties(profile, true);
-						}
-						protectorName = profile.getName();
-						break bannerSearch;
-					}
-				}
-			}
-		}
-		
-		if (protectorName != null)
-		{
-			if (sendMessage)
-			{
-				protectFilter.warnProtection(new ChatComponentTranslation("chat.lotr.protectedLand", new Object[] {protectorName}));
-			}
-			return true;
-		}
-		else
-		{
-			return false;
 		}
 	}
 	
@@ -527,7 +410,7 @@ public class LOTREventHandler implements IFuelHandler
 		
 		if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
 		{
-			if (!world.isRemote && isProtectedByBanner(world, i, j, k, LOTRBannerProtectFilters.forPlayer(entityplayer), true))
+			if (!world.isRemote && LOTRBannerProtection.isProtectedByBanner(world, i, j, k, LOTRBannerProtection.forPlayer(entityplayer), true))
 			{
 				event.setCanceled(true);
 				return;
@@ -605,7 +488,7 @@ public class LOTREventHandler implements IFuelHandler
 		int j = event.y;
 		int k = event.z;
 		
-		if (!world.isRemote && isProtectedByBanner(world, i, j, k, LOTRBannerProtectFilters.forPlayer(entityplayer), true))
+		if (!world.isRemote && LOTRBannerProtection.isProtectedByBanner(world, i, j, k, LOTRBannerProtection.forPlayer(entityplayer), true))
 		{
 			event.setCanceled(true);
 			return;
@@ -661,7 +544,7 @@ public class LOTREventHandler implements IFuelHandler
 			int j = target.blockY;
 			int k = target.blockZ;
 			
-			if (!world.isRemote && isProtectedByBanner(world, i, j, k, LOTRBannerProtectFilters.forPlayer(entityplayer), true))
+			if (!world.isRemote && LOTRBannerProtection.isProtectedByBanner(world, i, j, k, LOTRBannerProtection.forPlayer(entityplayer), true))
 			{
 				event.setCanceled(true);
 				return;
@@ -710,8 +593,65 @@ public class LOTREventHandler implements IFuelHandler
 		}
 	}
 	
+	
 	@SubscribeEvent
-	public void onEntityUpdate(LivingEvent.LivingUpdateEvent event)
+    public void onEntityJoinWorld(EntityJoinWorldEvent event)
+	{
+		Entity entity = event.entity;
+		World world = entity.worldObj;
+		
+		if (!world.isRemote && entity instanceof EntityCreature)
+		{
+			EntityCreature entitycreature = (EntityCreature)entity;
+			String s = EntityList.getEntityString(entitycreature);
+			Object obj = LOTREntityRegistry.registeredNPCs.get(s);
+			if (obj != null)
+			{
+				RegistryInfo info = (RegistryInfo)obj;
+				if (info.shouldTargetEnemies)
+				{
+					LOTREntityNPC.addTargetTasks(entitycreature, 100, LOTREntityAINearestAttackableTargetBasic.class);
+				}
+			}
+		}
+		
+		if (!world.isRemote && entity.getClass() == EntityTNTPrimed.class)
+		{
+			NBTTagCompound tntData = new NBTTagCompound();
+			entity.writeToNBT(tntData);
+			
+			LOTREntityTNT newTNT = new LOTREntityTNT(world);
+			newTNT.readFromNBT(tntData);
+			
+			entity.setDead();
+			world.spawnEntityInWorld(newTNT);
+			
+			event.setCanceled(true);
+			return;
+		}
+	}
+	
+	@SubscribeEvent
+	public void onStartTrackingEntity(PlayerEvent.StartTracking event)
+	{
+		Entity entity = event.target;
+		EntityPlayer entityplayer = event.entityPlayer;
+		
+		if (!entity.worldObj.isRemote && entity instanceof LOTREntityNPC)
+		{
+			ByteBuf data = Unpooled.buffer();
+			
+			data.writeInt(entity.getEntityId());
+			data.writeLong(entity.getUniqueID().getMostSignificantBits());
+			data.writeLong(entity.getUniqueID().getLeastSignificantBits());
+			
+			Packet packet = new S3FPacketCustomPayload("lotr.npcUUID", data);
+			((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(packet);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onLivingUpdate(LivingEvent.LivingUpdateEvent event)
 	{
 		EntityLivingBase entity = event.entityLiving;
 		World world = entity.worldObj;
@@ -1112,7 +1052,7 @@ public class LOTREventHandler implements IFuelHandler
 	}
 	
 	@SubscribeEvent
-	public void onEntitySetAttackTarget(LivingSetAttackTargetEvent event)
+	public void onLivingSetAttackTarget(LivingSetAttackTargetEvent event)
 	{
 		if (event.entityLiving instanceof EntityLiving && event.target instanceof LOTREntityRanger && ((LOTREntityRanger)event.target).isRangerSneaking())
 		{
@@ -1123,9 +1063,37 @@ public class LOTREventHandler implements IFuelHandler
 			((EntityLiving)event.entityLiving).setAttackTarget(null);
 		}
 	}
+
+	@SubscribeEvent
+    public void onEntityAttackedByPlayer(AttackEntityEvent event)
+	{
+		Entity entity = event.target;
+		World world = entity.worldObj;
+		EntityPlayer entityplayer = event.entityPlayer;
+		
+		if (!world.isRemote && entity instanceof LOTREntityWargskinRug)
+		{
+			((LOTREntityWargskinRug)entity).dropRugAsItem(entityplayer.capabilities.isCreativeMode);
+		}
+		
+		if (!world.isRemote && entity instanceof LOTREntityTraderRespawn && entityplayer.capabilities.isCreativeMode)
+		{
+			LOTREntityTraderRespawn traderRespawn = (LOTREntityTraderRespawn)entity;
+			if (traderRespawn.getScale() >= 40)
+			{
+				traderRespawn.onBreak();
+			}
+		}
+		
+		if (!world.isRemote && entity instanceof LOTREntityInvasionSpawner && entityplayer.capabilities.isCreativeMode)
+		{
+			LOTREntityInvasionSpawner spawner = (LOTREntityInvasionSpawner)entity;
+			spawner.onBreak();
+		}
+	}
 	
 	@SubscribeEvent
-	public void onEntityAttacked(LivingAttackEvent event)
+	public void onLivingAttacked(LivingAttackEvent event)
 	{
 		EntityLivingBase entity = event.entityLiving;
 		EntityLivingBase attacker = event.source.getEntity() instanceof EntityLivingBase ? (EntityLivingBase)event.source.getEntity() : null;
@@ -1252,7 +1220,7 @@ public class LOTREventHandler implements IFuelHandler
 	}
 	
 	@SubscribeEvent
-	public void onEntityDeath(LivingDeathEvent event)
+	public void onLivingDeath(LivingDeathEvent event)
 	{
 		EntityLivingBase entity = event.entityLiving;
 		World world = entity.worldObj;

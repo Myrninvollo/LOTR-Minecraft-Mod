@@ -1,17 +1,13 @@
 package lotr.common.entity.item;
 
-import lotr.common.LOTRBannerProtectFilters;
-import lotr.common.LOTREventHandler;
 import lotr.common.block.LOTRBlockOrcBomb;
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-public class LOTREntityOrcBomb extends EntityTNTPrimed
+public class LOTREntityOrcBomb extends LOTREntityTNT
 {
+	public int orcBombFuse;
 	public boolean droppedByPlayer;
 	public boolean droppedByHiredUnit;
 	public boolean droppedTargetingPlayer;
@@ -41,12 +37,12 @@ public class LOTREntityOrcBomb extends EntityTNTPrimed
 	public void setBombStrengthLevel(int i)
 	{
 		dataWatcher.updateObject(16, Integer.valueOf(i));
-		fuse = 40 + LOTRBlockOrcBomb.getBombStrengthLevel(i) * 20;
+		orcBombFuse = 40 + LOTRBlockOrcBomb.getBombStrengthLevel(i) * 20;
 	}
 	
 	public void setFuseFromExplosion()
 	{
-		fuse = worldObj.rand.nextInt(fuse / 4) + fuse / 8;
+		orcBombFuse = worldObj.rand.nextInt(orcBombFuse / 4) + orcBombFuse / 8;
 	}
 	
 	public void setFuseFromHiredUnit()
@@ -60,6 +56,7 @@ public class LOTREntityOrcBomb extends EntityTNTPrimed
         prevPosX = posX;
         prevPosY = posY;
         prevPosZ = posZ;
+        
         motionY -= 0.04D;
         moveEntity(motionX, motionY, motionZ);
         motionX *= 0.98D;
@@ -72,15 +69,16 @@ public class LOTREntityOrcBomb extends EntityTNTPrimed
             motionZ *= 0.7D;
             motionY *= -0.5D;
         }
-
-        if (fuse-- <= 0 && !worldObj.isRemote)
+        
+        orcBombFuse--;
+        if (orcBombFuse <= 0 && !worldObj.isRemote)
         {
             setDead();
-            explode();
+            explodeOrcBomb();
         }
         else
         {
-            worldObj.spawnParticle("smoke", posX, posY + 0.7D, posZ, 0.0D, 0.0D, 0.0D);
+            worldObj.spawnParticle("smoke", posX, posY + 0.7D, posZ, 0D, 0D, 0D);
         }
     }
 	
@@ -92,7 +90,7 @@ public class LOTREntityOrcBomb extends EntityTNTPrimed
 		nbt.setBoolean("DroppedByHiredUnit", droppedByHiredUnit);
 		nbt.setBoolean("DroppedTargetingPlayer", droppedTargetingPlayer);
 		nbt.setInteger("BombStrengthLevel", getBombStrengthLevel());
-		nbt.setInteger("OrcBombFuse", fuse);
+		nbt.setInteger("OrcBombFuse", orcBombFuse);
 	}
 	
 	@Override
@@ -103,10 +101,10 @@ public class LOTREntityOrcBomb extends EntityTNTPrimed
 		droppedByHiredUnit = nbt.getBoolean("DroppedByHiredUnit");
 		droppedTargetingPlayer = nbt.getBoolean("DroppedTargetingPlayer");
 		setBombStrengthLevel(nbt.getInteger("BombStrengthLevel"));
-		fuse = nbt.getInteger("OrcBombFuse");
+		orcBombFuse = nbt.getInteger("OrcBombFuse");
 	}
 	
-    private void explode()
+    private void explodeOrcBomb()
     {
 		boolean doTerrainDamage = false;
 		if (droppedByPlayer)
@@ -127,15 +125,5 @@ public class LOTREntityOrcBomb extends EntityTNTPrimed
 		boolean fire = LOTRBlockOrcBomb.isFireBomb(meta);
 		
 		worldObj.newExplosion(this, posX, posY, posZ, (strength + 1) * 4F, fire, doTerrainDamage);
-    }
-    
-    @Override
-    public boolean func_145774_a(Explosion explosion, World world, int i, int j, int k, Block block, float strength)
-    {
-        if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forTNT(this), false))
-        {
-        	return false;
-        }
-        return super.func_145774_a(explosion, world, i, j, k, block, strength);
     }
 }

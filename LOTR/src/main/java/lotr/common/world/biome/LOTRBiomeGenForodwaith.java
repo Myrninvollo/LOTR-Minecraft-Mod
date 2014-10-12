@@ -41,7 +41,6 @@ public class LOTRBiomeGenForodwaith extends LOTRBiome
 		decorator.generateWater = false;
 		
 		biomeColors.setSky(0x99A4A8);
-		biomeColors.setWater(0x093363);
 		
 		decorator.addRandomStructure(new LOTRWorldGenRuinedHouse(false), 4000);
 		decorator.addRandomStructure(new LOTRWorldGenStoneRuin.STONE(1, 5), 4000);

@@ -112,16 +112,21 @@ public class LOTRGenLayerBiomeVariants extends GenLayer
 					newBiome = LOTRBiome.forodwaithGlacier.biomeID;
 				}
 				
-				else if (biome == LOTRBiome.valesOfAnduin.biomeID && variant < 25)
+				else if (biome == LOTRBiome.anduinHills.biomeID && variant < 25)
 				{
 					if (variant < 10)
 					{
-						newBiome = LOTRBiome.valesOfAnduinWoodlandsDense.biomeID;
+						newBiome = LOTRBiome.anduinHillsWoodlandsDense.biomeID;
 					}
 					else
 					{
-						newBiome = LOTRBiome.valesOfAnduinWoodlands.biomeID;
+						newBiome = LOTRBiome.anduinHillsWoodlands.biomeID;
 					}
+				}
+				
+				else if (biome == LOTRBiome.anduinVale.biomeID && variant < 20)
+				{
+					newBiome = LOTRBiome.anduinValeWoodlands.biomeID;
 				}
 				
 				else if (biome == LOTRBiome.rohan.biomeID && variant < 20)

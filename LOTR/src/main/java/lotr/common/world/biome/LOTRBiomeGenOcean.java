@@ -16,23 +16,14 @@ import net.minecraft.world.gen.feature.*;
 
 public class LOTRBiomeGenOcean extends LOTRBiome
 {
-	private static List<LOTRBiomeGenOcean> allOceanBiomes = new ArrayList();
-	
 	private static Random iceRand = new Random();
 	
 	private static int iceLimitSouth = -30000;
 	private static int iceLimitNorth = -60000;
 	
-	private static Color waterColorNorth = new Color(0x093363);
-	private static Color waterColorSouth = new Color(0x4BE2ED);
-	private static int waterLimitNorth = -40000;
-	private static int waterLimitSouth = 150000;
-	
 	public LOTRBiomeGenOcean(int i)
 	{
 		super(i);
-		
-		allOceanBiomes.add(this);
 		
 		spawnableEvilList.clear();
 		
@@ -112,36 +103,7 @@ public class LOTRBiomeGenOcean extends LOTRBiome
 	{
 		return 0.25F;
 	}
-	
-	public static void updateWaterColor(int i, int j, int k)
-	{
-		int min = 0;
-		int max = waterLimitSouth - waterLimitNorth;
-		float latitude = (float)MathHelper.clamp_int(k - waterLimitNorth, min, max);
-		latitude /= (float)max;
-		
-		float[] northColors = waterColorNorth.getColorComponents(null);
-		float[] southColors = waterColorSouth.getColorComponents(null);
-		
-		float dR = southColors[0] - northColors[0];
-		float dG = southColors[1] - northColors[1];
-		float dB = southColors[2] - northColors[2];
-		
-		float r = dR * latitude;
-		float g = dG * latitude;
-		float b = dB * latitude;
-		
-		r += northColors[0];
-		g += northColors[1];
-		b += northColors[2];
-		Color water = new Color(r, g, b);
-		
-		for (LOTRBiome biome : allOceanBiomes)
-		{
-			biome.biomeColors.setWater(water.getRGB());
-		}
-	}
-	
+
 	public static boolean isFrozen(int i, int k)
 	{
 		if (k > iceLimitSouth)

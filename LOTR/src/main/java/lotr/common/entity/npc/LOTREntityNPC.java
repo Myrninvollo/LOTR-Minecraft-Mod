@@ -1169,10 +1169,7 @@ public abstract class LOTREntityNPC extends EntityCreature
     {
         if ((!spawnsInDarkness || liftSpawnRestrictions || isValidLightLevel()) && super.getCanSpawnHere())
 		{
-        	int i = MathHelper.floor_double(posX);
-            int j = MathHelper.floor_double(boundingBox.minY);
-            int k = MathHelper.floor_double(posZ);
-        	if (LOTREventHandler.isProtectedByBanner(worldObj, i, j, k, LOTRBannerProtectFilters.forNPC(this), false))
+        	if (LOTRBannerProtection.isProtectedByBanner(worldObj, this, LOTRBannerProtection.forNPC(this), false))
         	{
         		return false;
         	}
